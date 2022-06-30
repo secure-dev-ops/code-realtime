@@ -1,0 +1,140 @@
+protocol TrafficLightSignals {
+      /* In Events */
+      /* Out Events */
+      out red(), green(), yellow();
+};
+
+protocol TrafficLightControl {
+      /* In Events */
+      in pedestrian();
+      /* Out Events */
+};
+
+protocol PedLightControl {
+      /* In Events */      
+      in stop();
+      in walk();
+      /* Out Events */
+};
+
+capsule TrafficLight {
+      [[rt::decl]]
+      `
+          private: RTTimerId cycleTimer;
+      `
+      /* Ports */
+      service behavior port server : TrafficLightSignals;
+      service behavior port control : TrafficLightControl;
+      service behavior port pedLightControl~ : PedLightControl;
+      behavior port timer : Timing;
+      behavior port pedTimer : Timing;
+      /* Parts */
+      /* Connectors */
+      /* State Machine */
+      statemachine {
+            state WaitUntilServerReady;
+            state CycleLight {
+                  entrypoint init;
+                  state Red;
+                  state Green;
+                  state Yellow;
+                  init -> Red;
+                  red_to_green: Red -> Green on timer.timeout
+                  `
+                        log.log("Red -> Green");
+                        log.commit();
+                  `;
+                  green_to_yellow: Green -> Yellow on timer.timeout
+                  `
+                        log.log("Green -> Yellow");
+                        log.commit();
+                  `;
+                  yellow_to_red: Yellow -> Red on timer.timeout
+                  `
+                        log.log("Yellow -> Red");
+                        log.commit();
+                  `;
+            };
+            state PedestriansCrossing {
+                  updatePedLight: on pedTimer.timeout
+                  `
+                        if (*((bool*) rtdata) == true) {
+                              pedLightControl.walk().send();
+                              bool waitForWalk = false;
+                              pedTimer.informIn(RTTimespec(4,0), &waitForWalk, &RTType_bool);
+                              // Time for pedestrians to cross
+                        }
+                        else {
+                              pedLightControl.stop().send();
+                              timer.informIn(RTTimespec(2,0));
+                        }
+                  `;
+                  pedRequest_ignored: on control.pedestrian
+                  `
+                        // Ignore additional requests from pedestrians since we already are in the PedestriansCrossing state.
+                  `;
+            };
+            initial -> WaitUntilServerReady;
+            serverReady: WaitUntilServerReady -> CycleLight.init on server.rtBound
+            `
+                  log.log("TrafficLight starts up");
+                  log.commit();
+                  cycleTimer = timer.informEvery(RTTimespec(2,0));
+            `;
+            pedRequest: CycleLight -> PedestriansCrossing on control.pedestrian
+            `
+                  log.log("Pedestrian requests to cross");
+                  log.commit();
+                  timer.cancelTimer(cycleTimer);
+            `;
+            pedReady: PedestriansCrossing -> CycleLight.init on timer.timeout
+            `  
+                  log.log("Pedestrians ready");
+                  log.commit();
+                  cycleTimer = timer.informEvery(RTTimespec(2,0));
+            `;
+      };
+};
+
+capsule PedLight {
+    /* Ports */
+    service behavior port pedControl : PedLightControl;
+    service behavior notify port server~ : PedLightControl;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state WaitUntiServerReady;
+        state DoNotWalk {
+              entry
+              `
+                  server.stop().send();
+              `;
+        };
+        state Walk {
+              entry
+              `
+                  server.walk().send();
+              `;
+        };
+        initial -> WaitUntiServerReady;
+        serverReady: WaitUntiServerReady -> DoNotWalk on server.rtBound;
+        walk: DoNotWalk -> Walk;
+        stop: Walk -> DoNotWalk;
+
+    };
+};
+
+capsule TLSystem {
+    /* Ports */
+    /* Parts */
+    part trafficLight : TrafficLight;
+    part pedLight : PedLight;
+    /* Connectors */
+    connect pedLight.pedControl with trafficLight.pedLightControl;
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
