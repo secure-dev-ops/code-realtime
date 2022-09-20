@@ -1,0 +1,26 @@
+capsule DemoCap {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+    /* This is my timer */
+    behavior port timer : Timing;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state S1, S2;
+        initial -> S1
+        `
+            RTTimerId tid = timer.informIn(RTTimespec(2, 0));
+            if (!tid.isValid()) {
+                // timer could not be set
+            }
+        `;
+        S1 -> S2 on timer.timeout
+        `
+            std::cout << "Hello World!" << std::endl;
+            context()->abort();
+        `;
+    };
+};
