@@ -1,0 +1,72 @@
+protocol PROTO {
+    /* In Events */
+    in pong();
+    /* Out Events */
+    out ping();
+};
+
+capsule Top {
+    /* Ports */
+    /* Parts */
+    part ping : Pinger, pong : Ponger;
+    /* Connectors */
+    connect ping.pingPort with pong.pongPort;
+    /* State Machine */
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Pinger {
+    /* Ports */
+    behavior port log : Log;
+    behavior port timing : Timing;
+    service behavior port pingPort : PROTO;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State1 {
+            pong: on pingPort.pong
+            `
+            timing.informIn(RTTimespec(1,0));
+            `;
+            timeout: on timing.timeout
+            `
+            log.show(getName());
+            log.log(" sends ping");
+            log.commit();
+            pingPort.ping().send();
+            `;
+        };
+        initial -> State1
+        `
+        log.show(getName());
+        log.log(" sends ping");
+        log.commit();
+        pingPort.ping().send();
+        `;
+    };
+};
+
+capsule Ponger {
+    /* Ports */
+    behavior port log : Log;
+    service behavior port pongPort~ : PROTO;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State1 {
+            ping: on pongPort.ping
+            `
+            log.show(getName());
+            log.log(" sends pong");
+            log.commit();
+            pongPort.pong().send();
+            `;
+        };
+        initial -> State1;
+    };
+};
