@@ -4,6 +4,8 @@ RTist in Code lets you create stateful, event-driven realtime applications in C+
 
 RTist in Code is currently in an open beta phase and you are encouraged to [try it out](#). All feedback is appreciated and can be submitted as Issues in this repo.
 
-As a starting point there are [samples](tree/main/art-samples) you can use for learning the Art language and RTist in Code.
+As a starting point this repo contains a few [samples](art-samples) that you can use for learning the Art language and RTist in Code.
 
-See the screen shots below for an overview of what RTist in Code can do.
+See the screen shot below for an overview of what RTist in Code can do.
+
+![](images/screenshot1.png)
