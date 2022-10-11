@@ -1,0 +1,96 @@
+#Project Information
+site_name: HCL RTist in Code
+site_description: >-
+  RTist in Code is the next generation of the RTist product
+site_url: https://opensource.hcltechsw.com
+
+# Theme Configuration
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+    - navigation.instant
+    - search.highlight
+    - search.share
+    - search.suggest
+  custom_dir: theme_overrides/
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  # Static files
+  static_templates:
+    - 404.html
+
+
+# Markdown Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.keys
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:      
+      use_pygments: false
+
+copyright: Copyright &copy; 2022 HCL Software
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/HCL-TECH-SOFTWARE
+  generator: false
+  #version:
+  #  provider: mike
+ # analytics:
+  #  provider: google
+   # property: UA-169645537-2
+
+# Repository
+repo_url: https://github.com/HCL-TECH-SOFTWARE/rtist-in-code
+repo_name: hcl-software/rtist-in-code
+edit_uri: edit/main/docs
+
+
+# Customization
+extra_css:
+  - stylesheets/style.css
+  - stylesheets/prism.css
+
+extra_javascript:
+  - scripts/prism.js
+
+plugins:
+  - search
+  - markdownextradata: {}
+
+extra:
+  product:
+    name: RTist in Code
+  rtist:
+    name: HCL RTist
+
+ #Table of contents 
+nav:
+  - Home: index.md
+  - Documentation:   
+     - Overview: overview.md
+     - Installing: installing.md
+     - The Art Language: art-lang.md
+     - Working with Art: ide-guide.md
+     - Validation: validation.md
+     - Target RunTime System: target-rts.md
+     - Building: building.md
+     - The Art Compiler: art-comp.md
+  - Notices: notices.md
+

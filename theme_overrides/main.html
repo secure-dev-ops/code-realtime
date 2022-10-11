@@ -1,0 +1,19 @@
+<!-- Elements added to main will be displayed on all pages -->
+{% extends "base.html" %}
+{% block outdated %}
+  You're not viewing the latest version.
+  <a href="{{ '../' ~ base_url }}"> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+{% endblock %}
+
+
+{% block announce %}
+
+   <a href="https://www.hcltechsw.com/"> 
+  <img width="150" height="50" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+{% endblock %}
+
+{% block extrahead %}
+  <meta property="og:image" content="https://opensource.hcltechsw.com/digital-experience/site-thumbnail.png" />
+{% endblock %}
