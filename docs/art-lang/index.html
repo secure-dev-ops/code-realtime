@@ -1,0 +1,2686 @@
+<!-- Elements added to main will be displayed on all pages -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="RTist in Code is the next generation of the RTist product">
+      
+      
+      
+        <link rel="canonical" href="https://opensource.hcltechsw.com/art-lang/">
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>The Art Language - HCL RTist in Code</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/style.css">
+    
+      <link rel="stylesheet" href="../stylesheets/prism.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta property="og:image" content="https://opensource.hcltechsw.com/digital-experience/site-thumbnail.png" />
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#concepts-and-terminology" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+
+   <a href="https://www.hcltechsw.com/"> 
+  <img width="150" height="50" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="HCL RTist in Code" class="md-header__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HCL RTist in Code
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The Art Language
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hcl-software/rtist-in-code
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link md-tabs__link--active">
+        Documentation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../notices/" class="md-tabs__link">
+      Notices
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="HCL RTist in Code" class="md-nav__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    HCL RTist in Code
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hcl-software/rtist-in-code
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          The Art Language
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        The Art Language
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concepts-and-terminology" class="md-nav__link">
+    Concepts and Terminology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedded-c-code" class="md-nav__link">
+    Embedded C++ Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textual-and-graphical-notations" class="md-nav__link">
+    Textual and Graphical Notations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#names-and-keywords" class="md-nav__link">
+    Names and Keywords
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    Comments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capsule" class="md-nav__link">
+    Capsule
+  </a>
+  
+    <nav class="md-nav" aria-label="Capsule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capsule-constructor" class="md-nav__link">
+    Capsule Constructor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol-and-event" class="md-nav__link">
+    Protocol and Event
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port" class="md-nav__link">
+    Port
+  </a>
+  
+    <nav class="md-nav" aria-label="Port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-multiplicity" class="md-nav__link">
+    Port Multiplicity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-port" class="md-nav__link">
+    Notification Port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unwired-port" class="md-nav__link">
+    Unwired Port
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connector" class="md-nav__link">
+    Connector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part" class="md-nav__link">
+    Part
+  </a>
+  
+    <nav class="md-nav" aria-label="Part">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-with-capsule-factory" class="md-nav__link">
+    Part with Capsule Factory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    State Machine
+  </a>
+  
+    <nav class="md-nav" aria-label="State Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+    <nav class="md-nav" aria-label="State">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entry-and-exit-action" class="md-nav__link">
+    Entry and Exit Action
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transition" class="md-nav__link">
+    Transition
+  </a>
+  
+    <nav class="md-nav" aria-label="Transition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-transition" class="md-nav__link">
+    Initial Transition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-transition" class="md-nav__link">
+    Internal Transition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequent-transition" class="md-nav__link">
+    Frequent Transition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choice-and-junction" class="md-nav__link">
+    Choice and Junction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hierarchical-state-machine" class="md-nav__link">
+    Hierarchical State Machine
+  </a>
+  
+    <nav class="md-nav" aria-label="Hierarchical State Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deep-history" class="md-nav__link">
+    Deep History
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-transition" class="md-nav__link">
+    Local Transition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-with-state-machine" class="md-nav__link">
+    Class with State Machine
+  </a>
+  
+    <nav class="md-nav" aria-label="Class with State Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shallow-history" class="md-nav__link">
+    Shallow History
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capsule-inheritance" class="md-nav__link">
+    Capsule Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-inheritance" class="md-nav__link">
+    Class Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protocol-inheritance" class="md-nav__link">
+    Protocol Inheritance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    Template
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property" class="md-nav__link">
+    Property
+  </a>
+  
+    <nav class="md-nav" aria-label="Property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate_file_header" class="md-nav__link">
+    generate_file_header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_file_impl" class="md-nav__link">
+    generate_file_impl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule_config" class="md-nav__link">
+    rule_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_descriptor" class="md-nav__link">
+    generate_descriptor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind" class="md-nav__link">
+    kind
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_class" class="md-nav__link">
+    generate_class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_statemachine" class="md-nav__link">
+    generate_statemachine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const_target_param_for_decode" class="md-nav__link">
+    const_target_param_for_decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_generate" class="md-nav__link">
+    default_constructor_generate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_explicit" class="md-nav__link">
+    default_constructor_explicit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_inline" class="md-nav__link">
+    default_constructor_inline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_default" class="md-nav__link">
+    default_constructor_default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_delete" class="md-nav__link">
+    default_constructor_delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_visibility" class="md-nav__link">
+    default_constructor_visibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" class="md-nav__link">
+    registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration_name" class="md-nav__link">
+    registration_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const_rtdata_param" class="md-nav__link">
+    const_rtdata_param
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequent" class="md-nav__link">
+    frequent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ide-guide/" class="md-nav__link">
+        Working with Art
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation/" class="md-nav__link">
+        Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/" class="md-nav__link">
+        Target RunTime System
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        Building
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../art-comp/" class="md-nav__link">
+        The Art Compiler
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notices/" class="md-nav__link">
+        Notices
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concepts-and-terminology" class="md-nav__link">
+    Concepts and Terminology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedded-c-code" class="md-nav__link">
+    Embedded C++ Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textual-and-graphical-notations" class="md-nav__link">
+    Textual and Graphical Notations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#names-and-keywords" class="md-nav__link">
+    Names and Keywords
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    Comments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capsule" class="md-nav__link">
+    Capsule
+  </a>
+  
+    <nav class="md-nav" aria-label="Capsule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capsule-constructor" class="md-nav__link">
+    Capsule Constructor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol-and-event" class="md-nav__link">
+    Protocol and Event
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port" class="md-nav__link">
+    Port
+  </a>
+  
+    <nav class="md-nav" aria-label="Port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-multiplicity" class="md-nav__link">
+    Port Multiplicity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-port" class="md-nav__link">
+    Notification Port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unwired-port" class="md-nav__link">
+    Unwired Port
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connector" class="md-nav__link">
+    Connector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part" class="md-nav__link">
+    Part
+  </a>
+  
+    <nav class="md-nav" aria-label="Part">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-with-capsule-factory" class="md-nav__link">
+    Part with Capsule Factory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    State Machine
+  </a>
+  
+    <nav class="md-nav" aria-label="State Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+    <nav class="md-nav" aria-label="State">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entry-and-exit-action" class="md-nav__link">
+    Entry and Exit Action
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transition" class="md-nav__link">
+    Transition
+  </a>
+  
+    <nav class="md-nav" aria-label="Transition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-transition" class="md-nav__link">
+    Initial Transition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-transition" class="md-nav__link">
+    Internal Transition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequent-transition" class="md-nav__link">
+    Frequent Transition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choice-and-junction" class="md-nav__link">
+    Choice and Junction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hierarchical-state-machine" class="md-nav__link">
+    Hierarchical State Machine
+  </a>
+  
+    <nav class="md-nav" aria-label="Hierarchical State Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deep-history" class="md-nav__link">
+    Deep History
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-transition" class="md-nav__link">
+    Local Transition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-with-state-machine" class="md-nav__link">
+    Class with State Machine
+  </a>
+  
+    <nav class="md-nav" aria-label="Class with State Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shallow-history" class="md-nav__link">
+    Shallow History
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capsule-inheritance" class="md-nav__link">
+    Capsule Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-inheritance" class="md-nav__link">
+    Class Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protocol-inheritance" class="md-nav__link">
+    Protocol Inheritance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    Template
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property" class="md-nav__link">
+    Property
+  </a>
+  
+    <nav class="md-nav" aria-label="Property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate_file_header" class="md-nav__link">
+    generate_file_header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_file_impl" class="md-nav__link">
+    generate_file_impl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule_config" class="md-nav__link">
+    rule_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_descriptor" class="md-nav__link">
+    generate_descriptor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind" class="md-nav__link">
+    kind
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_class" class="md-nav__link">
+    generate_class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_statemachine" class="md-nav__link">
+    generate_statemachine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const_target_param_for_decode" class="md-nav__link">
+    const_target_param_for_decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_generate" class="md-nav__link">
+    default_constructor_generate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_explicit" class="md-nav__link">
+    default_constructor_explicit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_inline" class="md-nav__link">
+    default_constructor_inline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_default" class="md-nav__link">
+    default_constructor_default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_delete" class="md-nav__link">
+    default_constructor_delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_visibility" class="md-nav__link">
+    default_constructor_visibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" class="md-nav__link">
+    registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration_name" class="md-nav__link">
+    registration_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const_rtdata_param" class="md-nav__link">
+    const_rtdata_param
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequent" class="md-nav__link">
+    frequent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/edit/main/docs/art-lang.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>The Art Language</h1>
+
+<p>Art is a language for developing stateful and event-driven realtime applications. By <strong>stateful</strong> we mean that the application consists of objects whose behavior can be described with state machines. By <strong>event-driven</strong> we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another. </p>
+<p>The Art language is an extension of C++, that provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the Art compiler. Generated code uses a run-time library known as the <strong>TargetRTS</strong> (<a href="../target-rts">Target RunTime System</a>). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. </p>
+<p><img alt="" src="../images/TargetRTS.png" /></p>
+<p>Art is well suited for describing both the behavior and structure of a realtime application, but it uses C++ as expression and action language. C++ is also used for declaring types, variables, functions etc. As a rule of thumb, Art uses C++ for everything where C++ is a good fit, and only provides new language concepts where no appropriate constructs exist in C++. This means that if you already know C++, you can quickly learn Art too, and existing C++ code you may have already written can still be used.</p>
+<h2 id="concepts-and-terminology">Concepts and Terminology</h2>
+<p>In Art the concept of a <strong>capsule</strong> is central. A capsule is like a C++ class, but with a few differences and extensions. A C++ class is <strong>passive</strong> in the sense that a caller can access its public member functions and variables at any time. Hence a C++ object always executes in the context of the caller, and when a member function is called, the caller is blocked until it returns. A capsule, however, is <strong>active</strong> and has its own execution context. This means that we never call a capsule member function or access a capsule member variable from outside the capsule itself. Instead we communicate with the capsule by sending <strong>events</strong> to it. Each capsule has a queue of events it has received and the events will be dispatched to the capsule one by one. The sender of the event is not blocked, as the event will be handled by the capsule asynchronously when it is later dispatched.</p>
+<p>The picture below shows 3 capsule instances each holding a queue with events that have been received, but not yet dispatched. Note that this picture is conceptual. In a real implementation several performance optimizations are applied, for example it's common to let a single thread drive more than one capsule instance, and several capsule instances can share a common event queue. But from a conceptual point of view each capsule has its own queue of events that are waiting to be dispatched to it. Events have a <strong>priority</strong> which determines how they are ordered in the queue. Events with high priority are placed before events with lower priority, and if two events have the same priority they are ordered according to when they arrive.</p>
+<p><img alt="" src="../images/event_queues.png" /></p>
+<p>A capsule may have ports. A <strong>port</strong> is typed by a <strong>protocol</strong> which defines the events that may be sent in to the port (these are known as <strong>in-events</strong>), as well as the events the capsule itself may send out through the port for others to receive (these are called <strong>out-events</strong>). Ports can be used both for internal and external communication. A port used for external communication is called a <strong>service port</strong>. Together the service ports constitute the communication interface of the capsule, and decides what "services" the capsule provides for other capsules to use.</p>
+<p><img alt="" src="../images/capsule_ports.png" /></p>
+<p>A simple capsule which only handles a small number of events, may be able to handle all these events using a single state machine. However, when new ports are added (or new events in protocols typing existing ports), the capsule interface grows and the state machine has to grow with it, since there will be more events for it to handle. Eventually a point is reached where it will not be practical for a capsule to handle any more events in its own state machine, because it has grown too large or complex. If not before, this is the time to define a <strong>composite structure</strong> for the capsule. </p>
+<p>A composite structure is created by decomposing a capsule using capsule parts. A <strong>capsule part</strong> (or for simplicity just <strong>part</strong>) is typed by another capsule and is a way for a capsule to delegate some of its responsibilities to other capsules. Such a decomposition is purely an implementation detail that is not visible from the outside of the capsule. When you send an event to a capsule you cannot know if the capsule will handle the event itself, or if it will forward the event to another capsule typing one of its capsule parts. The ability to decompose a capsule into parts is important for managing complexity. When a capsule has grown too big and complex you can decompose it into capsule parts without changing the communication interface of the capsule. </p>
+<p>Ports of capsules typing capsule parts are connected to each other by means of connectors. A <strong>connector</strong> is a conceptual construct for showing how events are routed in the internal structure of a capsule. At run-time connectors don't exist, and ports are directly connected to each other. Because of this, it's not mandatory to use connectors. You can also choose to dynamically connect (and disconnect) ports at run-time. Although this provides for more flexibility, it has the drawback of making it impossible to statically visualize the communication paths of a capsule. Ports that connect statically to other ports via connectors are called <strong>wired</strong> ports. Ports that are connected dynamically without use of static connectors are called <strong>unwired</strong> ports. </p>
+<p>The picture below shows the structure of a capsule <code>Top</code> which consists of two capsule parts <code>ping</code> and <code>pong</code> each holding a capsule instance (a <code>Pinger</code> capsule and a <code>Ponger</code> capsule respectively). The connector between the wired ports <code>p</code> on these capsules makes it possible for these capsules to communicate with each other. Communication can also happen using the unwired ports <code>q1</code> and <code>q2</code> if they are connected at run-time. The picture also shows that the capsule <code>Ponger</code> is further decomposed using a capsule part <code>inner</code>. All events sent to port <code>p</code> of <code>Ponger</code> will be further routed to port <code>i</code> of the <code>Internal</code> capsule. </p>
+<p><img alt="" src="../images/composite_structure.png" /></p>
+<p>Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may travel between two connected ports using a single protocol, it's possible to make one of the ports <strong>conjugated</strong>. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port <code>q1</code> is non-conjugated (<img alt="" src="../images/non_conjugated_port.png" />) while port <code>q2</code> is conjugated (<img alt="" src="../images/conjugated_port.png" />).</p>
+<p>Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity &gt; 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity &gt; 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time.</p>
+<p>XXX PICTURE SHOWING PARTS+PORTS WITH MULTIPLICITY XXX</p>
+<p>In addition to regular C++ member functions a capsule may have a <strong>state machine</strong> as its behavior. A state machine describes how an instance of the capsule may move between different <strong>states</strong> through its life-time. A <strong>transition</strong> that connects a source state with a target state may be <strong>triggered</strong> when an event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a <strong>trigger</strong> that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean <strong>guard</strong> condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an <strong>effect</strong>, which is a piece of C++ code that executes when the transition gets triggered.</p>
+<p>The picture below shows a state machine containing three states and three transitions. The presence of transition guard code is shown with a yellow dot and the presence of transition effect code is shown with a blue dot. Both these are C++ code snippets that are embedded in the Art file.   </p>
+<p><img alt="" src="../images/state_machine.png" /></p>
+<p>When a capsule instance is created (this is sometimes referred to as capsule <strong>incarnation</strong>), it's state machine starts to execute by triggering the transition that goes out from the <strong>initial</strong> state (the big blue circle in the above diagram). Each state machine must have exactly one such initial state with an outgoing transition. Since this <strong>initial transition</strong> is triggered automatically when the capsule instance is created it cannot have any constraints like mentioned above. The initial transition is an example of a <strong>non-triggered transition</strong> since it cannot have triggers. </p>
+<p>The path from the source state to the target state can sometimes consist of more than one transition. In that case only the first of these is a <strong>triggered transition</strong> that may have triggers that specify when it will trigger. Once the first transition in this path has triggered, subsequent non-triggered transitions will always execute, one by another according to how they are connected in the state machine. However, also non-triggered transitions (with the exception of the initial transition) may have guards. Such guards are usually evaluated before the triggered transition triggers to ensure that they all are enabled, so that it's guaranteed that the target state can be reached. There is one exception to this rule, for transitions that leave a <strong>choice</strong>. Such guards are only evaluated once the choice has been reached to dynamically decide which outgoing transition to take next. This also means that guards of such transitions must be mutually exclusive, or there is a risk that the state machine will get stuck in the choice.</p>
+<p>In the state machine shown below the transitions <code>t2</code> and <code>t5</code> are triggered transitions, while other transitions are non-triggered. Transition <code>t5</code> can only be triggered if either the guard of <code>t7</code> or <code>t6</code> is true, while <code>t2</code> can be triggered even if neither the guard of <code>t3</code> nor <code>t4</code> is true. The target of transition <code>t5</code> is a <strong>junction</strong> which is used for either splitting or merging transition paths depending on evaluated guard conditions.</p>
+<p><img alt="" src="../images/choice.png" /></p>
+<p>A state may be decomposed by a sub state machine. Such a state is called a <strong>composite state</strong> and a state machine that has composite states is called a <strong>hierarchical state machine</strong>. Transitions enter a composite state through an <strong>entry point</strong> and exit it through an <strong>exit point</strong>. </p>
+<p>Usually an entry point is connected to a nested state inside the state machine of the composite state, but it can also connect to a <strong>deep history</strong>. Reaching the deep history of a composite state means that all sub states that were previously active will become active again. Hence, deep history is a way to restore a composite state so all its nested states will be reactivated again recursively.</p>
+<p>The picture below shows a state machine with a composite state <code>Composite</code> containing two nested states <code>S1</code> and <code>S2</code>. When this state machine starts to execute state <code>S1</code> first becomes active since <code>Composite</code> is entered using the <code>ep1</code> entry point. Later, when leaving <code>S2</code> through the <code>ex1</code> exit point, state <code>X</code> becomes active. Then when leaving <code>X</code> through the transition that connects to the <code>ep2</code> entry point the state <code>S1</code> once again becomes active since <code>ep2</code> is connected to the deep history. Of course, whenever a nested state is active, the enclosing composite state is also active. At any point in time a state machine has an active <strong>state configuration</strong>, which consists of the set of currently active states.</p>
+<p><img alt="" src="../images/hierarchical.png" /></p>
+<p>A state may have an <strong>entry action</strong> and/or <strong>exit action</strong> which is a C++ code snippet that gets executed whenever the state is entered or exited. Note that state entry actions for nested states also run when those states are entered because of a deep history. In state diagrams the presence of entry and/or exit actions are shown by icons just below the state name. In the state machine shown below state <code>S1</code> has an entry action, state <code>S2</code> has an exit action and state <code>S3</code> has both an entry and an exit action.</p>
+<p><img alt="" src="../images/state_entry_exit_actions.png" /></p>
+<p>A transition where the source and target state is the same state is called a <strong>self-transition</strong>. A special kind of self-transition is an <strong>internal transition</strong>, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; <code>t</code> which is a regular self-transition (a.k.a. <strong>external self-transition</strong>) and <code>it</code> which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view.</p>
+<p><img alt="" src="../images/self_transitions.png" /></p>
+<p>State machines can not only be defined for capsules but also for regular classes. This can be useful if you want a plain passive C++ class to have a state machine. Contrary to a capsule a <strong>class</strong> may not have ports and doesn't execute in its own context. It's therefore common to associate such a class with a capsule that it can use for sending events through its ports. Transitions of a passive class state machine are triggered by calling <strong>trigger operations</strong> on the class. Such operations have no code, but just trigger transitions in the class state machine.</p>
+<p>The realtime application needs to designate one capsule as the <strong>top capsule</strong>. This is done in the <strong>transformation configuration</strong>, which is a file containing all the properties used for building the application (e.g. code generator options, compiler settings etc.). There is no language construct in Art for defining a top capsule; any capsule that you define can act as the top capsule. However, in practise you typically decide at an early stage which capsule that will be the top capsule.</p>
+<p>If you build a library rather than an executable you don't have a top capsule.</p>
+<p>The top capsule is the entry point of the realtime application. When it starts to execute one instance of the top capsule will be automatically created, and its state machine starts to execute.</p>
+<h2 id="embedded-c-code">Embedded C++ Code</h2>
+<p>Art uses C++ as action and expression language. It also uses C++ for defining types, variables and functions. A C++ code snippet can be embedded into Art at many places by enclosing it with backticks. Here is an example of how to write the code that should execute when a transition triggers:</p>
+<pre class="highlight"><code class="language-art">S1 -&gt; S2 on timer.timeout
+`
+    std::cout &lt;&lt; "Hello World!" &lt;&lt; std::endl;
+`;</code></pre>
+<p>Here is another example that shows how to include some C++ code as the header preface of a capsule:</p>
+<pre class="highlight"><code class="language-art">capsule BrewControl {
+    [[rt::impl_preface]]
+    `
+        #include &lt;iostream&gt;
+    `
+};</code></pre>
+<p>Code snippets can not only be associated with Art language constructs as in the above two examples, but can also be placed at the Art file level. There are two such file-level code snippets:</p>
+<ul>
+<li><strong>Declarations (rt::decl)</strong></li>
+</ul>
+<p>May contain arbitrary C++ declarations. All these code snippets will be generated into a C++ header file with the same name as the Art file.</p>
+<ul>
+<li><strong>Implementations (rt::impl)</strong></li>
+</ul>
+<p>May contain arbitrary C++ implementations. All these code snippets will be generated into a C++ implementation file with the same name as the Art file.</p>
+<p>As an example, assume we have an Art file <code>sample.art</code> with the following contents</p>
+<p><pre class="highlight"><code class="language-art">[[rt::decl]]
+`
+    typedef C* Cptr;
+    Cptr func1();
+`
+[[rt::impl]]
+`
+    Cptr func1() {
+        return nullptr;
+    }
+`</code></pre>
+Two C++ files will be generated from this Art file:  </p>
+<p><code>sample.h</code>
+<pre class="highlight"><code class="language-cpp">typedef C* Cptr;
+Cptr func1();</code></pre></p>
+<p><code>sample.cpp</code>
+<pre class="highlight"><code class="language-cpp">#include "sample.h"
+
+Cptr func1() {
+    return nullptr;
+}</code></pre></p>
+<p>File-level code snippets are useful whenever you need to include some C++ code in your application that doesn't naturally belong to any particular Art element. They can for example be used for declaring and implementing utility functions or types that are needed by many different Art elements. All C++ files that are generated from Art elements in an Art file that contains file-level code snippets will automatically include the header file that is generated for those code snippets. If you want to use the C++ declarations also from another generated file, you need to manually add an <code>#include</code> for that header file using a code snippet on the Art element that corresponds to that generated file.</p>
+<p>For example, a protocol defined in <code>sample.art</code> can use the type <code>Cptr</code> directly without adding an <code>#include</code>.</p>
+<pre class="highlight"><code class="language-art">protocol MyEvents {      
+      out alert(`Cptr`);
+};</code></pre>
+<p>However, a capsule defined in <code>sample2.art</code> needs to include <code>sample.h</code> to make that type available.</p>
+<pre class="highlight"><code class="language-art">capsule Cx {
+    [[rt::header_preface]]
+    `
+        #include "sample.h"
+    `
+    [[rt::decl]]
+    `
+        protected:
+            Cptr m_ptr;  
+    `
+    // ...
+};</code></pre>
+<p>Here an rt::header_preface code snippet is used for making the generated capsule header file include <code>sample.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements in the <a href="#art-language-reference">Art Language Reference</a> to learn about what code snippets that are available for each kind of Art element.</p>
+<h2 id="textual-and-graphical-notations">Textual and Graphical Notations</h2>
+<p>The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.</p>
+<p>Below are examples of these three kinds of diagrams:</p>
+<p><img alt="" src="../images/diagrams.png" /></p>
+<h2 id="syntax">Syntax</h2>
+<p>Art uses a syntax that should look familiar to developers with knowledge about languages like C++ and Java. </p>
+<ul>
+<li>Declarations are terminated with a semicolon <code>;</code></li>
+<li>Multiple elements declared in the same language construct uses comma <code>,</code> for separating the elements</li>
+<li>Curly brackets <code>{}</code> are used for grouping nested elements</li>
+<li>Square brackets <code>[]</code> are used for specifying cardinality (i.e. multiplicity) of elements</li>
+<li>A dot (<code>.</code>) is used as scope resolution operator</li>
+<li>Line <code>//</code> and block <code>/* */</code> <a href="#comments">comments</a> may be freely used for commenting</li>
+</ul>
+<h3 id="names-and-keywords">Names and Keywords</h3>
+<p>Names of Art elements must be valid C++ identifiers since they will be used as names of C++ definitions in generated code. Names also must not clash with names used in the TargetRTS. Don't worry. The Art language editor will let you know if you choose a name that won't work. </p>
+<p>Just like any language, Art has certain keywords that are reserved and which cannot be used as names. These keywords are listed below:</p>
+<table>
+<thead>
+<tr>
+<th>Art keywords</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>behavior</td>
+<td align="left">capsule</td>
+<td align="left">choice</td>
+<td align="left">class</td>
+<td align="left">connect</td>
+</tr>
+<tr>
+<td>entry</td>
+<td align="left">entrypoint</td>
+<td align="left">exclude</td>
+<td align="left">exclude</td>
+<td align="left">exit</td>
+</tr>
+<tr>
+<td>exitpoint</td>
+<td align="left">fixed</td>
+<td align="left">history</td>
+<td align="left">in</td>
+<td align="left">initial</td>
+</tr>
+<tr>
+<td>junction</td>
+<td align="left">notify</td>
+<td align="left">on</td>
+<td align="left">optional</td>
+<td align="left">out</td>
+</tr>
+<tr>
+<td>part</td>
+<td align="left">plugin</td>
+<td align="left">port</td>
+<td align="left">protocol</td>
+<td align="left">publish</td>
+</tr>
+<tr>
+<td>redefine</td>
+<td align="left">service</td>
+<td align="left">state</td>
+<td align="left">statemachine</td>
+<td align="left">subscribe</td>
+</tr>
+<tr>
+<td>template</td>
+<td align="left">trigger</td>
+<td align="left">typename</td>
+<td align="left">unwired</td>
+<td align="left">when</td>
+</tr>
+<tr>
+<td>with</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Art is a case-sensitive language and names may use any capitalization. However, just like with most languages, there are conventions for how to capitalize names. Those conventions are described below where each Art language construct is described in detail.</p>
+<h3 id="comments">Comments</h3>
+<p>The same kinds of comments as in C++ can be used, i.e. line and block comments.</p>
+<pre class="highlight"><code class="language-art">// line comment
+
+/* block comment */
+
+/* multi-line
+   block comment */</code></pre>
+<h2 id="capsule">Capsule</h2>
+<p>A capsule defines an active class with its own execution context. It may have <a href="#port">ports</a> through which it can receive <a href="#protocol-and-event">events</a>. A capsule has a <a href="#state-machine">state machine</a> that describes how instances of the capsule transitions between different states in the response to received events.</p>
+<p>Names of capsules are typically nouns, often describing something that performs some form of activity. For example "Controller", "TrafficLight" or "FaultHandler". By convention names of capsules start with uppercase.</p>
+<p><a href="#embedded-c-code">Embedded C++ code</a> can be used for declaring member variables, member functions, nested types etc for the capsule. </p>
+<p>Here is an example of a capsule with a simple state machine and a member variable.</p>
+<pre class="highlight"><code class="language-art">capsule Elevator {
+    [[rt::decl]]
+    `
+        unsigned int currentLevel = 0;
+    `
+    statemachine {
+        state Waiting;
+        initial -&gt; Waiting;
+    };
+};</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Capsule member variables and member functions may be private or protected, but should usually not be public. To avoid threading issues all communication with a capsule should be done using events, and therefore public members are not recommended. An exception is <a href="#capsule-constructor">capsule constructors</a> which need to be accessible from other capsules that create instances of the capsule using a capsule factory. If you anyway let a capsule have public members you need to ensure they are only accessed from the same thread that runs the capsule.</p>
+</div>
+<p>The example above uses an <code>rt::decl</code> code snippet for declaring a capsule member variable. Here is the list of all code snippets that can be used for a capsule:</p>
+<p id="capsule_code_snippets"/>
+<table>
+<thead>
+<tr>
+<th>Code snippet</th>
+<th align="left">C++ mapping</th>
+<th align="left">Example of use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rt::header_preface</td>
+<td align="left">Inserted at the top of the capsule class header file</td>
+<td align="left">Adding #includes</td>
+</tr>
+<tr>
+<td>rt::header_ending</td>
+<td align="left">Inserted at the bottom of the capsule class header file</td>
+<td align="left">Declaring a type alias for the capsule class</td>
+</tr>
+<tr>
+<td>rt::impl_preface</td>
+<td align="left">Inserted at the top of the capsule class implementation file</td>
+<td align="left">Adding #includes</td>
+</tr>
+<tr>
+<td>rt::impl_ending</td>
+<td align="left">Inserted at the bottom of the capsule class implementation file</td>
+<td align="left">Undefining a macro only used in a capsule implementation</td>
+</tr>
+<tr>
+<td>rt::decl</td>
+<td align="left">Inserted into the capsule class header file (inside the class)</td>
+<td align="left">Declaring a capsule member variable or function</td>
+</tr>
+<tr>
+<td>rt::impl</td>
+<td align="left">Inserted into the capsule class implementation file</td>
+<td align="left">Implement a capsule member function</td>
+</tr>
+</tbody>
+</table>
+<h3 id="capsule-constructor">Capsule Constructor</h3>
+<p>Just like a regular class a capsule may have constructors. A capsule constructor is declared using an <code>rt::decl</code> code snippet and defined using an <code>rt::impl</code> code snippet. All capsule constructors have two mandatory parameters:</p>
+<ul>
+<li><strong>rtg_rts</strong> This is the controller (<code>RTController*</code>) which will execute an instance of the capsule</li>
+<li><strong>rtg_ref</strong> This is the part (<code>RTActorRef*</code>) into which the capsule instance will be inserted</li>
+</ul>
+<p>After these parameters you can add your own parameters, to pass arbitrary initialization data to the capsule instance. Below is an example where a capsule <code>MyCap</code> has a reference variable <code>m_c</code>. To initialize this variable a capsule constructor is used.</p>
+<pre class="highlight"><code class="language-art">capsule MyCap {
+    [[rt::decl]]
+    `
+        public:
+            MyCap(RTController*, RTActorRef*, MyClass&amp;);
+        private:
+            MyClass&amp; m_c;
+    `
+    [[rt::impl]]
+    `
+        MyCap(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass&amp; c) 
+            :RTActor(rtg_rts, rtg_ref), m_c(c) { }
+    `
+
+    // ...
+};</code></pre>
+<p>Note that a capsule constructor must call the <code>RTActor</code> constructor in its initializer..</p>
+<h2 id="protocol-and-event">Protocol and Event</h2>
+<p>A protocol defines events that may be sent in to a <a href="#port">port</a> (so called in-events) and events that may be sent out from the same port (so called out-events). By grouping events into protocols, and then typing ports with such protocols, we can precisely define which events the capsule may send and receive through that port.</p>
+<p>By convention names of protocols start with uppercase, while names of events start with lowercase and use camelCase if the name consists of multiple words.</p>
+<p>A protocol event may have a parameter, which enables it to carry data. You declare a parameter for an event by specifying the C++ type of the data to be carried by the event.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An event can have at most one parameter. If you need to send multiple data objects with an event you can declare an event parameter of struct or class type.</p>
+</div>
+<p>Here is an example of a protocol that defines some in-events and some out-events:</p>
+<pre class="highlight"><code class="language-art">protocol MachineEvents {
+    in start();
+    in startDeferred(`unsigned long` /* milliseconds */);
+
+    out success();
+    out error(`std::string` /* error message */);
+
+    in relayEvent(); out relayEvent();
+};</code></pre>
+<p>The event <code>relayEvent</code> above is both an in-event and an out-event. Such <strong>symmetric events</strong> are useful in protocols typing ports the may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.</p>
+<p>At run-time we often talk about a <strong>message</strong> rather than an event. A message is an instance of an event, similar to how a capsule instance is an instance of a capsule. In other words, a message is a run-time concept while an event is a design-time concept. </p>
+<h2 id="port">Port</h2>
+<p>A port defines a named point of communication for a capsule. A port is typed by a <a href="#protocol-and-event">protocol</a> which defines the events that may be sent in to (in-events) and out from (out-events) the port. A port may be conjugated in order to swap the meaning of in-events and out-events. That is, a capsule may send out-events on its non-conjugated ports, but in-events for its conjugated ports. A port becomes conjugated if you add a tilde (~) after its name.</p>
+<p>Ports are often named to describe the role or purpose of the communication that takes place on them. Note that when a capsule wants to send an event to another capsule it's the port name that is referenced, rather than the name of the receiver capsule (which the sender capsule shouldn't need to know about). By convention names of ports start with lowercase and use camelCase if the name consists of multiple words. </p>
+<p>Here is an example of a capsule with a few ports. Note that RTist in Code provides several predefined protocols that can be used right away, for example <code>Timing</code>. Also note that you can declare multiple ports on a single line if the ports are of the same kind (<code>p1</code> and <code>p2</code> below are both service ports).</p>
+<pre class="highlight"><code class="language-art">capsule Machine {
+    service port control : MachineEvents;
+    behavior port timer : Timing; // predefined Timing protocol
+    service behavior port control2 : CtrlEvents;
+    service port p1~ : MoreEvents, p2~ : OtherEvents;  
+
+    // ...
+};</code></pre>
+<p>Service ports constitute the externally visible communication interface for a capsule, and together they define which events can be sent to the capsule, and which events the capsule can send out for other capsules to receive. In a structure diagram the service ports are shown on the border of a capsule or part symbol.</p>
+<p>A <strong>behavior port</strong> is logically connected to the behavior (i.e. <a href="#state-machine">state machine</a>) of a capsule. This means that an event that a capsule receives on a behavior port will be handled by the state machine of that capsule. A non-behavior port, however, will simply route an event to another port to which it is connected. Every sent event will ultimately reach a behavior port (provided ports are properly connected), and the state machine of the capsule owning that behavior port will handle the event. In a structure diagram, behavior ports are connected to a small ellipse which represents the capsule state machine.</p>
+<p><img alt="" src="../images/ports_example.png" /></p>
+<p>Note that ports can also be shown in a class diagram.</p>
+<p><img alt="" src="../images/ports_class.png" /></p>
+<h3 id="port-multiplicity">Port Multiplicity</h3>
+<p>At run-time an instance of a port can be connected to a port instance on another capsule. Such connections is what make a sent event be routed from the port on which it is sent, through a number of non-behavior ports, until it finally reaches a behavior port. By default a port has single multiplicity (1) meaning that at most one such connection can be established. However, you can specify a non-single multiplicity for a port to allow for more connections to be created at run-time. </p>
+<p>In the example below a <code>Server</code> capsule has a port with multiplicity 100. At run-time an instance of that <code>Server</code> capsule can be connected to 100 different client ports, each of which can send events to the server.</p>
+<pre class="highlight"><code class="language-art">capsule Server {
+    service port clients : ComEvents[100];
+
+    // ...
+};</code></pre>
+<p>In a structure diagrams a port is shown as "stacked" if it has non-single multiplicity.</p>
+<p><img alt="" src="../images/port_multiplicity.png" /></p>
+<p>You can also use a C++ expression to specify the port multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr. For example:</p>
+<pre class="highlight"><code class="language-art">capsule Server {
+    service port clients : ComEvents[`NBR_CLIENTS`];
+
+    // ...
+};</code></pre>
+<h3 id="notification-port">Notification Port</h3>
+<p>Every protocol contains two implicit events rtBound and rtUnbound. A port can choose to receive those events whenever a connection for the port is established (rtBound) or dropped (rtUnbound) at run-time. Declare a port as a notification port to receive these events. </p>
+<pre class="highlight"><code class="language-art">capsule Server {
+    service notify port clients : ComEvents[100];
+
+    // ...
+};</code></pre>
+<p>Port notifications are useful in dynamic systems when capsules need to wait until other capsules are ready, before they can start to communicate with those capsules. For example, a client may need to wait until a server is ready before it sends a request to that server. In the same way it's often useful to get notified when a connection is dropped, since that means communication on that port should no longer take place.</p>
+<h3 id="unwired-port">Unwired Port</h3>
+<p>Ports are by default wired, meaning that they should be connected with <a href="#connector">connectors</a> to specify statically how events will be routed. Having a static connector structure defined has the benefit that it becomes possible to look at a capsule's structure diagram to see how events received by the capsule will be routed at run-time. However, in some dynamic systems it's not possible to describe this statically. Ports may be connected and disconnected dynamically and the run-time connections between port instances may hence vary over time. If you need this flexibility you can declare ports as unwired.</p>
+<p>Here is an example of an application where a client capsule can connect to different kinds of server capsules. Sometimes it may be connected to <code>server1</code> and sometimes to <code>server2</code>. It is therefore not possible to describe the connections of Top statically using connectors, and we can instead declare the ports as unwired.</p>
+<pre class="highlight"><code class="language-art">capsule Top {
+    part client : Client;
+    part server1 : Server;
+    part server2 : Server;
+
+    // ...
+};
+
+capsule Client {
+    service behavior unwired port p : Protocol;
+
+    // ...
+};
+
+capsule Server {
+    service behavior unwired port p~ : Protocol;
+
+    // ...
+};</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only use unwired ports when required. It's strongly recommended to use wired ports whenever possible to enable the visualization of the connector structure in a structure diagram. When unwired ports are required you should write a comment that describes how they will be connected at run-time, since this often cannot easily be concluded by looking at the C++ code of the capsule.</p>
+</div>
+<p>An unwired port is always a behavior port. In a structure diagram an unwired port is drawn with a hollow ellipse, while a wired behavior port is drawn with a filled ellipse. In the structure diagram below port <code>q</code> is wired while port <code>p</code> is unwired.</p>
+<p><img alt="" src="../images/unwired_vs_wired_behavior_ports.png" /></p>
+<p>An unwired port is either a <strong>service access point</strong> (SAP) or a <strong>service provision point</strong> (SPP) depending on the role it plays in a dynamic connection with another unwired port. The capsule that owns the SAP port uses it to subscribe to a service that is published by another capsule by means of an SPP port. The capsule with the SAP port is often called "client" or "subscriber" while the capsule with the SPP port is often called "server" or "publisher".</p>
+<p>Unwired ports get connected by means of registering them under a service name that should be unique in the application. Registration of unwired ports can either happen automatically when the container capsule instance is created, or programmatically at a later point in time. It's also possible to deregister unwired ports in order to disconnect them. You can specify how an unwired port should be registered by means of the following properties:</p>
+<ul>
+<li><a href="#registration">registration</a> specifies when an unwired port should be registered</li>
+<li><a href="#registration_name">registration_name</a> specifies the service name with which the port should be registered</li>
+</ul>
+<p>If you choose to register an unwired port programmatically (using the TargetRTS functions <code>registerSPP</code> and <code>registerSAP</code>) you decide at registration time whether the port should be an SAP or SPP port. However, if you choose to instead let the port be registered automatically you need to declare the port as either a <code>subscribe</code> (SAP) or <code>publish</code> (SPP) port. Here is the same example again, but now with automatic registration of the unwired ports using the service name <code>myService</code>:</p>
+<pre class="highlight"><code class="language-art">capsule Client {
+    subscribe behavior port sap [[rt::properties(
+registration_name = "myService")
+]] : Protocol;
+
+    // ...
+};
+
+capsule Server {
+    publish behavior port spp~ [[rt::properties(
+registration_name = "myService")
+]] : Protocol;
+
+    // ...
+};</code></pre>
+<p>Note that the keyword <code>unwired</code> is implicit when you declare a port as either a <code>subscribe</code> or <code>publish</code> port.</p>
+<h2 id="connector">Connector</h2>
+<p>Connectors describe how events are routed within a capsule by connecting ports in its composite structure. They make it possible to see in a structure diagram which parts of a capsule that can communicate with each other. Each connector connects exactly two ports with each other. A connected port may either be a port of the capsule itself, or a port of a capsule that types one of its capsule parts. A few constraints decide if it's possible to connect two ports:</p>
+<p>1) The ports must be wired. <a href="#unwired-port">Unwired ports</a> cannot be connected.</p>
+<p>2) The ports must be typed by the same protocol.</p>
+<p>3) The ports' conjugations must match. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have the opposite conjugation. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.</p>
+<p>The example below shows the structure diagram of a capsule <code>Top</code> where we can see two connectors. </p>
+<pre class="highlight"><code class="language-art">capsule Top {    
+    part ping : Pinger, pong : Ponger;  
+    connect ping.p1 with pong.p2;       
+    // ...
+};
+
+capsule Internal {
+    service behavior port i~ : PROTO;  
+    // ...
+};
+
+capsule Pinger {
+    service behavior port p1 : PROTO;      
+    // ...
+};
+
+capsule Ponger {    
+    service behavior port p2~ : PROTO;    
+    part inner : Internal;
+    connect p2 with inner.i;
+    // ...
+};</code></pre>
+<p><img alt="" src="../images/connector_example.png" /></p>
+<p>The connector between <code>p1</code> and <code>p2</code> goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between <code>p2</code> and <code>i</code> goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port <code>p2</code> is a so called <strong>relay port</strong> (it just relays all events it receives to another port) and the connector between <code>p2</code> and <code>i</code> is sometimes called a <strong>delegation connector</strong> to describe the fact that capsule <code>Ponger</code> uses it for delegating some of its responsiblities to the capsule <code>Inner</code>. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port <code>p1</code> can be directly connected to <code>i</code>).</p>
+<p>A connector doesn't have a direction, so it doesn't matter in which order it connects the two ports. That is, connecting X with Y is equivalent to connecting Y with X.</p>
+<h2 id="part">Part</h2>
+<p>A capsule can be decomposed by means of parts (also called "capsule parts" to emphasize that they are parts of a capsule). A part is a container that at run-time may hold one or many capsule instances. The part has a multiplicity that specifies the maximum number of capsule instances it can contain at run-time, and it has a type which is another capsule. All capsule instances must either be of that specific capsule type, or of a capsule type that inherits from it.</p>
+<p>It's common to name parts according to the capsule that types them. For example, a part typed by a capsule <code>Controller</code> may be called <code>controller</code>, <code>ctrl</code> or perhaps <code>theController</code>. By convention part names start with lowercase and use camelCase if the name consists of multiple words. </p>
+<p>There are three kinds of parts which determine how and when they will be populated with capsule instances.</p>
+<p>1) <strong>Fixed part</strong></p>
+<p>In a fixed part capsule instances are created automatically when the container capsule is created, and destroyed when the container is destroyed. Fixed parts by default have multiplicity 1. Such a part will always contain one and only one instance of the capsule that types the part.</p>
+<p>2) <strong>Optional part</strong></p>
+<p>In an optional part capsule instances don't have a strong lifetime relationship with the container capsule as is the case for fixed parts. The capsule instances can be created programmatically using the Frame service of the TargetRTS at some point after the container capsule has been created, and they can be destroyed before the container capsule is destroyed. However, at the latest they will be automatically destroyed when the container is destroyed. Optional parts by default have multiplicity 0..1. This means that it may either contain zero or one capsule instance at any point in time. The presence of zero in the multiplicity is what makes the part optional.</p>
+<p>3) <strong>Plugin part</strong></p>
+<p>A plugin part is similar to an optional part in that it is populated by capsule instances programmatically. However, the capsule instances are not created in the plugin part but instead imported into the plugin part from another part. Typically such a capsule instance is first created into an optional part, and then at some later point in time imported into a plugin part. Later it can be deported (i.e. removed) from the plugin part and perhaps imported into another plugin part. This makes it possible to create very dynamic composite structures where the same capsule instance can play different roles in different parts over time. Moving a capsule instance by deporting it from one plugin part and then importing it in another plugin part is more efficient than destroying the capsule instance in one optional part and then creating another capsule instance in another optional part. Plugin parts are typically used together with <a href="#unwired-port">unwired ports</a>. In general it's possible to import a capsule instance into more than one plugin part at the same time, but it can only be imported if its ports are not already bound in its current location. Plugin parts by default have multiplicity 0..1.</p>
+<p>In the example below the capsule <code>C</code> contains a few parts of different kinds and multiplicities. Note that you may declare multiple parts on the same line if they are of the same kind (both <code>c</code> and <code>d</code> below are optional parts).</p>
+<pre class="highlight"><code class="language-art">capsule C {
+    part a : D;
+    fixed part b : D[4];
+    optional part c : D, d : D[0..5];
+    plugin part e : D;
+    part f : D[`COUNT`];
+
+    // ...
+};</code></pre>
+<p>Part <code>a</code> is fixed with multiplicity 1 since neither kind nor multiplicity is specified for it. Part <code>b</code> is also fixed (using the "fixed" keyword for more clarity) and with multiplicity 4. When an instance of capsule <code>C</code> is created 5 instances of capsule <code>D</code> will be automatically created. One of these instances will be inserted into part <code>a</code> and the others into part <code>b</code>. These instances will remain there until the <code>C</code> capsule instance is destroyed.</p>
+<p>Part <code>c</code> is optional with multiplicity 0..1. At run-time it can contain at most one instance of capsule <code>D</code>. Part <code>d</code> is also optional but can contain up to 5 instances of <code>D</code> as specified by its multiplicity 0..5.</p>
+<p>Part <code>e</code> is plugin with the default multiplicity 0..1. At run-time at most one instance of capsule <code>D</code> can be imported into it. That instance must already have been created in another part, for example part <code>c</code>.</p>
+<p>Part <code>f</code> uses a C++ expression for specifying the multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr.</p>
+<p>Parts can be shown in a structure diagram:</p>
+<p><img alt="" src="../images/parts.png" /></p>
+<p>Parts are shown as "stacked" if they have non-single multiplicity. Optional parts are shown with a "diagonal" background pattern, while plugin parts are shown with a "double diagonal" background pattern.</p>
+<p>Parts can also be shown in a class diagram:</p>
+<p><img alt="" src="../images/parts_class.png" /></p>
+<p>In the above diagram the filled diamonds show that there is a strong life-time relationship between a <code>C</code> instance and the instances of <code>D</code> that are located in the fixed and optional parts <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>, while this is not the case for the instance located in the plugin part <code>d</code> as shown by the hollow diamond.</p>
+<h3 id="part-with-capsule-factory">Part with Capsule Factory</h3>
+<p>If the capsule that types a part has a <a href="#capsule-constructor">capsule constructor</a> with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. </p>
+<ul>
+<li><code>rt::createFunction</code> Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity &gt; 1) etc.</li>
+<li><code>rt::destroyFunction</code> Defines how to destroy an instance of the capsule. By default it's destroyed using the <code>new</code> operator.</li>
+</ul>
+<p>Here is an example where a part defines a capsule factory that specifies a create function. The create function gets the mandatory constructor parameters <code>rtg_rts</code> and <code>rtg_ref</code> as arguments, as well as an <code>index</code> argument that specifies the index where the created capsule instance would be inserted by default.</p>
+<pre class="highlight"><code class="language-art">part engine : Engine [[rt::createFunction]]
+`
+    return new Engine(rtg_rts, rtg_ref, true /* custom constructor arg */);
+`;</code></pre>
+<p>Note that you may want to create a capsule factory for a part also for other reasons than passing custom constructor parameters. For example, you may want to change the default thread (<code>RTController*</code>) that should execute the created capsule instance, or you may want to instantiate an inherited capsule rather than the capsule that types the part.</p>
+<h2 id="state-machine">State Machine</h2>
+<p>State machines are used for specifying the behavior of <a href="#capsule">capsules</a>. It is also possible to provide a state machine for a passive class; see <a href="#class-with-state-machine">Class with State Machine</a> for more information about that. In this chapter we focus on state machines in capsules. </p>
+<p>A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving messages on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send messages to other capsule instances, something that may cause transitions to execute in their state machines. </p>
+<p>A state machine may also have <strong>pseudo states</strong>, which just like states may be connected with transitions, but that unlike states are not places where the state machine should stay for some time. For example, most pseudo states like junctions and entry/exit points merely act as connection points that make it possible to execute more than one transition when transitioning between two states. The notable exception is the choice in which actually the state machine may get stuck for ever, but this is something that should not happen in a correctly designed state machine.</p>
+<h3 id="state">State</h3>
+<p>The states of a state machine are the places where the state machine may stay for some time while waiting for another message to arrive. States should have names that describe what is happening while the state machine stays there, or what has happened for the state machine to arrive there. For example, "WaitForInit", "Processing" or "Terminated". By convention state names start with uppercase.</p>
+<p>You can declare multiple states on the same line using a comma-separated list of state names. It can be good to write a comment in front of the state name, if you want to elaborate more on its meaning that what is possible in the name itself. Here is an example of a state machine with some states:</p>
+<pre class="highlight"><code class="language-art">capsule TrafficLight {      
+    statemachine {
+        state WaitUntilServerReady, CycleLight;
+        state /* pedestrians are crossing the street */ PedestriansCrossing;
+        initial -&gt; WaitUntilServerReady;
+        WaitUntilServerReady -&gt; CycleLight;
+        CycleLight -&gt; PedestriansCrossing;
+    };
+};</code></pre>
+<p><img alt="" src="../images/state_machine_art.png" /></p>
+<p>A state comment is not visible in a state diagram, but show up in a tooltip when putting the cursor on a reference to the state. They can thereby make it easier to understand a state machine.</p>
+<p>States may be nested to create a <a href="#hierarchical-state-machine">hierarchical state machine</a>.</p>
+<h4 id="entry-and-exit-action">Entry and Exit Action</h4>
+<p>A state may have an entry and/or exit action which is a code snippet that runs whenever the state is entered and/or exited.</p>
+<pre class="highlight"><code class="language-art">state Walk {
+    entry
+    `
+        server.walk().send();
+    `;
+    exit
+    `
+        server.stop().send();
+    `;
+};</code></pre>
+<h3 id="transition">Transition</h3>
+<p>A transition connects a source state (or pseudo state) to a target state (or pseudo state). When a capsule instance handles a message that was received on one of its behavior ports, one or several transitions may execute.</p>
+<p>It's not required to give a name to a transition, but it's possible and often makes the state machine easier to understand. At least triggered transitions (i.e. transitions where the source is a state) should have a name. A transition name can be choosen to describe what needs to have happened for the transition to execute, for example "requestReceived", "timeout" etc. By convention transition names start with lowercase and use camelCase if the name consists of multiple words.  </p>
+<p>A triggered transition has one or several triggers which define when the transition can be triggered. Each trigger specifies a port and an event. The trigger can only trigger its transition if the received message is an instance of the specified event, and was received on the specified port. In addition it's possible to provide guard conditions that must be fulfilled for the trigger to trigger its transition. Such a guard condition can be specified for the transition, but also for each individual trigger.</p>
+<p>Here is an example of a capsule state machine with two triggered transitions <code>requestReceived</code> and <code>timeout</code>. It also contains an <a href="#initial-transition">initial transition</a> that has no name.</p>
+<pre class="highlight"><code class="language-art">capsule MyCap {
+    statemachine {
+        state Waiting, Processing;
+        initial -&gt; Waiting;        
+        requestReceived: Waiting -&gt; Processing on com1.request, com2.request when
+        `
+            return canHandleNow();
+        `
+        `
+            log.log("Handling request");
+            log.commit();
+            handle(msg);
+        `;
+        timeout: Waiting -&gt; Waiting on timer.timeout[`return zCount &lt; 10;`];
+    };
+};</code></pre>
+<p><img alt="" src="../images/triggered_transitions.png" /></p>
+<p>Note the following:</p>
+<ul>
+<li>Triggers are specified as <code>PORT.EVENT</code> after the keyword <code>on</code>. You may specify multiple triggers separated by comma (<code>,</code>).</li>
+<li>A guard condition for the transition is specified after the <code>when</code> keyword, while a guard condition for an individual trigger is specified in square brackets (<code>[]</code>) after the trigger.</li>
+<li>A guard condition is actually a C++ statement that returns the boolean guard condition.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Guard conditions should execute fast and have no side-effects. They are called frequently to decide which transition to execute when a message has arrived.</p>
+</div>
+<h4 id="initial-transition">Initial Transition</h4>
+<p>Every state machine needs exactly one initial transition. When the state machine starts to run, the first thing that happens is that the initial transition executes and takes the state machine to its first state. Therefore, an initial transition is a non-triggered transition and also cannot have a guard condition. But it can of course have an effect code snippet. </p>
+<p>The source of the initial transition is the initial pseudo state which is declared using the <code>initial</code> keyword. Just like for any transition it's optional to give a name to the initial transition (in fact it's often left unnamed).</p>
+<p>For capsule instances that are programmatically created (i.e. located in optional capsule parts) you can provide initialization data at the time of creation. This is a data object that can be accessed in the effect code of the initial transition. Here is an example:</p>
+<pre class="highlight"><code class="language-art">initial -&gt; WaitForServerInit
+`
+    RTpchar str = *((RTpchar*) rtdata);
+`;</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any type of data object can be passed as initialization data which means that <code>rtdata</code> is an untyped pointer that has to be casted to the expected type. A more type-safe way of passing initialization data is to define a constructor for a capsule. A <a href="#capsule-constructor">capsule constructor</a> can take any number of arguments, while with <code>rtdata</code> only one data object can be passed (even if you of course can group several data objects into a struct or class to circumvent this limitation). With capsule constructors you can pass initialization data also for capsule instances that are located in fixed parts.</p>
+</div>
+<p>By default <code>rtdata</code> cannot be modified (it has type <code>const void*</code>). However, by setting the <code>const_rtdata_param</code> <a href="#property">property</a> to false on the initial transition, you can make it non-const. One reason for doing this could be that the initial transition effect code wants to pass some data back to the code that creates the capsule instance. However, you must be very careful if you do this since this will only work if the creating code runs in the same thread that runs the initial transition. A more legitimate reason could be that you want to move the initialization data into a capsule variable, so you can access it later. Moving data can be  more efficient than copying it.</p>
+<pre class="highlight"><code class="language-art">[[rt::properties(const_rtdata_param=false)]] initial -&gt; Waiting 
+`
+    pC = std::move(*((MyClass*) rtdata));
+`;</code></pre>
+<h4 id="internal-transition">Internal Transition</h4>
+<p>An internal transition doesn't change the active state and therefore doesn't have a target state. An internal transition is always a triggered transition. You define an internal transition inside the state to which it belongs. Here is an example:</p>
+<pre class="highlight"><code class="language-art">state Done {
+    unexpected: on myPort.*
+    `
+        std::cout &lt;&lt; "Unexpected event received! &lt;&lt; std::endl; 
+    `;
+};</code></pre>
+<p>Note the usage of an asterisk (<code>*</code>) to specify that any event received on <code>myPort</code> will trigger the internal transition when the state machine is in the <code>Done</code> state. Such "receive-any" events can of course be used for a trigger of any transition, but can in particular be useful for internal transitions that should handle all messages received on a port that are not handled by other triggered transitions leaving substates of the state. If another event is added to the port's protocol in the future, such a trigger will handle the new event too without a need for being updated.</p>
+<p>Internal transitions are examples of so called self-transitions. To learn about other types of self-transitions see <a href="#local-transition">this chapter</a>.</p>
+<h4 id="frequent-transition">Frequent Transition</h4>
+<p>Sometimes you may have a state where one or a few outgoing transitions can be expected to execute much more frequently than others. You can then set a <code>frequent</code> <a href="#property">property</a> on the transition trigger that you expect will trigger the transition frequently. The Art compiler uses this information to optimize generated C++ code so that such transition triggers are evaluated before other triggers that are expected to trigger the transition less frequently. </p>
+<pre class="highlight"><code class="language-art">interrupted: Working -&gt; Stopped on [[rt::properties(
+            frequent=true
+        )]] external.interrupt
+        `
+            // Interrupted while working...
+        `;</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The frequent property relies on optimization features in the C++ compiler that may or may not be available depending on which target compiler that is used. Only use frequent transitions if profiling has shown that you have a need to do this optimization.</p>
+</div>
+<h3 id="choice-and-junction">Choice and Junction</h3>
+<p>Choices and junctions are pseudo states that make it possible to split transition flows in a state machine. That is, one incoming transition may be split into multiple outgoing transitions. Which of the outgoing transitions that will execute is decided by evaluating their guard conditions.</p>
+<p>For a junction the guard conditions are evaluated already <em>before</em> leaving the currently active state. Only if there exists a path of transitions where all guards are fulfilled, will the active state be exited and the transitions can execute. Otherwise the state machine stays in its current state and attempts to find another path of transitions to execute. For a choice the guard conditions are evaluated <em>after</em> leaving the current state, when reaching the choice itself. The outgoing transition which has a fulfilled guard will execute next.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It's important that there always is an outgoing transition for a choice with a fulfilled guard condition. Otherwise the state machine will get stuck in the choice without any chance of getting out of it. </p>
+</div>
+<p>Choices and junctions must have names, so they can be referenced as the source or target of transitions. You can choose to use a name that gives a hint about what conditions that are checked in the guards of the outgoing transitions. For example, <code>isEnabled</code> for a choice that checks a boolean condition and <code>checkValue</code> when the condition has some other type. If you follow this approach you can then name the outgoing transitions accordingly. For example <code>true</code> and <code>false</code> for a choice that checks a boolean condition. By convention choice and junction names start with lowercase and use camelCase if consisting of multiple words. Sometimes it may be difficult to come up with a good name and in that case you can choose something short and "technical" like <code>j1</code>, <code>check1</code> etc. </p>
+<p>Below is an example of a state machine containing a choice and a junction.</p>
+<pre class="highlight"><code class="language-art">statemachine {
+    state First, Second, Third;
+    t1: initial -&gt; First;
+    choice isEnabled;
+    junction checkThreshold;
+    switchTurned: First -&gt; isEnabled;    
+    true: isEnabled -&gt; Second when
+    `
+        return isEnabled(); 
+    `;    
+    false: isEnabled -&gt; Second when
+    `
+        else 
+    `; 
+    timeout: First -&gt; checkThreshold; 
+    low: checkThreshold -&gt; Third when
+    `
+        return t &lt; LIMIT1; 
+    `;
+    medium: checkThreshold -&gt; Third when
+    `
+        return t &gt;= LIMIT1 &amp;&amp; t &lt; LIMIT2; 
+    `;
+    high: checkThreshold -&gt; Third;
+};</code></pre>
+<p><img alt="" src="../images/choice_junction.png" /></p>
+<p>Note the use of the keyword <code>else</code> for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional.</p>
+<p>You can also define an else-transition for a choice or junction by simply omitting the guard condition. This is consistent with triggered transitions where the absense of a guard condition is equivalent to a guard condition that always is fulfilled. See the transition <code>high</code> in the above example.</p>
+<p>Guard conditions should be mutually exclusive so that the order in which they are evaluated doesn't matter.</p>
+<p>Junctions can also be used for merging multiple incoming transition flows into a single outgoing transition. This can for example be useful if you want to reuse a transition path in the state machine for several triggered transitions. </p>
+<pre class="highlight"><code class="language-art">statemachine {
+    state S1, S2;
+    junction j1;
+    initial -&gt; S1;
+    t1: S1 -&gt; j1 on port1.e1 
+    `
+        // handle e1
+    `;
+    t2: S1 -&gt; j1 on port2.e2
+    `
+        // handle e2
+    `;
+    t3: S1 -&gt; j1 on port3.e3
+    `
+        // handle e3
+    `;
+    common: j1 -&gt; S2 
+    `
+        // common code here
+    `;
+};</code></pre>
+<p><img alt="" src="../images/junction_merge.png" /></p>
+<p>Of course, in the above simple example the same code reuse could also be obtained by putting the common code in a capsule member function which is called by each of the incoming transitions. But if the common transition is followed by more non-triggered transitions the above approach is more feasible.</p>
+<h3 id="hierarchical-state-machine">Hierarchical State Machine</h3>
+<p>A state machine is hierarchical if it contains at least one composite state, i.e. a state with a nested state machine. A transition that is triggered in the enclosing state machine (i.e. the state machine that contains the composite state) should enter a composite state by specifying an entry point of the composite state as the target. In the nested state machine another transition can connect that entry point to a state in the nested state machine. A transition in the nested state machine may specify an exit point of the composite state as the target. In the enclosing state machine another transition can connect that exit point to a state in the enclosing state machine.</p>
+<p>Entry and exit points are pseudo states that need to be named. The names can be chosen to give a hint about when the composite state is entered or exited through them, for example <code>systemStarted</code> or <code>errorDetected</code>. If you want you can prefix the names with <code>ep</code> or <code>ex</code>. It's also common to use short and "technical" names like <code>ep1</code> or <code>ex1</code> if a more descriptive name doesn't make sense. By convention entry and exit point names start with lowercase and use camelCase if consisting of multiple words.</p>
+<p>It's also possible to directly enter a composite state without using an entry point. In this case the behavior will depend on whether the composite state is entered for the first time or not. If it is for the first time, the initial transition of the nested state machine will execute after the transition that targets the composite state has executed. Otherwise the composite state will instead be entered using <a href="#deep-history">deep history</a>, i.e. by activating the state in the nested state machine that was most recently active (and recursively if that state again is a composite state).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It's recommended to always enter a composite state using an entry point as the behavior then doesn't depend on if the state was previously entered or not.</p>
+</div>
+<p>Below is an example of an hierarchical state machine with a composite state <code>CompositeState</code> that contains a nested state machine. Note that you can declare multiple entry or exit points on the same line.</p>
+<p id="hierarchical_sm_sample"/>
+<pre class="highlight"><code class="language-art">statemachine {        
+    initial -&gt; CompositeState.ep1;
+    state CompositeState {
+        state Nested;
+        entrypoint ep1, ep2;
+        exitpoint ex1;
+        initial -&gt; Nested;
+        ep1 -&gt; Nested;
+        Nested -&gt; ex1;
+        ep2 -&gt; history*;
+    };
+    state Other;
+    CompositeState.ex1 -&gt; Other;
+    Other -&gt; CompositeState.ep2;
+};</code></pre>
+<p><img alt="" src="../images/hierarchical_sm.png" /></p>
+<p>Note that a dot (<code>.</code>) is used as scope resolution operator, to make it possible to reference an entry or exit point from the enclosing state machine. Inside the nested state machine the entry and exit points are directly accessible without use of the scope resolution operator (using it there would be an error).</p>
+<p>It is possible to only connect an entry point on the "outside". Entering such an entry point will behave in the same way as entering the composite state without using an entry point (see above). It's therefore not recommended. In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for <a href="#deep-history">deep history</a>). This is also not recommended, unless the transition is a <a href="#local-transition">local transition</a>.</p>
+<h4 id="deep-history">Deep History</h4>
+<p>Every nested state machine has an implicit pseudo state with the name <code>history*</code> (in state diagrams it's shown as <code>H*</code> to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a <em>deep</em> history). </p>
+<p>In the <a href="#hierarchical_sm_sample">example above</a> we can see that the transition from <code>ep2</code> targets the deep history pseudo state. This means that if the <code>Nested</code> substate is active and then the transition to <code>ex1</code> gets triggered, the state <code>Other</code> becomes active. If then the transition to <code>ep2</code> gets triggered the <code>CompositeState</code> will be entered using deep history so that the <code>Nested</code> substate will again become active.</p>
+<h4 id="local-transition">Local Transition</h4>
+<p>A transition in a nested state machine where the source is an entry point and the target is an exit point, and these entry/exit points only are connected on the "inside", is a <strong>local transition</strong>. A local transition is a self-transition that behaves something in between an <a href="#internal-transition">internal transition</a> and a regular (a.k.a. external) self-transition. An <a href="#internal-transition">internal transition</a> defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the composite state and then enter it again, but it will not do this for the substate that is active in the composite state. Hence, if a composite state has an <a href="#entry-and-exit-action">exit action</a> it will be called for the composite state, but not for the active substate. An external self-transition on the other hand will exit both the composite state and all active substates recursively, and then enter these states again. Exiting happens bottom-up which means that the deepest nested substate will first be exited, then its parent state, and so on until the top composite state is exited. Entering happens in the opposite order, i.e. in a top-down fashion.</p>
+<p>Let's look at an example to understand the difference between these three kinds of self-transitions:
+<pre class="highlight"><code class="language-art">statemachine {        
+    initial -&gt; SelfTransitionExample;
+    state SelfTransitionExample {
+        state Nested1 {
+            state Nested2;
+        };
+        internal: on port1.e1
+        `
+            // Internal transition
+        `;
+        entrypoint e1;
+        exitpoint e2;
+        local: e1 -&gt; e2 
+        `
+            // Local transition
+        `;
+    };
+    external: SelfTransitionExample -&gt; SelfTransitionExample on port2.e2
+    `
+        // External transition
+    `;
+};</code></pre>
+<img alt="" src="../images/self-transitions.png" /></p>
+<p>Assume the currently active state configuration is {<code>SelfTransitionExample</code>, <code>Nested1</code>, <code>Nested2</code>} when one of the self-transitions get triggered:</p>
+<ul>
+<li><strong>Internal transition</strong> (<code>internal</code>)</li>
+</ul>
+<p>No state is exited and the active state configuration remains unchanged.</p>
+<ul>
+<li><strong>Local transition</strong> (<code>local</code>)</li>
+</ul>
+<p>1) <code>Nested2</code> is exited. </p>
+<p>2) <code>Nested1</code> is exited. </p>
+<p>3) <code>local</code> executes. </p>
+<p>4) <code>Nested1</code> is entered. </p>
+<p>5) <code>Nested2</code> is entered.</p>
+<ul>
+<li><strong>External transition</strong> (<code>external</code>)</li>
+</ul>
+<p>1) <code>Nested2</code> is exited. </p>
+<p>2) <code>Nested1</code> is exited. </p>
+<p>3) <code>SelfTransitionExample</code> is exited.</p>
+<p>4) <code>external</code> executes. </p>
+<p>5) <code>SelfTransitionExample</code> is entered.</p>
+<p>6) <code>Nested1</code> is entered. </p>
+<p>7) <code>Nested2</code> is entered.</p>
+<h2 id="class-with-state-machine">Class with State Machine</h2>
+<p>Art allows you to create passive classes with state machines. This can be an alternative to using a <a href="#capsule">capsule</a> in case you only need a passive stateful data object, and don't need the ability to send events to it, or to let it execute in its own context. A class with a state machine is more lightweight than a capsule at runtime. </p>
+<p>Transitions in a class state machine are triggered by calling trigger operations on the class. A trigger operation is similar to a regular member function in C++, but does not have a code behavior of its own. Instead, when you call a trigger operation on an object of a class with a state machine it may trigger a transition in the class' state machine. That transition may have an effect code snippet that will execute.</p>
+<p>A trigger operation can have parameters which allows you to pass data when calling them. Those parameters can be accessed in the transition that is triggered by it.</p>
+<p>Below is an example of a class with a state machine with two trigger operations <code>initialize</code> and <code>finalize</code>. Note that you can define multiple trigger operations on the same line.</p>
+<p><pre class="highlight"><code class="language-art">class DataObject {
+    /* Trigger Operations */
+    trigger initialize(`int` data), finalize();
+    /* State Machine */
+    statemachine {
+        state Initial, Initialized, Finalized;
+        initial -&gt; Initial;
+        init: Initial -&gt; Initialized on initialize(`int`)
+        `
+            // Initialized
+            int i = data;
+        `;
+        Initialized -&gt; Finalized on finalize()
+        `
+            // Finalized
+        `;
+    };
+};</code></pre>
+<img alt="" src="../images/passive_sm.png" /></p>
+<p>Just like for C++ member functions, trigger operations support overloading. That is, you can have many trigger operations with the same name as long as their full signatures are unique. The signature of a trigger operation consists of its name and the types of all its parameters. When you reference a trigger operation with parameters as a transition trigger, you need to include the types of the parameters (see the trigger for the <code>init</code> transition above).</p>
+<p>The same transition can be triggered by multiple trigger operations (just like a transition in a capsule state machine can be triggered by multiple events). However, in that case those trigger operations should agree on the names and types of their parameters so that the transition effect code can access them in a way that works regardless of which of the trigger operations that will trigger the transition.</p>
+<p>Names of classes with state machines by convention start with uppercase, while names of trigger operations and their parameters by convention start with lowercase and use camelCase if the name consists of multiple words. </p>
+<p>A common design pattern is to let a class-with-statemachine instance be managed by a single capsule instance. This means that the capsule instance is responsible both for creating, using and finally destroying the class-with-statemachine instance. If you follow this pattern it is thread-safe to for example call public member functions defined on the capsule from a transition in the class state machine. This can for example be used as a means for the class state machine to send events through the ports of the capsule (i.e. it can call a capsule member function that sends the event). However, to avoid exposing the full capsule functionality to the class state machine it's recommended to define an interface (i.e. abstract C++ class) which the capsule can implement. This interface can contain only those member functions which the class needs to access from its state machine.</p>
+<p>A class state machine can use the same constructs as a capsule state machine with a few exceptions:</p>
+<ul>
+<li>
+<p>The initial transition cannot access initialization data as can a capsule's <a href="#initial-transition">initial transition</a>. Instead you can define one or several constructors for the class with parameters needed for passing initialization data when the class-with-statemachine instance is created. See <a href="#constructor">Constructor</a> for more information.</p>
+</li>
+<li>
+<p><a href="#frequent-transition">Frequent transitions</a> are not supported.</p>
+</li>
+<li>
+<p>The state machine can be hierarchical but the <a href="#deep-history">deep history</a> pseudo state is not supported. Instead the <a href="#shallow-history">shallow history</a> pseudo state can be used.</p>
+</li>
+<li>
+<p>Even if it's possible for a class with a state machine to inherit from another class with a state machine, this doesn't mean that the state machines will be inherited as is the case for capsule inheritance. Read more about this in <a href="#inheritance">Inheritance</a>.</p>
+</li>
+</ul>
+<p>A class with state machine can have the <a href="#capsule_code_snippets">same code snippets</a> as a capsule.</p>
+<h3 id="constructor">Constructor</h3>
+<p>By default the initial transition of a class state machine executes at the time of constructing the class-with-statemachine instance. This happens because the generated default constructor will call an operation <code>rtg_init1()</code> which contains the code from the initial transition. If you want to wait with "starting" the state machine until a later point in time you need to define your own parameterless constructor which doesn't call this function.</p>
+<p>You can define any constructors you need on a class with a state machine. They are regular C++ constructors and allow to pass initialization data when creating a class-with-statemachine instance. Remember to call the <code>rtg_init1()</code> function in all such constructors, if you want the state machine to start at the time of creating the class-with-statemachine instance.</p>
+<p>Here is an example of a class with a state machine that has a user-defined constructor:
+<pre class="highlight"><code class="language-art">class PC {
+    [[rt::decl]]
+    `
+        private:
+        double m_data;
+
+        public:
+        PC(double data);
+    `    
+
+    [[rt::impl]]
+    `
+        PC::PC(double data) : m_data(data) {
+            rtg_init1();
+        }
+    `
+
+    statemachine {
+        state First;
+        initial -&gt; First
+        `
+            // State machine started
+        `;
+    };
+};</code></pre></p>
+<h3 id="shallow-history">Shallow History</h3>
+<p>Every nested state machine has an implicit pseudo state with the name <code>history</code> (in state diagrams it's shown as <code>H</code> to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. However, if that state again is a composite state it's previously active substate will not be restored. This is in contrast to the <a href="#deep-history">deep history</a> for capsule state machines, and is why for a class state machine this pseudo state is referred to as a shallow history.</p>
+<p>Here is an example:</p>
+<p><pre class="highlight"><code class="language-art">class MyClass {
+
+    statemachine {
+        state First {
+            entrypoint ep1;
+            ep1 -&gt; history;
+        };
+        initial -&gt; First.ep1;
+    };
+};</code></pre>
+<img alt="" src="../images/shallow_history.png" /></p>
+<h2 id="inheritance">Inheritance</h2>
+<p>By using inheritance you can reuse and customize generic (<strong>base</strong>) Art elements into more specific (<strong>derived</strong>) Art elements. An Art element can inherit either from one or several other Art elements, and/or it can inherit from one or several C++ classes. The derived Art element can <strong>redefine</strong> elements of the base element. The redefining element (located in the derived element) can change one or several properties of the redefined element (located in the base element). This is very similar to how inheritance works in C++, with the difference that in C++ a redefining element has more restrictions on what properties that can be changed in the redefined element. For example, a redefining member function (known as an overridden member function in C++ terminology) must keep the same signature as the redefined member function (known as a virtual base member function in C++ terminology), and can only (in fact, must) change its implementation.</p>
+<p>In some cases Art inheritance not only allows to redefine inherited elements, but also to completely <strong>exclude</strong> them. An excluded element is not present in the derived element, so exclusion can be seen as a special form of redefinition where the whole element is removed in the derived element. In C++ it's not possible to exclude any inherited members.</p>
+<h3 id="capsule-inheritance">Capsule Inheritance</h3>
+<p>A <a href="#capsule">capsule</a> can inherit from another capsule. Only one base capsule is allowed; multiple inheritance is not supported for capsules. In addition a capsule can inherit from any number of C++ classes (or structs).</p>
+<p>The derived capsule is type compatible with the base capsule in the sense that if you have a capsule <a href="#part">part</a> typed by the base capsule, you can at runtime incarnate it with instances of the derived capsule. </p>
+<p>Capsule inheritance has multiple dimensions. One dimension is the usual C++ inheritance between classes (remember that a capsule is an active class). In this dimension it is for example possible to redefine (a.k.a override) a virtual member function defined in the base capsule or in another base C++ class. But there is also a second dimension where the state machine of the derived capsule will implicitly inherit from the state machine of the base capsule. This makes it possible to redefine transitions and states. For example, a redefining transition in a derived capsule can change the effect code, the guard condition or the target state or pseudo state. And a redefining state in a derived capsule can change the entry or exit action, as well as any substate or subtransition in case the state is composite and has a nested state machine. It's also possible to completely exclude a state or a transition, either in the top capsule state machine, or in a nested state machine.</p>
+<p>Below is an example of a capsule <code>D</code> that inherits from another capsule <code>B</code>. In addition the capsule <code>D</code> inherits from two C++ classes <code>IDataManager</code> and <code>IController</code>.</p>
+<pre class="highlight"><code class="language-art">capsule B {    
+    statemachine {
+        state BS, BS2;
+        Initial: initial -&gt; BS;
+    };
+};
+
+capsule D : B, `IDataManager`, `IController` { 
+    [[rt::decl]]
+    `
+        // IDataManager impl
+        public:
+        void manageData() override;
+
+        // IController impl
+        public:
+        void control() override;
+    `
+
+    [[rt::impl]]
+    `
+        // impl of manageData() and control()
+    `
+
+    statemachine {
+        state DS;
+        state exclude BS2;
+        redefine Initial: initial -&gt; DS;
+    };
+};</code></pre>
+<p>In the example we can see that <code>D</code> overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the <code>rt::impl</code> code snippet. We can also see an example of a state machine redefinition. The initial transition <code>Initial</code> of <code>B</code>'s state machine is redefined in <code>D</code>'s state machine so that it targets state <code>DS</code> instead of state <code>BS</code>. In the state diagram of <code>D</code> the state <code>BS</code> and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition <code>Initial</code> is also drawn in grayed with dashed outline but with a blue label to show that it's redefining the inherited initial transition. The state <code>BS2</code> is excluded in <code>D</code>'s state machine. In state diagrams excluded elements are by default shown with a "crossed" background, but by setting a diagram preference it's also possible to completely hide them from the diagram.</p>
+<p><img alt="" src="../images/sm_redefinition.png" /></p>
+<p>Note that to be able to redefine the initial transition of <code>B</code> it is necessary to give it a name (so that it can be referenced as redefined from <code>D</code>). This is yet another reason why it's good practise to give names to transitions, even if it's not mandated. But, of course, if you want to prevent anyone from creating a derived capsule with a state machine that redefines a certain transition, you can accomplish that by not giving a name to that transition. In effect, an unnamed transition is <strong>final</strong>, i.e. cannot be overridden or excluded.</p>
+<p>The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.</p>
+<p>Capsule inheritance also has a third dimension, which relates to its structure. <a href="#part">Parts</a> and <a href="#port">ports</a> defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. <a href="#protocol-and-event">protocol</a>), <a href="#port-multiplicity">multiplicity</a> and the <a href="#notification-port">notification property</a> of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. </p>
+<p>Below is an example of a capsule <code>DPPI</code> that inherits from another capsule <code>BPPI</code>. The port <code>port1</code> and the part <code>part1</code> is redefined, while the port <code>port2</code> and part <code>part2</code> are excluded.</p>
+<p><pre class="highlight"><code class="language-art">capsule BPPI {    
+    service port port1 : PR1;    
+    port port2 : PR1;    
+    part part1 : Cap1;
+    part part2 : Cap1;
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+
+capsule DPPI : BPPI {
+    service notify port redefine port1 : PR2[10];
+    optional part redefine part1 : Cap2[0..20];
+    part exclude part2;
+    port exclude port2;
+    statemachine {
+        state State2;        
+    };
+};</code></pre>
+<img alt="" src="../images/port_part_redef.png" /></p>
+<h3 id="class-inheritance">Class Inheritance</h3>
+<p>A <a href="#class-with-state-machine">class with state machine</a> can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.</p>
+<p>Contrary to <a href="#capsule-inheritance">capsule inheritance</a>, class inheritance does not imply inheritance between the state machines in the derived and base classes. This means it's not possible to redefine or exclude states and transitions in an inherited class state machine. Nor is it possible to redefine trigger operations. In fact, the derived class will have two state machines (its own, plus the one inherited from the base class) and these two state machines will execute independently of each other. That is, class inheritance is more a way of aggregating state machines rather than reusing and redefining them. Because of this, it's rather unusual to let two classes with state machines inherit each other. It's more useful to let a class with state machine inherit from other C++ classes.</p>
+<p>Below is an example of a class with state machine that inherits from two C++ classes <code>DataContainer&lt;CData&gt;</code> and <code>IDisposable</code>. </p>
+<pre class="highlight"><code class="language-art">class DataClass : `DataContainer&lt;CData&gt;`, `IDisposable` {
+    [[rt::decl]]
+    `
+        void dispose() override; // From IDisposable
+    `
+    [[rt::impl]]
+    `
+        void DataClass:dispose() {
+            // impl
+        }
+    `
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};</code></pre>
+<h3 id="protocol-inheritance">Protocol Inheritance</h3>
+<p>A <a href="#protocol-and-event">protocol</a> may inherit events from another protocol. Only one base protocol is allowed; multiple inheritance is not supported for protocols. Inherited events can be redefined, but not excluded. A redefining event in a derived protocol can change the type of the event parameter as defined in the base protocol.</p>
+<p>In the example below, the protocol <code>ExtendedMachineEvents</code> adds one more in-event <code>stop</code> to the inherited <code>MachineEvents</code> protocol. It also redefines the <code>startDeferred</code> event to change its parameter type.</p>
+<pre class="highlight"><code class="language-art">protocol MachineEvents {
+    in start();
+    in startDeferred(`unsigned long` /* milliseconds */);
+
+    out success();
+    out error(`std::string` /* error message */);
+};
+
+protocol ExtendedMachineEvents : MachineEvents {
+    in stop();
+    in redefine startDeferred(`unsigned long long`);
+};</code></pre>
+<h2 id="template">Template</h2>
+<p>A template is a type that is parameterized by means of template parameters to make it more generic. When a template is used (a.k.a. instantiated), actual template parameters must be provided that match the formal template parameters defined in the template. Both <a href="#capsule">capsules</a> and <a href="#class-with-state-machine">classes</a> can have template parameters. Just like in C++ two kinds of template parameters are supported:</p>
+<ul>
+<li><strong>Type template parameter</strong></li>
+</ul>
+<p>Replaced with a type when the template is instantiated.</p>
+<ul>
+<li><strong>Non-type template parameters</strong></li>
+</ul>
+<p>Replaced with a non-type, for example a constant value, when the template is instantiated.</p>
+<p>Template parameters may have defaults that will be used if a matching actual template parameter is not provided when instantiating the template.</p>
+<p>Below is an example of a capsule and a class with template parameters, some of which have defaults specified. The keywords <code>typename</code> and <code>class</code> can both be used for defining a type template parameter. A non-type template parameter is defined by specifying its type as a C++ code snippet.</p>
+<p><pre class="highlight"><code class="language-art">template &lt;typename T = `int`, `int` p1 = `5`&gt;
+capsule TemplateCapsule { 
+    [[rt::decl]]
+    `
+        void func(T arg1) {
+            // impl
+        }
+    `
+
+    service port mp : MachineEvents[`p1`];
+
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+
+template &lt;typename T, class U, `int` p1&gt;
+class TemplateClass : `Base&lt;T,U,p1&gt;` {
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};</code></pre>
+Template parameters can only be used from C++ code snippets, and above you see some examples of how they can be used. It's not possible to instantiate a template in Art itself. For example, even if class <code>Base</code> above was defined as an Art class, a C++ code snippet has to be used since it has template parameters.</p>
+<h2 id="property">Property</h2>
+<p>Properties are name-value pairs that provide a generic mechanism for augmenting Art elements with extra data. Such data can be utilized by tools that operate on a parsed Art file, such as the code generator and semantic checker. Most Art elements can have properties and the syntax for specifying properties is the same regardless of the kind of element. However, different kinds of Art elements can have different properties.</p>
+<p>For Art elements that have a name, properties are specified right after the name. For elements without name, properties are specified before the element itself. In both cases the syntax looks like this:</p>
+<pre class="highlight"><code class="language-art">[[rt::properties(
+&lt;property name&gt;=&lt;property value&gt;,
+&lt;property name&gt;=&lt;property value&gt;,
+...
+&lt;property name&gt;=&lt;property value&gt;
+)]]</code></pre>
+<p>All properties have a default value, so you only need to specify a property if you want to set it to something else. The default values have been chosen so that you in most cases don't need to specify any properties at all.</p>
+<p>A property has a type, and its value must conform to that type. The following property types are supported:</p>
+<ul>
+<li><strong>Boolean</strong></li>
+</ul>
+<p>Boolean properties have a value that is either <code>true</code> or <code>false</code>. If you want to set a boolean property to <code>true</code> you can use a shorthand syntax where you just specify the property name. For example:</p>
+<p><pre class="highlight"><code class="language-art">capsule CapProp 
+[[rt::properties(
+generate_file_impl=false,
+generate_file_header
+)]]
+{
+    // ...
+};</code></pre>
+Writing <code>generate_file_header</code> is equivalent to writing <code>generate_file_header=true</code>. However, this particular property has the default value <code>true</code> and hence doesn't need to be set at all.</p>
+<ul>
+<li><strong>Integer</strong></li>
+</ul>
+<p>Integer properties have a numeric value (&gt;= 0). Here is an example:</p>
+<pre class="highlight"><code class="language-art">protocol XProtocol [[rt::properties(
+    version=1
+)]]{
+    // ...
+};</code></pre>
+<ul>
+<li><strong>String</strong></li>
+</ul>
+<p>String properties have a string value, enclosed in double quotes. Here is an example:</p>
+<pre class="highlight"><code class="language-art">class MC [[rt::properties(
+    rule_config="E0022"
+)]]{
+    // ...
+};</code></pre>
+<ul>
+<li><strong>Enumeration</strong></li>
+</ul>
+<p>A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the Content Assist feature in the Art file editor. Place the cursor after the equal sign, and press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>. Here is an example of defining a property of enumeration type:</p>
+<pre class="highlight"><code class="language-art">class MC [[rt::properties(
+    kind=struct
+)]]{
+    // ...
+};</code></pre>
+<p>Note that in some cases the name of an enumeration literal starts with underscore (<code>_</code>) to prevent it from clashing with the set of Art <a href="#names-and-keywords">keywords</a>.</p>
+<p>Below is a table that lists all properties that can be used on different kinds of Art elements. Each property is described in a section of its own below the table.</p>
+<p id="art_properties"/>
+
+<table>
+<thead>
+<tr>
+<th>Art Elements</th>
+<th align="left">Property</th>
+<th align="left">Type</th>
+<th align="left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#generate_file_header">generate_file_header</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#generate_file_impl">generate_file_impl</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a>, <a href="#protocol-and-event">Protocol</a>, <a href="#port">Port</a>, <a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a> <a href="#transition">Trigger</a></td>
+<td align="left"><a href="#rule_config">rule_config</a></td>
+<td align="left">String</td>
+<td align="left">""</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a>, <a href="#protocol-and-event">Protocol</a></td>
+<td align="left"><a href="#version">version</a></td>
+<td align="left">Integer</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#generate_descriptor">generate_descriptor</a></td>
+<td align="left">Enumeration (true, false, manual)</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#kind">kind</a></td>
+<td align="left">Enumeration (_class, struct, union)</td>
+<td align="left">_class</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#generate_class">generate_class</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#generate_statemachine">generate_statemachine</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#const_target_param_for_decode">const_target_param_for_decode</a></td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#default_constructor_generate">default_constructor_generate</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#default_constructor_explicit">default_constructor_explicit</a></td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#default_constructor_inline">default_constructor_inline</a></td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#default_constructor_default">default_constructor_default</a></td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#default_constructor_delete">default_constructor_delete</a></td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td><a href="#class-with-state-machine">Class</a></td>
+<td align="left"><a href="#default_constructor_visibility">default_constructor_visibility</a></td>
+<td align="left">Enumeration (public, protected, private)</td>
+<td align="left">public</td>
+</tr>
+<tr>
+<td><a href="#port">Port</a></td>
+<td align="left"><a href="#registration">registration</a></td>
+<td align="left">Enumeration (automatic, automatic_locked, application)</td>
+<td align="left">automatic</td>
+</tr>
+<tr>
+<td><a href="#port">Port</a></td>
+<td align="left"><a href="#registration_name">registration_name</a></td>
+<td align="left">String</td>
+<td align="left">""</td>
+</tr>
+<tr>
+<td><a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a></td>
+<td align="left"><a href="#const_rtdata_param">const_rtdata_param</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#transition">Trigger</a></td>
+<td align="left"><a href="#frequent">frequent</a></td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="generate_file_header">generate_file_header</h3>
+<p>By default a <a href="#capsule">capsule</a> or <a href="#class-with-state-machine">class</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the header file, for example if you prefer to write it manually.</p>
+<h3 id="generate_file_impl">generate_file_impl</h3>
+<p>By default a <a href="#capsule">capsule</a> or <a href="#class-with-state-machine">class</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the implementation file, for example if you prefer to write it manually.</p>
+<h3 id="rule_config">rule_config</h3>
+<p>This property is used for configuring validation rules for an Art element. Read more about this <a href="../validation#configuring-validation">here</a>.</p>
+<h3 id="version">version</h3>
+<p>TODO</p>
+<h3 id="generate_descriptor">generate_descriptor</h3>
+<p>By default a type descriptor will be generated for each <a href="#class-with-state-machine">class</a>. The TargetRTS uses the type descriptor to know how to initialize, copy, move, destroy, encode or decode an instance of that class. Set this property to <code>false</code> for classes that don't need a type descriptor. Set it to <code>manual</code> if the class needs a type descriptor but you want to implement it manually rather than using the implementation that is generated by default. Note that even if you set this property to <code>true</code> so that a default type descriptor is generated, you can still override individual type descriptor functions for the class.</p>
+<h3 id="kind">kind</h3>
+<p>By default a <a href="#class-with-state-machine">class</a> is translated to a C++ class. You can use this property to instead translate it to a <code>struct</code> or <code>union</code>.</p>
+<h3 id="generate_class">generate_class</h3>
+<p>If set to <code>false</code> no C++ code will be generated for the class.</p>
+<h3 id="generate_statemachine">generate_statemachine</h3>
+<p>If set to <code>false</code> code generation for the class' state machine will be suppressed. You can use this if the state machine is informal, and you prefer to implement it manually in another way.</p>
+<h3 id="const_target_param_for_decode">const_target_param_for_decode</h3>
+<p>By default a decode function uses a non-const <code>target</code> parameter. This is because usually a decode implementation must call non-const functions on the decoded object to populate it with data from the decoding. However, if it doesn't need to call such functions you can set this property so that the <code>target</code> parameter is declared as const.</p>
+<h3 id="default_constructor_generate">default_constructor_generate</h3>
+<p>If set to <code>false</code> a default (i.e. parameterless) constructor will not be generated for the class.</p>
+<h3 id="default_constructor_explicit">default_constructor_explicit</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as explicit.</p>
+<h3 id="default_constructor_inline">default_constructor_inline</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as inline. It's implementation will then be generated into the header file.</p>
+<h3 id="default_constructor_default">default_constructor_default</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as defaulted. This tells the compiler to synthesize a default constructor even if one normally would not be synthesized (for example because there is a user-defined constructor with parameters).</p>
+<h3 id="default_constructor_delete">default_constructor_delete</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as deleted? This will cause the compiler to generate an error if it is invoked. This can be used for preventing objects of the class to be created.</p>
+<h3 id="default_constructor_visibility">default_constructor_visibility</h3>
+<p>This property can be used for setting the visibility of the default (i.e. parameterless) constructor. By default it will be <code>public</code> but you can change it either to <code>protected</code> or <code>private</code>.</p>
+<h3 id="registration">registration</h3>
+<p>This property specifies how to register an unwired port at runtime. The default is <code>automatic</code> which means the port will be registered automatically when the container capsule instance is initialized. The value <code>automatic_locked</code> has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to <code>application</code> to programmatically register the port using the functions <code>registerSPP()</code> and <code>registerSAP()</code> respectively.</p>
+<h3 id="registration_name">registration_name</h3>
+<p>This property specifies the name to use when registering a port at runtime. By default the port name is used, but it can be overridden using this property.</p>
+<h3 id="const_rtdata_param">const_rtdata_param</h3>
+<p>If set to <code>false</code> the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
+<h3 id="frequent">frequent</h3>
+<p>Triggers for which this property is <code>true</code> will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the <code>rtsBehavior</code> function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.</p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../installing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Installing" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Installing
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ide-guide/" class="md-footer__link md-footer__link--next" aria-label="Next: Working with Art" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Working with Art
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 HCL Software
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../scripts/prism.js"></script>
+      
+    
+  </body>
+</html>
