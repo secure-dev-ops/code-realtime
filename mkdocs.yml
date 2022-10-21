@@ -4,6 +4,10 @@ site_description: >-
   RTist in Code is the next generation of the RTist product
 site_url: https://opensource.hcltechsw.com
 
+#Md and HTML localions in the repository
+site_dir: docs
+docs_dir: docs-sources
+
 # Theme Configuration
 theme:
   name: material

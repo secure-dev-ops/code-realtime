@@ -1,0 +1,30 @@
+.md-tabs__link--active {
+    border-bottom: 2px solid #FFF;
+    font-weight: 600;
+}
+
+.md-tabs__link {
+    opacity: 1;
+}
+
+.md-typeset h1 {
+    font-weight: 500;
+}
+
+[dir=ltr] .md-header__title {
+	margin-left: 0;
+}
+
+[dir=rtl] .md-header__title {
+    margin-right: 0;
+}
+
+.announcement__link {
+    color: white !important;
+    text-decoration: underline;
+}
+
+.md-banner {
+	height: 50px;
+}
+
