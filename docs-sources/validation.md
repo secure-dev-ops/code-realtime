@@ -1,6 +1,6 @@
-## Overview of Validation
 {{product.name}} checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file has been changed. The rules run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.
 
+## Problem Severity
 Each validation rule has a default severity which will be used for the problems that are reported by the rule:
 
 * **Error**
@@ -14,12 +14,32 @@ Each validation rule has a default severity which will be used for the problems 
 
 You can customize the default severity of any validation rule, and you can also choose to completely disable a certain validation rule that you don't think provides any value. See [Configuring Validation](#configuring-validation) for more information.
 
-## Related elements
+## Problem Reporting
+When a validation rule has found a problem in an Art file, it is marked by underlining one or several Art elements in the file. The underlining is red for errors, yellow for warnings and blue for information messages. For example, in the capsule shown below one warning and two errors have been found.
 
+![](images/problem_underlining.png)
 
-## Using the Problems view
+You can hover the cursor over these underlinings to get a tooltip with information about the problem. Every problem has a message that describes it. Often this message gives enough information for understanding how to fix the problem. If this is not the case you can go to the [documentation](#validation-rules) about the validation rule to find more information, examples and suggestions for how the problem can be fixed. To easily find the documentation click the hyperlink that consists of the unique id of the validation rule (it starts with the prefix "ART_" followed by a 4 digit number and a name). Alternatively you can search for the validation rule id on this page.
 
-## Quick fix
+![](images/problem_hover.png)
+
+Often a problem may be associated with more than one Art element. There is a main element on which the problem will be shown, but there often also are other elements that are related to the problem in one way or another. You can navigate to related elements to get a better understanding of why a problem is reported and how to fix it. In the screenshot above the problem has a single related element (the capsule `tlSystem`) but in general a problem can have an arbitrary number of related elements.
+
+## Problems View
+Too see all problems found in all Art files in the workspace, open the Problems view. The total number of problems found are shown in the Problems view heading. By default problems are shown in a tree grouped by the Art files where they were found. However, you can also view them as a flat table instead (but note that related elements can only be seen when using the tree view).
+
+![](images/problems_view.png)
+
+If there are many problems, it can help to filter the Problems View by typing some text in the filter box. For example, you can filter using a regular expression that matches only some of the files in the workspace, to reduce the number of problems shown.
+
+## Quick Fix
+Some problems have one or several typical solutions that are possible to apply automatically by means of "code actions". If a problem has at least one such code action defined, a yellow light bulb icon will appear and a Quick Fix command will be available in the problem tooltip. 
+
+![](images/quick_fix.png)
+
+![](images/quick_fix_picker.png)
+
+Note that most semantic errors cannot be automatically resolved like this, but in some simple cases it's possible. 
 
 ## Configuring Validation
 Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
