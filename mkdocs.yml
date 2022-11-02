@@ -63,7 +63,7 @@ extra:
 # Repository
 repo_url: https://github.com/HCL-TECH-SOFTWARE/rtist-in-code
 repo_name: hcl-software/rtist-in-code
-edit_uri: edit/main/docs
+edit_uri: edit/main/docs-sources
 
 
 # Customization
