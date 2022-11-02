@@ -91,10 +91,19 @@ nav:
      - Overview: overview.md
      - Installing: installing.md
      - The Art Language: art-lang.md
-     - Working with Art: ide-guide.md
+     - Working with Art: 
+        - Working with Art: working-with-art/index.md
+        - Text Editor: working-with-art/art-editor.md
+        - Diagrams: working-with-art/diagrams.md
+        - Outline View: working-with-art/outline-view.md
+        - Type Hierarchy: working-with-art/type-hierarchy.md
      - Validation: validation.md
-     - Target RunTime System: target-rts.md
-     - Building: building.md
-     - The Art Compiler: art-comp.md
+     - Target RunTime System: 
+        - Target RunTime System: target-rts/index.md
+        - C++ API: https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html
+     - Building: 
+        - Building: building/index.md
+        - Transformation Configurations: building/transformation-configurations.md
+        - Art Compiler: building/art-compiler.md     
   - Notices: notices.md
 
