@@ -1,11 +1,25 @@
 ## Overview of Validation
-When validation runs
+{{product.name}} checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file has been changed. The rules run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.
 
-Related elements
+Each validation rule has a default severity which will be used for the problems that are reported by the rule:
 
-Using the Problems view
+* **Error**
+  An error is a problem that is severe enough to prevent building a correct application. Errors must be fixed, and it will not be possible to build the Art files into a C++ application until all errors have been resolved.
 
-Quick fix
+* **Warning**
+  A warning is a potential problem, which you may or may not choose to fix. It can for example indicate a deviation from common conventions and best practises and it can indicate that the application will not behave as you may expect.
+
+* **Information**
+  An information is just a message that you should be aware of. It doesn't really indicate a problem, and you don't need to fix it.
+
+You can customize the default severity of any validation rule, and you can also choose to completely disable a certain validation rule that you don't think provides any value. See [Configuring Validation](#configuring-validation) for more information.
+
+## Related elements
+
+
+## Using the Problems view
+
+## Quick fix
 
 ## Configuring Validation
 Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
@@ -15,7 +29,7 @@ Validation can be configured to change which rules that should run, and what sev
 * The rule [ART_0009_invalidProperty](#art_0009_invalidproperty) has its severity set to Warning
 * The rule [ART_0005_choiceWithoutElseTransition](#art_0005_choicewithoutelsetransition) has its severity set to Error
 
-To configure validation rules globally, use the setting **Validation: Rule Configuration**. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
+To configure validation rules globally, use the configuration setting `rtistic.validation.ruleConfiguration`. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
 
 To configure validation rules locally, set the property [rule_config](../art-lang#rule_config) on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.
 
@@ -33,7 +47,7 @@ capsule customCapsule // no warning even if capsule name is not capitalized
 ```
 
 ## Validation Rules
-This chapter lists all validation rules which {{product.name}} checks your Art application against. All these checks run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and potential problems are found as early as possible.
+This chapter lists all validation rules which {{product.name}} checks your Art application against.
 
 ### ART_0001_invalidNameCpp
 | Severity | Reason | Quick Fix
