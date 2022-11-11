@@ -1,0 +1,450 @@
+/* General CNX Styles */
+/* General flexbox styles */
+
+.section-flexbox-row {
+    color: var(--md-primary-bg-color);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 61rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+}
+
+.align-top {
+    align-items: top;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.flex-start {
+    justify-content: flex-start;
+}
+
+.flex-break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
+}
+
+
+/* General Text Stypes */
+.section-heading {
+    font-size: 32px;
+    line-height: 48px;
+    font-weight: 500;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.black {
+    color: black;
+}
+
+.white {
+    color: white;
+}
+
+.md-main {
+    display: none;
+}
+
+.body-text {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+/* Button Styles */
+.md-button {
+    margin-top: .5rem;
+    margin-right: .5rem;
+    color: var(--md-primary-bg-color)
+}
+
+.md-button--primary {
+    background-color: var(--md-primary-bg-color);
+    color: hsla(280deg, 37%, 48%, 1);
+    border-color: var(--md-primary-bg-color)
+}
+
+.md-button:focus,
+.md-button:hover {
+    background-color: var(--md-accent-fg-color);
+    color: var(--md-default-bg-color);
+    border-color: var(--md-accent-fg-color)
+}
+
+
+
+/* Section by section styles */
+
+
+/* Hero section styles */
+.dx-hero-container {
+    padding-top: 0rem;
+    background: url(../assets/CNX_hero.jpg) no-repeat;
+    background-position: left bottom;
+    background-size: cover;
+    height: 20rem;
+	min-height: 62vh;
+}
+
+/*Style for Video clip insertion*/
+
+/*.dx-hero__image {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: -320px;
+    margin-left: 140%;
+}*/
+
+.dx-hero__content {
+    width: 40%;
+    min-width: 520px;
+}
+
+.dx-hero__content h3 {
+    color: white;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 700;
+
+}
+.dx-hero__content h1 {
+    color: white;
+    font-size: 32px;
+    line-height: 48px;
+    font-weight: 500;
+
+}
+
+.dx-hero__content {
+    width: 40%;
+}
+
+/* Designed For You Styles */
+
+.section-designedforyou {
+    color: black;
+    background: url(../assets/CNX_overview_bkgd.jpg);
+    background-position: left bottom;
+    background-size: cover;
+    height: auto;
+    min-height: 20rem;
+}
+
+
+.dfu-hero {
+    color: var(--md-primary-bg-color);
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    margin: 1.5rem 0.8rem;
+}
+
+
+.dx-dfu__image {
+    width: 414px;
+}
+
+.dx-dfu__image img {
+    width: 414px;
+    height: 258px;
+}
+
+.dx-dfu__content {
+    width: 50%;
+    margin-left: 5rem
+}
+
+
+/* Persona Styles */
+
+.section-personas {
+    background-color: #F2F2F2;
+    color: black;
+    height: auto;
+}
+
+.persona-item {
+    font-weight: 300;
+    box-sizing: auto;
+    width: 30%;
+    padding: 0px 5px 20px 5px;
+    word-break: break-word;
+    margin: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.persona-item h2 {
+    font-weight: 600;
+    font-size: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    font-family: inherit;
+}
+
+.persona-item p {
+    font-size: 16px;
+    line-height: 1.8em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    display: block;
+}
+
+
+
+
+.persona-header {
+    text-align: center;
+}
+.persona-header h2 {
+    text-align: center;
+    font-size: 28px;
+}
+.persona-developer{
+    width: 200px;
+    height: 200px;
+
+    background: url(../assets/diagrams.png);
+
+    background-size: 200px;
+    border-radius: 100px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.persona-practitioner{
+    width: 200px;
+    height: 200px;
+
+    background: url(../assets/art-lang.png);
+
+    background-size: 200px;
+    border-radius: 100px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.persona-administrator{
+    width: 200px;
+    height: 200px;
+
+    background: url(../assets/code-gen.png);
+    background-size: 200px;
+    border-radius: 100px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+/* Academy Section Styles */
+
+.section-academy {
+    background-color: black;
+    color: white;
+    background: url(../assets/CNX_academy_bkgd.jpg);
+    background-position: left center;
+    background-size: cover;
+    height: 422px;
+    display: flex;
+    align-items: center;
+}
+
+.academy-hero__image {
+    width: 495px;
+}
+
+.academy-hero__image img {
+    width: 495px;
+    height: 326px;
+}
+
+.dx-academy-logo img {
+    width: 189px;
+    height: 30px;
+}
+
+.academy-hero__content {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+
+/* Link section styles */
+.section-links {
+    background-color: #212121;
+    color: white;
+}
+
+.link-item {
+    font-weight: 300;
+    width: 30%;
+    padding: 0px 5px 20px 5px;
+    word-break: break-word;
+    margin: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.link-item a {
+    font-weight: 400;
+    text-decoration: underline;
+    color: white;
+}
+
+
+
+@media screen and (max-width:30em) {
+
+    .section-flexbox-row {
+        color: var(--md-primary-bg-color);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .align-top {
+        justify-content: flex-start;
+    }
+    
+    .align-center {
+        justify-content: space-around;
+
+    }
+    
+    .space-around {
+        align-items: center;
+
+    }
+    
+    .flex-start {
+        align-items: top;    
+    }
+
+    .dx-hero-container {
+        height: auto;
+    }
+
+    .dx-hero__content {
+        width: 100%;
+        min-width: 200px
+    }
+
+    .section-designedforyou {
+        height: auto
+    }
+
+    .dx-dfu__image {
+        display: none
+    }
+
+    .dx-dfu__content {
+        width: 100%;
+        margin-left: 0
+    }
+
+    .academy-hero__content {
+        width: 100%;
+    }
+
+    .academy-hero__image {
+        display: none;
+    }
+
+    .section-personas {
+        height: auto;
+    }
+    
+    .section-academy {
+        height: auto;
+    }
+
+    .persona-item {
+        width: 100%
+    }
+
+    .link-item {
+        width: 100%
+    }
+}
+
+
+@media only screen and (max-width:64em) and (min-width:30em),
+        only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+    .dx-hero-container {
+        height: auto;
+    }
+
+    .dx-hero__content {
+        width: 100%;
+    }
+
+    .section-designedforyou {
+        height: auto
+    }
+
+    .dx-dfu__image {
+        display: none
+    }
+
+    .dx-dfu__content {
+        width: 100%;
+        margin-left: 0
+    }
+
+    .academy-hero__content {
+        width: 100%;
+    }
+
+    .academy-hero__image {
+        display: none;
+    }
+
+    .section-personas {
+        height: auto;
+    }
+    
+    .section-academy {
+        height: auto;
+    }
+
+}
+

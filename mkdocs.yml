@@ -1,10 +1,10 @@
 #Project Information
 site_name: HCL RTist in Code
 site_description: >-
-  RTist in Code is the next generation of the RTist product
-site_url: https://opensource.hcltechsw.com
+  RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.
+site_url: https://opensource.hcltechsw.com/rtist-in-code
 
-#Md and HTML localions in the repository
+#Md and HTML locations in the repository 
 site_dir: docs
 docs_dir: docs-sources
 
@@ -41,24 +41,20 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.keys
   - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight:      
-      use_pygments: false
-
-copyright: Copyright &copy; 2022 HCL Software
 
 extra:
+  analytics: 
+    provider: custom
+    property: UA-169645537-2
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/HCL-TECH-SOFTWARE
-  generator: false
-  #version:
-  #  provider: mike
- # analytics:
-  #  provider: google
-   # property: UA-169645537-2
+  version:
+    provider: mike
+
+
+copyright: >-
+  Copyright &copy; 2022, HCL Technologies Limited.
 
 # Repository
 repo_url: https://github.com/HCL-TECH-SOFTWARE/rtist-in-code

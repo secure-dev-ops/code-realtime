@@ -43,4 +43,4 @@ If the cursor is within the C++ code snippet when navigating, the cursor will be
 ## Making Changes in Generated C++
 
 ## Building from the Command Line
-You can build a TC from the command line by using the [Art compiler](#art-compiler.md).
+You can build a TC from the command line by using the [Art compiler](art-compiler.md).
