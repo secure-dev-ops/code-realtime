@@ -1,6 +1,6 @@
 Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another. 
 
-The Art language is an extension of C++, that provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the Art compiler. Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
+The Art language is an extension of C++, that provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../docs-sources/building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
 
 ![](images/TargetRTS.png)
 
