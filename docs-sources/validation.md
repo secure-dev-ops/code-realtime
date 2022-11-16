@@ -1,4 +1,4 @@
-{{product.name}} checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file has been changed. The rules run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.
+{$product.name$} checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file has been changed. The rules run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.
 
 ## Problem Severity
 Each validation rule has a default severity which will be used for the problems that are reported by the rule:
@@ -67,7 +67,7 @@ capsule customCapsule // no warning even if capsule name is not capitalized
 ```
 
 ## Validation Rules
-This chapter lists all validation rules which {{product.name}} checks your Art application against.
+This chapter lists all validation rules which {$product.name$} checks your Art application against.
 
 ### ART_0001_invalidNameCpp
 | Severity | Reason | Quick Fix
@@ -744,10 +744,10 @@ Here we see that both connectors are invalid. Port `p2` and port `p1` are at the
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible protocols. | N/A
 
-Ports connected by a [connector](../art-lang#connector) must have compatible protocols. For {{product.name}} this means that the protocols must be the same.
+Ports connected by a [connector](../art-lang#connector) must have compatible protocols. For {$product.name$} this means that the protocols must be the same.
 
 !!! note 
-    {{rtist.name}} uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in {{rtist.name}} the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended, and hence not supported by {{product.name}}.
+    {$rtist.name$} uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in {$rtist.name$} the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended, and hence not supported by {$product.name$}.
 
 ``` art
 protocol PROTO1 {    
@@ -770,8 +770,8 @@ capsule Top {
     service port p2~ : PROTO2;
     service port p3~ : PROTO3;
     
-    connect p1 with p2; // ART_0027 (but OK in {{rtist.name}})
-    connect p1 with p3; // ART_0027 (also not OK in {{rtist.name}} due to event ping3)
+    connect p1 with p2; // ART_0027 (but OK in {$rtist.name$})
+    connect p1 with p3; // ART_0027 (also not OK in {$rtist.name$} due to event ping3)
     
     statemachine {
         state t21;

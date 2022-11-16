@@ -1,6 +1,6 @@
 Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another. 
 
-The Art language is an extension of C++, that provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../docs-sources/building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
+The Art language is an extension of C++, that provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
 
 ![](images/TargetRTS.png)
 
@@ -29,9 +29,9 @@ The picture below shows the structure of a capsule `Top` which consists of two c
 
 Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may travel between two connected ports using a single protocol, it's possible to make one of the ports **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
 
-Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity > 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity > 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time.
+Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity > 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity > 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time. The picture below shows a capsule with a part and a port that both have multiplicity > 1. In structure diagrams such parts and ports are shown as "stacked boxes".
 
-XXX PICTURE SHOWING PARTS+PORTS WITH MULTIPLICITY XXX
+![](images/port_part_with_multiplicity.png)
 
 In addition to regular C++ member functions a capsule may have a **state machine** as its behavior. A state machine describes how an instance of the capsule may move between different **states** through its life-time. A **transition** that connects a source state with a target state may be **triggered** when an event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a **trigger** that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean **guard** condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an **effect**, which is a piece of C++ code that executes when the transition gets triggered.
 
@@ -309,7 +309,7 @@ A port defines a named point of communication for a capsule. A port is typed by 
 
 Ports are often named to describe the role or purpose of the communication that takes place on them. Note that when a capsule wants to send an event to another capsule it's the port name that is referenced, rather than the name of the receiver capsule (which the sender capsule shouldn't need to know about). By convention names of ports start with lowercase and use camelCase if the name consists of multiple words. 
 
-Here is an example of a capsule with a few ports. Note that {{product.name}} provides several predefined protocols that can be used right away, for example `Timing`. Also note that you can declare multiple ports on a single line if the ports are of the same kind (`p1` and `p2` below are both service ports).
+Here is an example of a capsule with a few ports. Note that {$product.name$} provides several predefined protocols that can be used right away, for example `Timing`. Also note that you can declare multiple ports on a single line if the ports are of the same kind (`p1` and `p2` below are both service ports).
 
 ``` art
 capsule Machine {

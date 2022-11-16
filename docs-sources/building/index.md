@@ -13,7 +13,7 @@ All these steps require information which is stored in a [transformation configu
 
 ![](images/active-tc.png)
 
-Once there is an active TC in a workspace folder, the first and second steps (generation of C++ source files and make file) will happen automatically for all Art files contained in that workspace folder. The files that get generated are placed in its own workspace folder as specified by the `targetProject` property of the TC. The C++ code in this target workspace folder is then incrementally and automatically updated as soon as any of these Art files are changed. Also the make file (which by default is placed in a subfolder called `default` in the target workspace folder) gets updated when needed. Below is an example of a simple target workspace folder.
+Once there is an active TC in a workspace folder, the first and second steps (generation of C++ source files and make file) will happen automatically for all Art files contained in that workspace folder. The files that get generated are placed in its own workspace folder as specified by the [`targetProject`](transformation-configurations.md#targetproject) property of the TC. The C++ code in this target workspace folder is then incrementally and automatically updated as soon as any of these Art files are changed. Also the make file (which by default is placed in a subfolder called `default` in the target workspace folder) gets updated when needed. Below is an example of a simple target workspace folder.
 
 ![](images/target-workspace-folder.png)
 
@@ -41,6 +41,25 @@ For C++ code snippets you can as an alternative perform the navigation using a t
 If the cursor is within the C++ code snippet when navigating, the cursor will be set at the same place in the generated C++ code. This is convenient if you start to edit a code snippet in an Art file but later realize that you instead want to edit it in the generated C++ code instead.
 
 ## Making Changes in Generated C++
+C++ code snippets that are embedded in the Art file will be enclosed by special comments in the generated C++ file. You can edit such code snippets in a generated C++ file. When you save the file your changes will be automatically propagated back to the Art file. Here is an example of what a code snippet may look like in the generated C++ code:
+
+``` c++
+//{{{USR file:///c:/rtistic/workspaces/demoWorkspace/HelloWorld.art#::HelloWorld::<TopStateMachine>::<TriggeredTransition_5>::<Effect>
+    std::cout << "Hello World!" << std::endl;
+    context()->abort();
+//}}}USR
+```
+
+The comment contains information about the source Art file and the Art element in that file that contains the code snippet.
+
+!!! note 
+    Only make edits on the lines within the special code snippet comments. If you edit outside the comment those edits will be lost the next time the file gets regenerated. And if you change the comment itself, the propagation of changes back to the Art file will no longer work correctly.
+
+One very common scenario where it's useful to change a code snippet in a generated file is when there is a compilation error reported in the code snippet. Navigating from that compilation error will take you to the code snippet in the generated file, and it's convenient to directly fix the problem there.
+
+Another scenario is when you write new code in such a code snippet and want to take advantage of the editing support for C++ that is provided by your IDE, and/or need to see the full C++ context of the edited code snippet. You can navigate from the code snippet in the Art file to the code snippet in the generated file as described [above](#navigation-between-art-and-generated-c).
+
+You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
 
 ## Building from the Command Line
 You can build a TC from the command line by using the [Art compiler](art-compiler.md).

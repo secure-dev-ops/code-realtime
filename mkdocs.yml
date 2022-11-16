@@ -72,7 +72,10 @@ extra_javascript:
 
 plugins:
   - search
-  - markdownextradata: {}
+  - markdownextradata:
+      jinja_options:
+          variable_start_string: '{$'
+          variable_end_string: '$}'
 
 extra:
   product:
