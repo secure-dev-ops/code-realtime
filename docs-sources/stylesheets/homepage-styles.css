@@ -59,14 +59,15 @@
     color: white;
 }
 
-.md-main {
-    display: none;
-}
 
 .body-text {
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
+}
+
+.body-text a {
+    color: rgb(13, 224, 13);
 }
 
 /* Button Styles */
@@ -106,16 +107,14 @@
 
 /*Style for Video clip insertion*/
 
-/*.dx-hero__image {
+.dx-hero__image {
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    flex-direction: column;
     display: flex;
-    align-items: center;
-    position: relative;
-    margin-top: -320px;
     margin-left: 140%;
-}*/
+    margin-top: -400px;
+}
 
 .dx-hero__content {
     width: 40%;
@@ -228,22 +227,8 @@
     text-align: center;
     font-size: 28px;
 }
-.persona-developer{
-    width: 200px;
-    height: 200px;
 
-    background: url(../assets/diagrams.png);
-
-    background-size: 200px;
-    border-radius: 100px;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
-.persona-practitioner{
+.feature-1{
     width: 200px;
     height: 200px;
 
@@ -258,7 +243,22 @@
     flex-grow: 0;
 }
 
-.persona-administrator{
+.feature-2{
+    width: 200px;
+    height: 200px;
+
+    background: url(../assets/diagrams.png);
+
+    background-size: 200px;
+    border-radius: 100px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.feature-3{
     width: 200px;
     height: 200px;
 

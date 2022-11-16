@@ -52,7 +52,6 @@
     bottom: 0;
     width: 80%;
     color: #ffffff;
-    /*background-color: var(--md-footer-bg-color);*/
     font-size: 13px;
     min-height: 34px;
 	margin-left: 120px;
@@ -71,9 +70,7 @@
 }
 
 .dropbtn {
-  /*background-color: #04AA6D;*/
   color: white;
- /*padding: 16px;*/
   font-size: 16px;
   border: none;
   z-index: 9999;
@@ -99,7 +96,6 @@
 .dropdown-content a {
   color: white;
   padding: 2px 6px;
-  /*text-decoration: none;*/
   display: block;
 }
 
