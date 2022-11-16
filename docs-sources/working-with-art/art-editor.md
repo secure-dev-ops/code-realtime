@@ -20,4 +20,24 @@ You can use any text editor for editing Art files, but it's highly recommended t
 ![](images/theme-art-light-pp.png)
 
 ## Content Assist
+This feature, which also is known as IntelliSense or Code Completion, helps you when editing an Art file by proposing commonly used Art constructs that are valid at the current cursor position. Invoke Content Assist by pressing ++ctrl+space++. Depending on where the cursor is placed you will get different proposals to choose from. There are four kinds of proposals as shown in the picture below:
 
+![](images/content-assist.png)
+
+* **Code Templates** are complete Art elements, for example a capsule, protocol or state. The inserted code template often has variables that you should replace as you find appropriate. For example, the code template for a capsule contains one variable for the capsule name and another for the name of the state which its state machine contains. Press ++tab++ to move forward from one variable to the next and if needed ++shift+tab++ to move backwards to a previous variable. Note that the same variable may occur in multiple places, like the `State` variable for the capsule code template which occurs both in the state definition and as a state reference in the initial transition. All occurrances of a variable are updated simultaneously when you replace the variable with a string.
+
+![](images/code-template-variables.png)
+
+* **References** are references to existing Art elements, for example a state, event or capsule. All Art elements of the correct kind which are visible from the cursor position will be available. References may have a qualifier if necessary, for example when referencing an entry point.
+
+![](images/content-assist-references.png)
+
+* **Name** represents an identifier used as the name of an Art element. It appears as a proposal at positions where the Art language allows a named element. Choosing this proposal just inserts the string "name" which probably is not so useful. However, the presence of a `name` item in the proposals list tells you that you can use an arbitrary identifier as the name of an Art element at that position. For example, in the proposals list shown in the picture above `name` appears since a triggered transition may have an optional name before its declaration. The code template for the triggered transition will not insert a name, since many transitions don't have names, but you can manually add it afterwards:
+
+``` art
+MyTransition: State -> X on timer.timeout
+```
+
+* **Keywords** are keywords from the Art language that are valid to use at the cursor position. This also includes lexical tokens such as `:` or `.` where applicable. For example, after you have typed the name for the triggered transition shown above you can use Content Assist to learn that it may be followed by either a `->` or `:` token:
+
+![](images/content-assist-keywords.png)

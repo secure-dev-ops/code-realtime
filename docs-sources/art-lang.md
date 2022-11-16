@@ -1209,7 +1209,7 @@ class MC [[rt::properties(
 
 * **Enumeration**
 
-A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the Content Assist feature in the Art file editor. Place the cursor after the equal sign, and press ++ctrl+space++. Here is an example of defining a property of enumeration type:
+A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the [Content Assist](working-with-art/art-editor.md#content-assist) feature in the Art file editor. Place the cursor after the equal sign, and press ++ctrl+space++. Here is an example of defining a property of enumeration type:
 
 ``` art
 class MC [[rt::properties(

@@ -43,7 +43,7 @@ If the cursor is within the C++ code snippet when navigating, the cursor will be
 ## Making Changes in Generated C++
 C++ code snippets that are embedded in the Art file will be enclosed by special comments in the generated C++ file. You can edit such code snippets in a generated C++ file. When you save the file your changes will be automatically propagated back to the Art file. Here is an example of what a code snippet may look like in the generated C++ code:
 
-``` c++
+``` cpp
 //{{{USR file:///c:/rtistic/workspaces/demoWorkspace/HelloWorld.art#::HelloWorld::<TopStateMachine>::<TriggeredTransition_5>::<Effect>
     std::cout << "Hello World!" << std::endl;
     context()->abort();
