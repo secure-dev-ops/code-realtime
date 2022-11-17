@@ -41,3 +41,9 @@ MyTransition: State -> X on timer.timeout
 * **Keywords** are keywords from the Art language that are valid to use at the cursor position. This also includes lexical tokens such as `:` or `.` where applicable. For example, after you have typed the name for the triggered transition shown above you can use Content Assist to learn that it may be followed by either a `->` or `:` token:
 
 ![](images/content-assist-keywords.png)
+
+## Renaming Elements
+To rename an Art element place the cursor on the element's name and press ++"F2"++ (or invoke the command **Rename Symbol** from the context menu). This performs a "rename refactoring" that updates all references to the renamed element too.
+
+!!! note 
+    Avoid renaming an element by simply editing its name. For {$product.name$} to understand that you want to rename an element, you need to use the approach described above.
