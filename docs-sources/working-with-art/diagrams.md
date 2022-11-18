@@ -31,7 +31,7 @@ Double-clicking these icons will highlight the code snippets in the Art file.
 ## Working with Diagrams
 
 ### Zooming and Panning
-When a diagram is opened it is initially centered and with medium zoom level which makes all text labels big enough for reading. However, if the diagram is big all contents may not be visible unless you zoom out. You can zoom the diagram using either the mouse scroll wheel or by means of the two-finger zoom gesture on a touch pad. To get back to the original zoom level you can click the **Center** button in the Properties view.
+When a diagram is opened it is initially centered and with medium zoom level which makes all text labels big enough for reading. However, if the diagram is big then all contents may not be visible unless you zoom out. You can zoom the diagram using either the mouse scroll wheel or by means of the two-finger zoom gesture on a touch pad. To get back to the original zoom level you can click the **Center** button in the Properties view.
 
 ![](images/center.png)
 
@@ -56,6 +56,10 @@ To avoid cluttered diagrams with too many text labels, certain information is by
 ![](images/diagram-filters.png)
 
 Information about applied filters will be remembered if you save the diagram. This information is stored in the file `.vscode/art_diagram_settings.json`.
+
+You can also set diagram filters globally using configuration settings. Such filters will apply to all diagrams unless a more specific filter has been set on an individual diagram. You can find these configuration settings by filtering on `rtistic.diagram` in the Settings:
+
+![](images/global-diagram-filters.png)
 
 ### Elements in the Properties View
 The Properties view can show additional Art elements when you select a symbol or a line. For example, it shows internal transitions of a state.
