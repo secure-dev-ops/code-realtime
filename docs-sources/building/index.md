@@ -13,7 +13,7 @@ All these steps require information which is stored in a [transformation configu
 
 ![](images/active-tc.png)
 
-Once there is an active TC in a workspace folder, the first and second steps (generation of C++ source files and make file) will happen automatically for all Art files contained in that workspace folder. The files that get generated are placed in its own workspace folder as specified by the [`targetProject`](transformation-configurations.md#targetproject) property of the TC. The C++ code in this target workspace folder is then incrementally and automatically updated as soon as any of these Art files are changed. Also the make file (which by default is placed in a subfolder called `default` in the target workspace folder) gets updated when needed. Below is an example of a simple target workspace folder.
+Once there is an active TC in a workspace folder, the first and second steps (generation of C++ source files and make file) will happen automatically for all Art files contained in that workspace folder. The files that get generated are placed in its own workspace folder as specified by the [`targetFolder`](transformation-configurations.md#targetfolder) property of the TC. The C++ code in this target workspace folder is then incrementally and automatically updated as soon as any of these Art files are changed. Also the make file (which by default is placed in a subfolder called `default` in the target workspace folder) gets updated when needed. Below is an example of a simple target workspace folder.
 
 ![](images/target-workspace-folder.png)
 

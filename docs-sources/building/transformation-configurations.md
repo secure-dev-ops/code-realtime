@@ -7,7 +7,7 @@ To create a new TC select a file in the workspace folder that contains the Art f
 
 ![](images/default-tc-name.png)
 
-A .tcjs file will be created with minimal contents. Specify the mandatory [targetProject](#targetproject) property and any other [properties](#properties) needed.
+A .tcjs file will be created with minimal contents. Specify the mandatory [targetFolder](#targetfolder) property and any other [properties](#properties) needed.
 
 ## Setting a Transformation Configuration as Active
 You can have more than one TC in your workspace, but at most one TC in each workspace folder can be **active**. Set a TC as active by right-clicking on it and perform the command **Set as Active**. An active TC is marked with a checkmark.
@@ -40,18 +40,24 @@ Specifies the arguments for the C++ linker used for linking object files and lib
 ### linkCommand
 Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is `$(LD)` which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for executable TCs.
 
+### makeArguments
+Specifies the arguments for the [make command](#makecommand) to be used.
+
+### makeCommand
+Specifies which make command to use for processing the generated make file. By default the make command is `$defaultMakeCommand` which gets its value from which TargetRTS configuration that is used.
+
 ### targetConfiguration
-Specifies which TargetRTS configuration to use. The TargetRTS location specified in the [targetServicesLibrary](#targetserviceslibrary) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
+Specifies which TargetRTS configuration to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
 
 ### targetConfigurationName
 This property maps to a subfolder of the target folder where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is `default`.
 
-### targetProject
+### targetLocation
 When a TC is built all generated files (C++ code, make file, binaries etc) will be placed in a so called target folder. This property specifies the name of that folder. The target folder will be added as a workspace folder the first time the TC is built. You can choose any name that is a valid name of a folder, but it can be convenient to base the name on the workspace folder that contains the TC so that the target folder appears near it. For example, if the workspace folder that contains the TC is called "MyApp" you can use "MyApp_target" as the name of the target folder.
 
-`targetProject` is a mandatory TC property and it has no default value.
+`targetLocation` is a mandatory TC property and it has no default value.
 
-### targetServicesLibrary
+### targetRTSLocation
 Specifies the location of the TargetRTS to use. The default value of this property is `${RSA_RT_HOME}/C++/TargetRTS` which points at the folder in the {$product.name$} installation where the TargetRTS C++ implementation resides.
 
 ### topCapsule
