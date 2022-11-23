@@ -1,0 +1,6 @@
+art-samples/*_target/*.cpp
+art-samples/*_target/*.h
+art-samples/*_target/**/*.json
+art-samples/*_target/default/*
+art-samples/**/art_build_settings.json
+art-samples/**/art_diagram_settings.json

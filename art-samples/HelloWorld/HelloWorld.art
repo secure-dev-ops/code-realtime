@@ -1,9 +1,9 @@
-capsule DemoCap {
+capsule HelloWorld {
     [[rt::impl_preface]]
     `
         #include <iostream>
     `
-    /* This is my timer */
+    /* Ports */
     behavior port timer : Timing;
     /* Parts */
     /* Connectors */
