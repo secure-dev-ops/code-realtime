@@ -5,6 +5,7 @@
 
 .md-tabs__link {
     opacity: 1;
+	
 }
 
 .md-typeset h1 {
@@ -24,7 +25,88 @@
     text-decoration: underline;
 }
 
+
 .md-banner {
-	height: 50px;
+    height: 50px;
+    background-color: black;  
+	overflow: hidden;
+}
+
+
+.md-header{
+    background-color: #212121;
+    box-shadow: none;
+}
+
+.md-tabs{
+    background-color: #212121;
+}
+
+ 
+.nav-link {
+	margin-right: 20px;
+}
+ 
+ .md-footer-hcl  {
+    text-align: center;
+    bottom: 0;
+    width: 80%;
+    color: #ffffff;
+    font-size: 13px;
+    min-height: 34px;
+	margin-left: 120px;
+	   
+ }
+ 
+ .footer-launch::after {
+    content: url("../assets/new-tab.svg");
+    width: 20px;
+    height: 20px;
+    margin: auto 2px;
+    padding-top: 3px;
+    display: inline-block;
+    vertical-align: text-bottom;
+	
+}
+
+.dropbtn {
+  color: white;
+  font-size: 16px;
+  border: none;
+  z-index: 9999;
+}
+
+.dropdown {
+  float: right;
+  z-index: 9999;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #212121;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 9999;
+  font-size: 14px;
+  
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 2px 6px;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.md-banner--feedback {
+margin-left: 180px;
+margin-right: 150px;
+text-align: center;
+
 }
 

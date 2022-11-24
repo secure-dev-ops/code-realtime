@@ -7,11 +7,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is the next generation of the RTist product">
+        <meta name="description" content="RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
-        <link rel="canonical" href="https://opensource.hcltechsw.com/validation/">
+        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/validation/">
       
       <link rel="icon" href="../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
@@ -48,10 +48,30 @@
     <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+<!--  OneTrust Cookies Consent Notice start  -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/99b8d579-c52a-43c9-ab7b-a35e60de7103/OtAutoBlock.js"></script>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="99b8d579-c52a-43c9-ab7b-a35e60de7103"></script>
+<script type="text/javascript"> 
+	function OptanonWrapper() { } 
+</script>
+<!--  OneTrust Cookies Consent Notice end  -->
+
+<!--  Global site tag (gtag.js) - Google Analytics start -->
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-169645537-2" class="optanon-category-C0002-C0003-C0004-C0005"></script>
+<script type="text/plain" class="optanon-category-C0002-C0003-C0004-C0005">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-169645537-2');
+</script>
+ 
+<!--  Global site tag (gtag.js) - Google Analytics end -->
 
     
     
-  <meta property="og:image" content="https://opensource.hcltechsw.com/digital-experience/site-thumbnail.png" />
+  <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
+  
 
   </head>
   
@@ -71,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview-of-validation" class="md-skip">
+        <a href="#problem-severity" class="md-skip">
           Skip to content
         </a>
       
@@ -81,9 +101,38 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-
+<div>
    <a href="https://www.hcltechsw.com/"> 
-  <img width="150" height="50" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+  <img width="150" height="30" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="dropdown">
+  <button class="dropbtn">Resources <i class="fa fa-caret-down"></i></button> 
+  <div class="dropdown-content">
+<!--   <a href="https://support.hcltechsw.com" target="_blank">Customer Support</a>
+  <a href="https://academy.hcltechsw.com" target="_blank">Software Academy</a>
+  <a href="https://support.hcltechsw.com/community" target="_blank">Community Forums</a> -->
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples" target="_blank">Samples</a>
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/discussions">Forum</a>
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/issues" target="_blank">Issues</a>
+  <a href="https://www.youtube.com/hashtag/rtistincode" target="_blank">Videos</a>
+
+</div>
+</div>
+  
+  <!-- Uncomment the following announcement if you need it -->
+  <!--
+ <div class="md-banner--feedback" style="display:inline">
+
+  <strong>We value your feedback on this site.</strong> Please report any issues you find <a class="announcement__link" href="https://github.com/HCL-TECH-SOFTWARE/digital-experience/issues">via Github</a>. 
+  
+  <div class="md-banner--feedback">Looking for v8.5 or v9.0? <a class="announcement__link"  href="https://help.hcltechsw.com/digital-experience/9.5/welcome_hcl_dx.html">Check the legacy Help Center.</a>
+</div>  
+</div>
+-->
+
+</div>
 
           </div>
         </aside>
@@ -383,10 +432,107 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../working-with-art/">Working with Art</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Working with Art
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../ide-guide/" class="md-nav__link">
-        Working with Art
+      <a href="../working-with-art/art-editor/" class="md-nav__link">
+        Text Editor
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/diagrams/" class="md-nav__link">
+        Diagrams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/outline-view/" class="md-nav__link">
+        Outline View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/references/" class="md-nav__link">
+        References View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -428,8 +574,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview-of-validation" class="md-nav__link">
-    Overview of Validation
+  <a href="#problem-severity" class="md-nav__link">
+    Problem Severity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-reporting" class="md-nav__link">
+    Problem Reporting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problems-view" class="md-nav__link">
+    Problems View
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-fix" class="md-nav__link">
+    Quick Fix
   </a>
   
 </li>
@@ -685,9 +852,116 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../target-rts/">Target RunTime System</a>
+          
+            <label for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Target RunTime System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../target-rts/" class="md-nav__link">
-        Target RunTime System
+      <a href="https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html" class="md-nav__link">
+        C++ API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../building/">Building</a>
+          
+            <label for="__nav_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Building" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Building
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/transformation-configurations/" class="md-nav__link">
+        Transformation Configurations
       </a>
     </li>
   
@@ -700,9 +974,16 @@
   
   
     <li class="md-nav__item">
-      <a href="../building/" class="md-nav__link">
-        Building
+      <a href="../building/art-compiler/" class="md-nav__link">
+        Art Compiler
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -713,10 +994,39 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../art-comp/" class="md-nav__link">
-        The Art Compiler
-      </a>
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../releases/">Releases</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -768,8 +1078,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview-of-validation" class="md-nav__link">
-    Overview of Validation
+  <a href="#problem-severity" class="md-nav__link">
+    Problem Severity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-reporting" class="md-nav__link">
+    Problem Reporting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problems-view" class="md-nav__link">
+    Problems View
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-fix" class="md-nav__link">
+    Quick Fix
   </a>
   
 </li>
@@ -1023,7 +1354,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/edit/main/docs/validation.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/edit/main/docs-sources/validation.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
@@ -1031,11 +1362,39 @@
 
   <h1>Validation</h1>
 
-<h2 id="overview-of-validation">Overview of Validation</h2>
-<p>When validation runs</p>
-<p>Related elements</p>
-<p>Using the Problems view</p>
-<p>Quick fix</p>
+<p>RTist in Code checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file has been changed. The rules run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.</p>
+<h2 id="problem-severity">Problem Severity</h2>
+<p>Each validation rule has a default severity which will be used for the problems that are reported by the rule:</p>
+<ul>
+<li>
+<p><strong>Error</strong>
+  An error is a problem that is severe enough to prevent building a correct application. Errors must be fixed, and it will not be possible to build the Art files into a C++ application until all errors have been resolved.</p>
+</li>
+<li>
+<p><strong>Warning</strong>
+  A warning is a potential problem, which you may or may not choose to fix. It can for example indicate a deviation from common conventions and best practises and it can indicate that the application will not behave as you may expect.</p>
+</li>
+<li>
+<p><strong>Information</strong>
+  An information is just a message that you should be aware of. It doesn't really indicate a problem, and you don't need to fix it.</p>
+</li>
+</ul>
+<p>You can customize the default severity of any validation rule, and you can also choose to completely disable a certain validation rule that you don't think provides any value. See <a href="#configuring-validation">Configuring Validation</a> for more information.</p>
+<h2 id="problem-reporting">Problem Reporting</h2>
+<p>When a validation rule has found a problem in an Art file, it is marked by underlining one or several Art elements in the file. The underlining is red for errors, yellow for warnings and blue for information messages. For example, in the capsule shown below one warning and two errors have been found.</p>
+<p><img alt="" src="../images/problem_underlining.png" /></p>
+<p>You can hover the cursor over these underlinings to get a tooltip with information about the problem. Every problem has a message that describes it. Often this message gives enough information for understanding how to fix the problem. If this is not the case you can go to the <a href="#validation-rules">documentation</a> about the validation rule to find more information, examples and suggestions for how the problem can be fixed. To easily find the documentation click the hyperlink that consists of the unique id of the validation rule (it starts with the prefix "ART_" followed by a 4 digit number and a name). Alternatively you can search for the validation rule id on this page.</p>
+<p><img alt="" src="../images/problem_hover.png" /></p>
+<p>Often a problem may be associated with more than one Art element. There is a main element on which the problem will be shown, but there often also are other elements that are related to the problem in one way or another. You can navigate to related elements to get a better understanding of why a problem is reported and how to fix it. In the screenshot above the problem has a single related element (the capsule <code>tlSystem</code>) but in general a problem can have an arbitrary number of related elements.</p>
+<h2 id="problems-view">Problems View</h2>
+<p>Too see all problems found in all Art files in the workspace, open the Problems view. The total number of problems found are shown in the Problems view heading. By default problems are shown in a tree grouped by the Art files where they were found. However, you can also view them as a flat table instead (but note that related elements can only be seen when using the tree view).</p>
+<p><img alt="" src="../images/problems_view.png" /></p>
+<p>If there are many problems, it can help to filter the Problems View by typing some text in the filter box. For example, you can filter using a regular expression that matches only some of the files in the workspace, to reduce the number of problems shown.</p>
+<h2 id="quick-fix">Quick Fix</h2>
+<p>Some problems have one or several typical solutions that are possible to apply automatically by means of "code actions". If a problem has at least one such code action defined, a yellow light bulb icon will appear and a Quick Fix command will be available in the problem tooltip. </p>
+<p><img alt="" src="../images/quick_fix.png" /></p>
+<p><img alt="" src="../images/quick_fix_picker.png" /></p>
+<p>Note that most semantic errors cannot be automatically resolved like this, but in some simple cases it's possible. </p>
 <h2 id="configuring-validation">Configuring Validation</h2>
 <p>Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every <a href="#validation-rules">validation rule</a> is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property <a href="../art-lang#rule_config">rule_config</a>. In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration <code>X0003,I0004,W0009,E0005</code> means the following:</p>
 <ul>
@@ -1044,20 +1403,21 @@
 <li>The rule <a href="#art_0009_invalidproperty">ART_0009_invalidProperty</a> has its severity set to Warning</li>
 <li>The rule <a href="#art_0005_choicewithoutelsetransition">ART_0005_choiceWithoutElseTransition</a> has its severity set to Error</li>
 </ul>
-<p>To configure validation rules globally, use the setting <strong>Validation: Rule Configuration</strong>. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.</p>
+<p>To configure validation rules globally, use the configuration setting <code>rtistic.validation.ruleConfiguration</code>. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.</p>
 <p>To configure validation rules locally, set the property <a href="../art-lang#rule_config">rule_config</a> on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule <a href="#art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</a> on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.</p>
-<pre class="highlight"><code class="language-art">capsule customCapsule // no warning even if capsule name is not capitalized
+<pre><code class="language-art">capsule customCapsule // no warning even if capsule name is not capitalized
 [[rt::properties(
-    rule_config="X0003"
+    rule_config=&quot;X0003&quot;
 )]]{
 
     statemachine {
         state customState; // no warning here too
         initial -&gt; customState;
     };
-};</code></pre>
+};
+</code></pre>
 <h2 id="validation-rules">Validation Rules</h2>
-<p>This chapter lists all validation rules which RTist in Code checks your Art application against. All these checks run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and potential problems are found as early as possible.</p>
+<p>This chapter lists all validation rules which RTist in Code checks your Art application against.</p>
 <h3 id="art_0001_invalidnamecpp">ART_0001_invalidNameCpp</h3>
 <table>
 <thead>
@@ -1076,9 +1436,10 @@
 </tbody>
 </table>
 <p>Art elements are translated to C++ elements without changing the elements' names. Hence you need to choose names for Art elements that are valid in C++. For example, <a href="../art-lang#names-and-keywords">C++ keywords</a> cannot be used. If you ignore this error you can expect errors when compiling the generated C++ code.</p>
-<pre class="highlight"><code class="language-art">protocol InvalidNameProtocol {
-    in virtual(); // ART_0001 ("virtual" is a C++ keyword)
-};</code></pre>
+<pre><code class="language-art">protocol InvalidNameProtocol {
+    in virtual(); // ART_0001 (&quot;virtual&quot; is a C++ keyword)
+};
+</code></pre>
 <h3 id="art_0002_duplicatenamesinscope">ART_0002_duplicateNamesInScope</h3>
 <table>
 <thead>
@@ -1107,7 +1468,7 @@
 <li>Trigger operations of a <a href="../art-lang#class-with-state-machine">class</a>. Note that several trigger operations may have the same name as long as their signatures are unique.</li>
 </ul>
 <p>All elements with clashing names or signatures will be reported as related elements. Use this to find the element(s) that need to be renamed.</p>
-<pre class="highlight"><code class="language-art">protocol DupProto {
+<pre><code class="language-art">protocol DupProto {
     in inEvent1(); // ART_0002
     in inEvent1(); // ART_0002
     out inEvent1(); // OK (symmetric event)
@@ -1120,7 +1481,8 @@ class DNIS {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</h3>
 <table>
 <thead>
@@ -1146,12 +1508,13 @@ class DNIS {
 <li><a href="../art-lang#state">State</a></li>
 </ul>
 <p>A Quick Fix is available that will fix the problem by capitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a Rename.</p>
-<pre class="highlight"><code class="language-art">capsule myCapsule { // ART_0003
+<pre><code class="language-art">capsule myCapsule { // ART_0003
     statemachine {
         state sstate; // ART_0003
         initial -&gt; sstate; 
     };
-};</code></pre>
+};
+</code></pre>
 <p>In this context an underscore (<code>_</code>) is considered a valid upper case character, so all names that start with underscore are accepted by this validation rule. </p>
 <h3 id="art_0004_nameshouldstartwithlowercase">ART_0004_nameShouldStartWithLowerCase</h3>
 <table>
@@ -1181,9 +1544,10 @@ class DNIS {
 <li><a href="../art-lang#transition">Transition</a></li>
 </ul>
 <p>A Quick Fix is available that will fix the problem by decapitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a Rename.</p>
-<pre class="highlight"><code class="language-art">protocol LowerCaseTestProtocol {
+<pre><code class="language-art">protocol LowerCaseTestProtocol {
     out MyEvent(); // ART_0004
-};</code></pre>
+};
+</code></pre>
 <p>In this context an underscore (<code>_</code>) is considered a valid lower case character, so all names that start with underscore are accepted by this validation rule. </p>
 <h3 id="art_0005_choicewithoutelsetransition">ART_0005_choiceWithoutElseTransition</h3>
 <table>
@@ -1203,7 +1567,7 @@ class DNIS {
 </tbody>
 </table>
 <p>If no outgoing transition of a choice is enabled at runtime (because no outgoing transition has a guard condition that is fulfilled) then the state machine will get stuck in the choice for ever. To avoid this you should ensure that at least one outgoing transition is enabled. A good way to do this is to use 'else' as the guard condition for one of the outgoing transitions. Such an else-transition will then execute if no other outgoing transition of the choice is enabled.</p>
-<pre class="highlight"><code class="language-art">capsule ChoiceSample {
+<pre><code class="language-art">capsule ChoiceSample {
     statemachine {
         state State;
         initial -&gt; State;
@@ -1211,7 +1575,8 @@ class DNIS {
         State -&gt; x;
         x -&gt; State when `return getVal() == 5;`;
     };
-};</code></pre>
+};
+</code></pre>
 <p>Note that a transition without any guard condition is equivalent to a transition with a guard condition that is always fulfilled (i.e. a guard condition that returns true). An outgoing transition from a choice or junction without any guard is therefore also an else-transition.</p>
 <h3 id="art_0006_choicewithoutoutgoingtransitions">ART_0006_choiceWithoutOutgoingTransitions</h3>
 <table>
@@ -1231,14 +1596,15 @@ class DNIS {
 </tbody>
 </table>
 <p>A choice should typically have at least two outgoing transitions to be meaningful. Having only one outgoing transition is possible if it is an else-transition (i.e. a transition with an 'else' guard, or without any guard at all). However, a choice without any outgoing transition is not allowed since the state machine always will get stuck when reaching such a choice.</p>
-<pre class="highlight"><code class="language-art">capsule ChoiceSample {
+<pre><code class="language-art">capsule ChoiceSample {
     statemachine {
         state State;
         initial -&gt; State;
         choice x; // ART_0006
         State -&gt; x;        
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0007_choicewithtoomanyelsetransitions">ART_0007_choiceWithTooManyElseTransitions</h3>
 <table>
 <thead>
@@ -1257,7 +1623,7 @@ class DNIS {
 </tbody>
 </table>
 <p>It's good practise to have an outgoing else-transition (i.e. a transition with an 'else' guard, or without any guard at all) for a choice since it will prevent the state machine from getting stuck in the choice at runtime. However, there should not be more than one such else-transition defined, since otherwise it's ambiguous which one of them to trigger in the case none of the other outgoing transitions from the choice are enabled.</p>
-<pre class="highlight"><code class="language-art">capsule ChoiceSample {
+<pre><code class="language-art">capsule ChoiceSample {
     statemachine {
         state State, State2;
         initial -&gt; State;
@@ -1266,7 +1632,8 @@ class DNIS {
         x -&gt; State;
         x -&gt; State2 when `else`;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0008_initialtransitioncount">ART_0008_initialTransitionCount</h3>
 <table>
 <thead>
@@ -1285,7 +1652,7 @@ class DNIS {
 </tbody>
 </table>
 <p>A state machine of a capsule or class must have exactly one initial transition. A common reason for this error is that you have introduced inheritance between two capsules which both have state machines with an initial transition. Because of that the derived capsule will have two initial transitions (the one it defines itself locally plus the one it inherits from the base capsule). In this case the error can be fixed by either deleting or excluding the initial transition from the derived capsule, or to let it redefine the initial transition from the base capsule. </p>
-<pre class="highlight"><code class="language-art">capsule InitTransCap2 {
+<pre><code class="language-art">capsule InitTransCap2 {
     statemachine {
         state State;
         initial -&gt; State;
@@ -1297,7 +1664,8 @@ capsule InitTransCap3 : InitTransCap2 {
         state State;
         initial -&gt; State; // ART_0008
     };
-};</code></pre>
+};
+</code></pre>
 <p>Note that if the initial transition in the base capsule has no name, the derived capsule cannot exclude or redefine it. It's therefore good practise to name the initial transition if you expect your capsule to be inherited from.</p>
 <h3 id="art_0009_invalidproperty">ART_0009_invalidProperty</h3>
 <table>
@@ -1318,10 +1686,11 @@ capsule InitTransCap3 : InitTransCap2 {
 </table>
 <p>Most Art elements have <a href="../art-lang#art_properties">properties</a> that can be set to change their default values. Different elements have different properties and if you get this error it means you have referenced a non-existing property for an Art element. </p>
 <p>A Quick Fix is available for removing the setting of the invalid property. Use Content Assist (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>) to get a list of valid properties for an Art element.</p>
-<pre class="highlight"><code class="language-art">protocol IP_PROTO [[rt::properties(
-    no_property = 4 // ART_0009 (A protocol has no property called "no_property")
+<pre><code class="language-art">protocol IP_PROTO [[rt::properties(
+    no_property = 4 // ART_0009 (A protocol has no property called &quot;no_property&quot;)
 )]] {
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0010_invalidpropertyvalue">ART_0010_invalidPropertyValue</h3>
 <table>
 <thead>
@@ -1340,14 +1709,15 @@ capsule InitTransCap3 : InitTransCap2 {
 </tbody>
 </table>
 <p>Most Art elements have <a href="../art-lang#art_properties">properties</a> and every property has a type that is either boolean, integer, string or an enumeration. The type of the value assigned to a property must match the property's type. For example, you cannot assign an integer value to a boolean property. </p>
-<pre class="highlight"><code class="language-art">capsule IPV_Cap [[rt::properties(
-    generate_file_header=4 // ART_0010 ("generate_file_header" is a boolean property)
+<pre><code class="language-art">capsule IPV_Cap [[rt::properties(
+    generate_file_header=4 // ART_0010 (&quot;generate_file_header&quot; is a boolean property)
 )]]{
     statemachine {
         state State;
         initial -&gt; State;
     };
-};  </code></pre>
+};  
+</code></pre>
 <h3 id="art_0011_propertysettodefaultvalue">ART_0011_propertySetToDefaultValue</h3>
 <table>
 <thead>
@@ -1367,14 +1737,15 @@ capsule InitTransCap3 : InitTransCap2 {
 </table>
 <p>Most Art elements have <a href="../art-lang#art_properties">properties</a> and every property has a default value. It's unnecessary to explicitly set a property to its default value. </p>
 <p>A Quick Fix is available for removing the setting of the property. </p>
-<pre class="highlight"><code class="language-art">class C_PropDefaultValue [[rt::properties(
+<pre><code class="language-art">class C_PropDefaultValue [[rt::properties(
     const_target_param_for_decode=false // ART_0011
 )]] {
     statemachine {
         state State;
         initial -&gt; State;
     };
-};  </code></pre>
+};  
+</code></pre>
 <h3 id="art_0012_invalidcodesnippet">ART_0012_invalidCodeSnippet</h3>
 <table>
 <thead>
@@ -1394,7 +1765,7 @@ capsule InitTransCap3 : InitTransCap2 {
 </table>
 <p>A <a href="../art-lang#embedded-c-code">code snippet</a>'s kind is specified after the prefix <code>rt::</code>. Different Art elements may have different kinds of code snippets. Also, some Art elements may have multiple code snippets of a certain kind, while others only may have one code snippet of each kind. </p>
 <p>A Quick Fix is available for removing the invalid code snippet. </p>
-<pre class="highlight"><code class="language-art">[[rt::header_preface]] // ART_0012 (code snippet for capsule/class placed at file level)
+<pre><code class="language-art">[[rt::header_preface]] // ART_0012 (code snippet for capsule/class placed at file level)
 `
     // YourCodeHere
 `
@@ -1419,7 +1790,8 @@ capsule Name {
         state State;
         initial -&gt; State;
     };
-};  </code></pre>
+};  
+</code></pre>
 <h3 id="art_0013_partmultiplicityerror">ART_0013_partMultiplicityError</h3>
 <table>
 <thead>
@@ -1438,14 +1810,15 @@ capsule Name {
 </tbody>
 </table>
 <p>If a <a href="../art-lang#part">part</a> has a multiplicity that specifies a range (i.e. both a lower and upper multiplicity), then the lower multiplicity must be less than the upper multiplicity.</p>
-<pre class="highlight"><code class="language-art">capsule PME_Cap {
+<pre><code class="language-art">capsule PME_Cap {
     part myPart : OtherCap [2..2]; // ART_0013
 
     statemachine {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0014_partkindmultiplicityinconsistency">ART_0014_partKindMultiplicityInconsistency</h3>
 <table>
 <thead>
@@ -1470,7 +1843,7 @@ capsule Name {
 <li>It's only possible to specify the part multiplicity using a C++ expression if the part is fixed.</li>
 </ul>
 <p>In case any of these inconsistencies is detected, the faulty multiplicity will be ignored and a default multiplicity (see <a href="../art-lang#part">Part</a>) will be used instead.</p>
-<pre class="highlight"><code class="language-art">capsule PKMI_Cap { 
+<pre><code class="language-art">capsule PKMI_Cap { 
     fixed part myPart : OtherCap [0..2]; // ART_0014 (Fixed part should not have lower multiplicity 0)
     optional part myPart2 : OtherCap [1..5]; // ART_0014 (Optional part should not have lower multiplicity &gt; 0)
     optional part myPart3 : OtherCap [`5`]; // ART_0014 (Only a fixed part may have its multiplicity specified with a code expression)
@@ -1479,7 +1852,8 @@ capsule Name {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0015_internaltransitionoutsidestate">ART_0015_internalTransitionOutsideState</h3>
 <table>
 <thead>
@@ -1498,7 +1872,7 @@ capsule Name {
 </tbody>
 </table>
 <p>An <a href="../art-lang#internal-transition">internal transition</a> specifies events that can be handled while a state machine is in a certain state without leaving that state. Hence it's only possible to define an internal transition inside a state. It does not make sense to define an internal transition directly in the top state machine.</p>
-<pre class="highlight"><code class="language-art">capsule IntTransOutsideState {
+<pre><code class="language-art">capsule IntTransOutsideState {
     service port timer : Timing;
 
     statemachine {
@@ -1508,7 +1882,8 @@ capsule Name {
         initial -&gt; State;
         terror : on timer.timeout ` `; // ART_0015
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0016_circularinheritance">ART_0016_circularInheritance</h3>
 <table>
 <thead>
@@ -1532,7 +1907,7 @@ capsule Name {
 <p>Both capsules and classes, but not protocols, may have C++ base classes specified by means of C++ code snippets. Such inheritance relationships are not checked by this validation rule, but by the C++ compiler.</p>
 </div>
 <p>The elements that form the inheritance cycle will be reported as related elements. Use this to decide how to break the inheritance cycle.</p>
-<pre class="highlight"><code class="language-art">protocol PR1 : PR2 { // ART_0016
+<pre><code class="language-art">protocol PR1 : PR2 { // ART_0016
 
 };
 
@@ -1566,7 +1941,8 @@ class C4 : C3 { // ART_0016
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0017_circularcomposition">ART_0017_circularComposition</h3>
 <table>
 <thead>
@@ -1590,7 +1966,7 @@ class C4 : C3 { // ART_0016
 <p>Only the static type of fixed capsule parts are used when looking for composition cycles. If a part has a <a href="../art-lang#part-with-capsule-factory">capsule factory</a> that specifies a create function using C++ code, then a different dynamic type may be specified for the created capsule instances for that part. This opens up for more possibilities of introducing cycles in the composition hierarchy that will not be detected by this validation rule.</p>
 </div>
 <p>The fixed parts that form the composition cycle will be reported as related elements. Use this to decide how to break the composition cycle.</p>
-<pre class="highlight"><code class="language-art">capsule CComp2 {    
+<pre><code class="language-art">capsule CComp2 {    
     fixed part p2 : CComp3; // ART_0017
 
     statemachine {
@@ -1606,7 +1982,8 @@ capsule CComp3
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0018_circulartransitions">ART_0018_circularTransitions</h3>
 <table>
 <thead>
@@ -1626,7 +2003,7 @@ capsule CComp3
 </table>
 <p>A <a href="../art-lang#choice-and-junction">junction</a> can split an incoming transition flow into multiple outgoing transition flows based on evaluating guard conditions for the outgoing transitions. If care is not taken it's possible to introduce cycles in the outgoing transition flows. Such cycles could lead to infinite recursion when the state machine executes, depending on what guard conditions will be fulfilled at runtime. You should therefore ensure there are no such transition cycles.</p>
 <p>The transitions that form the cycle will be reported as related elements. Use this to decide how to break the transition cycle.</p>
-<pre class="highlight"><code class="language-art">capsule CT_cap {
+<pre><code class="language-art">capsule CT_cap {
     statemachine { // ART_0018
         state S1;
         initial -&gt; S1;
@@ -1635,7 +2012,8 @@ capsule CComp3
         t2: j1 -&gt; j2;
         t3: j2 -&gt; j1;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0019_unwiredportbothpublisherandsubscriber">ART_0019_unwiredPortBothPublisherAndSubscriber</h3>
 <table>
 <thead>
@@ -1654,14 +2032,15 @@ capsule CComp3
 </tbody>
 </table>
 <p>An <a href="../art-lang#unwired-port">unwired port</a> can at runtime be connected to another unwired port. One of the connected ports will be a publisher port (a.k.a SPP port) while the other will be a subscriber port (a.k.a SAP port). An unwired port can either be statically declared as being a publisher or subscriber port, or it can be dynamically decided at port registration time if the port should be a publisher or subscriber. The same port can not be both a subscriber and a publisher port at the same time.</p>
-<pre class="highlight"><code class="language-art">capsule UnwiredCapsule {  
+<pre><code class="language-art">capsule UnwiredCapsule {  
     subscribe publish port p1 : UnwiredProtocol; // ART_0019
 
     statemachine {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0020_wiredportwithunwiredproperties">ART_0020_wiredPortWithUnwiredProperties</h3>
 <table>
 <thead>
@@ -1680,16 +2059,17 @@ capsule CComp3
 </tbody>
 </table>
 <p>An <a href="../art-lang#unwired-port">unwired port</a> may have properties that control how it will be registered at runtime (see <a href="../art-lang#registration">registration</a> and <a href="../art-lang#registration_name">registration_name</a>). These properties have no meaning and will be ignored for wired ports. </p>
-<pre class="highlight"><code class="language-art">capsule UnwiredCapsule2 {
+<pre><code class="language-art">capsule UnwiredCapsule2 {
     port p1 [[rt::properties(
-        registration_name="hi"
+        registration_name=&quot;hi&quot;
     )]]: UnwiredProtocol; // ART_0020
 
     statemachine {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0021_unwiredportregnamesameasportname">ART_0021_unwiredPortRegNameSameAsPortName</h3>
 <table>
 <thead>
@@ -1708,9 +2088,9 @@ capsule CComp3
 </tbody>
 </table>
 <p>When an <a href="../art-lang#unwired-port">unwired port</a> is registered a name is used that by default is the name of the port. The property <a href="../art-lang#registration_name">registration_name</a> can be used for specifying another name. It's hence unnecessary to use that property for specifying the name of the port, since it is the default name that anyway would be used. </p>
-<pre class="highlight"><code class="language-art">capsule UnwiredCapsule3 {
+<pre><code class="language-art">capsule UnwiredCapsule3 {
     unwired behavior port p1~ [[rt::properties(
-        registration_name = "p1"
+        registration_name = &quot;p1&quot;
     )]]
     : UnwiredProtocol; // ART_0021 
 
@@ -1718,7 +2098,8 @@ capsule CComp3
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0022_ruleconfigproblem">ART_0022_ruleConfigProblem</h3>
 <table>
 <thead>
@@ -1737,14 +2118,15 @@ capsule CComp3
 </tbody>
 </table>
 <p>The <a href="../art-lang#rule_config">rule_config</a> property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the <a href="../art-lang#rule_config">rule_config</a> property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See <a href="#configuring-validation">Configuring Validation</a> for more information and examples.</p>
-<pre class="highlight"><code class="language-art">capsule RCP [[rt::properties(
-    rule_config="X0000" // ART_0022 (a validation rule with id 0000 does not exist)
+<pre><code class="language-art">capsule RCP [[rt::properties(
+    rule_config=&quot;X0000&quot; // ART_0022 (a validation rule with id 0000 does not exist)
 )]]{
     statemachine {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0023_entryexitcodecount">ART_0023_entryExitCodeCount</h3>
 <table>
 <thead>
@@ -1763,7 +2145,7 @@ capsule CComp3
 </tbody>
 </table>
 <p>A state can at most have one entry and one exit action. Solve this problem by merging all entry and exit actions of the state to a single entry and exit action that performs everything that should be done when the state is entered and exited.</p>
-<pre class="highlight"><code class="language-art">capsule CX {
+<pre><code class="language-art">capsule CX {
     statemachine {
         state Composite {
             entry // ART_0023
@@ -1777,7 +2159,8 @@ capsule CComp3
         };
         initial -&gt; Composite;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0024_unwiredportnotbehavior">ART_0024_unwiredPortNotBehavior</h3>
 <table>
 <thead>
@@ -1797,14 +2180,15 @@ capsule CComp3
 </table>
 <p>An <a href="../art-lang#unwired-port">unwired port</a> cannot be connected to another port by means of a <a href="../art-lang#connector">connector</a>. Hence, it's required that an unwired port is defined to be a behavior port. Otherwise it would not be possible for the owner capsule to send and receive events on an unwired port.</p>
 <p>Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.</p>
-<pre class="highlight"><code class="language-art">capsule Pinger {
+<pre><code class="language-art">capsule Pinger {
     service unwired port p1 : PROTO; // ART_0024
 
     statemachine {
         state State1;
         initial -&gt; State1;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0025_portonpartconnectionerror">ART_0025_portOnPartConnectionError</h3>
 <table>
 <thead>
@@ -1824,7 +2208,7 @@ capsule CComp3
 </table>
 <p>An <a href="../art-lang#unwired-port">unwired port</a> must not be connected to another port by means of a <a href="../art-lang#connector">connector</a>. Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.</p>
 <p>A wired port, however, must be connected. If the port is not a behavior port, it must be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the port is a behavior port, it should only be connected on the "outside".</p>
-<pre class="highlight"><code class="language-art">capsule Top {    
+<pre><code class="language-art">capsule Top {    
     part ping : Pinger, // ART_0025 (not connected in capsule Top)
     pong : Ponger; // ART_0025 (not connected in capsule Top)
 
@@ -1861,7 +2245,8 @@ capsule Ponger {
         state State1;                    
         initial -&gt; State1;
     };
-};</code></pre>
+};
+</code></pre>
 <p><img alt="" src="../images/ART_0025_portOnPartConnectionError.png" /></p>
 <p>In the above picture we can more easily understand the two errors reported for the <code>Top</code> capsule's two parts <code>ping</code> and <code>pong</code>. Port <code>Ponger::p2</code> is a behavior port so one connection is expected for that port (but none is present), while port <code>Pinger::p1</code> is a non-behavior port so two connections are expected for that port (but only one is present, on its "inside"). Both problems can be solved by adding a connector in <code>Top</code> which connects these ports on their "outside".</p>
 <h3 id="art_0026_illegalconnection">ART_0026_illegalConnection</h3>
@@ -1882,7 +2267,7 @@ capsule Ponger {
 </tbody>
 </table>
 <p>Ports connected by a <a href="../art-lang#connector">connector</a> must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have the opposite conjugation. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.</p>
-<pre class="highlight"><code class="language-art">capsule Top {    
+<pre><code class="language-art">capsule Top {    
     part ping : Pinger, pong : Ponger; 
     connect ping.p1 with pong.p2; // ART_0026 (same port conjugations but should be different)
 
@@ -1918,7 +2303,8 @@ capsule Ponger {
         state State1;                    
         initial -&gt; State1;
     };
-};</code></pre>
+};
+</code></pre>
 <p><img alt="" src="../images/ART_0026_illegalConnection.png" /></p>
 <p>Here we see that both connectors are invalid. Port <code>p2</code> and port <code>p1</code> are at the same level in <code>Top</code>'s structure so their conjugations should be different, while port <code>p1</code> and port <code>p</code> are at different levels in <code>Top</code>'s structure so their conjugations should be the same.</p>
 <h3 id="art_0027_incompatibleprotocolsforconnectedports">ART_0027_incompatibleProtocolsForConnectedPorts</h3>
@@ -1943,7 +2329,7 @@ capsule Ponger {
 <p class="admonition-title">Note</p>
 <p>HCL RTist uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in HCL RTist the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended, and hence not supported by RTist in Code.</p>
 </div>
-<pre class="highlight"><code class="language-art">protocol PROTO1 {    
+<pre><code class="language-art">protocol PROTO1 {    
     in pong();    
     out ping();
 };
@@ -1970,7 +2356,8 @@ capsule Top {
         state t21;
         initial -&gt; t21;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0028_superfluoustrigger">ART_0028_superfluousTrigger</h3>
 <table>
 <thead>
@@ -1989,7 +2376,7 @@ capsule Top {
 </tbody>
 </table>
 <p>Triggers for outgoing transitions of a state must be different. If two triggers specify the same event and port, and neither of them has a guard condition, then both of them will be enabled at the same time. In this case only one of the triggers will trigger the transition at runtime and the other one is superfluous. You can fix this problem either by removing the superfluous trigger, or to add a guard condition to one or both of the triggers or transitions. This validation rule is not run when the trigger or its transition has a guard, since it's then not possible to statically determine whether a trigger is superfluous or not.</p>
-<pre class="highlight"><code class="language-art">capsule Base_27 {
+<pre><code class="language-art">capsule Base_27 {
     service port timer : Timing;
 
     statemachine {
@@ -2006,7 +2393,8 @@ capsule SC27 : Base_27 {
         BS -&gt; State2 on timer.timeout; // ART_0028
         State -&gt; State2 on timer.timeout;
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0029_transitiontocompositestatenoentry">ART_0029_transitionToCompositeStateNoEntry</h3>
 <table>
 <thead>
@@ -2025,7 +2413,7 @@ capsule SC27 : Base_27 {
 </tbody>
 </table>
 <p>If a composite state is entered without using an entry point, the behavior may be different the first time the state is entered compared to subsequent times it's entered. The first time the initial transition of the composite state will execute, while after that it will be entered using <a href="../art-lang#deep-history">deep history</a> (i.e. directly activate the substate that was previously active in the composite state). This difference in behavior is not evident just by looking at the state diagram, and can therefore be surprising and cause bugs. It's therefore recommended to always enter a composite state using an entry point. See <a href="../art-lang#hierarchical-state-machine">Hierarchical Statemachines</a> for more information.</p>
-<pre class="highlight"><code class="language-art">capsule Cap {
+<pre><code class="language-art">capsule Cap {
     statemachine {
         state BS {
             entrypoint ep1;
@@ -2034,7 +2422,8 @@ capsule SC27 : Base_27 {
         };
         _Initial: initial -&gt; BS; // ART_0029
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0030_transitiontocompositestatenoentrynoinitialtrans">ART_0030_transitionToCompositeStateNoEntryNoInitialTrans</h3>
 <table>
 <thead>
@@ -2053,7 +2442,7 @@ capsule SC27 : Base_27 {
 </tbody>
 </table>
 <p>This validation rule is related to <a href="#art_0029_transitiontocompositestatenoentry">ART_0029_transitionToCompositeStateNoEntry</a>. If a composite state is entered without using an entry point, and the nested state machine of the composite state has no initial transition, then it is undefined what to do when entering the state. This is therefore not allowed.</p>
-<pre class="highlight"><code class="language-art">capsule Cap {
+<pre><code class="language-art">capsule Cap {
     statemachine {
         state BS {
             entrypoint ep1;            
@@ -2061,7 +2450,8 @@ capsule SC27 : Base_27 {
         };
         _Initial: initial -&gt; BS; // ART_0030
     };
-};</code></pre>
+};
+</code></pre>
 <h3 id="art_0031_portbothnonserviceandnonbehavior">ART_0031_portBothNonServiceAndNonBehavior</h3>
 <table>
 <thead>
@@ -2080,14 +2470,15 @@ capsule SC27 : Base_27 {
 </tbody>
 </table>
 <p>A <a href="../art-lang#port">port</a> that is not a service port is internal to a capsule. For such a port to be useful it must be a behavior port; otherwise the capsule cannot send and receive events on the port. Hence, a non-service port cannot at the same time be a non-behavior port.</p>
-<pre class="highlight"><code class="language-art">capsule C31 {
+<pre><code class="language-art">capsule C31 {
     port fp : Proto; // ART_0031
 
     statemachine {
         state State;
         initial -&gt; State;
     };
-};</code></pre>
+};
+</code></pre>
 
               
             </article>
@@ -2103,59 +2494,13 @@ capsule SC27 : Base_27 {
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../ide-guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Art" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Working with Art
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../target-rts/" class="md-footer__link md-footer__link--next" aria-label="Next: Target RunTime System" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Target RunTime System
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
+ 
   <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2022 HCL Software
-    </div>
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
+    <div class="md-footer-hcl md-grid1">
+     <a href="https://www.hcltechsw.com/legal/disclaimer" class="nav-link footer-launch" target="_blank">Disclaimer</a>
+	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
+	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
+	 
     </div>
   </div>
 </footer>

@@ -9,11 +9,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is the next generation of the RTist product">
+        <meta name="description" content="RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
-        <link rel="canonical" href="https://opensource.hcltechsw.com/">
+        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/">
       
       <link rel="icon" href="assets/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
@@ -50,10 +50,30 @@
     <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+<!--  OneTrust Cookies Consent Notice start  -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/99b8d579-c52a-43c9-ab7b-a35e60de7103/OtAutoBlock.js"></script>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="99b8d579-c52a-43c9-ab7b-a35e60de7103"></script>
+<script type="text/javascript"> 
+	function OptanonWrapper() { } 
+</script>
+<!--  OneTrust Cookies Consent Notice end  -->
+
+<!--  Global site tag (gtag.js) - Google Analytics start -->
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-169645537-2" class="optanon-category-C0002-C0003-C0004-C0005"></script>
+<script type="text/plain" class="optanon-category-C0002-C0003-C0004-C0005">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-169645537-2');
+</script>
+ 
+<!--  Global site tag (gtag.js) - Google Analytics end -->
 
     
     
-  <meta property="og:image" content="https://opensource.hcltechsw.com/digital-experience/site-thumbnail.png" />
+  <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
+  
 
   </head>
   
@@ -78,9 +98,38 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-
+<div>
    <a href="https://www.hcltechsw.com/"> 
-  <img width="150" height="50" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+  <img width="150" height="30" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="dropdown">
+  <button class="dropbtn">Resources <i class="fa fa-caret-down"></i></button> 
+  <div class="dropdown-content">
+<!--   <a href="https://support.hcltechsw.com" target="_blank">Customer Support</a>
+  <a href="https://academy.hcltechsw.com" target="_blank">Software Academy</a>
+  <a href="https://support.hcltechsw.com/community" target="_blank">Community Forums</a> -->
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples" target="_blank">Samples</a>
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/discussions">Forum</a>
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/issues" target="_blank">Issues</a>
+  <a href="https://www.youtube.com/hashtag/rtistincode" target="_blank">Videos</a>
+
+</div>
+</div>
+  
+  <!-- Uncomment the following announcement if you need it -->
+  <!--
+ <div class="md-banner--feedback" style="display:inline">
+
+  <strong>We value your feedback on this site.</strong> Please report any issues you find <a class="announcement__link" href="https://github.com/HCL-TECH-SOFTWARE/digital-experience/issues">via Github</a>. 
+  
+  <div class="md-banner--feedback">Looking for v8.5 or v9.0? <a class="announcement__link"  href="https://help.hcltechsw.com/digital-experience/9.5/welcome_hcl_dx.html">Check the legacy Help Center.</a>
+</div>  
+</div>
+-->
+
+</div>
 
           </div>
         </aside>
@@ -234,341 +283,188 @@
           
         
       
-<style>
-    .md-main {
-        flex-grow: 0
-    }
+<link rel="stylesheet" href="stylesheets/homepage-styles.css">
 
-    .md-main__inner {
-        display: flex;
-        height: 100%;
-    }
-
-    .md-tabs__link {
-        opacity: 1;
-    }
-
-    .md-tabs__link--active {
-        border-bottom: 2px solid #FFF;
-    }
-
-    [dir=ltr] .md-header__title {
-        margin-left: 0rem;
-    }
-
-    [dir=rtl] .md-header__title {
-        margin-right: 0rem;
-    }
-
-    .tx-container {
-        padding-top: 0rem;
-        background: linear-gradient(to bottom, var(--md-primary-fg-color), hsla(292, 33%, 41%) 99%, #fff 99%);
-    }
-
-    .tx-hero {
-        margin: 32px 2.8rem;
-        color: var(--md-primary-bg-color);
-        justify-content: left;
-    }
-
-    .tx-hero h1 {
-        margin-bottom: 1rem;
-        color: currentColor;
-        font-weight: 700
-    }
-
-    .tx-hero__content {
-        padding-bottom: 1rem;
-        margin: auto;
-    }
-
-    .tx-hero__content a {
-        text-decoration: underline;
-        color: white;
-    }
-
-    .tx-hero__image {
-        width: 28rem;
-        height: 17rem;
-        order: 1;
-        margin-top: 40px;
-    }
-
-    .tx-hero .md-button {
-        margin-top: .5rem;
-        margin-right: .5rem;
-        color: var(--md-primary-bg-color)
-    }
-
-    .tx-hero .md-button--primary {
-        background-color: var(--md-primary-bg-color);
-        color: hsla(280deg, 37%, 48%, 1);
-        border-color: var(--md-primary-bg-color)
-    }
-
-    .tx-hero .md-button:focus,
-    .tx-hero .md-button:hover {
-        background-color: var(--md-accent-fg-color);
-        color: var(--md-default-bg-color);
-        border-color: var(--md-accent-fg-color)
-    }
-
-    .feature-item h2 svg {
-        height: 32px;
-        float: left;
-        margin-right: 10px;
-        transform: translateY(10%);
-    }
-
-    .top-hr {
-        margin-top: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .feature-item {
-        font-weight: 300;
-        box-sizing: auto;
-        padding: 0px 5px 20px 5px;
-        word-break: break-word;
-        margin: 0px 10px 0px 10px;
-    }
-
-    .feature-item h2 {
-        font-weight: 600;
-        font-size: 24px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-height: normal;
-        margin-top: 20px;
-        padding-bottom: 10px;
-        font-family: inherit;
-    }
-
-    .feature-item p {
-        font-size: 16px;
-        line-height: 1.8em;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        display: block;
-    }
-
-    .feature-item ul {
-        font-size: 14px;
-        line-height: 1.4em;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        display: block;
-        list-style-type: none;
-        padding-left: 0;
-    }
-
-    .feature-item a {
-        font-weight: 400;
-        text-decoration: underline;
-    }
-
-    @media screen and (max-width:30em) {
-        .tx-hero h1 {
-            font-size: 1.2rem
-        }
-
-        .tx-hero {
-            display: flex;
-            /* align-items: center; */
-            justify-content: center;
-            margin: 0px 0.8rem;
-        }
-    }
-
-    @media screen and (min-width:60em) {
-        .md-sidebar--secondary {
-            display: none
-        }
-
-        .tx-hero {
-            display: flex;
-            /* align-items: center;*/
-            justify-content: center;
-            margin: 0px 0.8rem;
-        }
-
-        .tx-hero__content {
-            max-width: 22rem;
-            margin-top: 0.0rem;
-            margin-bottom: 1.2rem;
-            margin-left: 2.0rem;
-            margin-right: 10.0rem;
-            align-items: center;
-        }
-    }
-
-    @media screen and (min-width:76.25em) {
-        .md-sidebar--primary {
-            display: none
-        }
-
-        .top-hr {
-            width: 100%;
-            display: flex;
-            max-width: 61rem;
-            margin-right: auto;
-            margin-left: auto;
-            padding: 0 .2rem;
-        }
-
-        .bottom-hr {
-            margin-top: 10px;
-            width: 100%;
-            display: flex;
-            max-width: 61rem;
-            margin-right: auto;
-            margin-left: auto;
-            padding: 0 .2rem;
-        }
-
-        .feature-item {
-            flex: 1;
-            min-width: 0;
-            padding: 0px 10px 10px 10px;
-        }
-
-        .feature-item:hover {
-            background-color: #526cfe47;
-            border-radius: 3px;
-        }
-    }
-
-    .hr {
-        border-bottom: 1px solid #eee;
-        width: 100%;
-        margin: 20px 0;
-    }
-
-    .text-center {
-        text-align: center;
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
-        margin-top: 15px;
-        font-family: 'Roboto', sans-serif;
-        font-size: 23px;
-        font-weight: 300;
-        padding-bottom: 10px;
-    }
-
-    .logos {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-flow: row wrap;
-        margin: 0 auto;
-    }
-
-    .logos img {
-        flex: 1 1 auto;
-        padding: 25px;
-        max-height: 130px;
-        vertical-align: middle;
-    }
-
-    .hr-logos {
-        margin-top: 0;
-        margin-bottom: 30px;
-    }
-
-    .md-footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%
-    }
-
-    .md-footer-meta__inner {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 1.0rem;
-    }
-
-    .md-footer-social {
-        padding-top: 20px;
-    }
-
-    .md-footer-copyright {
-        font-size: .64rem;
-        margin: auto .6rem;
-        padding: .4rem 0;
-
-        color: var {
-            --md-footer-fg-color--lighter
-        }
-    }
-
-    .infobox-icon {
-        width:
-    }
-</style>
-
-<!-- Main site Entry button descriptions -->
-<section class="tx-container">
+<!-- Hero Banner-->
+<section class="dx-hero-container">
     <div class="md-grid md-typeset">
-        <div class="tx-hero">
-            <div class="tx-hero__image">
-                <iframe width="660" height="450" src="https://www.youtube.com/embed/t1aYXiQbpBY"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-                <!-- <img src="assets/undraw_homepage.png" draggable="false"> -->
-            </div>
-            <div class="tx-hero__content">
-                <p>RTist™ in Code is a tool for creating stateful, event-driven realtime applications in C++. You can
-                <ul>
-                    <li>create your application using the Art language which provides high-level concepts such as state machines, capsules, protocols, events, ports, etc.</li>
-                    <li>use graphical diagrams for viewing and designing state machines, composite structures and class hierarchies</li>
-                    <li>detect errors early by means of customizable semantic validation rules that run automatically as you type</li>
-                    <li>automatically generate optimized and highly performant C++ code that can be built into an application by any C++ compiler</li>
-                    <li>run RTist™ in Code within <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://theia-ide.org/">Eclipse Theia</a>, either as a desktop or web application</li>
-                </ul> 
-                </p>
-                
-                <a href="https://marketplace.visualstudio.com/search?term=rtist&target=VSCode&category=All%20categories&sortBy=Relevance" title="Overview"
+        <div class="section-flexbox-row flex-start align-center">            
+            <div class="dx-hero__content">
+                <div class="hero-heading">
+                    <!-- <h3>No heading</h3> -->                    
+                </div>
+                <div class="hero-body body-text white">
+                    <p>RTist in Code is a tool for creating stateful, event-driven realtime applications in C++. You can
+                        <ul>
+                            <li>create your application using the Art language which provides high-level concepts such as state machines, capsules, protocols, events, ports, etc.</li>
+                            <li>use graphical diagrams for viewing and designing state machines, composite structures and class hierarchies</li>
+                            <li>detect errors early by means of customizable semantic validation rules that run automatically as you type</li>
+                            <li>automatically generate optimized and highly performant C++ code that can be built into an application by any C++ compiler</li>
+                            <li>run RTist in Code within <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://theia-ide.org/">Eclipse Theia</a>, either as a desktop or web application</li>
+                        </ul> 
+                    </p>
+                </div>
+				 
+                <div class="hero-buttons">
+                    <p>
+					<!--Provide a link to the Release Notes or What's new page -->
+                    <a href="https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce" title="Overview"
                     class="md-button md-button--primary">
-                    Start Now for Free
-                </a>
-                <a href="overview/" class="md-button">
-                    Learn More
-                </a>
+                    Download Now for Free
+                    </a>                    
+                    </p>
+                </div>
+
+                <div class="dx-hero__image">
+                    <iframe width="560" align="right" height="315" src="https://www.youtube.com/embed/t1aYXiQbpBY" data-ot-ignore
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
 
-<!-- Main site box descriptions -->
-<div class="top-hr">
-    <div class="feature-item">
-        <h2>
-            <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples">Samples</a>
-        </h2>
+<!-- designed for your Banner-->
+<section class="section-designedforyou">
+    <div class="md-grid md-typeset">
+        <div class="section-flexbox-row space-around align-center">
+            <div class="dx-dfu__image">
+                <!-- computer image -->
+                <img src="assets/CNX_laptop_ex.png" alt="An image of a computer showing DX" />
+            </div>
+            <div class="dx-dfu__content">
+                <div class="section-heading">
+				<!-- Add a line for your product -->
+                    <p class="black">
+                        Develop realtime applications at a higher abstraction level and with more automation than with only C++.
+                    </p>
+                </div>
+				<!--Add more description here -->
+                <div class="dfu-body body-text black">
+                    <p>Suitable for embedded, IoT and much more...</p>
+                    
+                    <p></p>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="feature-item">
-        <h2>
-            <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/issues">Issues</a>
-        </h2>
-    </div>
-    <div class="feature-item">
-        <h2>
-            <a href="#">Forum (coming soon)</a>
-        </h2>
-    </div>
-    <div class="feature-item">
-        <h2>
-            <a href="https://www.youtube.com/hashtag/rtistincode">Videos</a>
-        </h2>
+</section>
+
+<!--Use this section to call out top 3 highlights of your product or any other top 3 items you want to share with the users. -->
+<section class="section-personas">
+    <div class="md-grid md-typeset">
+        <div class="section-flexbox-row space-around align-top">
+            <!-- <div class="section-heading">
+                <p class="black">Reimagined user experience</p>
+            </div> -->
+            <div class="flex-break"></div><!--force new row-->
+            <div class="persona-item">
+                <div class="feature-1">
+                    <!-- persona image -->
+                </div>
+                <div class="persona-name black">
+                    <h2>
+                        Art Language
+                    </h2>
+                </div>
+                <div class="persona-body body-text black">
+                    <p>
+                        A new language providing powerful features such as state machines, ports and events on top of modern C++.
+					</p>					
+                </div>
+                <div class="persona-button">
+                    <p><a href="art-lang/" class="md-button">
+                            Read More
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="persona-item">
+                <div class="feature-2">
+                    <!-- persona image -->
+                </div>
+                <div class="persona-name black">
+                    <h2>
+                        Graphical Diagrams
+                    </h2>
+                </div>
+                <div class="persona-body body-text black">
+                    <p>
+                        Visualize your application in graphical class, state and structure diagrams that update automatically as you type.
+                    </p>
+                </div>
+                <div class="persona-button">
+                    <p><a href="working-with-art/diagrams/" class="md-button">
+                            Read More
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="persona-item">
+                <div class="feature-3">
+                    <!-- persona image -->
+                </div>
+                <div class="persona-name black">
+                    <h2>
+                        C++ Code Generation
+                    </h2>
+                </div>
+                <div class="persona-body body-text black">
+                    <p>
+                        Generate modern, readable and highly efficient C++ code and compile it with your choice of C++ compiler.
+                    </p>
+                </div>
+                <div class="persona-button">
+
+                    <p><a href="building/" class="md-button">
+                            Read More
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-</div>
 
+</section>
+
+<!-- Use this section if your product has a presense in https://academy.hcltechsw.com or change it to add more information that you want to share. You can also comment this section. -->
+<section class="section-academy">
+    <div class="md-grid md-typeset  ">
+        <div class="section-flexbox-row space-around align-center nowrap">
+            <div class="academy-hero__content">
+                <div class="dx-academy-logo">
+                    <img src="assets/hcl-academy-logo.png" />
+                </div>
+                <div class="dx-academy-heading white section-heading">
+                    Embark On Your Journey
+                </div>
+                <div class="dx-academy-body">
+                    <p>Realize the power of possibility for you and your business. Visit the HCL Software Academy for
+                        technical education on all products in the HCL Software portfolio. Start learning today!
+                    </p>
+                    <a href="https://academy.hcltechsw.com" title="HCL Academy"
+                        class="md-button md-button--primary">
+                        Visit HCL Software Academy
+                    </a>
+                    
+                </div>
+            </div>
+            <div class="academy-hero__image">
+               
+                <img src="assets/CNX_academy_img.jpg" />
+            </div>
+        </div>
+    </div>
+
+</section>  
 
 
       <main class="md-main" data-md-component="main">
@@ -724,10 +620,107 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="working-with-art/">Working with Art</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Working with Art
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="ide-guide/" class="md-nav__link">
-        Working with Art
+      <a href="working-with-art/art-editor/" class="md-nav__link">
+        Text Editor
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="working-with-art/diagrams/" class="md-nav__link">
+        Diagrams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="working-with-art/outline-view/" class="md-nav__link">
+        Outline View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="working-with-art/references/" class="md-nav__link">
+        References View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -752,9 +745,116 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="target-rts/">Target RunTime System</a>
+          
+            <label for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Target RunTime System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="target-rts/" class="md-nav__link">
-        Target RunTime System
+      <a href="https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html" class="md-nav__link">
+        C++ API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="building/">Building</a>
+          
+            <label for="__nav_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Building" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Building
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="building/transformation-configurations/" class="md-nav__link">
+        Transformation Configurations
       </a>
     </li>
   
@@ -767,9 +867,16 @@
   
   
     <li class="md-nav__item">
-      <a href="building/" class="md-nav__link">
-        Building
+      <a href="building/art-compiler/" class="md-nav__link">
+        Art Compiler
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -780,10 +887,39 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="art-comp/" class="md-nav__link">
-        The Art Compiler
-      </a>
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="releases/">Releases</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -837,6 +973,7 @@
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
+
             </article>
             
           </div>
@@ -855,12 +992,18 @@
         <div class="md-footer-meta__inner md-grid">
             <!-- Copyright and theme information -->
             <div class="md-footer-copyright">
-                
+                <a href=" https://www.hcltechsw.com/ " title="MkDocs">Copyright &copy; 2022, HCL Technologies Limited.</a>
                 <br>Made with
                 <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
                     Material for MkDocs
                 </a>
             </div>
+			<div class="md-footer-hcl md-grid1">
+     <a href="https://www.hcltechsw.com/legal/disclaimer" class="nav-link footer-launch" target="_blank">Disclaimer</a>
+	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
+	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
+	 
+    </div>
             <div class="md-social">
                 <a href="https://github.com/HCL-TECH-SOFTWARE" target="_blank" rel="noopener" title="github.com"
                     class="md-social__link">

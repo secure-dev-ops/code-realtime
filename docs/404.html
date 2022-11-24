@@ -7,11 +7,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is the next generation of the RTist product">
+        <meta name="description" content="RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
-      <link rel="icon" href="/assets/favicon.png">
+      <link rel="icon" href="/rtist-in-code/assets/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
@@ -20,10 +20,10 @@
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.1d29e8d0.min.css">
+      <link rel="stylesheet" href="/rtist-in-code/assets/stylesheets/main.1d29e8d0.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.cbb835fc.min.css">
+        <link rel="stylesheet" href="/rtist-in-code/assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
@@ -39,17 +39,37 @@
       
     
     
-      <link rel="stylesheet" href="/stylesheets/style.css">
+      <link rel="stylesheet" href="/rtist-in-code/stylesheets/style.css">
     
-      <link rel="stylesheet" href="/stylesheets/prism.css">
+      <link rel="stylesheet" href="/rtist-in-code/stylesheets/prism.css">
     
-    <script>__md_scope=new URL("/",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("/rtist-in-code/",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+<!--  OneTrust Cookies Consent Notice start  -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/99b8d579-c52a-43c9-ab7b-a35e60de7103/OtAutoBlock.js"></script>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="99b8d579-c52a-43c9-ab7b-a35e60de7103"></script>
+<script type="text/javascript"> 
+	function OptanonWrapper() { } 
+</script>
+<!--  OneTrust Cookies Consent Notice end  -->
+
+<!--  Global site tag (gtag.js) - Google Analytics start -->
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-169645537-2" class="optanon-category-C0002-C0003-C0004-C0005"></script>
+<script type="text/plain" class="optanon-category-C0002-C0003-C0004-C0005">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-169645537-2');
+</script>
+ 
+<!--  Global site tag (gtag.js) - Google Analytics end -->
 
     
     
-  <meta property="og:image" content="https://opensource.hcltechsw.com/digital-experience/site-thumbnail.png" />
+  <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
+  
 
   </head>
   
@@ -74,9 +94,38 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-
+<div>
    <a href="https://www.hcltechsw.com/"> 
-  <img width="150" height="50" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+  <img width="150" height="30" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="dropdown">
+  <button class="dropbtn">Resources <i class="fa fa-caret-down"></i></button> 
+  <div class="dropdown-content">
+<!--   <a href="https://support.hcltechsw.com" target="_blank">Customer Support</a>
+  <a href="https://academy.hcltechsw.com" target="_blank">Software Academy</a>
+  <a href="https://support.hcltechsw.com/community" target="_blank">Community Forums</a> -->
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples" target="_blank">Samples</a>
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/discussions">Forum</a>
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/issues" target="_blank">Issues</a>
+  <a href="https://www.youtube.com/hashtag/rtistincode" target="_blank">Videos</a>
+
+</div>
+</div>
+  
+  <!-- Uncomment the following announcement if you need it -->
+  <!--
+ <div class="md-banner--feedback" style="display:inline">
+
+  <strong>We value your feedback on this site.</strong> Please report any issues you find <a class="announcement__link" href="https://github.com/HCL-TECH-SOFTWARE/digital-experience/issues">via Github</a>. 
+  
+  <div class="md-banner--feedback">Looking for v8.5 or v9.0? <a class="announcement__link"  href="https://help.hcltechsw.com/digital-experience/9.5/welcome_hcl_dx.html">Check the legacy Help Center.</a>
+</div>  
+</div>
+-->
+
+</div>
 
           </div>
         </aside>
@@ -88,9 +137,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="HCL RTist in Code" class="md-header__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
+    <a href="/rtist-in-code/." title="HCL RTist in Code" class="md-header__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
       
-  <img src="/assets/logo.png" alt="logo">
+  <img src="/rtist-in-code/assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -187,7 +236,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="/." class="md-tabs__link">
+    <a href="/rtist-in-code/." class="md-tabs__link">
       Home
     </a>
   </li>
@@ -202,7 +251,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/overview/" class="md-tabs__link">
+      <a href="/rtist-in-code/overview/" class="md-tabs__link">
         Documentation
       </a>
     </li>
@@ -215,7 +264,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="/notices/" class="md-tabs__link">
+    <a href="/rtist-in-code/notices/" class="md-tabs__link">
       Notices
     </a>
   </li>
@@ -242,9 +291,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="HCL RTist in Code" class="md-nav__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
+    <a href="/rtist-in-code/." title="HCL RTist in Code" class="md-nav__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
       
-  <img src="/assets/logo.png" alt="logo">
+  <img src="/rtist-in-code/assets/logo.png" alt="logo">
 
     </a>
     HCL RTist in Code
@@ -272,7 +321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="/rtist-in-code/." class="md-nav__link">
         Home
       </a>
     </li>
@@ -331,7 +380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/overview/" class="md-nav__link">
+      <a href="/rtist-in-code/overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -345,7 +394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/installing/" class="md-nav__link">
+      <a href="/rtist-in-code/installing/" class="md-nav__link">
         Installing
       </a>
     </li>
@@ -359,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/art-lang/" class="md-nav__link">
+      <a href="/rtist-in-code/art-lang/" class="md-nav__link">
         The Art Language
       </a>
     </li>
@@ -372,9 +421,57 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="/rtist-in-code/working-with-art/">Working with Art</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Working with Art
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="/ide-guide/" class="md-nav__link">
-        Working with Art
+      <a href="/rtist-in-code/working-with-art/art-editor/" class="md-nav__link">
+        Text Editor
       </a>
     </li>
   
@@ -387,7 +484,56 @@
   
   
     <li class="md-nav__item">
-      <a href="/validation/" class="md-nav__link">
+      <a href="/rtist-in-code/working-with-art/diagrams/" class="md-nav__link">
+        Diagrams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/rtist-in-code/working-with-art/outline-view/" class="md-nav__link">
+        Outline View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/rtist-in-code/working-with-art/references/" class="md-nav__link">
+        References View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/rtist-in-code/validation/" class="md-nav__link">
         Validation
       </a>
     </li>
@@ -400,9 +546,116 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="/rtist-in-code/target-rts/">Target RunTime System</a>
+          
+            <label for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Target RunTime System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="/target-rts/" class="md-nav__link">
-        Target RunTime System
+      <a href="https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html" class="md-nav__link">
+        C++ API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="/rtist-in-code/building/">Building</a>
+          
+            <label for="__nav_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Building" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Building
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/rtist-in-code/building/transformation-configurations/" class="md-nav__link">
+        Transformation Configurations
       </a>
     </li>
   
@@ -415,9 +668,16 @@
   
   
     <li class="md-nav__item">
-      <a href="/building/" class="md-nav__link">
-        Building
+      <a href="/rtist-in-code/building/art-compiler/" class="md-nav__link">
+        Art Compiler
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -428,10 +688,39 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="/art-comp/" class="md-nav__link">
-        The Art Compiler
-      </a>
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="/rtist-in-code/releases/">Releases</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -451,7 +740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/notices/" class="md-nav__link">
+      <a href="/rtist-in-code/notices/" class="md-nav__link">
         Notices
       </a>
     </li>
@@ -500,23 +789,13 @@
       </main>
       
         <footer class="md-footer">
-  
+ 
   <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-    <div class="md-copyright__highlight">
-      Copyright &copy; 2022 HCL Software
-    </div>
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
+    <div class="md-footer-hcl md-grid1">
+     <a href="https://www.hcltechsw.com/legal/disclaimer" class="nav-link footer-launch" target="_blank">Disclaimer</a>
+	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
+	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
+	 
     </div>
   </div>
 </footer>
@@ -525,12 +804,12 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest"], "search": "/assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "/rtist-in-code/", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest"], "search": "/rtist-in-code/assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      <script src="/rtist-in-code/assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
-        <script src="/scripts/prism.js"></script>
+        <script src="/rtist-in-code/scripts/prism.js"></script>
       
     
   </body>
