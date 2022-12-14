@@ -81,7 +81,7 @@ S1 -> S2 on timer.timeout
 `;
 ```
 
-Here is another example that shows how to include some C++ code as the header preface of a capsule:
+Here is another example that shows how to include some C++ code as the implementation preface of a capsule:
 
 ``` art
 capsule BrewControl {
@@ -119,38 +119,38 @@ As an example, assume we have an Art file `sample.art` with the following conten
 ```
 Two C++ files will be generated from this Art file:  
 
-`sample.h`
+`sample.art.h`
 ``` cpp
 typedef C* Cptr;
 Cptr func1();
 ```
 
-`sample.cpp`
+`sample.art.cpp`
 ``` cpp
-#include "sample.h"
+#include "sample.art.h"
 
 Cptr func1() {
     return nullptr;
 }
 ```
 
-File-level code snippets are useful whenever you need to include some C++ code in your application that doesn't naturally belong to any particular Art element. They can for example be used for declaring and implementing utility functions or types that are needed by many different Art elements. All C++ files that are generated from Art elements in an Art file that contains file-level code snippets will automatically include the header file that is generated for those code snippets. If you want to use the C++ declarations also from another generated file, you need to manually add an `#include` for that header file using a code snippet on the Art element that corresponds to that generated file.
+File-level code snippets are useful whenever you need to include some C++ code in your application that doesn't naturally belong to any particular Art element. They can for example be used for declaring and implementing utility functions or types that are needed by many different Art elements. To use the declared elements from an Art element, you need to add an `#include` for the generated header file using a code snippet on the Art element. Note that an `#include` is needed even if the Art element is located in the same Art file as the declared elements it wants to use.
 
-For example, a protocol defined in `sample.art` can use the type `Cptr` directly without adding an `#include`.
+Below is an example that shows how a protocol and a capsule can use the type `Cptr` defined in `sample.art` by adding `#include`s:
 
 ``` art
-protocol MyEvents {      
-      out alert(`Cptr`);
+protocol MyEvents {
+    [[rt::header_preface]]
+    `
+        #include "sample.art.h"
+    `
+    out alert(`Cptr`);
 };
-```
 
-However, a capsule defined in `sample2.art` needs to include `sample.h` to make that type available.
-
-``` art
 capsule Cx {
     [[rt::header_preface]]
     `
-        #include "sample.h"
+        #include "sample.art.h"
     `
     [[rt::decl]]
     `
@@ -161,7 +161,7 @@ capsule Cx {
 };
 ```
 
-Here an rt::header_preface code snippet is used for making the generated capsule header file include `sample.h` while an rt::decl code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements in the [Art Language Reference](#art-language-reference) to learn about what code snippets that are available for each kind of Art element.
+Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include `sample.art.h` while an rt::decl code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements in the [Art Language Reference](#art-language-reference) to learn about what code snippets that are available for each kind of Art element.
 
 ## Textual and Graphical Notations
 The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.
@@ -285,6 +285,14 @@ A protocol event may have a parameter, which enables it to carry data. You decla
 
 !!! note 
     An event can have at most one parameter. If you need to send multiple data objects with an event you can declare an event parameter of struct or class type.
+
+The following code snippets can be used for a protocol:
+
+<p id="protocol_code_snippets"/>
+| Code snippet |C++ mapping |Example of use |
+|----------|:-------------|:-------------|
+| rt::header_preface |Inserted at the top of the protocol class header file |Adding #includes
+| rt::header_ending |Inserted at the end (or near the end) of the protocol class header file |Undefining a local macro that was defined in rt::header_preface
 
 Here is an example of a protocol that defines some in-events and some out-events:
 

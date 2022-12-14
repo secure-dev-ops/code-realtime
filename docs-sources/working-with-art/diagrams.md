@@ -17,6 +17,8 @@ You can also open diagrams from the context menu of an Art file in the Explorer 
 
 ![](images/open-diagram-multiple-elements.png)
 
+The same prompting happens if you open a diagram from an Art file when the cursor position doesn't indicate which Art element to open the diagram for. All valid Art elements in the file will be listed and you can choose which one to open the diagram for.
+
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:
 
@@ -68,7 +70,7 @@ The Properties view can show additional Art elements when you select a symbol or
 
 Showing such elements in the diagram itself would risk making it cluttered, especially when there is a large number of elements.
 
-You can double-click the Art elements in the Properties view to highlight them in the Art file.
+You can double-click the Art elements in the Properties view to highlight them in the Art file. For internal transitions the same blue and yellow dots are shown as for regular transitions in diagrams. Double-click the blue dot to navigate to the transition effect code and the yellow dot for navigating to the transition guard code.
 
 ### Renaming Elements
 You can rename an Art element shown in a diagram by double-clicking on the text label that shows its name. Alternatively select the symbol or line to which the text label belongs and press ++"F2"++.

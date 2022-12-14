@@ -1,6 +1,6 @@
 A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for dynamic properties where the value is not a static value but computed by JavaScript code.
 
-{$product.name$} provides a dedicated language server for TCs to make them just as easy to work with as Art files. A [form-based editor](#transformation-configuration-editor) is also provided as an alternative.
+{$product.name$} provides a dedicated language server for TCs to make them just as easy to work with as Art files. A [form-based editor](#editing-transformation-configurations) is also provided as an alternative.
 
 ## Creating Transformation Configurations
 To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command **File - New File - Transformation Configuration**. In the popup that appears specify the name of the TC or keep the suggested default name.
@@ -16,25 +16,40 @@ You can have more than one TC in your workspace, but at most one TC in each work
 
 Automatic code generation for the active TC will start immediately.
 
-## Transformation Configuration Editor
-You can edit a TC directly as a JavaScript file in the text editor. Features such as content assist, navigation and hover tooltips work very similar to how they work for an Art file. However, {$product.name$} also provides a dedicated form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.
+## Editing Transformation Configurations
+You can edit a TC directly as a JavaScript file in the text editor. Features such as content assist, navigation and hover tooltips work very similar to how they work for an Art file:
+
+* Use content assist (++ctrl+space++) after typing `tc.` to get the list of all available TC properties that can be set. You can also use content assist in many places to get suggestions for valid TC property values, for example the list of available top capsules.
+
+![](images/tc-editor-content-assist.png)
+
+* Certain references in the TC can be navigated by ++ctrl++ + click. For example, you can navigate to the top capsule.
+  
+![](images/tc-editor-navigation.png)
+
+* Rest the cursor on a TC property name to get more information about the property.
+
+![](images/tc-editor-tooltip.png)
+
+As an alternative to editing a TC as a JavaScript file {$product.name$} also provides a dedicated form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.
 
 To open the form-based TC editor, right-click on a TC file and invoke the context menu command **Edit Properties (UI)**. 
 
 ![](images/tc-editor.png)
 
-* Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.
+Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.
 
 ![](images/tc-editor-cpp-code-standard.png)
 
-* Click the info button to view documentation about a certain TC property. Click the button again to hide the documentation.
+Click the info button to view documentation about a certain TC property. Click the button again to hide the documentation.
 
 ![](images/tc-editor-info-button.png)
 
-* Certain TC properties have default values. Such values are not stored in the TC file, but the TC editor still shows them so you can know what value will actually be used unless you set a custom value for such a property.
+Certain TC properties have default values. Such values are not stored in the TC file, but the TC editor still shows them so you can know what value will actually be used unless you set a custom value for such a property.
 
 ![](images/tc-editor-default-value.png)
 
+You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated when you save the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. 
 
 ## Properties
 Below is an alphabetic list of all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value.
