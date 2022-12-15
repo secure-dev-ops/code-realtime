@@ -105,6 +105,7 @@ nav:
         - Transformation Configurations: building/transformation-configurations.md
         - Art Compiler: building/art-compiler.md     
      - Releases: 
-        - Releases: releases/index.md        
+        - Releases: releases/index.md  
+     - Support Procedures: support.md      
   - Notices: notices.md
 
