@@ -1253,6 +1253,7 @@ Below is a table that lists all properties that can be used on different kinds o
 | [Port](#port) | [registration](#registration) | Enumeration (automatic, automatic_locked, application) | automatic
 | [Port](#port) | [registration_name](#registration_name) | String | ""
 | [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata_param](#const_rtdata_param) | Boolean | true
+| [Initial transition](#initial-transition), [Triggered transition](#transition) | [color](#color) | String | ""
 [Trigger](#transition) | [frequent](#frequent) | Boolean | false
 
 
@@ -1309,6 +1310,11 @@ This property specifies the name to use when registering a port at runtime. By d
 
 ### const_rtdata_param
 If set to `false` the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.
+
+### color
+Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB or RGBA values using 6 or 8 hexadecimal digits. For example, "#ff00ffaa". The Art text editor will help you set an appropriate color by means of a color picker.
+
+![](images/color_picker.png)
 
 ### frequent
 Triggers for which this property is `true` will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the `rtsBehavior` function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.

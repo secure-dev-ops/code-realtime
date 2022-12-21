@@ -90,6 +90,8 @@ This property maps to a subfolder of the target folder where all generated files
 ### targetLocation
 When a TC is built all generated files (C++ code, make file, binaries etc) will be placed in a so called target folder. This property specifies the name of that folder. The target folder will be added as a workspace folder the first time the TC is built. You can choose any name that is a valid name of a folder, but it can be convenient to base the name on the workspace folder that contains the TC so that the target folder appears near it. For example, if the workspace folder that contains the TC is called "MyApp" you can use "MyApp_target" as the name of the target folder.
 
+The path can be either absolute or relative. Relative paths are resolved against the folder that contains the TC. Use forward slashes as path separator.
+
 `targetLocation` is a mandatory TC property and it has no default value.
 
 ### targetRTSLocation

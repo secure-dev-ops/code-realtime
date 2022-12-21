@@ -52,6 +52,9 @@ To expand a collapsed symbol click the yellow button. The symbol will then be re
 
 Information about which symbols that are currently expanded will be remembered if you save the diagram. This information is stored in the file `.vscode/art_diagram_settings.json`.
 
+### Diagram Appearance
+Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for certain transitions. Set the [color](../art-lang.md#color) property for more information.
+
 ### Diagram Filters
 To avoid cluttered diagrams with too many text labels, certain information is by default hidden. If you click in the background of the diagram, the Properties view will show various filters that you can turn on or off for showing or hiding such additional information. Here is an example of the filters available for a state diagram:
 
