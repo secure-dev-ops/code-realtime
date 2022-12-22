@@ -371,6 +371,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2">
@@ -888,6 +890,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#color" class="md-nav__link">
+    color
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frequent" class="md-nav__link">
     frequent
   </a>
@@ -1213,6 +1222,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support/" class="md-nav__link">
+        Support Procedures
+      </a>
     </li>
   
 
@@ -1703,6 +1726,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#color" class="md-nav__link">
+    color
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frequent" class="md-nav__link">
     frequent
   </a>
@@ -1778,7 +1808,7 @@
     std::cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; std::endl;
 `;
 </code></pre>
-<p>Here is another example that shows how to include some C++ code as the header preface of a capsule:</p>
+<p>Here is another example that shows how to include some C++ code as the implementation preface of a capsule:</p>
 <pre><code class="language-art">capsule BrewControl {
     [[rt::impl_preface]]
     `
@@ -1809,28 +1839,31 @@
 `
 </code></pre>
 <p>Two C++ files will be generated from this Art file:  </p>
-<p><code>sample.h</code></p>
+<p><code>sample.art.h</code></p>
 <pre><code class="language-cpp">typedef C* Cptr;
 Cptr func1();
 </code></pre>
-<p><code>sample.cpp</code></p>
-<pre><code class="language-cpp">#include &quot;sample.h&quot;
+<p><code>sample.art.cpp</code></p>
+<pre><code class="language-cpp">#include &quot;sample.art.h&quot;
 
 Cptr func1() {
     return nullptr;
 }
 </code></pre>
-<p>File-level code snippets are useful whenever you need to include some C++ code in your application that doesn't naturally belong to any particular Art element. They can for example be used for declaring and implementing utility functions or types that are needed by many different Art elements. All C++ files that are generated from Art elements in an Art file that contains file-level code snippets will automatically include the header file that is generated for those code snippets. If you want to use the C++ declarations also from another generated file, you need to manually add an <code>#include</code> for that header file using a code snippet on the Art element that corresponds to that generated file.</p>
-<p>For example, a protocol defined in <code>sample.art</code> can use the type <code>Cptr</code> directly without adding an <code>#include</code>.</p>
-<pre><code class="language-art">protocol MyEvents {      
-      out alert(`Cptr`);
-};
-</code></pre>
-<p>However, a capsule defined in <code>sample2.art</code> needs to include <code>sample.h</code> to make that type available.</p>
-<pre><code class="language-art">capsule Cx {
+<p>File-level code snippets are useful whenever you need to include some C++ code in your application that doesn't naturally belong to any particular Art element. They can for example be used for declaring and implementing utility functions or types that are needed by many different Art elements. To use the declared elements from an Art element, you need to add an <code>#include</code> for the generated header file using a code snippet on the Art element. Note that an <code>#include</code> is needed even if the Art element is located in the same Art file as the declared elements it wants to use.</p>
+<p>Below is an example that shows how a protocol and a capsule can use the type <code>Cptr</code> defined in <code>sample.art</code> by adding <code>#include</code>s:</p>
+<pre><code class="language-art">protocol MyEvents {
     [[rt::header_preface]]
     `
-        #include &quot;sample.h&quot;
+        #include &quot;sample.art.h&quot;
+    `
+    out alert(`Cptr`);
+};
+
+capsule Cx {
+    [[rt::header_preface]]
+    `
+        #include &quot;sample.art.h&quot;
     `
     [[rt::decl]]
     `
@@ -1840,7 +1873,7 @@ Cptr func1() {
     // ...
 };
 </code></pre>
-<p>Here an rt::header_preface code snippet is used for making the generated capsule header file include <code>sample.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements in the <a href="#art-language-reference">Art Language Reference</a> to learn about what code snippets that are available for each kind of Art element.</p>
+<p>Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include <code>sample.art.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements in the <a href="#art-language-reference">Art Language Reference</a> to learn about what code snippets that are available for each kind of Art element.</p>
 <h2 id="textual-and-graphical-notations">Textual and Graphical Notations</h2>
 <p>The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.</p>
 <p>Below are examples of these three kinds of diagrams:</p>
@@ -2033,6 +2066,29 @@ Cptr func1() {
 <p class="admonition-title">Note</p>
 <p>An event can have at most one parameter. If you need to send multiple data objects with an event you can declare an event parameter of struct or class type.</p>
 </div>
+<p>The following code snippets can be used for a protocol:</p>
+<p id="protocol_code_snippets"/>
+<table>
+<thead>
+<tr>
+<th>Code snippet</th>
+<th align="left">C++ mapping</th>
+<th align="left">Example of use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rt::header_preface</td>
+<td align="left">Inserted at the top of the protocol class header file</td>
+<td align="left">Adding #includes</td>
+</tr>
+<tr>
+<td>rt::header_ending</td>
+<td align="left">Inserted at the end (or near the end) of the protocol class header file</td>
+<td align="left">Undefining a local macro that was defined in rt::header_preface</td>
+</tr>
+</tbody>
+</table>
 <p>Here is an example of a protocol that defines some in-events and some out-events:</p>
 <pre><code class="language-art">protocol MachineEvents {
     in start();
@@ -2211,7 +2267,7 @@ capsule Ponger {
 <p>If the capsule that types a part has a <a href="#capsule-constructor">capsule constructor</a> with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. </p>
 <ul>
 <li><code>rt::createFunction</code> Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity &gt; 1) etc.</li>
-<li><code>rt::destroyFunction</code> Defines how to destroy an instance of the capsule. By default it's destroyed using the <code>new</code> operator.</li>
+<li><code>rt::destroyFunction</code> Defines how to destroy an instance of the capsule. By default it's destroyed using the <code>delete</code> operator.</li>
 </ul>
 <p>Here is an example where a part defines a capsule factory that specifies a create function. The create function gets the mandatory constructor parameters <code>rtg_rts</code> and <code>rtg_ref</code> as arguments, as well as an <code>index</code> argument that specifies the index where the created capsule instance would be inserted by default.</p>
 <pre><code class="language-art">part engine : Engine [[rt::createFunction]]
@@ -2887,6 +2943,12 @@ generate_file_header
 <td align="left">true</td>
 </tr>
 <tr>
+<td><a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a></td>
+<td align="left"><a href="#color">color</a></td>
+<td align="left">String</td>
+<td align="left">""</td>
+</tr>
+<tr>
 <td><a href="#transition">Trigger</a></td>
 <td align="left"><a href="#frequent">frequent</a></td>
 <td align="left">Boolean</td>
@@ -2930,6 +2992,9 @@ generate_file_header
 <p>This property specifies the name to use when registering a port at runtime. By default the port name is used, but it can be overridden using this property.</p>
 <h3 id="const_rtdata_param">const_rtdata_param</h3>
 <p>If set to <code>false</code> the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
+<h3 id="color">color</h3>
+<p>Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB or RGBA values using 6 or 8 hexadecimal digits. For example, "#ff00ffaa". The Art text editor will help you set an appropriate color by means of a color picker.</p>
+<p><img alt="" src="../images/color_picker.png" /></p>
 <h3 id="frequent">frequent</h3>
 <p>Triggers for which this property is <code>true</code> will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the <code>rtsBehavior</code> function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.</p>
 
