@@ -1,3 +1,24 @@
+# 0.0.4 (2022-12-21 13:11)
+
+1. A target configuration for the latest version of the MinGw compiler (ver. 12.2) is now provided.
+2. Better support for Linux platform.
+3. Improved makefile generation for incremental builds.
+4. More information for internal transitions are now shown in the Properties view. The triggers of the internal transitions are shown in a similar way as in the Outline view. Also, the blue and yellow icons representing the effect and guard code snippets for the internal transitions are shown and can be double-clicked in order to navigate to the code snippets in the Art file.
+5. If a port has multiplicity > 1 it is now shown in structure diagrams.
+6. The form-based TC editor is now automatically refreshed when the underlying .tcjs file is modified and saved.
+7. It's now possible to navigate to the top capsule from a TC file by ctrl+click on the capsule name.
+8. Content assist (ctrl+space) is now supported for TC property values. Valid values appear in a popup when typing the = character. If there is not a fixed list of valid values, the expected value type (e.g. string) will be shown.
+9. Cross-references now bind across workspace folders. This makes it possible to split an application into several workspace folders. For example, Art files built into a library can now be placed in its own folder, and be used from Art files outside that folder.
+10. A composite state can now only be expanded if it contains at least one nested state. Previously the Expand button was shown also when the state only contained entry or exit points, which was misleading since expanding such a state didn't reveal anything new that could not already be seen.
+11. Attempting to open a diagram using the Art editor context menu now works even when the cursor is not placed within an Art element that can be shown in the diagram. In this case a "quick pick" will appear where you can choose one of the elements that are present in the Art file. Hence, this behavior is now the same as when you open diagrams from the Explorer context menu.
+12. Protocols now support the rt::header_preface and rt::header_ending code snippets. In particular rt::header_preface is useful for including header files with user-defined types used in the protocol.
+13. A new output channel called Art Server is now available and can be seen in the Output view. It's used by the Art language server for printing diagnostic messages (usually internal errors), and can be useful for troubleshooting problems.
+14. A new output channel called Art Build is now available and can be seen in the Output view. It's used when building a TC. For example, messages are printed when a build starts and finishes.
+15. The editor title for diagrams now contain the name of the Art element. This makes it easier to work with multiple open diagrams at the same time.
+16. Content assist now supports creating non-triggered transitions in a state machine.
+17. Code generation now supports transition guards, events with parameters of predefined types, connectors between local port and inner structure.
+18. It's now possible to set custom colors to be used in diagrams by means of a new color property. Currently this is supported for initial and triggered transitions.
+
 # 0.0.3 (2022-11-23)
 
 1. The graphical appearance of symbols in class diagrams has improved. Now a line separates the name from properties such as ports and events. Also, icons were added for the properties to make it easier to understand the diagram.
