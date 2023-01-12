@@ -33,27 +33,32 @@ Double-clicking these icons will highlight the code snippets in the Art file.
 ## Working with Diagrams
 
 ### Zooming and Panning
-When a diagram is opened it is initially centered and with medium zoom level which makes all text labels big enough for reading. However, if the diagram is big then all contents may not be visible unless you zoom out. You can zoom the diagram using either the mouse scroll wheel or by means of the two-finger zoom gesture on a touch pad. To get back to the original zoom level you can click the **Center** button in the Properties view.
+When a diagram is opened it is initially centered and with medium zoom level which makes all text labels big enough for reading. However, if the diagram is big then all contents may not be visible unless you zoom out. You can zoom the diagram using either the mouse scroll wheel or by means of the two-finger zoom gesture on a touch pad. You can also zoom using the buttons in the Properties view toolbar. There you will also find a **Center** button which will restore the diagram to its original zoom level.
 
 ![](images/center.png)
 
 Alternatively you can use the command **Fit to Screen** which will set the zoom level so that the entire diagram fits the size of the diagram editor. Note that this command must be invoked from the general Command Palette or by means of the keyboard shortcut ++ctrl+shift+"F"++.
 
-It's also possible to work with a big diagram without zooming, but instead panning the viewport so that a different part of the diagram becomes visible. To pan the viewport click anywhere on the diagram and drag it in the direction you want to make visible. Note that there are no limits to panning which means you can move the viewport as far away from the center of the diagram as you like. Use the **Center** or **Fit to Screen** command for panning back the viewport to its original position. Note that if a symbol or line is selected, the **Center** command will move the viewport so that the selected symbol or line appears in the middle.
+It's also possible to work with a big diagram without zooming, but instead panning the viewport so that a different part of the diagram becomes visible. To pan the viewport click anywhere on the diagram and drag while holding down the mouse button. Note that there are no limits to panning which means you can move the viewport as far away from the center of the diagram as you like. Use the **Center** or **Fit to Screen** command for panning back the viewport to its original position. Note that if a symbol or line is selected, the **Center** command will move the viewport so that the selected symbol or line appears in the middle.
 
 ### Collapsing and Expanding Symbols
 State and structure diagrams can be hierarchical. A state diagram is hierarchical if it contains a composite state with a nested state machine. A structure diagram is hierarchical if it contains a part typed by another capsule with nested parts. By default symbols that contain nested symbols are collapsed to minimize the size of the diagram:
 
 ![](images/collapsed-symbols.png)
 
-To expand a collapsed symbol click the yellow button. The symbol will then be resized to show the nested symbols. Click the button again to collapse the symbol and hide the nested symbols. You can use the **Expand All** and **Collapse All** buttons in the Properties view to expand or collapse all symbols so that the full hierarchical diagram becomes visible.
+To expand a collapsed symbol click the yellow button. The symbol will then be resized to show the nested symbols. Click the button again to collapse the symbol and hide the nested symbols. You can use the **Expand All** and **Collapse All** buttons in the Properties view toolbar to expand or collapse all symbols so that the full hierarchical diagram becomes visible or hidden.
 
 ![](images/collapse-expand-all.png)
 
 Information about which symbols that are currently expanded will be remembered if you save the diagram. This information is stored in the file `.vscode/art_diagram_settings.json`.
 
+### Invoking Diagram Commands from Keyboard
+Many diagram commands mentioned above can be invoked using the keyboard. Press ++ctrl+space++ in a diagram to open a pop-up menu from where you can invoke a diagram command.
+
+![](images/diagram-commands.png)
+
 ### Diagram Appearance
-Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for certain transitions. Set the [color](../art-lang.md#color) property for more information.
+Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for elements of a state diagram. See the [color](../art-lang.md#color) property for more information.
 
 ### Diagram Filters
 To avoid cluttered diagrams with too many text labels, certain information is by default hidden. If you click in the background of the diagram, the Properties view will show various filters that you can turn on or off for showing or hiding such additional information. Here is an example of the filters available for a state diagram:

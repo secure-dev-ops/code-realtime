@@ -31,6 +31,10 @@ You can edit a TC directly as a JavaScript file in the text editor. Features suc
 
 ![](images/tc-editor-tooltip.png)
 
+* TC properties are validated when edited and found problems will be reported.
+
+![](images/tc-editor-validation.png)
+
 As an alternative to editing a TC as a JavaScript file {$product.name$} also provides a dedicated form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.
 
 To open the form-based TC editor, right-click on a TC file and invoke the context menu command **Edit Properties (UI)**. 

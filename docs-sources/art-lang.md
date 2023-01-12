@@ -59,7 +59,7 @@ A state may have an **entry action** and/or **exit action** which is a C++ code 
 
 ![](images/state_entry_exit_actions.png)
 
-A transition where the source and target state is the same state is called a **self-transition**. A special kind of self-transition is an **internal transition**, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; `t` which is a regular self-transition (a.k.a. **external self-transition**) and `it` which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view.
+A transition where the source and target state is the same state is called a **self-transition**. A special kind of self-transition is an **internal transition**, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; `t` which is a regular self-transition (a.k.a. **external self-transition**) and `it` which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view. An icon is shown on those states that contain internal transitions.
 
 ![](images/self_transitions.png)
 
@@ -788,6 +788,7 @@ It's also possible to directly enter a composite state without using an entry po
 Below is an example of an hierarchical state machine with a composite state `CompositeState` that contains a nested state machine. Note that you can declare multiple entry or exit points on the same line.
 
 <p id="hierarchical_sm_sample"/>
+
 ``` art
 statemachine {        
     initial -> CompositeState.ep1;
@@ -1253,7 +1254,7 @@ Below is a table that lists all properties that can be used on different kinds o
 | [Port](#port) | [registration](#registration) | Enumeration (automatic, automatic_locked, application) | automatic
 | [Port](#port) | [registration_name](#registration_name) | String | ""
 | [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata_param](#const_rtdata_param) | Boolean | true
-| [Initial transition](#initial-transition), [Triggered transition](#transition) | [color](#color) | String | ""
+| [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine) | [color](#color) | String | ""
 [Trigger](#transition) | [frequent](#frequent) | Boolean | false
 
 
@@ -1312,9 +1313,13 @@ This property specifies the name to use when registering a port at runtime. By d
 If set to `false` the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.
 
 ### color
-Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB or RGBA values using 6 or 8 hexadecimal digits. For example, "#ff00ffaa". The Art text editor will help you set an appropriate color by means of a color picker.
+Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.
 
 ![](images/color_picker.png)
+
+Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").
+
+![](images/color_picker_diagram.png)
 
 ### frequent
 Triggers for which this property is `true` will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the `rtsBehavior` function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.
