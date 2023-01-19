@@ -17,7 +17,7 @@ Once there is an active TC in a workspace folder, the first and second steps (ge
 
 ![](images/target-workspace-folder.png)
 
-To perform the third step (running make to generate binaries) you can simply go to the Terminal and invoke the command `make`. For convenience there is also a command **Build** available in the context menu of a TC. This command will first set the TC as active (if it was not already active) so that C++ code and a make file get generated. It will then run the make tool on the generated make file. All messages such as compilation errors will appear in the Terminal.
+To perform the third step (running make to generate binaries) you can simply go to the Terminal and invoke the command `make`. For convenience there is also a command **Build** available in the context menu of a TC. This command will first set the TC as active (if it was not already active) so that C++ code and a make file get generated. It will then run the make tool on the generated make file. 
 
 There are also two other useful commands in the context menu of a TC:
 
@@ -26,6 +26,14 @@ First builds the TC, and then attempts to launch the executable that is produced
 
 * **Clean**
 Removes the target workspace folder produced when building a TC. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke `make clean` to clean using the make file.
+
+## Build Messages
+When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:
+
+1. The **Terminal** view. Messages produced when compiling and linking the generated C++ code will be printed here, for example compilation errors. In many cases such messages will have a reference to a generated C++ file which you can control-click to open. In case of **Run** messages printed by the running executable will also be printed in the Terminal view. To terminate a running executable you can press ++ctrl+c++ in the Terminal view.
+2. The **Art Build** output channel. All other build messages are printed here, for example messages emitted by the C++ code generator. In some cases these messages will have a reference to a file (e.g. an input TC or Art file) which you can control-click to open. In case the build fails (e.g. because of compilation errors) a hyperlink will be present for opening the Terminal view where the errors that caused the build to fail can be found.
+
+![](images/art-build-output.png)
 
 ## Navigation Between Art and Generated C++
 You can navigate from an element in an Art file to the corresponding element in the C++ file that gets generated from that Art file. Use the context menu that appears when you right-click on an element in an Art file and invoke the command **Open Generated Code**. If C++ code has not yet been generated for the Art file, for example because no active TC has been set, navigation will fail with an error message.
