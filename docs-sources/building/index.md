@@ -31,7 +31,7 @@ Removes the target workspace folder produced when building a TC. This means that
 When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:
 
 1. The **Terminal** view. Messages produced when compiling and linking the generated C++ code will be printed here, for example compilation errors. In many cases such messages will have a reference to a generated C++ file which you can control-click to open. In case of **Run** messages printed by the running executable will also be printed in the Terminal view. To terminate a running executable you can press ++ctrl+c++ in the Terminal view.
-2. The **Art Build** output channel. All other build messages are printed here, for example messages emitted by the C++ code generator. In some cases these messages will have a reference to a file (e.g. an input TC or Art file) which you can control-click to open. In case the build fails (e.g. because of compilation errors) a hyperlink will be present for opening the Terminal view where the errors that caused the build to fail can be found.
+2. The **Art Build** output channel. All other build messages are printed here, for example messages emitted by the C++ code generator. In some cases these messages will have a reference to a file (e.g. an input TC or Art file), and sometimes even to an element within that file. You can control-click these to open the file and navigate to the element. In case the build fails (e.g. because of compilation errors) a hyperlink will be present for opening the Terminal view where the errors that caused the build to fail can be found.
 
 ![](images/art-build-output.png)
 
