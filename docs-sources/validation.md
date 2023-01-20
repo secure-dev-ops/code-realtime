@@ -25,6 +25,12 @@ You can hover the cursor over these underlinings to get a tooltip with informati
 
 Often a problem may be associated with more than one Art element. There is a main element on which the problem will be shown, but there often also are other elements that are related to the problem in one way or another. You can navigate to related elements to get a better understanding of why a problem is reported and how to fix it. In the screenshot above the problem has a single related element (the capsule `tlSystem`) but in general a problem can have an arbitrary number of related elements.
 
+Problems are also reported by means of icons in diagrams. Below are three states with problems of different severity:
+
+![](images/diagram_diagnostics.png)
+
+A problem icon has a tooltip that shows the message of the problem. You can disable problem reporting in diagrams by means of a configuration setting `rtistic.diagram.showDiagnostics`.
+
 ## Problems View
 Too see all problems found in all Art files in the workspace, open the Problems view. The total number of problems found are shown in the Problems view heading. By default problems are shown in a tree grouped by the Art files where they were found. However, you can also view them as a flat table instead (but note that related elements can only be seen when using the tree view).
 
