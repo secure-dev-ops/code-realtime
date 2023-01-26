@@ -2,7 +2,7 @@ protocol PROTO {
     /* In Events */
     in pong();
     /* Out Events */
-    out ping();
+    out ping(`int`);
 };
 
 capsule Top {
@@ -19,6 +19,10 @@ capsule Top {
 };
 
 capsule Pinger {
+    [[rt::decl]]
+    `
+        private: int count = 0;
+    `
     /* Ports */
     behavior port log : Log;
     behavior port timing : Timing;
@@ -37,7 +41,7 @@ capsule Pinger {
             log.show(getName());
             log.log(" sends ping");
             log.commit();
-            pingPort.ping().send();
+            pingPort.ping(++count).send();
             `;
         };
         initial -> State1
@@ -45,14 +49,17 @@ capsule Pinger {
         log.show(getName());
         log.log(" sends ping");
         log.commit();
-        pingPort.ping().send();
+        pingPort.ping(count).send();
         `;
     };
 };
 
 capsule Ponger {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
     /* Ports */
-    behavior port log : Log;
     service behavior port pongPort~ : PROTO;
     /* Parts */
     /* Connectors */
@@ -61,9 +68,8 @@ capsule Ponger {
         state State1 {
             ping: on pongPort.ping
             `
-            log.show(getName());
-            log.log(" sends pong");
-            log.commit();
+            int i = *((int*) rtdata);
+            std::cout << getName() << " sends pong (count=" << i << ")" << std::endl;
             pongPort.pong().send();
             `;
         };
