@@ -1795,7 +1795,7 @@
 <p><img alt="" src="../images/hierarchical.png" /></p>
 <p>A state may have an <strong>entry action</strong> and/or <strong>exit action</strong> which is a C++ code snippet that gets executed whenever the state is entered or exited. Note that state entry actions for nested states also run when those states are entered because of a deep history. In state diagrams the presence of entry and/or exit actions are shown by icons just below the state name. In the state machine shown below state <code>S1</code> has an entry action, state <code>S2</code> has an exit action and state <code>S3</code> has both an entry and an exit action.</p>
 <p><img alt="" src="../images/state_entry_exit_actions.png" /></p>
-<p>A transition where the source and target state is the same state is called a <strong>self-transition</strong>. A special kind of self-transition is an <strong>internal transition</strong>, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; <code>t</code> which is a regular self-transition (a.k.a. <strong>external self-transition</strong>) and <code>it</code> which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view.</p>
+<p>A transition where the source and target state is the same state is called a <strong>self-transition</strong>. A special kind of self-transition is an <strong>internal transition</strong>, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; <code>t</code> which is a regular self-transition (a.k.a. <strong>external self-transition</strong>) and <code>it</code> which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view. An icon is shown on those states that contain internal transitions.</p>
 <p><img alt="" src="../images/self_transitions.png" /></p>
 <p>State machines can not only be defined for capsules but also for regular classes. This can be useful if you want a plain passive C++ class to have a state machine. Contrary to a capsule a <strong>class</strong> may not have ports and doesn't execute in its own context. It's therefore common to associate such a class with a capsule that it can use for sending events through its ports. Transitions of a passive class state machine are triggered by calling <strong>trigger operations</strong> on the class. Such operations have no code, but just trigger transitions in the class state machine.</p>
 <p>The realtime application needs to designate one capsule as the <strong>top capsule</strong>. This is done in the <strong>transformation configuration</strong>, which is a file containing all the properties used for building the application (e.g. code generator options, compiler settings etc.). There is no language construct in Art for defining a top capsule; any capsule that you define can act as the top capsule. However, in practise you typically decide at an early stage which capsule that will be the top capsule.</p>
@@ -2943,7 +2943,7 @@ generate_file_header
 <td align="left">true</td>
 </tr>
 <tr>
-<td><a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a></td>
+<td><a href="#transition">Transition</a>, <a href="#state">State</a>, <a href="#choice-and-junction">Choice</a>, <a href="#choice-and-junction">Junction</a>, <a href="#hierarchical-state-machine">Entry Point</a>, <a href="#hierarchical-state-machine">Exit Point</a></td>
 <td align="left"><a href="#color">color</a></td>
 <td align="left">String</td>
 <td align="left">""</td>
@@ -2993,8 +2993,10 @@ generate_file_header
 <h3 id="const_rtdata_param">const_rtdata_param</h3>
 <p>If set to <code>false</code> the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
 <h3 id="color">color</h3>
-<p>Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB or RGBA values using 6 or 8 hexadecimal digits. For example, "#ff00ffaa". The Art text editor will help you set an appropriate color by means of a color picker.</p>
+<p>Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.</p>
 <p><img alt="" src="../images/color_picker.png" /></p>
+<p>Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").</p>
+<p><img alt="" src="../images/color_picker_diagram.png" /></p>
 <h3 id="frequent">frequent</h3>
 <p>Triggers for which this property is <code>true</code> will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the <code>rtsBehavior</code> function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.</p>
 
