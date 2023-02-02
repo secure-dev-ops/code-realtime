@@ -1,3 +1,17 @@
+# 0.0.5 (2023-01-26 06:59)
+1. Common diagram commands can now be invoked using the keyboard by pressing Ctrl+Space and selecting the command in the popup menu that appears. The following commands are available: Zoom In, Zoom Out, Center, Expand All, Collapse All
+2. The presence of internal transitions on a state is now shown by means of an icon on the state symbol in a state diagram. As before the internal transitions will be shown in the Properties view if such a state symbol is selected.
+3. When navigating to an element in an Art file the text editor will now automatically scroll both vertically and horizontally (if necessary) to make sure the element becomes visible.
+4. TC properties are now validated when edited (both textually and in the UI), and detected problems are reported. For example, it's validated that the specified top capsule exists and that the C++ language standard is set to a valid value.
+5. Custom colors can now be specified for all elements in state diagrams (transitions, states and pseudo states). You can directly change the color from the diagram Properties view (i.e. it's no longer necessary to first navigate to the Art file and change the color there).
+6. Code formatting and content assist was improved to make rt::properties sections foldable in the Art editor.
+7. A new command "Fold All Properties" was added. It collapses all rt::properties sections in an Art file (similar to how "Fold All C++ Code" works for C++ code sections). It can be useful for Art files that contain lots of properties.
+8. The entry and exit actions of a composite state can now be folded in the Art file, like other C++ code snippets. The command "Fold All C++ Code" will therefore be able to fold also these code snippets.
+9. Code generation now supports entry and exit actions for states.
+10. State diagrams now show diagnostics (errors, warnings and informations) using icons on symbols and lines. A new preference (`rtistic.diagram.showDiagnostics`) controls if they should be shown or not.
+11. More information is now printed in the Art Build output channel during a build. For example, various useful messages emitted by the C++ code generator may now be printed there. Messages emitted by build tools, e.g. the C++ compiler, are still printed in the Terminal view. In case the build fails a hyperlink to open the Terminal will be present in the Art Build output channel.
+12. A target configuration for the latest version of the GCC compiler (ver. 12) on Linux is now provided.
+
 # 0.0.4 (2022-12-21 13:11)
 
 1. A target configuration for the latest version of the MinGw compiler (ver. 12.2) is now provided.

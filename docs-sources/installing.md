@@ -21,6 +21,8 @@ Once the installation is finished you will see {$product.name$} appear in the "I
 
 The screenshot above also shows that an extension for working with C/C++ has been installed. See [Setup C++ Build Tools](#setup-c-build-tools) for more information.
 
+After you have installed {$product.name$} it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command `Developer: Reload Window` which is available in the Command Palette (++ctrl+shift+"P"++).
+
 ### Install from VSIX
 Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and the [Open VSX Registry](https://open-vsx.org/). Once you have downloaded the .vsix file follow these steps to install it:
 
@@ -38,11 +40,16 @@ If the installation completes successfully you should see the following message 
 
 If instead the installation fails, this message will tell you the reason. One common reason for failure is that your version of Visual Studio Code or Eclipse Theia is not compatible (i.e. too old) for {$product.name$}.
 
+It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
+
+### Viewing Installation Information
 If you are unsure about which version of {$product.name$} you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:
 
 ![](images/extension_tooltip.png)
 
-It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
+You can also see the version and the exact date of the installed {$product.name$} in the Changelog that is present on the extension's page. There you can also see what has been fixed and improved compared to older releases.
+
+![](images/extension_changelog.png)
 
 ### Portable Mode Installation
 You can install multiple versions of {$product.name$} by using the portable mode of Visual Studio Code. See [Portable Mode](https://code.visualstudio.com/docs/editor/portable) for how to install Visual Studio code in portable mode, which will allow you to install a version of {$product.name$} that won't affect other Visual Studio Code installations on the machine. Portable mode also allows to move or copy an installation from one machine to another, which makes it useful in scenarios where installs should be centralized in an organization.
@@ -51,7 +58,7 @@ You can install multiple versions of {$product.name$} by using the portable mode
 After a successful installation you need to perform a few configuration steps before you can start to use {$product.name$}.
 
 #### Setup Java
-{$product.name$} uses a Java language server and hence needs a Java Virtual Machine (JVM). More specifically it requires a Java 11 JVM. If an appropriate JVM cannot be found when the {$product.name$} extension is activated (which for example happens the first time you open an Art file), you will receive an error message.
+{$product.name$} uses a Java language server and hence needs a Java Virtual Machine (JVM). It's recommended to use a Java 17 JVM (at a minimum Java 11 is required). If an appropriate JVM cannot be found when the {$product.name$} extension is activated (which for example happens the first time you open an Art file), you will receive an error message.
 
 {$product.name$} follows the steps below in priority order when it looks for an appropriate JVM to use:
 
