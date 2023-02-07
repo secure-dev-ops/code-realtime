@@ -67,9 +67,15 @@ To avoid cluttered diagrams with too many text labels, certain information is by
 
 Information about applied filters will be remembered if you save the diagram. This information is stored in the file `.vscode/art_diagram_settings.json`.
 
+Diagram filter properties that have been modified are shown in boldface, and a "Restore default" button appears for them. You can click this button to restore the filter property to its default value.
+
+![](images/diagram-filters-restore-default.png)
+
 You can also set diagram filters globally using configuration settings. Such filters will apply to all diagrams unless a more specific filter has been set on an individual diagram. You can find these configuration settings by filtering on `rtistic.diagram` in the Settings:
 
 ![](images/global-diagram-filters.png)
+
+Note that some diagram filters can only be set globally, and not for individual diagrams.
 
 ### Elements in the Properties View
 The Properties view can show additional Art elements when you select a symbol or a line. For example, it shows internal transitions of a state.
