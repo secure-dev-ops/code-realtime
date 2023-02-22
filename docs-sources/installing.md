@@ -58,7 +58,7 @@ You can install multiple versions of {$product.name$} by using the portable mode
 After a successful installation you need to perform a few configuration steps before you can start to use {$product.name$}.
 
 #### Setup Java
-{$product.name$} uses a Java language server and hence needs a Java Virtual Machine (JVM). It's recommended to use a Java 17 JVM (at a minimum Java 11 is required). If an appropriate JVM cannot be found when the {$product.name$} extension is activated (which for example happens the first time you open an Art file), you will receive an error message.
+{$product.name$} uses a Java language server and hence needs a Java Virtual Machine (JVM). It's required to use a Java 17 JVM. If an appropriate JVM cannot be found when the {$product.name$} extension is activated (which for example happens the first time you open an Art file), you will receive an error message.
 
 {$product.name$} follows the steps below in priority order when it looks for an appropriate JVM to use:
 
