@@ -7,10 +7,12 @@ To create a new TC select a file in the workspace folder that contains the Art f
 
 ![](images/default-tc-name.png)
 
-A .tcjs file will be created with minimal contents. Specify the mandatory [targetFolder](#targetfolder) property and any other [properties](#properties) needed.
+A .tcjs file will be created with the minimal contents. Specify the mandatory [topCapsule](#topcapsule) property (if you are building an executable) and any other [properties](#properties) needed.
 
 ## Setting a Transformation Configuration as Active
-You can have more than one TC in your workspace, but at most one TC in each workspace folder can be **active**. Set a TC as active by right-clicking on it and perform the command **Set as Active**. An active TC is marked with a checkmark.
+You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC for knowing how to automatically generate C++ code from the Art files in the workspace folder.
+
+Set a TC as active by right-clicking on it and perform the command **Set as Active**. An active TC is marked with a checkmark.
 
 ![](images/active-tc.png)
 
@@ -35,7 +37,7 @@ You can edit a TC directly as a JavaScript file in the text editor. Features suc
 
 ![](images/tc-editor-validation.png)
 
-As an alternative to editing a TC as a JavaScript file {$product.name$} also provides a dedicated form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.
+As an alternative to editing a TC as a JavaScript file {$product.name$} also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.
 
 To open the form-based TC editor, right-click on a TC file and invoke the context menu command **Edit Properties (UI)**. 
 
@@ -53,7 +55,11 @@ Certain TC properties have default values. Such values are not stored in the TC 
 
 ![](images/tc-editor-default-value.png)
 
-You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated when you save the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. 
+You can tell which TC properties that have a custom (i.e. non-default) value set by looking at the color of the property name. Properties with custom values set have names shown in blue which are hyperlinks that will navigate to the value in the TC file. Such properties also have a "Delete" button which can be used for deleting the property value (i.e. to restore the property to use its default value).
+
+![](images/tc-with-value.png)
+
+You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. 
 
 ## Properties
 Below is an alphabetic list of all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value.
@@ -71,7 +77,7 @@ Specifies which C++ compiler to use for compiling generated C++ code. The defaul
 This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.
 
 ### cppCodeStandard
-Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 11`, `C++ 14` and `C++ 20`. If you need to compile generated code with a compiler that doesn't support C++ 11 you can set this preference to `Older than C++ 11`. However, you then cannot use the standard version of the TargetRTS since it uses C++ 11 constructs.
+Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 11`, `C++ 14` and `C++ 20`. If you need to compile generated code with a compiler that doesn't support C++ 11 you can set this preference to `Older than C++ 11`. However, you then cannot use the latest version of the TargetRTS since it uses C++ 11 constructs.
 
 ### linkArguments
 Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.
@@ -92,14 +98,16 @@ Specifies which TargetRTS configuration to use. The TargetRTS location specified
 This property maps to a subfolder of the target folder where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is `default`.
 
 ### targetLocation
-When a TC is built all generated files (C++ code, make file, binaries etc) will be placed in a so called target folder. This property specifies the name of that folder. The target folder will be added as a workspace folder the first time the TC is built. You can choose any name that is a valid name of a folder, but it can be convenient to base the name on the workspace folder that contains the TC so that the target folder appears near it. For example, if the workspace folder that contains the TC is called "MyApp" you can use "MyApp_target" as the name of the target folder.
+When a TC is built all generated files (C++ code, make file, binaries etc) will be placed in a so called target folder. This property specifies the name and location of that folder. The target folder will be added as a workspace folder the first time the TC is built. You can choose any name that is a valid name of a folder, but it can be convenient to base the name on the workspace folder that contains the TC so that the target folder appears near it. For example, if the workspace folder that contains the TC is called "MyApp" you can use "MyApp_target" as the name of the target folder. In fact, if you don't specify a value for this property it will default to using the name of the TC and append "_target" to it.
 
-The path can be either absolute or relative. Relative paths are resolved against the folder that contains the TC. Use forward slashes as path separator.
-
-`targetLocation` is a mandatory TC property and it has no default value.
+The path can be either absolute or relative. Relative paths are resolved against the folder that contains the TC. Use forward slashes as path separator. 
 
 ### targetRTSLocation
-Specifies the location of the TargetRTS to use. The default value of this property is `${RSA_RT_HOME}/C++/TargetRTS` which points at the folder in the {$product.name$} installation where the TargetRTS C++ implementation resides.
+Specifies the location of the TargetRTS to use. If no value is set for this property the TargetRTS from the RTist in Code installation will be used. If you want to use another TargetRTS specify the full path to the `TargetRTS` folder (including that folder itself). Use forward slashes as path separator. For example:
+
+``` js
+tc.targetRTSLocation = "C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS";
+```
 
 ### topCapsule
 Specifies the capsule that should be automatically incarnated when the executable starts to run. Hence this property is only applicable for TCs that build executables, and for those TCs it's a mandatory property. The top capsule is the entry point of the realtime application.

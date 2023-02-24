@@ -19,6 +19,8 @@ You can also open diagrams from the context menu of an Art file in the Explorer 
 
 The same prompting happens if you open a diagram from an Art file when the cursor position doesn't indicate which Art element to open the diagram for. All valid Art elements in the file will be listed and you can choose which one to open the diagram for.
 
+You can open multiple diagrams of the same kind in one go by selecting multiple Art files in the Explorer view, and then invoke a command for opening diagrams from the context menu. However, in this case only diagrams for the first element found in each file will be opened (i.e. in this case you will not be prompted in case a file contains multiple elements for which the selected kind of diagram could be opened).
+
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:
 
@@ -57,6 +59,8 @@ Many diagram commands mentioned above can be invoked using the keyboard. Press +
 
 ![](images/diagram-commands.png)
 
+In this pop-up menu you also find convenient commands for navigating to related diagrams. For example, from the state diagram of a capsule you can navigate to the structure and class diagrams of that same capsule.
+
 ### Diagram Appearance
 Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for elements of a state diagram. See the [color](../art-lang.md#color) property for more information.
 
@@ -92,3 +96,8 @@ You can rename an Art element shown in a diagram by double-clicking on the text 
 ![](images/diagram-rename.png)
 
 Note that this is a "rename refactoring" and all references to the renamed element will be updated too. 
+
+### Deleting Elements
+You can delete an Art element shown in a diagram by selecting the symbol or line that represents the element and then press the ++"Delete"++ key. Multiple symbols or lines can be selected in order to delete many Art elements in one go. Currently deleting elements is only supported from state diagrams.
+
+Note that elements are deleted by removing them from the Art file, which in turn will update the diagram. All content within the deleted element will be lost, including any comments. However, you can of course undo the deletion by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
