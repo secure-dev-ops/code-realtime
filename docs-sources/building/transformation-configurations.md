@@ -1,4 +1,4 @@
-A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for dynamic properties where the value is not a static value but computed by JavaScript code.
+A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application or a library. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for dynamic properties where the value is not a static value but computed dynamically by JavaScript code when the TC is built.
 
 {$product.name$} provides a dedicated language server for TCs to make them just as easy to work with as Art files. A [form-based editor](#editing-transformation-configurations) is also provided as an alternative.
 
@@ -65,7 +65,7 @@ You can freely choose if you want to edit TC files as text files or using the fo
 Below is an alphabetic list of all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value.
 
 ### commonPreface
-This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called "UnitName.h"). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.
+This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called `UnitName.h`). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.
 
 ### compileArguments
 Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. 
@@ -83,7 +83,7 @@ Defines the C++ language standard to which generated code will conform. The defa
 Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.
 
 ### linkCommand
-Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is `$(LD)` which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for executable TCs.
+Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is `$(LD)` which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.
 
 ### makeArguments
 Specifies the arguments for the [make command](#makecommand) to be used.
@@ -95,12 +95,14 @@ Specifies which make command to use for processing the generated make file. By d
 Specifies which TargetRTS configuration to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
 
 ### targetConfigurationName
-This property maps to a subfolder of the target folder where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is `default`.
+This property maps to a subfolder of the [target folder](#targetfolder) where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is `default`.
 
-### targetLocation
-When a TC is built all generated files (C++ code, make file, binaries etc) will be placed in a so called target folder. This property specifies the name and location of that folder. The target folder will be added as a workspace folder the first time the TC is built. You can choose any name that is a valid name of a folder, but it can be convenient to base the name on the workspace folder that contains the TC so that the target folder appears near it. For example, if the workspace folder that contains the TC is called "MyApp" you can use "MyApp_target" as the name of the target folder. In fact, if you don't specify a value for this property it will default to using the name of the TC and append "_target" to it.
+### targetFolder
+Specifies where files generated from the TC will be placed. This property is usually just set to a name, and then a target folder with that name will be created next to the folder that contains the TC. That target folder is then added as a workspace folder, which will cause you to be prompted about if you trust the authors of the files in that folder. It's safe to answer yes since all files in that folder are automatically generated by {$product.name$}. 
 
-The path can be either absolute or relative. Relative paths are resolved against the folder that contains the TC. Use forward slashes as path separator. 
+You can also specify an absolute path to a target folder if you prefer generated files to be placed somewhere else. If you instead specify a relative path it gets resolved relative to the folder that contains the TC. The specified target folder will be created if it doesn't already exist. Use forward slashes as path separator. 
+
+If this property is not specified it defaults to the name of the TC, with `_target` appended. For example, if the TC is called `app.tcjs`, the target folder will default to `app_default`.
 
 ### targetRTSLocation
 Specifies the location of the TargetRTS to use. If no value is set for this property the TargetRTS from the RTist in Code installation will be used. If you want to use another TargetRTS specify the full path to the `TargetRTS` folder (including that folder itself). Use forward slashes as path separator. For example:
@@ -111,6 +113,8 @@ tc.targetRTSLocation = "C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS";
 
 ### topCapsule
 Specifies the capsule that should be automatically incarnated when the executable starts to run. Hence this property is only applicable for TCs that build executables, and for those TCs it's a mandatory property. The top capsule is the entry point of the realtime application.
+
+If you don't specify a value for this property, the TC will build a library instead of an executable.
 
 ### unitName
 Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is `UnitName` which means that these unit files will be called `UnitName.cpp` and `UnitName.h`. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.

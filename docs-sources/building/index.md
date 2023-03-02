@@ -17,7 +17,7 @@ Once there is an active TC in a workspace folder, the first and second steps (ge
 
 ![](images/target-workspace-folder.png)
 
-To perform the third step (running make to generate binaries) you can simply go to the Terminal and invoke the command `make`. For convenience there is also a command **Build** available in the context menu of a TC. This command will first set the TC as active (if it was not already active) so that C++ code and a make file get generated. It will then run the make tool on the generated make file. 
+To perform the third step (running make to generate binaries) you can simply go to the target folder in the Terminal and invoke the command `make`. For convenience there is also a command **Build** available in the context menu of a TC. This command will first set the TC as active (if it was not already active) so that C++ code and a make file get generated. It will then run the make tool on the generated make file. 
 
 There are also two other useful commands in the context menu of a TC:
 
@@ -30,8 +30,8 @@ Removes the target workspace folder produced when building a TC. This means that
 ## Build Messages
 When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:
 
-1. The **Terminal** view. Messages produced when compiling and linking the generated C++ code will be printed here, for example compilation errors. In many cases such messages will have a reference to a generated C++ file which you can control-click to open. In case of **Run** messages printed by the running executable will also be printed in the Terminal view. To terminate a running executable you can press ++ctrl+c++ in the Terminal view.
-2. The **Art Build** output channel. All other build messages are printed here, for example messages emitted by the C++ code generator. In some cases these messages will have a reference to a file (e.g. an input TC or Art file), and sometimes even to an element within that file. You can control-click these to open the file and navigate to the element. In case the build fails (e.g. because of compilation errors) a hyperlink will be present for opening the Terminal view where the errors that caused the build to fail can be found.
+1. The **Terminal** view. Messages produced when compiling and linking the generated C++ code will be printed here, for example compilation errors. In many cases such messages will have a reference to a generated C++ file which you can ++ctrl++-click to open. In case of **Run** messages printed by the running executable will also be printed in the Terminal view. To terminate a running executable you can press ++ctrl+c++ in the Terminal view.
+2. The **Art Build** output channel. All other build messages are printed here, for example messages emitted by the C++ code generator. In some cases these messages will have a reference to a file (e.g. an input TC or Art file), and sometimes even to an element within that file. You can ++ctrl++-click these to open the file and navigate to the element. In case the build fails (e.g. because of compilation errors) a hyperlink will be present for opening the Terminal view where the errors that caused the build to fail can be found.
 
 ![](images/art-build-output.png)
 
@@ -46,7 +46,7 @@ For C++ code snippets you can as an alternative perform the navigation using a t
 
 ![](images/navigate-cpp-tooltip.png)
 
-If the cursor is within the C++ code snippet when navigating, the cursor will be set at the same place in the generated C++ code. This is convenient if you start to edit a code snippet in an Art file but later realize that you instead want to edit it in the generated C++ code instead.
+If the cursor is within the C++ code snippet when navigating, the cursor will be set at the same place in the generated C++ code. This is convenient if you start to edit a code snippet in an Art file but later realize that you want to edit it in the generated C++ code instead.
 
 ## Making Changes in Generated C++
 C++ code snippets that are embedded in the Art file will be enclosed by special comments in the generated C++ file. You can edit such code snippets in a generated C++ file. When you save the file your changes will be automatically propagated back to the Art file. Here is an example of what a code snippet may look like in the generated C++ code:
