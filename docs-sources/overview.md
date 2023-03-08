@@ -2,9 +2,11 @@
 
 It runs as an extension of Visual Studio Code or Eclipse Theia. Follow the [installation instructions](../installing) for installing it.
 
-{$product.name$} supports [the Art language](../art-lang) which is an extension of the C++ language. It provides high-level concepts useful when designing stateful, event-driven realtime applications, such as capsules, state machines and protocols. It is a textual language, but also provides a graphical notation that includes class, state and structure diagrams.
+{$product.name$} supports the [Art language](../art-lang) which is an extension of the C++ language. It provides high-level concepts useful when designing stateful, event-driven realtime applications, such as capsules, state machines and protocols. It is a textual language, but also provides a graphical notation that includes class, state and structure diagrams.
 
 {$product.name$} translates Art files into efficient C++ code which can be compiled on any target system. The generated code makes use of the [Target RunTime System](../target-rts) which is a C++ library that implements the concepts of the Art language.
+
+Watch this [video](https://www.youtube.com/watch?v=6kgg_oDGSQ8) to get an overview of how {$product.name$} uses the Art language for implementing stateful, event-driven realtime applications.
 
 ## Art History
 The Art language as implemented in {$product.name$} builds on a foundation with a long history in industry. In the early 1990s the Canadian company ObjecTime Limited developed a language called [ROOM](https://www.researchgate.net/publication/221569173_Real-Time_Object-Oriented_Modeling_ROOM) to address the challenges of building realtime applications consisting of communicating state machines. ROOM introduced concepts such as capsules, protocols and ports and was first implemented in the tool ObjecTime Developer. This tool got adopted in a wide range of industrial domains for example telecom and embedded systems development.

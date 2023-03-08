@@ -70,6 +70,10 @@ After a successful installation you need to perform a few configuration steps be
    
 3) An attempt is made to launch the `java` command without using a path. The first JVM found in the system path, if any, will be used.
 
+When the {$product.name$} extension is activated information about which Java that is used is printed to the Art Server output channel.
+
+![](images/art-server-log.png)
+
 You may also need to adjust the arguments for the JVM. By default the JVM is launched with the below arguments:
 
 `-Xverify:none -Xmx4024m`
