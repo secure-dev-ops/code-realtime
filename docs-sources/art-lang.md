@@ -545,7 +545,7 @@ Parts can also be shown in a class diagram:
 
 ![](images/parts_class.png)
 
-In the above diagram the filled diamonds show that there is a strong life-time relationship between a `C` instance and the instances of `D` that are located in the fixed and optional parts `a`, `b`, `c` and `d`, while this is not the case for the instance located in the plugin part `d` as shown by the hollow diamond.
+In the above diagram the filled diamonds show that there is a strong life-time relationship between a `C` instance and the instances of `D` that are located in the fixed and optional parts `a`, `b`, `c`, `d` and `f`, while this is not the case for the instance located in the plugin part `e` as shown by the hollow diamond.
 
 ### Part with Capsule Factory
 If the capsule that types a part has a [capsule constructor](#capsule-constructor) with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. 
