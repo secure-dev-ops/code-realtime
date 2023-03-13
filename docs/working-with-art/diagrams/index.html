@@ -599,6 +599,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#deleting-elements" class="md-nav__link">
+    Deleting Elements
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -977,6 +984,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#deleting-elements" class="md-nav__link">
+    Deleting Elements
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1016,6 +1030,7 @@
 <p>You can also open diagrams from the context menu of an Art file in the Explorer view. In this case the Art file will be searched for an element that can be shown in the selected kind of diagram. If more than one such Art element is found, you will be prompted to pick the one to show in the diagram. For example:</p>
 <p><img alt="" src="../images/open-diagram-multiple-elements.png" /></p>
 <p>The same prompting happens if you open a diagram from an Art file when the cursor position doesn't indicate which Art element to open the diagram for. All valid Art elements in the file will be listed and you can choose which one to open the diagram for.</p>
+<p>You can open multiple diagrams of the same kind in one go by selecting multiple Art files in the Explorer view, and then invoke a command for opening diagrams from the context menu. However, in this case only diagrams for the first element found in each file will be opened (i.e. in this case you will not be prompted in case a file contains multiple elements for which the selected kind of diagram could be opened).</p>
 <h2 id="navigating-from-diagram-to-art-file">Navigating from Diagram to Art File</h2>
 <p>If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:</p>
 <p><img alt="" src="../images/ctrlclick-text-label.png" /></p>
@@ -1037,14 +1052,18 @@
 <h3 id="invoking-diagram-commands-from-keyboard">Invoking Diagram Commands from Keyboard</h3>
 <p>Many diagram commands mentioned above can be invoked using the keyboard. Press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> in a diagram to open a pop-up menu from where you can invoke a diagram command.</p>
 <p><img alt="" src="../images/diagram-commands.png" /></p>
+<p>In this pop-up menu you also find convenient commands for navigating to related diagrams. For example, from the state diagram of a capsule you can navigate to the structure and class diagrams of that same capsule.</p>
 <h3 id="diagram-appearance">Diagram Appearance</h3>
 <p>Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for elements of a state diagram. See the <a href="../../art-lang/#color">color</a> property for more information.</p>
 <h3 id="diagram-filters">Diagram Filters</h3>
 <p>To avoid cluttered diagrams with too many text labels, certain information is by default hidden. If you click in the background of the diagram, the Properties view will show various filters that you can turn on or off for showing or hiding such additional information. Here is an example of the filters available for a state diagram:</p>
 <p><img alt="" src="../images/diagram-filters.png" /></p>
 <p>Information about applied filters will be remembered if you save the diagram. This information is stored in the file <code>.vscode/art_diagram_settings.json</code>.</p>
+<p>Diagram filter properties that have been modified are shown in boldface, and a "Restore default" button appears for them. You can click this button to restore the filter property to its default value.</p>
+<p><img alt="" src="../images/diagram-filters-restore-default.png" /></p>
 <p>You can also set diagram filters globally using configuration settings. Such filters will apply to all diagrams unless a more specific filter has been set on an individual diagram. You can find these configuration settings by filtering on <code>rtistic.diagram</code> in the Settings:</p>
 <p><img alt="" src="../images/global-diagram-filters.png" /></p>
+<p>Note that some diagram filters can only be set globally, and not for individual diagrams.</p>
 <h3 id="elements-in-the-properties-view">Elements in the Properties View</h3>
 <p>The Properties view can show additional Art elements when you select a symbol or a line. For example, it shows internal transitions of a state.</p>
 <p><img alt="" src="../images/internal-transitions.png" /></p>
@@ -1054,6 +1073,9 @@
 <p>You can rename an Art element shown in a diagram by double-clicking on the text label that shows its name. Alternatively select the symbol or line to which the text label belongs and press <span class="keys"><kbd>F2</kbd></span>.</p>
 <p><img alt="" src="../images/diagram-rename.png" /></p>
 <p>Note that this is a "rename refactoring" and all references to the renamed element will be updated too. </p>
+<h3 id="deleting-elements">Deleting Elements</h3>
+<p>You can delete an Art element shown in a diagram by selecting the symbol or line that represents the element and then press the <span class="keys"><kbd>Delete</kbd></span> key. Multiple symbols or lines can be selected in order to delete many Art elements in one go. Currently deleting elements is only supported from state diagrams.</p>
+<p>Note that elements are deleted by removing them from the Art file, which in turn will update the diagram. All content within the deleted element will be lost, including any comments. However, you can of course undo the deletion by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>z</kbd></span> (<strong>Undo</strong>) in the Art text editor.</p>
 
               
             </article>

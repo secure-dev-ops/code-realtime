@@ -1799,8 +1799,7 @@
 <p><img alt="" src="../images/self_transitions.png" /></p>
 <p>State machines can not only be defined for capsules but also for regular classes. This can be useful if you want a plain passive C++ class to have a state machine. Contrary to a capsule a <strong>class</strong> may not have ports and doesn't execute in its own context. It's therefore common to associate such a class with a capsule that it can use for sending events through its ports. Transitions of a passive class state machine are triggered by calling <strong>trigger operations</strong> on the class. Such operations have no code, but just trigger transitions in the class state machine.</p>
 <p>The realtime application needs to designate one capsule as the <strong>top capsule</strong>. This is done in the <strong>transformation configuration</strong>, which is a file containing all the properties used for building the application (e.g. code generator options, compiler settings etc.). There is no language construct in Art for defining a top capsule; any capsule that you define can act as the top capsule. However, in practise you typically decide at an early stage which capsule that will be the top capsule.</p>
-<p>If you build a library rather than an executable you don't have a top capsule.</p>
-<p>The top capsule is the entry point of the realtime application. When it starts to execute one instance of the top capsule will be automatically created, and its state machine starts to execute.</p>
+<p>The top capsule is the entry point of the realtime application. When it starts to execute one instance of the top capsule will be automatically created, and its state machine starts to execute. If you build a library rather than an executable you don't have a top capsule.</p>
 <h2 id="embedded-c-code">Embedded C++ Code</h2>
 <p>Art uses C++ as action and expression language. It also uses C++ for defining types, variables and functions. A C++ code snippet can be embedded into Art at many places by enclosing it with backticks. Here is an example of how to write the code that should execute when a transition triggers:</p>
 <pre><code class="language-art">S1 -&gt; S2 on timer.timeout
@@ -1873,23 +1872,31 @@ capsule Cx {
     // ...
 };
 </code></pre>
-<p>Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include <code>sample.art.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements in the <a href="#art-language-reference">Art Language Reference</a> to learn about what code snippets that are available for each kind of Art element.</p>
+<p>Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include <code>sample.art.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.</p>
 <h2 id="textual-and-graphical-notations">Textual and Graphical Notations</h2>
 <p>The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.</p>
 <p>Below are examples of these three kinds of diagrams:</p>
 <p><img alt="" src="../images/diagrams.png" /></p>
+<p>Diagrams are automatically updated when the corresponding Art file is modified. They use automatic layout to a large extent to avoid the need for manual tidy-up of diagrams when something changes. This also significantly reduces the need for storing diagram specific properties in the Art files, such as coordinates or symbol dimensions. However, there are some properties used when rendering diagrams that are stored in the Art file. For example, if you assign a custom <a href="#color">color</a> to a state symbol it will be stored as a <a href="#property">property</a> on the state.</p>
+<pre><code class="language-art">capsule Cap {    
+    statemachine {
+        state ColorfulState[[rt::properties(color=&quot;#b40e0e&quot;)]];        
+    };
+};
+</code></pre>
+<p>Art elements are mostly edited using their textual notation, but diagrams also provide some editing capabilities. However, all edit commands performed from a diagram are actually mapped to corresponding textual modifications of the Art file. Editing from a diagram is therefore simply an alternative, and sometimes more convenient way, of editing the textual Art file.</p>
 <h2 id="syntax">Syntax</h2>
 <p>Art uses a syntax that should look familiar to developers with knowledge about languages like C++ and Java. </p>
 <ul>
 <li>Declarations are terminated with a semicolon <code>;</code></li>
-<li>Multiple elements declared in the same language construct uses comma <code>,</code> for separating the elements</li>
+<li>When multiple elements are declared in the same language construct commas <code>,</code> are used for separating the elements</li>
 <li>Curly brackets <code>{}</code> are used for grouping nested elements</li>
 <li>Square brackets <code>[]</code> are used for specifying cardinality (i.e. multiplicity) of elements</li>
 <li>A dot (<code>.</code>) is used as scope resolution operator</li>
 <li>Line <code>//</code> and block <code>/* */</code> <a href="#comments">comments</a> may be freely used for commenting</li>
 </ul>
 <h3 id="names-and-keywords">Names and Keywords</h3>
-<p>Names of Art elements must be valid C++ identifiers since they will be used as names of C++ definitions in generated code. Names also must not clash with names used in the TargetRTS. Don't worry. The Art language editor will let you know if you choose a name that won't work. </p>
+<p>Names of Art elements must be valid C++ identifiers since they will be used as names of C++ definitions in generated code. Names also must not clash with names used in the TargetRTS. Don't worry - the Art language editor will let you know if you choose a name that won't work. </p>
 <p>Just like any language, Art has certain keywords that are reserved and which cannot be used as names. These keywords are listed below:</p>
 <table>
 <thead>
@@ -1913,50 +1920,43 @@ capsule Cx {
 <td>entry</td>
 <td align="left">entrypoint</td>
 <td align="left">exclude</td>
-<td align="left">exclude</td>
 <td align="left">exit</td>
+<td align="left">exitpoint</td>
 </tr>
 <tr>
-<td>exitpoint</td>
-<td align="left">fixed</td>
+<td>fixed</td>
 <td align="left">history</td>
 <td align="left">in</td>
 <td align="left">initial</td>
+<td align="left">junction</td>
 </tr>
 <tr>
-<td>junction</td>
-<td align="left">notify</td>
+<td>notify</td>
 <td align="left">on</td>
 <td align="left">optional</td>
 <td align="left">out</td>
+<td align="left">part</td>
 </tr>
 <tr>
-<td>part</td>
-<td align="left">plugin</td>
+<td>plugin</td>
 <td align="left">port</td>
 <td align="left">protocol</td>
 <td align="left">publish</td>
+<td align="left">redefine</td>
 </tr>
 <tr>
-<td>redefine</td>
-<td align="left">service</td>
+<td>service</td>
 <td align="left">state</td>
 <td align="left">statemachine</td>
 <td align="left">subscribe</td>
+<td align="left">template</td>
 </tr>
 <tr>
-<td>template</td>
-<td align="left">trigger</td>
+<td>trigger</td>
 <td align="left">typename</td>
 <td align="left">unwired</td>
 <td align="left">when</td>
-</tr>
-<tr>
-<td>with</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">with</td>
 </tr>
 </tbody>
 </table>
@@ -2004,7 +2004,7 @@ capsule Cx {
 <tr>
 <td>rt::header_preface</td>
 <td align="left">Inserted at the top of the capsule class header file</td>
-<td align="left">Adding #includes</td>
+<td align="left">Adding #includes needed by the capsule declaration</td>
 </tr>
 <tr>
 <td>rt::header_ending</td>
@@ -2014,7 +2014,7 @@ capsule Cx {
 <tr>
 <td>rt::impl_preface</td>
 <td align="left">Inserted at the top of the capsule class implementation file</td>
-<td align="left">Adding #includes</td>
+<td align="left">Adding #includes needed by the capsule implementation</td>
 </tr>
 <tr>
 <td>rt::impl_ending</td>
@@ -2036,8 +2036,8 @@ capsule Cx {
 <h3 id="capsule-constructor">Capsule Constructor</h3>
 <p>Just like a regular class a capsule may have constructors. A capsule constructor is declared using an <code>rt::decl</code> code snippet and defined using an <code>rt::impl</code> code snippet. All capsule constructors have two mandatory parameters:</p>
 <ul>
-<li><strong>rtg_rts</strong> This is the controller (<code>RTController*</code>) which will execute an instance of the capsule</li>
-<li><strong>rtg_ref</strong> This is the part (<code>RTActorRef*</code>) into which the capsule instance will be inserted</li>
+<li><strong>rtg_rts</strong> This is the controller (<code>RTController*</code>) which will execute an instance of the capsule. It corresponds to the thread that runs the capsule instance.</li>
+<li><strong>rtg_ref</strong> This is the part (<code>RTActorRef*</code>) into which the capsule instance will be inserted. Every capsule instance, except the top capsule, resides in exactly one part.</li>
 </ul>
 <p>After these parameters you can add your own parameters, to pass arbitrary initialization data to the capsule instance. Below is an example where a capsule <code>MyCap</code> has a reference variable <code>m_c</code>. To initialize this variable a capsule constructor is used.</p>
 <pre><code class="language-art">capsule MyCap {
@@ -2080,7 +2080,7 @@ capsule Cx {
 <tr>
 <td>rt::header_preface</td>
 <td align="left">Inserted at the top of the protocol class header file</td>
-<td align="left">Adding #includes</td>
+<td align="left">Adding #includes of header files defining types used as event parameter types</td>
 </tr>
 <tr>
 <td>rt::header_ending</td>
@@ -2100,7 +2100,7 @@ capsule Cx {
     in relayEvent(); out relayEvent();
 };
 </code></pre>
-<p>The event <code>relayEvent</code> above is both an in-event and an out-event. Such <strong>symmetric events</strong> are useful in protocols typing ports the may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.</p>
+<p>The event <code>relayEvent</code> above is both an in-event and an out-event. Such <strong>symmetric events</strong> are useful in protocols typing ports that may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.</p>
 <p>At run-time we often talk about a <strong>message</strong> rather than an event. A message is an instance of an event, similar to how a capsule instance is an instance of a capsule. In other words, a message is a run-time concept while an event is a design-time concept. </p>
 <h2 id="port">Port</h2>
 <p>A port defines a named point of communication for a capsule. A port is typed by a <a href="#protocol-and-event">protocol</a> which defines the events that may be sent in to (in-events) and out from (out-events) the port. A port may be conjugated in order to swap the meaning of in-events and out-events. That is, a capsule may send out-events on its non-conjugated ports, but in-events for its conjugated ports. A port becomes conjugated if you add a tilde (~) after its name.</p>
@@ -2116,7 +2116,7 @@ capsule Cx {
 };
 </code></pre>
 <p>Service ports constitute the externally visible communication interface for a capsule, and together they define which events can be sent to the capsule, and which events the capsule can send out for other capsules to receive. In a structure diagram the service ports are shown on the border of a capsule or part symbol.</p>
-<p>A <strong>behavior port</strong> is logically connected to the behavior (i.e. <a href="#state-machine">state machine</a>) of a capsule. This means that an event that a capsule receives on a behavior port will be handled by the state machine of that capsule. A non-behavior port, however, will simply route an event to another port to which it is connected. Every sent event will ultimately reach a behavior port (provided ports are properly connected), and the state machine of the capsule owning that behavior port will handle the event. In a structure diagram, behavior ports are connected to a small ellipse which represents the capsule state machine.</p>
+<p>A <strong>behavior port</strong> is logically connected to the behavior (i.e. <a href="#state-machine">state machine</a>) of a capsule. This means that an event that a capsule receives on a behavior port will be handled by the state machine of that capsule. A non-behavior port, however, will simply route an event to another port to which it is connected. Every event that is sent will ultimately reach a behavior port (provided ports are properly connected), and the state machine of the capsule owning that behavior port will handle the event. In a structure diagram, behavior ports are connected to a small ellipse which represents the capsule state machine.</p>
 <p><img alt="" src="../images/ports_example.png" /></p>
 <p>Note that ports can also be shown in a class diagram.</p>
 <p><img alt="" src="../images/ports_class.png" /></p>
@@ -2149,7 +2149,7 @@ capsule Cx {
 <p>Port notifications are useful in dynamic systems when capsules need to wait until other capsules are ready, before they can start to communicate with those capsules. For example, a client may need to wait until a server is ready before it sends a request to that server. In the same way it's often useful to get notified when a connection is dropped, since that means communication on that port should no longer take place.</p>
 <h3 id="unwired-port">Unwired Port</h3>
 <p>Ports are by default wired, meaning that they should be connected with <a href="#connector">connectors</a> to specify statically how events will be routed. Having a static connector structure defined has the benefit that it becomes possible to look at a capsule's structure diagram to see how events received by the capsule will be routed at run-time. However, in some dynamic systems it's not possible to describe this statically. Ports may be connected and disconnected dynamically and the run-time connections between port instances may hence vary over time. If you need this flexibility you can declare ports as unwired.</p>
-<p>Here is an example of an application where a client capsule can connect to different kinds of server capsules. Sometimes it may be connected to <code>server1</code> and sometimes to <code>server2</code>. It is therefore not possible to describe the connections of Top statically using connectors, and we can instead declare the ports as unwired.</p>
+<p>Here is an example of an application where a client capsule can connect to different kinds of server capsules. Sometimes it may be connected to <code>server1</code> and sometimes to <code>server2</code>. It is therefore not possible to describe the connections of <code>Top</code> statically using connectors, and we can instead declare the ports as unwired.</p>
 <pre><code class="language-art">capsule Top {
     part client : Client;
     part server1 : Server;
@@ -2199,7 +2199,7 @@ registration_name = &quot;myService&quot;)
     // ...
 };
 </code></pre>
-<p>Note that the keyword <code>unwired</code> is implicit when you declare a port as either a <code>subscribe</code> or <code>publish</code> port.</p>
+<p>Note that the keyword <code>unwired</code> can be implicit when you declare a port as either a <code>subscribe</code> or <code>publish</code> port.</p>
 <h2 id="connector">Connector</h2>
 <p>Connectors describe how events are routed within a capsule by connecting ports in its composite structure. They make it possible to see in a structure diagram which parts of a capsule that can communicate with each other. Each connector connects exactly two ports with each other. A connected port may either be a port of the capsule itself, or a port of a capsule that types one of its capsule parts. A few constraints decide if it's possible to connect two ports:</p>
 <p>1) The ports must be wired. <a href="#unwired-port">Unwired ports</a> cannot be connected.</p>
@@ -2239,7 +2239,7 @@ capsule Ponger {
 <p>1) <strong>Fixed part</strong></p>
 <p>In a fixed part capsule instances are created automatically when the container capsule is created, and destroyed when the container is destroyed. Fixed parts by default have multiplicity 1. Such a part will always contain one and only one instance of the capsule that types the part.</p>
 <p>2) <strong>Optional part</strong></p>
-<p>In an optional part capsule instances don't have a strong lifetime relationship with the container capsule as is the case for fixed parts. The capsule instances can be created programmatically using the Frame service of the TargetRTS at some point after the container capsule has been created, and they can be destroyed before the container capsule is destroyed. However, at the latest they will be automatically destroyed when the container is destroyed. Optional parts by default have multiplicity 0..1. This means that it may either contain zero or one capsule instance at any point in time. The presence of zero in the multiplicity is what makes the part optional.</p>
+<p>In an optional part capsule instances don't have a strong lifetime relationship with the container capsule as is the case for fixed parts. The capsule instances can be created programmatically using the Frame service of the TargetRTS at some point after the container capsule has been created, and they can be destroyed before the container capsule is destroyed. However, at the latest they will be automatically destroyed when the container is destroyed. Optional parts by default have multiplicity 0..1. This means that they may either contain zero or one capsule instance at any point in time. The presence of zero in the multiplicity is what makes the part optional.</p>
 <p>3) <strong>Plugin part</strong></p>
 <p>A plugin part is similar to an optional part in that it is populated by capsule instances programmatically. However, the capsule instances are not created in the plugin part but instead imported into the plugin part from another part. Typically such a capsule instance is first created into an optional part, and then at some later point in time imported into a plugin part. Later it can be deported (i.e. removed) from the plugin part and perhaps imported into another plugin part. This makes it possible to create very dynamic composite structures where the same capsule instance can play different roles in different parts over time. Moving a capsule instance by deporting it from one plugin part and then importing it in another plugin part is more efficient than destroying the capsule instance in one optional part and then creating another capsule instance in another optional part. Plugin parts are typically used together with <a href="#unwired-port">unwired ports</a>. In general it's possible to import a capsule instance into more than one plugin part at the same time, but it can only be imported if its ports are not already bound in its current location. Plugin parts by default have multiplicity 0..1.</p>
 <p>In the example below the capsule <code>C</code> contains a few parts of different kinds and multiplicities. Note that you may declare multiple parts on the same line if they are of the same kind (both <code>c</code> and <code>d</code> below are optional parts).</p>
@@ -2253,16 +2253,16 @@ capsule Ponger {
     // ...
 };
 </code></pre>
-<p>Part <code>a</code> is fixed with multiplicity 1 since neither kind nor multiplicity is specified for it. Part <code>b</code> is also fixed (using the "fixed" keyword for more clarity) and with multiplicity 4. When an instance of capsule <code>C</code> is created 5 instances of capsule <code>D</code> will be automatically created. One of these instances will be inserted into part <code>a</code> and the others into part <code>b</code>. These instances will remain there until the <code>C</code> capsule instance is destroyed.</p>
+<p>Part <code>a</code> is fixed with multiplicity 1 since neither kind nor multiplicity is specified for it. Part <code>b</code> is also fixed (using the <code>fixed</code> keyword for more clarity) and with multiplicity 4. When an instance of capsule <code>C</code> is created 5 instances of capsule <code>D</code> will be automatically created. One of these instances will be inserted into part <code>a</code> and the others into part <code>b</code>. These instances will remain there until the <code>C</code> capsule instance is destroyed.</p>
 <p>Part <code>c</code> is optional with multiplicity 0..1. At run-time it can contain at most one instance of capsule <code>D</code>. Part <code>d</code> is also optional but can contain up to 5 instances of <code>D</code> as specified by its multiplicity 0..5.</p>
 <p>Part <code>e</code> is plugin with the default multiplicity 0..1. At run-time at most one instance of capsule <code>D</code> can be imported into it. That instance must already have been created in another part, for example part <code>c</code>.</p>
 <p>Part <code>f</code> uses a C++ expression for specifying the multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr.</p>
 <p>Parts can be shown in a structure diagram:</p>
 <p><img alt="" src="../images/parts.png" /></p>
-<p>Parts are shown as "stacked" if they have non-single multiplicity. Optional parts are shown with a "diagonal" background pattern, while plugin parts are shown with a "double diagonal" background pattern.</p>
+<p>Parts are shown as "stacked" if they have non-single multiplicity (multiplicities specified with a C++ expression are assumed to be non-single). Optional parts are shown with a "diagonal" background pattern, while plugin parts are shown with a "double diagonal" background pattern.</p>
 <p>Parts can also be shown in a class diagram:</p>
 <p><img alt="" src="../images/parts_class.png" /></p>
-<p>In the above diagram the filled diamonds show that there is a strong life-time relationship between a <code>C</code> instance and the instances of <code>D</code> that are located in the fixed and optional parts <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>, while this is not the case for the instance located in the plugin part <code>d</code> as shown by the hollow diamond.</p>
+<p>In the above diagram the filled diamonds show that there is a strong life-time relationship between a <code>C</code> instance and the instances of <code>D</code> that are located in the fixed and optional parts <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> and <code>f</code>, while this is not the case for the instance located in the plugin part <code>e</code> as shown by the hollow diamond.</p>
 <h3 id="part-with-capsule-factory">Part with Capsule Factory</h3>
 <p>If the capsule that types a part has a <a href="#capsule-constructor">capsule constructor</a> with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. </p>
 <ul>
@@ -2278,11 +2278,11 @@ capsule Ponger {
 <p>Note that you may want to create a capsule factory for a part also for other reasons than passing custom constructor parameters. For example, you may want to change the default thread (<code>RTController*</code>) that should execute the created capsule instance, or you may want to instantiate an inherited capsule rather than the capsule that types the part.</p>
 <h2 id="state-machine">State Machine</h2>
 <p>State machines are used for specifying the behavior of <a href="#capsule">capsules</a>. It is also possible to provide a state machine for a passive class; see <a href="#class-with-state-machine">Class with State Machine</a> for more information about that. In this chapter we focus on state machines in capsules. </p>
-<p>A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving messages on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send messages to other capsule instances, something that may cause transitions to execute in their state machines. </p>
+<p>A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving events on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send events to other capsule instances, something that may cause transitions to execute in their state machines. </p>
 <p>A state machine may also have <strong>pseudo states</strong>, which just like states may be connected with transitions, but that unlike states are not places where the state machine should stay for some time. For example, most pseudo states like junctions and entry/exit points merely act as connection points that make it possible to execute more than one transition when transitioning between two states. The notable exception is the choice in which actually the state machine may get stuck for ever, but this is something that should not happen in a correctly designed state machine.</p>
 <h3 id="state">State</h3>
-<p>The states of a state machine are the places where the state machine may stay for some time while waiting for another message to arrive. States should have names that describe what is happening while the state machine stays there, or what has happened for the state machine to arrive there. For example, "WaitForInit", "Processing" or "Terminated". By convention state names start with uppercase.</p>
-<p>You can declare multiple states on the same line using a comma-separated list of state names. It can be good to write a comment in front of the state name, if you want to elaborate more on its meaning that what is possible in the name itself. Here is an example of a state machine with some states:</p>
+<p>The states of a state machine are the places where the state machine may stay for some time while waiting for a message to arrive that potentially can cause the state machine to transition to another state. States should have names that describe what is happening while the state machine stays there, or what has happened for the state machine to arrive there. For example, "WaitForInit", "Processing" or "Terminated". By convention state names start with uppercase.</p>
+<p>You can declare multiple states on the same line using a comma-separated list of state names. It can be good to write a comment in front of the state name, if you want to elaborate more on its meaning than what is possible in the name itself. Here is an example of a state machine with some states:</p>
 <pre><code class="language-art">capsule TrafficLight {      
     statemachine {
         state WaitUntilServerReady, CycleLight;
@@ -2293,6 +2293,7 @@ capsule Ponger {
     };
 };
 </code></pre>
+<p>Here is another example where the state machine is shown in a state diagram.</p>
 <p><img alt="" src="../images/state_machine_art.png" /></p>
 <p>A state comment is not visible in a state diagram, but show up in a tooltip when putting the cursor on a reference to the state. They can thereby make it easier to understand a state machine.</p>
 <p>States may be nested to create a <a href="#hierarchical-state-machine">hierarchical state machine</a>.</p>
@@ -2421,7 +2422,7 @@ capsule Ponger {
 };
 </code></pre>
 <p><img alt="" src="../images/choice_junction.png" /></p>
-<p>Note the use of the keyword <code>else</code> for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional.</p>
+<p>Note the use of the C++ keyword <code>else</code> for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional.</p>
 <p>You can also define an else-transition for a choice or junction by simply omitting the guard condition. This is consistent with triggered transitions where the absense of a guard condition is equivalent to a guard condition that always is fulfilled. See the transition <code>high</code> in the above example.</p>
 <p>Guard conditions should be mutually exclusive so that the order in which they are evaluated doesn't matter.</p>
 <p>Junctions can also be used for merging multiple incoming transition flows into a single outgoing transition. This can for example be useful if you want to reuse a transition path in the state machine for several triggered transitions. </p>
@@ -2560,7 +2561,7 @@ capsule Ponger {
 <p>Just like for C++ member functions, trigger operations support overloading. That is, you can have many trigger operations with the same name as long as their full signatures are unique. The signature of a trigger operation consists of its name and the types of all its parameters. When you reference a trigger operation with parameters as a transition trigger, you need to include the types of the parameters (see the trigger for the <code>init</code> transition above).</p>
 <p>The same transition can be triggered by multiple trigger operations (just like a transition in a capsule state machine can be triggered by multiple events). However, in that case those trigger operations should agree on the names and types of their parameters so that the transition effect code can access them in a way that works regardless of which of the trigger operations that will trigger the transition.</p>
 <p>Names of classes with state machines by convention start with uppercase, while names of trigger operations and their parameters by convention start with lowercase and use camelCase if the name consists of multiple words. </p>
-<p>A common design pattern is to let a class-with-statemachine instance be managed by a single capsule instance. This means that the capsule instance is responsible both for creating, using and finally destroying the class-with-statemachine instance. If you follow this pattern it is thread-safe to for example call public member functions defined on the capsule from a transition in the class state machine. This can for example be used as a means for the class state machine to send events through the ports of the capsule (i.e. it can call a capsule member function that sends the event). However, to avoid exposing the full capsule functionality to the class state machine it's recommended to define an interface (i.e. abstract C++ class) which the capsule can implement. This interface can contain only those member functions which the class needs to access from its state machine.</p>
+<p>A common design pattern is to let a class-with-statemachine instance be managed by a single capsule instance. This means that the capsule instance is responsible both for creating, using and finally destroying the class-with-statemachine instance. If you follow this pattern it is thread-safe to for example call public member functions defined on the capsule from a transition in the class state machine (or, better, to call non-public member functions by letting the class be a friend of the capsule). This can for example be used as a means for the class state machine to send events through the ports of the capsule (i.e. it can call a capsule member function that sends the event). However, to avoid exposing the full capsule functionality to the class state machine it's recommended to define an interface (i.e. abstract C++ class) which the capsule can implement. This interface can contain only those member functions which the class needs to call on the capsule.</p>
 <p>A class state machine can use the same constructs as a capsule state machine with a few exceptions:</p>
 <ul>
 <li>
@@ -2661,7 +2662,7 @@ capsule D : B, `IDataManager`, `IController` {
     };
 };
 </code></pre>
-<p>In the example we can see that <code>D</code> overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the <code>rt::impl</code> code snippet. We can also see an example of a state machine redefinition. The initial transition <code>Initial</code> of <code>B</code>'s state machine is redefined in <code>D</code>'s state machine so that it targets state <code>DS</code> instead of state <code>BS</code>. In the state diagram of <code>D</code> the state <code>BS</code> and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition <code>Initial</code> is also drawn in grayed with dashed outline but with a blue label to show that it's redefining the inherited initial transition. The state <code>BS2</code> is excluded in <code>D</code>'s state machine. In state diagrams excluded elements are by default shown with a "crossed" background, but by setting a diagram preference it's also possible to completely hide them from the diagram.</p>
+<p>In the example we can see that <code>D</code> overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the <code>rt::impl</code> code snippet. We can also see an example of a state machine redefinition. The initial transition <code>Initial</code> of <code>B</code>'s state machine is redefined in <code>D</code>'s state machine so that it targets state <code>DS</code> instead of state <code>BS</code>. In the state diagram of <code>D</code> the state <code>BS</code> and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition <code>Initial</code> is also drawn in grayed with dashed outline but with a green label to show that it's redefining the inherited initial transition. The state <code>BS2</code> is excluded in <code>D</code>'s state machine. In state diagrams excluded elements are shown with a "crossed" background.</p>
 <p><img alt="" src="../images/sm_redefinition.png" /></p>
 <p>Note that to be able to redefine the initial transition of <code>B</code> it is necessary to give it a name (so that it can be referenced as redefined from <code>D</code>). This is yet another reason why it's good practise to give names to transitions, even if it's not mandated. But, of course, if you want to prevent anyone from creating a derived capsule with a state machine that redefines a certain transition, you can accomplish that by not giving a name to that transition. In effect, an unnamed transition is <strong>final</strong>, i.e. cannot be overridden or excluded.</p>
 <p>The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.</p>
@@ -2669,7 +2670,7 @@ capsule D : B, `IDataManager`, `IController` {
 <p>Below is an example of a capsule <code>DPPI</code> that inherits from another capsule <code>BPPI</code>. The port <code>port1</code> and the part <code>part1</code> is redefined, while the port <code>port2</code> and part <code>part2</code> are excluded.</p>
 <pre><code class="language-art">capsule BPPI {    
     service port port1 : PR1;    
-    port port2 : PR1;    
+    behavior port port2 : PR1;    
     part part1 : Cap1;
     part part2 : Cap1;
     statemachine {
@@ -2682,13 +2683,15 @@ capsule DPPI : BPPI {
     service notify port redefine port1 : PR2[10];
     optional part redefine part1 : Cap2[0..20];
     part exclude part2;
-    port exclude port2;
+    behavior port exclude port2;
     statemachine {
         state State2;        
     };
 };
 </code></pre>
 <p><img alt="" src="../images/port_part_redef.png" /></p>
+<p>Redefined and excluded elements are also shown in class diagrams. Below is the class diagram for the capsules in the above example.</p>
+<p><img alt="" src="../images/class_diagram_redefinitions.png" /></p>
 <h3 id="class-inheritance">Class Inheritance</h3>
 <p>A <a href="#class-with-state-machine">class with state machine</a> can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.</p>
 <p>Contrary to <a href="#capsule-inheritance">capsule inheritance</a>, class inheritance does not imply inheritance between the state machines in the derived and base classes. This means it's not possible to redefine or exclude states and transitions in an inherited class state machine. Nor is it possible to redefine trigger operations. In fact, the derived class will have two state machines (its own, plus the one inherited from the base class) and these two state machines will execute independently of each other. That is, class inheritance is more a way of aggregating state machines rather than reusing and redefining them. Because of this, it's rather unusual to let two classes with state machines inherit each other. It's more useful to let a class with state machine inherit from other C++ classes.</p>
@@ -2963,7 +2966,7 @@ generate_file_header
 <h3 id="rule_config">rule_config</h3>
 <p>This property is used for configuring validation rules for an Art element. Read more about this <a href="../validation#configuring-validation">here</a>.</p>
 <h3 id="version">version</h3>
-<p>TODO</p>
+<p>Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).</p>
 <h3 id="generate_descriptor">generate_descriptor</h3>
 <p>By default a type descriptor will be generated for each <a href="#class-with-state-machine">class</a>. The TargetRTS uses the type descriptor to know how to initialize, copy, move, destroy, encode or decode an instance of that class. Set this property to <code>false</code> for classes that don't need a type descriptor. Set it to <code>manual</code> if the class needs a type descriptor but you want to implement it manually rather than using the implementation that is generated by default. Note that even if you set this property to <code>true</code> so that a default type descriptor is generated, you can still override individual type descriptor functions for the class.</p>
 <h3 id="kind">kind</h3>
@@ -2983,13 +2986,13 @@ generate_file_header
 <h3 id="default_constructor_default">default_constructor_default</h3>
 <p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as defaulted. This tells the compiler to synthesize a default constructor even if one normally would not be synthesized (for example because there is a user-defined constructor with parameters).</p>
 <h3 id="default_constructor_delete">default_constructor_delete</h3>
-<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as deleted? This will cause the compiler to generate an error if it is invoked. This can be used for preventing objects of the class to be created.</p>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as deleted. This will cause the compiler to generate an error if it is invoked. This can be used for preventing objects of the class to be created.</p>
 <h3 id="default_constructor_visibility">default_constructor_visibility</h3>
 <p>This property can be used for setting the visibility of the default (i.e. parameterless) constructor. By default it will be <code>public</code> but you can change it either to <code>protected</code> or <code>private</code>.</p>
 <h3 id="registration">registration</h3>
 <p>This property specifies how to register an unwired port at runtime. The default is <code>automatic</code> which means the port will be registered automatically when the container capsule instance is initialized. The value <code>automatic_locked</code> has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to <code>application</code> to programmatically register the port using the functions <code>registerSPP()</code> and <code>registerSAP()</code> respectively.</p>
 <h3 id="registration_name">registration_name</h3>
-<p>This property specifies the name to use when registering a port at runtime. By default the port name is used, but it can be overridden using this property.</p>
+<p>This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.</p>
 <h3 id="const_rtdata_param">const_rtdata_param</h3>
 <p>If set to <code>false</code> the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
 <h3 id="color">color</h3>

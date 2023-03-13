@@ -805,8 +805,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#targetlocation" class="md-nav__link">
-    targetLocation
+  <a href="#targetfolder" class="md-nav__link">
+    targetFolder
   </a>
   
 </li>
@@ -1076,8 +1076,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#targetlocation" class="md-nav__link">
-    targetLocation
+  <a href="#targetfolder" class="md-nav__link">
+    targetFolder
   </a>
   
 </li>
@@ -1128,14 +1128,15 @@
 
   <h1>Transformation Configurations</h1>
 
-<p>A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for dynamic properties where the value is not a static value but computed by JavaScript code.</p>
+<p>A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application or a library. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for dynamic properties where the value is not a static value but computed dynamically by JavaScript code when the TC is built.</p>
 <p>RTist in Code provides a dedicated language server for TCs to make them just as easy to work with as Art files. A <a href="#editing-transformation-configurations">form-based editor</a> is also provided as an alternative.</p>
 <h2 id="creating-transformation-configurations">Creating Transformation Configurations</h2>
 <p>To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command <strong>File - New File - Transformation Configuration</strong>. In the popup that appears specify the name of the TC or keep the suggested default name.</p>
 <p><img alt="" src="../images/default-tc-name.png" /></p>
-<p>A .tcjs file will be created with minimal contents. Specify the mandatory <a href="#targetfolder">targetFolder</a> property and any other <a href="#properties">properties</a> needed.</p>
+<p>A .tcjs file will be created with the minimal contents. Specify the mandatory <a href="#topcapsule">topCapsule</a> property (if you are building an executable) and any other <a href="#properties">properties</a> needed.</p>
 <h2 id="setting-a-transformation-configuration-as-active">Setting a Transformation Configuration as Active</h2>
-<p>You can have more than one TC in your workspace, but at most one TC in each workspace folder can be <strong>active</strong>. Set a TC as active by right-clicking on it and perform the command <strong>Set as Active</strong>. An active TC is marked with a checkmark.</p>
+<p>You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be <strong>active</strong>. RTist in Code uses the active TC for knowing how to automatically generate C++ code from the Art files in the workspace folder.</p>
+<p>Set a TC as active by right-clicking on it and perform the command <strong>Set as Active</strong>. An active TC is marked with a checkmark.</p>
 <p><img alt="" src="../images/active-tc.png" /></p>
 <p>Automatic code generation for the active TC will start immediately.</p>
 <h2 id="editing-transformation-configurations">Editing Transformation Configurations</h2>
@@ -1156,7 +1157,7 @@
 <li>TC properties are validated when edited and found problems will be reported.</li>
 </ul>
 <p><img alt="" src="../images/tc-editor-validation.png" /></p>
-<p>As an alternative to editing a TC as a JavaScript file RTist in Code also provides a dedicated form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.</p>
+<p>As an alternative to editing a TC as a JavaScript file RTist in Code also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.</p>
 <p>To open the form-based TC editor, right-click on a TC file and invoke the context menu command <strong>Edit Properties (UI)</strong>. </p>
 <p><img alt="" src="../images/tc-editor.png" /></p>
 <p>Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.</p>
@@ -1165,11 +1166,13 @@
 <p><img alt="" src="../images/tc-editor-info-button.png" /></p>
 <p>Certain TC properties have default values. Such values are not stored in the TC file, but the TC editor still shows them so you can know what value will actually be used unless you set a custom value for such a property.</p>
 <p><img alt="" src="../images/tc-editor-default-value.png" /></p>
-<p>You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated when you save the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. </p>
+<p>You can tell which TC properties that have a custom (i.e. non-default) value set by looking at the color of the property name. Properties with custom values set have names shown in blue which are hyperlinks that will navigate to the value in the TC file. Such properties also have a "Delete" button which can be used for deleting the property value (i.e. to restore the property to use its default value).</p>
+<p><img alt="" src="../images/tc-with-value.png" /></p>
+<p>You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. </p>
 <h2 id="properties">Properties</h2>
 <p>Below is an alphabetic list of all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value.</p>
 <h3 id="commonpreface">commonPreface</h3>
-<p>This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called "UnitName.h"). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.</p>
+<p>This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called <code>UnitName.h</code>). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.</p>
 <h3 id="compilearguments">compileArguments</h3>
 <p>Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. </p>
 <h3 id="compilecommand">compileCommand</h3>
@@ -1177,11 +1180,11 @@
 <h3 id="copyrighttext">copyrightText</h3>
 <p>This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.</p>
 <h3 id="cppcodestandard">cppCodeStandard</h3>
-<p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. If you need to compile generated code with a compiler that doesn't support C++ 11 you can set this preference to <code>Older than C++ 11</code>. However, you then cannot use the standard version of the TargetRTS since it uses C++ 11 constructs.</p>
+<p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. If you need to compile generated code with a compiler that doesn't support C++ 11 you can set this preference to <code>Older than C++ 11</code>. However, you then cannot use the latest version of the TargetRTS since it uses C++ 11 constructs.</p>
 <h3 id="linkarguments">linkArguments</h3>
 <p>Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.</p>
 <h3 id="linkcommand">linkCommand</h3>
-<p>Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is <code>$(LD)</code> which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for executable TCs.</p>
+<p>Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is <code>$(LD)</code> which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.</p>
 <h3 id="makearguments">makeArguments</h3>
 <p>Specifies the arguments for the <a href="#makecommand">make command</a> to be used.</p>
 <h3 id="makecommand">makeCommand</h3>
@@ -1189,15 +1192,18 @@
 <h3 id="targetconfiguration">targetConfiguration</h3>
 <p>Specifies which TargetRTS configuration to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the RTist in Code installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
 <h3 id="targetconfigurationname">targetConfigurationName</h3>
-<p>This property maps to a subfolder of the target folder where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is <code>default</code>.</p>
-<h3 id="targetlocation">targetLocation</h3>
-<p>When a TC is built all generated files (C++ code, make file, binaries etc) will be placed in a so called target folder. This property specifies the name of that folder. The target folder will be added as a workspace folder the first time the TC is built. You can choose any name that is a valid name of a folder, but it can be convenient to base the name on the workspace folder that contains the TC so that the target folder appears near it. For example, if the workspace folder that contains the TC is called "MyApp" you can use "MyApp_target" as the name of the target folder.</p>
-<p>The path can be either absolute or relative. Relative paths are resolved against the folder that contains the TC. Use forward slashes as path separator.</p>
-<p><code>targetLocation</code> is a mandatory TC property and it has no default value.</p>
+<p>This property maps to a subfolder of the <a href="#targetfolder">target folder</a> where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is <code>default</code>.</p>
+<h3 id="targetfolder">targetFolder</h3>
+<p>Specifies where files generated from the TC will be placed. This property is usually just set to a name, and then a target folder with that name will be created next to the folder that contains the TC. That target folder is then added as a workspace folder, which will cause you to be prompted about if you trust the authors of the files in that folder. It's safe to answer yes since all files in that folder are automatically generated by RTist in Code. </p>
+<p>You can also specify an absolute path to a target folder if you prefer generated files to be placed somewhere else. If you instead specify a relative path it gets resolved relative to the folder that contains the TC. The specified target folder will be created if it doesn't already exist. Use forward slashes as path separator. </p>
+<p>If this property is not specified it defaults to the name of the TC, with <code>_target</code> appended. For example, if the TC is called <code>app.tcjs</code>, the target folder will default to <code>app_default</code>.</p>
 <h3 id="targetrtslocation">targetRTSLocation</h3>
-<p>Specifies the location of the TargetRTS to use. The default value of this property is <code>${RSA_RT_HOME}/C++/TargetRTS</code> which points at the folder in the RTist in Code installation where the TargetRTS C++ implementation resides.</p>
+<p>Specifies the location of the TargetRTS to use. If no value is set for this property the TargetRTS from the RTist in Code installation will be used. If you want to use another TargetRTS specify the full path to the <code>TargetRTS</code> folder (including that folder itself). Use forward slashes as path separator. For example:</p>
+<pre><code class="language-js">tc.targetRTSLocation = &quot;C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS&quot;;
+</code></pre>
 <h3 id="topcapsule">topCapsule</h3>
 <p>Specifies the capsule that should be automatically incarnated when the executable starts to run. Hence this property is only applicable for TCs that build executables, and for those TCs it's a mandatory property. The top capsule is the entry point of the realtime application.</p>
+<p>If you don't specify a value for this property, the TC will build a library instead of an executable.</p>
 <h3 id="unitname">unitName</h3>
 <p>Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is <code>UnitName</code> which means that these unit files will be called <code>UnitName.cpp</code> and <code>UnitName.h</code>. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.</p>
 

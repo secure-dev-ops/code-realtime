@@ -18,7 +18,7 @@
     
     
       
-        <title>0.0.4 (2022-12-21 13:11) - HCL RTist in Code</title>
+        <title>0.0.5 (2023-01-26 06:59) - HCL RTist in Code</title>
       
     
     
@@ -91,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#004-2022-12-21-1311" class="md-skip">
+        <a href="#005-2023-01-26-0659" class="md-skip">
           Skip to content
         </a>
       
@@ -162,7 +162,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              0.0.4 (2022-12-21 13:11)
+              0.0.5 (2023-01-26 06:59)
             
           </span>
         </div>
@@ -806,6 +806,21 @@
 
 
 
+<h1 id="005-2023-01-26-0659">0.0.5 (2023-01-26 06:59)</h1>
+<ol>
+<li>Common diagram commands can now be invoked using the keyboard by pressing Ctrl+Space and selecting the command in the popup menu that appears. The following commands are available: Zoom In, Zoom Out, Center, Expand All, Collapse All</li>
+<li>The presence of internal transitions on a state is now shown by means of an icon on the state symbol in a state diagram. As before the internal transitions will be shown in the Properties view if such a state symbol is selected.</li>
+<li>When navigating to an element in an Art file the text editor will now automatically scroll both vertically and horizontally (if necessary) to make sure the element becomes visible.</li>
+<li>TC properties are now validated when edited (both textually and in the UI), and detected problems are reported. For example, it's validated that the specified top capsule exists and that the C++ language standard is set to a valid value.</li>
+<li>Custom colors can now be specified for all elements in state diagrams (transitions, states and pseudo states). You can directly change the color from the diagram Properties view (i.e. it's no longer necessary to first navigate to the Art file and change the color there).</li>
+<li>Code formatting and content assist was improved to make rt::properties sections foldable in the Art editor.</li>
+<li>A new command "Fold All Properties" was added. It collapses all rt::properties sections in an Art file (similar to how "Fold All C++ Code" works for C++ code sections). It can be useful for Art files that contain lots of properties.</li>
+<li>The entry and exit actions of a composite state can now be folded in the Art file, like other C++ code snippets. The command "Fold All C++ Code" will therefore be able to fold also these code snippets.</li>
+<li>Code generation now supports entry and exit actions for states.</li>
+<li>State diagrams now show diagnostics (errors, warnings and informations) using icons on symbols and lines. A new preference (<code>rtistic.diagram.showDiagnostics</code>) controls if they should be shown or not.</li>
+<li>More information is now printed in the Art Build output channel during a build. For example, various useful messages emitted by the C++ code generator may now be printed there. Messages emitted by build tools, e.g. the C++ compiler, are still printed in the Terminal view. In case the build fails a hyperlink to open the Terminal will be present in the Art Build output channel.</li>
+<li>A target configuration for the latest version of the GCC compiler (ver. 12) on Linux is now provided.</li>
+</ol>
 <h1 id="004-2022-12-21-1311">0.0.4 (2022-12-21 13:11)</h1>
 <ol>
 <li>A target configuration for the latest version of the MinGw compiler (ver. 12.2) is now provided.</li>
