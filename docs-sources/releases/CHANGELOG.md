@@ -1,3 +1,17 @@
+# 0.0.6 (2023-03-09 18:28)
+1. Java 17 is now required for running the Art language server. Using Java 17 instead of Java 11 gives some performance improvements and enables use of more modern Java. Information about which Java version that is used is printed in the Art Server output channel when the RTist in Code extension is activated.
+2. The popup menu that appears when pressing Ctrl+Space in a diagram now contains commands for navigating to the other kinds of diagram for the same Art element. For example, in a state diagram for capsule "X" there are commands for opening the class or structure diagram of capsule "X".
+3. It's now possible to open more than one diagram in one go. You can select multiple Art files in the Explorer, and then invoke a command for opening diagrams from the context menu. If a file contains multiple root Art elements, the diagram will be opened for the first one.
+4. A diagnostic icon (error, warning or information) that is shown in a diagram now has a tooltip that shows the diagnostic message as well as a hyperlink to the documentation.
+5. RTist in Code now provides a Walkthrough guide on the Welcome page. The Walkthrough guides new users to how to build and run a sample application.
+6. Diagram properties set in the Properties view can now be restored to their default value by means of a "Restore default" trashcan button that appears for properties that have a non-default value. The presence of this button also helps to highlight those properties that have been set to a non-default value.
+7. States, pseudo states and transitions can now be deleted by selecting them in a state diagram and pressing the `Delete` key. More than one such element can be deleted at the same time by using Ctrl+click for selecting multiple symbols or lines before pressing the `Delete` key.
+8. The form-based TC editor now shows a TC property name as a hyperlink in case a value is set for that property in the .tcjs file. The hyperlink is useful for navigation and also helps to highlight which TC properties that have non-default values set.
+9. The form-based TC editor now shows a trashcan button for properties that have a value set. The button can be used for deleting the value (i.e. to restore the default value of the property) and also helps to highlight which TC properties that have non-default values set.
+10. The form-based TC editor now updates immediately when a TC property is modified in the .tcjs file. It's no longer necessary to save the .tcjs file for changes to be reflected.
+11. Choices and junctions can now be created with Content Assist in the Art text editor inside a state machine and inside a composite state.
+12. It's now possible to build a library, rather than an executable, from a TC. If the built TC has the `topCapsule` property set an executable will be built. Otherwise a library will be built.
+
 # 0.0.5 (2023-01-26 06:59)
 1. Common diagram commands can now be invoked using the keyboard by pressing Ctrl+Space and selecting the command in the popup menu that appears. The following commands are available: Zoom In, Zoom Out, Center, Expand All, Collapse All
 2. The presence of internal transitions on a state is now shown by means of an icon on the state symbol in a state diagram. As before the internal transitions will be shown in the Properties view if such a state symbol is selected.
