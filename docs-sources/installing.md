@@ -3,7 +3,7 @@
 
 {$product.name$} can be installed on top of Visual Studio Code or Eclipse Theia.
 
-The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/search?term=%22rtist%20in%20code%22&target=VSCode&category=All%20categories&sortBy=Relevance) and on the [Open VSX Registry](https://open-vsx.org/). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
+The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
 
 1) Click "Extensions" in the activity bar to open the Extensions view.
 
@@ -24,7 +24,7 @@ The screenshot above also shows that an extension for working with C/C++ has bee
 After you have installed {$product.name$} it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command `Developer: Reload Window` which is available in the Command Palette (++ctrl+shift+"P"++).
 
 ### Install from VSIX
-Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and the [Open VSX Registry](https://open-vsx.org/). Once you have downloaded the .vsix file follow these steps to install it:
+Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
 
 1) If you already have a version of {$product.name$} installed, you can manually uninstall it first (see [Uninstalling](#uninstalling)). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.
 
@@ -47,7 +47,7 @@ If you are unsure about which version of {$product.name$} you have installed, yo
 
 ![](images/extension_tooltip.png)
 
-You can also see the version and the exact date of the installed {$product.name$} in the Changelog that is present on the extension's page. There you can also see what has been fixed and improved compared to older releases.
+You can also see the version and the exact date of the installed {$product.name$} in the Changelog that is present on the extension's page. There you can also see what has been fixed and improved compared to older releases. Note that for Theia this information is not present on the extension's page, but you can see it if you double-click on the extension's name (the web page of the extension will then open).
 
 ![](images/extension_changelog.png)
 
@@ -95,7 +95,7 @@ To uninstall {$product.name$} follow these steps:
 
 ![](images/extensions_in_sidebar.png)
 
-2) Find the {$product.name$} extension in the "Installed" section, right-click on it, and select the command "Uninstall".
+1) Find the {$product.name$} extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio code the command is available in the context menu, while in Theia it shows up as a button to click).
 
 ![](images/uninstall.png)
 
