@@ -2,10 +2,10 @@ The Target RunTime System (or TargetRTS for short) is a C++ library that is used
 
 ![](../images/TargetRTS.png)
 
-The TargetRTS provides C++ implementations for the concepts of the [Art language](../art-lang). The [APIs](https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html) of these implementations are used by the generated code, but also by the embedded C++ code that you write inside the Art files. This documentation serves the following purposes:
+The TargetRTS provides C++ implementations for the concepts of the [Art language](../art-lang). The [APIs](../targetrts-api/index.html) of these implementations are used by the generated code, but also by the embedded C++ code that you write inside the Art files. This documentation serves the following purposes:
 
 * Provide a general understanding of how the TargetRTS is structured and how it implements important concepts from the Art language.
-* Document the [C++ APIs](https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html) that you can use in C++ code snippets within an Art file.
+* Document the [C++ APIs](../targetrts-api/index.html) that you can use in C++ code snippets within an Art file.
 * Describe how to build the TargetRTS for a new target platform, including ways to customize it as required.
 
 
