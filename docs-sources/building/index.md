@@ -70,4 +70,4 @@ Another scenario is when you write new code in such a code snippet and want to t
 You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
 
 ## Building from the Command Line
-You can build a TC from the command line by using the [Art compiler](art-compiler.md).
+You can build a TC from the command line by using the [Art Compiler](art-compiler.md).

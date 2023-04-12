@@ -1,7 +1,7 @@
 #Project Information
 site_name: HCL RTist in Code
 site_description: >-
-  RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.
+  RTist in Code is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.
 site_url: https://opensource.hcltechsw.com/rtist-in-code
 
 #Md and HTML locations in the repository 
