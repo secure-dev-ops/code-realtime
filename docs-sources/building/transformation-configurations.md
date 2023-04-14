@@ -33,7 +33,7 @@ You can edit a TC directly as a JavaScript file in the text editor. Features suc
 
 ![](images/tc-editor-tooltip.png)
 
-* TC properties are validated when edited and found problems will be reported.
+* TC properties are validated when edited and found problems will be reported. Click the "More information" hyperlink for a more detailed description of a problem, including suggestions for how to fix it.
 
 ![](images/tc-editor-validation.png)
 
@@ -62,7 +62,28 @@ You can tell which TC properties that have a custom (i.e. non-default) value set
 You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. 
 
 ## Properties
-Below is an alphabetic list of all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value.
+Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.
+
+<p id="tc_properties"/>
+
+| Property | Type | Default Value | 
+|----------|:-------------|:-------------|
+| [commonPreface](#commonpreface) | String | N/A
+| [compileArguments](#compilearguments) | String | N/A 
+| [compileCommand](#compilecommand) | String | "$CC"
+| [copyrightText](#copyrighttext) | String | N/A 
+| [cppCodeStandard](#cppcodestandard) | Enum string | "C++ 17"
+| [linkArguments](#linkarguments) | String | N/A
+| [linkCommand](#linkcommand) | String | "$LD"
+| [makeArguments](#makearguments) | String | N/A
+| [makeCommand](#makecommand) | String | "$defaultMakeCommand"
+| [sources](#sources) | List of strings | ["*.art"]
+| [targetConfiguration](#targetconfiguration) | String | Depends on current operating system
+| [targetConfigurationName](#targetconfigurationname) | String | "default"
+| [targetFolder](#targetfolder) | String | Name of TC with "_target" appended
+| [targetRTSLocation](#targetrtslocation) | String | "${rtistic_home}/TargetRTS"
+| [topCapsule](#topcapsule) | String | N/A
+| [unitName](#unitname) | String | "UnitName"
 
 ### commonPreface
 This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called `UnitName.h`). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.
@@ -77,7 +98,7 @@ Specifies which C++ compiler to use for compiling generated C++ code. The defaul
 This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.
 
 ### cppCodeStandard
-Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 11`, `C++ 14` and `C++ 20`. If you need to compile generated code with a compiler that doesn't support C++ 11 you can set this preference to `Older than C++ 11`. However, you then cannot use the latest version of the TargetRTS since it uses C++ 11 constructs.
+Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 98`, `C++ 11`, `C++ 14` and `C++ 20`. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set [TargetRTSLocation](#targetrtslocation) to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to `Older than C++ 98`.
 
 ### linkArguments
 Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.
@@ -90,6 +111,16 @@ Specifies the arguments for the [make command](#makecommand) to be used.
 
 ### makeCommand
 Specifies which make command to use for processing the generated make file. By default the make command is `$defaultMakeCommand` which gets its value from which TargetRTS configuration that is used.
+
+### sources
+By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the `sources` property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the `!` character. In both patterns and anti-patterns you can use the wildcards `*` (matches any sequence of characters) and `?` (matches a single character). Below are a few examples:
+
+``` js
+tc.sources = ["*.art"]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the "sources" property is not set.
+tc.sources = ["cap1.art", "cap2.art"]; // Only transform two specific Art files
+tc.sources = ["*.art", "!rtist_gen.art"]; // Transform all Art files except one
+tc.sources = ["source??.art", "!*_gen.art"]; // Transform all Art files with names starting with "source" and followed by two arbitrary characters. Art files with a name that ends with "_gen" are excluded.
+```
 
 ### targetConfiguration
 Specifies which TargetRTS configuration to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
