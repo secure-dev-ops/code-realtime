@@ -61,6 +61,9 @@ You can tell which TC properties that have a custom (i.e. non-default) value set
 
 You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. 
 
+## Transformation Configuration Prerequisites
+A TC can either build a library or an executable. This is controlled by the [topCapsule](#topcapsule) property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the [prerequisites](#prerequisites) property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).
+
 ## Properties
 Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.
 
@@ -77,6 +80,7 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 | [linkCommand](#linkcommand) | String | "$LD"
 | [makeArguments](#makearguments) | String | N/A
 | [makeCommand](#makecommand) | String | "$defaultMakeCommand"
+| [prerequisites](#prerequisites) | List of strings | []
 | [sources](#sources) | List of strings | ["*.art"]
 | [targetConfiguration](#targetconfiguration) | String | Depends on current operating system
 | [targetConfigurationName](#targetconfigurationname) | String | "default"
@@ -111,6 +115,17 @@ Specifies the arguments for the [make command](#makecommand) to be used.
 
 ### makeCommand
 Specifies which make command to use for processing the generated make file. By default the make command is `$defaultMakeCommand` which gets its value from which TargetRTS configuration that is used.
+
+### prerequisites
+This property is a list of references to other TCs that need to be built before the current TC. It's typically used to express that a library TC is a prerequisite of an executable TC, which means the library TC needs to be built before the executable TC. Below is an example where an executable TC has a library TC as a prerequisite:
+
+``` js
+tc.prerequisites = ["../MyLibrary/lib.tcjs"]; 
+```
+
+Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.
+
+For more information about this property see [Transformation Configuration Prerequisites](#transformation-configuration-prerequisites).
 
 ### sources
 By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the `sources` property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the `!` character. In both patterns and anti-patterns you can use the wildcards `*` (matches any sequence of characters) and `?` (matches a single character). Below are a few examples:
