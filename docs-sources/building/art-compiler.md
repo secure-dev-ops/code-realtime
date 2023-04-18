@@ -103,9 +103,8 @@ The following steps are performed:
 3. The TC is validated, to detect errors and inconsistencies in TC property values
 4. The Art files are loaded, including `RTPredefined.art` from the {$product.name$} installation
 5. The Art files are validated, to check for semantic problems
-6. The Art files are transformed to C++
-7. Generated C++ files and a make file for building them are written to disk
-8. A make tool is invoked on the make file for building the C++ code into a library or executable.
+6. The Art files are transformed to C++. Generated C++ files and a make file for building them are written to disk.
+7. A make tool is invoked on the make file for building the C++ code into a library or executable
 
 Note that the last step is skipped if the [--generate](#generate) option is set to `false`.
 
