@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="RTist in Code is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -89,6 +89,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#location-and-launching" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -568,6 +573,8 @@
           
         
           
+            
+          
         
       
       
@@ -597,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html" class="md-nav__link">
+      <a href="../../targetrts-api/" class="md-nav__link">
         C++ API
       </a>
     </li>
@@ -685,9 +692,107 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Art Compiler
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Art Compiler
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#location-and-launching" class="md-nav__link">
+    Location and Launching
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#art-compiler-options" class="md-nav__link">
+    Art Compiler Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Art Compiler Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cwd" class="md-nav__link">
+    cwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    generate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out" class="md-nav__link">
+    out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tc" class="md-nav__link">
+    tc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    version
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#art-compiler-steps-and-messages" class="md-nav__link">
+    Art Compiler Steps and Messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-return-value" class="md-nav__link">
+    Process Return Value
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -797,6 +902,90 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#location-and-launching" class="md-nav__link">
+    Location and Launching
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#art-compiler-options" class="md-nav__link">
+    Art Compiler Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Art Compiler Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cwd" class="md-nav__link">
+    cwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    generate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out" class="md-nav__link">
+    out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tc" class="md-nav__link">
+    tc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    version
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#art-compiler-steps-and-messages" class="md-nav__link">
+    Art Compiler Steps and Messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-return-value" class="md-nav__link">
+    Process Return Value
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -815,7 +1004,117 @@
 
   <h1>Art Compiler</h1>
 
-<p>Art compiler reference (command-line arguments etc)</p>
+<p>The Art Compiler is a stand-alone tool which can be used for building a TC from the command-line. Using this tool makes it possible to integrate the translation of Art files into C++, and compilation of that C++ code, into your automated build process.</p>
+<h2 id="location-and-launching">Location and Launching</h2>
+<p>The Art Compiler is located in the <code>bin</code> folder of the RTist in Code installation. It's a JAR file with the name <code>artcompiler.jar</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The folder where the Art Compiler is located can be seen from the message that is printed in the Art Server output channel when the RTist in Code extension is activated. It's located in the same folder as the Art Language Server JAR file, called <code>artserver.jar</code>.</p>
+<p><img alt="" src="../images/art-server-location-printout.png" /></p>
+</div>
+<p>To launch the Art Compiler you need a Java Virtual Machine (JVM). You should use the same JVM as is used for running the Art Language Server (see <a href="../../installing/#setup-java">Setup Java</a>). Launch the Art Compiler with the <code>java</code> command like this:</p>
+<pre><code>java &lt;JVM options&gt; -jar &lt;extension-path&gt;/bin/artcompiler.jar &lt;Art Compiler options&gt;
+</code></pre>
+<p>Often you don't need to use any JVM option, but if the application is huge you may need to increase the memory of the JVM. Refer to the documentation of your JVM for a list of available JVM options. You may want to use the same JVM options as are used when launching the Art Language Server (see the configuration setting <code>rtistic.languageServer.jvmArgs</code>), but it's not required to do so.</p>
+<p>To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:</p>
+<pre><code>C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.hcl-rtistic-ce-0.0.7\bin\artcompiler.jar
+10:24:53 : INFO : Art Compiler 0.0.7-20230418_1519
+10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
+10:24:54 : INFO : Arguments:
+Usage: java -jar artcompiler.jar &lt;options&gt;
+Options:
+  --cwd &lt;argument&gt;:
+     Set &lt;argument&gt; as current working directory
+
+  --generate:
+     Generate source code and makefiles, do not run build afterwards
+     By default, build is started after each code generation
+
+  --help:
+     Print this help information and exit
+
+  --out &lt;argument&gt;:
+     Defines path to output folder for code generation
+
+  --tc &lt;argument&gt;:
+     Path to transformation configuration
+
+  --version:
+     Show version of Art Compiler and exit
+
+All options with argument can be used in format &lt;option&gt; &lt;argument&gt; or &lt;option&gt;=&lt;argument&gt;.
+</code></pre>
+<h2 id="art-compiler-options">Art Compiler Options</h2>
+<p>The Art Compiler accepts options in the form of command-line arguments to <code>artcompiler.jar</code> that start with single or double dash (<code>-</code> or <code>--</code>). Many options can take an argument which then needs to be of the correct type (Boolean, Path etc). You can specify the argument for an option either like this</p>
+<pre><code>&lt;option&gt; &lt;argument&gt;
+</code></pre>
+<p>or like this</p>
+<pre><code>&lt;option&gt;=&lt;argument&gt;
+</code></pre>
+<p>Below is a table that lists all options that are available for the Art Compiler. Each option is described in a section of its own below the table.</p>
+<p id="art_compiler_options"/>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th align="left">Argument Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#cwd">cwd</a></td>
+<td align="left">Path</td>
+</tr>
+<tr>
+<td><a href="#generate">generate</a></td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#help">help</a></td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#out">out</a></td>
+<td align="left">Path</td>
+</tr>
+<tr>
+<td><a href="#tc">tc</a></td>
+<td align="left">Path</td>
+</tr>
+<tr>
+<td><a href="#version">version</a></td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cwd">cwd</h3>
+<p>Set the current working directory. By default this is the location from which you launch the Art Compiler. If you use a relative path in options that take a path as argument, such as <a href="#out">--out</a> or <a href="#tc">--tc</a>, the path will be resolved against the current working directory. </p>
+<h3 id="generate">generate</h3>
+<p>By default the Art Compiler will generate C++ files and a make file, and then build the C++ code by invoking make on the make file. If you set this option then only the files will be generated, but make will not be invoked. Usually the running of make is what takes most time when building a TC, so if you for example only is interested in getting the generated files you can save time by setting this option.</p>
+<h3 id="help">help</h3>
+<p>Use this option to print information about the <a href="#version">version</a> and all available <a href="#art-compiler-options">options</a>. This is the same information as is printed if launching the Art Compiler without any options. If this option is passed, all other options are ignored.</p>
+<h3 id="out">out</h3>
+<p>Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built <a href="#tc">TC</a>. It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as <a href="../transformation-configurations/#targetfolder">targetFolder</a> in TCs will be resolved against the specified <code>--out</code> folder.</p>
+<h3 id="tc">tc</h3>
+<p>Specifies the <a href="../transformation-configurations/">TC</a> to build. This option is mandatory, unless you only pass the <a href="#help">help</a> or <a href="#version">version</a> options.</p>
+<h3 id="version">version</h3>
+<p>Use this option to print the version of the Art Compiler. This version is the same as is used for the RTist in Code extension and can also be seen in the file <code>CHANGELOG.md</code> in the RTist in Code installation folder. If this option is passed, all other options are ignored.</p>
+<h2 id="art-compiler-steps-and-messages">Art Compiler Steps and Messages</h2>
+<p>The Art Compiler performs its work using several sequential steps. During each step messages can be printed with a severity that is either INFO, WARNING or ERROR. Messages are printed to <code>stdout</code> with a time stamp. If at least one error is reported when performing one of the steps, the Art Compiler stops and doesn't proceed with the next step.</p>
+<p>The following steps are performed:</p>
+<ol>
+<li>The provided options are parsed and validated</li>
+<li>The TC is evaluated, to compute the values for all TC properties that will be used for the build</li>
+<li>The TC is validated, to detect errors and inconsistencies in TC property values</li>
+<li>The Art files are loaded, including <code>RTPredefined.art</code> from the RTist in Code installation</li>
+<li>The Art files are validated, to check for semantic problems</li>
+<li>The Art files are transformed to C++. Generated C++ files and a make file for building them are written to disk.</li>
+<li>A make tool is invoked on the make file for building the C++ code into a library or executable</li>
+</ol>
+<p>Note that the last step is skipped if the <a href="#generate">generate</a> option is set.</p>
+<h2 id="process-return-value">Process Return Value</h2>
+<p>The Art Compiler exits with a zero return value if no errors occur when building the TC. The value will be non-zero in case an error occured and in that case there will also be a printout explaining why the build failed. You can for example use the Art Compiler process return value if you launch it from a script that needs to know if the build was successful or not.</p>
 
               
             </article>

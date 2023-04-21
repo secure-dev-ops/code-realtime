@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="RTist in Code is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -573,6 +573,8 @@
           
         
           
+            
+          
         
       
       
@@ -602,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html" class="md-nav__link">
+      <a href="../../targetrts-api/" class="md-nav__link">
         C++ API
       </a>
     </li>
@@ -720,6 +722,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#transformation-configuration-prerequisites" class="md-nav__link">
+    Transformation Configuration Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     Properties
   </a>
@@ -786,6 +795,20 @@
           <li class="md-nav__item">
   <a href="#makecommand" class="md-nav__link">
     makeCommand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    sources
   </a>
   
 </li>
@@ -991,6 +1014,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#transformation-configuration-prerequisites" class="md-nav__link">
+    Transformation Configuration Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     Properties
   </a>
@@ -1057,6 +1087,20 @@
           <li class="md-nav__item">
   <a href="#makecommand" class="md-nav__link">
     makeCommand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    sources
   </a>
   
 </li>
@@ -1154,7 +1198,7 @@
 </ul>
 <p><img alt="" src="../images/tc-editor-tooltip.png" /></p>
 <ul>
-<li>TC properties are validated when edited and found problems will be reported.</li>
+<li>TC properties are validated when edited and found problems will be reported. Click the "More information" hyperlink for a more detailed description of a problem, including suggestions for how to fix it.</li>
 </ul>
 <p><img alt="" src="../images/tc-editor-validation.png" /></p>
 <p>As an alternative to editing a TC as a JavaScript file RTist in Code also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.</p>
@@ -1169,8 +1213,108 @@
 <p>You can tell which TC properties that have a custom (i.e. non-default) value set by looking at the color of the property name. Properties with custom values set have names shown in blue which are hyperlinks that will navigate to the value in the TC file. Such properties also have a "Delete" button which can be used for deleting the property value (i.e. to restore the property to use its default value).</p>
 <p><img alt="" src="../images/tc-with-value.png" /></p>
 <p>You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. </p>
+<h2 id="transformation-configuration-prerequisites">Transformation Configuration Prerequisites</h2>
+<p>A TC can either build a library or an executable. This is controlled by the <a href="#topcapsule">topCapsule</a> property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the <a href="#prerequisites">prerequisites</a> property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).</p>
 <h2 id="properties">Properties</h2>
-<p>Below is an alphabetic list of all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value.</p>
+<p>Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.</p>
+<p id="tc_properties"/>
+
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th align="left">Type</th>
+<th align="left">Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#commonpreface">commonPreface</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#compilearguments">compileArguments</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#compilecommand">compileCommand</a></td>
+<td align="left">String</td>
+<td align="left">"$CC"</td>
+</tr>
+<tr>
+<td><a href="#copyrighttext">copyrightText</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#cppcodestandard">cppCodeStandard</a></td>
+<td align="left">Enum string</td>
+<td align="left">"C++ 17"</td>
+</tr>
+<tr>
+<td><a href="#linkarguments">linkArguments</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#linkcommand">linkCommand</a></td>
+<td align="left">String</td>
+<td align="left">"$LD"</td>
+</tr>
+<tr>
+<td><a href="#makearguments">makeArguments</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#makecommand">makeCommand</a></td>
+<td align="left">String</td>
+<td align="left">"$defaultMakeCommand"</td>
+</tr>
+<tr>
+<td><a href="#prerequisites">prerequisites</a></td>
+<td align="left">List of strings</td>
+<td align="left">[]</td>
+</tr>
+<tr>
+<td><a href="#sources">sources</a></td>
+<td align="left">List of strings</td>
+<td align="left">["*.art"]</td>
+</tr>
+<tr>
+<td><a href="#targetconfiguration">targetConfiguration</a></td>
+<td align="left">String</td>
+<td align="left">Depends on current operating system</td>
+</tr>
+<tr>
+<td><a href="#targetconfigurationname">targetConfigurationName</a></td>
+<td align="left">String</td>
+<td align="left">"default"</td>
+</tr>
+<tr>
+<td><a href="#targetfolder">targetFolder</a></td>
+<td align="left">String</td>
+<td align="left">Name of TC with "_target" appended</td>
+</tr>
+<tr>
+<td><a href="#targetrtslocation">targetRTSLocation</a></td>
+<td align="left">String</td>
+<td align="left">"${rtistic_home}/TargetRTS"</td>
+</tr>
+<tr>
+<td><a href="#topcapsule">topCapsule</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#unitname">unitName</a></td>
+<td align="left">String</td>
+<td align="left">"UnitName"</td>
+</tr>
+</tbody>
+</table>
 <h3 id="commonpreface">commonPreface</h3>
 <p>This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called <code>UnitName.h</code>). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.</p>
 <h3 id="compilearguments">compileArguments</h3>
@@ -1180,7 +1324,7 @@
 <h3 id="copyrighttext">copyrightText</h3>
 <p>This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.</p>
 <h3 id="cppcodestandard">cppCodeStandard</h3>
-<p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. If you need to compile generated code with a compiler that doesn't support C++ 11 you can set this preference to <code>Older than C++ 11</code>. However, you then cannot use the latest version of the TargetRTS since it uses C++ 11 constructs.</p>
+<p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 98</code>, <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set <a href="#targetrtslocation">TargetRTSLocation</a> to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to <code>Older than C++ 98</code>.</p>
 <h3 id="linkarguments">linkArguments</h3>
 <p>Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.</p>
 <h3 id="linkcommand">linkCommand</h3>
@@ -1189,6 +1333,19 @@
 <p>Specifies the arguments for the <a href="#makecommand">make command</a> to be used.</p>
 <h3 id="makecommand">makeCommand</h3>
 <p>Specifies which make command to use for processing the generated make file. By default the make command is <code>$defaultMakeCommand</code> which gets its value from which TargetRTS configuration that is used.</p>
+<h3 id="prerequisites">prerequisites</h3>
+<p>This property is a list of references to other TCs that need to be built before the current TC. It's typically used to express that a library TC is a prerequisite of an executable TC, which means the library TC needs to be built before the executable TC. Below is an example where an executable TC has a library TC as a prerequisite:</p>
+<pre><code class="language-js">tc.prerequisites = [&quot;../MyLibrary/lib.tcjs&quot;]; 
+</code></pre>
+<p>Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.</p>
+<p>For more information about this property see <a href="#transformation-configuration-prerequisites">Transformation Configuration Prerequisites</a>.</p>
+<h3 id="sources">sources</h3>
+<p>By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the <code>sources</code> property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the <code>!</code> character. In both patterns and anti-patterns you can use the wildcards <code>*</code> (matches any sequence of characters) and <code>?</code> (matches a single character). Below are a few examples:</p>
+<pre><code class="language-js">tc.sources = [&quot;*.art&quot;]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the &quot;sources&quot; property is not set.
+tc.sources = [&quot;cap1.art&quot;, &quot;cap2.art&quot;]; // Only transform two specific Art files
+tc.sources = [&quot;*.art&quot;, &quot;!rtist_gen.art&quot;]; // Transform all Art files except one
+tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform all Art files with names starting with &quot;source&quot; and followed by two arbitrary characters. Art files with a name that ends with &quot;_gen&quot; are excluded.
+</code></pre>
 <h3 id="targetconfiguration">targetConfiguration</h3>
 <p>Specifies which TargetRTS configuration to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the RTist in Code installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
 <h3 id="targetconfigurationname">targetConfigurationName</h3>
