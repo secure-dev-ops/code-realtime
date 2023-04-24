@@ -72,6 +72,9 @@ capsule customCapsule // no warning even if capsule name is not capitalized
 };
 ```
 
+!!! note 
+    Certain validation rules cannot be disabled or have their severity changed. These are known as ["core validation rules"](#core-validation-rules) and they run **before** semantic validation starts (which is why they cannot be customized).
+
 ## Validation Rules
 This chapter lists all validation rules which {$product.name$} checks your Art application against.
 
@@ -863,6 +866,50 @@ A [port](../art-lang#port) that is not a service port is internal to a capsule. 
 ``` art
 capsule C31 {
     port fp : Proto; // ART_0031
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+```
+
+## Core Validation Rules
+There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
+
+Since these rules run before semantic [validation rules](#validation-rules) they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.
+
+### ART_9000_syntaxError
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | Parsing of the Art file failed due to a syntax error. | N/A
+
+If an Art file contains a syntax error, it cannot be parsed into valid Art elements and the parser will then report this error. There are many ways to introduce syntax errors in an Art file and the error message from the parser will usually help you understand what is wrong by telling you both what incorrect thing was encountered and what is instead expected at that position.
+
+``` art
+capsule A {    
+    state machine // ART_9000 (mismatched input 'state' expecting 'statemachine')
+};
+
+capsule B {    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+    prt // ART_9000 (extraneous input 'prt' expecting '}')
+};
+```
+
+### ART_9001_unresolvedReference
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A referenced Art element cannot be found. | N/A
+
+For an Art file to be well-formed, all references it contains must be possible to resolve to valid Art elements (located either in the same Art file, or in another Art file in the workspace). Aside from simple spelling mistakes, the most common reason for this error is that you forgot to add the folder that contains the Art file with the target Art element into the workspace.
+
+``` art
+capsule C {    
+    port p : Unknown; // ART_9001 (Couldn't resolve reference to Protocol 'Unknown'.)
 
     statemachine {
         state State;
