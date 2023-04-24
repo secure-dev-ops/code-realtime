@@ -15,7 +15,7 @@ capsule Top
     };
 };
 
-capsule Sender {
+capsule Sender {        
     service behavior port p : PROT;
 
     statemachine {
@@ -30,7 +30,7 @@ capsule Sender {
 capsule Receiver {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
+        #include "testlib.art.h"        
     `   
 
     service behavior port p~ : PROT;
@@ -42,15 +42,15 @@ capsule Receiver {
             state Inner;
             ep1 -> Inner;
             Inner -> ex1 on p.msg
-            `
-                const double d = *(static_cast<const double*>(rtdata));
+            `                
+                const double d = *rtdata;
                 ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
             `;
         };
         state State2;
         State.ex1 -> State2 
         `
-            const double d = *(static_cast<const double*>(rtdata));
+            const double d = *rtdata;
             ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
         `;
         initial -> State.ep1;
