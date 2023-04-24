@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is a Visual Studio Code extension for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="RTist in Code is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -678,6 +678,8 @@
           
         
           
+            
+          
         
       
       
@@ -707,7 +709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://rtist.hcldoc.com/help/topic/com.hcl.xtools.umldt.rt.targetrts.doc.isv/html/index.html" class="md-nav__link">
+      <a href="../targetrts-api/" class="md-nav__link">
         C++ API
       </a>
     </li>
@@ -1000,7 +1002,7 @@
 
 <h2 id="installing">Installing</h2>
 <p>RTist in Code can be installed on top of Visual Studio Code or Eclipse Theia.</p>
-<p>The latest version of RTist in Code is available on the <a href="https://marketplace.visualstudio.com/search?term=%22rtist%20in%20code%22&amp;target=VSCode&amp;category=All%20categories&amp;sortBy=Relevance">Visual Studio Marketplace</a> and on the <a href="https://open-vsx.org/">Open VSX Registry</a>. To install that version into Visual Studio Code or Eclipse Theia follow these steps:</p>
+<p>The latest version of RTist in Code is available on the <a href="https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce">Visual Studio Marketplace</a> and on the <a href="https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce">Open VSX Registry</a>. To install that version into Visual Studio Code or Eclipse Theia follow these steps:</p>
 <p>1) Click "Extensions" in the activity bar to open the Extensions view.</p>
 <p><img alt="" src="../images/extensions_in_sidebar.png" /></p>
 <p>2) Type "rtist" in the search field.</p>
@@ -1011,7 +1013,7 @@
 <p>The screenshot above also shows that an extension for working with C/C++ has been installed. See <a href="#setup-c-build-tools">Setup C++ Build Tools</a> for more information.</p>
 <p>After you have installed RTist in Code it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command <code>Developer: Reload Window</code> which is available in the Command Palette (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd>P</kbd></span>).</p>
 <h3 id="install-from-vsix">Install from VSIX</h3>
-<p>Another way to install RTist in Code is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of RTist in Code from both the <a href="https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce">Visual Studio Marketplace</a> and the <a href="https://open-vsx.org/">Open VSX Registry</a>. Once you have downloaded the .vsix file follow these steps to install it:</p>
+<p>Another way to install RTist in Code is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of RTist in Code from both the <a href="https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce">Visual Studio Marketplace</a> and the <a href="https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce">Open VSX Registry</a> (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:</p>
 <p>1) If you already have a version of RTist in Code installed, you can manually uninstall it first (see <a href="#uninstalling">Uninstalling</a>). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.</p>
 <p>2) Open the menu of the Extensions view and select the command "Install from VSIX". </p>
 <p><img alt="" src="../images/vsix_install.png" /></p>
@@ -1023,7 +1025,7 @@
 <h3 id="viewing-installation-information">Viewing Installation Information</h3>
 <p>If you are unsure about which version of RTist in Code you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:</p>
 <p><img alt="" src="../images/extension_tooltip.png" /></p>
-<p>You can also see the version and the exact date of the installed RTist in Code in the Changelog that is present on the extension's page. There you can also see what has been fixed and improved compared to older releases.</p>
+<p>You can also see the version and the exact date of the installed RTist in Code in the Changelog that is present on the extension's page. There you can also see what has been fixed and improved compared to older releases. Note that for Theia this information is not present on the extension's page, but you can see it if you double-click on the extension's name (the web page of the extension will then open).</p>
 <p><img alt="" src="../images/extension_changelog.png" /></p>
 <h3 id="portable-mode-installation">Portable Mode Installation</h3>
 <p>You can install multiple versions of RTist in Code by using the portable mode of Visual Studio Code. See <a href="https://code.visualstudio.com/docs/editor/portable">Portable Mode</a> for how to install Visual Studio code in portable mode, which will allow you to install a version of RTist in Code that won't affect other Visual Studio Code installations on the machine. Portable mode also allows to move or copy an installation from one machine to another, which makes it useful in scenarios where installs should be centralized in an organization.</p>
@@ -1050,7 +1052,7 @@
 <p>To uninstall RTist in Code follow these steps:</p>
 <p>1) Click "Extensions" in the left side-bar.</p>
 <p><img alt="" src="../images/extensions_in_sidebar.png" /></p>
-<p>2) Find the RTist in Code extension in the "Installed" section, right-click on it, and select the command "Uninstall".</p>
+<p>1) Find the RTist in Code extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio code the command is available in the context menu, while in Theia it shows up as a button to click).</p>
 <p><img alt="" src="../images/uninstall.png" /></p>
 <p>Once the uninstallation is finished you will no longer see RTist in Code in the "Installed" section.</p>
 
