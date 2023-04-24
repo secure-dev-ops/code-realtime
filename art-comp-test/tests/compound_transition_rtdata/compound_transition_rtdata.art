@@ -1,0 +1,58 @@
+protocol PROT {
+    out msg(`double`);
+};
+
+capsule Top 
+{     
+    part sender : Sender;
+    part receiver : Receiver;
+    
+    connect sender.p with receiver.p;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {
+    service behavior port p : PROT;
+
+    statemachine {
+        state State;
+        initial -> State 
+        `
+            p.msg(3.14).send();
+        `;
+    };
+};
+
+capsule Receiver {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `   
+
+    service behavior port p~ : PROT;
+
+    statemachine {
+        state State {
+            entrypoint ep1;
+            exitpoint ex1;
+            state Inner;
+            ep1 -> Inner;
+            Inner -> ex1 on p.msg
+            `
+                const double d = *(static_cast<const double*>(rtdata));
+                ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
+            `;
+        };
+        state State2;
+        State.ex1 -> State2 
+        `
+            double d = *(static_cast<double*>(rtdata));
+            ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
+        `;
+        initial -> State.ep1;
+    };
+};

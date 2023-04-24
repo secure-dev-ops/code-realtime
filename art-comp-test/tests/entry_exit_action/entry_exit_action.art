@@ -1,0 +1,44 @@
+[[rt::impl]]
+`
+#include "testlib.art.h"
+`
+
+capsule Top 
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        private: unsigned int entryCalled = 0, exitCalled = 0;
+    `
+
+    service port timer : Timing;
+
+    statemachine {
+        state S1 {
+            entry
+            `
+                entryCalled++;
+            `;
+            exit
+            `
+                exitCalled++;
+            `;
+        };
+        state S2; 
+        initial -> S1
+        `
+            timer.informIn(RTTimespec(0,0));
+        `
+        ;
+        timeout: S1 -> S2 on timer.timeout
+        `
+            ASSERT(entryCalled == 1, "Entry action was not called exactly once");
+            ASSERT(exitCalled == 1, "Exit action was not called exactly once");
+            PASS();
+        `;
+    
+};
+};

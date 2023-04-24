@@ -4,3 +4,5 @@ art-samples/*_target/**/*.json
 art-samples/*_target/default/*
 art-samples/**/art_build_settings.json
 art-samples/**/art_diagram_settings.json
+art-comp-test/tests/*_target/*
+art-comp-test/tests/*/.vscode/*.json
