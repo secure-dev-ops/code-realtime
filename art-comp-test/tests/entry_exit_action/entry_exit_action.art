@@ -1,8 +1,3 @@
-[[rt::impl]]
-`
-#include "testlib.art.h"
-`
-
 capsule Top 
 {
     [[rt::impl_preface]]
@@ -14,7 +9,7 @@ capsule Top
         private: unsigned int entryCalled = 0, exitCalled = 0;
     `
 
-    service port timer : Timing;
+    behavior port timer : Timing;
 
     statemachine {
         state S1 {

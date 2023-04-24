@@ -50,7 +50,7 @@ capsule Receiver {
         state State2;
         State.ex1 -> State2 
         `
-            double d = *(static_cast<double*>(rtdata));
+            const double d = *(static_cast<const double*>(rtdata));
             ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
         `;
         initial -> State.ep1;
