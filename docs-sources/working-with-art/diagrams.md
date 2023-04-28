@@ -75,7 +75,7 @@ Diagram filter properties that have been modified are shown in boldface, and a "
 
 ![](images/diagram-filters-restore-default.png)
 
-You can also set diagram filters globally using configuration settings. Such filters will apply to all diagrams unless a more specific filter has been set on an individual diagram. You can find these configuration settings by filtering on `rtistic.diagram` in the Settings:
+You can also set diagram filters globally using [diagram settings](../settings.md#diagram). Such filters will apply to all diagrams unless a more specific filter has been set on an individual diagram. You can find these settings by filtering on `rtistic.diagram` in the Settings editor:
 
 ![](images/global-diagram-filters.png)
 

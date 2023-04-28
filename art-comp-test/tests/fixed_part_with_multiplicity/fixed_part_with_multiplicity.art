@@ -1,0 +1,52 @@
+[[rt::decl]]
+`
+    extern unsigned int incCount;
+`
+
+[[rt::impl]]
+`
+    unsigned int incCount = 0;
+`
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "fixed_part_with_multiplicity.art.h"
+    `
+    service port timer : Timing;
+    /* Parts */
+    fixed part thePart : C[4]; // Fixed part with multiplicity 4
+
+    /* State Machine */
+    statemachine {
+        state State {
+            entry
+            `
+                timer.informIn(RTTimespec(0,0));
+            `;
+            timeout: on timer.timeout
+            `
+                ASSERT(incCount == 4, "Expected 4 capsule instances to have been incarnated in the part");
+            `;
+        };
+        initial -> State;
+    };
+};
+
+capsule C {    
+    [[rt::impl_preface]]
+    `
+        #include "fixed_part_with_multiplicity.art.h"
+    `
+
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State
+        `
+            incCount++;
+        `
+        ;
+    };
+};

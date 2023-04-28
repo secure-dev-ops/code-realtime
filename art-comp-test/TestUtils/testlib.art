@@ -1,0 +1,66 @@
+[[rt::decl]]
+`    
+#include <string>
+#include <iostream>
+using namespace std;
+#include "../src/include/RTDiag.h"
+
+namespace TestUtils {
+
+	// Read test options from the command line
+	void getTestOptions(unsigned int& timeLimit);
+
+	// Fail the test case with a message
+	void fail(const std::string& msg);
+
+	// Pass the test case
+	void pass();
+
+	// Assert on the condition being true. If not, the message (and condition expression and location of the assert)
+	// will be printed and the test case will fail.
+	void assert_(bool cond, const char* expr, const char * file, int line, const char* msg = "");
+	#define assert(cond, ...) assert_(cond, #cond, __FILE__, __LINE__, ##__VA_ARGS__)
+
+	#define PASS()            TestUtils::pass();    context()->abort()
+	#define FAIL(msg)         TestUtils::fail(msg);
+	#define ASSERT(cond, msg) TestUtils::assert(cond, msg)
+}
+`
+
+[[rt::impl]]
+`
+#include <stdlib.h>
+
+void TestUtils::getTestOptions(unsigned int& timeLimit) {
+	int ac = RTMain::argCount();
+	const char * const * av = RTMain::argStrings();
+
+	while( --ac > 0 ) {
+		const char* arg = *++av;
+		if( RTMemoryUtil::strcmp( arg, "-timeLimit=", 11 ) == 0 )
+			timeLimit = RTMemoryUtil::atoi(*av + 11);
+	}
+}
+
+void TestUtils::fail(const std::string& msg) {
+	std::cerr << "TEST FAILED (" << msg << ")" << std::endl << std::flush;
+	exit(1);
+}
+
+void TestUtils::pass() {
+	std::cout << "***PASS***" << std::endl << std::flush;
+	//exit(0);
+}
+
+void TestUtils::assert_(bool cond, const char* expr, const char * file, int line, const char* msg) {
+	if (cond) {
+		std::string okMessage = "OK:  " + std::string(expr) + "\n";
+		std::cout << okMessage;
+		return;
+	}
+
+	std::cerr << "ASSERTION FAILED (" << msg << ")" << std::endl << std::flush;
+
+	RTDiag::failed_assertion(expr, file, line);
+}
+`
