@@ -62,7 +62,7 @@ After a successful installation you need to perform a few configuration steps be
 
 {$product.name$} follows the steps below in priority order when it looks for an appropriate JVM to use:
 
-1) The configuration setting `rtistic.languageServer.jvm` is examined. If it specifies a path to a JVM it will be used. You can edit this configuration setting by invoking **File - Preferences - Settings** and then type the configuration setting id mentioned above in the filter box. This setting needs to be edited in the `settings.json` file.
+1) The setting [`rtistic.languageServer.jvm`](settings.md#jvm) is examined. If it specifies a path to a JVM it will be used. You can edit this setting by invoking **File - Preferences - Settings** and then type the setting id mentioned above in the filter box.
 
 ![](images/jvm_setting.png)
 
@@ -70,18 +70,17 @@ After a successful installation you need to perform a few configuration steps be
    
 3) An attempt is made to launch the `java` command without using a path. The first JVM found in the system path, if any, will be used.
 
+You may also need to adjust the arguments for the JVM. By default the JVM is launched with the below argument:
+
+`-Xmx4024m`
+
+To change the JVM arguments set the setting [`rtistic.languageServer.jvmArgs`](settings.md#jvm-args) shown in the image above.
+
 When the {$product.name$} extension is activated information about which Java that is used is printed to the Art Server output channel.
 
 ![](images/art-server-log.png)
 
-You may also need to adjust the arguments for the JVM. By default the JVM is launched with the below arguments:
-
-`-Xverify:none -Xmx4024m`
-
-To change the JVM arguments set the configuration setting `rtistic.languageServer.jvmArgs`.
-
-#### Setup License
-If you want to use all features of {$product.name$} you need a license. The {$product.name$} Community Edition doesn't require a license, but can on the other hand not be used for commercial purposes.
+Here you will also see if the launching of the language server for some reason failed.
 
 #### Setup C++ Build Tools
 When {$product.name$} builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start Visual Studio Code or Eclipse Theia. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching Visual Studio Code or Eclipse Theia. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.

@@ -106,6 +106,7 @@ nav:
         - Art Compiler: building/art-compiler.md     
      - Releases: 
         - Releases: releases/index.md  
+     - Settings: settings.md
      - Support Procedures: support.md      
   - Notices: notices.md
 
