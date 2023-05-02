@@ -17,9 +17,15 @@ Once there is an active TC in a workspace folder, the first and second steps (ge
 
 ![](images/target-workspace-folder.png)
 
-To perform the third step (running make to generate binaries) you can simply go to the target folder in the Terminal and invoke the command `make`. For convenience there is also a command **Build** available in the context menu of a TC. This command will first set the TC as active (if it was not already active) so that C++ code and a make file get generated. It will then run the make tool on the generated make file. 
+To perform the third step (running make to generate binaries) you can simply go to the target folder in the Terminal and invoke the command `make`. 
 
-There are also two other useful commands in the context menu of a TC:
+To perform the third step (running make to generate binaries) you can simply go to the target folder in the Terminal and invoke the command `make`. Alternatively you can use the TC context menu command **Build** (see [below](#tc-context-menu-commands)).
+
+## TC Context Menu Commands
+The context menu of a TC provides a few useful commands that automate some of the steps mentioned above:
+
+* **Build**
+This command first generates C++ code and a make file for the TC, and then runs the make tool on the generated make file. Note, however, that this command does not set the TC as active. If you plan to change code snippets in generated code you must set the TC as active yourself.
 
 * **Run**
 First builds the TC, and then attempts to launch the executable that is produced. The executable is launched in a non-debug mode by specifying the launch argument `-URTS_DEBUG=quit`. If you instead want to launch the executable for debugging it you can go to the Terminal and manually launch it from there without any extra arguments. Note that if your TC creates a library rather than an executable, then this command will still build the TC, but will then give an error message since there is no executable to run.
@@ -60,7 +66,7 @@ C++ code snippets that are embedded in the Art file will be enclosed by special 
 
 The comment contains information about the source Art file and the Art element in that file that contains the code snippet.
 
-!!! note 
+!!! warning 
     Only make edits on the lines within the special code snippet comments. If you edit outside the comment those edits will be lost the next time the file gets regenerated. And if you change the comment itself, the propagation of changes back to the Art file will no longer work correctly.
 
 One very common scenario where it's useful to change a code snippet in a generated file is when there is a compilation error reported in the code snippet. Navigating from that compilation error will take you to the code snippet in the generated file, and it's convenient to directly fix the problem there.
@@ -68,6 +74,9 @@ One very common scenario where it's useful to change a code snippet in a generat
 Another scenario is when you write new code in such a code snippet and want to take advantage of the editing support for C++ that is provided by your IDE, and/or need to see the full C++ context of the edited code snippet. You can navigate from the code snippet in the Art file to the code snippet in the generated file as described [above](#navigation-between-art-and-generated-c).
 
 You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
+
+!!! warning 
+    Code snippets in Art files can only be updated when there is an active TC set. Changes made in generated code snippets will be lost the next time they are generated, unless you have set the TC as active. To prevent this, always make sure the TC is set as active before you make any changes in generated files.
 
 ## Building from the Command Line
 You can build a TC from the command line by using the [Art Compiler](art-compiler.md).

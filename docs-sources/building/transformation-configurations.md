@@ -10,7 +10,7 @@ To create a new TC select a file in the workspace folder that contains the Art f
 A .tcjs file will be created with the minimal contents. Specify the mandatory [topCapsule](#topcapsule) property (if you are building an executable) and any other [properties](#properties) needed.
 
 ## Setting a Transformation Configuration as Active
-You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC for knowing how to automatically generate C++ code from the Art files in the workspace folder.
+You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC for knowing how to automatically generate C++ code from the Art files in the workspace folder. It's also used for automatically propagating changes you make in generated files back to the source Art files (see [Making Changes in Generated C++](index.md#making-changes-in-generated-c)).
 
 Set a TC as active by right-clicking on it and perform the command **Set as Active**. An active TC is marked with a checkmark.
 
