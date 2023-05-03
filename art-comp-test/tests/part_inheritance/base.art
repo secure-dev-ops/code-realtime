@@ -1,0 +1,11 @@
+capsule BaseCap {
+    /* Ports */
+    /* Parts */
+    part thePart : C[4]; // Fixed part with multiplicity 4
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        _initial: initial -> State;
+    };
+};

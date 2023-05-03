@@ -1,0 +1,29 @@
+capsule Top : BaseCap {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "c.art.h"
+    `
+    service port timer : Timing;
+
+    /* State Machine */
+    statemachine {
+        redefine _initial: initial -> State 
+        `
+            // Already when the top capsule initial transition runs, fixed capsule parts have been created
+            ASSERT(incCount == 4, "In initial transition, expected 4 capsule instances to have been incarnated in the part");
+        `;
+        state State {
+            entry
+            `                                
+                timer.informIn(RTTimespec(0,0));
+            `;
+            timeout: on timer.timeout
+            `
+                // Of course we should still now have the same 4 instances
+                ASSERT(incCount == 4, "After timeout, expected 4 capsule instances to have been incarnated in the part");
+                PASS();
+            `;
+        };
+    };
+};

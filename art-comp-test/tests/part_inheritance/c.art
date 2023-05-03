@@ -1,0 +1,26 @@
+[[rt::decl]]
+`
+    extern unsigned int incCount;
+`
+
+[[rt::impl]]
+`
+    unsigned int incCount = 0;
+`
+
+capsule C {    
+    [[rt::impl_preface]]
+    `
+        #include "c.art.h"
+    `
+
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State
+        `
+            incCount++;
+        `
+        ;
+    };
+};
