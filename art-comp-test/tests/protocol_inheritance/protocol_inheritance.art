@@ -1,0 +1,58 @@
+protocol DerivedProtocol : BaseProtocol {
+    out msg2(`int`);
+};
+
+capsule Top 
+{     
+    part sender : Sender;
+    part receiver : Receiver;
+    
+    connect sender.p with receiver.p;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {        
+    service behavior port p : DerivedProtocol;
+
+    statemachine {
+        state State;
+        initial -> State 
+        `
+            p.msg(3.14).send(); // Send event defined in base protocol
+            p.msg2(5).send(); // Send event defined in derived protocol
+        `;
+    };
+};
+
+capsule Receiver {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `   
+
+    service behavior port p~ : DerivedProtocol; 
+
+    statemachine {
+        state S1, S2, S3 {
+            entry
+            `
+                PASS();
+            `;
+        };
+        t1: S1 -> S2 on p.msg
+        `
+            const double d = *rtdata;
+            ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
+        `;
+        t2: S2 -> S3 on p.msg2
+        `
+            const int d = *rtdata;
+            ASSERT(d == 5, "rtdata in second transition had an unexpected value");
+        `;
+        initial -> S2;
+    };
+};
