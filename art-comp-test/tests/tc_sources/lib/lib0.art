@@ -1,0 +1,29 @@
+[[rt::decl]]
+`
+    int libFunc();
+`
+
+[[rt::impl]]
+`
+    int libFunc() {
+        return 2;
+    }
+`
+
+capsule LibCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"          
+    `
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State
+        `
+            ASSERT(false, "Unexpected version of LibCapsule was used");
+        `;
+    };
+};

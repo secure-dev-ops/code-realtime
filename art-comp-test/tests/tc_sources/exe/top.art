@@ -1,0 +1,17 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"  
+        #include "lib1.art.h"
+    `    
+    part libPart : LibCapsule;
+    /* State Machine */
+    statemachine {
+        initial -> State 
+        `
+            ASSERT(libFunc() == 1, "Wrong library Art file was used");
+            PASS();
+        `;
+        state State;
+    };
+};

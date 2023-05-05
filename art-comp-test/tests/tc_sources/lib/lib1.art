@@ -1,0 +1,32 @@
+[[rt::decl]]
+`
+    int libFunc();
+`
+
+[[rt::impl]]
+`
+    int libFunc() {
+        return 1;
+    }
+`
+
+capsule LibCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"          
+    `
+    /* Ports */
+    service port log : Log;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State
+        `
+            // This is the expected version of the capsule
+            log.log("Hello From Correct Library Capsule");
+            log.commit();
+        `;
+    };
+};

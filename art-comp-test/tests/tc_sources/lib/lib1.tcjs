@@ -1,0 +1,4 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = ["lib?.art", "!lib0.art"];
+tc.prerequisites = ["../../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'tc_sources_target/lib_target';
