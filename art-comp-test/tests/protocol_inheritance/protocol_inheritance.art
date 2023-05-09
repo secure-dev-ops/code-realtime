@@ -1,5 +1,6 @@
 protocol DerivedProtocol : BaseProtocol {
-    out msg2(`int`);
+    out msg_derived(`int`);
+    //out redefine msg(`bool`);
 };
 
 capsule Top 
@@ -15,15 +16,20 @@ capsule Top
     };
 };
 
-capsule Sender {        
+capsule Sender {     
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `      
     service behavior port p : DerivedProtocol;
 
     statemachine {
         state State;
         initial -> State 
         `
-            p.msg(3.14).send(); // Send event defined in base protocol
-            p.msg2(5).send(); // Send event defined in derived protocol
+            p.sendTypeCheckEnable(1);
+            ASSERT(p.msg_base(3.14).send() == 1, "Failed to send event defined in base protocol"); // Send event defined in base protocol
+            ASSERT(p.msg_derived(5).send() == 1, "Failed to send event defined in derived protocol"); // Send event defined in derived protocol
         `;
     };
 };
@@ -43,16 +49,16 @@ capsule Receiver {
                 PASS();
             `;
         };
-        t1: S1 -> S2 on p.msg
+        t1: S1 -> S2 on p.msg_base
         `
             const double d = *rtdata;
             ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
         `;
-        t2: S2 -> S3 on p.msg2
+        t2: S2 -> S3 on p.msg_derived
         `
             const int d = *rtdata;
             ASSERT(d == 5, "rtdata in second transition had an unexpected value");
         `;
-        initial -> S2;
+        initial -> S1;
     };
 };

@@ -2,3 +2,8 @@ let tc = TCF.define(TCF.CPP_TRANSFORM);
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'protocol_inheritance_target';
+/*tc.compileArguments = '$(DEBUG_TAG)';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.linkArguments = "/DEBUG";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+*/

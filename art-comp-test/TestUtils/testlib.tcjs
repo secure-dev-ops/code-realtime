@@ -2,3 +2,10 @@
 let tc = TCF.define(TCF.CPP_TRANSFORM);
 tc.targetFolder = 'testLib_target';
 tc.unitName = 'TestLibUnit';
+
+// Uncomment to debug with Visual Studio
+/*
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+*/
