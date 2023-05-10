@@ -4,13 +4,13 @@ capsule Top : BaseCap {
         #include "testlib.art.h"
         #include "c.art.h"
     `
-    service port timer : Timing;
+    behavior port timer : Timing;
 
     /* State Machine */
     statemachine {
         redefine _initial: initial -> State 
         `
-            // Already when the top capsule initial transition runs, fixed capsule parts have been created
+            // Already when the top capsule initial transition runs, fixed capsule parts should have been created
             ASSERT(incCount == 4, "In initial transition, expected 4 capsule instances to have been incarnated in the part");
         `;
         state State {
