@@ -1,0 +1,3 @@
+protocol BaseProtocol {
+    out msg_base(`double`);
+};

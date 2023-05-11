@@ -1,5 +1,6 @@
 protocol DerivedProtocol : BaseProtocol {
-    out msg_derived(`int`);    
+    out msg_derived(`int`);
+    out redefine msg_base(`bool`); // Redefines event BaseProtocol::msg_base (changes its parameter type)
 };
 
 capsule Top 
@@ -8,6 +9,7 @@ capsule Top
     part receiver : Receiver;
     
     connect sender.p with receiver.p;
+    connect sender.p_base with receiver.p_base;
 
     statemachine {
         state State;
@@ -21,14 +23,16 @@ capsule Sender {
         #include "testlib.art.h"        
     `      
     service behavior port p : DerivedProtocol;
+    service behavior port p_base : BaseProtocol;
 
     statemachine {
         state State;
         initial -> State 
         `
             p.sendTypeCheckEnable(1);
-            ASSERT(p.msg_base(3.14).send() == 1, "Failed to send event defined in base protocol"); // Send event defined in base protocol
-            ASSERT(p.msg_derived(5).send() == 1, "Failed to send event defined in derived protocol"); // Send event defined in derived protocol
+            p_base.sendTypeCheckEnable(1);
+            ASSERT(p.msg_base(true).send() == 1, "Failed to send redefining event defined in derived protocol");
+            ASSERT(p_base.msg_base(3.14).send() == 1, "Failed to send redefined event defined in base protocol");
         `;
     };
 };
@@ -40,6 +44,7 @@ capsule Receiver {
     `   
 
     service behavior port p~ : DerivedProtocol; 
+    service behavior port p_base~ : BaseProtocol;
 
     statemachine {
         state S1, S2, S3 {
@@ -50,13 +55,13 @@ capsule Receiver {
         };
         t1: S1 -> S2 on p.msg_base
         `
-            const double d = *rtdata;
-            ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
+            const bool b = *rtdata;
+            ASSERT(b, "rtdata in first transition had an unexpected value");
         `;
-        t2: S2 -> S3 on p.msg_derived
+        t2: S2 -> S3 on p_base.msg_base
         `
-            const int d = *rtdata;
-            ASSERT(d == 5, "rtdata in second transition had an unexpected value");
+            const double d = *rtdata;
+            ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
         `;
         initial -> S1;
     };
