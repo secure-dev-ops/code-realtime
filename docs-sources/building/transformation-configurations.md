@@ -10,13 +10,20 @@ To create a new TC select a file in the workspace folder that contains the Art f
 A .tcjs file will be created with the minimal contents. Specify the mandatory [topCapsule](#topcapsule) property (if you are building an executable) and any other [properties](#properties) needed.
 
 ## Setting a Transformation Configuration as Active
-You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC for knowing how to automatically generate C++ code from the Art files in the workspace folder. It's also used for automatically propagating changes you make in generated files back to the source Art files (see [Making Changes in Generated C++](index.md#making-changes-in-generated-c)).
+You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC in several ways:
+
+* It controls how to automatically generate C++ code from the Art files in the workspace folder. In this respect it corresponds directly to the [`--tc`](art-compiler.md#tc) option for the [Art Compiler](art-compiler.md).
+* It's used for automatically propagating changes you make in generated files back to the source Art files (see [Making Changes in Generated C++](index.md#making-changes-in-generated-c)).
+* It affects how references in Art files are bound to Art elements in other Art files. More precisely, it's the [sources](#sources) and [prerequisites](#prerequisites) properties of the active TC that have an influence on the binding of references (since these properties control which Art files that are visible when building the active TC).
+
+!!! note 
+    If you don't set a TC as active none of the above will work (or will work incorrectly). It's therefore strongly recommended to create a TC and set it as active as early as possible when you start to work in a new Art workspace folder.
 
 Set a TC as active by right-clicking on it and perform the command **Set as Active**. An active TC is marked with a checkmark.
 
 ![](images/active-tc.png)
 
-Automatic code generation for the active TC will start immediately.
+If the active TC has [prerequisites](#transformation-configuration-prerequisites), those too will be set as active. This ensures that the results you get when working with Art files in the IDE will be the same as when you will build the TC using the [Art Compiler](art-compiler.md). 
 
 ## Editing Transformation Configurations
 You can edit a TC directly as a JavaScript file in the text editor. Features such as content assist, navigation and hover tooltips work very similar to how they work for an Art file:
@@ -63,6 +70,8 @@ You can freely choose if you want to edit TC files as text files or using the fo
 
 ## Transformation Configuration Prerequisites
 A TC can either build a library or an executable. This is controlled by the [topCapsule](#topcapsule) property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the [prerequisites](#prerequisites) property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).
+
+If you change the prerequisites of a TC you should again [set it as active](#setting-a-transformation-configuration-as-active) so that the prerequisite TCs also become active.
 
 ## Properties
 Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.

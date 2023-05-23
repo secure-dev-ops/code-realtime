@@ -1,4 +1,4 @@
-Art is a textual language but there is also a graphical notation for many parts of the language. You can therefore visualize (and to some extent also edit) some of the Art elements using graphical diagrams. The following diagrams can be used:
+Art is a textual language but there is also a graphical notation for many parts of the language. You can therefore visualize (and in many cases also edit) some of the Art elements using graphical diagrams. The following diagrams can be used:
 
 * **State Diagram** Shows the state machine of a capsule or class. A single diagram can show all states, pseudo states and transitions also for hierarchical state machines.
 * **Structure Diagram** Shows the composite structure of a capsule. A single diagram can show all parts, ports and connectors also for hierarchical composite structures.
@@ -20,6 +20,23 @@ You can also open diagrams from the context menu of an Art file in the Explorer 
 The same prompting happens if you open a diagram from an Art file when the cursor position doesn't indicate which Art element to open the diagram for. All valid Art elements in the file will be listed and you can choose which one to open the diagram for.
 
 You can open multiple diagrams of the same kind in one go by selecting multiple Art files in the Explorer view, and then invoke a command for opening diagrams from the context menu. However, in this case only diagrams for the first element found in each file will be opened (i.e. in this case you will not be prompted in case a file contains multiple elements for which the selected kind of diagram could be opened).
+
+### Related Diagrams
+If you already have a diagram open, you can open another diagram that is related to that diagram. And if a symbol or line is selected on the diagram, diagrams related to the selected symbol or line can be opened. Press ++ctrl+space++ to open the diagram's pop-up menu. If the diagram, or the selected symbol or line, has any related diagrams you may see the following commands:
+
+- **Open State Diagram** 
+    - From a structure diagram that shows a capsule's composite structure, the state diagram of the capsule will be opened. If a part symbol is selected, the state diagram of the capsule that types the part will be opened.
+    - From a class diagram that shows relationships for a class or capsule, the state diagram of the class or capsule will be opened. If another class or capsule is selected on the diagram, the state diagram of that selected class or capsule will be opened.
+- **Open Structure Diagram**
+    - From a structure diagram where a part symbol is selected, the structure diagram of the capsule that types the part will be opened.
+    - From a state diagram of a capsule, the structure diagram of the capsule will be opened.
+    - From a class diagram that shows relationships for a capsule, the structure diagram of the capsule will be opened. If another capsule is selected on the diagram, the structure diagram of that selected capsule will be opened.
+- **Open Class Diagram**
+    - From a structure diagram that shows a capsule's composite structure, the class diagram of the capsule will be opened. If a part symbol is selected, the class diagram of the capsule that types the part will be opened.
+    - From a state diagram of a class or capsule, the class diagram of the class or capsule will be opened.
+    - From a class diagram where a class or capsule is selected, the class diagram of that selected class or capsule will be opened.
+
+For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command **Open Inherited State Diagram**. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.
 
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:
@@ -97,7 +114,31 @@ You can rename an Art element shown in a diagram by double-clicking on the text 
 
 Note that this is a "rename refactoring" and all references to the renamed element will be updated too. 
 
+### Creating Elements
+!!! note
+    Creating elements is currently only supported from state diagrams.
+
+To create a new element in a state diagram use one of the **New ...** commands in the pop-up menu that appears when you press ++ctrl+space++. These commands are the same as appear when you use Content Assist in the Art text editor. Which commands that are available depends on what is currently selected in the diagram. If nothing is selected, an element will be created directly in the state machine.
+
+![](images/create_elements_in_statemachine.png)
+
+If a state is selected, an element will be created inside that state (turning it into a composite state).
+
+![](images/create_elements_in_state.png)
+
+To create a transition you first need to select the source state (or pseudo-state) and then the target state (or pseudo-state). Then press ++ctrl+space++ and perform either **New Triggered Transition** or **New Non-Triggered Transition** (depending on if the transition needs any triggers or not).
+
+Elements are created by updating the Art file, which in turn will update the diagram. Just like when you use Content Assist in the Art text editor the created element will initially get default values for its properties, usually the name. The default value is selected so you can directly replace it with the real value. You can of course undo the creation by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
+
+### Redirecting Transitions
+Redirecting a transition means to change either its source (state or pseudo-state) or its target (state or pseudo-state). You can do it from a state diagram by selecting both the transition and the new source or target. Then press ++ctrl+space++ and perform either **Set Transition Source** or **Set Transition Target**. This will redirect the transition by changing its source or target. If you want to change both the source and target just repeat the procedure once more.
+
+The transition is redirected by updating the Art file, which in turn will update the diagram. Undo the change by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
+
 ### Deleting Elements
-You can delete an Art element shown in a diagram by selecting the symbol or line that represents the element and then press the ++"Delete"++ key. Multiple symbols or lines can be selected in order to delete many Art elements in one go. Currently deleting elements is only supported from state diagrams.
+!!! note
+    Deleting elements is currently only supported from state diagrams.
+
+You can delete an Art element shown in a diagram by selecting the symbol or line that represents the element and then press the ++"Delete"++ key. Alternatively use the command **Delete** in the ++ctrl+space++ pop-up menu. Multiple symbols or lines can be selected in order to delete many Art elements in one go. 
 
 Note that elements are deleted by removing them from the Art file, which in turn will update the diagram. All content within the deleted element will be lost, including any comments. However, you can of course undo the deletion by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
