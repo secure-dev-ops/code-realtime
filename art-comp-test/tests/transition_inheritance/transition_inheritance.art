@@ -1,0 +1,42 @@
+protocol Events {
+    out e1();
+};
+
+capsule Top 
+{     
+    part sender : Sender;
+    part receiver : Receiver;
+    
+    connect sender.ps with receiver.pr;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {            
+    service behavior port ps : Events;
+
+    statemachine {
+        state S1;
+        initial -> S1 
+        `
+            ps.e1().send();
+        `;
+    };
+};
+
+capsule Receiver : ReceiverBase { 
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"    
+    `   
+
+    statemachine {
+        redefine e1Trans: R1 -> R2
+        `
+            std::cout << "Receiver::e1Trans" << std::endl;
+        `;
+    };
+};
