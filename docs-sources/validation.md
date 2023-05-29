@@ -905,7 +905,7 @@ capsule B {
 |----------|:-------------|:-------------
 | Error | A referenced Art element cannot be found. | N/A
 
-For an Art file to be well-formed, all references it contains must be possible to resolve to valid Art elements (located either in the same Art file, or in another Art file in the workspace). Aside from simple spelling mistakes, the most common reason for this error is that you forgot to add the folder that contains the Art file with the target Art element into the workspace.
+For an Art file to be well-formed, all references it contains must be possible to resolve to valid Art elements (located either in the same Art file, or in another Art file in the workspace). Aside from simple spelling mistakes, the most common reason for this error is that you forgot to add the folder that contains the Art file with the target Art element into the workspace. Also note that if the referenced Art element is in a different workspace folder you must have an active TC which specifies a TC in that workspace folder as a prerequisite.
 
 ``` art
 capsule C {    

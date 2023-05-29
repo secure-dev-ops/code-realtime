@@ -13,13 +13,13 @@ The picture below shows 3 capsule instances each holding a queue with events tha
 
 ![](images/event_queues.png)
 
-A capsule may have ports. A **port** is typed by a **protocol** which defines the events that may be sent in to the port (these are known as **in-events**), as well as the events the capsule itself may send out through the port for others to receive (these are called **out-events**). Ports can be used both for internal and external communication. A port used for external communication is called a **service port**. Together the service ports constitute the communication interface of the capsule, and decides what "services" the capsule provides for other capsules to use.
+A capsule may have ports. A **port** is typed by a **protocol** which defines the events that may be sent in to the port (these are known as **in-events**), as well as the events the capsule itself may send out through the port for others to receive (these are called **out-events**). Ports can be used both for internal and external communication. A port used for external communication is called a **service port**. Together, the service ports constitute the communication interface of the capsule, and decide what "services" the capsule provides for other capsules to use.
 
 ![](images/capsule_ports.png)
 
 A simple capsule which only handles a small number of events, may be able to handle all these events using a single state machine. However, when new ports are added (or new events in protocols typing existing ports), the capsule interface grows and the state machine has to grow with it, since there will be more events for it to handle. Eventually a point is reached where it will not be practical for a capsule to handle any more events in its own state machine, because it has grown too large or complex. If not before, this is the time to define a **composite structure** for the capsule. 
 
-A composite structure is created by decomposing a capsule using capsule parts. A **capsule part** (or for simplicity just **part**) is typed by another capsule and is a way for a capsule to delegate some of its responsibilities to other capsules. Such a decomposition is purely an implementation detail that is not visible from the outside of the capsule. When you send an event to a capsule you cannot know if the capsule will handle the event itself, or if it will forward the event to another capsule typing one of its capsule parts. The ability to decompose a capsule into parts is important for managing complexity. When a capsule has grown too big and complex you can decompose it into capsule parts without changing the communication interface of the capsule. 
+A composite structure is created by decomposing a capsule using capsule parts. A **capsule part** (or, for simplicity, just **part**) is typed by another capsule and is a way for a capsule to delegate some of its responsibilities to other capsules. Such a decomposition is purely an implementation detail that is not visible from the outside of the capsule. When you send an event to a capsule you cannot know if the capsule will handle the event itself, or if it will forward the event to another capsule typing one of its capsule parts. The ability to decompose a capsule into parts is important for managing complexity. When a capsule has grown too big and complex you can decompose it into capsule parts without changing the communication interface of the capsule. 
 
 Ports of capsules typing capsule parts are connected to each other by means of connectors. A **connector** is a conceptual construct for showing how events are routed in the internal structure of a capsule. At run-time connectors don't exist, and ports are directly connected to each other. Because of this, it's not mandatory to use connectors. You can also choose to dynamically connect (and disconnect) ports at run-time. Although this provides for more flexibility, it has the drawback of making it impossible to statically visualize the communication paths of a capsule. Ports that connect statically to other ports via connectors are called **wired** ports. Ports that are connected dynamically without use of static connectors are called **unwired** ports. 
 
@@ -27,7 +27,7 @@ The picture below shows the structure of a capsule `Top` which consists of two c
 
 ![](images/composite_structure.png)
 
-Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may travel between two connected ports using a single protocol, it's possible to make one of the ports **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
+Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may travel between two connected ports using a single protocol, one of the ports can be declared as **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
 
 Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity > 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity > 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time. The picture below shows a capsule with a part and a port that both have multiplicity > 1. In structure diagrams such parts and ports are shown as "stacked boxes".
 
@@ -160,6 +160,24 @@ capsule Cx {
 ```
 
 Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include `sample.art.h` while an rt::decl code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.
+
+## Art Files and Folders and Reference Binding
+Any but the simplest of applications will consist of multiple Art files organized into folders. You can create as many Art files as you like, and every Art file may contain one or several Art elements. Art files containing Art elements that are related to each other should be grouped in a folder. For example, if you build a library from certain Art elements it makes sense to put the Art files with those elements in their own folder. 
+
+Folders with Art files should be added as workspace folders, either using the command **File - Add Folder to Workspace** (to add a folder to an existing workspace), or using the command **File - Open Workspace from File** (to open an existing workspace from a file that defines the workspace folders). If your application consists of more than a couple of workspace folders use of a workspace file is recommended as it makes it quick and easy to add all workspace folders in one go with a single command.
+
+!!! note 
+    Art files must be on the top level in a workspace folder. Do not place them in subfolders. 
+
+When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder. If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active [transformation configuration](../building/transformation-configurations/index.html) (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched. The search continues recursively if the prerequisite TC itself has prerequisites.
+
+If a matching Art element cannot be found in any of these locations the reference will be unresolved and an error will be reported. For example:
+
+```
+Couldn't resolve reference to Protocol 'UnknownPort'. (ART_9001_unresolvedReference)
+```
+
+For more information about unresolved references, see [this validation rule](../validation/#art_9001_unresolvedreference).
 
 ## Textual and Graphical Notations
 The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.
