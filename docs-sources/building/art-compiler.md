@@ -95,8 +95,8 @@ The following steps are performed:
 
 1. The provided options are parsed and validated
 2. The TC is evaluated, to compute the values for all TC properties that will be used for the build
-3. The TC is validated, to detect errors and inconsistencies in TC property values
-4. The Art files are loaded, including `RTPredefined.art` from the {$product.name$} installation
+3. The Art files are loaded, including `RTPredefined.art` from the {$product.name$} installation
+4. The TC is validated, to detect errors and inconsistencies in TC property values
 5. The Art files are validated, to check for semantic problems
 6. The Art files are transformed to C++. Generated C++ files and a make file for building them are written to disk.
 7. A make tool is invoked on the make file for building the C++ code into a library or executable
