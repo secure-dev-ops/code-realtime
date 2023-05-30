@@ -76,7 +76,15 @@ Another scenario is when you write new code in such a code snippet and want to t
 You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
 
 !!! warning 
-    Code snippets in Art files can only be updated when there is an active TC set. Changes made in generated code snippets will be lost the next time they are generated, unless you have set the TC as active. To prevent this, always make sure the TC is set as active before you make any changes in generated files.
+    Code snippets in Art files can only be updated when there is an active TC set. Changes made in generated code snippets will be lost the next time they are generated, unless you have set the TC as active. To prevent this, always make sure the TC is set as active before you make any changes in generated files. 
+    
+Pay attention to the status bar in the bottom left corner when you save a generated file. If you know at least one code snippet was modified, but still get the message shown below:
+
+![](images/no-code-snippets-updated.png)
+
+then you can know the changes failed to propagate to the Art file. If the update was successful you should instead get a message that tells how many code snippets that were updated. For example:
+
+![](images/one-code-snippets-updated.png)
 
 ## Building from the Command Line
 You can build a TC from the command line by using the [Art Compiler](art-compiler.md).
