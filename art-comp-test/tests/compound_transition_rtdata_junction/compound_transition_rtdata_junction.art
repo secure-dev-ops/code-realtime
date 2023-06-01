@@ -1,0 +1,62 @@
+protocol PROT {
+    out msg1(`bool`);
+    out msg2(`bool`);
+    out msg3(`bool`);
+};
+
+capsule Top 
+{     
+    part sender : Sender;
+    part receiver : Receiver;
+    
+    connect sender.p with receiver.p;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {        
+    service behavior port p : PROT;
+
+    statemachine {
+        state State;
+        initial -> State 
+        `
+            p.msg1(true).send();
+        `;
+    };
+};
+
+capsule Receiver {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `   
+
+    service behavior port p~ : PROT;
+
+    statemachine {
+        state S1, S2;
+        junction j1;
+        t1: S1 -> j1 on p.msg1
+        `
+            const bool b = *rtdata;
+            ASSERT(b == true, "rtdata in transition t1 had an unexpected value");
+        `;  
+        t2: S1 -> j1 on p.msg2, p.msg3 when `false`        
+        `
+            const bool b = *rtdata; // This should compile, but we don't expect this to be called
+            ASSERT(false, "transition t2 unexpectedly called")        
+        `;   
+        t3: j1 -> S2 
+        `
+            const bool b = *rtdata;
+            ASSERT(b == true, "rtdata in transition t3 had an unexpected value");   
+            PASS();
+        `;     
+        initial -> S1;
+    };
+};
+
