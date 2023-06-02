@@ -1,0 +1,4 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetProject = 'Pi_target'; 
+tc.topCapsule = 'PiComputer'; 

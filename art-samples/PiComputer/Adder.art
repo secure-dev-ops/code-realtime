@@ -1,0 +1,61 @@
+capsule Adder {
+    [[rt::decl]]
+    `
+        protected:
+        int remainingIterations = 4;
+        double result;
+        void printDouble(double p1, int inc);
+    `
+    [[rt::impl]]
+    `
+        #include <math.h>
+        void Adder_Actor::printDouble(double p1, int inc) {
+            log.show(p1); 
+            log.show(" ");
+            log.log(inc);        
+        }
+    `
+    
+    /* Ports */
+    behavior port log : Log;
+    service behavior port mul : INC_REQ;
+    service behavior port request_port : PI_REQ;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state Idle;
+        initial -> Idle;
+        state Computing {
+            exitpoint ex1;
+            state WaitForIncrement;
+            initial -> WaitForIncrement;
+            WaitForIncrement -> ex1 on mul.returnIncrement;
+        };
+        choice more_increments;
+        Idle -> Computing on request_port.compute
+        `
+            remainingIterations = *rtdata - 1;
+            mul.getIncrement(remainingIterations).send();
+        `;
+        increment_computed:
+        Computing.ex1 -> more_increments
+        `
+            double inc = *rtdata;
+            printDouble(remainingIterations, inc);
+            result += *rtdata;
+        `;  
+        more_increments -> Idle when `return remainingIterations == 0 ? RTTrue : RTFalse;`
+        `
+            // Computation completed
+            result = sqrt(12) * result;
+            request_port.result(result).send();
+        `;
+        more_increments -> Computing when `else`
+        `
+            remainingIterations--;
+            mul.getIncrement(remainingIterations).send();
+        `;      
+
+    };
+};

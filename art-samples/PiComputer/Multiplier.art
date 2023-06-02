@@ -1,0 +1,19 @@
+capsule Multiplier {
+    /* Ports */
+    behavior port log : Log;
+    service behavior port result~ : INC_REQ;
+    /* Parts */
+
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state Idle;
+        initial -> Idle;
+        Idle -> Idle on result.getIncrement
+        `
+            int k = *rtdata;
+            double inc = pow(-3, -k) / (2 * k + 1);
+            result.returnIncrement(inc).send();
+        `;
+    };
+};

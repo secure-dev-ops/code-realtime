@@ -1,0 +1,13 @@
+protocol PI_REQ {
+    /* In Events */
+    in compute(`int`);
+    /* Out Events */
+    out result(`double`);
+};
+
+protocol INC_REQ {
+    /* In Events */
+    in returnIncrement(`double`);
+    /* Out Events */
+    out getIncrement(`int`);
+};

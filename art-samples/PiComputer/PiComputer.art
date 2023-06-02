@@ -1,0 +1,37 @@
+capsule PiComputer {
+    /* Ports */
+    behavior port computer~ : PI_REQ;
+    behavior port log : Log;
+    /* Parts */
+    part adder : Adder;
+    part multiplier : Multiplier;
+    /* Connectors */
+    connect computer with adder.request_port;
+    connect adder.mul with multiplier.result;
+    /* State Machine */
+    statemachine {
+        state WaitForComputation;
+        state Finished {
+            entry
+            `
+                context()->abort();
+            `;
+        };
+        initial -> WaitForComputation
+        `
+        int noOfIterations = 100; // noOfIterations
+
+        char msg[255];
+        sprintf(msg, "Starting computation of pi using the Madhavas formula with %d iterations.", noOfIterations);
+        log.log(msg);
+        computer.compute(noOfIterations).send();
+        `;
+
+        WaitForComputation -> Finished on computer.result
+        `
+            char msg[255];
+            sprintf(msg, "Result is: %.20f", *rtdata);
+            log.log(msg);
+        `;
+    };
+};
