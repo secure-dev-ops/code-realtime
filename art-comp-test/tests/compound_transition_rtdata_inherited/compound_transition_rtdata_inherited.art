@@ -1,0 +1,112 @@
+protocol PROT {
+    out msg(`double`);
+    out msg_inter(`bool`);
+    out msg_redefined(`int`);
+};
+
+capsule Top 
+{     
+    part sender : Sender;
+    part receiver : ReceiverSub;
+    
+    connect sender.p with receiver.p;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {        
+    service behavior port p : PROT;
+
+    statemachine {
+        state State;
+        initial -> State 
+        `
+            p.msg_redefined(14).send();
+        `;
+    };
+};
+
+capsule Receiver {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `   
+
+    service behavior port p~ : PROT;
+
+    statemachine {
+        state State {
+            entrypoint ep1;
+            exitpoint ex1;
+            state Inner;
+            t1: ep1 -> Inner;
+            t2: Inner -> ex1 on p.msg
+            `                
+                const double d = *rtdata;
+                ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
+            `;
+        };
+        state State2;
+        t3: State.ex1 -> State2 
+        `
+            const double d = *rtdata;
+            ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
+        `;
+        initial -> State.ep1;
+    };
+};
+
+capsule ReceiverInter : Receiver {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `   
+    
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state redefine State {
+            redefine t2: Inner -> ex1 on p.msg_inter
+            `                
+                const bool i = *rtdata;
+                ASSERT(i == 14, "rtdata in transition ReceiverInter::t2 had an unexpected value");
+            `;                      
+        };
+        redefine t3: State.ex1 -> State2 
+        `
+            const bool i = *rtdata;
+            ASSERT(i == 14, "rtdata in transition ReceiverInter::t3 had an unexpected value");
+        `; 
+    };
+};
+
+capsule ReceiverSub : ReceiverInter {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `   
+    
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state redefine State {
+            redefine t2: Inner -> ex1 on p.msg_redefined
+            `                
+                const int i = *rtdata;
+                ASSERT(i == 14, "rtdata in transition ReceiverSub::t2 had an unexpected value");
+            `;                      
+        };
+        redefine t3: State.ex1 -> State2 
+        `
+            const int i = *rtdata;
+            ASSERT(i == 14, "rtdata in transition ReceiverSub::t3 had an unexpected value");
+        `; 
+    };
+};

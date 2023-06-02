@@ -40,15 +40,15 @@ capsule Receiver {
             entrypoint ep1;
             exitpoint ex1;
             state Inner;
-            ep1 -> Inner;
-            Inner -> ex1 on p.msg
+            t1: ep1 -> Inner;
+            t2: Inner -> ex1 on p.msg
             `                
                 const double d = *rtdata;
                 ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
             `;
         };
         state State2;
-        State.ex1 -> State2 
+        t3: State.ex1 -> State2 
         `
             const double d = *rtdata;
             ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
