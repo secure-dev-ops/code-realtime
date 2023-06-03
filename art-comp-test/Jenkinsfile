@@ -39,6 +39,9 @@ def getBuildsServerPath() {
 
 def getProductVsix() {
 	// BUILDS_SERVER_PATH must be defined
+	// Pass default param values to env for the first execution on new branch
+	env.PRODUCT_BRANCH = params.PRODUCT_BRANCH
+
 	env.PRODUCT_VSIX_PATH = sh(script: '''
 		if [ "$PRODUCT_VSIX" ]
 		then
