@@ -1,0 +1,216 @@
+def checkEnv() {
+	sh '''
+		env
+		ls -l $WORKSPACE
+		df -h .
+		which bash
+		if [ "$(which node)" ]
+		then
+			which node
+			node --version
+			npm --version
+		fi
+	'''
+}
+
+def checkoutRunner() {
+	return checkout([
+		$class: 'GitSCM',
+		branches: [[name: 'master']],
+		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'git/rsarte-tests-mc-exe']],
+		userRemoteConfigs: [[credentialsId: '69478c25-fe9e-431f-8bf8-83d3591711ad', url: 'git@github01.hclpnp.com:Modeling/rsarte-tests-mc-exe.git']]
+	])
+}
+
+def getBuildsServerPath() {
+	env.BUILDS_SERVER_PATH = sh(script: '''
+		for buildsServerLocation in /mnt/file_server_builds /mnt/file_server /y /cygdrive/y
+		do
+			if [ -d $buildsServerLocation ]
+			then
+				buildsPath=$buildsServerLocation
+				break
+			fi
+		done
+		[ -d "$buildsPath" ]
+		echo "$buildsPath/rtist-in-code/"
+	''', returnStdout: true).trim()
+}
+
+def getProductVsix() {
+	// BUILDS_SERVER_PATH must be defined
+	env.PRODUCT_VSIX_PATH = sh(script: '''
+		if [ "$PRODUCT_VSIX" ]
+		then
+			printf $(find $BUILDS_SERVER_PATH -name $(basename $PRODUCT_VSIX) | tail -1)
+		else
+			printf $(find $BUILDS_SERVER_PATH$PRODUCT_BRANCH -name *.vsix | sort | tail -1)
+		fi
+	''', returnStdout: true).trim()
+
+	assert(!env.PRODUCT_VSIX_PATH.isEmpty())
+	env.PRODUCT_VSIX = sh(script: 'basename $PRODUCT_VSIX_PATH', returnStdout: true).trim()
+
+	if (params.BUILD_NAME.isEmpty())
+		currentBuild.displayName = env.PRODUCT_VSIX_PATH.replaceAll(env.BUILDS_SERVER_PATH, "");
+	else
+		currentBuild.displayName = params.BUILD_NAME;
+}
+
+def installProduct() {
+	// PRODUCT_VSIX_PATH must be defined
+	sh '''
+		pwd
+		rm -rf rtistic
+		mkdir rtistic
+		unzip -qo -d rtistic $PRODUCT_VSIX_PATH
+	'''
+}
+
+def prepareTests() {
+	checkoutRunner()
+	getBuildsServerPath()
+	getProductVsix()
+	installProduct()
+	env.TIMEOUT_ARG = "--testTimeout=20" // number of seconds
+
+	sh '''
+		pwd
+		cp -r ./art-samples/HelloWorld/ ./art-comp-test/tests/sanity_HelloWorld
+		cd ./art-comp-test/tests/sanity_HelloWorld
+		mv *.tcjs top.tcjs
+		echo "tc.targetProject = 'sanity_HelloWorld_target';" >> top.tcjs
+		sed -i 's/HelloWorld/Top/' *.tcjs *.art
+		echo "Sanity check with Art sample HelloWorld" > testcase.md
+		echo "Hello World!" > stdout.txt
+		cd $WORKSPACE
+
+		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
+		mkdir -p test-results
+		cd ./art-comp-test/runner
+		npm install
+	'''
+
+	checkEnv()
+}
+
+def getProductBranches() {
+	getBuildsServerPath()
+	return sh(script: '''
+		function printBranches {
+			for folderPath in $(find $BUILDS_SERVER_PATH -name *.vsix | xargs dirname | sort -u | grep $1 "$2")
+			do
+				[[ "$folderPath" =~ rtistic-0.0.[1-7] ]] || [[ "$folderPath" =~ /master$ ]] || echo "${folderPath#$BUILDS_SERVER_PATH}"
+			done
+		}
+		if [[ "$BRANCH_NAME" =~ (RIC-[0-9]+) ]]
+		then
+			caseNumber=${BASH_REMATCH[1]}
+			printBranches "" "$caseNumber"
+			echo master
+			printBranches "-v" "$caseNumber"
+		else
+			echo master
+			printBranches
+		fi
+	''', returnStdout: true).trim()
+}
+
+def productList
+node {
+	productList = getProductBranches()
+	println productList
+}
+
+pipeline {
+	agent any
+	options {
+		ansiColor('xterm')
+		buildDiscarder(logRotator(daysToKeepStr: '30', numToKeepStr: '50'))
+		//disableConcurrentBuilds()
+	}
+	parameters {
+		choice(name: 'PRODUCT_BRANCH', choices: "${productList}")
+		string(name: 'PRODUCT_VSIX', defaultValue: '', description: 'File name of the product .vsix to test, if empty, search for latest build')
+		string(name: 'TEST_CASES', defaultValue: '', description: 'Comma-separated list of test cases to be executed, for example: cpp_code_generation,static_abstract_operation')
+		//Keeping it for the future
+		//choice(name: 'JAVA_VERSION', choices: ['JAVA_17'], description: '')
+		string(name: 'BUILD_NAME', defaultValue: '', description: 'Customize build name')
+		booleanParam(name: 'ONLY_JOB_UPDATE', defaultValue: false, description: 'Only update jenkins job parameters without starting any tests')
+	}
+	stages {
+		stage('Test') {
+			when { expression { return !params.ONLY_JOB_UPDATE } }
+			parallel {
+				stage('MinGw-12.2.0') {
+					agent { label 'rttest_win' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							bat '''
+								set WS=%CD:\\=/%
+								set TS_NAME=Windows-MinGw-12.2
+								gcc --version
+								cd art-comp-test
+								call node runner/app.js --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=tests --javaVM=C:/rt_setup/java17/bin/java --installDir=%WS%/rtistic/extension --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml %TIMEOUT_ARG% %TEST_CASES_ARG%
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+				stage('VisualC++-17.0 x64') {
+					agent { label 'rttest_win' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							bat '''
+								set WS=%CD:\\=/%
+								set TS_NAME=Windows-VisualC++-17-x64
+								call C:\\MSVS_2022\\VC\\Auxiliary\\Build\\vcvars64.bat
+								cl.exe
+								cd art-comp-test
+								call node runner/app.js --targetConfig=WinT.x64-VisualC++-17.0 --testDir=tests --javaVM=C:/rt_setup/java17/bin/java --installDir=%WS%/rtistic/extension --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml %TIMEOUT_ARG% %TEST_CASES_ARG%
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+				stage('VisualC++-17.0 x32') {
+					agent { label 'rttest_win' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							bat '''
+								set WS=%CD:\\=/%
+								set TS_NAME=Windows-VisualC++-17-x32
+								call C:\\MSVS_2022\\VC\\Auxiliary\\Build\\vcvars32.bat
+								cl.exe
+								cd art-comp-test
+								call node runner/app.js --targetConfig=WinT.x86-VisualC++-17.0 --testDir=tests --javaVM=C:/rt_setup/java17/bin/java --installDir=%WS%/rtistic/extension --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml %TIMEOUT_ARG% %TEST_CASES_ARG%
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+				stage('gcc-12.x') {
+					agent { label 'rt_linux && redhat8' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							sh '''
+								WS=$(pwd)
+								TS_NAME=Linux-gcc-12.x
+								! [ -f /opt/rh/gcc-toolset-12/enable ] && echo "ERROR: GCC 12 is not available" && exit 1
+								source /opt/rh/gcc-toolset-12/enable # enable GCC 12
+								gcc --version
+								cd art-comp-test
+								node runner/app.js --targetConfig=LinuxT.x64-gcc-12.x --testDir=tests --javaVM=$WS/../install/JAVA_17/bin/java --installDir=$WS/rtistic/extension --terminateWebServer=always --testSuiteName=$TS_NAME --genXML=$WS/test-results/$TS_NAME.xml $TIMEOUT_ARG $TEST_CASES_ARG
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+			}//parallel
+		}//stage Test
+	}//stages
+}
