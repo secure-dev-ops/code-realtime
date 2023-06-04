@@ -84,7 +84,7 @@ def prepareTests() {
 		mv *.tcjs top.tcjs
 		echo "tc.targetProject = 'sanity_HelloWorld_target';" >> top.tcjs
 		sed -i 's/HelloWorld/Top/' *.tcjs *.art
-		echo "Sanity check with Art sample HelloWorld" > testcase.md
+		echo -e '---\ngroup: sanity\n---\nSanity check with Art sample HelloWorld' > testcase.md
 		echo "Hello World!" > stdout.txt
 		cd $WORKSPACE
 
