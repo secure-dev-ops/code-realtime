@@ -1,0 +1,23 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `  
+    [[rt::decl]]
+    `
+        #ifdef CUSTOM_VALUE
+        const int value = 1;
+        #else
+        const int value = 2;
+        #endif
+    `
+    statemachine {
+        state State ;
+        initial -> State 
+        `
+        ASSERT(value == 1, "CUSTOM_VALUE not properly set by build variant script");
+        PASS();
+        `;
+    };
+      
+};
