@@ -1,0 +1,61 @@
+[[rt::decl]]
+`
+    enum [[rt::auto_descriptor]] Colors {
+        red,green,yellow
+    };
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "enum_type_descriptor.art.h"
+    `
+    out e1(`Colors`);
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>        
+
+        std::ostream& operator<< (std::ostream& os, Colors color) {
+            switch (color) {
+            case red:
+                std::cout << "red" << std::endl;  break;
+            case green:
+                std::cout << "green" << std::endl;  break;
+            case yellow:
+                std::cout << "yellow" << std::endl;  break;
+            }
+            return os;
+        }
+    `
+    behavior port pOut : TheProtocol;
+    behavior port pIn~ : TheProtocol;
+    connect pOut with pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Colors color = green;
+                pOut.e1(color).send();
+            `;
+        };
+        state State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the color: " << *rtdata << std::endl; 
+            // Encode into string representation
+            const RTObject_class* mt = msg->getType();
+            char buf[1000];
+            RTMemoryOutBuffer buffer( buf, 1000 );
+            RTAsciiEncoding coding( &buffer );
+            mt->_encode_func(mt, msg->getData(), &coding);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
+            PASS();
+        `;
+    };
+};
