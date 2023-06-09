@@ -103,7 +103,8 @@ nav:
      - Building: 
         - Building: building/index.md
         - Transformation Configurations: building/transformation-configurations.md
-        - Art Compiler: building/art-compiler.md     
+        - Art Compiler: building/art-compiler.md   
+        - Build Variants: building/build-variants.md  
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md

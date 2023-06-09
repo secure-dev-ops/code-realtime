@@ -63,12 +63,20 @@ Below is a table that lists all options that are available for the Art Compiler.
 
 | Option | Argument Type | 
 |----------|:-------------|
+| [buildConfig](#buildconfig) | String
+| [buildVariants](#buildvariants) | Path
 | [cwd](#cwd) | Path 
 | [generate](#generate) | N/A 
 | [help](#help) | N/A 
 | [out](#out) | Path 
 | [tc](#tc) | Path 
 | [version](#version) | N/A 
+
+### buildConfig
+A build configuration is useful when you want to build a TC that uses [build variants](build-variants.md). It provides values for build variant settings and hence specifies a certain variant of the application to be built. Read more about build configurations [here](build-variants.md#build-configuration).
+
+### buildVariants
+Specifies a Build Variants script to use for the build. Read more about build variants [here](build-variants.md). 
 
 ### cwd
 Set the current working directory. By default this is the location from which you launch the Art Compiler. If you use a relative path in options that take a path as argument, such as [--out](#out) or [--tc](#tc), the path will be resolved against the current working directory. 
