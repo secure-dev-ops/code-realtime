@@ -1,0 +1,60 @@
+capsule BaseTop 
+[[rt::properties(
+    rule_config="I0008" 
+)]]
+{
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        // This capsule doesn't need an initial transition since it's only used as base for Top
+    };
+};
+
+[[rt::decl]]
+`
+    class cppBase1 {
+        public:
+        virtual int base1_func() = 0;
+    };
+    class cppBase2 {
+        public:
+        virtual int base2_func() = 0;
+    };
+`
+
+capsule Top : BaseTop, `cppBase1`, `cppBase2`
+{
+    [[rt::header_preface]]
+    `
+        #include "capsule_cpp_inheritance.art.h"
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+        int base1_func() override;
+        int base2_func() override;
+    `    
+
+    [[rt::impl]]
+    `
+        Top_Actor::base1_func() { return 1;}
+        Top_Actor::base2_func() { return 2;}
+    `
+
+    statemachine {        
+        state S; 
+        initial -> S
+        `
+            ASSERT(1 == base1_func(), "Failed to call base1_func()");
+            ASSERT(2 == base2_func(), "Failed to call base2_func()");
+            PASS();
+        `
+        ;
+    };
+};
