@@ -1,4 +1,8 @@
 capsule PiComputer {
+    [[rt::impl_preface]]
+    `
+        #include <cstdio>
+    `
     /* Ports */
     behavior port computer~ : PI_REQ;
     behavior port log : Log;
