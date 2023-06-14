@@ -43,8 +43,8 @@ capsule Top : BaseTop, `cppBase1`, `cppBase2`
 
     [[rt::impl]]
     `
-        Top_Actor::base1_func() { return 1;}
-        Top_Actor::base2_func() { return 2;}
+        int Top_Actor::base1_func() { return 1;}
+        int Top_Actor::base2_func() { return 2;}
     `
 
     statemachine {        
