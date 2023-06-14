@@ -10,8 +10,8 @@ capsule Top
     connect sender.p with receiver.p;
 
     statemachine {
-        state State;
-        initial -> State;
+        state State1;
+        initial -> State1;
     };
 };
 
@@ -21,7 +21,7 @@ capsule Sender {
     statemachine {
         state State;
         initial -> State 
-        `
+        `           
             p.msg(3.14).send();
         `;
     };
@@ -36,7 +36,7 @@ capsule Receiver {
     service behavior port p~ : PROT;
 
     statemachine {
-        state State {
+        state State1 {
             entrypoint ep1;
             exitpoint ex1;
             state Inner;
@@ -47,12 +47,17 @@ capsule Receiver {
                 ASSERT(d == 3.14, "rtdata in first transition had an unexpected value");
             `;
         };
-        state State2;
-        t3: State.ex1 -> State2 
+        state State2 {
+            entry
+            `
+                PASS();
+            `;
+        };
+        t3: State1.ex1 -> State2 
         `
             const double d = *rtdata;
             ASSERT(d == 3.14, "rtdata in second transition had an unexpected value");
         `;
-        initial -> State.ep1;
+        initial -> State1.ep1;
     };
 };

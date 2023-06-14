@@ -107,6 +107,7 @@ capsule ReceiverSub : ReceiverInter {
         `
             const int i = *rtdata;
             ASSERT(i == 14, "rtdata in transition ReceiverSub::t3 had an unexpected value");
+            PASS();
         `; 
     };
 };
