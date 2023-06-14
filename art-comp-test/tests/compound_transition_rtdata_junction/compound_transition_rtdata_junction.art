@@ -45,11 +45,11 @@ capsule Receiver {
             const bool b = *rtdata;
             ASSERT(b == true, "rtdata in transition t1 had an unexpected value");
         `;  
-        t2: S1 -> j1 on p.msg2, p.msg3 when `false`        
+        t2: S1 -> j1 on p.msg2, p.msg3 when `false`
         `
             const bool b = *rtdata; // This should compile, but we don't expect this to be called
-            ASSERT(false, "transition t2 unexpectedly called")        
-        `;   
+            ASSERT(false, "transition t2 unexpectedly called");
+        `;
         t3: j1 -> S2 
         `
             const bool b = *rtdata;
