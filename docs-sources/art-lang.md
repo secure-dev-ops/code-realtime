@@ -1033,7 +1033,7 @@ Below is an example of a capsule `D` that inherits from another capsule `B`. In 
 capsule B {    
     statemachine {
         state BS, BS2;
-        Initial: initial -> BS;
+        _Initial: initial -> BS;
     };
 };
 
@@ -1057,12 +1057,12 @@ capsule D : B, `IDataManager`, `IController` {
     statemachine {
         state DS;
         state exclude BS2;
-        redefine Initial: initial -> DS;
+        redefine _Initial: initial -> DS;
     };
 };
 ```
 
-In the example we can see that `D` overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the `rt::impl` code snippet. We can also see an example of a state machine redefinition. The initial transition `Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `Initial` is also drawn in grayed with dashed outline but with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background.
+In the example we can see that `D` overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the `rt::impl` code snippet. We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"). It also has a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background.
 
 ![](images/sm_redefinition.png)
 
