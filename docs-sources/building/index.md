@@ -17,8 +17,6 @@ Once there is an active TC in a workspace folder, the first and second steps (ge
 
 ![](images/target-workspace-folder.png)
 
-To perform the third step (running make to generate binaries) you can simply go to the target folder in the Terminal and invoke the command `make`. 
-
 To perform the third step (running make to generate binaries) you can simply go to the target folder in the Terminal and invoke the command `make`. Alternatively you can use the TC context menu command **Build** (see [below](#tc-context-menu-commands)).
 
 ## TC Context Menu Commands
@@ -32,6 +30,12 @@ First builds the TC, and then attempts to launch the executable that is produced
 
 * **Clean**
 Removes the target workspace folder produced when building a TC. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke `make clean` to clean using the make file.
+
+If you build a TC and at least one error exists in the TC itself, in prerequisites TCs or in any of the Art files that will be built, then a dialog will ask if you want to cancel the build (recommended) or proceed anyway (only do this if you are confident the errors are safe to ignore).
+
+![](images/cancel-build.png)
+
+Use the setting [`rtistic.build.cancelOnError`](../settings.md#cancel-on-error) to suppress this dialog.
 
 ## Build Messages
 When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:

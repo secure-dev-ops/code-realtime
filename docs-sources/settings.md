@@ -10,6 +10,7 @@ Below is a table that lists all {$product.name$} settings. Each setting is descr
 | [Language Server - Jvm Args](#jvm-args) | rtistic.languageServer.jvmArgs | Set arguments for the JVM that runs the {$product.name$} language server
 | [Validation - Rule Configuration](#rule-configuration) | rtistic.validation.ruleConfiguration | Customize which validation rules to run on Art files and their severity
 | [Build - Output Folder](#output-folder) | rtistic.build.outputFolder | Set the location where to place generated code
+| [Build - Cancel On Error](#cancel-on-error) | rtistic.build.cancelOnError | Cancel a launched build if errors exist in TCs or Art files
 | [Diagram - Show Junction Names](#show-junction-names) | rtistic.diagram.showJunctionNames | Show junction names on state diagrams
 | [Diagram - Show Choice Names](#show-choice-names) | rtistic.diagram.showChoiceNames | Show choice names on state diagrams
 | [Diagram - Show Entry Exit Point Names](#show-entry-exit-point-names) | rtistic.diagram.showEntryExitPointNames | Show entry/exit point names on state diagrams
@@ -36,6 +37,9 @@ Settings related to building Art files, via C++ code, to libraries or executable
 
 ### Output Folder
 This setting specifies a folder where all generated code will be placed. More precisely, it's used for resolving relative paths specified in TCs (using the TC property [`targetFolder`](building/transformation-configurations.md#targetfolder)). If you leave this setting unset, relative paths will instead be resolved against the location of the TCs. The `Output Folder` must be specified as an absolute path that points at a writable folder in the file system.
+
+### Cancel On Error
+When a TC is built the Problems view is scanned to see if there are errors reported on the built TC or its prerequisites, as well as all Art files that will be built. If at least one such error is found it's recommended to cancel the build, fix the errors and then redo the build again. The default value for this setting is `Prompt` which means you will be prompted by a dialog where you can choose if you want to cancel the build, or proceed anyway. In the latter case you may encounter compilation errors when generated code is compiled or run-time problems when the built executable is run. Therefore you should only proceed if you are confident that the errors are safe to ignore. You may set this setting to `Always` to suppress the dialog and always cancel the build when errors are present. You can also (but this is not recommended) set the setting to `Never` to always ignore any errors and proceed with the build anyway.
 
 ## Diagram
 Settings related to graphical diagrams that visualize elements of Art files.
