@@ -101,8 +101,9 @@ nav:
         - Target RunTime System: target-rts/index.md
         - C++ API: targetrts-api/index.html
      - Building: 
-        - Building: building/index.md
+        - Building: building/index.md        
         - Transformation Configurations: building/transformation-configurations.md
+        - Launch Configurations: building/launch-configurations.md
         - Art Compiler: building/art-compiler.md   
         - Build Variants: building/build-variants.md  
      - Releases: 
