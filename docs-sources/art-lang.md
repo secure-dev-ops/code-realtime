@@ -653,7 +653,7 @@ capsule MyCap {
             log.commit();
             handle(msg);
         `;
-        timeout: Waiting -> Waiting on timer.timeout[`return zCount < 10;`];
+        timeout: Waiting -> Waiting on timer.timeout[`zCount < 10`];
     };
 };
 ```
@@ -664,7 +664,7 @@ Note the following:
 
 * Triggers are specified as `PORT.EVENT` after the keyword `on`. You may specify multiple triggers separated by comma (`,`).
 * A guard condition for the transition is specified after the `when` keyword, while a guard condition for an individual trigger is specified in square brackets (`[]`) after the trigger.
-* A guard condition is actually a C++ statement that returns the boolean guard condition.
+* A guard condition can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition `requestReceived` in the above example), or it can be written as a boolean expression (as in the trigger guard for the `timeout` trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.
 
 !!! note 
     Guard conditions should execute fast and have no side-effects. They are called frequently to decide which transition to execute when a message has arrived.
