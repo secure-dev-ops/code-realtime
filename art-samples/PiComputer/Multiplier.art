@@ -13,7 +13,7 @@ capsule Multiplier {
     statemachine {
         state Idle;
         initial -> Idle;
-        Idle -> Idle on result.getIncrement
+        multiply: Idle -> Idle on result.getIncrement
         `
             int k = *rtdata;
             double inc = std::pow(-3, -k) / (2 * k + 1);
