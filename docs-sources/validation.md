@@ -98,7 +98,7 @@ protocol InvalidNameProtocol {
 
 Names of Art elements must be unique within the same scope. The following is checked:
 
-* Top-level elements within an Art file. Note that even top-level elements in different Art files should have unique names since the corresponding C++ elements all will be within the global namespace, but this is currently not checked (but will be detected by the C++ linker).
+* Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC). The corresponding C++ elements will have names in the global namespace and must hence be unique.
 * Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see [Protocol and Event](../art-lang#protocol-and-event)).
 * [Parts](../art-lang#part) of a capsule.
 * [Ports](../art-lang#port) of a capsule.
