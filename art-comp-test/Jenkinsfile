@@ -82,10 +82,18 @@ def prepareTests() {
 		cp -r ./art-samples/HelloWorld/ ./art-comp-test/tests/sanity_HelloWorld
 		cd ./art-comp-test/tests/sanity_HelloWorld
 		mv *.tcjs top.tcjs
-		echo "tc.targetProject = 'sanity_HelloWorld_target';" >> top.tcjs
 		sed -i 's/HelloWorld/Top/' *.tcjs *.art
+		echo -e "\ntc.targetProject = 'sanity_HelloWorld_target';" >> top.tcjs
 		echo -e '---\ngroup: sanity\n---\nSanity check with Art sample HelloWorld' > testcase.md
 		echo "Hello World!" > stdout.txt
+		cd $WORKSPACE
+
+		cp -r ./art-samples/PiComputer/ ./art-comp-test/tests/sanity_PiComputer
+		cd ./art-comp-test/tests/sanity_PiComputer
+		mv *.tcjs top.tcjs
+		sed -i 's/PiComputer/Top/' *.tcjs *.art
+		echo -e "\ntc.targetProject = 'sanity_PiComputer_target';" >> top.tcjs
+		echo -e '---\ngroup: sanity\nallow_stderr_printouts: true\n---\nSanity check with Art sample PiComputer' > testcase.md
 		cd $WORKSPACE
 
 		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
