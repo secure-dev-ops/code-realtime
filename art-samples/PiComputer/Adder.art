@@ -30,10 +30,10 @@ capsule Adder {
             exitpoint ex1;
             state WaitForIncrement;
             initial -> WaitForIncrement;
-            WaitForIncrement -> ex1 on mul.returnIncrement;
+            increment_computed: WaitForIncrement -> ex1 on mul.returnIncrement;
         };
         choice more_increments;
-        Idle -> Computing on request_port.compute
+        request_received: Idle -> Computing on request_port.compute
         `
             remainingIterations = *rtdata - 1;
             mul.getIncrement(remainingIterations).send();
@@ -42,16 +42,16 @@ capsule Adder {
         Computing.ex1 -> more_increments
         `
             double inc = *rtdata;
-            printDouble(remainingIterations, inc);
+            printDouble(inc, remainingIterations);
             result += *rtdata;
         `;  
-        more_increments -> Idle when `return remainingIterations == 0 ? RTTrue : RTFalse;`
+        no: more_increments -> Idle when `return remainingIterations == 0 ? RTTrue : RTFalse;`
         `
             // Computation completed
             result = sqrt(12) * result;
             request_port.result(result).send();
         `;
-        more_increments -> Computing when `else`
+        compute_next_increment: more_increments -> Computing when `else`
         `
             remainingIterations--;
             mul.getIncrement(remainingIterations).send();
