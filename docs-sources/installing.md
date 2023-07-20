@@ -42,6 +42,17 @@ If instead the installation fails, this message will tell you the reason. One co
 
 It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
 
+### Install from Docker Image
+Yet another way to install {$product.name$} is to use the Docker image that is available on [DockerHub](https://hub.docker.com/r/baravich/theia-rtist-in-code). This image contains Eclipse Theia with the latest version of {$product.name$} installed. Run the docker image using this command:
+
+`docker run -p <host-port>:<container-port> baravich/theia-rtist-in-code:1.0`
+
+Replace `<host-port>` with a port that is available on your computer, and `<container-port>` with the port you want the Docker container to use. For example, if you run this command
+
+`docker run -p 4000:3000 baravich/theia-rtist-in-code:1.0`
+
+then after less than a minute you can access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
+
 ### Viewing Installation Information
 If you are unsure about which version of {$product.name$} you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:
 
