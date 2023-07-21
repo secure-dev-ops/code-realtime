@@ -16,7 +16,8 @@ protocol TheProtocol {
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include <iostream>        
+        #include <iostream>
+        #include "testlib.art.h"
 
         std::ostream& operator<< (std::ostream& os, Colors color) {
             switch (color) {
