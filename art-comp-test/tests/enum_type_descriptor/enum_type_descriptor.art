@@ -50,6 +50,7 @@ capsule Top {
             std::cout << "Got the color: " << *rtdata << std::endl; 
             // Encode into string representation
             const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Colors, "msg type should point to Colors type descriptor");
             char buf[1000];
             RTMemoryOutBuffer buffer( buf, 1000 );
             RTAsciiEncoding coding( &buffer );
