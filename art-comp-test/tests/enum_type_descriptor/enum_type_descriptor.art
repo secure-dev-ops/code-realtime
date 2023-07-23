@@ -11,6 +11,8 @@ protocol TheProtocol {
         #include "enum_type_descriptor.art.h"
     `
     out e1(`Colors`);
+    out e2(`int`);
+    out e3();
 };
 
 capsule Top {
@@ -47,7 +49,8 @@ capsule Top {
         initial -> State1;
         State1 -> State2 on pIn.e1
         `
-            std::cout << "Got the color: " << *rtdata << std::endl; 
+            std::cout << "Got the color: " << *rtdata << std::endl;
+            ASSERT(*rtdata == green, "Expect to receive Color green");
             // Encode into string representation
             const RTObject_class* mt = msg->getType();
             ASSERT(mt == &RTType_Colors, "msg type should point to Colors type descriptor");
@@ -57,6 +60,7 @@ capsule Top {
             mt->_encode_func(mt, msg->getData(), &coding);
             buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
             std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
+            ASSERT(RTMemoryUtil::strcmp("1", buf) == 0, "Expect ASCII encoding to be 1");
             PASS();
         `;
     };

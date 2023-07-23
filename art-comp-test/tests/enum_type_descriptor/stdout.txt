@@ -1,3 +1,0 @@
-Got the color: green
-OK:  mt == &RTType_Colors
-ASCII encoding: 1
