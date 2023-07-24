@@ -15,37 +15,15 @@ protocol TheProtocol {
     out e3();
 };
 
-capsule Top {
+capsule Cap {    
     [[rt::impl_preface]]
     `
-        #include <iostream>
         #include "testlib.art.h"
-
-        std::ostream& operator<< (std::ostream& os, Colors color) {
-            switch (color) {
-            case red:
-                std::cout << "red" << std::endl;  break;
-            case green:
-                std::cout << "green" << std::endl;  break;
-            case yellow:
-                std::cout << "yellow" << std::endl;  break;
-            }
-            return os;
-        }
+        #include "enum_type_descriptor.art.h"
     `
-    behavior port pOut : TheProtocol;
-    behavior port pIn~ : TheProtocol;
-    connect pOut with pIn;
-
+    service behavior port pIn~ : TheProtocol;
     statemachine {
-        state State1 {
-            entry
-            `
-                Colors color = green;
-                pOut.e1(color).send();
-            `;
-        };
-        state State2;
+        state State1, State2;
         initial -> State1;
         State1 -> State2 on pIn.e1
         `
@@ -63,5 +41,39 @@ capsule Top {
             ASSERT(RTMemoryUtil::strcmp("1", buf) == 0, "Expect ASCII encoding to be 1");
             PASS();
         `;
+    };
+};
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+        
+        std::ostream& operator<< (std::ostream& os, Colors color) {
+            switch (color) {
+            case red:
+                std::cout << "red" << std::endl;  break;
+            case green:
+                std::cout << "green" << std::endl;  break;
+            case yellow:
+                std::cout << "yellow" << std::endl;  break;
+            }
+            return os;
+        }
+    `
+        
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Colors color = green;
+                pOut.e1(color).send();
+            `;
+        };
+        state State2;
+        initial -> State1;
     };
 };
