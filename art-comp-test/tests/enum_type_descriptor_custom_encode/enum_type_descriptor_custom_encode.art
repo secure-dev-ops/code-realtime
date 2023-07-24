@@ -1,14 +1,38 @@
 [[rt::decl]]
 `
-    enum [[rt::auto_descriptor]] Colors {
+    enum class [[rt::auto_descriptor]] Colors {
         red,green,yellow
     };
+`
+
+[[rt::impl]]
+`
+    static int rtg_Colors_encode(const RTObject_class* type, Colors* target, RTEncoding* coding )
+    {
+        int sum = 0;
+        sum += coding->write_string(type->name());
+        sum += coding->write_string(":");
+        switch (*target) {
+            case Colors::red:
+                sum += coding->write_string("red");
+                break;
+            case Colors::green:
+                sum += coding->write_string("green");
+                break;
+            case Colors::yellow:
+                sum += coding->write_string("yellow");
+                break;
+            default:
+                sum += coding->write_string("ERROR");
+        }
+        return sum;
+    }
 `
 
 protocol TheProtocol {
     [[rt::header_preface]]
     `
-        #include "enum_type_descriptor.art.h"
+        #include "enum_type_descriptor_custom_encode.art.h"
     `
     out e1(`Colors`);
     out e2(`int`);
@@ -19,17 +43,16 @@ capsule Cap {
     [[rt::impl_preface]]
     `
         #include "testlib.art.h"
-        #include "enum_type_descriptor.art.h"
-
+        #include "enum_type_descriptor_custom_encode.art.h"
         #include <iostream>
         
         std::ostream& operator<< (std::ostream& os, Colors color) {
             switch (color) {
-            case red:
+            case Colors::red:
                 std::cout << "red" << std::endl;  break;
-            case green:
+            case Colors::green:
                 std::cout << "green" << std::endl;  break;
-            case yellow:
+            case Colors::yellow:
                 std::cout << "yellow" << std::endl;  break;
             }
             return os;
@@ -42,7 +65,7 @@ capsule Cap {
         State1 -> State2 on pIn.e1
         `
             std::cout << "Got the color: " << *rtdata << std::endl;
-            ASSERT(*rtdata == green, "Expect to receive Color green");
+            ASSERT(*rtdata == Colors::green, "Expect to receive Color green");
             // Encode into string representation
             const RTObject_class* mt = msg->getType();
             ASSERT(mt == &RTType_Colors, "msg type should point to Colors type descriptor");
@@ -52,12 +75,12 @@ capsule Cap {
             mt->_encode_func(mt, msg->getData(), &coding);
             buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
             std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
-            ASSERT(RTMemoryUtil::strcmp("1", buf) == 0, "Expect ASCII encoding to be 1");
+            ASSERT(RTMemoryUtil::strcmp("Colors:green", buf) == 0, "Expect ASCII encoding to be Colors:green");
             PASS();
         `;
     };
 };
-capsule Top {        
+capsule Top {
     part cap : Cap;
     behavior port pOut : TheProtocol;    
     connect pOut with cap.pIn;
@@ -66,11 +89,10 @@ capsule Top {
         state State1 {
             entry
             `
-                Colors color = green;
+                Colors color = Colors::green;
                 pOut.e1(color).send();
             `;
-        };
-        state State2;
+        };  
         initial -> State1;
     };
 };
