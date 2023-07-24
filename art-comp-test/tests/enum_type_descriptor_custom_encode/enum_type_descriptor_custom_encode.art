@@ -2,17 +2,18 @@
 `
     enum class [[rt::auto_descriptor]] Colors {
         red,green,yellow
-    };
+    }; 
 `
 
 [[rt::impl]]
 `
-    static int rtg_Colors_encode(const RTObject_class* type, Colors* target, RTEncoding* coding )
+#if OBJECT_ENCODE
+    static int rtg_Colors_encode(const RTObject_class* type, const Colors* source, RTEncoding* coding )
     {
         int sum = 0;
         sum += coding->write_string(type->name());
         sum += coding->write_string(":");
-        switch (*target) {
+        switch (*source) {
             case Colors::red:
                 sum += coding->write_string("red");
                 break;
@@ -27,6 +28,7 @@
         }
         return sum;
     }
+#endif
 `
 
 protocol TheProtocol {
