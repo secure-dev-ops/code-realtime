@@ -1,3 +1,0 @@
-Got the color: green
-
-ASCII encoding: 1
