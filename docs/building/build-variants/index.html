@@ -11,14 +11,14 @@
       
       
       
-        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/building/transformation-configurations/">
+        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/building/build-variants/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>Transformation Configurations - HCL RTist in Code</title>
+        <title>Build Variants - HCL RTist in Code</title>
       
     
     
@@ -91,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#creating-transformation-configurations" class="md-skip">
+        <a href="#dynamic-transformation-configurations" class="md-skip">
           Skip to content
         </a>
       
@@ -162,7 +162,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Transformation Configurations
+              Build Variants
             
           </span>
         </div>
@@ -675,201 +675,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Transformation Configurations
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../transformation-configurations/" class="md-nav__link">
         Transformation Configurations
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#creating-transformation-configurations" class="md-nav__link">
-    Creating Transformation Configurations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setting-a-transformation-configuration-as-active" class="md-nav__link">
-    Setting a Transformation Configuration as Active
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#editing-transformation-configurations" class="md-nav__link">
-    Editing Transformation Configurations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transformation-configuration-prerequisites" class="md-nav__link">
-    Transformation Configuration Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
-  
-    <nav class="md-nav" aria-label="Properties">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#commonpreface" class="md-nav__link">
-    commonPreface
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compilearguments" class="md-nav__link">
-    compileArguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compilecommand" class="md-nav__link">
-    compileCommand
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#copyrighttext" class="md-nav__link">
-    copyrightText
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cppcodestandard" class="md-nav__link">
-    cppCodeStandard
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linkarguments" class="md-nav__link">
-    linkArguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linkcommand" class="md-nav__link">
-    linkCommand
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#makearguments" class="md-nav__link">
-    makeArguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#makecommand" class="md-nav__link">
-    makeCommand
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    prerequisites
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sources" class="md-nav__link">
-    sources
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targetconfiguration" class="md-nav__link">
-    targetConfiguration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targetconfigurationname" class="md-nav__link">
-    targetConfigurationName
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targetfolder" class="md-nav__link">
-    targetFolder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targetrtslocation" class="md-nav__link">
-    targetRTSLocation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#topcapsule" class="md-nav__link">
-    topCapsule
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unitname" class="md-nav__link">
-    unitName
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -907,11 +717,239 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../build-variants/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Build Variants
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Build Variants
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-transformation-configurations" class="md-nav__link">
+    Dynamic Transformation Configurations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-variants-script" class="md-nav__link">
+    Build Variants Script
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-variant-setting-script" class="md-nav__link">
+    Build Variant Setting Script
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Variant Setting Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprocess-function" class="md-nav__link">
+    preProcess Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postprocess-function" class="md-nav__link">
+    postProcess Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-configuration" class="md-nav__link">
+    Build Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-api" class="md-nav__link">
+    JavaScript API
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bvf-object" class="md-nav__link">
+    BVF Object
+  </a>
+  
+    <nav class="md-nav" aria-label="BVF Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bvfadd" class="md-nav__link">
+    BVF.add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bvfaddcommonutils" class="md-nav__link">
+    BVF.addCommonUtils
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bvfformatinfo" class="md-nav__link">
+    BVF.formatInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bvfformatwarning" class="md-nav__link">
+    BVF.formatWarning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bvfformaterror" class="md-nav__link">
+    BVF.formatError
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msg-object" class="md-nav__link">
+    MSG Object
+  </a>
+  
+    <nav class="md-nav" aria-label="MSG Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msgformatinfo" class="md-nav__link">
+    MSG.formatInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msgformatwarning" class="md-nav__link">
+    MSG.formatWarning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msgformaterror" class="md-nav__link">
+    MSG.formatError
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcf-object" class="md-nav__link">
+    TCF Object
+  </a>
+  
+    <nav class="md-nav" aria-label="TCF Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildvariantsfolder" class="md-nav__link">
+    buildVariantsFolder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buildvariantsscript" class="md-nav__link">
+    buildVariantsScript
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define" class="md-nav__link">
+    define
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gettoptc" class="md-nav__link">
+    getTopTC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#globals" class="md-nav__link">
+    globals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orderedgraph" class="md-nav__link">
+    orderedGraph
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1041,157 +1079,195 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-transformation-configurations" class="md-nav__link">
-    Creating Transformation Configurations
+  <a href="#dynamic-transformation-configurations" class="md-nav__link">
+    Dynamic Transformation Configurations
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setting-a-transformation-configuration-as-active" class="md-nav__link">
-    Setting a Transformation Configuration as Active
+  <a href="#build-variants-script" class="md-nav__link">
+    Build Variants Script
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#editing-transformation-configurations" class="md-nav__link">
-    Editing Transformation Configurations
+  <a href="#build-variant-setting-script" class="md-nav__link">
+    Build Variant Setting Script
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transformation-configuration-prerequisites" class="md-nav__link">
-    Transformation Configuration Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
-  
-    <nav class="md-nav" aria-label="Properties">
+    <nav class="md-nav" aria-label="Build Variant Setting Script">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#commonpreface" class="md-nav__link">
-    commonPreface
+  <a href="#preprocess-function" class="md-nav__link">
+    preProcess Function
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#compilearguments" class="md-nav__link">
-    compileArguments
+  <a href="#postprocess-function" class="md-nav__link">
+    postProcess Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-configuration" class="md-nav__link">
+    Build Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-api" class="md-nav__link">
+    JavaScript API
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bvf-object" class="md-nav__link">
+    BVF Object
+  </a>
+  
+    <nav class="md-nav" aria-label="BVF Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bvfadd" class="md-nav__link">
+    BVF.add
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#compilecommand" class="md-nav__link">
-    compileCommand
+  <a href="#bvfaddcommonutils" class="md-nav__link">
+    BVF.addCommonUtils
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#copyrighttext" class="md-nav__link">
-    copyrightText
+  <a href="#bvfformatinfo" class="md-nav__link">
+    BVF.formatInfo
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cppcodestandard" class="md-nav__link">
-    cppCodeStandard
+  <a href="#bvfformatwarning" class="md-nav__link">
+    BVF.formatWarning
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#linkarguments" class="md-nav__link">
-    linkArguments
+  <a href="#bvfformaterror" class="md-nav__link">
+    BVF.formatError
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msg-object" class="md-nav__link">
+    MSG Object
+  </a>
+  
+    <nav class="md-nav" aria-label="MSG Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msgformatinfo" class="md-nav__link">
+    MSG.formatInfo
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#linkcommand" class="md-nav__link">
-    linkCommand
+  <a href="#msgformatwarning" class="md-nav__link">
+    MSG.formatWarning
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#makearguments" class="md-nav__link">
-    makeArguments
+  <a href="#msgformaterror" class="md-nav__link">
+    MSG.formatError
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcf-object" class="md-nav__link">
+    TCF Object
+  </a>
+  
+    <nav class="md-nav" aria-label="TCF Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildvariantsfolder" class="md-nav__link">
+    buildVariantsFolder
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#makecommand" class="md-nav__link">
-    makeCommand
+  <a href="#buildvariantsscript" class="md-nav__link">
+    buildVariantsScript
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    prerequisites
+  <a href="#define" class="md-nav__link">
+    define
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sources" class="md-nav__link">
-    sources
+  <a href="#gettoptc" class="md-nav__link">
+    getTopTC
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#targetconfiguration" class="md-nav__link">
-    targetConfiguration
+  <a href="#globals" class="md-nav__link">
+    globals
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#targetconfigurationname" class="md-nav__link">
-    targetConfigurationName
+  <a href="#orderedgraph" class="md-nav__link">
+    orderedGraph
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#targetfolder" class="md-nav__link">
-    targetFolder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targetrtslocation" class="md-nav__link">
-    targetRTSLocation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#topcapsule" class="md-nav__link">
-    topCapsule
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unitname" class="md-nav__link">
-    unitName
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -1212,216 +1288,209 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/edit/main/docs-sources/building/transformation-configurations.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/edit/main/docs-sources/building/build-variants.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-  <h1>Transformation Configurations</h1>
+  <h1>Build Variants</h1>
 
-<p>A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application or a library. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for <a href="../build-variants/#dynamic-transformation-configurations">dynamic properties</a> where the value is not a static value but computed dynamically by JavaScript code when the TC is built.</p>
-<p>RTist in Code provides a dedicated language server for TCs to make them just as easy to work with as Art files. A <a href="#editing-transformation-configurations">form-based editor</a> is also provided as an alternative.</p>
-<h2 id="creating-transformation-configurations">Creating Transformation Configurations</h2>
-<p>To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command <strong>File - New File - Transformation Configuration</strong>. In the popup that appears specify the name of the TC or keep the suggested default name.</p>
-<p><img alt="" src="../images/default-tc-name.png" /></p>
-<p>A .tcjs file will be created with the minimal contents. Specify the mandatory <a href="#topcapsule">topCapsule</a> property (if you are building an executable) and any other <a href="#properties">properties</a> needed.</p>
-<h2 id="setting-a-transformation-configuration-as-active">Setting a Transformation Configuration as Active</h2>
-<p>You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be <strong>active</strong>. RTist in Code uses the active TC in several ways:</p>
+<p>There is often a need to build several variants of the same application. For example:</p>
 <ul>
-<li>It controls how to automatically generate C++ code from the Art files in the workspace folder. In this respect it corresponds directly to the <a href="../art-compiler/#tc"><code>--tc</code></a> option for the <a href="../art-compiler/">Art Compiler</a>.</li>
-<li>It's used for automatically propagating changes you make in generated files back to the source Art files (see <a href="../#making-changes-in-generated-c">Making Changes in Generated C++</a>).</li>
-<li>It affects how references in Art files are bound to Art elements in other Art files. More precisely, it's the <a href="#sources">sources</a> and <a href="#prerequisites">prerequisites</a> properties of the active TC that have an influence on the binding of references (since these properties control which Art files that are visible when building the active TC).</li>
+<li>Create a debug versus release build</li>
+<li>Add special instrumentation in order to detect run-time errors such as memory leaks</li>
+<li>Build for multiple target platforms</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you don't set a TC as active none of the above will work (or will work incorrectly). It's therefore strongly recommended to create a TC and set it as active as early as possible when you start to work in a new Art workspace folder.</p>
-</div>
-<p>Set a TC as active by right-clicking on it and perform the command <strong>Set as Active</strong>. An active TC is marked with a checkmark.</p>
-<p><img alt="" src="../images/active-tc.png" /></p>
-<p>If the active TC has <a href="#transformation-configuration-prerequisites">prerequisites</a>, those too will be set as active. This ensures that the results you get when working with Art files in the IDE will be the same as when you will build the TC using the <a href="../art-compiler/">Art Compiler</a>. </p>
-<h2 id="editing-transformation-configurations">Editing Transformation Configurations</h2>
-<p>You can edit a TC directly as a JavaScript file in the text editor. Features such as content assist, navigation and hover tooltips work very similar to how they work for an Art file:</p>
-<ul>
-<li>Use content assist (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>) after typing <code>tc.</code> to get the list of all available TC properties that can be set. You can also use content assist in many places to get suggestions for valid TC property values, for example the list of available top capsules.</li>
-</ul>
-<p><img alt="" src="../images/tc-editor-content-assist.png" /></p>
-<ul>
-<li>Certain references in the TC can be navigated by <span class="keys"><kbd class="key-control">Ctrl</kbd></span> + click. For example, you can navigate to the top capsule.</li>
-</ul>
-<p><img alt="" src="../images/tc-editor-navigation.png" /></p>
-<ul>
-<li>Rest the cursor on a TC property name to get more information about the property.</li>
-</ul>
-<p><img alt="" src="../images/tc-editor-tooltip.png" /></p>
-<ul>
-<li>TC properties are validated when edited and found problems will be reported. Click the "More information" hyperlink for a more detailed description of a problem, including suggestions for how to fix it.</li>
-</ul>
-<p><img alt="" src="../images/tc-editor-validation.png" /></p>
-<p>As an alternative to editing a TC as a JavaScript file RTist in Code also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.</p>
-<p>To open the form-based TC editor, right-click on a TC file and invoke the context menu command <strong>Edit Properties (UI)</strong>. </p>
-<p><img alt="" src="../images/tc-editor.png" /></p>
-<p>Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.</p>
-<p><img alt="" src="../images/tc-editor-cpp-code-standard.png" /></p>
-<p>Click the info button to view documentation about a certain TC property. Click the button again to hide the documentation.</p>
-<p><img alt="" src="../images/tc-editor-info-button.png" /></p>
-<p>Certain TC properties have default values. Such values are not stored in the TC file, but the TC editor still shows them so you can know what value will actually be used unless you set a custom value for such a property.</p>
-<p><img alt="" src="../images/tc-editor-default-value.png" /></p>
-<p>You can tell which TC properties that have a custom (i.e. non-default) value set by looking at the color of the property name. Properties with custom values set have names shown in blue which are hyperlinks that will navigate to the value in the TC file. Such properties also have a "Delete" button which can be used for deleting the property value (i.e. to restore the property to use its default value).</p>
-<p><img alt="" src="../images/tc-with-value.png" /></p>
-<p>You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. </p>
-<h2 id="transformation-configuration-prerequisites">Transformation Configuration Prerequisites</h2>
-<p>A TC can either build a library or an executable. This is controlled by the <a href="#topcapsule">topCapsule</a> property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the <a href="#prerequisites">prerequisites</a> property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).</p>
-<p>If you change the prerequisites of a TC you should again <a href="#setting-a-transformation-configuration-as-active">set it as active</a> so that the prerequisite TCs also become active.</p>
-<h2 id="properties">Properties</h2>
-<p>Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.</p>
-<p id="tc_properties"/>
+<p>A variant of an application may often only use slightly different build settings (for example, setting a compiler flag to include debug symbols), but in some cases the application logic may also be somewhat different (for example, use of some code that is specific to a certain target platform). RTist in Code provides a powerful mechanism, based on scripting, that allows you to build several variants of an application with minimal effort.</p>
+<h2 id="dynamic-transformation-configurations">Dynamic Transformation Configurations</h2>
+<p>A TC is defined using JavaScript which is interpreted when it is built. This opens up for dynamic TC properties where the value of a property is computed at build-time. For simple cases it may be enough to replace static values for TC properties with JavaScript expressions to be able to build several variants of an application. As an example, assume that you want to either build a release or a debug version of an application. The debug version is obtained by compiling the code with the <code>$(DEBUG_TAG)</code> flag. The TC can then for example look like this:</p>
+<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+let system = Java.type('java.lang.System');
+let isDebug = system.getenv('DEBUG_BUILD');
+tc.compileArguments = isDebug ? '$(DEBUG_TAG)' : '';
+</code></pre>
+<p>TCs are evaluated using Nashorn which is a JavaScript engine running on the Java Virtual Machine. This is why we can access a Java class such as <code>java.lang.System</code> to read the value of an environment variable. With this TC, and the use of an environment variable <code>DEBUG_BUILD</code>, we can now build either a release or a debug version of our application depending on if the environment variable is set or not.</p>
+<p>However, defining variants of an application like this can become messy for more complex examples. Setting up several environment variables in a consistent fashion will require effort for everyone that needs to build the application, and perhaps you even need to write a script to manage it. But the biggest problem is that the JavaScript that defines the build variants is embedded into the TC file itself. This makes it impossible to reuse a build variant implementation for multiple TCs. </p>
+<h2 id="build-variants-script">Build Variants Script</h2>
+<p>A Build Variants script allows to define build variants outside the TC itself. It defines a number of high-level settings, we call them <strong>build variant settings</strong>, each of which is implemented by a separate JavaScript file. There are two kinds of build variant settings that can be defined:</p>
+<ol>
+<li><strong>Boolean settings</strong>
+These are settings that can either be turned on or off. The "debug" flag we implemented in the example above is an example of a boolean setting.</li>
+<li><strong>Enumerated settings</strong>
+These are settings that can have a fixed set of values. A list of supported target platforms could be an example of an enumerated setting.</li>
+</ol>
+<p>A Build Variants script must have a global function called <code>initBuildVariants</code> which defines the build variant settings. Here is an example where one boolean and one enumerated build variant setting are defined:</p>
+<pre><code class="language-js">// Boolean setting
+let isDebug = {
+    name: 'Debug',
+    script: 'debug.js',
+    defaultValue: false,
+    description: 'If set, a debug version of the application will be built'
+};
 
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th align="left">Type</th>
-<th align="left">Default Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#commonpreface">commonPreface</a></td>
-<td align="left">String</td>
-<td align="left">N/A</td>
-</tr>
-<tr>
-<td><a href="#compilearguments">compileArguments</a></td>
-<td align="left">String</td>
-<td align="left">N/A</td>
-</tr>
-<tr>
-<td><a href="#compilecommand">compileCommand</a></td>
-<td align="left">String</td>
-<td align="left">"$CC"</td>
-</tr>
-<tr>
-<td><a href="#copyrighttext">copyrightText</a></td>
-<td align="left">String</td>
-<td align="left">N/A</td>
-</tr>
-<tr>
-<td><a href="#cppcodestandard">cppCodeStandard</a></td>
-<td align="left">Enum string</td>
-<td align="left">"C++ 17"</td>
-</tr>
-<tr>
-<td><a href="#linkarguments">linkArguments</a></td>
-<td align="left">String</td>
-<td align="left">N/A</td>
-</tr>
-<tr>
-<td><a href="#linkcommand">linkCommand</a></td>
-<td align="left">String</td>
-<td align="left">"$LD"</td>
-</tr>
-<tr>
-<td><a href="#makearguments">makeArguments</a></td>
-<td align="left">String</td>
-<td align="left">N/A</td>
-</tr>
-<tr>
-<td><a href="#makecommand">makeCommand</a></td>
-<td align="left">String</td>
-<td align="left">"$defaultMakeCommand"</td>
-</tr>
-<tr>
-<td><a href="#prerequisites">prerequisites</a></td>
-<td align="left">List of strings</td>
-<td align="left">[]</td>
-</tr>
-<tr>
-<td><a href="#sources">sources</a></td>
-<td align="left">List of strings</td>
-<td align="left">["*.art"]</td>
-</tr>
-<tr>
-<td><a href="#targetconfiguration">targetConfiguration</a></td>
-<td align="left">String</td>
-<td align="left">Depends on current operating system</td>
-</tr>
-<tr>
-<td><a href="#targetconfigurationname">targetConfigurationName</a></td>
-<td align="left">String</td>
-<td align="left">"default"</td>
-</tr>
-<tr>
-<td><a href="#targetfolder">targetFolder</a></td>
-<td align="left">String</td>
-<td align="left">Name of TC with "_target" appended</td>
-</tr>
-<tr>
-<td><a href="#targetrtslocation">targetRTSLocation</a></td>
-<td align="left">String</td>
-<td align="left">"${rtistic_home}/TargetRTS"</td>
-</tr>
-<tr>
-<td><a href="#topcapsule">topCapsule</a></td>
-<td align="left">String</td>
-<td align="left">N/A</td>
-</tr>
-<tr>
-<td><a href="#unitname">unitName</a></td>
-<td align="left">String</td>
-<td align="left">"UnitName"</td>
-</tr>
-</tbody>
-</table>
-<h3 id="commonpreface">commonPreface</h3>
-<p>This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called <code>UnitName.h</code>). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.</p>
-<h3 id="compilearguments">compileArguments</h3>
-<p>Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. </p>
-<h3 id="compilecommand">compileCommand</h3>
-<p>Specifies which C++ compiler to use for compiling generated C++ code. The default value for this property is <code>$(CC)</code> which is a variable that gets its value from the TargetRTS configuration that is used.</p>
-<h3 id="copyrighttext">copyrightText</h3>
-<p>This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.</p>
-<h3 id="cppcodestandard">cppCodeStandard</h3>
-<p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 98</code>, <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set <a href="#targetrtslocation">TargetRTSLocation</a> to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to <code>Older than C++ 98</code>.</p>
-<h3 id="linkarguments">linkArguments</h3>
-<p>Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.</p>
-<h3 id="linkcommand">linkCommand</h3>
-<p>Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is <code>$(LD)</code> which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.</p>
-<h3 id="makearguments">makeArguments</h3>
-<p>Specifies the arguments for the <a href="#makecommand">make command</a> to be used.</p>
-<h3 id="makecommand">makeCommand</h3>
-<p>Specifies which make command to use for processing the generated make file. By default the make command is <code>$defaultMakeCommand</code> which gets its value from which TargetRTS configuration that is used.</p>
-<h3 id="prerequisites">prerequisites</h3>
-<p>This property is a list of references to other TCs that need to be built before the current TC. It's typically used to express that a library TC is a prerequisite of an executable TC, which means the library TC needs to be built before the executable TC. Below is an example where an executable TC has a library TC as a prerequisite:</p>
-<pre><code class="language-js">tc.prerequisites = [&quot;../MyLibrary/lib.tcjs&quot;]; 
+// Enumerated setting
+let optimization = {
+    name: 'Optimization',
+    alternatives: [
+      { name: 'HIGH',  script: 'opt.js', args: ['HIGH'],  description: 'Apply all optimizations', defaultValue: true },
+      { name: 'MEDIUM',  script: 'opt.js', args: ['MEDIUM'],  description: 'Apply some optimizations'},
+      { name: 'OFF', script: 'opt.js', args: ['OFF'], description: 'Turn off all optimizations' }
+    ]
+};
+
+// This function defines which build variant settings that are applicable for a certain TC
+function initBuildVariants(tc) {
+    BVF.add(isDebug);
+    BVF.add(optimization);
+}
 </code></pre>
-<p>Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.</p>
-<p>For more information about this property see <a href="#transformation-configuration-prerequisites">Transformation Configuration Prerequisites</a>.</p>
-<h3 id="sources">sources</h3>
-<p>By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the <code>sources</code> property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the <code>!</code> character. In both patterns and anti-patterns you can use the wildcards <code>*</code> (matches any sequence of characters) and <code>?</code> (matches a single character). Below are a few examples:</p>
-<pre><code class="language-js">tc.sources = [&quot;*.art&quot;]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the &quot;sources&quot; property is not set.
-tc.sources = [&quot;cap1.art&quot;, &quot;cap2.art&quot;]; // Only transform two specific Art files
-tc.sources = [&quot;*.art&quot;, &quot;!rtist_gen.art&quot;]; // Transform all Art files except one
-tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform all Art files with names starting with &quot;source&quot; and followed by two arbitrary characters. Art files with a name that ends with &quot;_gen&quot; are excluded.
+<p>Note the following:</p>
+<ul>
+<li>The <code>name</code> property specifies a user-friendly name of the build variant setting.</li>
+<li>Use the <code>description</code> property to document what the build variant setting means and how it works.</li>
+<li>In case of an enumerated setting, exactly one of the alternatives should have the <code>defaultValue</code> property set. This alternative will be used in case no value is provided for that build variant setting at build-time. For a boolean setting, <code>defaultValue</code> should be set to either <code>true</code> or <code>false</code> depending on if you want the build setting to be turned on or off by default.</li>
+<li>The <code>script</code> property specifies the JavaScript file that implements the build variant setting. The path is relative to the location of the Build Variants script (usually they are all placed in the same folder). For a boolean setting the script is only invoked if the setting is set to <code>true</code>. For an enumerated setting the script is always invoked, and the value of the enumerated setting is passed as an argument to the script using the <code>args</code> property. It's therefore possible (and common) to implement all alternatives of an enumerated setting with the same script.</li>
+</ul>
+<p>The <code>initBuildVariants</code> function gets the built TC as an argument. You can use it for defining different build variant settings for different kinds of TCs. Here is an example where a build variant setting only is defined for an executable TC:</p>
+<pre><code class="language-js">function initBuildVariants(tc) {
+    if (tc.topCapsule) {
+        // Executable TC
+        BVF.add(linkOptimization);
+    }
+    else {
+        // Library TC
+    }
+}
 </code></pre>
-<h3 id="targetconfiguration">targetConfiguration</h3>
-<p>Specifies which TargetRTS configuration to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the RTist in Code installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
-<h3 id="targetconfigurationname">targetConfigurationName</h3>
-<p>This property maps to a subfolder of the <a href="#targetfolder">target folder</a> where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is <code>default</code>.</p>
-<h3 id="targetfolder">targetFolder</h3>
-<p>Specifies where files generated from the TC will be placed. This property is usually just set to a name, and then a target folder with that name will be created. When the build runs from the UI, that target folder is then added as a workspace folder, which will cause you to be prompted about if you trust the authors of the files in that folder. It's safe to answer yes since all files in that folder are automatically generated by RTist in Code. </p>
-<p>You can specify an absolute path to a target folder if you prefer generated files to be placed in a certain location that is accessible to everyone in the team, for example a shared network drive. If you instead use a relative path it will get resolved relative to a desired output folder. For a UI build the output folder is set using the setting <a href="../../settings/#output-folder"><code>rtistic.build.outputFolder</code></a>. When building with the Art Compiler the output folder is instead set using the <a href="../art-compiler/#out"><code>--out</code></a> option. If you haven't set the desired output folder, relative paths will instead be resolved against the folder that contains the TC where the <code>targetFolder</code> property is set. </p>
-<p>Use forward slashes as path separator in this property. </p>
-<p>If this property is not specified it defaults to the name of the TC, with <code>_target</code> appended. For example, if the TC is called <code>app.tcjs</code>, the target folder will default to <code>app_default</code>.</p>
-<h3 id="targetrtslocation">targetRTSLocation</h3>
-<p>Specifies the location of the TargetRTS to use. If no value is set for this property the TargetRTS from the RTist in Code installation will be used. If you want to use another TargetRTS specify the full path to the <code>TargetRTS</code> folder (including that folder itself). Use forward slashes as path separator. For example:</p>
-<pre><code class="language-js">tc.targetRTSLocation = &quot;C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS&quot;;
+<h2 id="build-variant-setting-script">Build Variant Setting Script</h2>
+<p>A script that implements a build variant setting is invoked twice when a TC is built. The first time a function <code>preProcess</code> gets called, and the second time a function <code>postProcess</code> gets called. You can define either one or both of these functions depending on your needs.</p>
+<h3 id="preprocess-function">preProcess Function</h3>
+<p>If a <code>preProcess</code> function exists it will be called before the built TC is evaluated. Therefore you cannot access the TC in this function. The only input to the function is the script arguments, as defined by the <code>args</code> property for an enumerated setting. The main reason for implementing a <code>preProcess</code> function is to compute some data based on a build variant setting. Such data can be stored globally and later be accessed when <code>postProcess</code> gets called or in a TC file when setting the value of a TC property. Here is an example:</p>
+<pre><code class="language-js">function preProcess( targetPlatform ) {
+    MSG.formatInfo(&quot;Building for target platform %s&quot;, targetPlatform);
+    TCF.globals().targetPlatform = targetPlatform;
+    if (targetPlatform == 'Win64_MSVS') {
+        TCF.globals().targetCompiler = 'MSVS';
+        MSG.formatInfo(&quot;Building with Microsoft Visual Studio Compiler&quot;);       
+    } else {
+        TCF.globals().targetCompiler = 'GCC';       
+        MSG.formatInfo(&quot;Building with GNU Compiler&quot;);
+    }
+}
 </code></pre>
-<h3 id="topcapsule">topCapsule</h3>
-<p>Specifies the capsule that should be automatically incarnated when the executable starts to run. Hence this property is only applicable for TCs that build executables, and for those TCs it's a mandatory property. The top capsule is the entry point of the realtime application.</p>
-<p>If you don't specify a value for this property, the TC will build a library instead of an executable.</p>
-<h3 id="unitname">unitName</h3>
-<p>Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is <code>UnitName</code> which means that these unit files will be called <code>UnitName.cpp</code> and <code>UnitName.h</code>. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.</p>
+<p>Here we use the <a href="#msg-object"><code>MSG</code> object</a> for printing messages to the build log and we use the <a href="#tcf-object"><code>TCF</code> object</a> for storing globally some data that we have computed based on the build variant setting. Remember that the <a href="#tcf-object"><code>TCF</code> object</a> also is available in a TC file, which means that TC properties may access the stored global data.</p>
+<h3 id="postprocess-function">postProcess Function</h3>
+<p>If a <code>postProcess</code> function exists it will be called after the built TC has been evaluated. The function gets the built TC as an argument, as well as all its prerequisite TCs. For an enumerated setting it also gets the script arguments as defined by the <code>args</code> property. The function can directly modify properties of both the built TC and all its prerequisites. The property values that the TCs have when the function returns are the ones that will be used in the build. Hence this function gives you full freedom to customize all TC properties so that they have values suitable for the build variant setting. Here is an example that uses the global data computed in the <code>preProcess</code> function above:</p>
+<pre><code class="language-js">function postProcess(topTC, allTCs, targetPlatform) {   
+    for (i = 0; i &lt; allTCs.length; ++i) {
+      if (TCF.globals().targetCompiler == 'MSVS') {
+        allTCs[i].compileCommand = 'cl';
+      }
+      else if (TCF.globals().targetCompiler == 'GCC') {
+        allTCs[i].compileCommand = 'gcc';
+      }
+
+      if (targetPlatform == 'MacOS') {
+        MSG.formatWarning(&quot;MacOS builds are not fully supported yet&quot;);    
+      }
+    }
+}
+</code></pre>
+<p>Also in this function we can use the <a href="#tcf-object"><code>TCF</code></a> and <a href="#msg-object"><code>MSG</code></a> objects to access global data and to print messages to the build log. But most importantly, we can directly write the properties of the <code>topTC</code> (the TC that is built) and/or <code>allTCs</code> (the TC that is built followed by all its prerequisite TCs). </p>
+<p>By modifying the <a href="../transformation-configurations/#compilearguments">compileArguments</a> TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize how the application is built, and also what it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.</p>
+<h2 id="build-configuration">Build Configuration</h2>
+<p>When building a TC that uses build variants you need to provide values for all build variant settings, except those for which you want to use their default values. These values are referred to as a <strong>build configuration</strong>. You can only specify a build configuration when building with the <a href="../art-compiler/">Art Compiler</a>. When building from within the IDE, all build variant settings will get their default values.</p>
+<p>Specify the build configuration by means of the <a href="../art-compiler/#buildconfig">--buildConfig</a> option for the Art Compiler. A boolean build variant setting is set by simply mentioning the name of the setting in the build configuration. To set an enumerated build variant setting use the syntax <code>setting=value</code>. Separate different build variant settings by semicolons. For the sample build variants script above, with one boolean and one enumerated build variant setting, a build configuration can look like this:</p>
+<p><code>--buildConfig="Debug;Optimization=MEDIUM"</code></p>
+<h2 id="javascript-api">JavaScript API</h2>
+<p>Build variant scripts are implemented with JavaScript and run on a Java Virtual Machine (JVM) by means of an engine called <a href="https://github.com/openjdk/nashorn">Nashorn</a>. It supports all of ECMAScript 5.1 and many things from ECMAScript 6. Since it runs on the JVM you can access Java classes and methods. See the Nashorn documentation to learn about these possibilities.</p>
+<p>In addition to standard JavaScript and Java functionality, a build variant script can also use an API provided by RTist in Code. This API consists of a few JavaScript objects and functions. Note that there are three different contexts in which JavaScript executes in RTist in Code and not all parts of the API are available or meaningful in all contexts.</p>
+<ol>
+<li><strong>Evaluation of a TC</strong>:
+TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the <a href="#tcf-object">TCF object</a>. Typically on the first line in a TC it's used like this: <code>let tc = TCF.define(TCF.CPP_TRANSFORM);</code>.
+Since TCs are evaluated frequently all JavaScript it contains should only compute what it necessary for setting the values of TC properties. It should not have any side-effects, and should not print any messages.</li>
+<li>
+<p><strong>Build Variants script</strong>:
+A build variants script is evaluated when building a TC with the <a href="../art-compiler/">Art Compiler</a>. This evaluation happens early with the purpose of deciding which build variant settings that are applicable for the build. You can use the <a href="#bvf-object">BVF object</a> in a build variants script.</p>
+</li>
+<li>
+<p><strong>Build Variant Setting script</strong>:
+A build variant setting script is evaluated when building a TC with the <a href="../art-compiler/">Art Compiler</a>. It's evaluated twice as explained <a href="#build-variant-setting-script">above</a>. You can use the <a href="#msg-object">MSG</a> and <a href="#tcf-object">TCF</a> objects in a build variant setting script.</p>
+</li>
+</ol>
+<h3 id="bvf-object">BVF Object</h3>
+<p>This object provides a "Build Variant Framework" with functions that are useful when implementing a Build Variants script. The object is only available in that kind of script.</p>
+<h4 id="bvfadd">BVF.add</h4>
+<p><code>add(...buildVariantSettings)</code></p>
+<p>Adds one or several build variant settings to be available for the current build. Each build variant setting is represented by a JavaScript object that either describes a boolean or enumerated setting as explained <a href="#build-variants-script">above</a>.</p>
+<h4 id="bvfaddcommonutils">BVF.addCommonUtils</h4>
+<p><code>addCommonUtils(...commonUtils)</code></p>
+<p>If you implement utility functions that you want to use from several scripts you can make them globally available by means of this function. For example:</p>
+<pre><code class="language-js">let myUtils = {
+  name: 'My utils', // Any name
+  script: 'myUtils.js' // Script that contains global utility functions
+}
+function initBuildVariants(tc) {
+  BVF.addCommonUtils(myUtils);
+  // ...
+}
+</code></pre>
+<p>All functions defined in "myUtils.js" will now be available to be used by build variant setting scripts.</p>
+<h4 id="bvfformatinfo">BVF.formatInfo</h4>
+<p><code>formatInfo(msg,...args)</code></p>
+<p>Prints an information message to the build log. This function works the same as <a href="#msgformatinfo">MSG.formatInfo</a>.</p>
+<h4 id="bvfformatwarning">BVF.formatWarning</h4>
+<p><code>formatWarning(msg,...args)</code></p>
+<p>Prints a warning message to the build log. This function works the same as <a href="#msgformatwarning">MSG.formatWarning</a>.</p>
+<h4 id="bvfformaterror">BVF.formatError</h4>
+<p><code>formatError(msg,...args)</code></p>
+<p>Prints an error message to the build log. This function works the same as <a href="#msgformaterror">MSG.formatError</a>. Note that the Art Compiler will stop the build if an error is reported.</p>
+<h3 id="msg-object">MSG Object</h3>
+<p>This object provides functions for writing messages to the build log. Each function takes a message and optionally also additional arguments. The message may contain placeholders, such as %s, that will be replaced with the arguments. You must make sure the number of arguments provided match the number of placeholders in the message, and that the type of each argument matches the type of placeholder (e.g. %s for string).</p>
+<p>The MSG object is only available in a build variant setting script.</p>
+<h4 id="msgformatinfo">MSG.formatInfo</h4>
+<p><code>formatInfo(msg,...args)</code></p>
+<p>Prints an information message to the build log. Example:</p>
+<pre><code class="language-js">MSG.formatInfo(&quot;Building for target platform %s&quot;, targetPlatform);
+</code></pre>
+<h4 id="msgformatwarning">MSG.formatWarning</h4>
+<p><code>formatWarning(msg,...args)</code></p>
+<p>Prints a warning message to the build log. </p>
+<h4 id="msgformaterror">MSG.formatError</h4>
+<p><code>formatError(msg,...args)</code></p>
+<p>Prints an error message to the build log. Note that the Art Compiler will stop the build if an error is reported.</p>
+<h3 id="tcf-object">TCF Object</h3>
+<p>This object provides a "Transformation Configuration Framework". It is available in a build variant setting script and also in a TC file.</p>
+<h4 id="buildvariantsfolder">buildVariantsFolder</h4>
+<p><code>buildVariantsFolder() -&gt; String</code></p>
+<p>Returns the full path to the folder where the build variants script is located.</p>
+<h4 id="buildvariantsscript">buildVariantsScript</h4>
+<p><code>buildVariantsScript() -&gt; String</code></p>
+<p>Returns the full path to the build variants script.</p>
+<h4 id="define">define</h4>
+<p><code>define(descriptorId) -&gt; {TCObject}</code></p>
+<p>Creates a new TC object. This function is typically called in the beginning of a TC file to get the TC object whose properties are then set. </p>
+<h4 id="gettoptc">getTopTC</h4>
+<p><code>getTopTC() -&gt; {TCObject}</code></p>
+<p>Returns the top TC, i.e. the TC that is built. You can use this from a prerequisite TC to access properties set on the top TC. For example, it allows a library TC to set some of its properties to have the same values as are used for the executable TC. This can ensure that a library is built with the same settings that are used for the executable that links with the library. Here is an example of how a library TC can be defined to ensure that it will use the same target configuration as the executable that links with it:</p>
+<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
+let topTC = TCF.getTopTC().eval; // eval returns an evaluated TC object, where all properties have ready-to-read values (even for properties with default values)
+tc.targetConfiguration = topTC.targetConfiguration;
+</code></pre>
+<h4 id="globals">globals</h4>
+<p><code>globals() -&gt; {object}</code></p>
+<p>Returns an object that can store global data needed across evaluations of different JavaScript files. For an example, see <a href="#build-variant-setting-script">above</a>.</p>
+<h4 id="orderedgraph">orderedGraph</h4>
+<p><code>orderedGraph(topTC) -&gt; [{TCObject}]</code></p>
+<p>Traverses all prerequisites of a TC (<code>topTC</code>) and returns an array that contains them in a depth-first order. The last element of the array is the top TC itself. The function also ensures that all prerequisite TCs are loaded.</p>
+<pre><code class="language-js">var prereqs = TCF.orderedGraph(tc);
+for (i = 0; i &lt; prereqs.length; ++i) {
+   var arguments = prereqs[i].compileArguments;
+   // ...
+}
+</code></pre>
 
               
             </article>
