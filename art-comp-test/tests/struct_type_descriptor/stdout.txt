@@ -1,4 +1,2 @@
 Got the point: Point(10,20)
 ASCII encoding: {x 10,y 20}
-OK:  RTMemoryUtil::strcmp("{x 10,y 20}", buf) == 0
-***PASS***
