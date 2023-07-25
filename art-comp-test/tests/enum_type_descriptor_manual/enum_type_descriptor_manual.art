@@ -1,0 +1,89 @@
+[[rt::decl]]
+`
+    enum [[rt::manual_descriptor]] Colors {
+        red,green,yellow
+    }; 
+`
+
+[[rt::impl]]
+`
+#if OBJECT_ENCODE
+    static int rtg_Colors_encode(const RTObject_class* type, const Colors* source, RTEncoding* coding )
+    {
+        int sum = 0;
+        sum += coding->write_string(type->name());
+        sum += coding->write_string(":");
+        switch (*source) {
+            case red:
+                sum += coding->write_string("red");
+                break;
+            case green:
+                sum += coding->write_string("green");
+                break;
+            case yellow:
+                sum += coding->write_string("yellow");
+                break;
+            default:
+                sum += coding->write_string("ERROR");
+        }
+        return sum;
+    }
+#endif
+
+// Manual type descriptor implementation (minimal for our needs)
+const RTObject_class RTType_Colors =
+{
+    nullptr
+    , nullptr
+    , "Colors"
+    , 0 /* RTVersionId */
+    , sizeof( Colors )
+    , nullptr
+    , nullptr
+#if RT_VERSION_NUMBER >= 7105
+    , nullptr
+#endif
+#if OBJECT_DECODE
+    , nullptr
+#endif
+#if OBJECT_ENCODE
+    , &rtg_Colors_encode
+#endif
+    , nullptr
+    , 0
+    , nullptr
+};
+`
+
+capsule Top {
+    [[rt::decl]]
+    `
+        Colors color = yellow;
+    `  
+    [[rt::header_preface]]
+    `
+        #include "enum_type_descriptor_manual.art.h"
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "RTDynamicStringOutBuffer.h"
+    `      
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                const RTObject_class* mt = &RTType_Colors;      
+                RTDynamicStringOutBuffer buffer; // An alternative to using a static buffer     
+                RTAsciiEncoding coding(&buffer);     
+                mt->_encode_func(mt, &color, &coding);
+                buffer.getString();                
+                std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
+                ASSERT(RTMemoryUtil::strcmp("Colors:yellow", buffer.getString()) == 0, "Expect ASCII encoding to be Colors:yellow");
+                PASS();
+            `;
+        };  
+        initial -> State1;
+    };
+};
