@@ -1,0 +1,57 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] Point {
+        int x;
+        int y;
+    };
+    struct [[rt::auto_descriptor]] Data {
+        unsigned n1;
+        unsigned long n2;
+        unsigned long long n3;
+        Point n4;
+    };
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "struct_type_descriptor_nested.art.h"
+    `
+    out e1(`Data`);
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `        
+        #include "testlib.art.h"
+        #include "RTDynamicStringOutBuffer.h"     
+        #include "RTJsonEncoding.h"  
+    `
+    behavior port pOut : TheProtocol;
+    behavior port pIn~ : TheProtocol;
+    connect pOut with pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Data data = {1,2,3,{10,20}};
+                pOut.e1(data).send();
+            `;
+        };        
+        state State2;
+        initial -> State1;        
+        State1 -> State2 on pIn.e1
+        `
+            // Encode into string representation
+            const RTObject_class* mt = msg->getType();
+            RTDynamicStringOutBuffer buffer; // An alternative to using a static buffer                
+            RTJsonEncoding coding( &buffer );
+            mt->_encode_func(mt, msg->getData(), &coding);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
+            ASSERT(RTMemoryUtil::strcmp("{\"n1\" : 1,\"n2\" : 2,\"n3\" : 3,\"n4\" : {\"x\" : 10,\"y\" : 20}}", buffer.getString()) == 0, "Expect ASCII encoding to be {\"n1\" : 1,\"n2\" : 2,\"n3\" : 3,\"n4\" : {\"x\" : 10,\"y\" : 20}}");
+            PASS();
+        `;
+    };
+};
