@@ -1,0 +1,100 @@
+[[rt::decl]]
+`
+    #include <string>
+    typedef std::string MyString [[rt::auto_descriptor]];
+    
+    #include <vector>
+    using MyVector [[rt::auto_descriptor]] = std::vector<int>; 
+`
+
+[[rt::impl]]
+`
+    #if OBJECT_ENCODE
+    static int rtg_MyString_encode(const RTObject_class* type, const MyString* source, RTEncoding* coding )
+    {
+        return coding->put_string(source->c_str());
+    }
+    #endif
+
+    #if OBJECT_ENCODE
+    static int rtg_MyVector_encode(const RTObject_class* type, const MyVector* source, RTEncoding* coding) {
+        int sum = 0;
+        bool first = true;    
+        sum += coding->write_string("[");
+        for (auto i = source->begin(); i != source->end(); i++) {
+        if (!first)
+            sum += coding->write_string(",");
+        first = false;
+        sum += RTType_int.encode(&*i, coding);
+        }
+        sum += coding->write_string("]");
+        return sum;
+    }
+    #endif
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "typedef_type_descriptor.art.h"
+    `
+    out e1(`MyString`);
+    out e2(`MyVector`);
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "typedef_type_descriptor.art.h"
+        #include "RTDynamicStringOutBuffer.h"
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {        
+        initial -> State1;
+        state State1 {
+            str_received: on pIn.e1
+            `
+                // Encode into string representation
+                const RTObject_class* mt = msg->getType();
+                RTDynamicStringOutBuffer buffer;                
+                RTAsciiEncoding coding( &buffer );
+                mt->_encode_func(mt, msg->getData(), &coding);                
+                std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
+                ASSERT(RTMemoryUtil::strcmp("\"Hello World\"", buffer.getString()) == 0, "Expect ASCII encoding to be \"Hello World\"");
+            `;
+
+            vec_received: on pIn.e2
+            `
+                // Encode into string representation
+                const RTObject_class* mt = msg->getType();
+                RTDynamicStringOutBuffer buffer;                
+                RTAsciiEncoding coding( &buffer );
+                mt->_encode_func(mt, msg->getData(), &coding);                
+                std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
+                ASSERT(RTMemoryUtil::strcmp("[1,2,3,4]", buffer.getString()) == 0, "Expect ASCII encoding to be [1,2,3,4]");
+
+                PASS();
+            `;
+        };
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                MyString str("Hello World!");
+                MyVector vec{1,2,3,4};
+                pOut.e1(str).send();
+                pOut.e2(vec).send();
+            `;
+        };        
+        initial -> State1;        
+    };
+};
