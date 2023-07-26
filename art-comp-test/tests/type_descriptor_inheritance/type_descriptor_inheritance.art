@@ -1,0 +1,93 @@
+[[rt::decl]]
+`
+    enum [[rt::auto_descriptor]] Sex {
+        Male, Female
+    };
+    
+    class [[rt::auto_descriptor]] Person {
+        // For classes with non-public members we need to declare a field descriptor
+        public: static const RTFieldDescriptor rtg_Person_fields[];
+    
+        protected:
+        RTString name;
+        short age;
+        Sex sex;
+    
+        public:
+        Person(RTString n, short a, Sex s) : name(n), age(a), sex(s) {}
+        Person() { // The default init-function requires a parameterless constructor
+    
+        }
+    };
+    
+    class [[rt::auto_descriptor]] Employee : public Person {
+        // For classes with non-public members we need to declare a field descriptor
+        public: static const RTFieldDescriptor rtg_Employee_fields[];
+    
+        protected:
+        bool newHire;
+    
+        public:
+        Employee(RTString n, short a, Sex s, bool nh) : Person(n,a,s), newHire(nh) {}
+        Employee() { // The default init-function requires a parameterless constructor
+            
+        }
+    };
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "type_descriptor_inheritance.art.h"
+    `
+    out e1(`Employee`);
+    out e2(`RTString`);
+};
+
+capsule Cap {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "type_descriptor_inheritance.art.h"
+        #include <iostream>    
+        #include "RTDynamicStringOutBuffer.h"             
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            // Encode into string representation
+            const RTObject_class* mt = msg->getType();
+            RTDynamicStringOutBuffer buffer;            
+            RTAsciiEncoding coding(&buffer);
+            mt->_encode_func(mt, msg->getData(), &coding);            
+            std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
+            ASSERT(RTMemoryUtil::strcmp("{name \"Bob\", sex 0, age 53, newHire false}", buffer.getString()) == 0, "Expect ASCII encoding to be {name \"Bob\", sex 0, age 53, newHire false}");
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "type_descriptor_inheritance.art.h"        
+    `
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Employee employee("Bob", 53, Male, false);
+                pOut.e1(employee).send(); // copies the employee object
+            `;
+        };        
+        initial -> State1;        
+    };
+};

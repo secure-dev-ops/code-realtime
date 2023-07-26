@@ -1,0 +1,4 @@
+---
+group: cpp_code_generation
+---
+This example shows how inheritance between types affects the automatically generated type descriptors. Data about an employee is described by means of an inherited class which also contains private members. In this case it's necessary to declare a so called field descriptor inside the class, and the code generator will populate it with metadata about the class member variables. The employee data is sent from one capsule to another. The receiver capsule encodes the received data into a string which will contain all data from the object (including inherited data).
