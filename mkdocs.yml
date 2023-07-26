@@ -54,7 +54,7 @@ extra:
 
 
 copyright: >-
-  Copyright &copy; 2022, HCL Technologies Limited.
+  <p> Copyright &copy; 2022, <script>document.write(new Date().getFullYear())</script> HCL Technologies Ltd. All Rights Reserved.</p>
 
 # Repository
 repo_url: https://github.com/HCL-TECH-SOFTWARE/rtist-in-code
