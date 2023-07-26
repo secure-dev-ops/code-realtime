@@ -54,8 +54,16 @@ def getProductVsix() {
 	assert(!env.PRODUCT_VSIX_PATH.isEmpty())
 	env.PRODUCT_VSIX = sh(script: 'basename $PRODUCT_VSIX_PATH', returnStdout: true).trim()
 
+	def testCasesId = ""
+	if (!params.TEST_CASES.isEmpty()) {
+		env.TEST_CASES_ARG = "--testCases=" + params.TEST_CASES
+		testCasesId = testCasesId + " - " + params.TEST_CASES
+	}
+	if (testCasesId.size() > 40)
+		testCasesId = testCasesId.substring(0, 39) + "..."
+
 	if (params.BUILD_NAME.isEmpty())
-		currentBuild.displayName = env.PRODUCT_VSIX_PATH.replaceAll(env.BUILDS_SERVER_PATH, "");
+		currentBuild.displayName = env.PRODUCT_VSIX_PATH.replaceAll(env.BUILDS_SERVER_PATH, "") + testCasesId;
 	else
 		currentBuild.displayName = params.BUILD_NAME;
 }
