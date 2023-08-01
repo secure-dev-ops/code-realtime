@@ -47,7 +47,7 @@ const RTObject_class RTType_Colors =
     , nullptr
 #endif
 #if OBJECT_ENCODE
-    , &rtg_Colors_encode
+    , reinterpret_cast< RTEncodeFunction > ( rtg_Colors_encode )
 #endif
     , nullptr
     , 0
