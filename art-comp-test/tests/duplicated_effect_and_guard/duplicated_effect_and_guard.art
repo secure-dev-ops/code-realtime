@@ -1,0 +1,54 @@
+protocol MyProto {    
+    in myEvent(`int`);
+    in anotherEvent(`bool`);
+};
+
+capsule Base {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    ` 
+    /* Ports */
+    service behavior port myPort : MyProto;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State1;
+        _Initial: initial -> State1
+        `
+        PASS();
+        `
+        ;
+        state X {
+            entrypoint ep1;
+            exitpoint ex1;
+            t1: ep1 -> ex1 ``;
+        };
+        t1: State1 -> X.ep1 on myPort.myEvent ``;
+        t2: X.ex1 -> Y when
+        `
+            // Guard to be duplicated
+            return 0;
+        `
+        `
+            // Effect to be duplicated
+        `;
+        state Y;
+    };
+};
+
+capsule Derived : Base {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state redefine X {
+            state Inner;
+            redefine t1: ep1 -> Inner; 
+            Inner -> ex1 on myPort.anotherEvent ``;
+        };
+        
+    };
+};
