@@ -38,7 +38,7 @@ capsule Base {
     };
 };
 
-capsule Derived : Base {
+capsule Top : Base {
     /* Ports */
     /* Parts */
     /* Connectors */
@@ -47,7 +47,7 @@ capsule Derived : Base {
         state redefine X {
             state Inner;
             redefine t1: ep1 -> Inner; 
-            Inner -> ex1 on myPort.anotherEvent ``;
+            redefined_inner_ex1: Inner -> ex1 on myPort.anotherEvent ``;
         };
         
     };
