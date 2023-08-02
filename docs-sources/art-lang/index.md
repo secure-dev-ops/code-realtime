@@ -264,7 +264,7 @@ capsule Elevator {
 !!! note 
     Capsule member variables and member functions may be private or protected, but should usually not be public. To avoid threading issues all communication with a capsule should be done using events, and therefore public members are not recommended. An exception is [capsule constructors](#capsule-constructor) which need to be accessible from other capsules that create instances of the capsule using a capsule factory. If you anyway let a capsule have public members you need to ensure they are only accessed from the same thread that runs the capsule.
 
-The example above uses an `rt::decl` code snippet for declaring a capsule member variable. Here is the list of all code snippets that can be used for a capsule:
+The example above uses an `rt::decl` code snippet for declaring a capsule member variable. It will have the default visibility which is private. Here is the list of all code snippets that can be used for a capsule:
 
 <p id="capsule_code_snippets"/>
 | Code snippet |C++ mapping |Example of use |
@@ -274,7 +274,7 @@ The example above uses an `rt::decl` code snippet for declaring a capsule member
 | rt::impl_preface |Inserted at the top of the capsule class implementation file |Adding #includes needed by the capsule implementation
 | rt::impl_ending |Inserted at the bottom of the capsule class implementation file |Undefining a macro only used in a capsule implementation
 | rt::decl |Inserted into the capsule class header file (inside the class) |Declaring a capsule member variable or function
-| rt::impl |Inserted into the capsule class implementation file |Implement a capsule member function
+| rt::impl |Inserted into the capsule class implementation file |Implementing a capsule member function
 
 ### Capsule Constructor
 Just like a regular class a capsule may have constructors. A capsule constructor is declared using an `rt::decl` code snippet and defined using an `rt::impl` code snippet. All capsule constructors have two mandatory parameters:
@@ -285,25 +285,42 @@ Just like a regular class a capsule may have constructors. A capsule constructor
 After these parameters you can add your own parameters, to pass arbitrary initialization data to the capsule instance. Below is an example where a capsule `MyCap` has a reference variable `m_c`. To initialize this variable a capsule constructor is used.
 
 ``` art
-capsule MyCap {
+capsule MyCap {    
     [[rt::decl]]
     `
         public:
-            MyCap(RTController*, RTActorRef*, MyClass&);
+            MyCap_Actor(RTController*, RTActorRef*, MyClass&);
         private:
             MyClass& m_c;
     `
     [[rt::impl]]
     `
-        MyCap(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass& c) 
+        MyCap_Actor::MyCap_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass& c) 
             :RTActor(rtg_rts, rtg_ref), m_c(c) { }
     `
-
-    // ...
 };
 ```
 
-Note that a capsule constructor must call the `RTActor` constructor in its initializer..
+When you create an instance of the capsule you have to provide arguments that match the parameters of one of its capsule constructors. For this you need to use a **capsule factory**. You can either specify such a capsule factory statically on a part that is typed by the capsule (see [Part with Capsule Factory](#part-with-capsule-factory)), or you can provide a capsule factory dynamically when calling `incarnateCustom()` on a [Frame](../targetrts-api/struct_frame.html) port to incarnate an optional capsule part. Here is C++ code for doing the latter (assuming the optional part is called `thePart`):
+
+``` cpp
+RTActorId id = frame.incarnateCustom(thePart,
+    RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
+        return new MyCap_Actor(c, a, getMyClass()); // Use capsule constructor
+    }));
+if (!id.isValid()) {
+    // Failed to incarnate thePart
+}
+```
+
+Note the following:
+
+* In C++ the capsule class has the "_Actor" suffix.
+* A capsule constructor must call the `RTActor` constructor in its initializer.
+* Code that calls the capsule constructor must include the header file where the capsule is located.
+
+!!! example
+    You can find a sample application that uses a capsule constructor [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_constructor).
 
 ## Protocol and Event
 A protocol defines events that may be sent in to a [port](#port) (so called in-events) and events that may be sent out from the same port (so called out-events). By grouping events into protocols, and then typing ports with such protocols, we can precisely define which events the capsule may send and receive through that port.
