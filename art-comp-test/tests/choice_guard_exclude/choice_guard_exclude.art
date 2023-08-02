@@ -1,0 +1,55 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "Base.h"        
+    `
+        
+    part derivedPart : Derived;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Base 
+[[rt::properties(
+    rule_config="W0007"
+)]]
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `      
+
+    statemachine {
+        state A, B;
+        choice c;
+        _ini : initial -> c;
+        
+        aTrans: c -> A when `true`
+        `
+            // This transition would execute if running Base's state machine
+        `;
+        bTrans: c -> B when `else`
+        `
+            FAIL("Unexpected choice branch executed in Base");
+        `;
+}   ;
+};
+
+capsule Derived : Base {    
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `  
+    
+    statemachine {
+        exclude aTrans;
+        redefine bTrans: c -> B 
+        `
+            PASS();
+        `;
+    };
+};
