@@ -1,0 +1,103 @@
+protocol Proto {    
+    in ack();    
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "Base.h"        
+    `
+    behavior port frame : Frame;
+    behavior port p_base : Proto;
+    behavior port p_derived : Proto;
+
+    optional part basePart : Base;
+    optional part derivedPart : Derived;
+    
+    connect p_base with basePart.p;
+    connect p_derived with derivedPart.p;
+
+    statemachine {
+        state State1, State2, State3;
+        initial -> State1
+        `
+            Base_Actor::initialState = Base_Actor::STATE_A;
+            RTActorId id = frame.incarnate(basePart);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate basePart");
+            }        
+        `;     
+        State1 -> State2 on p_base.ack
+        `
+            Base_Actor::initialState = Base_Actor::STATE_B;
+            RTActorId id = frame.incarnate(derivedPart);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate derivedPart");
+            }   
+        `;
+        State2 -> State3 on p_derived.ack
+        `
+            PASS();
+        `;
+    };
+};
+
+capsule Base 
+[[rt::properties(
+    rule_config="X0007"
+)]]
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `  
+
+    [[rt::decl]]
+    `
+    public:
+        enum FirstState {
+            STATE_A, STATE_B
+        };
+        static FirstState initialState;
+    `
+    [[rt::impl]]
+    `
+        Base_Actor::FirstState Base_Actor::initialState;
+    `
+
+    service behavior port p~ : Proto;
+
+    statemachine {
+        state A, B;
+        choice c;
+        _ini : initial -> c;
+        
+        aTrans: c -> A when `initialState == STATE_A`
+        `
+            p.ack().send();
+        `;
+        bTrans: c -> B when `else`
+        `
+            FAIL("Unexpected choice branch executed in Base");
+        `;
+}   ;
+};
+
+capsule Derived : Base {    
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `  
+    
+    statemachine {
+        redefine aTrans: c -> A when `else`
+        `
+            FAIL("Unexpected choice branch executed in Derived");
+        `;
+        redefine bTrans: c -> B when `initialState == STATE_B`
+        `
+            p.ack().send();
+        `;
+    };
+};
