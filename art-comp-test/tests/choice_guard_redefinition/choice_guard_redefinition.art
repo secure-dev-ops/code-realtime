@@ -6,7 +6,8 @@ capsule Top {
     [[rt::impl_preface]]
     `
         #include "testlib.art.h"        
-        #include "Base.h"        
+        #include "Base.h"
+        #include "Derived.h"
     `
     behavior port frame : Frame;
     behavior port p_base : Proto;
@@ -38,6 +39,10 @@ capsule Top {
         `;
         State2 -> State3 on p_derived.ack
         `
+            std::cout << "Base_Actor::baseGuard = " << Base_Actor::baseGuard << std::endl;
+            std::cout << "Derived_Actor::derivedGuard = " << Derived_Actor::derivedGuard << std::endl;
+            ASSERT(Base_Actor::baseGuard == 1, "Incorrect number of base guard calls");
+            ASSERT(Derived_Actor::derivedGuard == 1, "Incorrect number of derived guard calls");
             PASS();
         `;
     };
@@ -60,10 +65,12 @@ capsule Base
             STATE_A, STATE_B
         };
         static FirstState initialState;
+        static int baseGuard;
     `
     [[rt::impl]]
     `
         Base_Actor::FirstState Base_Actor::initialState;
+        int Base_Actor::baseGuard = 0;
     `
 
     service behavior port p~ : Proto;
@@ -73,7 +80,11 @@ capsule Base
         choice c;
         _ini : initial -> c;
         
-        aTrans: c -> A when `initialState == STATE_A`
+        aTrans: c -> A when `
+            std::cout << "Calling guard in Base\n";
+            Base_Actor::baseGuard++;
+            return initialState == STATE_A;
+        `
         `
             p.ack().send();
         `;
@@ -89,13 +100,25 @@ capsule Derived : Base {
     `
         #include "testlib.art.h"        
     `  
-    
+    [[rt::decl]]
+    `
+    public:
+        static int derivedGuard;
+    `
+    [[rt::impl]]
+    `
+        int Derived_Actor::derivedGuard = 0;
+    `
     statemachine {
         redefine aTrans: c -> A when `else`
         `
             FAIL("Unexpected choice branch executed in Derived");
         `;
-        redefine bTrans: c -> B when `initialState == STATE_B`
+        redefine bTrans: c -> B when `
+            std::cout << "Calling guard in Derived\n";
+            Derived_Actor::derivedGuard++;
+            return initialState == STATE_B;
+        `
         `
             p.ack().send();
         `;
