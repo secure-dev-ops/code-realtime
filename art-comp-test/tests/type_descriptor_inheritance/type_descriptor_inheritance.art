@@ -64,7 +64,7 @@ capsule Cap {
             RTAsciiEncoding coding(&buffer);
             mt->_encode_func(mt, msg->getData(), &coding);            
             std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
-            ASSERT(RTMemoryUtil::strcmp("{name \"Bob\", sex 0, age 53, newHire false}", buffer.getString()) == 0, "Expect ASCII encoding to be {name \"Bob\", sex 0, age 53, newHire false}");
+            ASSERT(RTMemoryUtil::strcmp("{name\"Bob\",age 53,sex 0,newHire false}", buffer.getString()) == 0, "Expect ASCII encoding to be {name \"Bob\", sex 0, age 53, newHire false}");
             PASS();
         `;
     };
