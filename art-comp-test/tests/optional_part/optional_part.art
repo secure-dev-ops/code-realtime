@@ -1,0 +1,155 @@
+[[rt::decl]]
+`
+    constexpr unsigned int MULTIPLICITY = 5;
+`
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"      
+        #include "C.h"  
+        #include "D.h"  
+        #include <iostream>
+    `
+    behavior port timer : Timing;
+    behavior port frame : Frame;
+    optional part container : Container;
+    statemachine {
+        state State1, State2, State3;
+        initial -> State1
+        `                      
+            RTActorId id = frame.incarnate(container);
+            ASSERT(id.isValid(), "Failed to incarnate container");
+
+            timer.informIn(RTTimespec(1,0));
+        `;    
+        timeout1: State1 -> State2 on timer.timeout
+        `
+            frame.destroy(container);
+            timer.informIn(RTTimespec(1,0));            
+        `;
+        timeout2: State2 -> State3 on timer.timeout
+        `
+            // When the container capsule instance has been destroyed, all contained instances should also have been destroyed
+            std::cout << "C_Actor::instanceCount: " << C_Actor::instanceCount << std::endl;
+            std::cout << "D_Actor::instanceCount: " << D_Actor::instanceCount << std::endl;
+            ASSERT(C_Actor::instanceCount == 0, "Instances of C remained after capsule was destroyed");
+            ASSERT(D_Actor::instanceCount == 0, "Instances of D remained after capsule was destroyed");
+            PASS();
+        `;
+    };
+};
+
+capsule Container {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "optional_part.art.h"
+        #include "C.h"  
+        #include "D.h"
+    `
+    behavior port timer : Timing;
+    behavior port frame : Frame;
+    
+    /* Parts */
+    optional part c1 : C; // Optional part with multiplicity 0..1
+    optional part c2 : C[0..4]; // Optional part with multiplicity 0..4
+    optional part c3 : C[`MULTIPLICITY`]; // Optional part with multiplicity defined by a C++ constant
+
+    /* State Machine */
+    statemachine {
+        initial -> State 
+        `
+            // Contrary to fixed parts, optional parts are not incarnated automatically when the container capsule is created
+            ASSERT(C_Actor::instanceCount == 0, "In initial transition, expected 0 capsule instances to have been created");
+
+            // Incarnate c1 with one instance of C
+            RTActorId id = frame.incarnate(c1);
+            ASSERT(id.isValid(), "Failed to incarnate c1");
+            id = frame.incarnate(c1); 
+            ASSERT(!id.isValid(), "Expected a second incarnation of c1 to fail since it can only fit one capsule instance");
+            ASSERT(C_Actor::instanceCount == 1, "1 instance of C should now exist");
+
+            // Incarnate c2 with one instance of C and one instance of D
+            id = frame.incarnate(c2); 
+            ASSERT(id.isValid(), "Failed to incarnate c2 with C");
+            id = frame.incarnate(c2, D); 
+            ASSERT(id.isValid(), "Failed to incarnate c2 with D");
+            ASSERT(C_Actor::instanceCount == 2, "2 instances of C should now exist");
+            ASSERT(D_Actor::instanceCount == 1, "1 instance of D should now exist");
+
+            // Incarnate c3 with 5 instances of C
+            for (int i = 0; i < 5; i++) {
+                id = frame.incarnate(c3); 
+                ASSERT(id.isValid(), "Failed to incarnate c3 with C");
+            }
+            ASSERT(C_Actor::instanceCount == 7, "7 instances of C should now exist");
+        `;
+        state State {
+            entry
+            `                
+                timer.informIn(RTTimespec(0,0));
+            `;
+            timeout: on timer.timeout
+            `
+                // Destroy one C instance...
+                frame.destroy(c1);
+                ASSERT(C_Actor::instanceCount == 6, "6 instances of C should now exist");
+
+                // ... and one D instance
+                RTActorId id = frame.incarnationAt(c2, 1);
+                ASSERT(id.isValid(), "Capsule instance at index 1 in c2 is invalid");
+                RTActor* cap = id.getRTActor();
+                ASSERT(RTMemoryUtil::strcmp("D", cap->getTypeName()) == 0, "Expect c2[1] to be an instance of capsule D");                
+                frame.destroy(id);
+                ASSERT(D_Actor::instanceCount == 0, "0 instances of D should now exist");
+            `;
+        };
+    };
+};
+
+capsule C {    
+    [[rt::decl]]
+    `
+    public:
+        static unsigned int instanceCount;
+        virtual void _predestroy() override {        
+            C_Actor::instanceCount--;
+            SUPER::_predestroy();
+        }    
+    `
+    [[rt::impl]]
+    `
+        unsigned int C_Actor::instanceCount = 0;
+    `
+
+    /* State Machine */
+    statemachine {
+        state State;
+        ini : initial -> State
+        `
+            C_Actor::instanceCount++;
+        `;
+    };
+};
+
+capsule D : C {
+    [[rt::decl]]
+    `
+    public:
+        static unsigned int instanceCount;
+        virtual void _predestroy() override {        
+            D_Actor::instanceCount--;
+            RTActor::_predestroy(); // Do not call C_Actor::_predestroy
+        }   
+    `
+    [[rt::impl]]
+    `
+        unsigned int D_Actor::instanceCount = 0;
+    `
+    statemachine {
+        redefine ini: initial -> State
+        `
+            D_Actor::instanceCount++;
+        `;
+    };
+};
