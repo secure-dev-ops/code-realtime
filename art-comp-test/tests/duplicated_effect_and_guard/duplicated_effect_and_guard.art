@@ -1,0 +1,76 @@
+protocol MyProto {
+    in myEvent(`int`);
+    in anotherEvent(`bool`);
+};
+
+capsule Base {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+    /* Ports */
+    service behavior port myPort : MyProto;
+    service behavior port p~ : MyProto;
+    /* Parts */
+    /* Connectors */
+    connect p with myPort;
+    /* State Machine */
+    statemachine {
+        state State1;
+        _Initial: initial -> State1 `
+            std::cout << "Sending myEvent(5) ..." << std::endl;
+            std::fflush(stdout);
+            p.myEvent(5).send();
+        `;
+        state X {
+            entrypoint ep1;
+            exitpoint ex1;
+            t1_inside_X: ep1 -> ex1 ``;
+        };
+        t1: State1 -> X.ep1 on myPort.myEvent `
+            std::cout << "Received myEvent" << std::endl;
+            std::cout << "Sending anotherEvent(true) ..." << std::endl;
+            std::fflush(stdout);
+            p.anotherEvent(true).send();
+        `;
+        t2: X.ex1 -> Y when
+        `
+            // Guard to be duplicated
+            return 0;
+        `
+        `
+            // Effect to be duplicated
+        `;
+        state Y;
+    };
+};
+
+capsule Top : Base {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    ` 
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state redefine X {
+            state Inner;
+            redefine t1_inside_X: ep1 -> Inner;
+            redefined_inner_exp1: Inner -> ex1 on myPort.anotherEvent
+            `
+                std::cout << "Received anotherEvent" << std::endl;
+                std::fflush(stdout);
+            `;
+        };
+        redefine t2: X.ex1 -> Y when
+        `
+            return 1;
+        `
+        `
+            PASS();
+        `;
+
+    };
+};

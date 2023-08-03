@@ -37,6 +37,7 @@ capsule Receiver : ReceiverBase {
         redefine e1Trans: R1 -> R2
         `
             std::cout << "Receiver::e1Trans" << std::endl;
+            PASS();
         `;
     };
 };

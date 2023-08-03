@@ -1,0 +1,126 @@
+protocol Proto {    
+    in ack();    
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "Base.h"
+        #include "Derived.h"
+    `
+    behavior port frame : Frame;
+    behavior port p_base : Proto;
+    behavior port p_derived : Proto;
+
+    optional part basePart : Base;
+    optional part derivedPart : Derived;
+    
+    connect p_base with basePart.p;
+    connect p_derived with derivedPart.p;
+
+    statemachine {
+        state State1, State2, State3;
+        initial -> State1
+        `
+            Base_Actor::initialState = Base_Actor::STATE_A;
+            RTActorId id = frame.incarnate(basePart);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate basePart");
+            }        
+        `;     
+        State1 -> State2 on p_base.ack
+        `
+            Base_Actor::initialState = Base_Actor::STATE_B;
+            RTActorId id = frame.incarnate(derivedPart);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate derivedPart");
+            }   
+        `;
+        State2 -> State3 on p_derived.ack
+        `
+            std::cout << "Base_Actor::baseGuard = " << Base_Actor::baseGuard << std::endl;
+            std::cout << "Derived_Actor::derivedGuard = " << Derived_Actor::derivedGuard << std::endl;
+            ASSERT(Base_Actor::baseGuard == 1, "Incorrect number of base guard calls");
+            ASSERT(Derived_Actor::derivedGuard == 1, "Incorrect number of derived guard calls");
+            PASS();
+        `;
+    };
+};
+
+capsule Base 
+[[rt::properties(
+    rule_config="X0007"
+)]]
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `  
+
+    [[rt::decl]]
+    `
+    public:
+        enum FirstState {
+            STATE_A, STATE_B
+        };
+        static FirstState initialState;
+        static int baseGuard;
+    `
+    [[rt::impl]]
+    `
+        Base_Actor::FirstState Base_Actor::initialState;
+        int Base_Actor::baseGuard = 0;
+    `
+
+    service behavior port p~ : Proto;
+
+    statemachine {
+        state A, B;
+        choice c;
+        _ini : initial -> c;
+        
+        aTrans: c -> A when `
+            std::cout << "Calling guard in Base\n";
+            Base_Actor::baseGuard++;
+            return initialState == STATE_A;
+        `
+        `
+            p.ack().send();
+        `;
+        bTrans: c -> B when `else`
+        `
+            FAIL("Unexpected choice branch executed in Base");
+        `;
+}   ;
+};
+
+capsule Derived : Base {    
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `  
+    [[rt::decl]]
+    `
+    public:
+        static int derivedGuard;
+    `
+    [[rt::impl]]
+    `
+        int Derived_Actor::derivedGuard = 0;
+    `
+    statemachine {
+        redefine aTrans: c -> A when `else`
+        `
+            FAIL("Unexpected choice branch executed in Derived");
+        `;
+        redefine bTrans: c -> B when `
+            std::cout << "Calling guard in Derived\n";
+            Derived_Actor::derivedGuard++;
+            return initialState == STATE_B;
+        `
+        `
+            p.ack().send();
+        `;
+    };
+};

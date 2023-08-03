@@ -28,6 +28,8 @@ This feature, which also is known as IntelliSense or Code Completion, helps you 
 
 ![](images/code-template-variables.png)
 
+Note that code templates are also available in some C++ code snippets (e.g. `rt::decl` and `rt::impl`) and can help you insert pieces of C++ code that are commonly used in Art applications.
+
 * **References** are references to existing Art elements, for example a state, event or capsule. All Art elements of the correct kind which are visible from the cursor position will be available. References may have a qualifier if necessary, for example when referencing an entry point.
 
 ![](images/content-assist-references.png)

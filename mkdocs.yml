@@ -54,7 +54,7 @@ extra:
 
 
 copyright: >-
-  Copyright &copy; 2022, HCL Technologies Limited.
+  <p> Copyright &copy; 2022, 2023 HCL Technologies Ltd. All Rights Reserved.</p>
 
 # Repository
 repo_url: https://github.com/HCL-TECH-SOFTWARE/rtist-in-code
@@ -89,7 +89,9 @@ nav:
   - Documentation:   
      - Overview: overview.md
      - Installing: installing.md
-     - The Art Language: art-lang.md
+     - The Art Language: 
+        - The Art Language: art-lang/index.md
+        - C++ Extensions: art-lang/cpp-extensions.md
      - Working with Art: 
         - Working with Art: working-with-art/index.md
         - Text Editor: working-with-art/art-editor.md
