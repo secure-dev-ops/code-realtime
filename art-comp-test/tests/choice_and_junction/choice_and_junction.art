@@ -56,6 +56,7 @@ capsule Top
         `
             ASSERT(result == "junction_first junction_second ", "All junction branches should have executed in order");
             ASSERT(timeout1_count == 2, "By now timeout1 should have executed 2 times");
+            count = 0;
         `;
 
         state S1 {
