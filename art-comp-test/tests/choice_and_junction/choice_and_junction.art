@@ -1,0 +1,94 @@
+capsule Top 
+{
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+    private: 
+        unsigned int count = 0, timeout1_count = 0, timeout2_count = 0;        
+        std::string result;
+        void tick() {
+            count++;
+            ticker.informIn(RTTimespec(0,0), &count, &RTType_int);
+        }
+    `
+
+    behavior port ticker : Timing;
+    behavior port timer : Timing;
+
+    statemachine {
+        initial -> R1 
+        `
+            // On the 3rd tick we will remain in R1 since the junction
+            // has no else-branch. The timeout1 transition has then only
+            // executed twice, because we will only leave R1 when there is a 
+            // junction transition with an enabled guard.
+            // After 1 second proceed to choice testing.
+            timer.informIn(RTTimespec(1,0));
+        `;
+        state R1 {
+            entry
+            `            
+                tick();
+            `;
+        };
+        junction j1;
+        timeout1: R1 -> j1 on ticker.timeout 
+        `
+            timeout1_count++;
+        `;
+        junction_first: j1 -> R1 when `*static_cast<const int*>(rtdata) == 1`
+        `
+            result += "junction_first ";
+        `;
+        junction_second: j1 -> R1 when `*static_cast<const int*>(rtdata) == 2`
+        `
+            result += "junction_second ";
+        `;
+
+        proceed: R1 -> S1 on timer.timeout
+        `
+            ASSERT(result == "junction_first junction_second ", "All junction branches should have executed in order");
+            ASSERT(timeout1_count == 2, "By now timeout1 should have executed 2 times");
+        `;
+
+        state S1 {
+            entry
+            `
+                tick();
+            `;
+        };
+        state T1 {
+            entry
+            `
+                ASSERT(result == "choice_first choice_second choice_else ", "All choice branches should have executed in order");
+                ASSERT(timeout2_count == 3, "By now timeout2 should have executed 3 times");
+                PASS();
+            `;    
+        };
+        choice c1;
+        
+        timeout2: S1 -> c1 on ticker.timeout
+        `
+            timeout2_count++;
+        `;
+        choice_first: c1 -> S1 when `*static_cast<const int*>(rtdata) == 1`
+        `
+            result += "choice_first ";
+        `;
+        choice_second: c1 -> S1 when `*static_cast<const int*>(rtdata) == 2`
+        `
+            result += "choice_second ";
+        `;
+        choice_else: c1 -> T1 when `else` 
+        `
+            result += "choice_else ";
+        `;                      
+    };
+};
