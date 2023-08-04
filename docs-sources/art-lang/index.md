@@ -322,6 +322,28 @@ Note the following:
 !!! example
     You can find a sample application that uses a capsule constructor [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_constructor).
 
+### Capsule Destructor
+The destructor of a capsule frees the memory used for representing its states, ports etc. You cannot provide your own code to the destructor implementation. However, the `RTActor` class, which is the base class of every capsule class, provides a virtual function `_predestroy()` which you can override in your capsule. This function gets called just before the capsule instance is destroyed and is the place where you should put code that cleans up resources allocated by the capsule. Here is an example:
+
+``` art
+capsule C {    
+    [[rt::decl]]
+    `
+    public:        
+        virtual void _predestroy() override {        
+            // Clean-up and free allocated resources here
+            SUPER::_predestroy();
+        }    
+    `
+    // ...
+};
+```
+
+It's important to remember to invoke the inherited function by calling `SUPER::_predestroy()`. 
+
+!!! example
+    You can find a sample application with a capsule that overrides `_predestroy()` [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/optional_part).
+
 ## Protocol and Event
 A protocol defines events that may be sent in to a [port](#port) (so called in-events) and events that may be sent out from the same port (so called out-events). By grouping events into protocols, and then typing ports with such protocols, we can precisely define which events the capsule may send and receive through that port.
 
@@ -359,9 +381,9 @@ The event `relayEvent` above is both an in-event and an out-event. Such **symmet
 At run-time we often talk about a **message** rather than an event. A message is an instance of an event, similar to how a capsule instance is an instance of a capsule. In other words, a message is a run-time concept while an event is a design-time concept. 
 
 ## Port
-A port defines a named point of communication for a capsule. A port is typed by a [protocol](#protocol-and-event) which defines the events that may be sent in to (in-events) and out from (out-events) the port. A port may be conjugated in order to swap the meaning of in-events and out-events. That is, a capsule may send out-events on its non-conjugated ports, but in-events for its conjugated ports. A port becomes conjugated if you add a tilde (~) after its name.
+A port defines a named point of communication for a capsule. A port is typed by a [protocol](#protocol-and-event) which defines the events that may be sent in to (in-events) and out from (out-events) the port. A port may be conjugated in order to swap the meaning of in-events and out-events. That is, a capsule may send out-events on its non-conjugated ports, but in-events on its conjugated ports. A port becomes conjugated if you add a tilde (~) after its name.
 
-Ports are often named to describe the role or purpose of the communication that takes place on them. Note that when a capsule wants to send an event to another capsule it's the port name that is referenced, rather than the name of the receiver capsule (which the sender capsule shouldn't need to know about). By convention names of ports start with lowercase and use camelCase if the name consists of multiple words. 
+Ports are often named to describe the role or purpose of the communication that takes place on them. By convention names of ports start with lowercase and use camelCase if the name consists of multiple words. 
 
 Here is an example of a capsule with a few ports. Note that {$product.name$} provides several predefined protocols that can be used right away, for example `Timing`. Also note that you can declare multiple ports on a single line if the ports are of the same kind (`p1` and `p2` below are both service ports).
 
@@ -386,6 +408,19 @@ Note that ports can also be shown in a class diagram.
 
 ![](images/ports_class.png)
 
+When a capsule wants to send an event to another capsule it calls a function on the port. There is one such function for each out-event (or in-event if the port is conjugated). These functions return an object on which a `send()` function can be called. Note that the sending capsule doesn't need to know which capsule that will receive and handle the sent event. 
+
+Here is C++ code for sending events on ports with and without data:
+
+``` cpp
+pongPort.pong().send(); // Send event "pong" without data on the "pongPort"
+pingPort.ping(5).send(); // Send event "ping" with data (an integer) on the "pingPort"
+```
+
+!!! example
+    You can find a sample application that sends events on ports with and without data [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples/PingPong).
+
+
 ### Port Multiplicity
 At run-time an instance of a port can be connected to a port instance on another capsule. Such connections is what make a sent event be routed from the port on which it is sent, through a number of non-behavior ports, until it finally reaches a behavior port. By default a port has single multiplicity (1) meaning that at most one such connection can be established. However, you can specify a non-single multiplicity for a port to allow for more connections to be created at run-time. 
 
@@ -399,7 +434,7 @@ capsule Server {
 };
 ```
 
-In a structure diagrams a port is shown as "stacked" if it has non-single multiplicity.
+In a structure diagram a port is shown as "stacked" if it has non-single multiplicity.
 
 ![](images/port_multiplicity.png)
 
@@ -497,6 +532,8 @@ Connectors describe how events are routed within a capsule by connecting ports i
 2) The ports must be typed by the same protocol.
 
 3) The ports' conjugations must match. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have the opposite conjugation. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
+   
+4) If a connector is connected to a port and a part (where the port is defined on the capsule that types the part), then the port must be a service port. Only service ports are visible from the outside of a capsule.
 
 The example below shows the structure diagram of a capsule `Top` where we can see two connectors. 
 
@@ -531,6 +568,25 @@ The connector between `p1` and `p2` goes between two ports on the same level whi
 
 A connector doesn't have a direction, so it doesn't matter in which order it connects the two ports. That is, connecting X with Y is equivalent to connecting Y with X.
 
+### Local Binding
+A connector can connect two behavior ports on the same capsule (with opposite conjugations). At run-time this will lead to a **local binding** between these ports. This enables the capsule to send events to itself which sometimes can be useful. Here is an example:
+
+``` art
+capsule Top {    
+    behavior port pOut : TheProtocol;
+    behavior port pIn~ : TheProtocol;
+    connect pOut with pIn;     
+    // ...
+};
+```
+
+![](images/local_binding_connector.png)
+
+One reason for a capsule to send events to itself could be to split a big and long-running task into smaller tasks. By sending an event to itself after completion of each small task, the capsule can remain responsive to other events that may arrive in the meantime. When it receives the event it sent it can proceed with the next part of the big task.
+
+!!! example
+    You can find a sample application that uses a local binding [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/local_binding).
+
 ## Part
 A capsule can be decomposed by means of parts (also called "capsule parts" to emphasize that they are parts of a capsule). A part is a container that at run-time may hold one or many capsule instances. The part has a multiplicity that specifies the maximum number of capsule instances it can contain at run-time, and it has a type which is another capsule. All capsule instances must either be of that specific capsule type, or of a capsule type that inherits from it.
 
@@ -542,10 +598,28 @@ There are three kinds of parts which determine how and when they will be populat
    
 In a fixed part capsule instances are created automatically when the container capsule is created, and destroyed when the container is destroyed. Fixed parts by default have multiplicity 1. Such a part will always contain one and only one instance of the capsule that types the part.
 
+!!! example
+    You can find a sample application that has a fixed part with a multiplicity [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/fixed_part_with_multiplicity).
+
 2) **Optional part**
    
-In an optional part capsule instances don't have a strong lifetime relationship with the container capsule as is the case for fixed parts. The capsule instances can be created programmatically using the Frame service of the TargetRTS at some point after the container capsule has been created, and they can be destroyed before the container capsule is destroyed. However, at the latest they will be automatically destroyed when the container is destroyed. Optional parts by default have multiplicity 0..1. This means that they may either contain zero or one capsule instance at any point in time. The presence of zero in the multiplicity is what makes the part optional.
-   
+In an optional part capsule instances don't have a strong lifetime relationship with the container capsule as is the case for fixed parts. The capsule instances can be created programmatically using a [Frame](../targetrts-api/struct_frame.html) port at some point after the container capsule has been created, and they can be destroyed before the container capsule is destroyed. However, at the latest they will be automatically destroyed when the container is destroyed. Optional parts by default have multiplicity 0..1. This means that they may either contain zero or one capsule instance at any point in time. The presence of zero in the multiplicity is what makes the part optional. Here is C++ code for creating a capsule instance in an optional part (also known as **incarnating** the part) and then immediately destroying it:
+
+``` cpp
+RTActorId id = frame.incarnate(thePart);
+if (!id.isValid()) {
+    // Failed to incarnate thePart
+}
+frame.destroy(id);
+```
+
+It's important to check that incarnation was successful since there are many reasons why it can fail (e.g. too low multiplicity to fit the created capsule instance, not enough memory etc). 
+
+If the instantiated capsule has a constructor you need to use a capsule factory for providing the constructor arguments (either provided when doing the incarnation as shown [here](#capsule-constructor) or specified on the part as described [here](#part-with-capsule-factory)).
+
+!!! example
+    You can find a sample application that creates and destroys capsule instances in optional parts [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/optional_part).
+
 3) **Plugin part**
    
 A plugin part is similar to an optional part in that it is populated by capsule instances programmatically. However, the capsule instances are not created in the plugin part but instead imported into the plugin part from another part. Typically such a capsule instance is first created into an optional part, and then at some later point in time imported into a plugin part. Later it can be deported (i.e. removed) from the plugin part and perhaps imported into another plugin part. This makes it possible to create very dynamic composite structures where the same capsule instance can play different roles in different parts over time. Moving a capsule instance by deporting it from one plugin part and then importing it in another plugin part is more efficient than destroying the capsule instance in one optional part and then creating another capsule instance in another optional part. Plugin parts are typically used together with [unwired ports](#unwired-port). In general it's possible to import a capsule instance into more than one plugin part at the same time, but it can only be imported if its ports are not already bound in its current location. Plugin parts by default have multiplicity 0..1.
@@ -606,7 +680,7 @@ State machines are used for specifying the behavior of [capsules](#capsule). It 
 
 A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving events on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send events to other capsule instances, something that may cause transitions to execute in their state machines. 
 
-A state machine may also have **pseudo states**, which just like states may be connected with transitions, but that unlike states are not places where the state machine should stay for some time. For example, most pseudo states like junctions and entry/exit points merely act as connection points that make it possible to execute more than one transition when transitioning between two states. The notable exception is the choice in which actually the state machine may get stuck for ever, but this is something that should not happen in a correctly designed state machine.
+A state machine may also have **pseudo states**, which just like states may be connected with transitions, but that unlike states are not places where the state machine should stay for some time. For example, most pseudo states like junctions and entry/exit points merely act as connection points that make it possible to execute more than one transition when transitioning between two states. The notable exception is the choice in which actually the state machine may get stuck for ever, but that would be an error situation that should not happen in a correctly designed state machine.
 
 ### State
 The states of a state machine are the places where the state machine may stay for some time while waiting for a message to arrive that potentially can cause the state machine to transition to another state. States should have names that describe what is happening while the state machine stays there, or what has happened for the state machine to arrive there. For example, "WaitForInit", "Processing" or "Terminated". By convention state names start with uppercase.
@@ -648,6 +722,9 @@ state Walk {
     `;
 };
 ```
+
+!!! example
+    You can find a sample application where a state has an entry and exit action [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/entry_exit_action).
 
 ### Transition
 A transition connects a source state (or pseudo state) to a target state (or pseudo state). When a capsule instance handles a message that was received on one of its behavior ports, one or several transitions may execute.
@@ -693,7 +770,7 @@ Every state machine needs exactly one initial transition. When the state machine
 
 The source of the initial transition is the initial pseudo state which is declared using the `initial` keyword. Just like for any transition it's optional to give a name to the initial transition (in fact it's often left unnamed).
 
-For capsule instances that are programmatically created (i.e. located in optional capsule parts) you can provide initialization data at the time of creation. This is a data object that can be accessed in the effect code of the initial transition. Here is an example:
+For capsule instances that are programmatically created (i.e. located in optional capsule parts) you can provide initialization data at the time of creation in the call to `incarnate()` on a [Frame](../targetrts-api/struct_frame.html) port. The initialization data can be accessed in the effect code of the initial transition. Here is an example:
 
 ``` art
 initial -> WaitForServerInit
@@ -727,6 +804,9 @@ state Done {
 ```
 
 Note the usage of an asterisk (`*`) to specify that any event received on `myPort` will trigger the internal transition when the state machine is in the `Done` state. Such "receive-any" events can of course be used for a trigger of any transition, but can in particular be useful for internal transitions that should handle all messages received on a port that are not handled by other triggered transitions leaving substates of the state. If another event is added to the port's protocol in the future, such a trigger will handle the new event too without a need for being updated.
+
+!!! example
+    You can find a sample application that has an internal transition with a "receive-any" event trigger [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/internal_transition_receive_any).
 
 Internal transitions are examples of so called self-transitions. To learn about other types of self-transitions see [this chapter](#local-transition).
 
@@ -823,6 +903,9 @@ statemachine {
 
 Of course, in the above simple example the same code reuse could also be obtained by putting the common code in a capsule member function which is called by each of the incoming transitions. But if the common transition is followed by more non-triggered transitions the above approach is more feasible.
 
+!!! example
+    You can find a sample application that demonstrates usage of a choice and junction [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_and_junction).
+
 ### Hierarchical State Machine
 A state machine is hierarchical if it contains at least one composite state, i.e. a state with a nested state machine. A transition that is triggered in the enclosing state machine (i.e. the state machine that contains the composite state) should enter a composite state by specifying an entry point of the composite state as the target. In the nested state machine another transition can connect that entry point to a state in the nested state machine. A transition in the nested state machine may specify an exit point of the composite state as the target. In the enclosing state machine another transition can connect that exit point to a state in the enclosing state machine.
 
@@ -833,7 +916,7 @@ It's also possible to directly enter a composite state without using an entry po
 !!! note 
     It's recommended to always enter a composite state using an entry point as the behavior then doesn't depend on if the state was previously entered or not.
 
-Below is an example of an hierarchical state machine with a composite state `CompositeState` that contains a nested state machine. Note that you can declare multiple entry or exit points on the same line.
+Below is an example of a hierarchical state machine with a composite state `CompositeState` that contains a nested state machine. Note that you can declare multiple entry or exit points on the same line.
 
 <p id="hierarchical_sm_sample"/>
 
@@ -861,13 +944,21 @@ Note that a dot (`.`) is used as scope resolution operator, to make it possible 
 
 It is possible to only connect an entry point on the "outside". Entering such an entry point will behave in the same way as entering the composite state without using an entry point (see above). It's therefore not recommended. In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
 
+!!! example
+    You can find a sample application that contains a composite state with an entry and exit point [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/compound_transition_rtdata).
+
 #### Deep History
 Every nested state machine has an implicit pseudo state with the name `history*` (in state diagrams it's shown as `H*` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a *deep* history). 
 
 In the [example above](#hierarchical_sm_sample) we can see that the transition from `ep2` targets the deep history pseudo state. This means that if the `Nested` substate is active and then the transition to `ex1` gets triggered, the state `Other` becomes active. If then the transition to `ep2` gets triggered the `CompositeState` will be entered using deep history so that the `Nested` substate will again become active.
 
+!!! example
+    You can find a sample application that uses the deep history pseudo state [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/deep_history).
+
 #### Local Transition
-A transition in a nested state machine where the source is an entry point and the target is an exit point, and these entry/exit points only are connected on the "inside", is a **local transition**. A local transition is a self-transition that behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the composite state and then enter it again, but it will not do this for the substate that is active in the composite state. Hence, if a composite state has an [exit action](#entry-and-exit-action) it will be called for the composite state, but not for the active substate. An external self-transition on the other hand will exit both the composite state and all active substates recursively, and then enter these states again. Exiting happens bottom-up which means that the deepest nested substate will first be exited, then its parent state, and so on until the top composite state is exited. Entering happens in the opposite order, i.e. in a top-down fashion.
+A transition in a nested state machine that connects an entry point and exit point on the same state, and these entry/exit points only are connected on the "inside", is a **local transition**. A local transition is a self-transition that behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the substates, run the effect code, and then enter the substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. 
+
+Both for local and external self-transitions exiting of states happens bottom-up which means that the deepest nested substate will first be exited, then its parent state, and so on. Entering happens in the opposite order, i.e. in a top-down fashion.
 
 Let's look at an example to understand the difference between these three kinds of self-transitions:
 ``` art
@@ -929,6 +1020,9 @@ No state is exited and the active state configuration remains unchanged.
 6) `Nested1` is entered. 
    
 7) `Nested2` is entered.
+
+!!! example
+    You can find a sample application that has a local transition [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/local_transition).
 
 ## Class with State Machine
 Art allows you to create passive classes with state machines. This can be an alternative to using a [capsule](#capsule) in case you only need a passive stateful data object, and don't need the ability to send events to it, or to let it execute in its own context. A class with a state machine is more lightweight than a capsule at runtime. 
@@ -1050,6 +1144,17 @@ Below is an example of a capsule `D` that inherits from another capsule `B`. In 
 
 ``` art
 capsule B {    
+    [[rt::decl]]
+    `        
+        protected:
+        virtual void doSmth();
+    `
+    [[rt::impl]]
+    `        
+        void B_Actor::doSmth() {
+            // ...
+        }
+    `
     statemachine {
         state BS, BS2;
         _Initial: initial -> BS;
@@ -1060,17 +1165,23 @@ capsule D : B, `IDataManager`, `IController` {
     [[rt::decl]]
     `
         // IDataManager impl
-        public:
+        protected:
         void manageData() override;
 
-        // IController impl
-        public:
+        // IController impl        
         void control() override;
+
+        void doSmth() override;
     `
 
     [[rt::impl]]
     `
         // impl of manageData() and control()
+
+        void D_Actor::doSmth() {
+            // ...
+            SUPER::doSmth(); // Call inherited function
+        }
     `
 
     statemachine {
@@ -1081,7 +1192,12 @@ capsule D : B, `IDataManager`, `IController` {
 };
 ```
 
-In the example we can see that `D` overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the `rt::impl` code snippet. We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background.
+In the example we can see that `D` overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the `rt::impl` code snippet. `D` also overrides a virtual function `doSmth()` from the base capsule `B`. The implementation of that function (also placed in the `rt::impl` code snippet) calls the inherited function by using a macro `SUPER`. This macro expands to the name of the base capsule class. Using this macro, instead of the base capsule class name, makes it easier to copy/paste code from one capsule to another.
+
+!!! example
+    You can find a sample application where a capsule inherits from both another capsule and from C++ classes [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_cpp_inheritance).
+
+We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background.
 
 ![](images/sm_redefinition.png)
 
@@ -1166,6 +1282,9 @@ protocol ExtendedMachineEvents : MachineEvents {
     in redefine startDeferred(`unsigned long long`);
 };
 ```
+
+!!! example
+    You can find a sample application using protocol inheritance [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/protocol_inheritance).
 
 ## Template
 A template is a type that is parameterized by means of template parameters to make it more generic. When a template is used (a.k.a. instantiated), actual template parameters must be provided that match the formal template parameters defined in the template. Both [capsules](#capsule) and [classes](#class-with-state-machine) can have template parameters. Just like in C++ two kinds of template parameters are supported:
