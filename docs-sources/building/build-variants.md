@@ -122,6 +122,9 @@ Also in this function we can use the [`TCF`](#tcf-object) and [`MSG`](#msg-objec
 
 By modifying the [compileArguments](transformation-configurations.md#compilearguments) TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize how the application is built, and also what it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.
 
+!!! example
+    You can find a sample application that uses build variants [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/build_variants).
+
 ## Build Configuration
 When building a TC that uses build variants you need to provide values for all build variant settings, except those for which you want to use their default values. These values are referred to as a **build configuration**. You can only specify a build configuration when building with the [Art Compiler](art-compiler.md). When building from within the IDE, all build variant settings will get their default values.
 

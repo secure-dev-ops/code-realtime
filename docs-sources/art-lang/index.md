@@ -1205,6 +1205,14 @@ Note that to be able to redefine the initial transition of `B` it is necessary t
 
 The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.
 
+!!! example
+    You can find sample applications where capsule state machines are inherited here:
+
+    * [Redefining a transition effect](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/transition_inheritance)
+    * [Redefining a transition trigger](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/compound_transition_rtdata_inherited)
+    * [Redefining a transition guard](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_guard_redefinition)
+    * [Excluding a transition](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_guard_exclude)
+
 Capsule inheritance also has a third dimension, which relates to its structure. [Parts](#part) and [ports](#port) defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. [protocol](#protocol-and-event)), [multiplicity](#port-multiplicity) and the [notification property](#notification-port) of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. 
 
 Below is an example of a capsule `DPPI` that inherits from another capsule `BPPI`. The port `port1` and the part `part1` is redefined, while the port `port2` and part `part2` are excluded.
@@ -1236,6 +1244,9 @@ capsule DPPI : BPPI {
 Redefined and excluded elements are also shown in class diagrams. Below is the class diagram for the capsules in the above example.
 
 ![](images/class_diagram_redefinitions.png)
+
+!!! example
+    You can find a sample application where parts are inherited [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/part_inheritance).
 
 ### Class Inheritance
 A [class with state machine](#class-with-state-machine) can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.
@@ -1284,7 +1295,10 @@ protocol ExtendedMachineEvents : MachineEvents {
 ```
 
 !!! example
-    You can find a sample application using protocol inheritance [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/protocol_inheritance).
+    You can find sample applications using protocol inheritance here:
+
+    * [A derived protocol inherits events from a base protocol](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/protocol_inheritance)
+    * [A derived protocol redefines the parameter type of an inherited event](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event)
 
 ## Template
 A template is a type that is parameterized by means of template parameters to make it more generic. When a template is used (a.k.a. instantiated), actual template parameters must be provided that match the formal template parameters defined in the template. Both [capsules](#capsule) and [classes](#class-with-state-machine) can have template parameters. Just like in C++ two kinds of template parameters are supported:
