@@ -1,0 +1,59 @@
+capsule Top 
+{
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        private: std::string result;
+    `
+
+    behavior port timer : Timing;
+
+    statemachine {
+        state Composite {
+            entrypoint ep1, ep2;
+            exitpoint ex2;
+            entry
+            `
+                result += "Enter:Composite ";
+            `;
+            exit
+            `
+                result += "Exit:Composite ";
+            `;
+            state Nested {
+                entry
+                `
+                    result += "Enter:Nested ";
+                `;
+                exit
+                `
+                    result += "Exit:Nested ";
+                `;
+            };
+            ep1 -> Nested;
+            local: ep2 -> ex2 on timer.timeout 
+            `
+                result += "Effect:local ";
+                timer.informIn(RTTimespec(1,0));
+            `;
+        };
+        initial -> Composite.ep1
+        `
+            timer.informIn(RTTimespec(1,0));
+        `
+        ;
+        state Done;
+        done: Composite -> Done on timer.timeout
+        `
+            ASSERT(result == "Enter:Composite Enter:Nested Exit:Nested Effect:local Enter:Nested ", "Unexpected result");
+            PASS();
+        `;
+    };
+};

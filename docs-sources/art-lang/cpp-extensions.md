@@ -120,7 +120,7 @@ struct [[rt::auto_descriptor]] Point {
 };
 
 #include <string>
-typedef std::string MyString [[rt::auto_descriptor]];
+typedef std::string [[rt::auto_descriptor]] MyString;
     
 #include <vector>
 using MyVector [[rt::auto_descriptor]] = std::vector<int>; 
@@ -145,7 +145,7 @@ Here is an example of how to override the default implementation of a type descr
     }; 
 
     #include <string>
-    typedef std::string MyString [[rt::auto_descriptor]];
+    typedef std::string [[rt::auto_descriptor]] MyString;
 `
 
 [[rt::impl]]
@@ -165,6 +165,15 @@ Here is an example of how to override the default implementation of a type descr
 ```
 
 Note that the default implementation of a type descriptor for a typedef or type alias makes the assumption that the typedefed or aliased type is a structured type which has both a parameterless constructor, a copy constructor and a move constructor. If this assumption is not correct, you need to write your own type descriptor functions, or even [implement the whole type descriptor manually](#manually-implemented).
+
+!!! example
+    You can find sample applications that use automatically generated type descriptors here:
+    
+    * [Automatically generated type descriptor for an enum](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/enum_type_descriptor)
+    * [Automatically generated type descriptor for an enum class with a custom encode function](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/enum_type_descriptor_custom_encode)
+    * [Automatically generated type descriptor for a struct](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/struct_type_descriptor)
+    * [Automatically generated type descriptor for a struct that contains another struct](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/struct_type_descriptor_nested)
+    * [Automatically generated type descriptor for a typedef and type alias](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/typedef_type_descriptor)
 
 ### Manually Implemented
 If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the **rt::manual_descriptor** attribute. The code generator will then skip generation of the following parts of the type descriptor:
@@ -216,6 +225,9 @@ Use the [Content Assist](../working-with-art/art-editor.md#content-assist) templ
 
 ![](images/type_descriptor_object_content_assist.png)
 
+!!! example
+    You can find a sample application that uses a manually implemented type descriptor [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/enum_type_descriptor_manual).
+
 ### Field Descriptor
 A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class `RTFieldDescriptor`. 
 
@@ -247,5 +259,11 @@ Use [Content Assist](../working-with-art/art-editor.md#content-assist) to create
 
 ![](images/field_descriptor_object_content_assist.png)
 
+!!! example
+    You can find a sample application where a field descriptor is declared [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/type_descriptor_inheritance).
+
 ### Inheritance
 If a class or struct inherits from another class or struct, as in the example above, then the type descriptor of the derived type will have a reference to the type descriptor of the base type. In this case both types need to have a type descriptor. A type descriptor can at most reference one base type descriptor (a.k.a. a super descriptor) which means that only single inheritance is supported for automatically generated type descriptors. If you use multiple inheritance you have to write a [manual type descriptor](#manually-implemented) for the derived type.
+
+!!! example
+    You can find a sample application that uses an automatically implemented type descriptor for a class that inherits from another class [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/type_descriptor_inheritance).

@@ -1,0 +1,73 @@
+protocol P {
+    out e();
+};
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        std::string result;
+    `
+    behavior port p1 : P;
+    behavior port p2~ : P;
+    connect p1 with p2;
+
+    service port timer : Timing;
+    statemachine {
+        initial -> CompositeState.ep1
+        `
+            timer.informIn(RTTimespec(1,0));
+        `;
+        state CompositeState {
+            state Nested {
+                entrypoint ep1;
+                entry
+                `
+                    result += "Nested ";
+                `;
+                state Nested2 {
+                    entrypoint ep1;
+                    entry
+                    `
+                        result += "Nested2 ";
+                    `;
+                    state Nested3 {
+                        entry
+                        `
+                            result += "Nested3 ";
+                        `;
+                    };
+                    ep1 -> Nested3;
+                };
+                ep1 -> Nested2.ep1;
+            };
+            entrypoint ep1, ep2;
+            exitpoint ex1;            
+            ep1 -> Nested.ep1;            
+            timeout: Nested -> ex1 on timer.timeout
+            `
+                ASSERT(result == "Nested Nested2 Nested3 ", "First entry: States should be entered top-down");
+                timer.informIn(RTTimespec(1,0));
+            `;
+            ep2 -> history*;
+        };
+        state Other;
+        CompositeState.ex1 -> Other;
+        Other -> CompositeState.ep2 on timer.timeout
+        `
+            p1.e().send();
+        `;
+        state Done;
+        done: CompositeState -> Done on p2.e
+        `
+            ASSERT(result == "Nested Nested2 Nested3 ", "Deep history entry: States should be entered top-down");            
+            PASS();
+        `;
+    };
+};

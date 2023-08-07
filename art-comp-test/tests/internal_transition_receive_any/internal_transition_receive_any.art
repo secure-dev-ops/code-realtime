@@ -1,0 +1,51 @@
+protocol Events {
+    out error();
+    out e1();
+    out e2();
+};
+
+capsule Top 
+[[rt::properties(
+    rule_config="X0029"
+)]]
+
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        private: bool t1 = false, t2 = false;
+    `
+
+    behavior port p1 : Events;
+    behavior port p2~ : Events;
+    connect p1 with p2;    
+
+    statemachine {
+        state Composite {
+            state N1, N2;
+            initial -> N1;
+            t1: N1 -> N2 on p2.e1
+            `
+                t1 = true;
+            `;
+            t2: N1 -> N2 on p2.e2
+            `
+                t2 = true;
+            `;
+            onError: on p2.* // Receive any event on p2
+            `
+                ASSERT(t1 && t2, "Both t1 and t2 should have executed");
+                PASS();
+            `;
+        };
+        initial -> Composite
+        `
+            p1.e1().send();
+            p1.e2().send();
+            p1.error().send();
+        `;
+    };
+};
