@@ -379,7 +379,6 @@ The multiplicity of a capsule [part](../art-lang#part) must match the part's kin
 
 * A fixed part must have a multiplicity greater than zero. This is because when the container capsule is incarnated at least one capsule instance must be incarnated into the fixed part.
 * An optional part must have a lower multiplicity of zero. This means that when the container capsule is incarnated no capsule instances will be incarnated into the optional part. Hence, this is what makes the part optional.
-* It's only possible to specify the part multiplicity using a C++ expression if the part is fixed.
 
 In case any of these inconsistencies is detected, the faulty multiplicity will be ignored and a default multiplicity (see [Part](../art-lang#part)) will be used instead.
 
@@ -387,7 +386,6 @@ In case any of these inconsistencies is detected, the faulty multiplicity will b
 capsule PKMI_Cap { 
     fixed part myPart : OtherCap [0..2]; // ART_0014 (Fixed part should not have lower multiplicity 0)
     optional part myPart2 : OtherCap [1..5]; // ART_0014 (Optional part should not have lower multiplicity > 0)
-    optional part myPart3 : OtherCap [`5`]; // ART_0014 (Only a fixed part may have its multiplicity specified with a code expression)
     
     statemachine {
         state State;
@@ -697,7 +695,7 @@ capsule Ponger {
 
 In the above picture we can more easily understand the two errors reported for the `Top` capsule's two parts `ping` and `pong`. Port `Ponger::p2` is a behavior port so one connection is expected for that port (but none is present), while port `Pinger::p1` is a non-behavior port so two connections are expected for that port (but only one is present, on its "inside"). Both problems can be solved by adding a connector in `Top` which connects these ports on their "outside".
 
-### ART_0026_illegalConnection
+### ART_0026_connectedPortsWithIncompatibleConjugations
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible conjugations. | N/A
@@ -872,6 +870,54 @@ capsule C31 {
         initial -> State;
     };
 };
+```
+
+### ART_0032_unrecognizedColor
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A color is specified for an element but the color was not recognized. | N/A
+
+A [color](../art-lang#color) can be assigned to most elements and will be used when showing the element on a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. In case the color value is on another format it will not be recognized and will be ignored when rendering the diagram.
+
+``` art
+capsule C32 {
+    behavior port frame [[rt::properties(color="#gd1d1d")]]: Frame; // ART_0032 (invalid hex digit 'g')
+    behavior port p [[rt::properties(color="#cc")]] : Proto; // ART_0032 (too few digits)
+
+    statemachine {
+        state State [[rt::properties(color="#5d04040")]]; // ART_0032 (too many digits)
+        initial -> State;
+    };
+};
+```
+
+### ART_0033_connectedNonServicePortOnPart
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A connector connects a port on a part but the port is not a service port. | N/A
+
+A [port](../art-lang#port) is only visible from the outside of a capsule if it is a service port. Hence, a connector cannot connect a port on a part unless the port is a service port.
+
+``` art
+capsule C33 {
+    optional part thePart : Other;
+    behavior port bp : Proto; 
+    connect bp with thePart.bp2; // ART_0033
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Other {
+    behavior port bp2 : Proto;
+    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+}
 ```
 
 ## Core Validation Rules
