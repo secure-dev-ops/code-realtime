@@ -1,7 +1,7 @@
 [[rt::decl]]
 `
     #include <string>
-    typedef std::string MyString [[rt::auto_descriptor]];
+    typedef std::string [[rt::auto_descriptor]] MyString ;
     
     #include <vector>
     using MyVector [[rt::auto_descriptor]] = std::vector<int>; 
@@ -61,7 +61,7 @@ capsule Cap {
                 RTAsciiEncoding coding( &buffer );
                 mt->_encode_func(mt, msg->getData(), &coding);                
                 std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
-                ASSERT(RTMemoryUtil::strcmp("\"Hello World\"", buffer.getString()) == 0, "Expect ASCII encoding to be \"Hello World\"");
+                ASSERT(RTMemoryUtil::strcmp("\"Hello World!\"", buffer.getString()) == 0, "Expect ASCII encoding to be \"Hello World\"");
             `;
 
             vec_received: on pIn.e2
