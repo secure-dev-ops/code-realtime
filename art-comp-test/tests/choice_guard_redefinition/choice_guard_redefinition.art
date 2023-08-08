@@ -48,11 +48,7 @@ capsule Top {
     };
 };
 
-capsule Base 
-[[rt::properties(
-    rule_config="X0007"
-)]]
-{
+capsule Base {
     [[rt::impl_preface]]
     `
         #include "testlib.art.h"        
