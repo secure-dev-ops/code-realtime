@@ -1,6 +1,6 @@
 Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another. 
 
-The Art language provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
+The Art language provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
 
 ![](images/TargetRTS.png)
 
@@ -1403,7 +1403,7 @@ class MC [[rt::properties(
 
 * **Enumeration**
 
-A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the [Content Assist](working-with-art/art-editor.md#content-assist) feature in the Art file editor. Place the cursor after the equal sign, and press ++ctrl+space++. Here is an example of defining a property of enumeration type:
+A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the [Content Assist](../working-with-art/art-editor.md#content-assist) feature in the Art file editor. Place the cursor after the equal sign, and press ++ctrl+space++. Here is an example of defining a property of enumeration type:
 
 ``` art
 class MC [[rt::properties(

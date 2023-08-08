@@ -6,7 +6,7 @@ Art is a textual language but there is also a graphical notation for many parts 
 
 The picture below shows an example of what these diagrams may look like:
 
-![](../images/diagrams.png)
+![](../art-lang/images/diagrams.png)
 
 ## Opening Diagrams
 To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: **Open State Diagram**, **Open Structure Diagram** or **Open Class Diagram**. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.
@@ -76,7 +76,7 @@ Many diagram commands mentioned above can be invoked using the keyboard. Press +
 
 ![](images/diagram-commands.png)
 
-In this pop-up menu you also find convenient commands for navigating to related diagrams. For example, from the state diagram of a capsule you can navigate to the structure and class diagrams of that same capsule.
+In this pop-up menu you also find convenient commands for [navigating to related diagrams](#related-diagrams). For example, from the state diagram of a capsule you can navigate to the structure and class diagrams of that same capsule.
 
 ### Diagram Appearance
 Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for elements of a state diagram. See the [color](../art-lang/index.md#color) property for more information.
