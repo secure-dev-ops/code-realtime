@@ -1,0 +1,79 @@
+[[rt::decl]]
+`
+    #include <thread>
+    typedef std::thread::id [[rt::auto_descriptor]] ThreadId;    
+`
+
+protocol PROT {
+    [[rt::header_preface]]
+    `        
+        #include "threads.art.h"
+    `
+    out threadId(`ThreadId`);
+};
+
+capsule Top 
+{         
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+
+        namespace {
+            std::thread::id threadId1;
+            std::thread::id threadId2;
+        };
+    `
+    optional part caps : Cap[2];
+    behavior port frame : Frame;
+    behavior port p~ : PROT[2];
+    connect p with caps.p;
+
+    statemachine {
+        state State1, State2, State3 {
+            entry
+            `
+                ASSERT(threadId1 != threadId2, "Thread ids should be different");
+            `;
+        };
+        initial -> State1 
+        `
+            RTActorId id = frame.incarnate(caps); 
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate caps[0]");
+            }
+            id = frame.incarnate(caps, EmptyObject /* no initialization data */, MyLogicalThread);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate caps[0]");
+            }
+            // caps[0] will run in the same physical thread as Top, i.e. in the main thread
+            // caps[1] will run in the physical thread to which MyLogicalThread is mapped
+        `;
+        State1 -> State2 on p.threadId
+        `
+            threadId1 = *rtdata;
+        `;
+        State2 -> State3 on p.threadId
+        `
+            threadId2 = *rtdata;
+        `;
+    };
+};
+
+capsule Cap {        
+    [[rt::header_preface]]
+    `
+        #include <thread>
+    `
+    service behavior port p : PROT;
+    behavior port timer : Timing;
+
+    statemachine {
+        state State;
+        initial -> State 
+        `           
+            p.threadId(std::this_thread::get_id()).send();
+        `;
+        
+    };
+};
+
