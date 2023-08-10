@@ -17,7 +17,7 @@ capsule Top
     [[rt::impl_preface]]
     `
         #include "testlib.art.h"        
-
+        
         namespace {
             std::thread::id threadId1;
             std::thread::id threadId2;
@@ -33,6 +33,7 @@ capsule Top
             entry
             `
                 ASSERT(threadId1 != threadId2, "Thread ids should be different");
+                PASS();
             `;
         };
         initial -> State1 
