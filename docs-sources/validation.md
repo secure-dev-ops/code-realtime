@@ -961,6 +961,26 @@ capsule C35 {
 };
 ```
 
+## Code Generation Validation Rules
+Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. When an Art file is edited in the UI these rules run slightly after the semantic [validation rules](#validation-rules). When you run the [Art Compiler](building/art-compiler.md) these rules will not run at all, if the semantic validation rules found at least one problem with Error severity (because in that case code generation will not start).
+
+Validation rules that are related to code generation can be enabled and disabled, and have their severity customized, in the same way as the semantic validation rules. Code generation validation rules have ids in the range starting from 4000 and above and are listed below.
+
+### ART_4000_eventTypeWithoutTypeDescriptor
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | An event type has a type for which no type descriptor could be found. | N/A
+
+If an event has a data parameter the type of this parameter must have a [type descriptor](art-lang/cpp-extensions.md#type-descriptor). Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most predefined C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either [automatically generated](art-lang/cpp-extensions.md#automatically-generated) by means of the `rt::auto_descriptor` attribute, or [manually implemented](art-lang/cpp-extensions.md#manually-implemented)). It's necessary that such a user-defined type is defined so that it can be referenced from the event without use of qualifiers. Use a typedef or type alias to give a name to an existing type that is defined in a different namespace.
+
+If the code generator doesn't find a type descriptor for the event parameter type, this warning will be reported, and the C++ function that is generated for the event will have void type (i.e. the same as if the event doesn't have a data parameter).
+
+``` art
+protocol PROT {
+    out threadId(`std::string`); // ART_4000
+};
+```
+
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
 
