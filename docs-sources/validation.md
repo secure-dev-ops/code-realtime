@@ -920,6 +920,47 @@ capsule Other {
 }
 ```
 
+### ART_0034_servicePortWithoutEvents
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A service port is typed by a protocol that doesn't have any events. | N/A
+
+A service [port](../art-lang#port) is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a notification port which receives the `rtBound` and `rtUnbound` events when the port gets connected or disconnected to another port at runtime. This means that a notification port can be useful even if its protocol doesn't contain any events.
+
+``` art
+protocol EmptyProtocol {
+};
+
+capsule C34 {
+    service port myPort : EmptyProtocol; // ART_0034
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+```
+
+### ART_0035_timerServicePort
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A timer port is a declared to be a service port. | Make Behavior Port
+
+A timer [port](../art-lang#port) is typed by the predefined [Timing](../targetrts-api/struct_timing.html) protocol. It has one event `timeout` which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the `timeout` event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.
+
+A Quick Fix is available that will change a service timer port to become a behavior port.
+
+``` art
+capsule C35 {
+    service port t : Timing; // ART_0035
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+```
+
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
 
@@ -963,3 +1004,14 @@ capsule C {
     };
 };
 ```
+
+## Internal Errors
+A special validation rule is used for detecting and reporting so called internal errors. These are errors that should never occur, but if they still do they are caused by a defect in {$product.name$}. If you encounter an internal error please report it as described [here](../support).
+
+### ART_9999_internalError
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | An internal error has occurred. | N/A
+
+Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating {$product.name$}. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of {$product.name$} (see [Releases](../releases)). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described [here](../support).
+
