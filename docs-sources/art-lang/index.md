@@ -188,7 +188,7 @@ Below are examples of these three kinds of diagrams:
 
 ![](images/diagrams.png)
 
-Diagrams are automatically updated when the corresponding Art file is modified. They use automatic layout to a large extent to avoid the need for manual tidy-up of diagrams when something changes. This also significantly reduces the need for storing diagram specific properties in the Art files, such as coordinates or symbol dimensions. However, there are some properties used when rendering diagrams that are stored in the Art file. For example, if you assign a custom [color](#color) to a state symbol it will be stored as a [property](#property) on the state.
+Diagrams are automatically updated when the corresponding Art file is modified. They use automatic layout to avoid the need for manual tidy-up of diagrams when something changes. This also significantly reduces the need for storing diagram specific properties in the Art files, such as coordinates or symbol dimensions. However, there are some properties used when rendering diagrams that are stored in the Art file. For example, if you assign a custom [color](#color) to a state symbol it will be stored as a [property](#property) on the state.
 
 ``` art
 capsule Cap {    
