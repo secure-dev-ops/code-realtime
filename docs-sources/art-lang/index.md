@@ -661,13 +661,13 @@ In the above diagram the filled diamonds show that there is a strong life-time r
 ### Part with Capsule Factory
 If the capsule that types a part has a [capsule constructor](#capsule-constructor) with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. 
 
-* `rt::createFunction` Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity > 1) etc.
-* `rt::destroyFunction` Defines how to destroy an instance of the capsule. By default it's destroyed using the `delete` operator.
+* `rt::create` Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity > 1) etc.
+* `rt::destroy` Defines how to destroy an instance of the capsule. By default it's destroyed using the `delete` operator.
  
 Here is an example where a part defines a capsule factory that specifies a create function. The create function gets the mandatory constructor parameters `rtg_rts` and `rtg_ref` as arguments, as well as an `index` argument that specifies the index where the created capsule instance would be inserted by default.
 
 ``` art
-part engine : Engine [[rt::createFunction]]
+part engine : Engine [[rt::create]]
 `
     return new Engine(rtg_rts, rtg_ref, true /* custom constructor arg */);
 `;
