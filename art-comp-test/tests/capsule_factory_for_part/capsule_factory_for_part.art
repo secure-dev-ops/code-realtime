@@ -1,0 +1,54 @@
+protocol Proto {    
+    in ack(`int`);    
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "CapsuleWithConstructor.h"        
+    `
+    
+    behavior port p : Proto;
+
+    part thePart : CapsuleWithConstructor [[rt::createFunction]]
+    `
+        return new CapsuleWithConstructor(rtg_rts, rtg_ref, 14); // Use capsule constructor
+    `;
+    
+    connect p with thePart.p;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1;     
+        State1 -> State2 on p.ack
+        `
+            int result = *rtdata;
+            ASSERT(result == 14, "Unexpected result - expected 14 as passed to capsule constructor");
+            PASS();
+        `;
+    };
+};
+
+capsule CapsuleWithConstructor {
+    [[rt::decl]]
+    `
+    private:
+        int number;
+    public:
+        CapsuleWithConstructor_Actor(RTController*, RTActorRef*, int);
+    `
+    [[rt::impl]]
+    `
+        CapsuleWithConstructor_Actor::CapsuleWithConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, int v)
+            : RTActor(rtg_rts, rtg_ref), number(v) {}
+    `
+    service behavior port p~ : Proto;
+    statemachine {
+        state State;
+        initial -> State
+        `
+            p.ack(number).send();
+        `;
+    };
+};
