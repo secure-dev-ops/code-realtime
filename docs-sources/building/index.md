@@ -61,6 +61,8 @@ For C++ code snippets you can as an alternative perform the navigation using a t
 
 If the cursor is within the C++ code snippet when navigating, the cursor will be set at the same place in the generated C++ code. This is convenient if you start to edit a code snippet in an Art file but later realize that you want to edit it in the generated C++ code instead.
 
+You can also navigate in the other direction, i.e. from generated C++ code to the source Art file. This is described below in [Making Changes in Generated C++](#making-changes-in-generated-c).
+
 ## Making Changes in Generated C++
 C++ code snippets that are embedded in the Art file will be enclosed by special comments in the generated C++ file. You can edit such code snippets in a generated C++ file. When you save the file your changes will be automatically propagated back to the Art file. Here is an example of what a code snippet may look like in the generated C++ code:
 
@@ -79,6 +81,10 @@ The comment contains information about the source Art file and the Art element i
 One very common scenario where it's useful to change a code snippet in a generated file is when there is a compilation error reported in the code snippet. Navigating from that compilation error will take you to the code snippet in the generated file, and it's convenient to directly fix the problem there.
 
 Another scenario is when you write new code in such a code snippet and want to take advantage of the editing support for C++ that is provided by your IDE, and/or need to see the full C++ context of the edited code snippet. You can navigate from the code snippet in the Art file to the code snippet in the generated file as described [above](#navigation-between-art-and-generated-c).
+
+Sometimes you may need to navigate in the other direction, i.e. from a code snippet in the generated C++ code to the source Art file. For example, when editing the effect code of a transition it can be useful to look at that transition in its state machine (either in the Art file or in a state diagram). You can ++ctrl++-click the hyperlink of the USR-comment to perform this navigation as shown in the picture below.
+
+![](images/cpp_to_art_navigation.png)
 
 You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
 
