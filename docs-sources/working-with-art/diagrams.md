@@ -114,26 +114,49 @@ You can rename an Art element shown in a diagram by double-clicking on the text 
 
 Note that this is a "rename refactoring" and all references to the renamed element will be updated too. 
 
-### Creating Elements
+### Creating and Editing Elements
 !!! note
-    Creating elements is currently only supported from state diagrams.
+    Creating and editing elements is supported in state and structure diagrams but not in class diagrams.
 
-To create a new element in a state diagram use one of the **New ...** commands in the pop-up menu that appears when you press ++ctrl+space++. These commands are the same as appear when you use Content Assist in the Art text editor. Which commands that are available depends on what is currently selected in the diagram. If nothing is selected, an element will be created directly in the state machine.
+To create a new element in a diagram use one of the **New ...** commands in the pop-up menu that appears when you press ++ctrl+space++. These commands are the same as appear when you use Content Assist in the Art text editor. Which commands that are available depends on what is currently selected in the diagram. If an element is selected in the diagram, a new element will be created inside that element. Otherwise the new element will be created as a top-level element (possible in state diagrams but not in structure diagrams).
+
+To edit an existing element, select it in the diagram and use the Properties view for editing it. There are certain properties that are common for many elements, such as the [color](../art-lang/index.md#color) property, but most properties are specific for the element that is selected.
+
+Elements are created and edited by updating the Art file, which in turn will update the diagram. Just like when you use Content Assist in the Art text editor a created element will initially get default values for its properties, for example the name. The default value becomes selected so you can directly type to replace it with something else. 
+
+You can of course undo a change by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
+
+#### State Diagram Editing
+In a state diagram where nothing is selected, the **New ...** commands will create new top-level elements directly in the state machine.
 
 ![](images/create_elements_in_statemachine.png)
 
-If a state is selected, an element will be created inside that state (turning it into a composite state).
+If a state is selected you can create the following elements inside it (turning the state into a composite state, if it was not already composite).
 
 ![](images/create_elements_in_state.png)
 
-To create a transition you first need to select the source state (or pseudo-state) and then the target state (or pseudo-state). Then press ++ctrl+space++ and perform either **New Triggered Transition** or **New Non-Triggered Transition** (depending on if the transition needs any triggers or not).
+To create a transition in a state diagram you first need to select the source state (or pseudo-state) and then the target state (or pseudo-state). Then press ++ctrl+space++ and perform either **New Triggered Transition** or **New Non-Triggered Transition** (depending on if the transition needs any triggers or not).
 
-Elements are created by updating the Art file, which in turn will update the diagram. Just like when you use Content Assist in the Art text editor the created element will initially get default values for its properties, usually the name. The default value is selected so you can directly replace it with the real value. You can of course undo the creation by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
+![](images/create_transition.png)
 
-### Redirecting Transitions
-Redirecting a transition means to change either its source (state or pseudo-state) or its target (state or pseudo-state). You can do it from a state diagram by selecting both the transition and the new source or target. Then press ++ctrl+space++ and perform either **Set Transition Source** or **Set Transition Target**. This will redirect the transition by changing its source or target. If you want to change both the source and target just repeat the procedure once more.
+You can redirect a transition, i.e. to change either its source (state or pseudo-state) or its target (state or pseudo-state). You can do it from a state diagram by selecting both the transition and the new source or target. Then press ++ctrl+space++ and perform either **Set Transition Source** or **Set Transition Target**. This will redirect the transition by changing its source or target. If you want to change both the source and target just repeat the procedure once more.
 
-The transition is redirected by updating the Art file, which in turn will update the diagram. Undo the change by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
+For example, in the diagram below we have selected the transition between states Ready and Heating and also the CoolOffState. We then select **Set Transition Source** in the menu. This will redirect the transition to instead go from state CoolOffState to state Heating.
+
+![](images/redirect_transition.png)
+
+#### Structure Diagram Editing
+In a structure diagram it's not possible to create anything unless something is selected in the diagram. This is because a structure diagram always has a single capsule as its top-level element. If the capsule is selected you can create parts and ports in it.
+
+![](images/create_elements_in_structure.png)
+
+If a part is selected you can create a port in the capsule that types the part. In the example below a port will be created in capsule BB.
+
+![](images/create_elements_in_part.png)
+
+Both parts and ports have several properties that can be edited using the Properties view.
+
+![](images/port_properties.png)
 
 ### Deleting Elements
 !!! note
