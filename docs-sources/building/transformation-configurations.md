@@ -171,6 +171,49 @@ Specifies the location of the TargetRTS to use. If no value is set for this prop
 tc.targetRTSLocation = "C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS";
 ```
 
+### threads
+Specifies the threads used by the application. If no value is set for this property the application will have two default threads:
+
+* **MainThread**
+Runs all capsule instances in the application. It's implemented in the TargetRTS by the [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) class.
+
+* **TimerThread**
+Runs all timers in the application. It's implemented in the TargetRTS by the [RTTimerController](../targetrts-api/class_r_t_timer_controller.html) class.
+
+Both these threads will have a stack size of 20kB and run at a normal priority.
+
+If your application needs a different thread configuration, or threads with different properties, you need to set the `threads` property. Note that you cannot just specify threads in addition to the default ones mentioned above, but must always specify all threads. Here is an example where the default threads are present, plus one additional user-defined thread:
+
+``` js
+tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY'
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+},
+{
+    name: 'MyThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'MyLogicalThread'
+    ]
+}
+];
+```
+
+Note that for user-defined threads, like `MyThread` above, you need to specify one or many logical threads that are mapped to it. These are references to threads that your application use instead of refering directly to a physical thread. This indirection makes it possible to change how capsule instances of your application are run by threads by only modifying the `threads` property in the TC, without the need to change any application code.
+
+Read more about threads [here](../target-rts/threads.md).
+
 ### topCapsule
 Specifies the capsule that should be automatically incarnated when the executable starts to run. Hence this property is only applicable for TCs that build executables, and for those TCs it's a mandatory property. The top capsule is the entry point of the realtime application.
 

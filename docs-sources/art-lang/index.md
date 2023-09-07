@@ -669,7 +669,7 @@ Here is an example where a part defines a capsule factory that specifies a creat
 ``` art
 part engine : Engine [[rt::create]]
 `
-    return new Engine(rtg_rts, rtg_ref, true /* custom constructor arg */);
+    return new Engine_Actor(rtg_rts, rtg_ref, true /* custom constructor arg */);
 `;
 ```
 
