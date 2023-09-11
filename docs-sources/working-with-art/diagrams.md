@@ -34,7 +34,7 @@ If you already have a diagram open, you can open another diagram that is related
 - **Open Class Diagram**
     - From a structure diagram that shows a capsule's composite structure, the class diagram of the capsule will be opened. If a part symbol is selected, the class diagram of the capsule that types the part will be opened.
     - From a state diagram of a class or capsule, the class diagram of the class or capsule will be opened.
-    - From a class diagram where a class or capsule is selected, the class diagram of that selected class or capsule will be opened.
+    - From a class diagram where a class, capsule or protocol is selected, the class diagram of that selected class, capsule or protocol will be opened.
 
 For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command **Open Inherited State Diagram**. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.
 

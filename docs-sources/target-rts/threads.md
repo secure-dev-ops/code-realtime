@@ -50,7 +50,7 @@ Capsule instances are connected in a tree structure where the top capsule is the
 
 When a new capsule instance is created it will by default be run by the same thread that runs the container capsule instance. This means that by default all capsule instances in the application will be run by the main thread.
 
-The example below illustrates the capsule instances of an Art application. `C1` is the top capsule. For simplicity we have assumed that all capsule parts are fixed with multiplicity 1 so they only can contain one capsule instance.
+The picture below outlines the capsule instances of an Art application. `C1` is the top capsule. For simplicity we have assumed that all capsule parts are fixed with multiplicity 1 so they only can contain one capsule instance.
 
 ![](../images/thread_mappings.png)
 

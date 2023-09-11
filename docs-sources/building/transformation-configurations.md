@@ -73,6 +73,30 @@ A TC can either build a library or an executable. This is controlled by the [top
 
 If you change the prerequisites of a TC you should again [set it as active](#setting-a-transformation-configuration-as-active) so that the prerequisite TCs also become active.
 
+## Art Build View
+{$product.name$} provides a view called Art Build which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.
+
+![](images/art-build-view.png)
+
+The smaller gray text to the right of the TC name tells in which workspace folder the TC is located. This helps since it's common to have TCs with the same name in a workspace.
+
+You can edit a TC by double-clicking on it. This will open the TC in a text editor.
+
+When a TC is selected in the Art Build view you can use the toolbar buttons for building, cleaning and running it. 
+
+!!! tip
+    It's common to build the same TC many times when developing an Art application. By keeping that TC selected in the Art Build view you can quickly build it by just pressing its Build toolbar button. Building the TC from the Explorer view requires you to first find it which can be cumbersome since the Explorer view selection changes frequently.
+
+There are also a few useful commands in the Art Build view toolbar:
+
+![](images/art-build-view-toolbar.png)
+
+* **Refresh** In most cases the Art Build view refreshes automatically when TCs are modified. However, if needed you can force a refresh by pressing this button.
+
+* **Clean All** Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.
+
+* **Collapse All** Collapses all TCs to not show any prerequisites.
+
 ## Properties
 Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.
 
