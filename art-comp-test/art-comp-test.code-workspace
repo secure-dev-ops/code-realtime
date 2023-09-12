@@ -1,0 +1,99 @@
+{ "folders": [
+        {
+            "path": "TestUtils"
+        },
+        {
+            "path": "tests/build_variants"
+        },
+        {
+            "path": "tests/capsule_constructor"
+        },
+        {
+            "path": "tests/capsule_cpp_inheritance"
+        },
+        {
+            "path": "tests/capsule_factory_for_part"
+        },
+        {
+            "path": "tests/choice_and_junction"
+        },
+        {
+            "path": "tests/choice_guard_exclude"
+        },
+        {
+            "path": "tests/choice_guard_redefinition"
+        },
+        {
+            "path": "tests/compound_transition_rtdata"
+        },
+        {
+            "path": "tests/compound_transition_rtdata_inherited"
+        },
+        {
+            "path": "tests/compound_transition_rtdata_junction"
+        },
+        {
+            "path": "tests/deep_history"
+        },
+        {
+            "path": "tests/duplicated_effect_and_guard"
+        },
+        {
+            "path": "tests/entry_exit_action"
+        },
+        {
+            "path": "tests/enum_type_descriptor"
+        },
+        {
+            "path": "tests/enum_type_descriptor_custom_encode"
+        },
+        {
+            "path": "tests/enum_type_descriptor_manual"
+        },
+        {
+            "path": "tests/fixed_part_with_multiplicity"
+        },
+        {
+            "path": "tests/internal_transition_receive_any"
+        },
+        {
+            "path": "tests/local_binding"
+        },
+        {
+            "path": "tests/local_transition"
+        },
+        {
+            "path": "tests/optional_part"
+        },
+        {
+            "path": "tests/part_inheritance"
+        },
+        {
+            "path": "tests/protocol_inheritance"
+        },
+        {
+            "path": "tests/protocol_inheritance_redefined_event"
+        },
+        {
+            "path": "tests/struct_type_descriptor"
+        },
+        {
+            "path": "tests/struct_type_descriptor_nested"
+        },
+        {
+            "path": "tests/tc_sources"
+        },
+        {
+            "path": "tests/threads"
+        },
+        {
+            "path": "tests/transition_inheritance"
+        },
+        {
+            "path": "tests/type_descriptor_inheritance"
+        },
+        {
+            "path": "tests/typedef_type_descriptor"
+        }
+    ]
+}
