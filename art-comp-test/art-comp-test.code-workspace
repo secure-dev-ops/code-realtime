@@ -3,6 +3,15 @@
             "path": "TestUtils"
         },
         {
+            "path": "../art-samples/HelloWorld"
+        },
+        {
+            "path": "../art-samples/PiComputer"
+        },
+        {
+            "path": "../art-samples/PingPong"
+        },
+        {
             "path": "tests/build_variants"
         },
         {
