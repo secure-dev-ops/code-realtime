@@ -2,3 +2,29 @@ let tc = TCF.define(TCF.CPP_TRANSFORM);
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'threads_target';
+tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '11111',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'L1'
+    ]
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '22222',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+},
+{
+    name: 'MyThread',
+    implClass: 'RTPeerController',
+    stackSize: '33333',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'MyLogicalThread'
+    ]
+}
+];
