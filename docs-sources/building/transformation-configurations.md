@@ -236,6 +236,14 @@ tc.threads = [
 
 Note that for user-defined threads, like `MyThread` above, you need to specify one or many logical threads that are mapped to it. These are references to threads that your application use instead of refering directly to a physical thread. This indirection makes it possible to change how capsule instances of your application are run by threads by only modifying the `threads` property in the TC, without the need to change any application code.
 
+Only executable TCs can define physical threads. A library TC can, however, define logical threads. An executable TC that has such a library TC as its prerequisite must map those logical threads to physical threads. Here is an example of a library TC that defines a logical thread. 
+
+``` js
+tc.threads = [ `LibraryThread` ];
+```
+
+Note that in this case the `threads` property contains a list of strings rather than a list of objects as is the case for an executable TC.
+
 Read more about threads [here](../target-rts/threads.md).
 
 ### topCapsule

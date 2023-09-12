@@ -45,6 +45,15 @@ tc.threads = [
 
 Take care to map a logical thread to exactly one physical thread.
 
+### Library Threads
+Physical threads can only be defined in executable TCs. A library TC can, however, define logical threads. An executable TC that has such a library TC as its prerequisite must map those logical threads to physical threads. Here is an example of a library TC that defines a logical thread. Note that in this case the `threads` property contains a list of strings rather than a list of objects as is the case for an executable TC.
+
+``` js
+tc.threads = [ `LibraryThread` ];
+```
+
+If you anyway define physical threads for a library TC they will be ignored by the C++ code generator, and only the logical threads will be considered.
+
 ## Running a Capsule Instance in a Custom Thread
 Capsule instances are connected in a tree structure where the top capsule is the root. A capsule instance always lives inside a part of another (container) capsule. The top capsule instance is always run by the main thread, but for all other capsule instances you can choose which thread that should run it.
 
