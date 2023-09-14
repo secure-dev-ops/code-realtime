@@ -648,7 +648,7 @@ capsule Pinger {
 
 An [unwired port](../art-lang#unwired-port) must not be connected to another port by means of a [connector](../art-lang#connector). Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.
 
-A wired port, however, must be connected. If the port is not a behavior port, it must be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the port is a behavior port, it should only be connected on the "outside".
+A wired port, however, must be connected. A service port that is not a behavior port must be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".
 
 ``` art
 capsule Top {    
