@@ -426,10 +426,60 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../art-lang/" class="md-nav__link">
-        The Art Language
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -581,6 +631,8 @@
           
         
           
+        
+          
             
           
         
@@ -604,6 +656,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
             
           
             
@@ -1408,6 +1474,10 @@ function initBuildVariants(tc) {
 </code></pre>
 <p>Also in this function we can use the <a href="#tcf-object"><code>TCF</code></a> and <a href="#msg-object"><code>MSG</code></a> objects to access global data and to print messages to the build log. But most importantly, we can directly write the properties of the <code>topTC</code> (the TC that is built) and/or <code>allTCs</code> (the TC that is built followed by all its prerequisite TCs). </p>
 <p>By modifying the <a href="../transformation-configurations/#compilearguments">compileArguments</a> TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize how the application is built, and also what it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses build variants <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/build_variants">here</a>.</p>
+</div>
 <h2 id="build-configuration">Build Configuration</h2>
 <p>When building a TC that uses build variants you need to provide values for all build variant settings, except those for which you want to use their default values. These values are referred to as a <strong>build configuration</strong>. You can only specify a build configuration when building with the <a href="../art-compiler/">Art Compiler</a>. When building from within the IDE, all build variant settings will get their default values.</p>
 <p>Specify the build configuration by means of the <a href="../art-compiler/#buildconfig">--buildConfig</a> option for the Art Compiler. A boolean build variant setting is set by simply mentioning the name of the setting in the build configuration. To set an enumerated build variant setting use the syntax <code>setting=value</code>. Separate different build variant settings by semicolons. For the sample build variants script above, with one boolean and one enumerated build variant setting, a build configuration can look like this:</p>

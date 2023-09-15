@@ -20,7 +20,7 @@
     
     
       
-        <title>0.0.9 (2023-07-20) - HCL RTist in Code</title>
+        <title>0.0.10 (2023-09-14) - HCL RTist in Code</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#009-2023-07-20" class="md-skip">
+        <a href="#0010-2023-09-14" class="md-skip">
           Skip to content
         </a>
       
@@ -161,7 +161,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              0.0.9 (2023-07-20)
+              0.0.10 (2023-09-14)
             
           </span>
         </div>
@@ -418,10 +418,60 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../art-lang/" class="md-nav__link">
-        The Art Language
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -573,6 +623,8 @@
           
         
           
+        
+          
             
           
         
@@ -596,6 +648,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
             
           
             
@@ -860,6 +926,21 @@
   
 
 
+<h1 id="0010-2023-09-14">0.0.10 (2023-09-14)</h1>
+<ol>
+<li>The C++ code generator now supports generation of type descriptors. When you declare a type in an <code>rt::decl</code> code snippet you can tag it with a C++ attribute to tell the code generator how it should generate the type descriptor. Currently two attributes are supported: <code>rt::auto_descriptor</code> (for fully automatic type descriptor generation) and <code>rt::manual_descriptor</code> (when you prefer to write the type descriptor manually). Read more about this feature in <a href="http://opensource.hcltechsw.com/rtist-in-code/art-lang/cpp-extensions/">the documentation</a>.</li>
+<li>The C++ code generator now supports local bindings (i.e. a connector between two behavior ports on the same capsule). This makes it possible for a capsule to send events to itself. Read more about this feature <a href="http://opensource.hcltechsw.com/rtist-in-code/art-lang/#local-binding">here</a>.</li>
+<li>The support for state machine inheritance in the C++ code generator has been much improved. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/transition_inheritance">this sample</a>.</li>
+<li>Two new validation rules were implemented for checks related to ports. See <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#art_0034_serviceportwithoutevents">ART_0034_servicePortWithoutEvents</a> and <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#art_0035_timerserviceport">ART_0035_timerServicePort</a>.</li>
+<li>The C++ code generator now performs additional validation of an Art file when it's translated to C++. Dedicated validation rules are used for this purpose and they can be enabled/disabled and have their severity customized in the same way as other validation rules. Found problems appear in the Art file, in the Problems view and in diagrams. For more information see <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#code-generation-validation-rules">the documentation</a>.</li>
+<li>You can now use colors on most symbols and lines also in class and structure diagrams.</li>
+<li>Use of certain colors have been improved to ensure that diagrams remain readable when custom symbol colors are used. For example, background patterns printed on optional and plugin parts in structure diagrams now use a light color if the background color is dark, and a dark color if the background color is light.</li>
+<li>Navigation from code snippets in generated C++ files to the source Art files is now supported. The file URIs in the USR-comments surrounding the code snippets can now be ctrl-clicked in order to perform the navigation.</li>
+<li>Structure diagrams can now be edited. You can create ports and parts, and also use the Properties view for viewing and editing some of the properties of these elements.</li>
+<li>A new "Art Build" view is now available. It shows all TCs in the workspace and for each TC its prerequisites are shown as a tree structure. Common commands are available on the TCs, such as Clean, Build and Run. A TC that is often built can be selected in the "Art Build" view, so that it's not necessary to find it in the Explorer view each time it should be built. The new view also provides a button for invoking the "Clean All" command that previously only could be invoked through the Command Palette.</li>
+<li>It's now possible to specify physical and logical threads in a TC. The C++ code generator uses this information for creating those physical threads and application code can reference the logical threads when a capsule instance is created. For more information see <a href="http://opensource.hcltechsw.com/rtist-in-code/target-rts/threads/">the documentation</a>. Note that currently thread information can only be specified in the TC text editor (the form-based editor doesn't yet support it).</li>
+<li>Validation markers for showing problems in diagrams are now also supported on labels within class diagram symbols. Hence, it's now possible to see validation problems on ports, parts and events.</li>
+</ol>
 <h1 id="009-2023-07-20">0.0.9 (2023-07-20)</h1>
 <ol>
 <li>It's now possible to build multiple variants of an application by means of a feature called <a href="http://opensource.hcltechsw.com/rtist-in-code/building/build-variants/">Build Variants</a>. You can use JavaScript for dynamically customizing a TC at build-time, in order to implement high-level build variant settings. Build variants are implemented in the Art Compiler by means of two new options: <code>--buildConfig</code> and <code>--buildVariants</code>. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/build_variants" target="_blank">this sample</a>.</li>

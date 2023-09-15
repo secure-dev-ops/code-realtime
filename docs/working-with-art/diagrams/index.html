@@ -426,10 +426,60 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../art-lang/" class="md-nav__link">
-        The Art Language
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -620,16 +670,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#creating-elements" class="md-nav__link">
-    Creating Elements
+  <a href="#creating-and-editing-elements" class="md-nav__link">
+    Creating and Editing Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Editing Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-diagram-editing" class="md-nav__link">
+    State Diagram Editing
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#redirecting-transitions" class="md-nav__link">
-    Redirecting Transitions
+  <a href="#structure-diagram-editing" class="md-nav__link">
+    Structure Diagram Editing
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -723,6 +786,8 @@
           
         
           
+        
+          
             
           
         
@@ -746,6 +811,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
             
           
             
@@ -1083,16 +1162,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#creating-elements" class="md-nav__link">
-    Creating Elements
+  <a href="#creating-and-editing-elements" class="md-nav__link">
+    Creating and Editing Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Editing Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-diagram-editing" class="md-nav__link">
+    State Diagram Editing
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#redirecting-transitions" class="md-nav__link">
-    Redirecting Transitions
+  <a href="#structure-diagram-editing" class="md-nav__link">
+    Structure Diagram Editing
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1135,7 +1227,7 @@
 <li><strong>Class Diagram</strong> Shows how capsules, classes and protocols are related by means of inheritance relationships. Also shows ports and parts of capsules and events of protocols.</li>
 </ul>
 <p>The picture below shows an example of what these diagrams may look like:</p>
-<p><img alt="" src="../../images/diagrams.png" /></p>
+<p><img alt="" src="../../art-lang/images/diagrams.png" /></p>
 <h2 id="opening-diagrams">Opening Diagrams</h2>
 <p>To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: <strong>Open State Diagram</strong>, <strong>Open Structure Diagram</strong> or <strong>Open Class Diagram</strong>. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.</p>
 <p>If the cursor is placed on an Art element that has a graphic representation in the form of a symbol or line in the diagram, for example a state in a state diagram, the symbol or line will be highlighted in the opened diagram by selecting it. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. If the diagram is already open, it will be made visible and the selection will be updated.</p>
@@ -1160,7 +1252,7 @@
 <li><strong>Open Class Diagram</strong><ul>
 <li>From a structure diagram that shows a capsule's composite structure, the class diagram of the capsule will be opened. If a part symbol is selected, the class diagram of the capsule that types the part will be opened.</li>
 <li>From a state diagram of a class or capsule, the class diagram of the class or capsule will be opened.</li>
-<li>From a class diagram where a class or capsule is selected, the class diagram of that selected class or capsule will be opened.</li>
+<li>From a class diagram where a class, capsule or protocol is selected, the class diagram of that selected class, capsule or protocol will be opened.</li>
 </ul>
 </li>
 </ul>
@@ -1186,9 +1278,9 @@
 <h3 id="invoking-diagram-commands-from-keyboard">Invoking Diagram Commands from Keyboard</h3>
 <p>Many diagram commands mentioned above can be invoked using the keyboard. Press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> in a diagram to open a pop-up menu from where you can invoke a diagram command.</p>
 <p><img alt="" src="../images/diagram-commands.png" /></p>
-<p>In this pop-up menu you also find convenient commands for navigating to related diagrams. For example, from the state diagram of a capsule you can navigate to the structure and class diagrams of that same capsule.</p>
+<p>In this pop-up menu you also find convenient commands for <a href="#related-diagrams">navigating to related diagrams</a>. For example, from the state diagram of a capsule you can navigate to the structure and class diagrams of that same capsule.</p>
 <h3 id="diagram-appearance">Diagram Appearance</h3>
-<p>Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for elements of a state diagram. See the <a href="../../art-lang/#color">color</a> property for more information.</p>
+<p>Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for most elements in diagrams. See the <a href="../../art-lang/#color">color</a> property for more information.</p>
 <h3 id="diagram-filters">Diagram Filters</h3>
 <p>To avoid cluttered diagrams with too many text labels, certain information is by default hidden. If you click in the background of the diagram, the Properties view will show various filters that you can turn on or off for showing or hiding such additional information. Here is an example of the filters available for a state diagram:</p>
 <p><img alt="" src="../images/diagram-filters.png" /></p>
@@ -1207,20 +1299,32 @@
 <p>You can rename an Art element shown in a diagram by double-clicking on the text label that shows its name. Alternatively select the symbol or line to which the text label belongs and press <span class="keys"><kbd>F2</kbd></span>.</p>
 <p><img alt="" src="../images/diagram-rename.png" /></p>
 <p>Note that this is a "rename refactoring" and all references to the renamed element will be updated too. </p>
-<h3 id="creating-elements">Creating Elements</h3>
+<h3 id="creating-and-editing-elements">Creating and Editing Elements</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Creating elements is currently only supported from state diagrams.</p>
+<p>Creating and editing elements is supported in state and structure diagrams but not in class diagrams.</p>
 </div>
-<p>To create a new element in a state diagram use one of the <strong>New ...</strong> commands in the pop-up menu that appears when you press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>. These commands are the same as appear when you use Content Assist in the Art text editor. Which commands that are available depends on what is currently selected in the diagram. If nothing is selected, an element will be created directly in the state machine.</p>
+<p>To create a new element in a diagram use one of the <strong>New ...</strong> commands in the pop-up menu that appears when you press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>. These commands are the same as appear when you use Content Assist in the Art text editor. Which commands that are available depends on what is currently selected in the diagram. If an element is selected in the diagram, a new element will be created inside that element. Otherwise the new element will be created as a top-level element (possible in state diagrams but not in structure diagrams).</p>
+<p>To edit an existing element, select it in the diagram and use the Properties view for editing it. There are certain properties that are common for many elements, such as the <a href="../../art-lang/#color">color</a> property, but most properties are specific for the element that is selected.</p>
+<p>Elements are created and edited by updating the Art file, which in turn will update the diagram. Just like when you use Content Assist in the Art text editor a created element will initially get default values for its properties, for example the name. The default value becomes selected so you can directly type to replace it with something else. </p>
+<p>You can of course undo a change by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>z</kbd></span> (<strong>Undo</strong>) in the Art text editor.</p>
+<h4 id="state-diagram-editing">State Diagram Editing</h4>
+<p>In a state diagram where nothing is selected, the <strong>New ...</strong> commands will create new top-level elements directly in the state machine.</p>
 <p><img alt="" src="../images/create_elements_in_statemachine.png" /></p>
-<p>If a state is selected, an element will be created inside that state (turning it into a composite state).</p>
+<p>If a state is selected you can create the following elements inside it (turning the state into a composite state, if it was not already composite).</p>
 <p><img alt="" src="../images/create_elements_in_state.png" /></p>
-<p>To create a transition you first need to select the source state (or pseudo-state) and then the target state (or pseudo-state). Then press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and perform either <strong>New Triggered Transition</strong> or <strong>New Non-Triggered Transition</strong> (depending on if the transition needs any triggers or not).</p>
-<p>Elements are created by updating the Art file, which in turn will update the diagram. Just like when you use Content Assist in the Art text editor the created element will initially get default values for its properties, usually the name. The default value is selected so you can directly replace it with the real value. You can of course undo the creation by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>z</kbd></span> (<strong>Undo</strong>) in the Art text editor.</p>
-<h3 id="redirecting-transitions">Redirecting Transitions</h3>
-<p>Redirecting a transition means to change either its source (state or pseudo-state) or its target (state or pseudo-state). You can do it from a state diagram by selecting both the transition and the new source or target. Then press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and perform either <strong>Set Transition Source</strong> or <strong>Set Transition Target</strong>. This will redirect the transition by changing its source or target. If you want to change both the source and target just repeat the procedure once more.</p>
-<p>The transition is redirected by updating the Art file, which in turn will update the diagram. Undo the change by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>z</kbd></span> (<strong>Undo</strong>) in the Art text editor.</p>
+<p>To create a transition in a state diagram you first need to select the source state (or pseudo-state) and then the target state (or pseudo-state). Then press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and perform either <strong>New Triggered Transition</strong> or <strong>New Non-Triggered Transition</strong> (depending on if the transition needs any triggers or not).</p>
+<p><img alt="" src="../images/create_transition.png" /></p>
+<p>You can redirect a transition, i.e. to change either its source (state or pseudo-state) or its target (state or pseudo-state). You can do it from a state diagram by selecting both the transition and the new source or target. Then press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and perform either <strong>Set Transition Source</strong> or <strong>Set Transition Target</strong>. This will redirect the transition by changing its source or target. If you want to change both the source and target just repeat the procedure once more.</p>
+<p>For example, in the diagram below we have selected the transition between states Ready and Heating and also the CoolOffState. We then select <strong>Set Transition Source</strong> in the menu. This will redirect the transition to instead go from state CoolOffState to state Heating.</p>
+<p><img alt="" src="../images/redirect_transition.png" /></p>
+<h4 id="structure-diagram-editing">Structure Diagram Editing</h4>
+<p>In a structure diagram it's not possible to create anything unless something is selected in the diagram. This is because a structure diagram always has a single capsule as its top-level element. If the capsule is selected you can create parts and ports in it.</p>
+<p><img alt="" src="../images/create_elements_in_structure.png" /></p>
+<p>If a part is selected you can create a port in the capsule that types the part. In the example below a port will be created in capsule BB.</p>
+<p><img alt="" src="../images/create_elements_in_part.png" /></p>
+<p>Both parts and ports have several properties that can be edited using the Properties view.</p>
+<p><img alt="" src="../images/port_properties.png" /></p>
 <h3 id="deleting-elements">Deleting Elements</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

@@ -11,20 +11,20 @@
       
       
       
-        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/building/art-compiler/">
+        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/art-lang/cpp-extensions/">
       
       
-        <link rel="prev" href="../launch-configurations/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../build-variants/">
+        <link rel="next" href="../../working-with-art/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Art Compiler - HCL RTist in Code</title>
+        <title>C++ Extensions - HCL RTist in Code</title>
       
     
     
@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#location-and-launching" class="md-skip">
+        <a href="#type-descriptor" class="md-skip">
           Skip to content
         </a>
       
@@ -165,7 +165,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Art Compiler
+              C++ Extensions
             
           </span>
         </div>
@@ -425,14 +425,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
       
       
         
@@ -447,7 +449,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../art-lang/">The Art Language</a>
+          <a href="../">The Art Language</a>
           
             <label for="__nav_2_3">
               <span class="md-nav__icon md-icon"></span>
@@ -455,7 +457,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           The Art Language
@@ -468,11 +470,89 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          C++ Extensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         C++ Extensions
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#type-descriptor" class="md-nav__link">
+    Type Descriptor
+  </a>
+  
+    <nav class="md-nav" aria-label="Type Descriptor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-implementation" class="md-nav__link">
+    C++ Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatically-generated" class="md-nav__link">
+    Automatically Generated
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manually-implemented" class="md-nav__link">
+    Manually Implemented
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-descriptor" class="md-nav__link">
+    Field Descriptor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -697,16 +777,14 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -727,7 +805,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../">Building</a>
+          <a href="../../building/">Building</a>
           
             <label for="__nav_2_7">
               <span class="md-nav__icon md-icon"></span>
@@ -735,7 +813,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -750,7 +828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transformation-configurations/" class="md-nav__link">
+      <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
       </a>
     </li>
@@ -764,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../launch-configurations/" class="md-nav__link">
+      <a href="../../building/launch-configurations/" class="md-nav__link">
         Launch Configurations
       </a>
     </li>
@@ -776,131 +854,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Art Compiler
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../building/art-compiler/" class="md-nav__link">
         Art Compiler
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#location-and-launching" class="md-nav__link">
-    Location and Launching
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#art-compiler-options" class="md-nav__link">
-    Art Compiler Options
-  </a>
-  
-    <nav class="md-nav" aria-label="Art Compiler Options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#buildconfig" class="md-nav__link">
-    buildConfig
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#buildvariants" class="md-nav__link">
-    buildVariants
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cwd" class="md-nav__link">
-    cwd
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#generate" class="md-nav__link">
-    generate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#help" class="md-nav__link">
-    help
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#out" class="md-nav__link">
-    out
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tc" class="md-nav__link">
-    tc
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version" class="md-nav__link">
-    version
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#art-compiler-steps-and-messages" class="md-nav__link">
-    Art Compiler Steps and Messages
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#process-return-value" class="md-nav__link">
-    Process Return Value
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -912,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-variants/" class="md-nav__link">
+      <a href="../../building/build-variants/" class="md-nav__link">
         Build Variants
       </a>
     </li>
@@ -1045,92 +1003,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#location-and-launching" class="md-nav__link">
-    Location and Launching
+  <a href="#type-descriptor" class="md-nav__link">
+    Type Descriptor
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#art-compiler-options" class="md-nav__link">
-    Art Compiler Options
-  </a>
-  
-    <nav class="md-nav" aria-label="Art Compiler Options">
+    <nav class="md-nav" aria-label="Type Descriptor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#buildconfig" class="md-nav__link">
-    buildConfig
+  <a href="#c-implementation" class="md-nav__link">
+    C++ Implementation
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#buildvariants" class="md-nav__link">
-    buildVariants
+  <a href="#automatically-generated" class="md-nav__link">
+    Automatically Generated
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cwd" class="md-nav__link">
-    cwd
+  <a href="#manually-implemented" class="md-nav__link">
+    Manually Implemented
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#generate" class="md-nav__link">
-    generate
+  <a href="#field-descriptor" class="md-nav__link">
+    Field Descriptor
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#help" class="md-nav__link">
-    help
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#out" class="md-nav__link">
-    out
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tc" class="md-nav__link">
-    tc
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version" class="md-nav__link">
-    version
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#art-compiler-steps-and-messages" class="md-nav__link">
-    Art Compiler Steps and Messages
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#process-return-value" class="md-nav__link">
-    Process Return Value
-  </a>
   
 </li>
       
@@ -1152,131 +1068,272 @@
   
 
 
-  <h1>Art Compiler</h1>
+  <h1>C++ Extensions</h1>
 
-<p>The Art Compiler is a stand-alone tool which can be used for building a TC from the command-line. Using this tool makes it possible to integrate the translation of Art files into C++, and compilation of that C++ code, into your automated build process.</p>
-<h2 id="location-and-launching">Location and Launching</h2>
-<p>The Art Compiler is located in the <code>bin</code> folder of the RTist in Code installation. It's a JAR file with the name <code>artcompiler.jar</code>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The folder where the Art Compiler is located can be seen from the message that is printed in the Art Server output channel when the RTist in Code extension is activated. It's located in the same folder as the Art Language Server JAR file, called <code>artserver.jar</code>.</p>
-<p><img alt="" src="../images/art-server-location-printout.png" /></p>
+<p>An Art file may contain code snippets at various places. The C++ code of such snippets is either an expression (e.g. a guard condition), statements (e.g. a transition effect) or declarations (e.g. types, functions, variables, etc). Most code snippets are just copied verbatimly to generated C++ files when translating an Art file to C++. However, some code snippets where declarations can be placed (<code>rt::decl</code> and <code>rt::impl</code>) are parsed and analyzed by the code generator. Certain C++ extensions (for example attributes applied on the declarations), in those code snippets are translated to additional C++ code by the code generator. This allows the code generator to augment the C++ code that you write with additional boiler-plate code. This chapter describes which C++ extensions that can be used, and what code is generated for them.</p>
+<h2 id="type-descriptor">Type Descriptor</h2>
+<p>A type descriptor is meta data about a C++ type. The <a href="../../target-rts/">TargetRTS</a> uses the type descriptor to know how to initialize, copy, move, destroy, encode and decode an instance of the type. Type descriptors for all primitive C++ types are included in the TargetRTS, but for other types you need to ensure a type descriptor is available if you plan to use it in a way where the TargetRTS needs it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most types in your application may not need a type descriptor, and for some types it will be enough to provide a partial implementation of the type descriptor. Only implement what is necessary for how the type actually will be used. For example, if you send an instance of a type in an event between two capsules, and the instance is copied rather than moved, then the type descriptor needs a copy function but doesn't need a move function. And if you don't encode instances to strings (or decode them from strings) then the type descriptor doesn't need encode and decode functions. Always think about how a type will be used before deciding if it needs a type descriptor or not.</p>
 </div>
-<p>To launch the Art Compiler you need a Java Virtual Machine (JVM). You should use the same JVM as is used for running the Art Language Server (see <a href="../../installing/#setup-java">Setup Java</a>). Launch the Art Compiler with the <code>java</code> command like this:</p>
-<pre><code>java &lt;JVM options&gt; -jar &lt;extension-path&gt;/bin/artcompiler.jar &lt;Art Compiler options&gt;
+<h3 id="c-implementation">C++ Implementation</h3>
+<p>The C++ implementation of a type descriptor consists of four parts. In the code shown below we assume the type descriptor describes a type called "MyType".</p>
+<p><strong>1) A type descriptor object</strong></p>
+<p>This is a variable typed by <code>RTObject_class</code> with a name that has the prefix "RTType_". It will be declared in the header file:</p>
+<pre><code class="language-cpp">extern const RTObject_class RTType_MyType;
 </code></pre>
-<p>Often you don't need to use any JVM option, but if the application is huge you may need to increase the memory of the JVM. Refer to the documentation of your JVM for a list of available JVM options. You may want to use the same JVM options as are used when launching the Art Language Server (see the setting <a href="../../settings/#jvm-args"><code>rtistic.languageServer.jvmArgs</code></a>), but it's not required to do so.</p>
-<p>To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:</p>
-<pre><code>C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.hcl-rtistic-ce-0.0.7\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 0.0.7-20230418_1519
-10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
-10:24:54 : INFO : Arguments:
-Usage: java -jar artcompiler.jar &lt;options&gt;
-Options:
-  --cwd &lt;argument&gt;:
-     Set &lt;argument&gt; as current working directory
-
-  --generate:
-     Generate source code and makefiles, do not run build afterwards
-     By default, build is started after each code generation
-
-  --help:
-     Print this help information and exit
-
-  --out &lt;argument&gt;:
-     Defines path to output folder for code generation
-
-  --tc &lt;argument&gt;:
-     Path to transformation configuration
-
-  --version:
-     Show version of Art Compiler and exit
-
-All options with argument can be used in format &lt;option&gt; &lt;argument&gt; or &lt;option&gt;=&lt;argument&gt;.
+<p>and implemented in the implementation file:</p>
+<pre><code class="language-cpp">const RTObject_class RTType_MyType =
+{
+    // Initialization of RTObject_class corresponding to properties of MyType
+};
 </code></pre>
-<h2 id="art-compiler-options">Art Compiler Options</h2>
-<p>The Art Compiler accepts options in the form of command-line arguments to <code>artcompiler.jar</code> that start with single or double dash (<code>-</code> or <code>--</code>). Many options can take an argument which then needs to be of the correct type (Boolean, Path etc). You can specify the argument for an option either like this</p>
-<pre><code>&lt;option&gt; &lt;argument&gt;
-</code></pre>
-<p>or like this</p>
-<pre><code>&lt;option&gt;=&lt;argument&gt;
-</code></pre>
-<p>Below is a table that lists all options that are available for the Art Compiler. Each option is described in a section of its own below the table.</p>
-<p id="art_compiler_options"/>
+<p>Member variables of RTObject_class store all information about the type, such as its name and byte size. Some of the member variables store pointers to type descriptor functions which the TargetRTS will call when it needs to do something with an instance of the type, for example copy or encode it.</p>
+<p><strong>2) Type descriptor functions</strong></p>
+<p>These are functions with a certain prototype, each of which performs a specific action on an instance of the type. The type descriptor object stores pointers to these functions. For a partial type descriptor, some of these pointers will be <code>nullptr</code> and then the corresponding type descriptor function does not exist. Below is the list of type descriptor functions that can be part of a type descriptor:</p>
+<p id="art_type_descriptor_functions"/>
 
 <table>
 <thead>
 <tr>
-<th>Option</th>
-<th align="left">Argument Type</th>
+<th>Name</th>
+<th align="left">Prototype</th>
+<th align="left">Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="#buildconfig">buildConfig</a></td>
-<td align="left">String</td>
+<td>init</td>
+<td align="left"><code>void rtg_MyType_init(const RTObject_class* type, MyType* target)</code></td>
+<td align="left">Initializes an instance of the type</td>
 </tr>
 <tr>
-<td><a href="#buildvariants">buildVariants</a></td>
-<td align="left">Path</td>
+<td>copy</td>
+<td align="left"><code>void rtg_MyType_copy(const RTObject_class* type, MyType* target, const MyType* source)</code></td>
+<td align="left">Copies one instance of the type (source) to another (target)</td>
 </tr>
 <tr>
-<td><a href="#cwd">cwd</a></td>
-<td align="left">Path</td>
+<td>move</td>
+<td align="left"><code>void rtg_MyType_move(const RTObject_class* type, MyType* target, MyType* source)</code></td>
+<td align="left">Moves one instance of the type (source) to another (target)</td>
 </tr>
 <tr>
-<td><a href="#generate">generate</a></td>
-<td align="left">N/A</td>
+<td>destroy</td>
+<td align="left"><code>void rtg_MyType_destroy(const RTObject_class* type, MyType* target)</code></td>
+<td align="left">Destroys an instance of the type</td>
 </tr>
 <tr>
-<td><a href="#help">help</a></td>
-<td align="left">N/A</td>
+<td>encode</td>
+<td align="left"><code>void rtg_MyType_encode(const RTObject_class* type, const MyType* source, RTEncoding* coding)</code></td>
+<td align="left">Encodes an instance of the type</td>
 </tr>
 <tr>
-<td><a href="#out">out</a></td>
-<td align="left">Path</td>
-</tr>
-<tr>
-<td><a href="#tc">tc</a></td>
-<td align="left">Path</td>
-</tr>
-<tr>
-<td><a href="#version">version</a></td>
-<td align="left">N/A</td>
+<td>decode</td>
+<td align="left"><code>void rtg_MyType_decode(const RTObject_class* type, MyType* target, RTDecoding* coding)</code></td>
+<td align="left">Decodes an instance of the type</td>
 </tr>
 </tbody>
 </table>
-<h3 id="buildconfig">buildConfig</h3>
-<p>A build configuration is useful when you want to build a TC that uses <a href="../build-variants/">build variants</a>. It provides values for build variant settings and hence specifies a certain variant of the application to be built. Read more about build configurations <a href="../build-variants/#build-configuration">here</a>.</p>
-<h3 id="buildvariants">buildVariants</h3>
-<p>Specifies a Build Variants script to use for the build. Read more about build variants <a href="../build-variants/">here</a>. </p>
-<h3 id="cwd">cwd</h3>
-<p>Set the current working directory. By default this is the location from which you launch the Art Compiler. If you use a relative path in options that take a path as argument, such as <a href="#out">--out</a> or <a href="#tc">--tc</a>, the path will be resolved against the current working directory. </p>
-<h3 id="generate">generate</h3>
-<p>By default the Art Compiler will generate C++ files and a make file, and then build the C++ code by invoking make on the make file. If you set this option then only the files will be generated, but make will not be invoked. Usually the running of make is what takes most time when building a TC, so if you for example only is interested in getting the generated files you can save time by setting this option.</p>
-<h3 id="help">help</h3>
-<p>Use this option to print information about the <a href="#version">version</a> and all available <a href="#art-compiler-options">options</a>. This is the same information as is printed if launching the Art Compiler without any options. If this option is passed, all other options are ignored.</p>
-<h3 id="out">out</h3>
-<p>Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built <a href="#tc">TC</a>. It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as <a href="../transformation-configurations/#targetfolder">targetFolder</a> in TCs will be resolved against the specified <code>--out</code> folder.</p>
-<h3 id="tc">tc</h3>
-<p>Specifies the <a href="../transformation-configurations/">TC</a> to build. This option is mandatory, unless you only pass the <a href="#help">help</a> or <a href="#version">version</a> options.</p>
-<h3 id="version">version</h3>
-<p>Use this option to print the version of the Art Compiler. This version is the same as is used for the RTist in Code extension and can also be seen in the file <code>CHANGELOG.md</code> in the RTist in Code installation folder. If this option is passed, all other options are ignored.</p>
-<h2 id="art-compiler-steps-and-messages">Art Compiler Steps and Messages</h2>
-<p>The Art Compiler performs its work using several sequential steps. During each step messages can be printed with a severity that is either INFO, WARNING or ERROR. Messages are printed to <code>stdout</code> with a time stamp. If at least one error is reported when performing one of the steps, the Art Compiler stops and doesn't proceed with the next step.</p>
-<p>The following steps are performed:</p>
-<ol>
-<li>The provided options are parsed and validated</li>
-<li>The TC is evaluated, to compute the values for all TC properties that will be used for the build</li>
-<li>The Art files are loaded, including <code>RTPredefined.art</code> from the RTist in Code installation</li>
-<li>The TC is validated, to detect errors and inconsistencies in TC property values</li>
-<li>The Art files are validated, to check for semantic problems</li>
-<li>The Art files are transformed to C++. Generated C++ files and a make file for building them are written to disk.</li>
-<li>A make tool is invoked on the make file for building the C++ code into a library or executable</li>
-</ol>
-<p>Note that the last step is skipped if the <a href="#generate">generate</a> option is set.</p>
-<h2 id="process-return-value">Process Return Value</h2>
-<p>The Art Compiler exits with a zero return value if no errors occur when building the TC. The value will be non-zero in case an error occured and in that case there will also be a printout explaining why the build failed. You can for example use the Art Compiler process return value if you launch it from a script that needs to know if the build was successful or not.</p>
+<p>The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes <code>RTEncoding</code> and <code>RTDecoding</code> from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros <code>OBJECT_ENCODE</code> and <code>OBJECT_DECODE</code> respectively. </p>
+<p><strong>3) A type installer object</strong></p>
+<p>Decoding functions typically need to look up a type descriptor from the name of the type. For example, if it finds the type name "MyType" in the string that it parses, it needs to find the type descriptor object for "MyType" so it can allocate memory for an instance of "MyType" and then initialize it. To facilitate this lookup the TargetRTS keeps a type descriptor registry. The purpose of the type installer object is to add the type descriptor to this registry. The C++ code looks like this:</p>
+<pre><code class="language-cpp">#if OBJECT_DECODE
+RTTypeInstaller rtg_MyType_installer( RTType_MyType );
+#endif
+</code></pre>
+<p><strong>4) A "typed value" struct</strong></p>
+<p>This is a struct which encapsulates an untyped instance of the type and its type descriptor. Its name has the prefix "RTTypedValue_". The struct has constructors that enable construction from a reference to an instance of the type. The typed value struct is the glue between generated code and TargetRTS code. TargetRTS functions get an untyped instance together with the type descriptor, and the type descriptor provides all information it needs to know about the type.</p>
+<p>The typed value struct will be declared and implemented in the header file:</p>
+<pre><code class="language-cpp">struct RTTypedValue_MyType
+{
+    const void * data; // Untyped pointer to an instance of MyType
+    const RTObject_class * type; // Type descriptor for MyType
+    const bool rValueRef = false; // Was the typed value struct created from an rvalue or lvalue reference to MyType?
+    inline RTTypedValue_MyType( const MyType &amp; rtg_value )
+        : data( &amp;rtg_value )
+        , type( &amp;RTType_MyType )
+    {
+    }
+    inline RTTypedValue_MyType( const MyType &amp;&amp; rtg_value )
+        : data( &amp;rtg_value )
+        , type( &amp;RTType_Colors )
+        , rValueRef( true )
+    {
+    }
+    inline RTTypedValue_MyType( const MyType &amp; rtg_value, const RTObject_class * rtg_type )
+        : data( &amp;rtg_value )
+        , type( rtg_type )
+    {
+    }
+    inline RTTypedValue_MyType( const MyType &amp;&amp; rtg_value, const RTObject_class * rtg_type )
+        : data( &amp;rtg_value )
+        , type( rtg_type )
+        , rValueRef( true )
+    {
+    }
+    inline ~RTTypedValue_MyType( void )
+    {
+    }
+};
+</code></pre>
+<h3 id="automatically-generated">Automatically Generated</h3>
+<p>The code generator will automatically generate a type descriptor for a type if you mark it with the <strong>rt::auto_descriptor</strong> attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an <code>rt::impl</code> code snippet. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you write your own type descriptor function it's important that its prototype exactly matches what is listed in <a href="#art_type_descriptor_functions">this table</a>. It's recommended to use <a href="../../working-with-art/art-editor/#content-assist">Content Assist</a> within the <code>rt::impl</code> code snippet to avoid typos and reduce typing effort.</p>
+<p><img alt="" src="../images/type_descriptor_content_assist.png" /></p>
+</div>
+<p>Here are some examples of using the <code>rt::auto_descriptor</code> attribute on different kinds of types:</p>
+<pre><code class="language-cpp">enum [[rt::auto_descriptor]] Status {
+    Error, OK
+};
+
+enum class [[rt::auto_descriptor]] Colors { 
+    Red, Green, Yellow 
+};
+
+struct [[rt::auto_descriptor]] Point {
+    int x;
+    int y;
+};
+
+#include &lt;string&gt;
+typedef std::string [[rt::auto_descriptor]] MyString;
+
+#include &lt;vector&gt;
+using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;; 
+</code></pre>
+<p>An automatically generated type descriptor behaves like this:</p>
+<ul>
+<li>The <code>init</code> function for an enum will initialize it to the value of its first literal. For other types it will initialize the instance by invoking the parameterless constructor.</li>
+<li>The <code>copy</code> function for an enum just assigns the <code>source</code> parameter to the <code>target</code> parameter. For other types it will invoke the copy constructor.</li>
+<li>The <code>move</code> function is not available for an enum. For other types it will invoke the move constructor.</li>
+<li>The <code>destroy</code> function for an enum does nothing. For other types it will invoke the destructor.</li>
+<li>The <code>encode</code> function for an enum encodes it into an integer representation (0 for the first literal, 1 for the second, etc). For a typedef or type alias there is no default encode implementation. A structured type (struct or class) is encoded by calling <code>put_struct</code> on the <code>RTEncoding</code>. The TargetRTS provides encoding implementations that produce either JSON or a simple ASCII format.</li>
+<li>For types that have a default <code>encode</code> implementation, the <code>decode</code> implementation will read the encoded representation and create a corresponding instance of the type. For a typedef or type alias there is no default decode implementation.</li>
+</ul>
+<p>Here is an example of how to override the default implementation of a type descriptor (for an enum), and to provide a missing type descriptor function (for a typedef):</p>
+<pre><code class="language-art">[[rt::decl]]
+`
+    enum class [[rt::auto_descriptor]] Colors { 
+        Red, Green, Yellow 
+    }; 
+
+    #include &lt;string&gt;
+    typedef std::string [[rt::auto_descriptor]] MyString;
+`
+
+[[rt::impl]]
+`
+    static void rtg_Colors_init( const RTObject_class * type, Colors * target )
+    {
+        *target = Colors::Green; // Make Green the default color instead of Red
+    }
+
+    #if OBJECT_ENCODE
+    static int rtg_MyString_encode(const RTObject_class* type, const MyString* source, RTEncoding* coding )
+    {
+        return coding-&gt;put_string(source-&gt;c_str()); // Encode as string literal
+    }
+    #endif
+`
+</code></pre>
+<p>Note that the default implementation of a type descriptor for a typedef or type alias makes the assumption that the typedefed or aliased type is a structured type which has both a parameterless constructor, a copy constructor and a move constructor. If this assumption is not correct, you need to write your own type descriptor functions, or even <a href="#manually-implemented">implement the whole type descriptor manually</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find sample applications that use automatically generated type descriptors here:</p>
+<ul>
+<li><a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/enum_type_descriptor">Automatically generated type descriptor for an enum</a></li>
+<li><a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/enum_type_descriptor_custom_encode">Automatically generated type descriptor for an enum class with a custom encode function</a></li>
+<li><a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/struct_type_descriptor">Automatically generated type descriptor for a struct</a></li>
+<li><a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/struct_type_descriptor_nested">Automatically generated type descriptor for a struct that contains another struct</a></li>
+<li><a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/typedef_type_descriptor">Automatically generated type descriptor for a typedef and type alias</a></li>
+</ul>
+</div>
+<h3 id="manually-implemented">Manually Implemented</h3>
+<p>If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the <strong>rt::manual_descriptor</strong> attribute. The code generator will then skip generation of the following parts of the type descriptor:</p>
+<ul>
+<li>The implementation of the type descriptor object. The variable will be declared in the header file, but no implementation will be generated.</li>
+<li>The type descriptor functions. If your type descriptor needs any of the functions you can implement them and reference them from the implementation of the type descriptor object.</li>
+</ul>
+<p>As an example assume we have a type alias for the Colors enum from the previous example. We only plan to use this type for standard enum encoding/decoding, but we want the Yellow color to be the default. Since the default type descriptor implementation for a type alias assumes the aliased type to be a structured type, we choose to do a manual implementation of the type descriptor instead of overriding several type descriptor functions (most of which we anyway won't need).</p>
+<pre><code class="language-art">[[rt::decl]]
+`
+    using MyColors [rt::manual_descriptor] = Colors;
+`
+
+[[rt::impl]]
+`
+static void rtg_MyColors_init( const RTObject_class * type, MyColors * target )
+{
+    *target = Colors::Yellow; // Default color
+}
+
+// Manual type descriptor implementation
+const RTObject_class RTType_MyColors =
+{
+    nullptr
+    , nullptr
+    , &quot;MyColors&quot;
+    , 0 /* RTVersionId */
+    , sizeof( MyColors )
+    , reinterpret_cast&lt; RTInitFunction &gt; ( rtg_MyColors_init )
+    , nullptr
+#if RT_VERSION_NUMBER &gt;= 7105
+    , nullptr
+#endif
+#if OBJECT_DECODE
+    , RTenum_decode
+#endif
+#if OBJECT_ENCODE
+    , RTenum_encode
+#endif
+    , RTnop_destroy
+    , 0
+    , nullptr
+};
+`
+</code></pre>
+<p>Use the <a href="../../working-with-art/art-editor/#content-assist">Content Assist</a> template "New Type Descriptor Object" to avoid typing all code manually. </p>
+<p><img alt="" src="../images/type_descriptor_object_content_assist.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses a manually implemented type descriptor <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/enum_type_descriptor_manual">here</a>.</p>
+</div>
+<h3 id="field-descriptor">Field Descriptor</h3>
+<p>A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class <code>RTFieldDescriptor</code>. </p>
+<p>If the structured type only contains public member variables, the code generator can generate the field descriptor as a global object in the implementation file. However, if at least one member variable is either private or protected, you need to declare the type descriptor <em>inside</em> the type, as a public member variable. The reason is that the byte offset of each member variable is stored in the field descriptor, and computing this offset requires access to the member variable from the field descriptor.</p>
+<p>Below is an example of a struct and a class. The struct only contains public member variables and hence it's not necessary to declare the field descriptor manually. However, since the class contains a private member variable, we need to declare a field descriptor for it.</p>
+<pre><code class="language-art">[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] Point {
+        int x;
+        int y;
+    };
+
+    class [[rt::auto_descriptor]] DataPoint : public Point {
+    private:
+        long data;
+
+    public: 
+        static const RTFieldDescriptor rtg_DataPoint_fields[];
+    };
+`
+</code></pre>
+<p>A field descriptor member variable must have the name <code>rtg_&lt;type&gt;_fields</code>, where <code>&lt;type&gt;</code> is the name of the structured type.</p>
+<p>Use <a href="../../working-with-art/art-editor/#content-assist">Content Assist</a> to create a class or struct that contains a field descriptor.</p>
+<p><img alt="" src="../images/field_descriptor_object_content_assist.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application where a field descriptor is declared <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/type_descriptor_inheritance">here</a>.</p>
+</div>
+<h3 id="inheritance">Inheritance</h3>
+<p>If a class or struct inherits from another class or struct, as in the example above, then the type descriptor of the derived type will have a reference to the type descriptor of the base type. In this case both types need to have a type descriptor. A type descriptor can at most reference one base type descriptor (a.k.a. a super descriptor) which means that only single inheritance is supported for automatically generated type descriptors. If you use multiple inheritance you have to write a <a href="#manually-implemented">manual type descriptor</a> for the derived type.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses an automatically implemented type descriptor for a class that inherits from another class <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/type_descriptor_inheritance">here</a>.</p>
+</div>
 
 
 

@@ -426,10 +426,60 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../art-lang/" class="md-nav__link">
-        The Art Language
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -634,6 +684,8 @@
           
         
           
+        
+          
             
           
         
@@ -657,6 +709,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
             
           
             
@@ -976,6 +1042,7 @@
 <li><strong>Code Templates</strong> are complete Art elements, for example a capsule, protocol or state. The inserted code template often has variables that you should replace as you find appropriate. For example, the code template for a capsule contains one variable for the capsule name and another for the name of the state which its state machine contains. Press <span class="keys"><kbd class="key-tab">Tab</kbd></span> to move forward from one variable to the next and if needed <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-tab">Tab</kbd></span> to move backwards to a previous variable. Note that the same variable may occur in multiple places, like the <code>State</code> variable for the capsule code template which occurs both in the state definition and as a state reference in the initial transition. All occurrances of a variable are updated simultaneously when you replace the variable with a string.</li>
 </ul>
 <p><img alt="" src="../images/code-template-variables.png" /></p>
+<p>Note that code templates are also available in some C++ code snippets (e.g. <code>rt::decl</code> and <code>rt::impl</code>) and can help you insert pieces of C++ code that are commonly used in Art applications.</p>
 <ul>
 <li><strong>References</strong> are references to existing Art elements, for example a state, event or capsule. All Art elements of the correct kind which are visible from the cursor position will be available. References may have a qualifier if necessary, for example when referencing an entry point.</li>
 </ul>

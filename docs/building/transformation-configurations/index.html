@@ -426,10 +426,60 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../art-lang/" class="md-nav__link">
-        The Art Language
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -581,6 +631,8 @@
           
         
           
+        
+          
             
           
         
@@ -604,6 +656,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
             
           
             
@@ -742,6 +808,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#art-build-view" class="md-nav__link">
+    Art Build View
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     Properties
   </a>
@@ -850,6 +923,13 @@
           <li class="md-nav__item">
   <a href="#targetrtslocation" class="md-nav__link">
     targetRTSLocation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threads" class="md-nav__link">
+    threads
   </a>
   
 </li>
@@ -1077,6 +1157,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#art-build-view" class="md-nav__link">
+    Art Build View
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     Properties
   </a>
@@ -1190,6 +1277,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#threads" class="md-nav__link">
+    threads
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#topcapsule" class="md-nav__link">
     topCapsule
   </a>
@@ -1281,6 +1375,29 @@
 <h2 id="transformation-configuration-prerequisites">Transformation Configuration Prerequisites</h2>
 <p>A TC can either build a library or an executable. This is controlled by the <a href="#topcapsule">topCapsule</a> property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the <a href="#prerequisites">prerequisites</a> property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).</p>
 <p>If you change the prerequisites of a TC you should again <a href="#setting-a-transformation-configuration-as-active">set it as active</a> so that the prerequisite TCs also become active.</p>
+<h2 id="art-build-view">Art Build View</h2>
+<p>RTist in Code provides a view called Art Build which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.</p>
+<p><img alt="" src="../images/art-build-view.png" /></p>
+<p>The smaller gray text to the right of the TC name tells in which workspace folder the TC is located. This helps since it's common to have TCs with the same name in a workspace.</p>
+<p>You can edit a TC by double-clicking on it. This will open the TC in a text editor.</p>
+<p>When a TC is selected in the Art Build view you can use the toolbar buttons for building, cleaning and running it. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It's common to build the same TC many times when developing an Art application. By keeping that TC selected in the Art Build view you can quickly build it by just pressing its Build toolbar button. Building the TC from the Explorer view requires you to first find it which can be cumbersome since the Explorer view selection changes frequently.</p>
+</div>
+<p>There are also a few useful commands in the Art Build view toolbar:</p>
+<p><img alt="" src="../images/art-build-view-toolbar.png" /></p>
+<ul>
+<li>
+<p><strong>Refresh</strong> In most cases the Art Build view refreshes automatically when TCs are modified. However, if needed you can force a refresh by pressing this button.</p>
+</li>
+<li>
+<p><strong>Clean All</strong> Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.</p>
+</li>
+<li>
+<p><strong>Collapse All</strong> Collapses all TCs to not show any prerequisites.</p>
+</li>
+</ul>
 <h2 id="properties">Properties</h2>
 <p>Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.</p>
 <p id="tc_properties"/>
@@ -1412,6 +1529,10 @@ tc.sources = [&quot;cap1.art&quot;, &quot;cap2.art&quot;]; // Only transform two
 tc.sources = [&quot;*.art&quot;, &quot;!rtist_gen.art&quot;]; // Transform all Art files except one
 tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform all Art files with names starting with &quot;source&quot; and followed by two arbitrary characters. Art files with a name that ends with &quot;_gen&quot; are excluded.
 </code></pre>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that has a TC with the "sources" property set <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/tc_sources">here</a>.</p>
+</div>
 <h3 id="targetconfiguration">targetConfiguration</h3>
 <p>Specifies which TargetRTS configuration to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the RTist in Code installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
 <h3 id="targetconfigurationname">targetConfigurationName</h3>
@@ -1425,6 +1546,50 @@ tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform al
 <p>Specifies the location of the TargetRTS to use. If no value is set for this property the TargetRTS from the RTist in Code installation will be used. If you want to use another TargetRTS specify the full path to the <code>TargetRTS</code> folder (including that folder itself). Use forward slashes as path separator. For example:</p>
 <pre><code class="language-js">tc.targetRTSLocation = &quot;C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS&quot;;
 </code></pre>
+<h3 id="threads">threads</h3>
+<p>Specifies the threads used by the application. If no value is set for this property the application will have two default threads:</p>
+<ul>
+<li>
+<p><strong>MainThread</strong>
+Runs all capsule instances in the application. It's implemented in the TargetRTS by the <a href="../../targetrts-api/class_r_t_peer_controller.html">RTPeerController</a> class.</p>
+</li>
+<li>
+<p><strong>TimerThread</strong>
+Runs all timers in the application. It's implemented in the TargetRTS by the <a href="../targetrts-api/class_r_t_timer_controller.html">RTTimerController</a> class.</p>
+</li>
+</ul>
+<p>Both these threads will have a stack size of 20kB and run at a normal priority.</p>
+<p>If your application needs a different thread configuration, or threads with different properties, you need to set the <code>threads</code> property. Note that you cannot just specify threads in addition to the default ones mentioned above, but must always specify all threads. Here is an example where the default threads are present, plus one additional user-defined thread:</p>
+<pre><code class="language-js">tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY'
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+},
+{
+    name: 'MyThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'MyLogicalThread'
+    ]
+}
+];
+</code></pre>
+<p>Note that for user-defined threads, like <code>MyThread</code> above, you need to specify one or many logical threads that are mapped to it. These are references to threads that your application use instead of refering directly to a physical thread. This indirection makes it possible to change how capsule instances of your application are run by threads by only modifying the <code>threads</code> property in the TC, without the need to change any application code.</p>
+<p>Only executable TCs can define physical threads. A library TC can, however, define logical threads. An executable TC that has such a library TC as its prerequisite must map those logical threads to physical threads. Here is an example of a library TC that defines a logical thread. </p>
+<pre><code class="language-js">tc.threads = [ `LibraryThread` ];
+</code></pre>
+<p>Note that in this case the <code>threads</code> property contains a list of strings rather than a list of objects as is the case for an executable TC.</p>
+<p>Read more about threads <a href="../../target-rts/threads/">here</a>.</p>
 <h3 id="topcapsule">topCapsule</h3>
 <p>Specifies the capsule that should be automatically incarnated when the executable starts to run. Hence this property is only applicable for TCs that build executables, and for those TCs it's a mandatory property. The top capsule is the entry point of the realtime application.</p>
 <p>If you don't specify a value for this property, the TC will build a library instead of an executable.</p>
