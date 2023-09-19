@@ -1,4 +1,4 @@
-{$product.name$} checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file has been changed. The rules run automatically as soon as you have made a change to an Art file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.
+{$product.name$} checks for semantic problems in your application. It does this by running a large number of validation rules each time an Art file or a TC file has been changed. The rules run automatically as soon as you have made a change to the file (even before saving it). This ensures that errors and warnings (i.e. potential problems) are found as early as possible.
 
 ## Problem Severity
 Each validation rule has a default severity which will be used for the problems that are reported by the rule:
@@ -19,7 +19,7 @@ When a validation rule has found a problem in an Art file, it is marked by under
 
 ![](images/problem_underlining.png)
 
-You can hover the cursor over these underlinings to get a tooltip with information about the problem. Every problem has a message that describes it. Often this message gives enough information for understanding how to fix the problem. If this is not the case you can go to the [documentation](#validation-rules) about the validation rule to find more information, examples and suggestions for how the problem can be fixed. To easily find the documentation click the hyperlink that consists of the unique id of the validation rule (it starts with the prefix "ART_" followed by a 4 digit number and a name). Alternatively you can search for the validation rule id on this page.
+You can hover the cursor over these underlinings to get a tooltip with information about the problem. Every problem has a message that describes it. Often this message gives enough information for understanding how to fix the problem. If this is not the case you can go to the [documentation](#validation-rules) about the validation rule to find more information, examples and suggestions for how the problem can be fixed. To easily find the documentation click the hyperlink that consists of the unique id of the validation rule (it starts with a prefix such as "ART_", followed by a 4 digit number and a name). Alternatively you can search for the validation rule id on this page.
 
 ![](images/problem_hover.png)
 
@@ -31,8 +31,12 @@ Problems are also reported by means of icons in diagrams. Below are three states
 
 A problem icon has a tooltip that shows the message of the problem. You can disable problem reporting in diagrams by means of a configuration setting `rtistic.diagram.showDiagnostics`.
 
+For a TC file, all properties it contains will be validated, and problems that are found during this validation are shown by underlining TC properties. You can hover 
+
+![](images/tc-validation.png)
+
 ## Problems View
-Too see all problems found in all Art files in the workspace, open the Problems view. The total number of problems found are shown in the Problems view heading. By default problems are shown in a tree grouped by the Art files where they were found. However, you can also view them as a flat table instead (but note that related elements can only be seen when using the tree view).
+Too see all problems found in all Art files and all TC files in the workspace, open the Problems view. The total number of problems found are shown in the Problems view heading. By default problems are shown in a tree grouped by the files where they were found. However, you can also view them as a flat table instead (but note that related elements can only be seen when using the tree view).
 
 ![](images/problems_view.png)
 
@@ -75,8 +79,11 @@ capsule customCapsule // no warning even if capsule name is not capitalized
 !!! note 
     Certain validation rules cannot be disabled or have their severity changed. These are known as ["core validation rules"](#core-validation-rules) and they run **before** semantic validation starts (which is why they cannot be customized).
 
+!!! note 
+    Local configuration of validation rules is only supported for Art files. For TC validation you cannot provide a local rule configuration in the TC file.
+
 ## Validation Rules
-This chapter lists all validation rules which {$product.name$} checks your Art application against.
+This chapter lists all validation rules which {$product.name$} checks your Art application against. These rules find problems in Art files and all problems found have the "ART_" prefix.
 
 ### ART_0001_invalidNameCpp
 | Severity | Reason | Quick Fix
@@ -964,9 +971,9 @@ capsule C35 {
 ## Code Generation Validation Rules
 Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. When an Art file is edited in the UI these rules run slightly after the semantic [validation rules](#validation-rules). When you run the [Art Compiler](building/art-compiler.md) these rules will not run at all, if the semantic validation rules found at least one problem with Error severity (because in that case code generation will not start).
 
-Validation rules that are related to code generation can be enabled and disabled, and have their severity customized, in the same way as the semantic validation rules. Code generation validation rules have ids in the range starting from 4000 and above and are listed below.
+Validation rules that are related to code generation can be enabled and disabled, and have their severity customized, in the same way as the semantic validation rules. Code generation validation rules have the prefix "CPP" and ids in the range starting from 4000 and above. They are listed below.
 
-### ART_4000_eventTypeWithoutTypeDescriptor
+### CPP_4000_eventTypeWithoutTypeDescriptor
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
 | Warning | An event type has a type for which no type descriptor could be found. | N/A
@@ -979,6 +986,123 @@ If the code generator doesn't find a type descriptor for the event parameter typ
 protocol PROT {
     out threadId(`std::string`); // ART_4000
 };
+```
+
+## TC Validation Rules
+TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the semantic validation rules. They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
+
+### TC_7000_wrongValueType
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A TC property has the wrong type of value. | N/A
+
+Each TC property has a type as shown in [this table](../building/transformation-configurations/#properties). The value provided for a TC property must have the expected type. Here are some examples where TC property values have types that don't match the types of these TC properties:
+
+``` js
+tc.copyrightText = true; // TC_7000 (expects a string, and not a boolean)
+tc.cppCodeStandard = 98; // TC_7000 (expects an enum string such as "C++ 98", and not a number)
+tc.sources = ''; // TC_7000 (expects a list of strings, and not a single string)
+```
+
+### TC_7001_tcPropertyNotYetSupported
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A TC property is assigned a value, but {$product.name$} does not yet support this property. | N/A
+
+TC files are not only used by {$product.name$} but also by {$rtist.name$}. Even if the format of TC files is the same in these products, there are certain TC properties which are supported by {$rtist.name$}, but not yet supported by {$product.name$}. You can still assign values to such properties but they will be ignored.
+
+``` js
+tc.compilationMakeInsert = ''; // TC_7001
+```
+
+### TC_7002_propertyNotApplicableForLibraryTC
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A TC property that is only applicable for an executable TC is used in a library TC. | N/A
+
+Certain TC properties are only meaningful if used in a TC that builds a library. For example, setting [`linkCommand`](building/transformation-configurations.md#linkcommand) does not make sense on a library TC since a library is not linked.
+
+``` js
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+// The "topCapsule" property is not set, which means this is a library TC
+tc.linkCommand = 'ld'; // TC_7002
+```
+
+### TC_7003_prerequisitePathError
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A prerequisite TC cannot be resolved. | N/A
+
+TCs that are specified as prerequisites must exist. If the path cannot be resolved to a valid TC file then it must either be corrected or deleted. A relative path is resolved against the location of the TC where the [`prerequisites`](building/transformation-configurations.md#prerequisites) property is set.
+
+``` js
+tc.prerequisites = ["../../TestUtils/testlibX.tcjs"]; // TC_7003 (referenced TC file does not exist)
+```
+
+### TC_7004_invalidTopCapsule
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The specified top capsule cannot be found. | N/A
+
+The [`topCapsule`](building/transformation-configurations.md#topcapsule) property is mandatory for executable TCs. In fact, it's the presence of this property that makes it an executable TC. A capsule with the specified name must exist in one of the Art files that is built by the TC (directly or indirectly). If you specify a top capsule that cannot be found, make sure you have spelled it correctly (use Content Assist in the TC editor so you can avoid typos). Also make sure that the Art file where the top capsule is defined is not excluded from the build by use of the [`sources`](building/transformation-configurations.md#sources) property.
+
+``` js
+tc.topCapsule = 'TopCap'; // TC_7004 (referenced TC file does not exist)
+```
+
+### TC_7005_invalidUnitName
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The `unitName` property contains characters that are illegal in a file name. | N/A
+
+The [`unitName`](building/transformation-configurations.md#unitname) property specifies the name of the generated unit files (by default called `UnitName.h` and `UnitName.cpp`). Hence, it cannot contain characters that are not allowed in a file name. Different operating systems have different rules that a valid file name must adhere to.
+
+``` js
+tc.unitName = 'UnitName:1'; // TC_7005 (colon is not a valid file name character on Windows)
+```
+
+### TC_7006_invalidTargetRTSLocation
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The specified path to the TargetRTS does not exist or is invalid. | N/A
+
+The [`targetRTSLocation`](building/transformation-configurations.md#targetrtslocation) property must specify a folder that exists and contains a TargetRTS to compile generated code against. 
+
+``` js
+tc.targetRTSLocation = "C:\\MyTargets\\"; // TC_7006 (if that folder does not exist)
+```
+
+### TC_7007_invalidTargetConfig
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The specified target configuration does not exist. | N/A
+
+The [`targetConfiguration`](building/transformation-configurations.md#targetconfiguration) property must specify the name of a target configuration that exists in the folder specified by the [`targetRTSLocation`](building/transformation-configurations.md#targetrtslocation) property. If you specify a target configuration that cannot be found, make sure you have spelled it correctly (use Content Assist in the TC editor so you can avoid typos).
+
+``` js
+tc.targetConfiguration = "WinT.x64-MinGW-12.2.0"; // TC_7007 (misspelled "MinGw")
+```
+
+### TC_7008_invalidCodeStandard
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The specified C++ code standard does not exist. | N/A
+
+The [`cppCodeStandard`](building/transformation-configurations.md#cppcodestandard) property must specify a valid C++ code standard. If you specify a code standard that cannot be found, make sure you have spelled it correctly (use Content Assist in the TC editor so you can avoid typos).
+
+``` js
+tc.cppCodeStandard = "C++ 18"; // TC_7008 (there is no C++ language standard C++ 18)
+```
+
+### TC_7009_invalidTargetFolder
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The specified target folder is invalid. | N/A
+
+The [`targetFolder`](building/transformation-configurations.md#targetfolder) property specifies the folder where to place generated files. The folder doesn't have to exist, since it will be created automatically by the code generator if needed. However, it's required that the folder has a name that is valid. Different operating systems have different rules that a valid folder name must adhere to.
+
+``` js
+tc.targetFolder = 'capsule_cpp_inheritance_target:'; // TC_7009 (invalid character ':' in target folder)
 ```
 
 ## Core Validation Rules

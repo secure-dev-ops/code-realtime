@@ -20,29 +20,12 @@ To test that the Art Compiler can be successfully launched you can try to invoke
 
 ```
 C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.hcl-rtistic-ce-0.0.7\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 0.0.7-20230418_1519
+10:24:53 : INFO : Art Compiler 0.0.10-20230913_1422
 10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
 10:24:54 : INFO : Arguments:
 Usage: java -jar artcompiler.jar <options>
 Options:
-  --cwd <argument>:
-     Set <argument> as current working directory
-
-  --generate:
-     Generate source code and makefiles, do not run build afterwards
-     By default, build is started after each code generation
-
-  --help:
-     Print this help information and exit
-
-  --out <argument>:
-     Defines path to output folder for code generation
-
-  --tc <argument>:
-     Path to transformation configuration
-
-  --version:
-     Show version of Art Compiler and exit
+  LIST OF OPTIONS
 
 All options with argument can be used in format <option> <argument> or <option>=<argument>.
 ```
@@ -69,6 +52,7 @@ Below is a table that lists all options that are available for the Art Compiler.
 | [generate](#generate) | N/A 
 | [help](#help) | N/A 
 | [out](#out) | Path 
+| [ruleConfig](#ruleconfig) | String 
 | [tc](#tc) | Path 
 | [version](#version) | N/A 
 
@@ -89,6 +73,15 @@ Use this option to print information about the [version](#version) and all avail
 
 ### out
 Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built [TC](#tc). It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as [targetFolder](transformation-configurations.md#targetfolder) in TCs will be resolved against the specified `--out` folder.
+
+### ruleConfig
+Specifies which validation rules that should be enabled, and what severity the problems they find should have. Rules are configured using the same syntax as is used for the [`rule_config`](../../art-lang#rule_config) property in an Art file. For example:
+
+```
+--ruleConfig "W0009,X7001"
+```
+
+Read more about how to configure validation rules [here](../validation.md#configuring-validation).
 
 ### tc
 Specifies the [TC](transformation-configurations.md) to build. This option is mandatory, unless you only pass the [help](#help) or [version](#version) options.
