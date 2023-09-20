@@ -11,6 +11,7 @@ capsule Top
     [[rt::decl]]
     `
         private: std::string result;
+        int tCount = 0;
     `
 
     behavior port timer : Timing;
@@ -38,21 +39,23 @@ capsule Top
                 `;
             };
             ep1 -> Nested;
-            local: ep2 -> ex2 on timer.timeout 
+            local: ep2 -> ex2 on timer.timeout when `tCount == 1`
             `
                 result += "Effect:local ";
                 timer.informIn(RTTimespec(1,0));
+                tCount++;
             `;
         };
         initial -> Composite.ep1
         `
             timer.informIn(RTTimespec(1,0));
+            tCount++;
         `
         ;
         state Done;
         done: Composite -> Done on timer.timeout
         `
-            ASSERT(result == "Enter:Composite Enter:Nested Exit:Nested Effect:local Enter:Nested ", "Unexpected result");
+            ASSERT(result == "Enter:Composite Enter:Nested Exit:Nested Effect:local Enter:Nested Exit:Nested Exit:Composite ", "Unexpected result");
             PASS();
         `;
     };
