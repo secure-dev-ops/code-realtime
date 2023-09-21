@@ -49,7 +49,7 @@ Take care to map a logical thread to exactly one physical thread.
 Physical threads can only be defined in executable TCs. A library TC can, however, define logical threads. An executable TC that has such a library TC as its prerequisite must map those logical threads to physical threads. Here is an example of a library TC that defines a logical thread. Note that in this case the `threads` property contains a list of strings rather than a list of objects as is the case for an executable TC.
 
 ``` js
-tc.threads = [ `LibraryThread` ];
+tc.threads = [ 'LibraryThread' ];
 ```
 
 If you anyway define physical threads for a library TC they will be ignored by the C++ code generator, and only the logical threads will be considered.
@@ -105,11 +105,11 @@ tc.threads = [
 
 A thread object defines a physical thread by means of the following properties:
 
-* **name** The name of the thread. It's recommended to choose a name that describes what the thread is doing. Many C++ debuggers can show the thread name while debugging, and you can also access it programmatically by calling the [RTController](../targetrts-api/class_r_t_controller.html)::name() function.
+* **name** The name of the thread. It's recommended to choose a name that describes what the thread is doing. Many C++ debuggers can show the thread name while debugging, and you can also access it programmatically by calling the [RTController](../targetrts-api/class_r_t_controller.html)::name() function. Note that names of physical threads in the application must be unique.
 
-* **implClass** This is the name of the TargetRTS class that implements the thread. See [TargetRTS Implementation](#targetrts-implementation).
+* **implClass** This is the name of the TargetRTS class that implements the thread. See [TargetRTS Implementation](#targetrts-implementation). If omitted it will default to `RTPeerController`.
 
-* **stackSize** The thread stack size in bytes. This value is interpreted by the target environment, and some operating systems may have special values (such as 0) that can be used to avoid hard-coding a certain stack size.
+* **stackSize** The thread stack size in bytes. This value is interpreted by the target environment, and some operating systems may have special values (such as 0) that can be used to avoid hard-coding a certain stack size. If omitted it will default to `20000`.
 
 * **priority** The thread priority. By default it's `DEFAULT_MAIN_PRIORITY` (or `DEFAULT_TIMER_PRIORITY` for a timer thread). These are macros with values that are interpreted by the target environment.
 

@@ -969,9 +969,14 @@ capsule C35 {
 ```
 
 ## Code Generation Validation Rules
-Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. When an Art file is edited in the UI these rules run slightly after the semantic [validation rules](#validation-rules). When you run the [Art Compiler](building/art-compiler.md) these rules will not run at all, if the semantic validation rules found at least one problem with Error severity (because in that case code generation will not start).
+Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. 
 
-Validation rules that are related to code generation can be enabled and disabled, and have their severity customized, in the same way as the semantic validation rules. Code generation validation rules have the prefix "CPP" and ids in the range starting from 4000 and above. They are listed below.
+!!! note
+    When an Art file is edited in the UI code generation validation rules run just after the Art [validation rules](#validation-rules). However, they will only run if there is an active TC, since otherwise code generation will not happen.
+    
+    When you run the [Art Compiler](building/art-compiler.md) and the Art validation rules found at least one problem with Error severity, then code generation will not happen and hence these validation rules will not run.
+
+Validation rules that are related to code generation can be enabled and disabled, and have their severity customized, in the same way as the Art validation rules. Code generation validation rules have the prefix "CPP" and ids in the range starting from 4000 and above. They are listed below.
 
 ### CPP_4000_eventTypeWithoutTypeDescriptor
 | Severity | Reason | Quick Fix
@@ -988,8 +993,43 @@ protocol PROT {
 };
 ```
 
+### CPP_4002_unreachableTransition
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | One or many transitions are unreachable due to ambiguous triggers. | N/A
+
+If there are multiple outgoing transitions from a state with identical triggers (i.e. having the same port and the same event, and no guard condition), then it's ambiguous which one of them that will be triggered. In this situation the code generator will pick one of them to execute, and report the other ones as unreachable. The unreachable transitions will be reported as related elements so you can navigate to them and decide how to resolve the ambiguity. 
+
+Common solutions for this problem is to add a guard condition, either on the trigger or the transition. With a guard condition the ambiguity is resolved, but it's of course then important to ensure that guard conditions are mutually exclusive so that only one of the transitions can execute. The code generator cannot ensure this, since guard conditions are evaluated at run-time.
+
+``` art
+capsule XCap {   
+    behavior port t : Timing;
+    statemachine {
+        state State1, State2;
+        initial -> State1 
+        `
+            t.informIn(RTTimespec(1,0));
+        `;
+        t1: State1 -> State2 on t.timeout;
+        t2: State1 -> State2 on t.timeout; // CPP_4002
+    };
+};
+```
+
+Code for calling unreachable transitions will still be generated, but preceeded with a comment. Here is an example:
+
+``` cpp
+case Timing::Base::rti_timeout:
+    chain2_t1(  );
+    return ;
+    // WARNING: unreachable code;
+    chain3_t2(  );
+    return ;
+```
+
 ## TC Validation Rules
-TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the semantic validation rules. They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
+TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the Art [validation rules](#validation-rules). They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
 
 ### TC_7000_wrongValueType
 | Severity | Reason | Quick Fix
@@ -1103,6 +1143,126 @@ The [`targetFolder`](building/transformation-configurations.md#targetfolder) pro
 
 ``` js
 tc.targetFolder = 'capsule_cpp_inheritance_target:'; // TC_7009 (invalid character ':' in target folder)
+```
+
+### TC_7010_physicalThreadWithoutLogicalThread
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A physical thread has no logical thread mapped to it. | N/A
+
+A physical thread is referenced through a logical thread that is mapped to it in the TC. Multiple logical threads can be mapped to the same physical thread, but if a physical thread has no logical threads mapped to it, it's useless since it then cannot be referenced by the application. Note that this rule does not apply for the default MainThread and TimerThread.
+
+Solve this problem either by deleting the Thread object that represents the physical thread from the TC, or map a logical thread to it using the `logical` property.
+
+See the [`threads`](building/transformation-configurations.md#threads) property for more information.
+
+``` js
+tc.threads = [
+{
+    name: 'MyThread',
+    logical: [ ] // TC_7010
+}
+];
+```
+
+### TC_7011_duplicatePhysicalThreadName
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | There are multiple physical threads with the same name. | N/A
+
+The names of physical threads in an application must be unique. See the [`threads`](building/transformation-configurations.md#threads) property for more information.
+
+``` js
+tc.threads = [
+{
+    name: 'MyThread',    
+    logical: [ 'L1' ] 
+},
+{
+    name: 'MyThread', // TC_7011 (MyThread already defined)
+    logical: [ 'L2' ] 
+}
+];
+```
+
+### TC_7012_duplicateLogicalThreadName
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | There are multiple logical threads with the same name. | N/A
+
+The names of logical threads in an application must be unique. In a library TC the logical threads are specified as a list of strings in the [`threads`](building/transformation-configurations.md#threads) property and this list should not contain duplicates. In an executable TC the logical threads are instead defined implicitly when mapping them to physical threads using the `logical` property on the Thread object. Also in this case, the same logical thread name should not be used more than once.
+
+``` js
+tc.threads = [
+{
+    name: 'MyThread',    
+    logical: [ 'L1', 'L1', 'L2' ] // TC_7012 (L1 defined (and mapped to MyThread) twice)
+},
+{
+    name: 'MyThread2', 
+    logical: [ 'L2' ] // TC_7012 (L2 already mapped to MyThread above)
+}
+];
+```
+A special situation is when an executable TC has several library TCs as prerequisites (direcly or indirectly). These library TCs may define logical threads with clashing names. You must make sure that names of logical threads in all prerequisite libraries are unique. One way to accomplish this could be to prefix a logical thread in a library with the name of the library.
+
+### TC_7013_physicalThreadsInLibrary
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | Physical threads are defined in a library TC. | N/A
+
+In a library TC you should only define logical threads. These must be mapped to physical threads in the executable TC which has the library TC as a prerequisite. If you anyway define physical threads in a library TC, they will be ignored.
+
+See the [`threads`](building/transformation-configurations.md#threads) property for more information.
+
+``` js
+// tc.topCapsule not defined, i.e. this is a library TC
+tc.threads = [ // TC_7013
+{
+    name: 'MyThread',    
+    logical: [ 'L1' ] 
+}
+];
+```
+
+### TC_7014_incorrectThreadProperty
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A thread property is incorrectly specified. | N/A
+
+This problem is reported if the [`threads`](building/transformation-configurations.md#threads) property contains a value of unexpected type. For an executable TC this property should be set to a list of Thread objects representing physical threads, while for a library TC it should be set to a list of strings which are the names of the logical threads defined in the library.
+
+The problem is also reported if a Thread object for a physical thread has a property of unexpected type. All properties of such a Thread object should be of string type, except `logical` which should be a list of strings.
+
+``` js
+tc.threads = [ 
+{
+    name: 'MyThread',
+    priority: 20000 // TC_7014 (the priority should be specified as a string and not a number)
+    logical: [ 'L1' ] 
+}
+];
+```
+
+### TC_7015_libraryThreadNotMappedToPhysicalThread
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A logical thread in a library TC is not mapped to a physical thread. | N/A
+
+A library TC uses the [`threads`](building/transformation-configurations.md#threads) property for specifying logical threads. When an executable TC uses a library TC as its prerequisite, all logical threads of the library must be mapped to physical threads. Read more about library threads [here](../target-rts/threads/#library-threads).
+
+``` js
+// In a library TC lic.tcjs:
+tc.threads = [ 'LibThread1', 'LibThread2' ];
+
+// In an executable TC exe.tcjs:
+tc.prerequisites = ["lib.tcjs"];
+tc.threads = [ 
+{
+    name: 'MyThread',
+    logical: [ 'LibThread1' ] // TC_7015 (library logical thread 'LibThread2' not mapped)
+}
+];
 ```
 
 ## Core Validation Rules
