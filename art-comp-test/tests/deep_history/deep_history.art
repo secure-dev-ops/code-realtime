@@ -17,56 +17,59 @@ capsule Top {
     behavior port p1 : P;
     behavior port p2~ : P;
     connect p1 with p2;
-
-    service port timer : Timing;
+    behavior port timer : Timing;
     statemachine {
         initial -> CompositeState.ep1
         `
             timer.informIn(RTTimespec(1,0));
         `;
         state CompositeState {
+            entry `result += "-->CompositeState ";`;
+            exit  `result += "CompositeState--> ";`;
             state Nested {
                 entrypoint ep1;
-                entry
-                `
-                    result += "Nested ";
-                `;
+                entry `result += "-->Nested ";`;
+                exit  `result += "Nested--> ";`;
                 state Nested2 {
                     entrypoint ep1;
-                    entry
-                    `
-                        result += "Nested2 ";
-                    `;
+                    entry `result += "-->Nested2 ";`;
+                    exit  `result += "Nested2--> ";`;
                     state Nested3 {
-                        entry
-                        `
-                            result += "Nested3 ";
-                        `;
+                        entry `result += "-->Nested3 ";`;
+                        exit  `result += "Nested3--> ";`;
                     };
                     ep1 -> Nested3;
                 };
                 ep1 -> Nested2.ep1;
             };
             entrypoint ep1, ep2;
-            exitpoint ex1;            
-            ep1 -> Nested.ep1;            
+            exitpoint ex1;
+            ep1 -> Nested.ep1;
             timeout: Nested -> ex1 on timer.timeout
             `
-                ASSERT(result == "Nested Nested2 Nested3 ", "First entry: States should be entered top-down");
-                timer.informIn(RTTimespec(1,0));
+                timer.informIn(RTTimespec(1, 0));
             `;
-            ep2 -> history*;
+        history: ep2 -> history*
+        `
+           result += "history ";
+        `;
         };
         state Other;
-        CompositeState.ex1 -> Other;
-        Other -> CompositeState.ep2 on timer.timeout
+        exit1: CompositeState.ex1 -> Other
+        `
+            ASSERT(result == "-->CompositeState -->Nested -->Nested2 -->Nested3 Nested3--> Nested2--> Nested--> CompositeState--> ",
+                "First entry: States should be entered top-down");
+            result.clear();
+        `;
+        back: Other -> CompositeState.ep2 on timer.timeout
         `
             p1.e().send();
         `;
         state Done;
         done: CompositeState -> Done on p2.e
         `
-            ASSERT(result == "Nested Nested2 Nested3 ", "Deep history entry: States should be entered top-down");            
+            ASSERT(result == "-->CompositeState history -->Nested -->Nested2 -->Nested3 Nested3--> Nested2--> Nested--> CompositeState--> ",
+                "Deep history entry: States should be entered top-down");
             PASS();
         `;
     };
