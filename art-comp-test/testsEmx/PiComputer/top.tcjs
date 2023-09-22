@@ -1,0 +1,12 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/PiComputer/PiComputer.emx#_hHWkkd7JEeCoYL7X7ju9hA'
+];
+tc.topCapsule = 'platform:/resource/PiComputer/PiComputer.emx#_hHZA0N7JEeCoYL7X7ju9hA';
+tc.createTargetProject = true;
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'PiComputer_target';
+tc.commonPreface = `
+#include <cmath>
+`;

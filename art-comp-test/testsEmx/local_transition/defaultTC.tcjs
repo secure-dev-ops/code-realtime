@@ -1,0 +1,13 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/local_transition/local_transition.emx#_cDVYwFI2Ee6k6YH1KzYjDg'
+];
+tc.createTargetProject = true;
+tc.targetProject = 'local_transition_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.topCapsule = 'platform:/resource/local_transition/local_transition.emx#_dj07IFI2Ee6k6YH1KzYjDg';
+tc.commonPreface = `
+#include <string>
+#include <iostream>
+`;
