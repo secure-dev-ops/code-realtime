@@ -8,6 +8,9 @@ When creating a new Art application it's recommended to start with a minimal num
 
 Another input to which threads to use is how capsule instances communicate with each other. Those capsule instances that communicate frequently with each other benefit from being run by the same thread since sending an event within the same thread is faster than sending it across threads.
 
+!!! example
+    You can find a sample application that uses threads [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/threads).
+
 ## Physical and Logical Threads
 {$product.name$} makes a difference between physical and logical threads. Physical threads are the real threads that exist in the application at run-time. A logical thread is a conceptual thread which application code uses when it needs to refer to a thread. Hence, it is an indirection which prevents hard-coding the application against certain physical threads. 
 
