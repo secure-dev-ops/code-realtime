@@ -1,0 +1,37 @@
+capsule Top {
+    /* Ports */
+    /* Parts */
+    part derived : Derived;
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Base {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        public:
+        const int x = 2;
+    `
+    statemachine {
+        state A, B, C;
+        choice ch;
+        ini: initial -> ch;
+        aTrans: ch -> A when `x > 0` `FAIL("Unexpected choice transition aTrans: ch -> A");`;
+        bTrans: ch -> B when `x > 1` `PASS();`;
+        cTrans: ch -> C when `else`  `FAIL("Unexpected choice transition cTrans: ch -> C");`;
+    };
+};
+
+capsule Derived : Base {
+    statemachine {
+        exclude aTrans;
+    };
+};

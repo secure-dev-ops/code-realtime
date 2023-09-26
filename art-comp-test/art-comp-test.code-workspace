@@ -33,6 +33,9 @@
             "path": "tests/choice_guard_redefinition"
         },
         {
+            "path": "tests/choice_transition_exclude"
+        },
+        {
             "path": "tests/compound_transition_rtdata"
         },
         {
