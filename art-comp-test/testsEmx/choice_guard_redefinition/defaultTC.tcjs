@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/choice_guard_redefinition/choice_guard_redefinition.emx#_cRCYYFmbEe6YzN4CVypjqA'
+];
+tc.createTargetProject = true;
+tc.targetProject = 'choice_guard_redefinition_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.commonPreface = '#include <iostream>';
+tc.topCapsule = 'platform:/resource/choice_guard_redefinition/choice_guard_redefinition.emx#_hUN-YFmbEe6YzN4CVypjqA';
