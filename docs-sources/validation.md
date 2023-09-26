@@ -88,13 +88,21 @@ This chapter lists all validation rules which {$product.name$} checks your Art a
 ### ART_0001_invalidNameCpp
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | An Art element has a name that is not a valid C++ name. | N/A
+| Error | An Art element has a name that is not a valid C++ name, or a name that will cause a name clash in the generated code. | N/A
 
-Art elements are translated to C++ elements without changing the elements' names. Hence you need to choose names for Art elements that are valid in C++. For example, [C++ keywords](../art-lang#names-and-keywords) cannot be used. If you ignore this error you can expect errors when compiling the generated C++ code.
+Art elements are translated to C++ elements without changing the elements' names. Hence you need to choose names for Art elements that are valid in C++. For example, [C++ keywords](../art-lang#names-and-keywords) cannot be used. 
+
+Furthermore, names of such Art elements must not clash with global names used by the [TargetRTS](target-rts/index.md) or names within generated C++ files.
+
+If you ignore this error you can expect errors when compiling the generated C++ code.
 
 ``` art
 protocol InvalidNameProtocol {
     in virtual(); // ART_0001 ("virtual" is a C++ keyword)
+};
+
+capsule Exception { // ART_0001 ("Exception" is a name reserved for use by the TargetRTS)
+
 };
 ```
 
@@ -993,7 +1001,7 @@ protocol PROT {
 };
 ```
 
-### CPP_4002_unreachableTransition
+### CPP_4001_unreachableTransition
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
 | Warning | One or many transitions are unreachable due to ambiguous triggers. | N/A
