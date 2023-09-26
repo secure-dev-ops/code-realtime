@@ -782,14 +782,16 @@ initial -> WaitForServerInit
 !!! note 
     Any type of data object can be passed as initialization data which means that `rtdata` is an untyped pointer that has to be casted to the expected type. A more type-safe way of passing initialization data is to define a constructor for a capsule. A [capsule constructor](#capsule-constructor) can take any number of arguments, while with `rtdata` only one data object can be passed (even if you of course can group several data objects into a struct or class to circumvent this limitation). With capsule constructors you can pass initialization data also for capsule instances that are located in fixed parts.
     
-By default `rtdata` cannot be modified (it has type `const void*`). However, by setting the `const_rtdata_param` [property](#property) to false on the initial transition, you can make it non-const. One reason for doing this could be that the initial transition effect code wants to pass some data back to the code that creates the capsule instance. However, you must be very careful if you do this since this will only work if the creating code runs in the same thread that runs the initial transition. A more legitimate reason could be that you want to move the initialization data into a capsule variable, so you can access it later. Moving data can be  more efficient than copying it.
+By default `rtdata` cannot be modified (it has type `const void*`). However, by setting the `const_rtdata` [property](#const_rtdata) to false on the initial transition, you can make it non-const. One reason for doing this could be that the initial transition effect code wants to pass some data back to the code that creates the capsule instance. However, you must be very careful if you do this since this will only work if the creating code runs in the same thread that runs the initial transition. A more legitimate reason could be that you want to move the initialization data into a capsule variable, so you can access it later. Moving data can be  more efficient than copying it.
 
 ``` art
-[[rt::properties(const_rtdata_param=false)]] initial -> Waiting 
+[[rt::properties(const_rtdata=false)]] initial -> Waiting 
 `
     pC = std::move(*((MyClass*) rtdata));
 `;
 ```
+
+Note that the `const_rtdata` [property](#const_rtdata) can be set on any transition, not just the initial transition. It allows the data received when the transition is triggered to be modified.
 
 #### Internal Transition
 An internal transition doesn't change the active state and therefore doesn't have a target state. An internal transition is always a triggered transition. You define an internal transition inside the state to which it belongs. Here is an example:
@@ -1438,7 +1440,7 @@ Below is a table that lists all properties that can be used on different kinds o
 | [Class](#class-with-state-machine) | [default_constructor_visibility](#default_constructor_visibility) | Enumeration (public, protected, private) | public
 | [Port](#port) | [registration](#registration) | Enumeration (automatic, automatic_locked, application) | automatic
 | [Port](#port) | [registration_name](#registration_name) | String | ""
-| [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata_param](#const_rtdata_param) | Boolean | true
+| [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata](#const_rtdata) | Boolean | true
 | [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine) | [color](#color) | String | ""
 [Trigger](#transition) | [frequent](#frequent) | Boolean | false
 
@@ -1494,8 +1496,22 @@ This property specifies how to register an unwired port at runtime. The default 
 ### registration_name
 This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.
 
-### const_rtdata_param
-If set to `false` the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.
+### const_rtdata
+This property can be set on transitions where you need to modify the data it receives when it's triggered. If the property is set to `false` the `rtdata` parameter in the transition function will be non-const. It can then be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.
+
+``` art
+[[rt::properties(const_rtdata=false)]] CurrentState -> NextState
+`
+    someAttr = std::move(*rtdata); // Avoid copying the message data object
+`;
+
+MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -> NextState
+`
+    pC = std::move(*((MyClass*) rtdata)); // Avoid copying the message data object
+`;
+```
+
+Note that the `const_rtdata` property appears in the Art syntax right after the transition name. If the transition has no name, it appears in the beginning of the transition declaration.
 
 ### color
 Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.
