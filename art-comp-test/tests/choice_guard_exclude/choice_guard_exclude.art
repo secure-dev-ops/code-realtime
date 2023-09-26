@@ -14,9 +14,6 @@ capsule Top {
 };
 
 capsule Base 
-[[rt::properties(
-    rule_config="W0007"
-)]]
 {
     [[rt::impl_preface]]
     `
