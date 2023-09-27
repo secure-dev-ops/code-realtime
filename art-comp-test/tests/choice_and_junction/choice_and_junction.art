@@ -20,18 +20,9 @@ capsule Top
     `
 
     behavior port ticker : Timing;
-    behavior port timer : Timing;
 
     statemachine {
-        initial -> R1 
-        `
-            // On the 3rd tick we will remain in R1 since the junction
-            // has no else-branch. The timeout1 transition has then only
-            // executed twice, because we will only leave R1 when there is a 
-            // junction transition with an enabled guard.
-            // After 1 second proceed to choice testing.
-            timer.informIn(RTTimespec(1,0));
-        `;
+        initial -> R1;
         state R1 {
             entry
             `            
@@ -51,12 +42,15 @@ capsule Top
         `
             result += "junction_second ";
         `;
-
-        proceed: R1 -> S1 on timer.timeout
+        proceed: R1 -> S1 on ticker.timeout when `*static_cast<const int*>(rtdata) == 3`
         `
+            std::cout << "result = " << result << std::endl;
             ASSERT(result == "junction_first junction_second ", "All junction branches should have executed in order");
+            std::cout << "timeout1_count = " << timeout1_count << std::endl;
             ASSERT(timeout1_count == 2, "By now timeout1 should have executed 2 times");
+            std::cout << "Resetting count and result..." << std::endl;
             count = 0;
+            result = "";
         `;
 
         state S1 {
@@ -65,16 +59,8 @@ capsule Top
                 tick();
             `;
         };
-        state T1 {
-            entry
-            `
-                ASSERT(result == "choice_first choice_second choice_else ", "All choice branches should have executed in order");
-                ASSERT(timeout2_count == 3, "By now timeout2 should have executed 3 times");
-                PASS();
-            `;    
-        };
+
         choice c1;
-        
         timeout2: S1 -> c1 on ticker.timeout
         `
             timeout2_count++;
@@ -91,5 +77,16 @@ capsule Top
         `
             result += "choice_else ";
         `;                      
+
+        state T1 {
+            entry
+            `
+                std::cout << "result = " << result << std::endl;
+                ASSERT(result == "choice_first choice_second choice_else ", "All choice branches should have executed in order");
+                std::cout << "timeout2_count = " << timeout2_count << std::endl;
+                ASSERT(timeout2_count == 3, "By now timeout2 should have executed 3 times");
+                PASS();
+            `;
+        };
     };
 };

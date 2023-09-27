@@ -1,0 +1,13 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/choice_and_junction/choice_and_junction.emx#_acN70Fy8Ee6a3YxHO1cyVA'
+];
+tc.createTargetProject = true;
+tc.targetProject = 'choice_and_junction_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.commonPreface = `
+#include <string>
+#include <iostream>
+`;
+tc.topCapsule = 'platform:/resource/choice_and_junction/choice_and_junction.emx#_03xNkFy8Ee6a3YxHO1cyVA';
