@@ -42,7 +42,7 @@ capsule Top
         `
             result += "junction_second ";
         `;
-        proceed: R1 -> S1 on ticker.timeout when `*static_cast<const int*>(rtdata) == 3`
+        proceed: R1 -> S1 on ticker.timeout
         `
             std::cout << "result = " << result << std::endl;
             ASSERT(result == "junction_first junction_second ", "All junction branches should have executed in order");
