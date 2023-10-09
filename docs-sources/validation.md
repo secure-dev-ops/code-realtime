@@ -1036,6 +1036,24 @@ case Timing::Base::rti_timeout:
     return ;
 ```
 
+### CPP_4002_guardedInitialTransition
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | The initial transition leads to a junction where all outgoing transitions have guard conditions. | N/A
+
+The initial transition is the first transition that executes in a state machine. It must always lead to the activation of a state where the state machine will stay until it receives its first event. It is allowed to use junctions in the initial transition to let guard conditions decide which state that should be activated. However, in this case it's required that there is at least one junction transition without a guard condition (or with an `else` guard). If all transition paths are guarded there is a risk that none of the guard conditions will be fulfilled, which would mean that no state will be activated. That would effectively break the functioning of the state machine.
+
+``` art
+capsule N {    
+    statemachine {
+        state State;
+        junction j;
+        initial -> j;
+        j -> State when `x == 5`; // CPP_4002
+    };
+};
+```
+
 ## TC Validation Rules
 TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the Art [validation rules](#validation-rules). They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
 
