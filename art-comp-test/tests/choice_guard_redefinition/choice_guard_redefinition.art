@@ -106,6 +106,7 @@ capsule Derived : Base {
         int Derived_Actor::derivedGuard = 0;
     `
     statemachine {
+        state State1;
         redefine aTrans: c -> A when `else`
         `
             FAIL("Unexpected choice branch executed in Derived");

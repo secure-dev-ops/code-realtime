@@ -1,0 +1,157 @@
+[[rt::decl]]
+`
+    #include <string>
+    typedef std::string [[rt::auto_descriptor]] StdString ;
+    //template <> inline const RTObject_class* RTObject_class::fromType<StdString>() { return &RTType_StdString; }
+    //template <> inline const RTObject_class* RTObject_class::fromType<RTString>() { return &RTType_RTString; }
+    
+    extern unsigned int moveFuncCount;
+`
+[[rt::impl]]
+`
+   unsigned int moveFuncCount( 0 );
+
+   static void rtg_StdString_init(const RTObject_class* type, StdString* target) {
+       target = new (target) std::string();
+   }
+
+   
+   void rtg_StdString_copy(const RTObject_class* type, StdString* target, const StdString* source)
+   {
+	    target = new (target) std::string(*source);
+   }
+
+   void rtg_StdString_move(const RTObject_class* type, StdString* target, StdString* source)
+   {
+	    target = new (target) std::string(std::move(*source));
+    	moveFuncCount++;
+   }
+   
+   void rtg_StdString_destroy(const RTObject_class* type, StdString* target)
+   {
+        target->~StdString();
+   }
+   
+   
+    #if OBJECT_ENCODE
+    static int rtg_StdString_encode(const RTObject_class* type, const StdString* source, RTEncoding* coding )
+    {
+        return coding->put_string(source->c_str());
+    }
+    #endif
+
+    #if OBJECT_DECODE
+    static int rtg_StdString_decode(const RTObject_class* type, StdString* target, RTDecoding* coding )
+    {
+        char * StringValue; 
+        int ReturnValue = 0; 
+        coding->get_string(StringValue); 
+        target->assign(StringValue);
+        return 1;
+    }
+    #endif
+
+
+   
+`
+protocol Proto {
+    [[rt::header_preface]]
+    `
+        #include "move_function_2.art.h"
+    `
+    out e1(`RTString`);
+    out e2(`StdString`);
+    in ei1(`RTString`);
+    in ei2(`StdString`);
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "move_function_2.art.h"
+    `
+    [[rt::decl]]
+    `
+    private:
+        void* org1_addr;
+        RTString org1 = "This is the original RTString data";
+        StdString org2 = "This is the original StdString data";
+    `
+    part inner : Inner;
+    // service behavior port log : Log;
+    behavior port pb : Proto;
+    connect pb with inner.p;
+    statemachine {
+        state State1, Done1, Done2 {
+            entry
+            `
+                ASSERT(moveFuncCount == 2, "Expected StdString move function to be called twice!");
+                PASS();
+            `;
+        };
+        initial -> State1
+        `
+        org1_addr = org1.Contents;
+        pb.e1(std::move(org1)).send(); 
+        pb.e2(std::move(org2)).send();
+
+        ASSERT(org1.Contents == nullptr, "Move of RTString didn't set contents to null");
+
+        // Note: Don't test how StdString implements move since this is not our implementation and can vary
+        //ASSERT(org2.c_str() == nullptr, "Move of StdString didn't set c_str to null");
+
+         `;
+        t1: [[rt::properties(
+            const_rtdata=false
+        )]]
+        State1 -> Done1 on pb.ei1
+        `
+            const RTString& s1 = std::move(*rtdata);
+            ASSERT(s1.Contents == org1_addr, "Address of RTString data should remain unchanged.");
+        `;
+        t2:[[rt::properties(
+            const_rtdata=false
+        )]] Done1 -> Done2 on pb.ei2
+        `
+            const StdString& s2 = std::move(*rtdata);
+            ASSERT(s2 == "This is the original StdString data", "StdString value should be unchanged.");
+        `;
+    };
+};
+capsule Inner {
+    [[rt::header_preface]]
+    `
+        #include "move_function_2.art.h"
+    `
+    [[rt::decl]]
+    `
+    private:
+        RTString received1;
+        StdString received2;
+    `
+    service behavior port p~ : Proto;
+    statemachine {
+        state Initial, First, Second {
+            entry
+            `
+                // Send back the strings
+                p.ei1(std::move(received1)).send();
+                p.ei2(std::move(received2)).send();
+            `;
+        };
+        initial -> Initial;
+        [[rt::properties(
+            const_rtdata=false
+        )]]Initial -> First on p.e1
+        `
+            received1 = std::move(*rtdata);
+        `;
+        [[rt::properties(
+            const_rtdata=false
+        )]]First -> Second on p.e2
+        `
+            received2 = std::move(*rtdata);
+        `;
+    };
+};
