@@ -121,6 +121,7 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 | [targetRTSLocation](#targetrtslocation) | String | "${rtistic_home}/TargetRTS"
 | [topCapsule](#topcapsule) | String | N/A
 | [unitName](#unitname) | String | "UnitName"
+| [userLibraries](#userlibraries) | List of strings | []
 
 ### commonPreface
 This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called `UnitName.h`). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.
@@ -253,3 +254,12 @@ If you don't specify a value for this property, the TC will build a library inst
 
 ### unitName
 Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is `UnitName` which means that these unit files will be called `UnitName.cpp` and `UnitName.h`. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.
+
+### userLibraries
+This property is a list of user libraries that should be linked with the application. This property is only applicable for TCs that build executables.
+
+``` js
+tc.userLibraries = ["myLib"];
+```
+
+Note that you may also need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for user libraries.

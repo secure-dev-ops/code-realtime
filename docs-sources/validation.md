@@ -350,13 +350,13 @@ capsule Name {
     `
 
     part x : OtherCap 
-    [[rt::createFunction]]
+    [[rt::create]]
     `
-        return new DemoCap(rtg_rts, rtg_ref);
+        return new DemoCap_Actor(rtg_rts, rtg_ref);
     `
-    [[rt::createFunction]] // ART_0012 (duplicated code snippet)
+    [[rt::create]] // ART_0012 (duplicated code snippet)
     `
-        return new DemoCap(rtg_rts, rtg_ref);
+        return new DemoCap_Actor(rtg_rts, rtg_ref);
     `;
 
     statemachine {
@@ -502,7 +502,7 @@ capsule CComp2 {
     };
 };
 
-capsule CComp3     
+capsule CComp3 {  
     part p3 : CComp2; // ART_0017
     
     statemachine {
@@ -543,7 +543,7 @@ An [unwired port](../art-lang#unwired-port) can at runtime be connected to anoth
 
 ``` art
 capsule UnwiredCapsule {  
-    subscribe publish port p1 : UnwiredProtocol; // ART_0019
+    subscribe publish behavior port p1 : UnwiredProtocol; // ART_0019
 
     statemachine {
         state State;
@@ -561,7 +561,7 @@ An [unwired port](../art-lang#unwired-port) may have properties that control how
 
 ``` art
 capsule UnwiredCapsule2 {
-    port p1 [[rt::properties(
+    behavior port p1 [[rt::properties(
         registration_name="hi"
     )]]: UnwiredProtocol; // ART_0020
   
@@ -798,34 +798,6 @@ capsule Top {
     statemachine {
         state t21;
         initial -> t21;
-    };
-};
-```
-
-### ART_0028_superfluousTrigger
-| Severity | Reason | Quick Fix
-|----------|:-------------|:-------------
-| Warning | A transition has a trigger which can never be triggered at runtime since there is another trigger on a transition from the same state that is identical. | N/A
-
-Triggers for outgoing transitions of a state must be different. If two triggers specify the same event and port, and neither of them has a guard condition, then both of them will be enabled at the same time. In this case only one of the triggers will trigger the transition at runtime and the other one is superfluous. You can fix this problem either by removing the superfluous trigger, or to add a guard condition to one or both of the triggers or transitions. This validation rule is not run when the trigger or its transition has a guard, since it's then not possible to statically determine whether a trigger is superfluous or not.
-
-``` art
-capsule Base_27 {
-    service port timer : Timing;
-    
-    statemachine {
-        state BS;
-        initial -> BS;
-        _XTRANS: BS -> BS on timer.timeout;
-    };
-};
-
-capsule SC27 : Base_27 {
-    statemachine {
-        state State, State2;
-        redefine _XTRANS : BS -> State on timer.timeout;
-        BS -> State2 on timer.timeout; // ART_0028
-        State -> State2 on timer.timeout;
     };
 };
 ```

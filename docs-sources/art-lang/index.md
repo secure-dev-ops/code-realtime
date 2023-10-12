@@ -793,6 +793,9 @@ By default `rtdata` cannot be modified (it has type `const void*`). However, by 
 
 Note that the `const_rtdata` [property](#const_rtdata) can be set on any transition, not just the initial transition. It allows the data received when the transition is triggered to be modified.
 
+!!! example
+    You can find a sample application that has transitions with the property `const_rtdata` unset [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/move_function_2).
+
 #### Internal Transition
 An internal transition doesn't change the active state and therefore doesn't have a target state. An internal transition is always a triggered transition. You define an internal transition inside the state to which it belongs. Here is an example:
 
@@ -834,6 +837,8 @@ For a junction the guard conditions are evaluated already *before* leaving the c
 
 !!! note 
     It's important that there always is an outgoing transition for a choice with a fulfilled guard condition. Otherwise the state machine will get stuck in the choice without any chance of getting out of it. 
+    
+    The same is true if a junction is used in the [initial transition](#initial-transition). If such a junction doesn't have an outgoing transition with a fulfilled guard condition then the state machine will stay in the initial state for ever.
 
 Choices and junctions must have names, so they can be referenced as the source or target of transitions. You can choose to use a name that gives a hint about what conditions that are checked in the guards of the outgoing transitions. For example, `isEnabled` for a choice that checks a boolean condition and `checkValue` when the condition has some other type. If you follow this approach you can then name the outgoing transitions accordingly. For example `true` and `false` for a choice that checks a boolean condition. By convention choice and junction names start with lowercase and use camelCase if consisting of multiple words. Sometimes it may be difficult to come up with a good name and in that case you can choose something short and "technical" like `j1`, `check1` etc. 
 
@@ -869,7 +874,7 @@ statemachine {
 
 ![](images/choice_junction.png)
 
-Note the use of the C++ keyword `else` for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional.
+Note the use of the C++ keyword `else` for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional (except when a junction is used in the initial transition; see the note above).
 
 You can also define an else-transition for a choice or junction by simply omitting the guard condition. This is consistent with triggered transitions where the absense of a guard condition is equivalent to a guard condition that always is fulfilled. See the transition `high` in the above example.
 
@@ -904,6 +909,8 @@ statemachine {
 ![](images/junction_merge.png)
 
 Of course, in the above simple example the same code reuse could also be obtained by putting the common code in a capsule member function which is called by each of the incoming transitions. But if the common transition is followed by more non-triggered transitions the above approach is more feasible.
+
+When multiple triggered transitions converge into a common transition as in the example above, and the events that trigger those transitions have a data parameter, it's best to access that data in the triggered transitions and not in the common transition. This is especially true if the types of those data parameters are not the same, because in that case the `rtdata` parameter of the function generated for the common transition will be untyped (`void*`). You can of course still cast it to another type, but that requires that you can know which of the triggered transitions that were triggered. It's therefore better to access the data in the triggered transitions and if necessary store it in a capsule variable which you then can access in the common transition if needed.
 
 !!! example
     You can find a sample application that demonstrates usage of a choice and junction [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_and_junction).
@@ -948,6 +955,8 @@ It is possible to only connect an entry point on the "outside". Entering such an
 
 !!! example
     You can find a sample application that contains a composite state with an entry and exit point [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/compound_transition_rtdata).
+
+Just like a [junction](#choice-and-junction) an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which one to execute, and are evaluated *before* leaving the current state. Therefore, the same recommendations as for guard conditions of [junctions](#choice-and-junction) apply.
 
 #### Deep History
 Every nested state machine has an implicit pseudo state with the name `history*` (in state diagrams it's shown as `H*` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a *deep* history). 
