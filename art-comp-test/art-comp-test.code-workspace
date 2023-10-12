@@ -33,6 +33,9 @@
             "path": "tests/choice_guard_redefinition"
         },
         {
+            "path": "tests/choice_inheritance"
+        },
+        {
             "path": "tests/choice_transition_exclude"
         },
         {

@@ -13,7 +13,7 @@ capsule Top {
 
     part thePart : CapsuleWithConstructor [[rt::create]]
     `
-        return new CapsuleWithConstructor(rtg_rts, rtg_ref, 14); // Use capsule constructor
+        return new CapsuleWithConstructor_Actor(rtg_rts, rtg_ref, 14); // Use capsule constructor
     `;
     
     connect p with thePart.p;

@@ -1,0 +1,61 @@
+capsule Top {
+    part derivedPart : Derived2;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Base
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+
+    statemachine {
+        state A, B;
+        choice c;
+        _ini : initial -> c;
+
+        aTrans: c -> A when `true`
+        `
+            FAIL("The aTrans transition executes only when running Base's state machine");
+        `;
+        bTrans: c -> B when `else`
+        `
+            FAIL("Unexpected choice branch executed in Base");
+        `;
+    };
+};
+
+capsule Derived1 : Base {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+
+    statemachine {
+        exclude aTrans;
+        redefine bTrans: c -> B
+        `
+            FAIL("The redefined bTrans executes only in Derived1");
+        `;
+    };
+};
+
+capsule Derived2 : Derived1 {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    statemachine {
+        exclude bTrans;
+        redefine aTrans: c -> A
+        `
+            std::cout << "Executing aTrans: c -> A in Derived2" << std::endl;
+            PASS();
+        `;
+    };
+};
