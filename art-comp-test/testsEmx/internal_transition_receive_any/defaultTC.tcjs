@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/internal_transition_receive_any/internal_transition_receive_any.emx#_yDp-wGnDEe6Haa_j4C9Kvw'
+];
+tc.createTargetProject = true;
+tc.targetProject = 'internal_transition_receive_any_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.commonPreface = '#include <iostream>';
+tc.topCapsule = 'platform:/resource/internal_transition_receive_any/internal_transition_receive_any.emx#_a-dIUGnEEe6Haa_j4C9Kvw';
