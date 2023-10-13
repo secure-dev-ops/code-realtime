@@ -1,0 +1,10 @@
+protocol InvalidNameProtocol {
+    in virtual(); // ART_0001 ("virtual" is a C++ keyword)
+};
+
+capsule RTActor { // ART_0001 ("RTActor" is a name reserved for use by the TargetRTS)
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

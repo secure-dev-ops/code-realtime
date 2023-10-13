@@ -1,0 +1,3 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'RTActor';
+tc.targetFolder = 'art_0001_target';
