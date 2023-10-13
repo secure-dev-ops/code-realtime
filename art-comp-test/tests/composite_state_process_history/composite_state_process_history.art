@@ -1,0 +1,87 @@
+protocol PROTO {
+    out ev1();
+    out ev2();
+    out ev3();
+};
+
+capsule Top
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+
+    behavior port p_send : PROTO;
+    behavior port p_rec~ : PROTO;
+    connect p_send with p_rec;
+
+    statemachine {
+        initial -> CompState1.ep_ini1
+        `
+            std::cout << "transition initial top" << std::endl;
+        `;
+        state CompState1 {
+            entrypoint ep_ini1;
+            exitpoint ex1;
+            ep_ini1 -> NestedCompState1.ep_ini2
+            `
+                std::cout << "transition initial middle" << std::endl;
+            `;
+            state NestedCompState1 {
+                entrypoint ep_ini2;
+                exitpoint ex2;
+                ep_ini2 -> State1
+                `
+                    std::cout << "transition initial nested" << std::endl;
+                    p_send.ev1().send();
+
+                `;
+                state State1;
+                state1_ex2: State1 -> ex2 on p_rec.ev1
+                `
+                    std::cout << "transition State1 --> NestedCompState1.ex2" << std::endl;
+                    p_send.ev2().send();
+                `;
+            };
+        };
+        comp1_comp2: CompState1.ex1 -> CompState2.ep1 on p_rec.ev2
+        `
+            std::cout << "transition CompState1.ex1 --> CompState2.ep1" << std::endl;
+            p_send.ev3().send();
+        `;
+        state CompState2 {
+            entrypoint ep1, ep2;
+            ep2_ep3: ep2 -> NestedCompState2.ep3 on p_rec.ev3
+            `
+                std::cout << "transition CompState2.ep2 --> NestedCompState2.ep3" << std::endl;
+            `;
+            state NestedCompState2 {
+                entrypoint ep3;
+                ep3_nested1: ep3 -> Nested1
+                `
+                    std::cout << "transition NestedCompState2.ep3 --> Nested1" << std::endl;
+                    p_send.ev3().send();
+                `;
+                nested1_nested2: Nested1 -> Nested2 on p_rec.ev3
+                `
+                    std::cout << "transition Nested1 --> Nested2" << std::endl;
+                `;
+                state Nested1, Nested2 {
+                    entry
+                    `
+                        std::cout << "enter Nested2" << std::endl;
+                        PASS();
+                    `;
+                };
+            };
+        };
+    };
+};
+capsule Derived : Top {
+    statemachine {
+        state redefine CompState1 {
+            state Nested;
+            ex2_nested: NestedCompState1.ex2 -> Nested;
+        };
+    };
+};

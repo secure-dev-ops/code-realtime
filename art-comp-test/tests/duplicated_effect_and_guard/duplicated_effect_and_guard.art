@@ -19,7 +19,6 @@ capsule Base {
         state State1;
         _Initial: initial -> State1 `
             std::cout << "Sending myEvent(5) ..." << std::endl;
-            std::fflush(stdout);
             p.myEvent(5).send();
         `;
         state X {
@@ -28,18 +27,20 @@ capsule Base {
             t1_inside_X: ep1 -> ex1 ``;
         };
         t1: State1 -> X.ep1 on myPort.myEvent `
-            std::cout << "Received myEvent" << std::endl;
+            int data = *rtdata;
+            std::cout << "Received myEvent(" << data << ")" << std::endl;
             std::cout << "Sending anotherEvent(true) ..." << std::endl;
-            std::fflush(stdout);
             p.anotherEvent(true).send();
         `;
         t2: X.ex1 -> Y when
         `
-            // Guard to be duplicated
+            // Guard to be redefined
+            int data = *rtdata;
             return 0;
         `
         `
-            // Effect to be duplicated
+            // Effect to be redefined
+            int data = *rtdata;
         `;
         state Y;
     };
@@ -60,15 +61,17 @@ capsule Top : Base {
             redefine t1_inside_X: ep1 -> Inner;
             redefined_inner_exp1: Inner -> ex1 on myPort.anotherEvent
             `
-                std::cout << "Received anotherEvent" << std::endl;
-                std::fflush(stdout);
+                bool data = *rtdata;
+                std::cout << "Received anotherEvent(" << data << ")" << std::endl;
             `;
         };
         redefine t2: X.ex1 -> Y when
         `
+            bool data = *rtdata;
             return 1;
         `
         `
+            bool data = *rtdata;
             PASS();
         `;
 

@@ -1,0 +1,59 @@
+capsule Top
+{
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+
+    behavior port timer : Timing;
+
+    statemachine {
+        initial -> State1.ep1;
+        state State1 {
+            entrypoint ep1;
+            exitpoint ex1;
+            state Nested, Other;
+            _initial: ep1 -> Nested when
+            `
+                std::cout << "Checking guard on nested initial transition" << std::endl;
+                return 1;
+            `
+            `
+                timer.informIn(RTTimespec(1,0));
+            `;
+            _initial_other: ep1 -> Other
+            `
+                FAIL("Executed unexpected _initial_other transition");
+            `;
+            nested_ex1: Nested -> ex1 on timer.timeout
+            `
+                std::cout << "Transition nested_ex1" << std::endl;
+                std::cout << "Exiting State1" << std::endl;
+            `;
+        };
+        exit_to_state2: State1.ex1 -> State2 when
+        `
+            std::cout << "Checking exit_to_state2 guard" << std::endl;
+            return 1;
+        `
+        `
+            std::cout << "Transition State1 -> State2" << std::endl;
+        `;
+        exit_to_state3: State1.ex1 -> State3 when
+        `
+            std::cout << "Checking exit_to_state3 guard" << std::endl;
+            return 0;
+        `
+        `
+            FAIL("Executed unexpected exit_to_state3 transition");
+        `;
+        state State2 {
+            entry
+            `
+                std::cout << "Entered State2" << std::endl;
+                PASS();
+            `;
+        };
+        state State3;
+    };
+};

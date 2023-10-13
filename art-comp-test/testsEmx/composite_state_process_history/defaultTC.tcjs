@@ -1,0 +1,13 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/composite_state_process_history/composite_state_process_history.emx#_3-oxgGjpEe6KX4XNuzkVjg'
+];
+tc.createTargetProject = true;
+tc.targetProject = 'composite_state_process_history_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.commonPreface = `
+#include <iostream>
+
+`;
+tc.topCapsule = 'platform:/resource/composite_state_process_history/composite_state_process_history.emx#_951koGjpEe6KX4XNuzkVjg';

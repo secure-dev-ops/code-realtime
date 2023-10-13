@@ -39,6 +39,12 @@
             "path": "tests/choice_transition_exclude"
         },
         {
+            "path": "tests/composite_state_entry_exit_guards"
+        },
+        {
+            "path": "tests/composite_state_process_history"
+        },
+        {
             "path": "tests/compound_transition_rtdata"
         },
         {
