@@ -4,12 +4,7 @@ protocol Events {
     out e2();
 };
 
-capsule Top 
-[[rt::properties(
-    rule_config="X0029"
-)]]
-
-{
+capsule Top {
     [[rt::impl_preface]]
     `
         #include "testlib.art.h"
@@ -26,22 +21,26 @@ capsule Top
     statemachine {
         state Composite {
             state N1, N2;
-            initial -> N1;
+            entrypoint ini;
+            ini -> N1;
             t1: N1 -> N2 on p2.e1
             `
+                std::cout << "transition N1 --> N2" << std::endl;
                 t1 = true;
             `;
-            t2: N1 -> N2 on p2.e2
+            t2: N2 -> N1 on p2.e2
             `
+                std::cout << "transition N2 --> N1" << std::endl;
                 t2 = true;
             `;
             onError: on p2.* // Receive any event on p2
             `
+                std::cout << "internal transition onError" << std::endl;
                 ASSERT(t1 && t2, "Both t1 and t2 should have executed");
                 PASS();
             `;
         };
-        initial -> Composite
+        initial -> Composite.ini
         `
             p1.e1().send();
             p1.e2().send();
