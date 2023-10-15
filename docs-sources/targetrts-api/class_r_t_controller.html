@@ -90,10 +90,12 @@ Inheritance diagram for RTController:</div>
  <div class="center">
   <img src="class_r_t_controller.png" usemap="#RTController_map" alt=""/>
   <map id="RTController_map" name="RTController_map">
-<area href="class_r_t_job.html" title="An object associated with a thread which captures its current state and implements its behavior." alt="RTJob" shape="rect" coords="67,0,191,24"/>
-<area href="class_r_t_peer_controller.html" title="A controller that acts as an interface to a physical thread which runs a group of capsule instances i..." alt="RTPeerController" shape="rect" coords="0,112,124,136"/>
-<area href="class_r_t_sole_controller.html" title="A controller that acts as an interface to a physical thread which runs a group of capsule instances i..." alt="RTSoleController" shape="rect" coords="134,112,258,136"/>
-<area href="class_r_t_custom_controller.html" alt="RTCustomController" shape="rect" coords="0,168,124,192"/>
+<area href="class_r_t_job.html" title="An object associated with a thread which captures its current state and implements its behavior." alt="RTJob" shape="rect" coords="201,0,325,24"/>
+<area href="class_r_t_peer_controller.html" title="A controller that acts as an interface to a physical thread which runs a group of capsule instances i..." alt="RTPeerController" shape="rect" coords="134,112,258,136"/>
+<area href="class_r_t_sole_controller.html" title="A controller that acts as an interface to a physical thread which runs a group of capsule instances i..." alt="RTSoleController" shape="rect" coords="268,112,392,136"/>
+<area href="class_r_t_abort_controller.html" alt="RTAbortController" shape="rect" coords="0,168,124,192"/>
+<area href="class_r_t_custom_controller.html" alt="RTCustomController" shape="rect" coords="134,168,258,192"/>
+<area href="class_r_t_timer_controller.html" alt="RTTimerController" shape="rect" coords="268,168,392,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -244,10 +246,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>requeueMsg</b> (<a cl
 void&#160;</td><td class="memItemRight" valign="bottom"><b>freeMsg</b> (<a class="el" href="class_r_t_message.html">RTMessage</a> *)</td></tr>
 <tr class="separator:a4897dd65e97235ce9865c4a0b8df512b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e730fe88c6ba693b2bdb587d507e09"><td class="memItemLeft" align="right" valign="top"><a id="a53e730fe88c6ba693b2bdb587d507e09" name="a53e730fe88c6ba693b2bdb587d507e09"></a>
-RTTimerNode *&#160;</td><td class="memItemRight" valign="bottom"><b>newTimerNode</b> (void)</td></tr>
+<a class="el" href="class_r_t_timer_node.html">RTTimerNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>newTimerNode</b> (void)</td></tr>
 <tr class="separator:a53e730fe88c6ba693b2bdb587d507e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f9c03c165b5cc54f6ebd65bfe60488e"><td class="memItemLeft" align="right" valign="top"><a id="a9f9c03c165b5cc54f6ebd65bfe60488e" name="a9f9c03c165b5cc54f6ebd65bfe60488e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>freeTimerNode</b> (RTTimerNode *node)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>freeTimerNode</b> (<a class="el" href="class_r_t_timer_node.html">RTTimerNode</a> *node)</td></tr>
 <tr class="separator:a9f9c03c165b5cc54f6ebd65bfe60488e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a383cb86f9be968c3e8304a37948b4c0d"><td class="memItemLeft" align="right" valign="top"><a id="a383cb86f9be968c3e8304a37948b4c0d" name="a383cb86f9be968c3e8304a37948b4c0d"></a>
 <a class="el" href="class_r_t_message.html">RTMessage</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getReplyBuffer</b> (void)</td></tr>
@@ -508,7 +510,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 <p>Print various statistics to stdout about what has happened in the RT application (e.g. </p>
 <p>the number of incarnated capsules, the number of dispatched messages etc.). </p>
 
-<p>Reimplemented in <a class="el" href="class_r_t_sole_controller.html#a6577c691f8fc850f2437c08d5cb33265">RTSoleController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_r_t_sole_controller.html#a6577c691f8fc850f2437c08d5cb33265">RTSoleController</a>, and <a class="el" href="class_r_t_timer_controller.html#a6656504d8669346288915c459ca3f99a">RTTimerController</a>.</p>
 
 </div>
 </div>
