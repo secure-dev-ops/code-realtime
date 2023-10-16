@@ -11,6 +11,18 @@
         {
             "path": "../art-samples/PingPong"
         },
+		{
+            "path": "tests/art_0001"
+        },
+		{
+            "path": "tests/art_0002"
+        },
+		{
+            "path": "tests/art_0003"
+        },
+		{
+            "path": "tests/art_0004"
+        },
         {
             "path": "tests/build_variants"
         },
@@ -94,6 +106,9 @@
         },
         {
             "path": "tests/protocol_inheritance_redefined_event"
+        },
+		{
+            "path": "tests/rule_config"
         },
         {
             "path": "tests/struct_type_descriptor"

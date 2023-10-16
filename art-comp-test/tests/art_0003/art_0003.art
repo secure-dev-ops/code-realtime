@@ -1,0 +1,35 @@
+capsule myCap {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state myState;
+        initial -> myState;
+    };
+};
+
+class myClass {
+    /* Trigger Operations */
+    /* State Machine */
+    statemachine {
+        state myState;
+        initial -> myState;
+    };
+};
+
+protocol myProtocol {
+    /* In Events */
+    /* Out Events */
+};
+
+capsule _internal { // underscore counts as valid uppercase character
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

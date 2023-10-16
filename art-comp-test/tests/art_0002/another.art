@@ -1,0 +1,9 @@
+capsule XCap {
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+protocol DP {
+};
