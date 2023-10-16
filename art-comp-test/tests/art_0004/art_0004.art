@@ -1,0 +1,35 @@
+protocol P {
+    in E1();
+    out E2();
+};
+
+capsule MyCap {
+    optional part Part : MyCap[0..1];
+    behavior port Timer : Timing;
+    statemachine {
+        state State;
+        choice AChoice;
+        AChoice -> State;
+        junction AJunction;
+        INITIAL: initial -> State;
+        state Composite {
+            entrypoint EP1;
+            exitpoint EX1;
+        };
+    };
+};
+
+class MyClass {
+    trigger Foo();
+    statemachine {
+        state State;
+        choice AChoice;
+        TRANS: AChoice -> State;
+        junction AJunction;
+        initial -> State;
+        state Composite {
+            entrypoint EP1;
+            exitpoint EX1;
+        };
+    };
+};

@@ -1,0 +1,78 @@
+protocol DupProto {
+    in inEvent1(); // ART_0002
+    in inEvent1(); // ART_0002
+
+    in inEvent2(); // ART_0002
+    in inEvent2(); // ART_0002
+
+    out outEvent1(); // ART_0002
+    out outEvent1(); // ART_0002
+
+    out inEvent1(); // OK (symmetric event)
+};
+
+capsule XCap {
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+protocol DP {
+};
+
+
+class DNIS {
+    trigger op1(`int` p);
+    trigger op1(); // OK (signatures are unique)
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class DNIS2 {
+    trigger op2(`long long` p);
+    trigger op2(`long long` q);
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule PartDuplicated {
+    part p : XCap;
+    optional part p : XCap;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule PortDuplicated {
+    behavior port t : Timing;
+    behavior port t : Log;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule StateDuplicated {
+    statemachine {
+        state State, State;
+        initial -> State;
+    };
+};
+
+capsule TransitionDuplicated {
+    statemachine {
+        state State;
+        state State2{
+            state S1, S2;
+            t: S1 -> S2;
+            t: S1 -> S2;
+        };
+        initial -> State;
+    };
+};

@@ -1,0 +1,32 @@
+capsule TopCap 
+[[rt::properties(
+    rule_config="I0004,X0003"
+)]]
+{
+    behavior port LogPort : Log;
+    
+    statemachine {
+        state myState;
+        initial -> myState;
+    };
+};
+
+capsule AnotherCap 
+[[rt::properties(
+    rule_config="E0004"
+)]]
+{
+    part PART : TopCap;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class MyCls {
+    trigger AnOp(`int` p);
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
