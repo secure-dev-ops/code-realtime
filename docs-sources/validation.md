@@ -113,7 +113,7 @@ capsule Exception { // ART_0001 ("Exception" is a name reserved for use by the T
 
 Names of Art elements must be unique within the same scope. The following is checked:
 
-* Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC). The corresponding C++ elements will have names in the global namespace and must hence be unique.
+* Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC or prerequisite TCs). The corresponding C++ elements will have names in the global namespace and must hence be unique.
 * Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see [Protocol and Event](../art-lang#protocol-and-event)).
 * [Parts](../art-lang#part) of a capsule.
 * [Ports](../art-lang#port) of a capsule.
@@ -265,14 +265,46 @@ capsule InitTransCap2 {
 };
 
 capsule InitTransCap3 : InitTransCap2 {
-    statemachine {
+    statemachine { // ART_0008 (1 local initial transition and 1 inherited)
+        state State2;
+        initial -> State2; 
+    };
+};
+
+capsule NoInitTrans { 
+    statemachine { // ART_0008 (no initial transition)
         state State;
-        initial -> State; // ART_0008
     };
 };
 ```
 
 Note that if the initial transition in the base capsule has no name, the derived capsule cannot exclude or redefine it. It's therefore good practise to name the initial transition if you expect your capsule to be inherited from.
+
+The validation rule also checks nested state machines. Such a state machine doesn't need any initial transition, since the composite state can be entered via an entrypoint which takes the nested state machine to its first state. However, if the nested state machine has an initial transition there cannot be more than one.
+
+``` art
+capsule InitTransCap2 {
+    statemachine {        
+        initial -> Composite;
+
+        state Composite {
+            state NS;
+            initial -> NS;
+        };
+    };
+};
+ 
+capsule InitTransCap3 : InitTransCap2 {
+    statemachine {
+        state redefine Composite { // ART_0008 (3 local initial transitions and 1 inherited)
+            state S1, S2, S3;
+            initial -> S1; 
+            initial -> S2; 
+            _ini: initial -> S3; 
+        };
+    };
+};
+```
 
 ### ART_0009_invalidProperty
 | Severity | Reason | Quick Fix
@@ -285,8 +317,19 @@ A Quick Fix is available for removing the setting of the invalid property. Use C
 
 ``` art
 protocol IP_PROTO [[rt::properties(
-    no_property = 4 // ART_0009 (A protocol has no property called "no_property")
+    no_property = 4 // ART_0009 (a protocol has no property called "no_property")
 )]] {
+};
+
+capsule CN 
+[[rt::properties(
+    colour="#ff0000" // ART_0009 (misspelled property "color")
+)]]
+{
+    statemachine {
+        state State;
+        initial -> State;
+    };
 };
 ```
 
@@ -643,8 +686,6 @@ capsule CX {
 
 An [unwired port](../art-lang#unwired-port) cannot be connected to another port by means of a [connector](../art-lang#connector). Hence, it's required that an unwired port is defined to be a behavior port. Otherwise it would not be possible for the owner capsule to send and receive events on an unwired port.
 
-Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.
-
 ``` art
 capsule Pinger {
     service unwired port p1 : PROTO; // ART_0024
@@ -655,6 +696,8 @@ capsule Pinger {
     };
 };
 ```
+
+Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.
 
 ### ART_0025_portOnPartConnectionError
 | Severity | Reason | Quick Fix
@@ -801,6 +844,32 @@ capsule Top {
     };
 };
 ```
+
+### ART_0028_unwiredPortWithAutoRegNeitherPublisherNorSubscriber
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | An unwired port is registered automatically but is neither specified as a publisher or subscriber. | Declare as Publisher, Declare as Subscriber
+
+An [unwired port](../art-lang#unwired-port) is either a publisher (SPP) or subscriber (SAP) at run-time. Unless the port has the [registration](../art-lang#registration) property set to `application` it will be registered automatically when the container capsule instance gets created. Hence it's necessary in this case to declare the port either as a publisher or subscriber.
+
+``` art
+capsule CCXX {
+    unwired behavior port pu // ART_0028
+    [[rt::properties(
+        registration=automatic_locked
+    )]]
+    : PPX;
+
+    unwired service behavior port pu2 : PPX; // ART_0028 (default registration is "automatic")
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+```
+
+Two Quick Fixes are available for fixing this problem. Either the port can be declared as a publisher (keyword `publish`) or as a subscriber (keyword `subscribe`).
 
 ### ART_0029_transitionToCompositeStateNoEntry
 | Severity | Reason | Quick Fix

@@ -256,10 +256,10 @@ If you don't specify a value for this property, the TC will build a library inst
 Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is `UnitName` which means that these unit files will be called `UnitName.cpp` and `UnitName.h`. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.
 
 ### userLibraries
-This property is a list of user libraries that should be linked with the application. This property is only applicable for TCs that build executables.
+This property is a list of user libraries that should be linked with the application. The property is only applicable for TCs that build executables.
 
 ``` js
-tc.userLibraries = ["myLib"];
+tc.userLibraries = ["../..libs/libMyLib.a"];
 ```
 
-Note that you may also need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for user libraries.
+Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the user libraries.

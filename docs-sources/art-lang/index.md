@@ -659,7 +659,7 @@ Parts can also be shown in a class diagram:
 In the above diagram the filled diamonds show that there is a strong life-time relationship between a `C` instance and the instances of `D` that are located in the fixed and optional parts `a`, `b`, `c`, `d` and `f`, while this is not the case for the instance located in the plugin part `e` as shown by the hollow diamond.
 
 ### Part with Capsule Factory
-If the capsule that types a part has a [capsule constructor](#capsule-constructor) with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. 
+If the capsule that types a part has a [capsule constructor](#capsule-constructor) with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of one or both of the below code snippets that define how an instance of that capsule should be created and destroyed. 
 
 * `rt::create` Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity > 1) etc.
 * `rt::destroy` Defines how to destroy an instance of the capsule. By default it's destroyed using the `delete` operator.
@@ -674,6 +674,10 @@ part engine : Engine [[rt::create]]
 ```
 
 Note that you may want to create a capsule factory for a part also for other reasons than passing custom constructor parameters. For example, you may want to change the default thread (`RTController*`) that should execute the created capsule instance, or you may want to instantiate an inherited capsule rather than the capsule that types the part.
+
+!!! example
+    You can find a sample application [here](https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_factory_for_part) where a fixed part uses an `rt::create` code snippet for invoking a custom capsule constructor.
+
 
 ## State Machine
 State machines are used for specifying the behavior of [capsules](#capsule). It is also possible to provide a state machine for a passive class; see [Class with State Machine](#class-with-state-machine) for more information about that. In this chapter we focus on state machines in capsules. 
