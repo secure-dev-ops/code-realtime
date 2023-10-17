@@ -11,17 +11,35 @@
         {
             "path": "../art-samples/PingPong"
         },
-		{
+        {
             "path": "tests/art_0001"
         },
-		{
+        {
             "path": "tests/art_0002"
         },
-		{
+        {
             "path": "tests/art_0003"
         },
-		{
+        {
             "path": "tests/art_0004"
+        },
+        {
+            "path": "tests/art_0005"
+        },
+        {
+            "path": "tests/art_0006"
+        },
+        {
+            "path": "tests/art_0007"
+        },
+        {
+            "path": "tests/art_0008"
+        },
+        {
+            "path": "tests/art_0009"
+        },
+        {
+            "path": "tests/art_0010"
         },
         {
             "path": "tests/build_variants"
@@ -107,7 +125,7 @@
         {
             "path": "tests/protocol_inheritance_redefined_event"
         },
-		{
+        {
             "path": "tests/rule_config"
         },
         {

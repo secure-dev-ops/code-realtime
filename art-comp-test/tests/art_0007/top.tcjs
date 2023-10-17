@@ -1,0 +1,3 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'ChoiceSample';
+tc.targetFolder = 'art_0007_target';

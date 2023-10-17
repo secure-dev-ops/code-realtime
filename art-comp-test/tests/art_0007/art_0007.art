@@ -1,0 +1,10 @@
+capsule ChoiceSample {
+    statemachine {
+        state State, State2;
+        initial -> State;
+        choice x; // ART_0007
+        State -> x;
+        x -> State;
+        x -> State2 when `else`;
+    };
+};

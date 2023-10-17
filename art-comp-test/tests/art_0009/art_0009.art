@@ -1,0 +1,15 @@
+protocol IP_PROTO [[rt::properties(
+    no_property = 4 // ART_0009 (a protocol has no property called "no_property")
+)]] {
+};
+
+capsule CN 
+[[rt::properties(
+    colour="#ff0000" // ART_0009 (misspelled property "color")
+)]]
+{
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

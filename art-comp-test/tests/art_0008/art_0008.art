@@ -1,0 +1,32 @@
+capsule InitTransCap2 {
+    statemachine {
+        state State;
+        initial -> State;
+
+        state Composite {
+            state NS;
+            initial -> NS;
+        };
+    };
+};
+ 
+capsule InitTransCap3 : InitTransCap2 {
+    statemachine { 
+        state State, StateX;
+        initial -> State; // ART_0008
+        _ini: initial -> StateX; // ART_0008 
+
+        state redefine Composite {
+            state S1, S2, S3;
+            initial -> S1;
+            initial -> S2;
+            _ini: initial -> S3;
+        };
+    };
+};
+
+capsule NoInitTrans {
+    statemachine {
+        state State;
+    };
+};

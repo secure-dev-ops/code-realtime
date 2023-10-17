@@ -1,0 +1,14 @@
+capsule ChoiceSample {
+    [[rt::decl]]
+    `
+        int getVal() {return 5;};
+    `
+    statemachine {
+        state State;
+        initial -> State;
+        choice x; // ART_0005
+        State -> x;
+        x -> State when `return getVal() == 5;`;
+        x -> State when `return getVal() == 6;`;
+    };
+};

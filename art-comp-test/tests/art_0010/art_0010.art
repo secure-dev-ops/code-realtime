@@ -1,0 +1,23 @@
+capsule IPV_Cap [[rt::properties(
+    generate_file_header=4, // ART_0010 ("generate_file_header" is a boolean property)
+    color=true // ART_0010 ("color" is a string property)
+)]]{
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};  
+
+class MyClass
+[[rt::properties(
+    kind="struct", // ART_0010 ("kind" is an enum property)
+    version="11" // ART_0010 ("version" is an integer property)
+)]]
+{
+    /* Trigger Operations */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
