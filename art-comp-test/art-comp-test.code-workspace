@@ -138,6 +138,9 @@
             "path": "tests/tc_sources"
         },
         {
+            "path": "tests/tc_user_libraries"
+        },
+        {
             "path": "tests/threads"
         },
         {

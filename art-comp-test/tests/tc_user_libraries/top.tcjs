@@ -1,0 +1,8 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'tc_user_libraries_target';
+tc.compileArguments = '-I../../../tc_user_libraries';
+tc.userLibraries = [
+    '../../../tc_user_libraries/libUser$(OS).a'
+];
