@@ -1,0 +1,49 @@
+[[rt::header_preface]] // ART_0012 (code snippet for capsule/class placed at file level)
+`
+    // YourCodeHere
+`
+capsule OtherCap {
+    [[rt::create]]
+    `
+        // YourCodeHere
+    `
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+capsule Name {
+    [[rt::unknown]] // ART_0012 (non-existing kind of code snippet)
+    `
+        // YourCodeHere
+    `
+
+    part x : OtherCap 
+    [[rt::create]]
+    `
+        return new DemoCap_Actor(rtg_rts, rtg_ref);
+    `
+    [[rt::create]] // ART_0012 (duplicated code snippet)
+    `
+        return new DemoCap_Actor(rtg_rts, rtg_ref);
+    `;
+
+    part y : OtherCap 
+    [[rt::destroy]]
+    `
+        // impl
+    `
+    [[rt::destroy]] // ART_0012 (duplicated code snippet)
+    `
+        // impl
+    `;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};  

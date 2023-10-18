@@ -1,0 +1,37 @@
+class C_PropDefaultValue [[rt::properties(
+    const_target_param_for_decode=false,
+    kind=_class,
+    version=0,
+    default_constructor_visibility=public
+)]] {
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};  
+
+protocol Proto 
+[[rt::properties(
+    version=0
+)]]
+{
+    /* In Events */
+    /* Out Events */
+};
+
+capsule Cap_PropDefaultValue 
+[[rt::properties(
+    generate_file_header
+)]]
+ {    
+    behavior publish unwired port p 
+    [[rt::properties(
+        registration=automatic,
+        registration_name=""
+    )]]
+    : Proto;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
