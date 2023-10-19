@@ -25,6 +25,9 @@ Set a TC as active by right-clicking on it and perform the command **Set as Acti
 
 If the active TC has [prerequisites](#transformation-configuration-prerequisites), those too will be set as active. This ensures that the results you get when working with Art files in the IDE will be the same as when you will build the TC using the [Art Compiler](art-compiler.md). 
 
+You can deactivate an individual TC by removing the file `art_build_settings.json` in the `.vscode` folder. To deactivate all TCs in the workspace use the **Deactivate All** command in the [Art Build view](#art-build-view).
+
+
 ## Editing Transformation Configurations
 You can edit a TC directly as a JavaScript file in the text editor. Features such as content assist, navigation and hover tooltips work very similar to how they work for an Art file:
 
@@ -96,6 +99,8 @@ There are also a few useful commands in the Art Build view toolbar:
 * **Clean All** Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.
 
 * **Collapse All** Collapses all TCs to not show any prerequisites.
+
+* **Deactivate All** Makes all TCs non-active. This makes it easier to switch from building one set of active TCs to another.
 
 ## Properties
 Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.
