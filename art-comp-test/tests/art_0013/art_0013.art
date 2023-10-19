@@ -1,0 +1,16 @@
+capsule OtherCap {    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule PME_Cap {
+    part myPart : OtherCap [2..2];
+    part myPart2 : OtherCap [11..10];
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

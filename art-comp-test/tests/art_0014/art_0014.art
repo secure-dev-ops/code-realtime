@@ -1,0 +1,17 @@
+capsule OtherCap {    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule PKMI_Cap { 
+    fixed part myPart : OtherCap [0..2]; // ART_0014 (Fixed part should not have lower multiplicity 0)
+    fixed part myPart2 : OtherCap [1..0]; // ART_0014 (Fixed part should not have upper multiplicity 0)
+    optional part myPart3 : OtherCap [1..5]; // ART_0014 (Optional part should not have lower multiplicity > 0)
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

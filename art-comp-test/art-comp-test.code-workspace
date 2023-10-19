@@ -41,11 +41,17 @@
         {
             "path": "tests/art_0010"
         },
-		{
+        {
             "path": "tests/art_0011"
         },
-		{
+        {
             "path": "tests/art_0012"
+        },
+		{
+            "path": "tests/art_0013"
+        },
+		{
+            "path": "tests/art_0014"
         },
         {
             "path": "tests/build_variants"
@@ -157,7 +163,6 @@
         },
         {
             "path": "tests/typedef_type_descriptor"
-        }      
-        
+        }
     ]
 }
