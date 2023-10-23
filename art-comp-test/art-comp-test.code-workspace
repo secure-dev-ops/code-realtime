@@ -47,11 +47,41 @@
         {
             "path": "tests/art_0012"
         },
-		{
+        {
             "path": "tests/art_0013"
         },
-		{
+        {
             "path": "tests/art_0014"
+        },
+		{
+            "path": "tests/art_0015"
+        },
+		{
+            "path": "tests/art_0016"
+        },
+		{
+            "path": "tests/art_0017"
+        },
+		{
+            "path": "tests/art_0018"
+        },
+		{
+            "path": "tests/art_0019"
+        },
+		{
+            "path": "tests/art_0020"
+        },
+		{
+            "path": "tests/art_0021"
+        },
+		{
+            "path": "tests/art_0022"
+        },
+		{
+            "path": "tests/art_0023"
+        },
+		{
+            "path": "tests/art_0024"
         },
         {
             "path": "tests/build_variants"

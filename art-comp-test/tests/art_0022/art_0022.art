@@ -1,0 +1,21 @@
+capsule RCP [[rt::properties(
+    rule_config="X0000" // ART_0022 (a validation rule with id 0000 does not exist)
+)]]{
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class C
+[[rt::properties(
+    rule_config="T0001"
+)]]
+ {
+    /* Trigger Operations */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

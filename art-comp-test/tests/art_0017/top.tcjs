@@ -1,0 +1,3 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = "CComp1";
+tc.targetFolder = 'art_0017_target';

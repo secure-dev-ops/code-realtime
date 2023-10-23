@@ -1,0 +1,26 @@
+capsule CT_cap {
+    statemachine { // ART_0018
+        state S1;
+        initial -> S1;
+        junction j1, j2;
+        t1: S1 -> j1;
+        t2: j1 -> j2;
+        t3: j2 -> j1;
+    };
+};
+// TODO: Cycles that involve nested state machines cannot currently be detected
+/*
+capsule Cap0018 {
+    statemachine {      
+        state State {
+            entrypoint ep;
+            exitpoint ex;
+            junction j1;
+            state N1;
+            ep -> j1;
+            j1 -> ex;
+        };
+        initial -> State.ep;
+        State.ex -> State.ep;
+    };
+};*/

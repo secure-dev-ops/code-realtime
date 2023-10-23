@@ -1,0 +1,3 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = "UnwiredCapsule2";
+tc.targetFolder = 'art_0020_target';

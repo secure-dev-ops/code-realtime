@@ -1,0 +1,11 @@
+capsule IntTransOutsideState {
+    behavior port timer : Timing;
+
+    statemachine {
+        state State {
+            t1 : on timer.timeout ` `;           
+        };
+        initial -> State;
+        terror : on timer.timeout ` `; // ART_0015
+    };
+};

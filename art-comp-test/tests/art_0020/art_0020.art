@@ -1,0 +1,13 @@
+protocol UnwiredProtocol {  };
+
+capsule UnwiredCapsule2 {
+    behavior port p1 [[rt::properties(
+        registration_name="hi",
+        registration=application      
+    )]]: UnwiredProtocol; // ART_0020
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

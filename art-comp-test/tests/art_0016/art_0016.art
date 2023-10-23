@@ -1,0 +1,66 @@
+protocol PR1 : PR2 { // ART_0016
+
+};
+
+protocol PR2 : PR1 { // ART_0016
+
+};
+
+class C1 {    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class C2 : C1 {
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class C3 : C2, C4 { // ART_0016
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class C4 : C3 { // ART_0016
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Cap1 : Cap1 {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Cap2 : Cap3 {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State1;        
+    };
+};
+capsule Cap3 : Cap2 {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

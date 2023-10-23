@@ -1,0 +1,27 @@
+capsule CX {
+    statemachine {
+        state Composite {
+            entry 
+            `
+                entry1();
+            `;
+            entry 
+            `
+                entry2();
+            `;
+        };
+
+        state Composite2 {
+            exit
+            `
+                exit1();
+            `;
+            exit
+            `
+                exit2();
+            `;
+        };
+
+        initial -> Composite;
+    };
+};

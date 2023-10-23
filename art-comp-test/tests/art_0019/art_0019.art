@@ -1,0 +1,11 @@
+protocol UnwiredProtocol {  };
+
+capsule UnwiredCapsule {  
+    subscribe publish behavior port p1 : UnwiredProtocol; // ART_0019
+    publish subscribe behavior port p2 : UnwiredProtocol; // ART_0019
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

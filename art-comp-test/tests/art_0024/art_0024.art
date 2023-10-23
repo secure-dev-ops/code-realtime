@@ -1,0 +1,12 @@
+protocol PROTO {
+    in e1();
+};
+
+capsule Pinger {
+    service publish unwired port p1 : PROTO; // ART_0024
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};

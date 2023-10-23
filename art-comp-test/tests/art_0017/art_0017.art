@@ -1,0 +1,25 @@
+capsule CComp2 {    
+    fixed part p2 : CComp3; // ART_0017
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule CComp3 {  
+    part p3 : CComp2; // ART_0017
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule CComp1 {
+    part p : CComp1;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
