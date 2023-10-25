@@ -1,0 +1,62 @@
+protocol PROTO {
+    in in1();
+    out out1();
+};
+
+capsule Top {    
+    part ping : Pinger, // ART_0025 (not connected in capsule Top)
+    pong : Ponger; // ART_0025 (not connected in capsule Top)    
+
+    connect ping.unwired_port1 with pong.unwired_port2;
+    
+    service publish behavior port unwired_port1 : PROTO;
+    service subscribe behavior port unwired_port2~ : PROTO;
+    connect unwired_port1 with unwired_port2; // ART_0025 (unwired ports must not be connected)
+
+    unwired behavior port unwired_port3~ 
+    [[rt::properties(
+        registration=application
+    )]]
+    : PROTO;
+
+    connect ping.p2 with unwired_port3; // ART_0025 (unwired ports must not be connected)
+
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p : PROTO;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Pinger {
+    service port p1 : PROTO;      
+    part inner : Inner;
+    connect p1 with inner.p;    
+
+    service publish behavior port unwired_port1 : PROTO;
+
+    service port p2 : PROTO;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Ponger {
+    service behavior port p2~ : PROTO;    
+    service subscribe behavior port unwired_port2~ : PROTO;
+
+    statemachine {
+        state State1;                    
+        initial -> State1;
+    };
+};

@@ -1,0 +1,10 @@
+capsule Cap {
+    statemachine {
+        state BS {
+            entrypoint ep1;
+            initial -> Nested;
+            state Nested;
+        };
+        _Initial: initial -> BS; // ART_0029
+    };
+};

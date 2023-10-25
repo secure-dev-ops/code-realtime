@@ -1,0 +1,18 @@
+protocol PPX {
+    in e1();
+};
+
+capsule CCXX {
+    unwired behavior port pu // ART_0028
+    [[rt::properties(
+        registration=automatic_locked
+    )]]
+    : PPX;
+
+    unwired service behavior port pu2 : PPX; // ART_0028 (default registration is "automatic")
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

@@ -1,0 +1,28 @@
+protocol PROTO1 {    
+    in pong();    
+    out ping();
+};
+
+protocol PROTO2 {
+    in pong();
+    out ping();
+};
+
+protocol PROTO3 {    
+    in pong();    
+    out ping3();
+};
+
+capsule Top {
+    service port p1 : PROTO1;    
+    service port p2~ : PROTO2;
+    service port p3~ : PROTO3;
+
+    connect p1 with p2; // ART_0027 (but OK in HCL RTist)
+    connect p1 with p3; // ART_0027 (also not OK in HCL RTist due to event ping3)
+
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};

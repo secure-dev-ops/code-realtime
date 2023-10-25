@@ -461,7 +461,7 @@ An [internal transition](../art-lang#internal-transition) specifies events that 
 
 ``` art
 capsule IntTransOutsideState {
-    service port timer : Timing;
+    behavior port timer : Timing;
 
     statemachine {
         state State {
@@ -577,6 +577,9 @@ capsule CT_cap {
 };
 ```
 
+!!! note 
+    Entry and exit points can also split an incoming transition flow and a transition cycle can involve transitions of a nested state machines. Such cycles cannot be detected by this validation rule. 
+
 ### ART_0019_unwiredPortBothPublisherAndSubscriber
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
@@ -624,7 +627,7 @@ When an [unwired port](../art-lang#unwired-port) is registered a name is used th
 
 ``` art
 capsule UnwiredCapsule3 {
-    unwired behavior port p1~ [[rt::properties(
+    unwired publish behavior port p1~ [[rt::properties(
         registration_name = "p1"
     )]]
     : UnwiredProtocol; // ART_0021 
@@ -688,7 +691,7 @@ An [unwired port](../art-lang#unwired-port) cannot be connected to another port 
 
 ``` art
 capsule Pinger {
-    service unwired port p1 : PROTO; // ART_0024
+    service publish unwired port p1 : PROTO; // ART_0024
 
     statemachine {
         state State1;
@@ -699,7 +702,7 @@ capsule Pinger {
 
 Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.
 
-### ART_0025_portOnPartConnectionError
+### ART_0025_portConnectionError
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
 | Error | A wired port is not properly connected, or an unwired port is connected. | N/A
@@ -714,8 +717,8 @@ capsule Top {
     pong : Ponger; // ART_0025 (not connected in capsule Top)
     
     statemachine {
-        state t21;
-        initial -> t21;
+        state T21;
+        initial -> T21;
     };
 };
 
@@ -758,7 +761,7 @@ In the above picture we can more easily understand the two errors reported for t
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible conjugations. | N/A
 
-Ports connected by a [connector](../art-lang#connector) must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have the opposite conjugation. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
+Ports connected by a [connector](../art-lang#connector) must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have opposite conjugations. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
 
 ``` art
 capsule Top {    
@@ -766,8 +769,8 @@ capsule Top {
     connect ping.p1 with pong.p2; // ART_0026 (same port conjugations but should be different)
     
     statemachine {
-        state t21;
-        initial -> t21;
+        state T21;
+        initial -> T21;
     };
 };
 
@@ -812,7 +815,7 @@ Here we see that both connectors are invalid. Port `p2` and port `p1` are at the
 Ports connected by a [connector](../art-lang#connector) must have compatible protocols. For {$product.name$} this means that the protocols must be the same.
 
 !!! note 
-    {$rtist.name$} uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in {$rtist.name$} the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended, and hence not supported by {$product.name$}.
+    {$rtist.name$} uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in {$rtist.name$} the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended to use, and hence not supported by {$product.name$}.
 
 ``` art
 protocol PROTO1 {    
@@ -839,8 +842,8 @@ capsule Top {
     connect p1 with p3; // ART_0027 (also not OK in {$rtist.name$} due to event ping3)
     
     statemachine {
-        state t21;
-        initial -> t21;
+        state T21;
+        initial -> T21;
     };
 };
 ```

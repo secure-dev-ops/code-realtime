@@ -1,0 +1,45 @@
+protocol PROTO {
+    in in1();
+    out out1();
+};
+
+capsule Top {    
+    part ping : Pinger, pong : Ponger; 
+    connect ping.p1 with pong.p2; // ART_0026 (same port conjugations but should be different)
+
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p : PROTO;
+
+    behavior port p1 : PROTO;
+    connect p1 with p1; // ART_0026 (connected ports must be different)
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+capsule Pinger {    
+    service port p1~ : PROTO;  
+    part inner : Inner;
+    connect p1 with inner.p; // ART_0026 (different port conjugations but should be same)
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Ponger {
+    service behavior port p2~ : PROTO;    
+
+    statemachine {
+        state State1;                    
+        initial -> State1;
+    };
+};
