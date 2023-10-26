@@ -4,6 +4,8 @@ protocol PROTO {
 
 capsule Pinger {
     service publish unwired port p1 : PROTO; // ART_0024
+    service subscribe port p2 : PROTO; // ART_0024
+    service unwired port p3 : PROTO; // ART_0024
 
     statemachine {
         state State1;
