@@ -1,0 +1,21 @@
+protocol EmptyProtocol {
+};
+
+protocol BaseProto {
+    in e1();
+};
+protocol DerivedProto : BaseProto {
+};
+
+capsule C34 {
+    service port myPort : EmptyProtocol; // ART_0034 (useless port since no events can be sent or received on it)
+
+    service notify port notificationPort : EmptyProtocol; // The rtBound and rtUnbound events can be received on this port
+
+    service port myPort2 : DerivedProto; // Event e1 can be received on the port
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

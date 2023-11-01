@@ -1,0 +1,22 @@
+
+protocol Proto {    
+};
+capsule C33 {    
+    optional part thePart : Other;
+    behavior port bp~ : Proto; 
+    connect bp with thePart.bp2; // ART_0033
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Other {
+    behavior port bp2 : Proto;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

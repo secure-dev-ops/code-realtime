@@ -88,13 +88,15 @@ This chapter lists all validation rules which {$product.name$} checks your Art a
 ### ART_0001_invalidNameCpp
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | An Art element has a name that is not a valid C++ name, or a name that will cause a name clash in the generated code. | N/A
+| Error | An Art element has a name that is not a valid C++ name, or a name that will cause a name clash in the generated code. | Prepend Underscore
 
 Art elements are translated to C++ elements without changing the elements' names. Hence you need to choose names for Art elements that are valid in C++. For example, [C++ keywords](../art-lang#names-and-keywords) cannot be used. 
 
 Furthermore, names of such Art elements must not clash with global names used by the [TargetRTS](target-rts/index.md) or names within generated C++ files.
 
 If you ignore this error you can expect errors when compiling the generated C++ code.
+
+A Quick Fix is available that will fix the problem by adding an underscore to the beginning of the name, in order to make it a valid C++ name. 
 
 ``` art
 protocol InvalidNameProtocol {
@@ -152,7 +154,7 @@ Just like in most languages Art has certain conventions on how elements should b
 * [Protocol](../art-lang#protocol-and-event)
 * [State](../art-lang#state)
 
-A Quick Fix is available that will fix the problem by capitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a Rename.
+A Quick Fix is available that will fix the problem by capitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a rename refactoring (context menu command **Rename Symbol**).
 
 ``` art
 capsule myCapsule { // ART_0003
@@ -180,7 +182,7 @@ Just like in most languages Art has certain conventions on how elements should b
 * [Entry and exit points](../art-lang#hierarchical-state-machine)
 * [Transition](../art-lang#transition)
 
-A Quick Fix is available that will fix the problem by decapitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a Rename.
+A Quick Fix is available that will fix the problem by decapitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a rename refactoring (context menu command **Rename Symbol**).
 
 ``` art
 protocol LowerCaseTestProtocol {
@@ -583,9 +585,11 @@ capsule CT_cap {
 ### ART_0019_unwiredPortBothPublisherAndSubscriber
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | An unwired port is declared as being both a subscriber and publisher at the same time. | N/A
+| Error | An unwired port is declared as being both a subscriber and publisher at the same time. | Make Publisher, Make Subscriber
 
 An [unwired port](../art-lang#unwired-port) can at runtime be connected to another unwired port. One of the connected ports will be a publisher port (a.k.a SPP port) while the other will be a subscriber port (a.k.a SAP port). An unwired port can either be statically declared as being a publisher or subscriber port, or it can be dynamically decided at port registration time if the port should be a publisher or subscriber. The same port can not be both a subscriber and a publisher port at the same time.
+
+Two Quick Fixes are available for making the port a publisher or a subscriber port by removing either the `subscribe` or `publish` keyword. 
 
 ``` art
 capsule UnwiredCapsule {  
@@ -851,7 +855,7 @@ capsule Top {
 ### ART_0028_unwiredPortWithAutoRegNeitherPublisherNorSubscriber
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | An unwired port is registered automatically but is neither specified as a publisher or subscriber. | Declare as Publisher, Declare as Subscriber
+| Error | An unwired port is registered automatically but is neither specified as a publisher or subscriber. | Make Publisher, Make Subscriber
 
 An [unwired port](../art-lang#unwired-port) is either a publisher (SPP) or subscriber (SAP) at run-time. Unless the port has the [registration](../art-lang#registration) property set to `application` it will be registered automatically when the container capsule instance gets created. Hence it's necessary in this case to declare the port either as a publisher or subscriber.
 
@@ -916,9 +920,11 @@ capsule Cap {
 ### ART_0031_portBothNonServiceAndNonBehavior
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | A port is both a non-service and a non-behavior port at the same time. | N/A
+| Error | A port is both a non-service and a non-behavior port at the same time. | Make Behavior Port, Make Service Port
 
 A [port](../art-lang#port) that is not a service port is internal to a capsule. For such a port to be useful it must be a behavior port; otherwise the capsule cannot send and receive events on the port. Hence, a non-service port cannot at the same time be a non-behavior port.
+
+Quick Fixes are available for either declaring the port as a behavior or service port.
 
 ``` art
 capsule C31 {
@@ -960,7 +966,7 @@ A [port](../art-lang#port) is only visible from the outside of a capsule if it i
 ``` art
 capsule C33 {
     optional part thePart : Other;
-    behavior port bp : Proto; 
+    behavior port bp~ : Proto; 
     connect bp with thePart.bp2; // ART_0033
 
     statemachine {
@@ -978,6 +984,12 @@ capsule Other {
     };
 }
 ```
+
+In a structure diagram this error means that a connector "crosses a capsule boundary" by connecting two ports at different levels in the composite structure. 
+
+![](images/ART_0033.png)
+
+The solution here is to either make `bp2` a service port, or to create another service port in the `Other` capsule and then connect that port both to `bp` on the "outside" and to `bp2` on the "inside".
 
 ### ART_0034_servicePortWithoutEvents
 | Severity | Reason | Quick Fix
@@ -1003,11 +1015,11 @@ capsule C34 {
 ### ART_0035_timerServicePort
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Warning | A timer port is a declared to be a service port. | Make Behavior Port
+| Warning | A timer port is a declared to be a service port. | Make Non-Service Behavior Port
 
 A timer [port](../art-lang#port) is typed by the predefined [Timing](../targetrts-api/struct_timing.html) protocol. It has one event `timeout` which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the `timeout` event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.
 
-A Quick Fix is available that will change a service timer port to become a behavior port.
+A Quick Fix is available that will remove the `service` keyword for the port and if necessary also add the `behavior` keyword.
 
 ``` art
 capsule C35 {
@@ -1343,9 +1355,11 @@ Since these rules run before semantic [validation rules](#validation-rules) they
 ### ART_9000_syntaxError
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | Parsing of the Art file failed due to a syntax error. | N/A
+| Error | Parsing of the Art file failed due to a syntax error. | Remove Extraneous Input
 
 If an Art file contains a syntax error, it cannot be parsed into valid Art elements and the parser will then report this error. There are many ways to introduce syntax errors in an Art file and the error message from the parser will usually help you understand what is wrong by telling you both what incorrect thing was encountered and what is instead expected at that position.
+
+If the syntax error is caused by extra characters at a place where no extra characters are expected a Quick Fix can be used for removing the "extraneous input".
 
 ``` art
 capsule A {    

@@ -1,0 +1,8 @@
+capsule C35 {
+    service port t : Timing; // ART_0035
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
