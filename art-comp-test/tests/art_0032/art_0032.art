@@ -1,0 +1,12 @@
+protocol Proto {    
+};
+
+capsule C32 {
+    behavior port frame [[rt::properties(color="#gd1d1d")]]: Frame; // ART_0032 (invalid hex digit 'g')
+    behavior port p [[rt::properties(color="#cc")]] : Proto; // ART_0032 (too few digits)
+
+    statemachine {
+        state State [[rt::properties(color="#5d04040")]]; // ART_0032 (too many digits)
+        initial -> State;
+    };
+};

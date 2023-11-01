@@ -1,0 +1,13 @@
+protocol Proto {    
+};
+
+capsule C31 {    
+    unwired port pp1 : Proto;
+    subscribe port pp2 : Proto;
+    publish port pp3 : Proto;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
