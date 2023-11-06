@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = "Top";
+tc.targetFolder = 'tc_7003_target';
+
+tc.prerequisites = ["nonexisting.tcjs"]; // TC_7003 (referenced TC file does not exist)

@@ -1,0 +1,30 @@
+capsule N 
+[[rt::properties(
+    rule_config="X0029"
+)]]
+{    
+    statemachine {
+        state State {
+            state Nested;
+            junction inner_j;
+            initial -> inner_j;
+            jtrans: inner_j -> Nested;
+        };
+        state State2;
+        junction j;
+        _ini: initial -> j; // CPP_4002
+        transa: j -> State when `x == 5`; 
+        transb: j -> State2 when `x == 7`;
+    };
+};
+
+capsule M : N {
+    statemachine {
+        state State3;
+        redefine _ini: initial -> j  
+        `
+            // redefined
+        `;
+        redefine transa: j-> State3 when `x == 9`;
+    };
+};

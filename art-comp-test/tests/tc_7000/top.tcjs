@@ -1,0 +1,8 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = "Top";
+tc.targetFolder = 'tc_7000_target';
+
+tc.copyrightText = true; // TC_7000 (expects a string, and not a boolean)
+tc.cppCodeStandard = 98; // TC_7000 (expects an enum string such as "C++ 98", and not a number)
+tc.sources = ''; // TC_7000 (expects a list of strings, and not a single string)
+tc.userLibraries = 0; // TC_7000 (expects a list of strings, and not a number)

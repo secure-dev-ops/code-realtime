@@ -1,0 +1,43 @@
+capsule Base {
+    behavior port bt : Timing;
+
+    statemachine {
+        state SA, SB;
+        _ini: initial -> SA;   
+        SA -> SB on bt.timeout 
+        `
+            // Base trans
+        `; 
+    };
+};
+
+capsule XCap 
+[[rt::properties(
+    rule_config="X0029"
+)]]
+: Base
+ {   
+    behavior port t : Timing;
+    statemachine {
+        state State1, State2 {
+            state Nested;
+            initial -> Nested;
+            Nested -> Nested on t.timeout;
+            t: Nested -> Nested on t.timeout;
+            t2: Nested -> Nested on t.timeout when `true`;
+            t3: Nested -> Nested on t.timeout;
+        };
+        redefine _ini: initial -> State1 
+        `
+            t.informIn(RTTimespec(1,0));
+        `;
+        t1: State1 -> State2 on t.timeout;
+        t2: State1 -> State2 on t.timeout; // CPP_4002
+        State1 -> State2 on t.timeout; // CPP_4002
+
+        SA -> SB on bt.timeout         
+        `
+            // XCap trans
+        `; 
+    };
+};

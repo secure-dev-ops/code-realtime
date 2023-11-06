@@ -1,0 +1,6 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = ['lib.art'];
+// The "topCapsule" property is not set, which means this is a library TC
+tc.linkCommand = 'ld'; // TC_7002
+tc.linkArguments = ''; // TC_7002
+tc.userLibraries = []; // TC_7002

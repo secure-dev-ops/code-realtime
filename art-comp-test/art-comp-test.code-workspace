@@ -158,6 +158,15 @@
         {
             "path": "tests/compound_transition_rtdata_junction"
         },
+		{
+            "path": "tests/cpp_4000"
+        },
+		{
+            "path": "tests/cpp_4001"
+        },
+		{
+            "path": "tests/cpp_4002"
+        },
         {
             "path": "tests/deep_history"
         },
@@ -208,6 +217,18 @@
         },
         {
             "path": "tests/struct_type_descriptor_nested"
+        },
+		{
+            "path": "tests/tc_7000"
+        },
+		{
+            "path": "tests/tc_7001"
+        },
+		{
+            "path": "tests/tc_7002"
+        },
+		{
+            "path": "tests/tc_7003"
         },
         {
             "path": "tests/tc_sources"

@@ -1,0 +1,14 @@
+protocol PROT {
+    out e1(`MyClass*`); // ART_4000 (need to declare typedef or type alias instead)
+    out e2(`std::string`); // ART_4000 (need to declare typedef or type alias instead)
+    out e3(`TplClass<int>`); // ART_4000 (need to declare typedef or type alias instead)    
+};
+
+capsule Cap {
+    service port p : PROT;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

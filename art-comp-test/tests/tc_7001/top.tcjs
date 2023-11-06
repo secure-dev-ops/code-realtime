@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = "Top";
+tc.targetFolder = 'tc_7001_target';
+
+tc.createTargetProject = false; 

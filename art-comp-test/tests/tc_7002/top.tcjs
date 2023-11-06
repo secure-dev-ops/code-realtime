@@ -1,0 +1,6 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = "Top";
+tc.targetFolder = 'tc_7002_target';
+tc.sources = ['tc_7002.art'];
+
+tc.prerequisites = ['lib.tcjs'];
