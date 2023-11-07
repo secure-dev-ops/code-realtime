@@ -1,0 +1,6 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = ['lib.art'];
+
+tc.threads = [
+    'LibThread', 5 // // TC_7014 (expects a list of strings here)
+]

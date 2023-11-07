@@ -1,0 +1,7 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+
+tc.sources = ['lib1.art'];
+
+tc.threads = [
+'LibThread'
+];

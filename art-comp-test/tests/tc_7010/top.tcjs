@@ -1,0 +1,12 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top'; 
+tc.targetFolder = 'tc_7010_target';
+
+tc.threads = [
+    {
+        name: 'MyThread',
+        logical: [ ] // TC_7010
+    }
+];
+    
+

@@ -1,0 +1,3 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'TopCap'; // TC_7004 (referenced top capsule does not exist)
+tc.targetFolder = 'tc_7004_target';

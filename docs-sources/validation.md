@@ -1047,13 +1047,15 @@ Validation rules that are related to code generation can be enabled and disabled
 |----------|:-------------|:-------------
 | Warning | An event type has a type for which no type descriptor could be found. | N/A
 
-If an event has a data parameter the type of this parameter must have a [type descriptor](art-lang/cpp-extensions.md#type-descriptor). Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most predefined C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either [automatically generated](art-lang/cpp-extensions.md#automatically-generated) by means of the `rt::auto_descriptor` attribute, or [manually implemented](art-lang/cpp-extensions.md#manually-implemented)). It's necessary that such a user-defined type is defined so that it can be referenced from the event without use of qualifiers. Use a typedef or type alias to give a name to an existing type that is defined in a different namespace.
+If an event has a data parameter the type of this parameter must have a [type descriptor](art-lang/cpp-extensions.md#type-descriptor). Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most predefined C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either [automatically generated](art-lang/cpp-extensions.md#automatically-generated) by means of the `rt::auto_descriptor` attribute, or [manually implemented](art-lang/cpp-extensions.md#manually-implemented)). It's necessary that such a user-defined type is defined so that it can be referenced from the event with a simple name without use of qualifiers, type modifiers or template arguments. Use a typedef or type alias to give a simple name to an existing type that for example is defined in a different namespace.
 
-If the code generator doesn't find a type descriptor for the event parameter type, this warning will be reported, and the C++ function that is generated for the event will have void type (i.e. the same as if the event doesn't have a data parameter).
+If the code generator doesn't find a type descriptor for the event parameter type, CPP_4000 will be reported, and the C++ function that is generated for the event will have void type (i.e. the same as if the event doesn't have a data parameter).
 
 ``` art
 protocol PROT {
-    out threadId(`std::string`); // ART_4000
+    out e1(`MyClass*`); // ART_4000 (type modifier present)
+    out e2(`std::string`); // ART_4000 (qualified name)
+    out e3(`TplClass<int>`); // ART_4000 (template parameter present)    
 };
 ```
 
@@ -1169,7 +1171,7 @@ tc.prerequisites = ["../../TestUtils/testlibX.tcjs"]; // TC_7003 (referenced TC 
 The [`topCapsule`](building/transformation-configurations.md#topcapsule) property is mandatory for executable TCs. In fact, it's the presence of this property that makes it an executable TC. A capsule with the specified name must exist in one of the Art files that is built by the TC (directly or indirectly). If you specify a top capsule that cannot be found, make sure you have spelled it correctly (use Content Assist in the TC editor so you can avoid typos). Also make sure that the Art file where the top capsule is defined is not excluded from the build by use of the [`sources`](building/transformation-configurations.md#sources) property.
 
 ``` js
-tc.topCapsule = 'TopCap'; // TC_7004 (referenced TC file does not exist)
+tc.topCapsule = 'NonExistentCapsule'; // TC_7004 (referenced top capsule does not exist)
 ```
 
 ### TC_7005_invalidUnitName
@@ -1320,7 +1322,7 @@ The problem is also reported if a Thread object for a physical thread has a prop
 tc.threads = [ 
 {
     name: 'MyThread',
-    priority: 20000 // TC_7014 (the priority should be specified as a string and not a number)
+    priority: 20000, // TC_7014 (the priority should be specified as a string and not a number)
     logical: [ 'L1' ] 
 }
 ];

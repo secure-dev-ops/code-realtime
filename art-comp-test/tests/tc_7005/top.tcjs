@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top'; 
+tc.targetFolder = 'tc_7005_target';
+
+tc.unitName = 'UnitName/x'; // TC_7005 (/ is an invalid file name character on all platforms)

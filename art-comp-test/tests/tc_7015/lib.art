@@ -1,0 +1,4 @@
+protocol LibProto {
+    /* In Events */
+    /* Out Events */
+};

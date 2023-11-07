@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetFolder = 'tc_7014_target';
+
+// tc.topCapsule not defined, i.e. this is a library TC
+tc.threads = [ // TC_7013
+{
+    name: 'MyThread',    
+    logical: [ 'L1' ] 
+}
+];

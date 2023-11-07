@@ -1,0 +1,25 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top'; 
+tc.targetFolder = 'tc_7012_target';
+
+tc.sources = ['tc_7012.art'];
+tc.prerequisites = ['lib1.tcjs', 'lib2.tcjs'];
+
+tc.threads = [
+    {
+        name: 'MyThread',    
+        logical: [ 'L1', 'L1', 'L2' ] // TC_7012 (L1 defined (and mapped to MyThread) twice)
+    },
+    {
+        name: 'MyThread2', 
+        logical: [ 'L2' ] // TC_7012 (L2 already mapped to MyThread above)
+    },
+    {
+        name: 'MyThread3', 
+        logical: [ 'LibThread' ] // TC_7012 (two library TCs have a thread with the same name LibThread)
+    }
+];
+    
+    
+    
+

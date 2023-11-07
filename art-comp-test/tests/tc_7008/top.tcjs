@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top'; 
+tc.targetFolder = 'tc_7008_target';
+
+tc.cppCodeStandard = "C++ 18"; // TC_7008 (there is no C++ language standard C++ 18)

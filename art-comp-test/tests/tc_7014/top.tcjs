@@ -1,0 +1,20 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetFolder = 'tc_7013_target';
+tc.topCapsule = "Top";
+tc.sources = ['tc_7014.art'];
+
+tc.prerequisites = ['lib.tcjs'];
+
+tc.threads = [ 
+    {
+        name: 'MyThread',
+        priority: 20000, // TC_7014 (the priority should be specified as a string and not a number)
+        logical: [ 'L1' ] 
+    },
+    {
+        name: 'LibThreadPhys',
+        priority: '20000', 
+        logical: [ 'LibThread' ] 
+    },
+];
+    

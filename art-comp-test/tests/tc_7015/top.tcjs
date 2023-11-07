@@ -1,0 +1,12 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top'; 
+tc.targetFolder = 'tc_7015_target';
+tc.sources = ['tc_7015.art'];
+tc.prerequisites = ["lib.tcjs"];
+
+tc.threads = [
+{
+    name: 'MyThread',
+    logical: [ 'LibThread1' ] // TC_7015 (library logical thread 'LibThread2' not mapped)
+}
+];
