@@ -230,6 +230,39 @@
 		{
             "path": "tests/tc_7003"
         },
+		{
+            "path": "tests/tc_7004"
+        },
+		{
+            "path": "tests/tc_7005"
+        },
+		{
+            "path": "tests/tc_7006_7007"
+        },
+		{
+            "path": "tests/tc_7008"
+        },
+		{
+            "path": "tests/tc_7009"
+        },
+		{
+            "path": "tests/tc_7010"
+        },
+		{
+            "path": "tests/tc_7011"
+        },
+		{
+            "path": "tests/tc_7012"
+        },
+		{
+            "path": "tests/tc_7013"
+        },
+		{
+            "path": "tests/tc_7014"
+        },
+		{
+            "path": "tests/tc_7015"
+        },
         {
             "path": "tests/tc_sources"
         },

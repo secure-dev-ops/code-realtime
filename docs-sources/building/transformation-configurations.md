@@ -143,6 +143,15 @@ This property may be used to insert a common comment block in the beginning of e
 ### cppCodeStandard
 Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 98`, `C++ 11`, `C++ 14` and `C++ 20`. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set [TargetRTSLocation](#targetrtslocation) to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to `Older than C++ 98`.
 
+### inclusionPaths
+Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a [user library](#userlibraries) or [user object file](#userobjectfiles) you need to add the location of the header file(s) that belong to the library or object file.
+
+``` js
+tc.inclusionPaths = ["/libs/myLib/includes"];
+```
+
+Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.
+
 ### linkArguments
 Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.
 
@@ -264,7 +273,16 @@ Specifies the base name of the so called unit header and implementation files th
 This property is a list of user libraries that should be linked with the application. The property is only applicable for TCs that build executables.
 
 ``` js
-tc.userLibraries = ["../..libs/libMyLib.a"];
+tc.userLibraries = ["../../libs/libMyLib.a"];
 ```
 
 Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the user libraries.
+
+### userObjectFiles
+This property is a list of user object files that should be linked with the application. The property is only applicable for TCs that build executables.
+
+``` js
+tc.userObjectFiles = ["../../objs/extra.obj"];
+```
+
+Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files.

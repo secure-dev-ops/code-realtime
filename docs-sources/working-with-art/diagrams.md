@@ -160,7 +160,7 @@ Both parts and ports have several properties that can be edited using the Proper
 
 ### Deleting Elements
 !!! note
-    Deleting elements is currently only supported from state diagrams.
+    Deleting elements is supported in state and structure diagrams but not in class diagrams.
 
 You can delete an Art element shown in a diagram by selecting the symbol or line that represents the element and then press the ++"Delete"++ key. Alternatively use the command **Delete** in the ++ctrl+space++ pop-up menu. Multiple symbols or lines can be selected in order to delete many Art elements in one go. 
 
