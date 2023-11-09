@@ -1384,8 +1384,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#const_rtdata_param" class="md-nav__link">
-    const_rtdata_param
+  <a href="#const_rtdata" class="md-nav__link">
+    const_rtdata
   </a>
   
 </li>
@@ -2018,7 +2018,7 @@ frame.destroy(id);
 <p><img alt="" src="images/parts_class.png" /></p>
 <p>In the above diagram the filled diamonds show that there is a strong life-time relationship between a <code>C</code> instance and the instances of <code>D</code> that are located in the fixed and optional parts <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> and <code>f</code>, while this is not the case for the instance located in the plugin part <code>e</code> as shown by the hollow diamond.</p>
 <h3 id="part-with-capsule-factory">Part with Capsule Factory</h3>
-<p>If the capsule that types a part has a <a href="#capsule-constructor">capsule constructor</a> with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of two code snippets that define how an instance of that capsule should be created and destroyed. </p>
+<p>If the capsule that types a part has a <a href="#capsule-constructor">capsule constructor</a> with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of one or both of the below code snippets that define how an instance of that capsule should be created and destroyed. </p>
 <ul>
 <li><code>rt::create</code> Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity &gt; 1) etc.</li>
 <li><code>rt::destroy</code> Defines how to destroy an instance of the capsule. By default it's destroyed using the <code>delete</code> operator.</li>
@@ -2030,6 +2030,10 @@ frame.destroy(id);
 `;
 </code></pre>
 <p>Note that you may want to create a capsule factory for a part also for other reasons than passing custom constructor parameters. For example, you may want to change the default thread (<code>RTController*</code>) that should execute the created capsule instance, or you may want to instantiate an inherited capsule rather than the capsule that types the part.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_factory_for_part">here</a> where a fixed part uses an <code>rt::create</code> code snippet for invoking a custom capsule constructor.</p>
+</div>
 <h2 id="state-machine">State Machine</h2>
 <p>State machines are used for specifying the behavior of <a href="#capsule">capsules</a>. It is also possible to provide a state machine for a passive class; see <a href="#class-with-state-machine">Class with State Machine</a> for more information about that. In this chapter we focus on state machines in capsules. </p>
 <p>A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving events on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send events to other capsule instances, something that may cause transitions to execute in their state machines. </p>
@@ -2114,12 +2118,17 @@ frame.destroy(id);
 <p class="admonition-title">Note</p>
 <p>Any type of data object can be passed as initialization data which means that <code>rtdata</code> is an untyped pointer that has to be casted to the expected type. A more type-safe way of passing initialization data is to define a constructor for a capsule. A <a href="#capsule-constructor">capsule constructor</a> can take any number of arguments, while with <code>rtdata</code> only one data object can be passed (even if you of course can group several data objects into a struct or class to circumvent this limitation). With capsule constructors you can pass initialization data also for capsule instances that are located in fixed parts.</p>
 </div>
-<p>By default <code>rtdata</code> cannot be modified (it has type <code>const void*</code>). However, by setting the <code>const_rtdata_param</code> <a href="#property">property</a> to false on the initial transition, you can make it non-const. One reason for doing this could be that the initial transition effect code wants to pass some data back to the code that creates the capsule instance. However, you must be very careful if you do this since this will only work if the creating code runs in the same thread that runs the initial transition. A more legitimate reason could be that you want to move the initialization data into a capsule variable, so you can access it later. Moving data can be  more efficient than copying it.</p>
-<pre><code class="language-art">[[rt::properties(const_rtdata_param=false)]] initial -&gt; Waiting 
+<p>By default <code>rtdata</code> cannot be modified (it has type <code>const void*</code>). However, by setting the <code>const_rtdata</code> <a href="#const_rtdata">property</a> to false on the initial transition, you can make it non-const. One reason for doing this could be that the initial transition effect code wants to pass some data back to the code that creates the capsule instance. However, you must be very careful if you do this since this will only work if the creating code runs in the same thread that runs the initial transition. A more legitimate reason could be that you want to move the initialization data into a capsule variable, so you can access it later. Moving data can be  more efficient than copying it.</p>
+<pre><code class="language-art">[[rt::properties(const_rtdata=false)]] initial -&gt; Waiting 
 `
     pC = std::move(*((MyClass*) rtdata));
 `;
 </code></pre>
+<p>Note that the <code>const_rtdata</code> <a href="#const_rtdata">property</a> can be set on any transition, not just the initial transition. It allows the data received when the transition is triggered to be modified.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that has transitions with the property <code>const_rtdata</code> unset <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/move_function_2">here</a>.</p>
+</div>
 <h4 id="internal-transition">Internal Transition</h4>
 <p>An internal transition doesn't change the active state and therefore doesn't have a target state. An internal transition is always a triggered transition. You define an internal transition inside the state to which it belongs. Here is an example:</p>
 <pre><code class="language-art">state Done {
@@ -2154,6 +2163,7 @@ frame.destroy(id);
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It's important that there always is an outgoing transition for a choice with a fulfilled guard condition. Otherwise the state machine will get stuck in the choice without any chance of getting out of it. </p>
+<p>The same is true if a junction is used in the <a href="#initial-transition">initial transition</a>. If such a junction doesn't have an outgoing transition with a fulfilled guard condition then the state machine will stay in the initial state for ever.</p>
 </div>
 <p>Choices and junctions must have names, so they can be referenced as the source or target of transitions. You can choose to use a name that gives a hint about what conditions that are checked in the guards of the outgoing transitions. For example, <code>isEnabled</code> for a choice that checks a boolean condition and <code>checkValue</code> when the condition has some other type. If you follow this approach you can then name the outgoing transitions accordingly. For example <code>true</code> and <code>false</code> for a choice that checks a boolean condition. By convention choice and junction names start with lowercase and use camelCase if consisting of multiple words. Sometimes it may be difficult to come up with a good name and in that case you can choose something short and "technical" like <code>j1</code>, <code>check1</code> etc. </p>
 <p>Below is an example of a state machine containing a choice and a junction.</p>
@@ -2184,7 +2194,7 @@ frame.destroy(id);
 };
 </code></pre>
 <p><img alt="" src="images/choice_junction.png" /></p>
-<p>Note the use of the C++ keyword <code>else</code> for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional.</p>
+<p>Note the use of the C++ keyword <code>else</code> for defining an else-guard. An else-guard will be fulfilled when no other guard of other outgoing transitions is fulfilled. For choices it's good practise to always have exactly one transition with an else-guard to ensure that at least one guard condition will be fulfilled. Thereby we avoid the risk of the state machine getting stuck in the choice. Else-guards can also be useful for junction transitions, but there they are more optional (except when a junction is used in the initial transition; see the note above).</p>
 <p>You can also define an else-transition for a choice or junction by simply omitting the guard condition. This is consistent with triggered transitions where the absense of a guard condition is equivalent to a guard condition that always is fulfilled. See the transition <code>high</code> in the above example.</p>
 <p>Guard conditions should be mutually exclusive so that the order in which they are evaluated doesn't matter.</p>
 <p>Junctions can also be used for merging multiple incoming transition flows into a single outgoing transition. This can for example be useful if you want to reuse a transition path in the state machine for several triggered transitions. </p>
@@ -2212,6 +2222,7 @@ frame.destroy(id);
 </code></pre>
 <p><img alt="" src="images/junction_merge.png" /></p>
 <p>Of course, in the above simple example the same code reuse could also be obtained by putting the common code in a capsule member function which is called by each of the incoming transitions. But if the common transition is followed by more non-triggered transitions the above approach is more feasible.</p>
+<p>When multiple triggered transitions converge into a common transition as in the example above, and the events that trigger those transitions have a data parameter, it's best to access that data in the triggered transitions and not in the common transition. This is especially true if the types of those data parameters are not the same, because in that case the <code>rtdata</code> parameter of the function generated for the common transition will be untyped (<code>void*</code>). You can of course still cast it to another type, but that requires that you can know which of the triggered transitions that were triggered. It's therefore better to access the data in the triggered transitions and if necessary store it in a capsule variable which you then can access in the common transition if needed.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that demonstrates usage of a choice and junction <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_and_junction">here</a>.</p>
@@ -2250,6 +2261,7 @@ frame.destroy(id);
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that contains a composite state with an entry and exit point <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/compound_transition_rtdata">here</a>.</p>
 </div>
+<p>Just like a <a href="#choice-and-junction">junction</a> an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which one to execute, and are evaluated <em>before</em> leaving the current state. Therefore, the same recommendations as for guard conditions of <a href="#choice-and-junction">junctions</a> apply.</p>
 <h4 id="deep-history">Deep History</h4>
 <p>Every nested state machine has an implicit pseudo state with the name <code>history*</code> (in state diagrams it's shown as <code>H*</code> to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a <em>deep</em> history). </p>
 <p>In the <a href="#hierarchical_sm_sample">example above</a> we can see that the transition from <code>ep2</code> targets the deep history pseudo state. This means that if the <code>Nested</code> substate is active and then the transition to <code>ex1</code> gets triggered, the state <code>Other</code> becomes active. If then the transition to <code>ep2</code> gets triggered the <code>CompositeState</code> will be entered using deep history so that the <code>Nested</code> substate will again become active.</p>
@@ -2764,7 +2776,7 @@ generate_file_header
 </tr>
 <tr>
 <td><a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a></td>
-<td align="left"><a href="#const_rtdata_param">const_rtdata_param</a></td>
+<td align="left"><a href="#const_rtdata">const_rtdata</a></td>
 <td align="left">Boolean</td>
 <td align="left">true</td>
 </tr>
@@ -2816,8 +2828,19 @@ generate_file_header
 <p>This property specifies how to register an unwired port at runtime. The default is <code>automatic</code> which means the port will be registered automatically when the container capsule instance is initialized. The value <code>automatic_locked</code> has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to <code>application</code> to programmatically register the port using the functions <code>registerSPP()</code> and <code>registerSAP()</code> respectively.</p>
 <h3 id="registration_name">registration_name</h3>
 <p>This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.</p>
-<h3 id="const_rtdata_param">const_rtdata_param</h3>
-<p>If set to <code>false</code> the rtdata parameter in the transition function will be non-const. It can therefore be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
+<h3 id="const_rtdata">const_rtdata</h3>
+<p>This property can be set on transitions where you need to modify the data it receives when it's triggered. If the property is set to <code>false</code> the <code>rtdata</code> parameter in the transition function will be non-const. It can then be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
+<pre><code class="language-art">[[rt::properties(const_rtdata=false)]] CurrentState -&gt; NextState
+`
+    someAttr = std::move(*rtdata); // Avoid copying the message data object
+`;
+
+MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -&gt; NextState
+`
+    pC = std::move(*((MyClass*) rtdata)); // Avoid copying the message data object
+`;
+</code></pre>
+<p>Note that the <code>const_rtdata</code> property appears in the Art syntax right after the transition name. If the transition has no name, it appears in the beginning of the transition declaration.</p>
 <h3 id="color">color</h3>
 <p>Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.</p>
 <p><img alt="" src="images/color_picker.png" /></p>

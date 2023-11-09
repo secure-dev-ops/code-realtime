@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['getactordata_0',['getActorData',['../class_r_t_actor.html#a9970639cb3dbc0d7a77c57f60fcae59b',1,'RTActor']]],
+  ['getactordata_0',['getActorData',['../class_r_t_actor.html#a9970639cb3dbc0d7a77c57f60fcae59b',1,'RTActor::getActorData()'],['../class_r_t_super_actor.html#ad158fe76a221bd85973e0167278d7880',1,'RTSuperActor::getActorData()'],['../class_r_t_timer_actor.html#a3c98903aadf63a3da9bcb7b410dd1549',1,'RTTimerActor::getActorData()']]],
   ['getclassdata_1',['getClassData',['../class_r_t_actor_id.html#a8496f5d5a8d2ef45a90950e8c77cebb7',1,'RTActorId']]],
   ['getclock_2',['getclock',['../struct_r_t_timespec.html#aeadd5a948b4fe3784ad1daeeb1e1267d',1,'RTTimespec']]],
   ['getcreatefunction_3',['getCreateFunction',['../class_r_t_injector.html#aaa9b5ed1aada6e6fa00574b839cde6fe',1,'RTInjector']]],

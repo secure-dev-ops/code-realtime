@@ -121,18 +121,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a55cdd3c957cff7c5068636024a375aec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor_id.html">RTActorId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_frame_1_1_base.html#a55cdd3c957cff7c5068636024a375aec">incarnate</a> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;cp, const <a class="el" href="struct_r_t_actor_class.html">RTActorClass</a> &amp;cap, const <a class="el" href="struct_r_t_typed_value.html">RTTypedValue</a> &amp;info, <a class="el" href="class_r_t_controller.html">RTController</a> *controller=nullptr, int index=-1)</td></tr>
 <tr class="memdesc:a55cdd3c957cff7c5068636024a375aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incarnates a capsule by creating an instance of the capsule in an optional capsule part.  <br /></td></tr>
 <tr class="separator:a55cdd3c957cff7c5068636024a375aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0aa0d901c0c7ea0006c841d2161a460f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor_id.html">RTActorId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_frame_1_1_base.html#a0aa0d901c0c7ea0006c841d2161a460f">incarnateCustom</a> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;cp, <a class="el" href="class_r_t_actor_factory.html">RTActorFactory</a> &amp;factory, int index=-1)</td></tr>
-<tr class="memdesc:a0aa0d901c0c7ea0006c841d2161a460f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incarnates a capsule by creating an instance of the capsule in an optional capsule part using a custom capsule factory for creating the capsule instance.  <br /></td></tr>
-<tr class="separator:a0aa0d901c0c7ea0006c841d2161a460f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0ce32307144afb0861274f8e11646c"><td class="memItemLeft" align="right" valign="top"><a id="a9f0ce32307144afb0861274f8e11646c" name="a9f0ce32307144afb0861274f8e11646c"></a>
-<a class="el" href="class_r_t_actor_id.html">RTActorId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>incarnateCustom</b> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;cp, <a class="el" href="class_r_t_actor_factory.html">RTActorFactory</a> &amp;&amp;factory, int index=-1)</td></tr>
-<tr class="separator:a9f0ce32307144afb0861274f8e11646c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39322bc4f2d83da6cd22bdd6c40af51a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor_id.html">RTActorId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_frame_1_1_base.html#a39322bc4f2d83da6cd22bdd6c40af51a">incarnateCustom</a> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;cp, const void *data, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *type, <a class="el" href="class_r_t_actor_factory.html">RTActorFactory</a> &amp;factory, int index=-1)</td></tr>
-<tr class="memdesc:a39322bc4f2d83da6cd22bdd6c40af51a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incarnates a capsule by creating an instance of the capsule in an optional capsule part using a custom capsule factory for creating the capsule instance.  <br /></td></tr>
-<tr class="separator:a39322bc4f2d83da6cd22bdd6c40af51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33c2c342e8e5d57b069c806e82eb565e"><td class="memItemLeft" align="right" valign="top"><a id="a33c2c342e8e5d57b069c806e82eb565e" name="a33c2c342e8e5d57b069c806e82eb565e"></a>
-<a class="el" href="class_r_t_actor_id.html">RTActorId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>incarnateCustom</b> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;cp, const void *data, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *type, <a class="el" href="class_r_t_actor_factory.html">RTActorFactory</a> &amp;&amp;factory, int index=-1)</td></tr>
-<tr class="separator:a33c2c342e8e5d57b069c806e82eb565e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4035fe02a9096ae4157fd92986171737"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_frame_1_1_base.html#a4035fe02a9096ae4157fd92986171737">destroy</a> (<a class="el" href="class_r_t_actor_id.html">RTActorId</a> &amp;i)</td></tr>
 <tr class="memdesc:a4035fe02a9096ae4157fd92986171737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a capsule instance.  <br /></td></tr>
 <tr class="separator:a4035fe02a9096ae4157fd92986171737"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1017,110 +1005,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyBoundAt</b> (in
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Initialization data to pass to the created capsule instance. It can be accessed from the initial transition of its state machine. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Type descriptor for the data object. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">controller</td><td>The controller which should run the created capsule instance. If it is NULL, the same controller that runs the container capsule instance will be used. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>The index within a replicated capsule part where to insert the created capsule instance. Use -1 to insert the instance at the first free slot. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_r_t_actor_id.html" title="An object that identifies a capsule instance at run-time.">RTActorId</a> representing the created capsule instance. </dd></dl>
-
-</div>
-</div>
-<a id="a39322bc4f2d83da6cd22bdd6c40af51a" name="a39322bc4f2d83da6cd22bdd6c40af51a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39322bc4f2d83da6cd22bdd6c40af51a">&#9670;&#160;</a></span>incarnateCustom() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_r_t_actor_id.html">RTActorId</a> Frame::Base::incarnateCustom </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>cp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_r_t_actor_factory.html">RTActorFactory</a> &amp;&#160;</td>
-          <td class="paramname"><em>factory</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em> = <code>-1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Incarnates a capsule by creating an instance of the capsule in an optional capsule part using a custom capsule factory for creating the capsule instance. </p>
-<p>Use this instead of the standard incarnate function if you need to create the capsule instance in some special way, for example using another capsule constructor than the one that is used by default. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cp</td><td>The capsule part where to insert the created capsule instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Initialization data to pass to the created capsule instance. It can be accessed from the initial transition of its state machine. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Type descriptor for the data object. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">factory</td><td>The capsule factory which will be used for creating the capsule instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>The index within a replicated capsule part where to insert the created capsule instance. Use -1 to insert the instance at the first free slot. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_r_t_actor_id.html" title="An object that identifies a capsule instance at run-time.">RTActorId</a> representing the created capsule instance. </dd></dl>
-
-</div>
-</div>
-<a id="a0aa0d901c0c7ea0006c841d2161a460f" name="a0aa0d901c0c7ea0006c841d2161a460f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0aa0d901c0c7ea0006c841d2161a460f">&#9670;&#160;</a></span>incarnateCustom() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_r_t_actor_id.html">RTActorId</a> Frame::Base::incarnateCustom </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>cp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_r_t_actor_factory.html">RTActorFactory</a> &amp;&#160;</td>
-          <td class="paramname"><em>factory</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em> = <code>-1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Incarnates a capsule by creating an instance of the capsule in an optional capsule part using a custom capsule factory for creating the capsule instance. </p>
-<p>Use this instead of the standard incarnate function if you need to create the capsule instance in some special way, for example using another capsule constructor than the one that is used by default. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cp</td><td>The capsule part where to insert the created capsule instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">factory</td><td>The capsule factory which will be used for creating the capsule instance. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>The index within a replicated capsule part where to insert the created capsule instance. Use -1 to insert the instance at the first free slot. </td></tr>
   </table>
   </dd>

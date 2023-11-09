@@ -1075,6 +1075,10 @@
 <p>However, in practise it's often necessary to let each thread run more than one capsule instance. The number of capsule instances in an application can be higher than the maximum number of threads the operating system allows per process. And even if that is not the case, having too many threads can consume too much memory and lead to unwanted overhead.</p>
 <p>When creating a new Art application it's recommended to start with a minimal number of threads, perhaps only the main thread initially. During the design work you will then add new threads when you identify capsules that need to perform long-running tasks. Such a capsule should not run in the main thread since during the long-running task all other capsules run by that thread will be unresponsive (i.e. cannot respond to incoming events).</p>
 <p>Another input to which threads to use is how capsule instances communicate with each other. Those capsule instances that communicate frequently with each other benefit from being run by the same thread since sending an event within the same thread is faster than sending it across threads.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses threads <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/threads">here</a>.</p>
+</div>
 <h2 id="physical-and-logical-threads">Physical and Logical Threads</h2>
 <p>RTist in Code makes a difference between physical and logical threads. Physical threads are the real threads that exist in the application at run-time. A logical thread is a conceptual thread which application code uses when it needs to refer to a thread. Hence, it is an indirection which prevents hard-coding the application against certain physical threads. </p>
 <p>Logical and physical threads are defined in the transformation configuration (TC) using the <a href="../../building/transformation-configurations/#threads">threads</a> property. Each logical thread is mapped to a physical thread. Having all information about threads in the TC has several benefits:</p>
@@ -1109,7 +1113,7 @@
 <p>Take care to map a logical thread to exactly one physical thread.</p>
 <h3 id="library-threads">Library Threads</h3>
 <p>Physical threads can only be defined in executable TCs. A library TC can, however, define logical threads. An executable TC that has such a library TC as its prerequisite must map those logical threads to physical threads. Here is an example of a library TC that defines a logical thread. Note that in this case the <code>threads</code> property contains a list of strings rather than a list of objects as is the case for an executable TC.</p>
-<pre><code class="language-js">tc.threads = [ `LibraryThread` ];
+<pre><code class="language-js">tc.threads = [ 'LibraryThread' ];
 </code></pre>
 <p>If you anyway define physical threads for a library TC they will be ignored by the C++ code generator, and only the logical threads will be considered.</p>
 <h2 id="running-a-capsule-instance-in-a-custom-thread">Running a Capsule Instance in a Custom Thread</h2>
@@ -1131,7 +1135,7 @@
 <h2 id="targetrts-implementation">TargetRTS Implementation</h2>
 <p>The <code>implClass</code> property of a physical thread that is defined in a TC refers to the class in the TargetRTS that implements the thread. This class must inherit from <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>. A default implementation is provided by the <a href="../../targetrts-api/class_r_t_peer_controller.html">RTPeerController</a>. It implements a simple event loop that in each iteration delivers the most prioritized event to the capsule instance that should handle it.</p>
 <p>You can implement your own controller class by creating another subclass of <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>. As an example, look at <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a>.</p>
-<p>If the application uses timers it needs a timer thread for implementing the timeouts. The TargetRTS provides a default implementation <a href="../targetrts-api/class_r_t_timer_controller.html">RTTimerController</a> which implements basic support for processing timeout events and timer cancellation.</p>
+<p>If the application uses timers it needs a timer thread for implementing the timeouts. The TargetRTS provides a default implementation <a href="../../targetrts-api/class_r_t_timer_controller.html">RTTimerController</a> which implements basic support for processing timeout events and timer cancellation.</p>
 <h2 id="default-threads-and-thread-properties">Default Threads and Thread Properties</h2>
 <p>If no threads are specified in the TC the application will use two threads; one main thread that runs all capsule instances and one timer thread that implements support for timers as explained in the documentation of the <a href="../../building/transformation-configurations/#threads">threads</a> property. If your application is single-threaded and doesn't use timers, it's unnecessary to have a timer thread and you can then remove it by only defining the MainThread in the <a href="../../building/transformation-configurations/#threads">threads</a> property:</p>
 <pre><code class="language-js">tc.threads = [
@@ -1146,13 +1150,13 @@
 <p>A thread object defines a physical thread by means of the following properties:</p>
 <ul>
 <li>
-<p><strong>name</strong> The name of the thread. It's recommended to choose a name that describes what the thread is doing. Many C++ debuggers can show the thread name while debugging, and you can also access it programmatically by calling the <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::name() function.</p>
+<p><strong>name</strong> The name of the thread. It's recommended to choose a name that describes what the thread is doing. Many C++ debuggers can show the thread name while debugging, and you can also access it programmatically by calling the <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::name() function. Note that names of physical threads in the application must be unique.</p>
 </li>
 <li>
-<p><strong>implClass</strong> This is the name of the TargetRTS class that implements the thread. See <a href="#targetrts-implementation">TargetRTS Implementation</a>.</p>
+<p><strong>implClass</strong> This is the name of the TargetRTS class that implements the thread. See <a href="#targetrts-implementation">TargetRTS Implementation</a>. If omitted it will default to <code>RTPeerController</code>.</p>
 </li>
 <li>
-<p><strong>stackSize</strong> The thread stack size in bytes. This value is interpreted by the target environment, and some operating systems may have special values (such as 0) that can be used to avoid hard-coding a certain stack size.</p>
+<p><strong>stackSize</strong> The thread stack size in bytes. This value is interpreted by the target environment, and some operating systems may have special values (such as 0) that can be used to avoid hard-coding a certain stack size. If omitted it will default to <code>20000</code>.</p>
 </li>
 <li>
 <p><strong>priority</strong> The thread priority. By default it's <code>DEFAULT_MAIN_PRIORITY</code> (or <code>DEFAULT_TIMER_PRIORITY</code> for a timer thread). These are macros with values that are interpreted by the target environment.</p>

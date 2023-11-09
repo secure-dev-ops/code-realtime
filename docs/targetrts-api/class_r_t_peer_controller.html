@@ -87,9 +87,11 @@ Inheritance diagram for RTPeerController:</div>
  <div class="center">
   <img src="class_r_t_peer_controller.png" usemap="#RTPeerController_map" alt=""/>
   <map id="RTPeerController_map" name="RTPeerController_map">
-<area href="class_r_t_controller.html" title="A controller manages a group of capsule instances that all run in the same physical thread (i...." alt="RTController" shape="rect" coords="0,56,124,80"/>
-<area href="class_r_t_job.html" title="An object associated with a thread which captures its current state and implements its behavior." alt="RTJob" shape="rect" coords="0,0,124,24"/>
-<area href="class_r_t_custom_controller.html" alt="RTCustomController" shape="rect" coords="0,168,124,192"/>
+<area href="class_r_t_controller.html" title="A controller manages a group of capsule instances that all run in the same physical thread (i...." alt="RTController" shape="rect" coords="134,56,258,80"/>
+<area href="class_r_t_job.html" title="An object associated with a thread which captures its current state and implements its behavior." alt="RTJob" shape="rect" coords="134,0,258,24"/>
+<area href="class_r_t_abort_controller.html" alt="RTAbortController" shape="rect" coords="0,168,124,192"/>
+<area href="class_r_t_custom_controller.html" alt="RTCustomController" shape="rect" coords="134,168,258,192"/>
+<area href="class_r_t_timer_controller.html" alt="RTTimerController" shape="rect" coords="268,168,392,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -159,10 +161,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>requeueMsg</b> (<a cl
 void&#160;</td><td class="memItemRight" valign="bottom"><b>freeMsg</b> (<a class="el" href="class_r_t_message.html">RTMessage</a> *)</td></tr>
 <tr class="separator:a4897dd65e97235ce9865c4a0b8df512b inherit pub_methods_class_r_t_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e730fe88c6ba693b2bdb587d507e09 inherit pub_methods_class_r_t_controller"><td class="memItemLeft" align="right" valign="top"><a id="a53e730fe88c6ba693b2bdb587d507e09" name="a53e730fe88c6ba693b2bdb587d507e09"></a>
-RTTimerNode *&#160;</td><td class="memItemRight" valign="bottom"><b>newTimerNode</b> (void)</td></tr>
+<a class="el" href="class_r_t_timer_node.html">RTTimerNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>newTimerNode</b> (void)</td></tr>
 <tr class="separator:a53e730fe88c6ba693b2bdb587d507e09 inherit pub_methods_class_r_t_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f9c03c165b5cc54f6ebd65bfe60488e inherit pub_methods_class_r_t_controller"><td class="memItemLeft" align="right" valign="top"><a id="a9f9c03c165b5cc54f6ebd65bfe60488e" name="a9f9c03c165b5cc54f6ebd65bfe60488e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>freeTimerNode</b> (RTTimerNode *node)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>freeTimerNode</b> (<a class="el" href="class_r_t_timer_node.html">RTTimerNode</a> *node)</td></tr>
 <tr class="separator:a9f9c03c165b5cc54f6ebd65bfe60488e inherit pub_methods_class_r_t_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a383cb86f9be968c3e8304a37948b4c0d inherit pub_methods_class_r_t_controller"><td class="memItemLeft" align="right" valign="top"><a id="a383cb86f9be968c3e8304a37948b4c0d" name="a383cb86f9be968c3e8304a37948b4c0d"></a>
 <a class="el" href="class_r_t_message.html">RTMessage</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getReplyBuffer</b> (void)</td></tr>

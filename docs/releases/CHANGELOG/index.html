@@ -20,7 +20,7 @@
     
     
       
-        <title>0.0.10 (2023-09-14) - HCL RTist in Code</title>
+        <title>0.0.11 (2023-11-08) - HCL RTist in Code</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#0010-2023-09-14" class="md-skip">
+        <a href="#0011-2023-11-08" class="md-skip">
           Skip to content
         </a>
       
@@ -161,7 +161,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              0.0.10 (2023-09-14)
+              0.0.11 (2023-11-08)
             
           </span>
         </div>
@@ -926,6 +926,29 @@
   
 
 
+<h1 id="0011-2023-11-08">0.0.11 (2023-11-08)</h1>
+<ol>
+<li>A new validation rule was implemented in the C++ code generator to detect if there are ambiguous outgoing transitions for a state, i.e. transitions with identical triggers and no guard conditions. Such unreachable transitions are now reported as a problem (with warning severity as default). A comment is also added in generated code to mark the unreachable code where functions of such unreachable transitions are called.</li>
+<li>Several new validation rules now check the correctness of the <code>threads</code> property in a TC. For example, an attempt to map the same logical thread to different physical threads are reported as a problem. Previously, such problems were only detected when compiling or linking the application, or even at run-time.</li>
+<li>The C++ code generator now supports the deep history pseudostate (<code>history*</code>). For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/deep_history">this sample</a>.</li>
+<li>The C++ code generator now supports the <code>const_rtdata</code> property. By setting this property to <code>false</code> on a transition, the <code>rtdata</code> parameter of the transition function will be non-const. This, for example, allows it to be moved instead of copied, which can be more efficient. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/move_function_2">this sample</a>.</li>
+<li>The validation rule <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#art_0001_invalidnamecpp">ART_0001_invalidNameCpp</a> has been extended to now also detect if names chosen for Art elements will clash with names in generated code or the TargetRTS.</li>
+<li>The C++ code generator now supports excluded transitions. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_transition_exclude">this sample</a>.</li>
+<li>It's now possible to delete ports and parts from a structure diagram by selecting them and then pressing the <code>Delete</code> key or using the Delete command in the popup menu that appears when pressing Ctrl+Space.</li>
+<li>The C++ code generator now supports junctions and the guards on their outgoing transitions. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_and_junction">this sample</a>.</li>
+<li>A new validation rule <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#cpp_4002_guardedinitialtransition">CPP_4002_guardedInitialTransition</a> now detects if there are junctions in the initial transition without unguarded outgoing transitions. With such initial transitions there is a risk that no initial state will be entered, which would break the functioning of the state machine.</li>
+<li>A new command "Deactivate All" in the Art Build view can be used for quickly making all TCs in the workspace non-active. This makes it faster to switch from building one set of active TCs to another.</li>
+<li>Several validation rules have been updated to mark problems more accurately in an Art file. If an element spans multiple lines in the Art file (e.g. a capsule or state machine) then if the whole element would be marked, problems within the element cannot be seen in the Art file. Now smaller parts of such elements are marked such as only the element name or a certain keyword within the element. In addition to a cleaner look this also makes navigation from problems arrive closer to where the problem is located.</li>
+<li>The TC property "userLibraries" is now supported (both in TC editor and UI). It can be used for specifying a list of libraries to pass to the linker.</li>
+<li>The C++ code generator now supports capsule factories on parts by means of the <code>rt::create</code> and <code>rt::destroy</code> code snippets. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_factory_for_part">this sample</a>.</li>
+<li>The TargetRTS and C++ code generator now supports the predefined type <code>long long</code>.</li>
+<li>A target configuration for the Clang compiler for MacOs is now provided.</li>
+<li>The Art Compiler now prints related elements for validation problems. This means that you now get the same amount of details about a validation problem when building from command-line as from the UI.</li>
+<li>When building from the UI, TCs are now validated and found problems are reported in the Art Build output channel. Any error found during this validation will stop the build. Previously such errors were only reported when building from the command-line, and the UI build would proceed even in case errors were found, which often lead to other problems later in the build process.</li>
+<li>The TC property "userObjectFiles" is now supported (both in TC editor and UI). It can be used for specifying a list of object files to pass to the linker.</li>
+<li>The TC property "inclusionPaths" is now supported (both in TC editor and UI). It can be used for specifying a list of include paths for the preprocessor.</li>
+<li>Some new code actions ("quick fixes") were implemented for certain validation rules.</li>
+</ol>
 <h1 id="0010-2023-09-14">0.0.10 (2023-09-14)</h1>
 <ol>
 <li>The C++ code generator now supports generation of type descriptors. When you declare a type in an <code>rt::decl</code> code snippet you can tag it with a C++ attribute to tell the code generator how it should generate the type descriptor. Currently two attributes are supported: <code>rt::auto_descriptor</code> (for fully automatic type descriptor generation) and <code>rt::manual_descriptor</code> (when you prefer to write the type descriptor manually). Read more about this feature in <a href="http://opensource.hcltechsw.com/rtist-in-code/art-lang/cpp-extensions/">the documentation</a>.</li>

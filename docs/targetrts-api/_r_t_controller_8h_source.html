@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a34817efaaac3b3838205211cdb70ecf.html">com.ibm.xtools.umldt.rt.targetrts.storage</a></li><li class="navelem"><a class="el" href="dir_89a786b815cd58b9852260f835e6e77d.html">rsa_rt</a></li><li class="navelem"><a class="el" href="dir_f6c72aa2a6862f41b627b21ba2a6cf50.html">C++</a></li><li class="navelem"><a class="el" href="dir_7a2eb1bb089894e006a63a2aeb6bfbda.html">TargetRTS</a></li><li class="navelem"><a class="el" href="dir_d91add4056b899235463274362cce6d4.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6e5c7ab18a27e2acb2f56447e845dbae.html">extension</a></li><li class="navelem"><a class="el" href="dir_28b873a2803faf73841de2b3ed0bc29e.html">rsa_rt</a></li><li class="navelem"><a class="el" href="dir_bc3a31c5cbc21472c4818a8657532bf2.html">C++</a></li><li class="navelem"><a class="el" href="dir_57ef07d6ce7478f3655e87e95f807c19.html">TargetRTS</a></li><li class="navelem"><a class="el" href="dir_12e8d2bfd033d27ec53272d1fbdb7542.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -115,11 +115,11 @@ $(function() {
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_actor.html">RTActor</a>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_r_t_actor_class.html">RTActorClass</a>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_r_t_component_descriptor.html">RTComponentDescriptor</a>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">class  </span>RTDaemonInfo;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">class  </span>RTDebugger;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">class  </span>RTEventInfo;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a>;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">class  </span>RTSyncObject;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">class  </span>RTTimerNode;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_timer_node.html">RTTimerNode</a>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_r_t_controller.html">   53</a></span><span class="keyword">class </span><a class="code hl_class" href="class_r_t_controller.html">RTController</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_r_t_job.html">RTJob</a></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
@@ -251,10 +251,10 @@ $(function() {
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordtype">void</span>                trace( Primitive, <span class="keyword">const</span> <span class="keywordtype">void</span> *, <span class="keyword">const</span> <span class="keywordtype">void</span> * );</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">#if OBSERVABLE</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">void</span>                breakPoint( <a class="code hl_class" href="class_r_t_actor.html">RTActor</a> *, RTEventInfo * );</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">void</span>                breakPoint( <a class="code hl_class" href="class_r_t_actor.html">RTActor</a> *, <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a> * );</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">void</span>                evtMsgQueue( <span class="keywordtype">void</span> );</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordtype">void</span>                getMessages( <span class="keyword">const</span> RTDaemonInfo &amp; daemonInfo );</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordtype">void</span>                getMessages( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp; daemonInfo );</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="class_r_t_controller.html#abc07d990d27d0b07325b3726379d8784">  218</a></span>    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code hl_function" href="class_r_t_controller.html#abc07d990d27d0b07325b3726379d8784">name</a>( <span class="keywordtype">void</span> ) <span class="keyword">const override</span>;</div>
@@ -289,8 +289,8 @@ $(function() {
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    RTS_INLINE <a class="code hl_class" href="class_r_t_message.html">RTMessage</a> * newMsg( <span class="keywordtype">void</span> );</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    RTS_INLINE <span class="keywordtype">void</span>     freeMsg( <a class="code hl_class" href="class_r_t_message.html">RTMessage</a> * );</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    RTTimerNode       * newTimerNode( <span class="keywordtype">void</span> );</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordtype">void</span>                freeTimerNode( RTTimerNode * node );</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <a class="code hl_class" href="class_r_t_timer_node.html">RTTimerNode</a>       * newTimerNode( <span class="keywordtype">void</span> );</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordtype">void</span>                freeTimerNode( <a class="code hl_class" href="class_r_t_timer_node.html">RTTimerNode</a> * node );</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="comment">// public to implementation</span></div>
@@ -333,7 +333,7 @@ $(function() {
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_class" href="class_r_t_message.html">RTMessage</a>         * freeList;</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordtype">unsigned</span>            freeListSize;</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    RTTimerNode       * freeTimerList;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <a class="code hl_class" href="class_r_t_timer_node.html">RTTimerNode</a>       * freeTimerList;</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordtype">unsigned</span>            freeTimerListSize;</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="comment">// invoke reply messages are stored here</span></div>
@@ -343,7 +343,7 @@ $(function() {
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <a class="code hl_class" href="class_r_t_message_q.html">RTMessageQ</a>          deferredQ; <span class="comment">// Deferred Messages Queue</span></div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordtype">void</span>                filterMessages( <a class="code hl_class" href="class_r_t_actor.html">RTActor</a> * receiver, RTQFilter &amp; );</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordtype">void</span>                filterMessages( <a class="code hl_class" href="class_r_t_actor.html">RTActor</a> * receiver, <a class="code hl_class" href="class_r_t_q_filter.html">RTQFilter</a> &amp; );</div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="preprocessor">#if USE_THREADS</span></div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keywordtype">void</span>                acceptIncoming( <span class="keywordtype">void</span> );</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">#endif</span></div>
@@ -401,11 +401,15 @@ $(function() {
 <div class="ttc" id="aclass_r_t_controller_html_ae760c1fe9ab044cca4d1679289c319ef"><div class="ttname"><a href="class_r_t_controller.html#ae760c1fe9ab044cca4d1679289c319ef">RTController::getError</a></div><div class="ttdeci">Error getError(void) const</div><div class="ttdoc">Get the most recent error that occurred in the controller's thread.</div><div class="ttdef"><b>Definition:</b> RTController.inl:29</div></div>
 <div class="ttc" id="aclass_r_t_controller_html_afadf41584ac95c10c69c74ff459d7a55"><div class="ttname"><a href="class_r_t_controller.html#afadf41584ac95c10c69c74ff459d7a55">RTController::perror</a></div><div class="ttdeci">void perror(const char *s=&quot;error&quot;)</div><div class="ttdoc">Print an error message to stderr.</div></div>
 <div class="ttc" id="aclass_r_t_counts_html"><div class="ttname"><a href="class_r_t_counts.html">RTCounts</a></div><div class="ttdef"><b>Definition:</b> RTCounts.h:22</div></div>
+<div class="ttc" id="aclass_r_t_daemon_info_html"><div class="ttname"><a href="class_r_t_daemon_info.html">RTDaemonInfo</a></div><div class="ttdef"><b>Definition:</b> RTDaemonInfo.h:24</div></div>
+<div class="ttc" id="aclass_r_t_event_info_html"><div class="ttname"><a href="class_r_t_event_info.html">RTEventInfo</a></div><div class="ttdef"><b>Definition:</b> RTEventInfo.h:26</div></div>
 <div class="ttc" id="aclass_r_t_job_html"><div class="ttname"><a href="class_r_t_job.html">RTJob</a></div><div class="ttdoc">An object associated with a thread which captures its current state and implements its behavior.</div><div class="ttdef"><b>Definition:</b> RTJob.h:43</div></div>
 <div class="ttc" id="aclass_r_t_message_html"><div class="ttname"><a href="class_r_t_message.html">RTMessage</a></div><div class="ttdoc">Represents a message used for communication between capsule instances.</div><div class="ttdef"><b>Definition:</b> RTMessage.h:33</div></div>
 <div class="ttc" id="aclass_r_t_message_q_html"><div class="ttname"><a href="class_r_t_message_q.html">RTMessageQ</a></div><div class="ttdoc">Represents a message queue.</div><div class="ttdef"><b>Definition:</b> RTMessageQ.h:27</div></div>
 <div class="ttc" id="aclass_r_t_protocol_html"><div class="ttname"><a href="class_r_t_protocol.html">RTProtocol</a></div><div class="ttdoc">Represents a general capsule port typed by a protocol which determines the set of events that can be ...</div><div class="ttdef"><b>Definition:</b> RTProtocol.h:50</div></div>
+<div class="ttc" id="aclass_r_t_q_filter_html"><div class="ttname"><a href="class_r_t_q_filter.html">RTQFilter</a></div><div class="ttdef"><b>Definition:</b> RTQFilter.h:24</div></div>
 <div class="ttc" id="aclass_r_t_resource_mgr_html"><div class="ttname"><a href="class_r_t_resource_mgr.html">RTResourceMgr</a></div><div class="ttdef"><b>Definition:</b> RTResourceMgr.h:28</div></div>
+<div class="ttc" id="aclass_r_t_timer_node_html"><div class="ttname"><a href="class_r_t_timer_node.html">RTTimerNode</a></div><div class="ttdef"><b>Definition:</b> RTTimerNode.h:47</div></div>
 <div class="ttc" id="astruct_r_t_actor_class_html"><div class="ttname"><a href="struct_r_t_actor_class.html">RTActorClass</a></div><div class="ttdoc">A type descriptor providing information about the external characteristics of a capsule.</div><div class="ttdef"><b>Definition:</b> RTActorClass.h:36</div></div>
 <div class="ttc" id="astruct_r_t_component_descriptor_html"><div class="ttname"><a href="struct_r_t_component_descriptor.html">RTComponentDescriptor</a></div><div class="ttdoc">This structure describes a capsule part (a.k.a.</div><div class="ttdef"><b>Definition:</b> RTComponentDescriptor.h:33</div></div>
 <div class="ttc" id="astruct_r_t_object__class_html"><div class="ttname"><a href="struct_r_t_object__class.html">RTObject_class</a></div><div class="ttdoc">A type descriptor providing information about a type.</div><div class="ttdef"><b>Definition:</b> RTObject_class.h:64</div></div>

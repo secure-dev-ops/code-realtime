@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a34817efaaac3b3838205211cdb70ecf.html">com.ibm.xtools.umldt.rt.targetrts.storage</a></li><li class="navelem"><a class="el" href="dir_89a786b815cd58b9852260f835e6e77d.html">rsa_rt</a></li><li class="navelem"><a class="el" href="dir_f6c72aa2a6862f41b627b21ba2a6cf50.html">C++</a></li><li class="navelem"><a class="el" href="dir_7a2eb1bb089894e006a63a2aeb6bfbda.html">TargetRTS</a></li><li class="navelem"><a class="el" href="dir_d91add4056b899235463274362cce6d4.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6e5c7ab18a27e2acb2f56447e845dbae.html">extension</a></li><li class="navelem"><a class="el" href="dir_28b873a2803faf73841de2b3ed0bc29e.html">rsa_rt</a></li><li class="navelem"><a class="el" href="dir_bc3a31c5cbc21472c4818a8657532bf2.html">C++</a></li><li class="navelem"><a class="el" href="dir_57ef07d6ce7478f3655e87e95f807c19.html">TargetRTS</a></li><li class="navelem"><a class="el" href="dir_12e8d2bfd033d27ec53272d1fbdb7542.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -121,52 +121,54 @@ $(function() {
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_int     ( <span class="keywordtype">int</span>            ) = 0;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_long    ( <span class="keywordtype">long</span>           ) = 0;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_short   ( <span class="keywordtype">short</span>          ) = 0;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_uchar   ( <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  ) = 0;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsigned( <span class="keywordtype">unsigned</span>       ) = 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_ulong   ( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>  ) = 0;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_ushort  ( <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> ) = 0;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedint( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ) = 0;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedlong( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> ) = 0;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedshort( <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> ) = 0;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedchar( <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> ) = 0;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// a nul-terminated string</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_string( <span class="keyword">const</span> <span class="keywordtype">char</span> * ) = 0;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// zero or more raw bytes</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_opaque( <span class="keywordtype">int</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> * ) = 0;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// an enumerated value</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_enum( <span class="keywordtype">int</span>                       value,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>              <span class="keywordtype">int</span>                       numChoices,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>              <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_field_descriptor.html">RTFieldDescriptor</a> * choices ) = 0;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// a homogeneous array of objects</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_array( <span class="keyword">const</span> <span class="keywordtype">void</span>           * array_base,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>               <span class="keywordtype">int</span>                    numElements,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>               <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a> * elementType ) = 0;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// an indirect object</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_indirect( <span class="keyword">const</span> <span class="keywordtype">void</span>           * pointer,</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                  <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a> * targetType ) = 0;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">// a structure</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_struct( <span class="keyword">const</span> <span class="keywordtype">void</span>           * record,</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a> * recordType ) = 0;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// Utility for writing an arbitrary string into the encoding. Useful when implementing custom encode functions.</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// Default implementation does nothing.</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> write_string( <span class="keyword">const</span> <span class="keywordtype">char</span>* );</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// unavailable methods</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    RTEncoding( <span class="keyword">const</span> RTEncoding &amp; );</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    RTEncoding &amp; operator=( <span class="keyword">const</span> RTEncoding &amp; );</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#endif </span><span class="comment">// OBJECT_ENCODE</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif </span><span class="comment">// __RTEncoding_h__</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_long_long( <span class="keywordtype">long</span> <span class="keywordtype">long</span>     ) = 0;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_short   ( <span class="keywordtype">short</span>          ) = 0;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_uchar   ( <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  ) = 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsigned( <span class="keywordtype">unsigned</span>       ) = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_ulong   ( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>  ) = 0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_ushort  ( <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> ) = 0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedint( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ) = 0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedlong( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> ) = 0;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedlonglong( <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> ) = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedshort( <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> ) = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_unsignedchar( <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> ) = 0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// a nul-terminated string</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_string( <span class="keyword">const</span> <span class="keywordtype">char</span> * ) = 0;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// zero or more raw bytes</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_opaque( <span class="keywordtype">int</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> * ) = 0;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// an enumerated value</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_enum( <span class="keywordtype">int</span>                       value,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>              <span class="keywordtype">int</span>                       numChoices,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>              <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_field_descriptor.html">RTFieldDescriptor</a> * choices ) = 0;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// a homogeneous array of objects</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_array( <span class="keyword">const</span> <span class="keywordtype">void</span>           * array_base,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>               <span class="keywordtype">int</span>                    numElements,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>               <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a> * elementType ) = 0;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">// an indirect object</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_indirect( <span class="keyword">const</span> <span class="keywordtype">void</span>           * pointer,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                  <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a> * targetType ) = 0;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">// a structure</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> put_struct( <span class="keyword">const</span> <span class="keywordtype">void</span>           * record,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                <span class="keyword">const</span> <a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a> * recordType ) = 0;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// Utility for writing an arbitrary string into the encoding. Useful when implementing custom encode functions.</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// Default implementation does nothing.</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> write_string( <span class="keyword">const</span> <span class="keywordtype">char</span>* );</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="comment">// unavailable methods</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    RTEncoding( <span class="keyword">const</span> RTEncoding &amp; );</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    RTEncoding &amp; operator=( <span class="keyword">const</span> RTEncoding &amp; );</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>};</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif </span><span class="comment">// OBJECT_ENCODE</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#endif </span><span class="comment">// __RTEncoding_h__</span></div>
 <div class="ttc" id="astruct_r_t_field_descriptor_html"><div class="ttname"><a href="struct_r_t_field_descriptor.html">RTFieldDescriptor</a></div><div class="ttdef"><b>Definition:</b> RTFieldDescriptor.h:40</div></div>
 <div class="ttc" id="astruct_r_t_object__class_html"><div class="ttname"><a href="struct_r_t_object__class.html">RTObject_class</a></div><div class="ttdoc">A type descriptor providing information about a type.</div><div class="ttdef"><b>Definition:</b> RTObject_class.h:64</div></div>
 </div><!-- fragment --></div><!-- contents -->

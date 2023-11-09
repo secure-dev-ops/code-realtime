@@ -858,6 +858,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#inclusionpaths" class="md-nav__link">
+    inclusionPaths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#linkarguments" class="md-nav__link">
     linkArguments
   </a>
@@ -944,6 +951,20 @@
           <li class="md-nav__item">
   <a href="#unitname" class="md-nav__link">
     unitName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userlibraries" class="md-nav__link">
+    userLibraries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userobjectfiles" class="md-nav__link">
+    userObjectFiles
   </a>
   
 </li>
@@ -1207,6 +1228,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#inclusionpaths" class="md-nav__link">
+    inclusionPaths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#linkarguments" class="md-nav__link">
     linkArguments
   </a>
@@ -1297,6 +1325,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#userlibraries" class="md-nav__link">
+    userLibraries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userobjectfiles" class="md-nav__link">
+    userObjectFiles
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1342,6 +1384,7 @@
 <p>Set a TC as active by right-clicking on it and perform the command <strong>Set as Active</strong>. An active TC is marked with a checkmark.</p>
 <p><img alt="" src="../images/active-tc.png" /></p>
 <p>If the active TC has <a href="#transformation-configuration-prerequisites">prerequisites</a>, those too will be set as active. This ensures that the results you get when working with Art files in the IDE will be the same as when you will build the TC using the <a href="../art-compiler/">Art Compiler</a>. </p>
+<p>You can deactivate an individual TC by removing the file <code>art_build_settings.json</code> in the <code>.vscode</code> folder. To deactivate all TCs in the workspace use the <strong>Deactivate All</strong> command in the <a href="#art-build-view">Art Build view</a>.</p>
 <h2 id="editing-transformation-configurations">Editing Transformation Configurations</h2>
 <p>You can edit a TC directly as a JavaScript file in the text editor. Features such as content assist, navigation and hover tooltips work very similar to how they work for an Art file:</p>
 <ul>
@@ -1396,6 +1439,9 @@
 </li>
 <li>
 <p><strong>Collapse All</strong> Collapses all TCs to not show any prerequisites.</p>
+</li>
+<li>
+<p><strong>Deactivate All</strong> Makes all TCs non-active. This makes it easier to switch from building one set of active TCs to another.</p>
 </li>
 </ul>
 <h2 id="properties">Properties</h2>
@@ -1496,6 +1542,11 @@
 <td align="left">String</td>
 <td align="left">"UnitName"</td>
 </tr>
+<tr>
+<td><a href="#userlibraries">userLibraries</a></td>
+<td align="left">List of strings</td>
+<td align="left">[]</td>
+</tr>
 </tbody>
 </table>
 <h3 id="commonpreface">commonPreface</h3>
@@ -1508,6 +1559,11 @@
 <p>This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.</p>
 <h3 id="cppcodestandard">cppCodeStandard</h3>
 <p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 98</code>, <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set <a href="#targetrtslocation">TargetRTSLocation</a> to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to <code>Older than C++ 98</code>.</p>
+<h3 id="inclusionpaths">inclusionPaths</h3>
+<p>Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a <a href="#userlibraries">user library</a> or <a href="#userobjectfiles">user object file</a> you need to add the location of the header file(s) that belong to the library or object file.</p>
+<pre><code class="language-js">tc.inclusionPaths = [&quot;/libs/myLib/includes&quot;];
+</code></pre>
+<p>Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.</p>
 <h3 id="linkarguments">linkArguments</h3>
 <p>Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.</p>
 <h3 id="linkcommand">linkCommand</h3>
@@ -1555,7 +1611,7 @@ Runs all capsule instances in the application. It's implemented in the TargetRTS
 </li>
 <li>
 <p><strong>TimerThread</strong>
-Runs all timers in the application. It's implemented in the TargetRTS by the <a href="../targetrts-api/class_r_t_timer_controller.html">RTTimerController</a> class.</p>
+Runs all timers in the application. It's implemented in the TargetRTS by the <a href="../../targetrts-api/class_r_t_timer_controller.html">RTTimerController</a> class.</p>
 </li>
 </ul>
 <p>Both these threads will have a stack size of 20kB and run at a normal priority.</p>
@@ -1595,6 +1651,16 @@ Runs all timers in the application. It's implemented in the TargetRTS by the <a 
 <p>If you don't specify a value for this property, the TC will build a library instead of an executable.</p>
 <h3 id="unitname">unitName</h3>
 <p>Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is <code>UnitName</code> which means that these unit files will be called <code>UnitName.cpp</code> and <code>UnitName.h</code>. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.</p>
+<h3 id="userlibraries">userLibraries</h3>
+<p>This property is a list of user libraries that should be linked with the application. The property is only applicable for TCs that build executables.</p>
+<pre><code class="language-js">tc.userLibraries = [&quot;../../libs/libMyLib.a&quot;];
+</code></pre>
+<p>Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a <a href="#linkarguments">link argument</a> to specify the location(s) where the linker should look for the user libraries.</p>
+<h3 id="userobjectfiles">userObjectFiles</h3>
+<p>This property is a list of user object files that should be linked with the application. The property is only applicable for TCs that build executables.</p>
+<pre><code class="language-js">tc.userObjectFiles = [&quot;../../objs/extra.obj&quot;];
+</code></pre>
+<p>Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a <a href="#linkarguments">link argument</a> to specify the location(s) where the linker should look for the object files.</p>
 
 
 

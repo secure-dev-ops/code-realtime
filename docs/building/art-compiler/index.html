@@ -865,6 +865,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ruleconfig" class="md-nav__link">
+    ruleConfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tc" class="md-nav__link">
     tc
   </a>
@@ -1102,6 +1109,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ruleconfig" class="md-nav__link">
+    ruleConfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tc" class="md-nav__link">
     tc
   </a>
@@ -1168,29 +1182,12 @@
 <p>Often you don't need to use any JVM option, but if the application is huge you may need to increase the memory of the JVM. Refer to the documentation of your JVM for a list of available JVM options. You may want to use the same JVM options as are used when launching the Art Language Server (see the setting <a href="../../settings/#jvm-args"><code>rtistic.languageServer.jvmArgs</code></a>), but it's not required to do so.</p>
 <p>To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:</p>
 <pre><code>C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.hcl-rtistic-ce-0.0.7\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 0.0.7-20230418_1519
+10:24:53 : INFO : Art Compiler 0.0.10-20230913_1422
 10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
 10:24:54 : INFO : Arguments:
 Usage: java -jar artcompiler.jar &lt;options&gt;
 Options:
-  --cwd &lt;argument&gt;:
-     Set &lt;argument&gt; as current working directory
-
-  --generate:
-     Generate source code and makefiles, do not run build afterwards
-     By default, build is started after each code generation
-
-  --help:
-     Print this help information and exit
-
-  --out &lt;argument&gt;:
-     Defines path to output folder for code generation
-
-  --tc &lt;argument&gt;:
-     Path to transformation configuration
-
-  --version:
-     Show version of Art Compiler and exit
+  LIST OF OPTIONS
 
 All options with argument can be used in format &lt;option&gt; &lt;argument&gt; or &lt;option&gt;=&lt;argument&gt;.
 </code></pre>
@@ -1237,6 +1234,10 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <td align="left">Path</td>
 </tr>
 <tr>
+<td><a href="#ruleconfig">ruleConfig</a></td>
+<td align="left">String</td>
+</tr>
+<tr>
 <td><a href="#tc">tc</a></td>
 <td align="left">Path</td>
 </tr>
@@ -1258,6 +1259,11 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <p>Use this option to print information about the <a href="#version">version</a> and all available <a href="#art-compiler-options">options</a>. This is the same information as is printed if launching the Art Compiler without any options. If this option is passed, all other options are ignored.</p>
 <h3 id="out">out</h3>
 <p>Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built <a href="#tc">TC</a>. It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as <a href="../transformation-configurations/#targetfolder">targetFolder</a> in TCs will be resolved against the specified <code>--out</code> folder.</p>
+<h3 id="ruleconfig">ruleConfig</h3>
+<p>Specifies which validation rules that should be enabled, and what severity the problems they find should have. Rules are configured using the same syntax as is used for the <a href="../../art-lang#rule_config"><code>rule_config</code></a> property in an Art file. For example:</p>
+<pre><code>--ruleConfig &quot;W0009,X7001&quot;
+</code></pre>
+<p>Read more about how to configure validation rules <a href="../../validation/#configuring-validation">here</a>.</p>
 <h3 id="tc">tc</h3>
 <p>Specifies the <a href="../transformation-configurations/">TC</a> to build. This option is mandatory, unless you only pass the <a href="#help">help</a> or <a href="#version">version</a> options.</p>
 <h3 id="version">version</h3>
