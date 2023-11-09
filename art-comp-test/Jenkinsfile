@@ -119,7 +119,7 @@ def getProductBranches() {
 		function printBranches {
 			for folderPath in $(find $BUILDS_SERVER_PATH -name *.vsix | xargs dirname | sort -u | grep $1 "$2")
 			do
-				[[ "$folderPath" =~ rtistic-0.0.[1-7] ]] || [[ "$folderPath" =~ /master$ ]] || echo "${folderPath#$BUILDS_SERVER_PATH}"
+				[[ "$folderPath" =~ rtistic-0.0.(1-demo1|[2-9]) ]] || [[ "$folderPath" =~ /master$ ]] || echo "${folderPath#$BUILDS_SERVER_PATH}"
 			done
 		}
 		if [[ "$BRANCH_NAME" =~ (RIC-[0-9]+) ]]
