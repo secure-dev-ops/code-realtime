@@ -53,67 +53,67 @@
         {
             "path": "tests/art_0014"
         },
-		{
+        {
             "path": "tests/art_0015"
         },
-		{
+        {
             "path": "tests/art_0016"
         },
-		{
+        {
             "path": "tests/art_0017"
         },
-		{
+        {
             "path": "tests/art_0018"
         },
-		{
+        {
             "path": "tests/art_0019"
         },
-		{
+        {
             "path": "tests/art_0020"
         },
-		{
+        {
             "path": "tests/art_0021"
         },
-		{
+        {
             "path": "tests/art_0022"
         },
-		{
+        {
             "path": "tests/art_0023"
         },
-		{
+        {
             "path": "tests/art_0024"
         },
-		{
+        {
             "path": "tests/art_0025"
         },
-		{
+        {
             "path": "tests/art_0026"
         },
-		{
+        {
             "path": "tests/art_0027"
         },
-		{
+        {
             "path": "tests/art_0028"
         },
-		{
+        {
             "path": "tests/art_0029"
         },
-		{
+        {
             "path": "tests/art_0030"
         },
-		{
+        {
             "path": "tests/art_0031"
         },
-		{
+        {
             "path": "tests/art_0032"
         },
-		{
+        {
             "path": "tests/art_0033"
         },
-		{
+        {
             "path": "tests/art_0034"
         },
-		{
+        {
             "path": "tests/art_0035"
         },
         {
@@ -158,13 +158,13 @@
         {
             "path": "tests/compound_transition_rtdata_junction"
         },
-		{
+        {
             "path": "tests/cpp_4000"
         },
-		{
+        {
             "path": "tests/cpp_4001"
         },
-		{
+        {
             "path": "tests/cpp_4002"
         },
         {
@@ -218,16 +218,16 @@
         {
             "path": "tests/struct_type_descriptor_nested"
         },
-		{
+        {
             "path": "tests/tc_7000"
         },
-		{
+        {
             "path": "tests/tc_7001"
         },
-		{
+        {
             "path": "tests/tc_7002"
         },
-		{
+        {
             "path": "tests/tc_7003"
         },
 		{
@@ -264,10 +264,16 @@
             "path": "tests/tc_7015"
         },
         {
+            "path": "tests/tc_include_paths"
+        },
+        {
             "path": "tests/tc_sources"
         },
         {
             "path": "tests/tc_user_libraries"
+        },
+        {
+            "path": "tests/tc_user_object_files"
         },
         {
             "path": "tests/threads"

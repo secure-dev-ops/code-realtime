@@ -1,0 +1,21 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "UserObjectFile.h"
+    `
+    statemachine {
+        initial -> State1
+        `
+            bool x = isPair(4);
+            std::cout << "isPair(4) returned " << x << std::endl;
+            ASSERT(x == true, "isPair(4) function returned unexpected value");
+        `;
+        state State1 {
+            entry
+            `
+                PASS();
+            `;
+        };
+    };
+};
