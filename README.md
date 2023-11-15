@@ -1,11 +1,36 @@
-# RTist in Code
+# DevOps Code RealTime
+Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and [Eclipse Theia](https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce). 
 
-RTist in Code lets you create stateful, event-driven realtime applications in C++. It runs as an extension of [Visual Studio Code](https://code.visualstudio.com/) and [Eclipse Theia](https://theia-ide.org/). Learn everything about RTist in Code from its [documentation site](https://opensource.hcltechsw.com/rtist-in-code/).
+## Code RealTime's Three A:s of Value
+- Abstraction
+  - The **Art language** provides powerful high-level concepts such as capsules, state machines, ports and events
+  - View and edit your application using **graphical diagrams** such as state, structure and class diagrams
+  - Use **logical threads** to avoid hard-coding your application against certain physical threads
+- Automation
+  - Efficient **C++ code** is automatically generated
+  - **Build variants** enable high-level build settings, and application variant management
+  - Diagrams are automatically rendered using **auto-layout**
+- Analysis
+  - **Semantic validation** "as-you-type" for early problem detection (sometimes with quick fixes)
+  - Ensure **consistent build settings** by detecting inconsistencies already when editing them
+  - Use application **run-time analysis** to detect and troubleshoot run-time problems
 
-RTist in Code is currently in an open beta phase and you are encouraged to [try it out](#). All feedback is appreciated and can be submitted as Issues in this repo.
+For more details, see the [documentation site](https://secure-dev-ops.github.io/code-realtime/).
 
-As a starting point this repo contains a few [samples](art-samples) that you can use for learning the Art language and RTist in Code.
+## Contents
+This repo contains
 
-See the screen shot below for an overview of what RTist in Code can do.
+* [Documentation source files](docs-sources)
+* [Sample applications](art-samples)
+* [Test suite](art-comp-test/tests) for the Art Compiler
+
+
+## Screenshot
 
 ![](images/screenshot1.png)
+
+
+
+
+
+

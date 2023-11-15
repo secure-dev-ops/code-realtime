@@ -2,7 +2,7 @@ Art is a textual language but there is also a graphical notation for many parts 
 
 * **State Diagram** Shows the state machine of a capsule or class. A single diagram can show all states, pseudo states and transitions also for hierarchical state machines.
 * **Structure Diagram** Shows the composite structure of a capsule. A single diagram can show all parts, ports and connectors also for hierarchical composite structures.
-* **Class Diagram** Shows how capsules, classes and protocols are related by means of inheritance relationships. Also shows ports and parts of capsules and events of protocols.
+* **Class Diagram** Shows how capsules, classes and protocols are related by means of inheritance and composition relationships. Also shows ports and parts of capsules and events of protocols.
 
 The picture below shows an example of what these diagrams may look like:
 
