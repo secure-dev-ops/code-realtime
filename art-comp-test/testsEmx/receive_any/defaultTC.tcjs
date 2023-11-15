@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/receive_any/receive_any.emx#_l9zCUIMAEe6Dzf4STuYlMw',
+];
+tc.createTargetProject = true;
+tc.targetProject = 'receive_any_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.commonPreface = '#include <iostream>';
+tc.topCapsule = 'platform:/resource/receive_any/receive_any.emx#_vinAcIMAEe6Dzf4STuYlMw';

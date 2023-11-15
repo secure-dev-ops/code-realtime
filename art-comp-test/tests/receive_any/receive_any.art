@@ -1,0 +1,51 @@
+protocol Events {
+    out outEvent1();
+    out outEvent2();
+    out outEvent3();
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        private: bool t1 = false, t2 = false;
+    `
+
+    behavior port p1 : Events;
+    behavior port p2~ : Events;
+    connect p1 with p2;    
+
+    statemachine {
+        state S1, S2, S3, S4;
+        initial -> S1
+        `
+            p1.outEvent1().send();
+            p1.outEvent2().send();
+            p1.outEvent3().send();
+        `;
+        t1: S1 -> S2 on p2.outEvent1
+        `
+            std::cout << "transition S1 --> S2" << std::endl;
+            t1 = true;
+        `;
+        t2: S2 -> S1 on p2.outEvent2
+        `
+            std::cout << "transition S2 --> S1" << std::endl;
+            t2 = true;
+        `;
+        t3: S1 -> S3 on p2.*
+        `
+            std::cout << "transition S1 --> S3" << std::endl;
+            ASSERT(t1 && t2, "Both t1 and t2 should have executed");
+            PASS();
+        `;
+        t4: S1 -> S4 on p2.* when `false`
+        `
+            std::cout << "transition S1 --> S4" << std::endl;
+            FAIL("Transition t4 is not expected");
+        `;
+    };
+};
