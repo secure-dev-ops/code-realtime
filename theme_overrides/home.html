@@ -15,27 +15,20 @@
                     <!-- <h3>No heading</h3> -->                    
                 </div>
                 <div class="hero-body body-text white">
-                    <p>RTist in Code is a tool for creating stateful, event-driven realtime applications in C++. You can
+                    <p>Code RealTime is a tool for creating stateful, event-driven realtime applications in C++. You can
                         <ul>
-                            <li>create your application using the Art language which provides high-level concepts such as state machines, capsules, protocols, events, ports, etc.</li>
+                            <li>create your application using the Art language which provides high-level concepts such as state machines, capsules, events, ports, etc.</li>
                             <li>use graphical diagrams for viewing and designing state machines, composite structures and class hierarchies</li>
                             <li>detect errors early by means of customizable semantic validation rules that run automatically as you type</li>
                             <li>automatically generate optimized and highly performant C++ code that can be built into an application by any C++ compiler</li>
-                            <li>run RTist in Code within <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://theia-ide.org/">Eclipse Theia</a>, either as a desktop or web application</li>
+                            <li>run Code RealTime within <a href="https://code.visualstudio.com/">Visual Studio Code</a> or <a href="https://theia-ide.org/">Eclipse Theia</a>, either as a desktop or web application</li>
                         </ul> 
+                    </p>
+                    <p>
+                        Download the free Community Edition for <a href="https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce" class="download-button">VS Code</a> or <a href="https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce" class="download-button">Theia</a>! 
                     </p>
                 </div>
 				 
-                <div class="hero-buttons">
-                    <p>
-					<!--Provide a link to the Release Notes or What's new page -->
-                    <a href="https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce" title="{{ page.next_page.title | striptags }}"
-                    class="md-button md-button--primary">
-                    Download Now for Free
-                    </a>                    
-                    </p>
-                </div>
-
                 <div class="dx-hero__image">
                     <iframe width="560" align="right" height="315" src="https://hclsw.co/rtistic-cover-video-emb" data-ot-ignore
                         title="YouTube video player" frameborder="0"
@@ -52,22 +45,19 @@
 <section class="section-designedforyou">
     <div class="md-grid md-typeset">
         <div class="section-flexbox-row space-around align-center">
-            <div class="dx-dfu__image">
-                <!-- computer image -->
-                <img src="assets/CNX_laptop_ex.png" alt="An image of a computer showing DX" />
+            <div class="dx-dfu__image">            
+                <img src="assets/screenshot1.png" alt="Code RealTime screen shot" />
             </div>
             <div class="dx-dfu__content">
                 <div class="section-heading">
 				<!-- Add a line for your product -->
                     <p class="black">
-                        Develop realtime applications at a higher abstraction level and with more automation than with only C++.
+                        Develop realtime applications at a higher abstraction level and with more automation and analysis than with plain C++
                     </p>
                 </div>
 				<!--Add more description here -->
                 <div class="dfu-body body-text black">
-                    <p>Suitable for embedded, IoT and much more...</p>
-                    
-                    <p></p>
+                    <p>Suitable for embedded, IoT and much more...</p>                
                 </div>
 
             </div>
@@ -138,7 +128,7 @@
                 </div>
                 <div class="persona-body body-text black">
                     <p>
-                        Generate modern, readable and highly efficient C++ code and compile it with your choice of C++ compiler.
+                        Generate modern, readable and highly efficient C++ code and compile it with your choice of C++ compiler for any target.
                     </p>
                 </div>
                 <div class="persona-button">
@@ -156,36 +146,6 @@
 
 </section>
 
-<!-- Use this section if your product has a presense in https://academy.hcltechsw.com or change it to add more information that you want to share. You can also comment this section. -->
-<section class="section-academy">
-    <div class="md-grid md-typeset  ">
-        <div class="section-flexbox-row space-around align-center nowrap">
-            <div class="academy-hero__content">
-                <div class="dx-academy-logo">
-                    <img src="assets/hcl-academy-logo.png" />
-                </div>
-                <div class="dx-academy-heading white section-heading">
-                    Embark On Your Journey
-                </div>
-                <div class="dx-academy-body">
-                    <p>Realize the power of possibility for you and your business. Visit the HCL Software Academy for
-                        technical education on all products in the HCL Software portfolio. Start learning today!
-                    </p>
-                    <a href="https://academy.hcltechsw.com" title="HCL Academy"
-                        class="md-button md-button--primary">
-                        Visit HCL Software Academy
-                    </a>
-                    
-                </div>
-            </div>
-            <div class="academy-hero__image">
-               
-                <img src="assets/CNX_academy_img.jpg" />
-            </div>
-        </div>
-    </div>
-
-</section>  
 
 {% endblock %}
 {% block content %}
@@ -212,18 +172,6 @@
 	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
 	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
 	 
-    </div>
-            <div class="md-social">
-                <a href="https://github.com/HCL-TECH-SOFTWARE" target="_blank" rel="noopener" title="github.com"
-                    class="md-social__link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
-                        <path
-                            d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                        </path>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
+    
 </footer>
 {% endblock %}

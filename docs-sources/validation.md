@@ -29,7 +29,7 @@ Problems are also reported by means of icons in diagrams. Below are three states
 
 ![](images/diagram_diagnostics.png)
 
-A problem icon has a tooltip that shows the message of the problem. You can disable problem reporting in diagrams by means of a configuration setting `rtistic.diagram.showDiagnostics`.
+A problem icon has a tooltip that shows the message of the problem. You can disable problem reporting in diagrams by means of a configuration setting `code-rt.diagram.showDiagnostics`.
 
 For a TC file, all properties it contains will be validated, and problems that are found during this validation are shown by underlining TC properties. You can hover 
 
@@ -59,7 +59,7 @@ Validation can be configured to change which rules that should run, and what sev
 * The rule [ART_0009_invalidProperty](#art_0009_invalidproperty) has its severity set to Warning
 * The rule [ART_0005_choiceWithoutElseTransition](#art_0005_choicewithoutelsetransition) has its severity set to Error
 
-To configure validation rules globally, use the configuration setting `rtistic.validation.ruleConfiguration`. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
+To configure validation rules globally, use the configuration setting `code-rt.validation.ruleConfiguration`. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
 
 To configure validation rules locally, set the property [rule_config](../art-lang#rule_config) on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.
 

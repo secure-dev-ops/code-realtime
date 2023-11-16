@@ -1,5 +1,5 @@
 # DevOps Code RealTime
-Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and [Eclipse Theia](https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce). 
+Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.code-realtime-ce) and [Eclipse Theia](https://open-vsx.org/extension/HCLTechnologies/code-realtime-ce). 
 
 ## Code RealTime's Three A:s of Value
 - Abstraction

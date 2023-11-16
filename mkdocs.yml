@@ -1,8 +1,8 @@
 #Project Information
-site_name: HCL RTist in Code
+site_name: DevOps Code RealTime
 site_description: >-
-  RTist in Code is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.
-site_url: https://opensource.hcltechsw.com/rtist-in-code
+  Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.
+site_url: https://secure-dev-ops.github.io/code-realtime/
 
 #Md and HTML locations in the repository 
 site_dir: docs
@@ -22,6 +22,7 @@ theme:
     - search.highlight
     - search.share
     - search.suggest
+    - announce.dismiss
   custom_dir: theme_overrides/
   icon:
     repo: fontawesome/brands/github
@@ -48,17 +49,17 @@ extra:
     property: UA-169645537-2
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/HCL-TECH-SOFTWARE
+      link: https://github.com/secure-dev-ops/code-realtime
   version:
     provider: mike
 
 
 copyright: >-
-  <p> Copyright &copy; 2022, 2023 HCL Technologies Ltd. All Rights Reserved.</p>
+  <p> Copyright &copy; 2022, 2023 HCL Technologies Ltd. IBM Corporation. All Rights Reserved.</p>
 
 # Repository
-repo_url: https://github.com/HCL-TECH-SOFTWARE/rtist-in-code
-repo_name: hcl-software/rtist-in-code
+repo_url: https://github.com/secure-dev-ops/code-realtime
+repo_name: secure-dev-ops/code-realtime
 edit_uri: edit/main/docs-sources
 
 
@@ -79,9 +80,9 @@ plugins:
 
 extra:
   product:
-    name: RTist in Code
+    name: Code RealTime
   rtist:
-    name: HCL RTist
+    name: Model RealTime
 
  #Table of contents 
 nav:
@@ -112,6 +113,7 @@ nav:
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md
-     - Support Procedures: support.md      
-  - Notices: notices.md
-
+     - Support Procedures: support.md
+  - Samples: https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples   
+  - Forum: https://github.com/secure-dev-ops/code-realtime/discussions
+  - Videos: https://www.youtube.com/hashtag/rtistincode

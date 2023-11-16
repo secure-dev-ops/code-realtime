@@ -38,7 +38,7 @@ If you build a TC and at least one error exists in the TC itself, in prerequisit
 
 ![](images/cancel-build.png)
 
-Use the setting [`rtistic.build.cancelOnError`](../settings.md#cancel-on-error) to suppress this dialog.
+Use the setting [`code-rt.build.cancelOnError`](../settings.md#cancel-on-error) to suppress this dialog.
 
 ## Build Messages
 When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:
@@ -67,7 +67,7 @@ You can also navigate in the other direction, i.e. from generated C++ code to th
 C++ code snippets that are embedded in the Art file will be enclosed by special comments in the generated C++ file. You can edit such code snippets in a generated C++ file. When you save the file your changes will be automatically propagated back to the Art file. Here is an example of what a code snippet may look like in the generated C++ code:
 
 ``` cpp
-//{{{USR file:///c:/rtistic/workspaces/demoWorkspace/HelloWorld.art#::HelloWorld::<TopStateMachine>::<TriggeredTransition_5>::<Effect>
+//{{{USR file:///c:/code-realtime/workspaces/demoWorkspace/HelloWorld.art#::HelloWorld::<TopStateMachine>::<TriggeredTransition_5>::<Effect>
     std::cout << "Hello World!" << std::endl;
     context()->abort();
 //}}}USR
