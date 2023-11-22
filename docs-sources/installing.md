@@ -3,13 +3,13 @@
 
 {$product.name$} can be installed on top of Visual Studio Code or Eclipse Theia.
 
-The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
+The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/code-realtime-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
 
 1) Click "Extensions" in the activity bar to open the Extensions view.
 
 ![](images/extensions_in_sidebar.png)
 
-2) Type "rtist" in the search field.
+2) Type "Code RealTime" in the search field.
 
 3) Click the "Install" button to install the {$product.name$} extension
 
@@ -24,7 +24,7 @@ The screenshot above also shows that an extension for working with C/C++ has bee
 After you have installed {$product.name$} it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command `Developer: Reload Window` which is available in the Command Palette (++ctrl+shift+"P"++).
 
 ### Install from VSIX
-Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.hcl-rtistic-ce) and the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/hcl-rtistic-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
+Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.code-realtime-ce) and the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/code-realtime-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
 
 1) If you already have a version of {$product.name$} installed, you can manually uninstall it first (see [Uninstalling](#uninstalling)). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.
 
@@ -43,13 +43,13 @@ If instead the installation fails, this message will tell you the reason. One co
 It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
 
 ### Install from Docker Image
-Yet another way to install {$product.name$} is to use the Docker image that is available on [DockerHub](https://hub.docker.com/r/baravich/theia-rtist-in-code). This image contains Eclipse Theia with the latest version of {$product.name$} installed. Run the docker image using this command:
+Yet another way to install {$product.name$} is to use the Docker image that is available on [DockerHub](https://hub.docker.com/r/baravich/theia-code-realtime). This image contains Eclipse Theia with the latest version of {$product.name$} installed. Run the docker image using this command:
 
-`docker run -p <host-port>:<container-port> baravich/theia-rtist-in-code:1.0`
+`docker run -p <host-port>:<container-port> baravich/theia-code-realtime:1.0`
 
 Replace `<host-port>` with a port that is available on your computer, and `<container-port>` with the port you want the Docker container to use. For example, if you run this command
 
-`docker run -p 4000:3000 baravich/theia-rtist-in-code:1.0`
+`docker run -p 4000:3000 baravich/theia-code-realtime:1.0`
 
 then after less than a minute you can access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
 
@@ -73,7 +73,7 @@ After a successful installation you need to perform a few configuration steps be
 
 {$product.name$} follows the steps below in priority order when it looks for an appropriate JVM to use:
 
-1) The setting [`rtistic.languageServer.jvm`](settings.md#jvm) is examined. If it specifies a path to a JVM it will be used. You can edit this setting by invoking **File - Preferences - Settings** and then type the setting id mentioned above in the filter box.
+1) The setting [`code-rt.languageServer.jvm`](settings.md#jvm) is examined. If it specifies a path to a JVM it will be used. You can edit this setting by invoking **File - Preferences - Settings** and then type the setting id mentioned above in the filter box.
 
 ![](images/jvm_setting.png)
 
@@ -85,7 +85,7 @@ You may also need to adjust the arguments for the JVM. By default the JVM is lau
 
 `-Xmx4024m`
 
-To change the JVM arguments set the setting [`rtistic.languageServer.jvmArgs`](settings.md#jvm-args) shown in the image above.
+To change the JVM arguments set the setting [`code-rt.languageServer.jvmArgs`](settings.md#jvm-args) shown in the image above.
 
 When the {$product.name$} extension is activated information about which Java that is used is printed to the Art Server output channel.
 
@@ -96,7 +96,7 @@ Here you will also see if the launching of the language server for some reason f
 #### Setup C++ Build Tools
 When {$product.name$} builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start Visual Studio Code or Eclipse Theia. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching Visual Studio Code or Eclipse Theia. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.
 
-You also need to install an extension for C/C++ development into Visual Studio Code or Eclipse Theia. [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) is recommended.
+You also need to install an extension for C/C++ development into Visual Studio Code or Eclipse Theia. Even if you can use any such extension, {$product.name$} provides the best integration with either [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) or [clangd](https://clangd.llvm.org/).
 
 ## Uninstalling
 To uninstall {$product.name$} follow these steps:

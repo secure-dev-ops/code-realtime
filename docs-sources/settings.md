@@ -6,16 +6,16 @@ Below is a table that lists all {$product.name$} settings. Each setting is descr
 
 | Setting | Id | Purpose | 
 |----------|:-------------|:-------------|
-| [Language Server - Jvm](#jvm) | rtistic.languageServer.jvm | Set the JVM to use for running the {$product.name$} language server
-| [Language Server - Jvm Args](#jvm-args) | rtistic.languageServer.jvmArgs | Set arguments for the JVM that runs the {$product.name$} language server
-| [Validation - Rule Configuration](#rule-configuration) | rtistic.validation.ruleConfiguration | Customize which validation rules to run on Art files and their severity
-| [Build - Output Folder](#output-folder) | rtistic.build.outputFolder | Set the location where to place generated code
-| [Build - Cancel On Error](#cancel-on-error) | rtistic.build.cancelOnError | Cancel a launched build if errors exist in TCs or Art files
-| [Diagram - Show Junction Names](#show-junction-names) | rtistic.diagram.showJunctionNames | Show junction names on state diagrams
-| [Diagram - Show Choice Names](#show-choice-names) | rtistic.diagram.showChoiceNames | Show choice names on state diagrams
-| [Diagram - Show Entry Exit Point Names](#show-entry-exit-point-names) | rtistic.diagram.showEntryExitPointNames | Show entry/exit point names on state diagrams
-| [Diagram - Show Transition Names](#show-transition-names) | rtistic.diagram.showTransitionNames | Show transition names on state diagrams
-| [Diagram - Show Diagnostics](#show-diagnostics) | rtistic.diagram.showDiagnostics | Show error, warning and information icons on diagrams
+| [Language Server - Jvm](#jvm) | code-rt.languageServer.jvm | Set the JVM to use for running the {$product.name$} language server
+| [Language Server - Jvm Args](#jvm-args) | code-rt.languageServer.jvmArgs | Set arguments for the JVM that runs the {$product.name$} language server
+| [Validation - Rule Configuration](#rule-configuration) | code-rt.validation.ruleConfiguration | Customize which validation rules to run on Art files and their severity
+| [Build - Output Folder](#output-folder) | code-rt.build.outputFolder | Set the location where to place generated code
+| [Build - Cancel On Error](#cancel-on-error) | code-rt.build.cancelOnError | Cancel a launched build if errors exist in TCs or Art files
+| [Diagram - Show Junction Names](#show-junction-names) | code-rt.diagram.showJunctionNames | Show junction names on state diagrams
+| [Diagram - Show Choice Names](#show-choice-names) | code-rt.diagram.showChoiceNames | Show choice names on state diagrams
+| [Diagram - Show Entry Exit Point Names](#show-entry-exit-point-names) | code-rt.diagram.showEntryExitPointNames | Show entry/exit point names on state diagrams
+| [Diagram - Show Transition Names](#show-transition-names) | code-rt.diagram.showTransitionNames | Show transition names on state diagrams
+| [Diagram - Show Diagnostics](#show-diagnostics) | code-rt.diagram.showDiagnostics | Show error, warning and information icons on diagrams
 
 ## Language Server
 Settings related to running the {$product.name$} language server.

@@ -14,13 +14,13 @@ To launch the Art Compiler you need a Java Virtual Machine (JVM). You should use
 java <JVM options> -jar <extension-path>/bin/artcompiler.jar <Art Compiler options>
 ```
 
-Often you don't need to use any JVM option, but if the application is huge you may need to increase the memory of the JVM. Refer to the documentation of your JVM for a list of available JVM options. You may want to use the same JVM options as are used when launching the Art Language Server (see the setting [`rtistic.languageServer.jvmArgs`](../settings.md#jvm-args)), but it's not required to do so.
+Often you don't need to use any JVM option, but if the application is huge you may need to increase the memory of the JVM. Refer to the documentation of your JVM for a list of available JVM options. You may want to use the same JVM options as are used when launching the Art Language Server (see the setting [`code-rt.languageServer.jvmArgs`](../settings.md#jvm-args)), but it's not required to do so.
 
 To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:
 
 ```
-C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.hcl-rtistic-ce-0.0.7\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 0.0.10-20230913_1422
+C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.code-realtime-ce\bin\artcompiler.jar
+10:24:53 : INFO : Art Compiler 1.1.0-20231212_1212
 10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
 10:24:54 : INFO : Arguments:
 Usage: java -jar artcompiler.jar <options>
