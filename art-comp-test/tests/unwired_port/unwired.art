@@ -1,0 +1,53 @@
+protocol PROT {
+    out requestData(`unsigned int`);
+    in replyData(`unsigned int`);
+};
+
+capsule Top {
+    part client : Client;
+    part server : Server;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+capsule Client {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    subscribe service unwired notify behavior port p : PROT;
+    statemachine {
+        state WaitForConnection, Connected;
+        initial -> WaitForConnection;
+        t1: WaitForConnection -> Connected on p.rtBound
+        `            unsigned int data = 5;
+            RTMessage replyMsg;
+            p.requestData(data).invoke(&replyMsg);
+
+            unsigned int reply = * static_cast<unsigned int*>(replyMsg.getData());
+            ASSERT(reply == 6, "Expected the reply to be incremented by one");
+
+            PASS();
+        `;
+    };
+};
+capsule Server {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    publish service unwired notify behavior port p~ : PROT;
+    statemachine {
+        state S;
+        t1: S -> S on p.requestData
+        `
+            const unsigned int i = *rtdata;
+            unsigned int j = i+1;
+            ASSERT(i == 5, "rtdata in transition t1 had an unexpected value");
+
+            p.replyData(j).reply();
+        `;
+        initial -> S;
+    };
+};
