@@ -1,0 +1,47 @@
+// This capsule implements a traffic light by means of a passive class Light which contains the state machine.
+capsule TrafficLight : `ILogger` {
+    [[rt::header_preface]]
+    `
+        #include "ILogger.art.h"
+        #include "Light.h"
+    `
+    [[rt::decl]]
+    `
+    public:
+        // Log a message
+        virtual void logMsg(RTString str) override;
+
+    private:
+        Light* theLight;
+    `
+    [[rt::impl]]
+    `
+        void TrafficLight_Actor::logMsg( RTString str )
+        {
+            logPort.logMsg(str).send();
+        }
+    `
+    /* Ports */
+    behavior port timer : Timing;
+    behavior port logPort : LogProtocol;
+    /* Parts */
+    part logger : Logger;
+    /* Connectors */
+    connect logPort with logger.p;
+    /* State Machine */
+    statemachine {
+        state RunningLights {
+            entry
+            `
+                theLight->switchLights();
+            `;
+            
+        };
+        switchLights: RunningLights -> RunningLights on timer.timeout;
+        initial -> RunningLights
+        `
+            theLight = new Light(this);
+            timer.informEvery(RTTimespec(2,0));
+        `;
+    };
+};

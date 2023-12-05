@@ -1,0 +1,8 @@
+[[rt::decl]]
+`
+    class ILogger {
+    public:
+        // Log a message
+            virtual void logMsg(RTString str) = 0;
+    };
+`
