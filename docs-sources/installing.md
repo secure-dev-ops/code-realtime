@@ -34,7 +34,7 @@ Another way to install {$product.name$} is to use a .vsix file. This can be usef
 
 3) In the file dialog that appears, select the .vsix file to install.
 
-If the installation completes successfully you should see the following message (the "Reload Now" button will only show if you already had another version of {$product.name$} installed):
+If the installation completes successfully you should see the following message:
 
 ![](images/vsix_installation_completed.png)
 
@@ -63,7 +63,7 @@ You can also see the version and the exact date of the installed {$product.name$
 ![](images/extension_changelog.png)
 
 ### Portable Mode Installation
-You can install multiple versions of {$product.name$} by using the portable mode of Visual Studio Code. See [Portable Mode](https://code.visualstudio.com/docs/editor/portable) for how to install Visual Studio code in portable mode, which will allow you to install a version of {$product.name$} that won't affect other Visual Studio Code installations on the machine. Portable mode also allows to move or copy an installation from one machine to another, which makes it useful in scenarios where installs should be centralized in an organization.
+You can install multiple versions of {$product.name$} by using the portable mode of Visual Studio Code. See [Portable Mode](https://code.visualstudio.com/docs/editor/portable) for how to install Visual Studio Code in portable mode, which will allow you to install a version of {$product.name$} that won't affect other Visual Studio Code installations on the machine. Portable mode also allows to move or copy an installation from one machine to another, which makes it useful in scenarios where installs should be centralized in an organization.
 
 ### Post-Installation Configuration
 After a successful installation you need to perform a few configuration steps before you can start to use {$product.name$}.
@@ -105,7 +105,7 @@ To uninstall {$product.name$} follow these steps:
 
 ![](images/extensions_in_sidebar.png)
 
-1) Find the {$product.name$} extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio code the command is available in the context menu, while in Theia it shows up as a button to click).
+1) Find the {$product.name$} extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio Code the command is available in the context menu, while in Theia it shows up as a button to click).
 
 ![](images/uninstall.png)
 

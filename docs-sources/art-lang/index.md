@@ -1,4 +1,4 @@
-Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another. 
+Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another when received. 
 
 The Art language provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
 
@@ -9,9 +9,9 @@ Art is well suited for describing both the behavior and structure of a realtime 
 Note that the translation of Art to C++ also involves analysis of the C++ code that is present in the Art files. The code generator supports certain [C++ extensions](../art-lang/cpp-extensions/) in such embedded C++ code and will "expand" them to C++ code as part of code generation for an Art file.
 
 ## Concepts and Terminology
-In Art the concept of a **capsule** is central. A capsule is like a C++ class, but with a few differences and extensions. A C++ class is **passive** in the sense that a caller can access its public member functions and variables at any time. Hence a C++ object always executes in the context of the caller, and when a member function is called, the caller is blocked until it returns. A capsule, however, is **active** and has its own execution context. This means that we never call a capsule member function or access a capsule member variable from outside the capsule itself. Instead we communicate with the capsule by sending **events** to it. Each capsule has a queue of events it has received and the events will be dispatched to the capsule one by one. The sender of the event is not blocked, as the event will be handled by the capsule asynchronously when it is later dispatched.
+In Art the concept of a **capsule** is central. A capsule is like a C++ class, but with a few differences and extensions. A C++ class is **passive** in the sense that a caller can access its public member functions and variables at any time. Hence a C++ object always executes in the context of the caller, and when a member function is called, the caller is blocked until the function call returns. A capsule, however, is **active** and has its own execution context. This means that we never call a capsule member function or access a capsule member variable from outside the capsule itself. Instead we communicate with the capsule by sending **events** to it. Each capsule instance has a queue of events it has received and those events will be dispatched to the capsule instance one by one. The sender of the event is not blocked, as the event will be handled by the capsule instance asynchronously when it is later dispatched.
 
-The picture below shows 3 capsule instances each holding a queue with events that have been received, but not yet dispatched. Note that this picture is conceptual. In a real implementation several performance optimizations are applied, for example it's common to let a single thread drive more than one capsule instance, and several capsule instances can share a common event queue. But from a conceptual point of view each capsule has its own queue of events that are waiting to be dispatched to it. Events have a **priority** which determines how they are ordered in the queue. Events with high priority are placed before events with lower priority, and if two events have the same priority they are ordered according to when they arrive.
+The picture below shows 3 capsule instances each holding a queue with events that have been received, but not yet dispatched. Note that this picture is conceptual. In a real implementation several performance optimizations are applied, for example it's common to let a single thread drive more than one capsule instance, and several capsule instances can share a common event queue. But from a conceptual point of view each capsule instance has its own queue of events that are waiting to be dispatched to it. Events have a **priority** which determines how they are ordered in the queue. Events with high priority are placed before events with lower priority, and if two events have the same priority they are ordered according to when they arrive.
 
 ![](images/event_queues.png)
 
@@ -23,27 +23,27 @@ A simple capsule which only handles a small number of events, may be able to han
 
 A composite structure is created by decomposing a capsule using capsule parts. A **capsule part** (or, for simplicity, just **part**) is typed by another capsule and is a way for a capsule to delegate some of its responsibilities to other capsules. Such a decomposition is purely an implementation detail that is not visible from the outside of the capsule. When you send an event to a capsule you cannot know if the capsule will handle the event itself, or if it will forward the event to another capsule typing one of its capsule parts. The ability to decompose a capsule into parts is important for managing complexity. When a capsule has grown too big and complex you can decompose it into capsule parts without changing the communication interface of the capsule. 
 
-Ports of capsules typing capsule parts are connected to each other by means of connectors. A **connector** is a conceptual construct for showing how events are routed in the internal structure of a capsule. At run-time connectors don't exist, and ports are directly connected to each other. Because of this, it's not mandatory to use connectors. You can also choose to dynamically connect (and disconnect) ports at run-time. Although this provides for more flexibility, it has the drawback of making it impossible to statically visualize the communication paths of a capsule. Ports that connect statically to other ports via connectors are called **wired** ports. Ports that are connected dynamically without use of static connectors are called **unwired** ports. 
+Ports of capsules typing capsule parts are connected to each other by means of connectors. A **connector** is a conceptual construct for showing how events are routed in the composite structure of a capsule. At run-time connectors don't exist, and ports are directly connected to each other. Because of this, it's not mandatory to use connectors. You can also choose to dynamically connect (and disconnect) ports at run-time. Although this provides for more flexibility, it has the drawback of making it impossible to statically visualize the communication paths of a capsule. Ports that connect statically to other ports via connectors are called **wired** ports. Ports that are connected dynamically without use of static connectors are called **unwired** ports. 
 
 The picture below shows the structure of a capsule `Top` which consists of two capsule parts `ping` and `pong` each holding a capsule instance (a `Pinger` capsule and a `Ponger` capsule respectively). The connector between the wired ports `p` on these capsules makes it possible for these capsules to communicate with each other. Communication can also happen using the unwired ports `q1` and `q2` if they are connected at run-time. The picture also shows that the capsule `Ponger` is further decomposed using a capsule part `inner`. All events sent to port `p` of `Ponger` will be further routed to port `i` of the `Internal` capsule. 
 
 ![](images/composite_structure.png)
 
-Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may travel between two connected ports using a single protocol, one of the ports can be declared as **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
+Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may be sent between two connected ports using a single protocol, one of the ports can be declared as **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
 
 Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity > 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity > 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time. The picture below shows a capsule with a part and a port that both have multiplicity > 1. In structure diagrams such parts and ports are shown as "stacked boxes".
 
 ![](images/port_part_with_multiplicity.png)
 
-In addition to regular C++ member functions a capsule may have a **state machine** as its behavior. A state machine describes how an instance of the capsule may move between different **states** through its life-time. A **transition** that connects a source state with a target state may be **triggered** when an event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a **trigger** that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean **guard** condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an **effect**, which is a piece of C++ code that executes when the transition gets triggered.
+In addition to regular C++ member functions a capsule may have a **state machine** as its behavior. A state machine describes how an instance of the capsule may move between different **states** through its life-time. A **transition** that connects a source state with a target state may be **triggered** when a received event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a **trigger** that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean **guard** condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an **effect**, which is a piece of C++ code that executes when the transition gets triggered.
 
-The picture below shows a state machine containing three states and three transitions. The presence of transition guard code is shown with a yellow dot and the presence of transition effect code is shown with a blue dot. Both these are C++ code snippets that are embedded in the Art file.   
+The picture below shows a state machine containing a few states and transitions. The presence of transition guard code is shown with a yellow dot and the presence of transition effect code is shown with a blue dot. Both these are C++ code snippets that are embedded in the Art file.   
 
 ![](images/state_machine.png)
 
-When a capsule instance is created (this is sometimes referred to as capsule **incarnation**), it's state machine starts to execute by triggering the transition that goes out from the **initial** state (the big blue circle in the above diagram). Each state machine must have exactly one such initial state with an outgoing transition. Since this **initial transition** is triggered automatically when the capsule instance is created it cannot have any constraints like mentioned above. The initial transition is an example of a **non-triggered transition** since it cannot have triggers. 
+When a capsule instance is created (this is sometimes referred to as capsule **incarnation**), it's state machine starts to execute by triggering the transition that goes out from the **initial** state (the circular blue symbol to the left in the above diagram). Each state machine must have exactly one such initial state with an outgoing transition. Since this **initial transition** is triggered automatically when the capsule instance is created it cannot have constraints such as triggers and guard conditions. The initial transition is an example of a **non-triggered transition** since it cannot have triggers. 
 
-The path from the source state to the target state can sometimes consist of more than one transition. In that case only the first of these is a **triggered transition** that may have triggers that specify when it will trigger. Once the first transition in this path has triggered, subsequent non-triggered transitions will always execute, one by another according to how they are connected in the state machine. However, also non-triggered transitions (with the exception of the initial transition) may have guards. Such guards are usually evaluated before the triggered transition triggers to ensure that they all are enabled, so that it's guaranteed that the target state can be reached. There is one exception to this rule, for transitions that leave a **choice**. Such guards are only evaluated once the choice has been reached to dynamically decide which outgoing transition to take next. This also means that guards of such transitions must be mutually exclusive, or there is a risk that the state machine will get stuck in the choice.
+The path from the source state to the target state can sometimes consist of more than one transition. In that case only the first of these is a **triggered transition** that may have triggers that specify when it will trigger. Once the first transition in this path has triggered, subsequent non-triggered transitions will always execute, one by one according to how they are connected in the state machine. However, also non-triggered transitions (with the exception of the initial transition) may have guards. Such guards are usually evaluated before the triggered transition triggers to ensure that they all are enabled, so that it's guaranteed that the target state can be reached. There is one exception to this rule, for transitions that leave a **choice**. Such guards are only evaluated once the choice has been reached to dynamically decide which outgoing transition to take next. This also means that guards of such transitions must be written so that at least (and at most) one outgoing transition is enabled, or there is a risk that the state machine will get stuck in the choice.
 
 In the state machine shown below the transitions `t2` and `t5` are triggered transitions, while other transitions are non-triggered. Transition `t5` can only be triggered if either the guard of `t7` or `t6` is true, while `t2` can be triggered even if neither the guard of `t3` nor `t4` is true. The target of transition `t5` is a **junction** which is used for either splitting or merging transition paths depending on evaluated guard conditions.
 
@@ -61,7 +61,7 @@ A state may have an **entry action** and/or **exit action** which is a C++ code 
 
 ![](images/state_entry_exit_actions.png)
 
-A transition where the source and target state is the same state is called a **self-transition**. A special kind of self-transition is an **internal transition**, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; `t` which is a regular self-transition (a.k.a. **external self-transition**) and `it` which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view. An icon is shown on those states that contain internal transitions.
+A transition where the source and target state is the same state is called a **self-transition**. A special kind of self-transition is an **internal transition**, which is a transition that when triggered doesn't leave the current state. Hence, when an internal transition is triggered the active state configuration remains unchanged, and neither the entry nor exit action of the state gets executed. In the state machine shown below the state has two self-transitions; `t` which is a regular self-transition (a.k.a. **external self-transition**) and `it` which is an internal transition. Since a state may have a large number of internal transitions they are not shown inside the state symbol, but if you select the state symbol you can see them in the Properties view. An icon is shown in the upper right corner of states that contain internal transitions.
 
 ![](images/self_transitions.png)
 
@@ -72,7 +72,7 @@ The realtime application needs to designate one capsule as the **top capsule**. 
 The top capsule is the entry point of the realtime application. When it starts to execute one instance of the top capsule will be automatically created, and its state machine starts to execute. If you build a library rather than an executable you don't have a top capsule.
 
 ## Embedded C++ Code
-Art uses C++ as action and expression language. It also uses C++ for defining types, variables and functions. A C++ code snippet can be embedded into Art at many places by enclosing it with backticks. Here is an example of how to write the code that should execute when a transition triggers:
+Art uses C++ as action and expression language. It also uses C++ for defining types, variables and functions. A C++ code snippet can be embedded into an Art file at many places by enclosing it with backticks. Here is an example of how to write the code that should execute when a transition triggers:
 
 ``` art
 S1 -> S2 on timer.timeout
@@ -201,7 +201,7 @@ capsule Cap {
 Art elements are mostly edited using their textual notation, but diagrams also provide some editing capabilities. However, all edit commands performed from a diagram are actually mapped to corresponding textual modifications of the Art file. Editing from a diagram is therefore simply an alternative, and sometimes more convenient way, of editing the textual Art file.
 
 ## Syntax
-Art uses a syntax that should look familiar to developers with knowledge about languages like C++ and Java. 
+Art uses a syntax that should be familiar to developers with knowledge about languages like C++ and Java. 
 
 * Declarations are terminated with a semicolon `;`
 * When multiple elements are declared in the same language construct commas `,` are used for separating the elements
@@ -420,6 +420,7 @@ pingPort.ping(5).send(); // Send event "ping" with data (an integer) on the "pin
 !!! example
     You can find a sample application that sends events on ports with and without data [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PingPong).
 
+Note that `send()` is not the only function you can call. For example, you can call `invoke()` if you want to wait until the receiver has received and replied to the event. This is useful for implementing synchronous communication between capsules.
 
 ### Port Multiplicity
 At run-time an instance of a port can be connected to a port instance on another capsule. Such connections is what make a sent event be routed from the port on which it is sent, through a number of non-behavior ports, until it finally reaches a behavior port. By default a port has single multiplicity (1) meaning that at most one such connection can be established. However, you can specify a non-single multiplicity for a port to allow for more connections to be created at run-time. 
@@ -449,7 +450,7 @@ capsule Server {
 ```
 
 ### Notification Port
-Every protocol contains two implicit events rtBound and rtUnbound. A port can choose to receive those events whenever a connection for the port is established (rtBound) or dropped (rtUnbound) at run-time. Declare a port as a notification port to receive these events. 
+Every protocol contains two implicit events `rtBound` and `rtUnbound`. A port can choose to receive those events whenever a connection for the port is established (rtBound) or dropped (rtUnbound) at run-time. Declare a port as a notification port to receive these events. 
 
 ``` art
 capsule Server {
@@ -502,7 +503,7 @@ Unwired ports get connected by means of registering them under a service name th
 * [registration](#registration) specifies when an unwired port should be registered
 * [registration_name](#registration_name) specifies the service name with which the port should be registered
 
-If you choose to register an unwired port programmatically (using the TargetRTS functions `registerSPP` and `registerSAP`) you decide at registration time whether the port should be an SAP or SPP port. However, if you choose to instead let the port be registered automatically you need to declare the port as either a `subscribe` (SAP) or `publish` (SPP) port. Here is the same example again, but now with automatic registration of the unwired ports using the service name `myService`:
+If you choose to register an unwired port programmatically (using the TargetRTS functions `registerSPP()` and `registerSAP()`) you decide at registration time whether the port should be an SAP or SPP port. However, if you choose to instead let the port be registered automatically you need to declare the port as either a `subscribe` (SAP) or `publish` (SPP) port. Here is the same example again, but now with automatic registration of the unwired ports using the service name `myService`:
 
 ``` art
 capsule Client {
@@ -524,6 +525,10 @@ registration_name = "myService")
 
 Note that the keyword `unwired` can be implicit when you declare a port as either a `subscribe` or `publish` port.
 
+!!! example
+    You can find a sample application that uses an unwired port [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/unwired_port).
+
+
 ## Connector
 Connectors describe how events are routed within a capsule by connecting ports in its composite structure. They make it possible to see in a structure diagram which parts of a capsule that can communicate with each other. Each connector connects exactly two ports with each other. A connected port may either be a port of the capsule itself, or a port of a capsule that types one of its capsule parts. A few constraints decide if it's possible to connect two ports:
 
@@ -531,7 +536,7 @@ Connectors describe how events are routed within a capsule by connecting ports i
    
 2) The ports must be typed by the same protocol.
 
-3) The ports' conjugations must match. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have the opposite conjugation. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
+3) The ports' conjugations must match. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have the opposite conjugation. This is because events that are sent out from one of the ports must be able to be received by the other port and vice versa. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
    
 4) If a connector is connected to a port and a part (where the port is defined on the capsule that types the part), then the port must be a service port. Only service ports are visible from the outside of a capsule.
 
@@ -564,7 +569,7 @@ capsule Ponger {
 
 ![](images/connector_example.png)
 
-The connector between `p1` and `p2` goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between `p2` and `i` goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port `p2` is a so called **relay port** (it just relays all events it receives to another port) and the connector between `p2` and `i` is sometimes called a **delegation connector** to describe the fact that capsule `Ponger` uses it for delegating some of its responsiblities to the capsule `Inner`. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port `p1` can be directly connected to `i`).
+The connector between `p1` and `p2` goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between `p2` and `i` goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port `p2` is a so called **relay port** (it just relays all events it receives to another port) and the connector between `p2` and `i` is sometimes called a **delegation connector** to describe the fact that capsule `Ponger` uses it for delegating some of its responsiblities to the capsule `Internal`. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port `p1` can be directly connected to `i`).
 
 A connector doesn't have a direction, so it doesn't matter in which order it connects the two ports. That is, connecting X with Y is equivalent to connecting Y with X.
 
@@ -664,7 +669,7 @@ If the capsule that types a part has a [capsule constructor](#capsule-constructo
 * `rt::create` Defines how to create an instance of the capsule. For example, which constructor arguments to pass, which thread to use for running the created capsule instance, at which index to insert the capsule instance into the part (in case it has multiplicity > 1) etc.
 * `rt::destroy` Defines how to destroy an instance of the capsule. By default it's destroyed using the `delete` operator.
  
-Here is an example where a part defines a capsule factory that specifies a create function. The create function gets the mandatory constructor parameters `rtg_rts` and `rtg_ref` as arguments, as well as an `index` argument that specifies the index where the created capsule instance would be inserted by default.
+Here is an example where a part defines a capsule factory that specifies a create function. The create function gets the mandatory constructor parameters `rtg_rts` and `rtg_ref` as arguments, as well as an `index` argument that specifies the index where the created capsule instance will be inserted.
 
 ``` art
 part engine : Engine [[rt::create]]
@@ -684,7 +689,7 @@ State machines are used for specifying the behavior of [capsules](#capsule). It 
 
 A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving events on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send events to other capsule instances, something that may cause transitions to execute in their state machines. 
 
-A state machine may also have **pseudo states**, which just like states may be connected with transitions, but that unlike states are not places where the state machine should stay for some time. For example, most pseudo states like junctions and entry/exit points merely act as connection points that make it possible to execute more than one transition when transitioning between two states. The notable exception is the choice in which actually the state machine may get stuck for ever, but that would be an error situation that should not happen in a correctly designed state machine.
+A state machine may also have **pseudo states**, which just like states may be connected with transitions, but that unlike states are not places where the state machine should stay for some time. For example, most pseudo states like junctions and entry/exit points merely act as connection points that make it possible to execute more than one transition when transitioning between two states. The notable exception is the **choice** in which actually the state machine may get stuck for ever, but that would be an error situation that should not happen in a correctly designed state machine.
 
 ### State
 The states of a state machine are the places where the state machine may stay for some time while waiting for a message to arrive that potentially can cause the state machine to transition to another state. States should have names that describe what is happening while the state machine stays there, or what has happened for the state machine to arrive there. For example, "WaitForInit", "Processing" or "Terminated". By convention state names start with uppercase.
@@ -715,7 +720,7 @@ States may be nested to create a [hierarchical state machine](#hierarchical-stat
 A state may have an entry and/or exit action which is a code snippet that runs whenever the state is entered and/or exited.
 
 ``` art
-state Walk {
+state Walking {
     entry
     `
         server.walk().send();
@@ -733,7 +738,7 @@ state Walk {
 ### Transition
 A transition connects a source state (or pseudo state) to a target state (or pseudo state). When a capsule instance handles a message that was received on one of its behavior ports, one or several transitions may execute.
 
-It's not required to give a name to a transition, but it's possible and often makes the state machine easier to understand. At least triggered transitions (i.e. transitions where the source is a state) should have a name. A transition name can be choosen to describe what needs to have happened for the transition to execute, for example "requestReceived", "timeout" etc. By convention transition names start with lowercase and use camelCase if the name consists of multiple words.  
+It's not required to give a name to a transition, but it's possible and often makes the state machine easier to understand. At least triggered transitions (i.e. transitions where the source is a state) should have a name. A transition name can be choosen to describe what has happened when the transition executes, for example "requestReceived", "timeout" etc. By convention transition names start with lowercase and use camelCase if the name consists of multiple words.  
 
 A triggered transition has one or several triggers which define when the transition can be triggered. Each trigger specifies a port and an event. The trigger can only trigger its transition if the received message is an instance of the specified event, and was received on the specified port. In addition it's possible to provide guard conditions that must be fulfilled for the trigger to trigger its transition. Such a guard condition can be specified for the transition, but also for each individual trigger.
 
@@ -819,21 +824,6 @@ Note the usage of an asterisk (`*`) to specify that any event received on `myPor
 
 Internal transitions are examples of so called self-transitions. To learn about other types of self-transitions see [this chapter](#local-transition).
 
-#### Frequent Transition
-Sometimes you may have a state where one or a few outgoing transitions can be expected to execute much more frequently than others. You can then set a `frequent` [property](#property) on the transition trigger that you expect will trigger the transition frequently. The Art compiler uses this information to optimize generated C++ code so that such transition triggers are evaluated before other triggers that are expected to trigger the transition less frequently. 
-
-``` art
-interrupted: Working -> Stopped on [[rt::properties(
-            frequent=true
-        )]] external.interrupt
-        `
-            // Interrupted while working...
-        `;
-```
-
-!!! note 
-    The frequent property relies on optimization features in the C++ compiler that may or may not be available depending on which target compiler that is used. Only use frequent transitions if profiling has shown that you have a need to do this optimization.
-
 ### Choice and Junction
 Choices and junctions are pseudo states that make it possible to split transition flows in a state machine. That is, one incoming transition may be split into multiple outgoing transitions. Which of the outgoing transitions that will execute is decided by evaluating their guard conditions.
 
@@ -844,7 +834,7 @@ For a junction the guard conditions are evaluated already *before* leaving the c
     
     The same is true if a junction is used in the [initial transition](#initial-transition). If such a junction doesn't have an outgoing transition with a fulfilled guard condition then the state machine will stay in the initial state for ever.
 
-Choices and junctions must have names, so they can be referenced as the source or target of transitions. You can choose to use a name that gives a hint about what conditions that are checked in the guards of the outgoing transitions. For example, `isEnabled` for a choice that checks a boolean condition and `checkValue` when the condition has some other type. If you follow this approach you can then name the outgoing transitions accordingly. For example `true` and `false` for a choice that checks a boolean condition. By convention choice and junction names start with lowercase and use camelCase if consisting of multiple words. Sometimes it may be difficult to come up with a good name and in that case you can choose something short and "technical" like `j1`, `check1` etc. 
+Choices and junctions must have names, so they can be referenced as the source or target of transitions. You can choose to use a name that gives a hint about what conditions that are checked in the guards of the outgoing transitions. For example, `isEnabled` for a choice that checks a boolean condition and `checkValue` when the condition has some other type. If you follow this approach you can then name the outgoing transitions accordingly. For example `true` and `false` for a choice that checks a boolean condition. By convention choice and junction names start with lowercase and use camelCase if they consist of multiple words. Sometimes it may be difficult to come up with a good name and in that case you can choose something short and "technical" like `j1`, `check1` etc. 
 
 Below is an example of a state machine containing a choice and a junction.
 
@@ -922,7 +912,7 @@ When multiple triggered transitions converge into a common transition as in the 
 ### Hierarchical State Machine
 A state machine is hierarchical if it contains at least one composite state, i.e. a state with a nested state machine. A transition that is triggered in the enclosing state machine (i.e. the state machine that contains the composite state) should enter a composite state by specifying an entry point of the composite state as the target. In the nested state machine another transition can connect that entry point to a state in the nested state machine. A transition in the nested state machine may specify an exit point of the composite state as the target. In the enclosing state machine another transition can connect that exit point to a state in the enclosing state machine.
 
-Entry and exit points are pseudo states that need to be named. The names can be chosen to give a hint about when the composite state is entered or exited through them, for example `systemStarted` or `errorDetected`. If you want you can prefix the names with `ep` or `ex`. It's also common to use short and "technical" names like `ep1` or `ex1` if a more descriptive name doesn't make sense. By convention entry and exit point names start with lowercase and use camelCase if consisting of multiple words.
+Entry and exit points are pseudo states that need to be named. The names can be chosen to give a hint about when the composite state is entered or exited through them, for example `systemStarted` or `errorDetected`. If you want you can prefix the names with `ep` or `ex`. It's also common to use short and "technical" names like `ep1` or `ex1` if a more descriptive name doesn't make sense. By convention entry and exit point names start with lowercase and use camelCase if they consist of multiple words.
 
 It's also possible to directly enter a composite state without using an entry point. In this case the behavior will depend on whether the composite state is entered for the first time or not. If it is for the first time, the initial transition of the nested state machine will execute after the transition that targets the composite state has executed. Otherwise the composite state will instead be entered using [deep history](#deep-history), i.e. by activating the state in the nested state machine that was most recently active (and recursively if that state again is a composite state).
 
@@ -955,12 +945,12 @@ statemachine {
 
 Note that a dot (`.`) is used as scope resolution operator, to make it possible to reference an entry or exit point from the enclosing state machine. Inside the nested state machine the entry and exit points are directly accessible without use of the scope resolution operator (using it there would be an error).
 
-It is possible to only connect an entry point on the "outside". Entering such an entry point will behave in the same way as entering the composite state without using an entry point (see above). It's therefore not recommended. In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
+It is possible to only connect an entry point on the "outside". Entering the state via such an entry point will behave in the same way as entering the composite state without using an entry point (see above). It's therefore not recommended. In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
 
 !!! example
     You can find a sample application that contains a composite state with an entry and exit point [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata).
 
-Just like a [junction](#choice-and-junction) an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which one to execute, and are evaluated *before* leaving the current state. Therefore, the same recommendations as for guard conditions of [junctions](#choice-and-junction) apply.
+Just like a [junction](#choice-and-junction), an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which of them to execute, and are evaluated *before* leaving the current state. Therefore, the same recommendations as for guard conditions of [junctions](#choice-and-junction) apply for entry and exit points.
 
 #### Deep History
 Every nested state machine has an implicit pseudo state with the name `history*` (in state diagrams it's shown as `H*` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a *deep* history). 
@@ -1082,8 +1072,6 @@ A class state machine can use the same constructs as a capsule state machine wit
 
 * The initial transition cannot access initialization data as can a capsule's [initial transition](#initial-transition). Instead you can define one or several constructors for the class with parameters needed for passing initialization data when the class-with-statemachine instance is created. See [Constructor](#constructor) for more information.
 
-* [Frequent transitions](#frequent-transition) are not supported.
-
 * The state machine can be hierarchical but the [deep history](#deep-history) pseudo state is not supported. Instead the [shallow history](#shallow-history) pseudo state can be used.
 
 * Even if it's possible for a class with a state machine to inherit from another class with a state machine, this doesn't mean that the state machines will be inherited as is the case for capsule inheritance. Read more about this in [Inheritance](#inheritance).
@@ -1153,7 +1141,7 @@ A [capsule](#capsule) can inherit from another capsule. Only one base capsule is
 
 The derived capsule is type compatible with the base capsule in the sense that if you have a capsule [part](#part) typed by the base capsule, you can at runtime incarnate it with instances of the derived capsule. 
 
-Capsule inheritance has multiple dimensions. One dimension is the usual C++ inheritance between classes (remember that a capsule is an active class). In this dimension it is for example possible to redefine (a.k.a override) a virtual member function defined in the base capsule or in another base C++ class. But there is also a second dimension where the state machine of the derived capsule will implicitly inherit from the state machine of the base capsule. This makes it possible to redefine transitions and states. For example, a redefining transition in a derived capsule can change the effect code, the guard condition or the target state or pseudo state. And a redefining state in a derived capsule can change the entry or exit action, as well as any substate or subtransition in case the state is composite and has a nested state machine. It's also possible to completely exclude a state or a transition, either in the top capsule state machine, or in a nested state machine.
+Capsule inheritance has multiple dimensions. One dimension is the usual C++ inheritance between classes (remember that a capsule is an active class). In this dimension it is for example possible to redefine (a.k.a override) a virtual member function defined in the base capsule or in another base C++ class. But there is also a second dimension where the state machine of the derived capsule will implicitly inherit from the state machine of the base capsule. This makes it possible to redefine transitions and states. For example, a redefining transition in a derived capsule can change the effect code, the guard condition or the target state or pseudo state. And a redefining state in a derived capsule can change the entry or exit action, as well as any substate or subtransition in case the state is composite and has a nested state machine. It's also possible to completely exclude a state or a transition, either in the capsule's top state machine, or in a nested state machine.
 
 Below is an example of a capsule `D` that inherits from another capsule `B`. In addition the capsule `D` inherits from two C++ classes `IDataManager` and `IController`.
 
@@ -1315,49 +1303,6 @@ protocol ExtendedMachineEvents : MachineEvents {
     * [A derived protocol inherits events from a base protocol](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance)
     * [A derived protocol redefines the parameter type of an inherited event](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event)
 
-## Template
-A template is a type that is parameterized by means of template parameters to make it more generic. When a template is used (a.k.a. instantiated), actual template parameters must be provided that match the formal template parameters defined in the template. Both [capsules](#capsule) and [classes](#class-with-state-machine) can have template parameters. Just like in C++ two kinds of template parameters are supported:
-
-* **Type template parameter**
-
-Replaced with a type when the template is instantiated.
-
-* **Non-type template parameters**
-
-Replaced with a non-type, for example a constant value, when the template is instantiated.
-
-Template parameters may have defaults that will be used if a matching actual template parameter is not provided when instantiating the template.
-
-Below is an example of a capsule and a class with template parameters, some of which have defaults specified. The keywords `typename` and `class` can both be used for defining a type template parameter. A non-type template parameter is defined by specifying its type as a C++ code snippet.
-
-``` art
-template <typename T = `int`, `int` p1 = `5`>
-capsule TemplateCapsule { 
-    [[rt::decl]]
-    `
-        void func(T arg1) {
-            // impl
-        }
-    `
-
-    service port mp : MachineEvents[`p1`];
-
-    statemachine {
-        state State;
-        initial -> State;
-    };
-};
-
-template <typename T, class U, `int` p1>
-class TemplateClass : `Base<T,U,p1>` {
-    statemachine {
-        state State;
-        initial -> State;
-    };
-};
-```
-Template parameters can only be used from C++ code snippets, and above you see some examples of how they can be used. It's not possible to instantiate a template in Art itself. For example, even if class `Base` above was defined as an Art class, a C++ code snippet has to be used since it has template parameters.
-
 ## Property
 Properties are name-value pairs that provide a generic mechanism for augmenting Art elements with extra data. Such data can be utilized by tools that operate on a parsed Art file, such as the code generator and semantic checker. Most Art elements can have properties and the syntax for specifying properties is the same regardless of the kind of element. However, different kinds of Art elements can have different properties.
 
@@ -1455,7 +1400,6 @@ Below is a table that lists all properties that can be used on different kinds o
 | [Port](#port) | [registration_name](#registration_name) | String | ""
 | [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata](#const_rtdata) | Boolean | true
 | [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine) | [color](#color) | String | ""
-[Trigger](#transition) | [frequent](#frequent) | Boolean | false
 
 
 ### generate_file_header
@@ -1534,6 +1478,3 @@ Specifies which color to use for an Art element in a diagram. Colors should be s
 Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").
 
 ![](images/color_picker_diagram.png)
-
-### frequent
-Triggers for which this property is `true` will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the `rtsBehavior` function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.
