@@ -2,7 +2,7 @@ The Outline view shows information about the Art elements that are defined in an
 
 ![](images/outline-view.png)
 
-You can use the Outline view for getting an overview of what elements an Art file contains, and for searching and navigating to elements.
+You can use the Outline view for getting an overview of what elements an Art file contains, and for [searching](#searching) and [navigating](#navigating) to elements.
 
 ## Navigating
 To navigate to an element in the Art file, double-click on the element in the Outline view. The cursor will be placed just before the element's name in the Art file (or where the name would be in case it has no name).
