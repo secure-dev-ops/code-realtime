@@ -1,0 +1,42 @@
+// A passive class with a state machine implementing the traffic light logic
+class Light  {
+    [[rt::header_preface]]
+    `
+        #include "ILogger.art.h"
+    `
+
+    [[rt::decl]]
+    `
+    public:
+        Light(ILogger*);
+    private:
+        ILogger* theLogger;
+    `
+    [[rt::impl]]
+    `
+         Light::Light(ILogger* logger) : theLogger(logger) {
+             rtg_init1();
+         }
+    `
+
+    /* Trigger Operations */
+    trigger   switchLights();
+
+    /* State Machine */
+    statemachine {
+        state Red, Green, Yellow;
+        initial -> Red;
+        goGreen: Red -> Green on switchLights()
+        `
+            theLogger->logMsg("Green");
+        `;
+        goYellow: Green -> Yellow on switchLights()
+        `
+            theLogger->logMsg("Yellow");
+        `;
+        goRed: Yellow -> Red when `true `
+        `
+            theLogger->logMsg("Red");
+        `;
+    };
+};

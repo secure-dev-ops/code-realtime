@@ -149,7 +149,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a capsule instance. </p>
-<p>If a create function has been registered for the specified capsule part it will be used. Otherwise, the default create function of the capsule will be used. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>If a create function has been registered for the specified capsule part it will be used for creating the capsule instance. Otherwise nullptr will be returned, to allow the capsule instance to be created as default (if possible). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rts</td><td>Default controller thread to run the created capsule instance (a registered create function may override this) </td></tr>
     <tr><td class="paramname">ref</td><td>Capsule part to host the created capsule instance </td></tr>
@@ -157,7 +157,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Capsule instance, or nullptr in case a capsule instance couldn't be created </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Created capsule instance, or nullptr in case no capsule instance was created </dd></dl>
 
 </div>
 </div>

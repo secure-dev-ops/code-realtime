@@ -1,0 +1,26 @@
+// A Logger class that implements an interface ILogger through which the passive class Light
+// can send events.
+capsule Logger  {
+
+    /* Ports */
+    service behavior port p~ : LogProtocol;
+    behavior port log : Log;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State {
+            entry
+            `
+                log.log("Logger ready to log messages");
+                log.commit();
+            `;
+            log: on p.logMsg
+            `
+                log.log(rtdata, &RTType_RTString);
+                log.commit();
+            `;
+        };
+        initial -> State;
+    };
+};

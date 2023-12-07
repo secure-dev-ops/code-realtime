@@ -1,0 +1,5 @@
+protocol LogProtocol {
+    /* In Events */
+    /* Out Events */
+    out logMsg(`RTString`);
+};
