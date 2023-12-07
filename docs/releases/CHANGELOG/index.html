@@ -7,27 +7,28 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="RTist in Code is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
-        <link rel="canonical" href="https://opensource.hcltechsw.com/rtist-in-code/releases/CHANGELOG/">
-      
-      
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/releases/CHANGELOG/">
       
       <link rel="icon" href="../../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>0.0.11 (2023-11-08) - HCL RTist in Code</title>
+        <title>1.0.0 (2023-12-12) - DevOps Code RealTime</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
       
       
-
     
     
     
@@ -44,7 +45,7 @@
     
       <link rel="stylesheet" href="../../stylesheets/prism.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 <!--  OneTrust Cookies Consent Notice start  -->
@@ -69,18 +70,20 @@
 
     
     
-    
   <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
   
 
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
   
     
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -88,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#0011-2023-11-08" class="md-skip">
+        <a href="#100-2023-12-12" class="md-skip">
           Skip to content
         </a>
       
@@ -98,42 +101,9 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-            
-<div>
-   <a href="https://www.hcltechsw.com/"> 
-  <img width="150" height="30" src="https://help.hcltechsw.com/assets/images/HCL_Software_Logo_White.svg" alt="HCL Logo" target="_blank"></a>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<div class="dropdown">
-  <button class="dropbtn">Resources <i class="fa fa-caret-down"></i></button> 
-  <div class="dropdown-content">
-<!--   <a href="https://support.hcltechsw.com" target="_blank">Customer Support</a>
-  <a href="https://academy.hcltechsw.com" target="_blank">Software Academy</a>
-  <a href="https://support.hcltechsw.com/community" target="_blank">Community Forums</a> -->
-  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples" target="_blank">Samples</a>
-  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/discussions">Forum</a>
-  <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/issues" target="_blank">Issues</a>
-  <a href="https://www.youtube.com/hashtag/rtistincode" target="_blank">Videos</a>
-
-</div>
-</div>
-  
-  <!-- Uncomment the following announcement if you need it -->
-  <!--
- <div class="md-banner--feedback" style="display:inline">
-
-  <strong>We value your feedback on this site.</strong> Please report any issues you find <a class="announcement__link" href="https://github.com/HCL-TECH-SOFTWARE/digital-experience/issues">via Github</a>. 
-  
-  <div class="md-banner--feedback">Looking for v8.5 or v9.0? <a class="announcement__link"  href="https://help.hcltechsw.com/digital-experience/9.5/welcome_hcl_dx.html">Check the legacy Help Center.</a>
-</div>  
-</div>
--->
-
-</div>
+<p>Check out the commercial edition!</p>
 
           </div>
-          
         </aside>
       
     </div>
@@ -143,7 +113,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="HCL RTist in Code" class="md-header__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
+    <a href="../.." title="DevOps Code RealTime" class="md-header__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
       
   <img src="../../assets/logo.png" alt="logo">
 
@@ -155,13 +125,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            HCL RTist in Code
+            DevOps Code RealTime
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              0.0.11 (2023-11-08)
+              1.0.0 (2023-12-12)
             
           </span>
         </div>
@@ -184,11 +154,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -202,7 +172,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -211,13 +181,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
-    hcl-software/rtist-in-code
+    secure-dev-ops/code-realtime
   </div>
 </a>
       </div>
@@ -233,7 +203,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
+  <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
@@ -270,8 +240,32 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../notices/" class="md-tabs__link">
-      Notices
+    <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-tabs__link">
+      Samples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-tabs__link">
+      Forum
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.youtube.com/hashtag/rtistincode" class="md-tabs__link">
+      Videos
     </a>
   </li>
 
@@ -297,22 +291,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="HCL RTist in Code" class="md-nav__button md-logo" aria-label="HCL RTist in Code" data-md-component="logo">
+    <a href="../.." title="DevOps Code RealTime" class="md-nav__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
       
   <img src="../../assets/logo.png" alt="logo">
 
     </a>
-    HCL RTist in Code
+    DevOps Code RealTime
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
-    hcl-software/rtist-in-code
+    secure-dev-ops/code-realtime
   </div>
 </a>
     </div>
@@ -345,10 +339,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-      
       
         
           
@@ -373,12 +366,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2">
           Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Documentation
@@ -422,9 +415,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
       
       
         
@@ -447,7 +439,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="The Art Language" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           The Art Language
@@ -486,9 +478,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -517,7 +508,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Working with Art
@@ -612,9 +603,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
       
       
         
@@ -641,7 +631,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_6">
           <span class="md-nav__icon md-icon"></span>
           Target RunTime System
@@ -694,9 +684,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -725,7 +714,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Building" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -806,9 +795,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
       
       
         
@@ -825,7 +813,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Releases" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Releases
@@ -883,8 +871,38 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notices/" class="md-nav__link">
-        Notices
+      <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-nav__link">
+        Samples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-nav__link">
+        Forum
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.youtube.com/hashtag/rtistincode" class="md-nav__link">
+        Videos
       </a>
     </li>
   
@@ -916,31 +934,37 @@
               </div>
             
           
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
                 
-                  
+  <a href="https://github.com/secure-dev-ops/code-realtime/edit/main/docs-sources/releases/CHANGELOG.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
 
-  
-  
 
 
-<h1 id="0011-2023-11-08">0.0.11 (2023-11-08)</h1>
+<h1 id="100-2023-12-12">1.0.0 (2023-12-12)</h1>
+<ol>
+<li>The product is now renamed to DevOps Code RealTime and in addition to the Community Edition a Commercial Edition is also available. With the Commercial Edition comes support entitlement, the right to use the product and generated applications for commercial purposes, and access to the TargetRTS source files which makes it possible to build applications for any target platform.</li>
+<li>The Clang language server <a href="https://clangd.llvm.org/">clangd</a> is now supported. It is available both for <a href="https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd">Visual Studio Code</a> and <a href="https://open-vsx.org/extension/llvm-vs-code-extensions/vscode-clangd">Eclipse Theia</a>.</li>
+<li>The C++ code generator now supports "receive-any" events, i.e. the use of an asterisk for specifying a trigger that handles any event received on a port. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/internal_transition_receive_any">this sample</a>.</li>
+</ol>
+<h1 id="0011-2023-11-09-1030">0.0.11 (2023-11-09 10:30)</h1>
 <ol>
 <li>A new validation rule was implemented in the C++ code generator to detect if there are ambiguous outgoing transitions for a state, i.e. transitions with identical triggers and no guard conditions. Such unreachable transitions are now reported as a problem (with warning severity as default). A comment is also added in generated code to mark the unreachable code where functions of such unreachable transitions are called.</li>
 <li>Several new validation rules now check the correctness of the <code>threads</code> property in a TC. For example, an attempt to map the same logical thread to different physical threads are reported as a problem. Previously, such problems were only detected when compiling or linking the application, or even at run-time.</li>
-<li>The C++ code generator now supports the deep history pseudostate (<code>history*</code>). For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/deep_history">this sample</a>.</li>
-<li>The C++ code generator now supports the <code>const_rtdata</code> property. By setting this property to <code>false</code> on a transition, the <code>rtdata</code> parameter of the transition function will be non-const. This, for example, allows it to be moved instead of copied, which can be more efficient. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/move_function_2">this sample</a>.</li>
-<li>The validation rule <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#art_0001_invalidnamecpp">ART_0001_invalidNameCpp</a> has been extended to now also detect if names chosen for Art elements will clash with names in generated code or the TargetRTS.</li>
-<li>The C++ code generator now supports excluded transitions. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_transition_exclude">this sample</a>.</li>
+<li>The C++ code generator now supports the deep history pseudostate (<code>history*</code>). For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/deep_history">this sample</a>.</li>
+<li>The C++ code generator now supports the <code>const_rtdata</code> property. By setting this property to <code>false</code> on a transition, the <code>rtdata</code> parameter of the transition function will be non-const. This, for example, allows it to be moved instead of copied, which can be more efficient. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/move_function_2">this sample</a>.</li>
+<li>The validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0001_invalidnamecpp">ART_0001_invalidNameCpp</a> has been extended to now also detect if names chosen for Art elements will clash with names in generated code or the TargetRTS.</li>
+<li>The C++ code generator now supports excluded transitions. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_transition_exclude">this sample</a>.</li>
 <li>It's now possible to delete ports and parts from a structure diagram by selecting them and then pressing the <code>Delete</code> key or using the Delete command in the popup menu that appears when pressing Ctrl+Space.</li>
-<li>The C++ code generator now supports junctions and the guards on their outgoing transitions. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/choice_and_junction">this sample</a>.</li>
-<li>A new validation rule <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#cpp_4002_guardedinitialtransition">CPP_4002_guardedInitialTransition</a> now detects if there are junctions in the initial transition without unguarded outgoing transitions. With such initial transitions there is a risk that no initial state will be entered, which would break the functioning of the state machine.</li>
+<li>The C++ code generator now supports junctions and the guards on their outgoing transitions. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_and_junction">this sample</a>.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#cpp_4002_guardedinitialtransition">CPP_4002_guardedInitialTransition</a> now detects if there are junctions in the initial transition without unguarded outgoing transitions. With such initial transitions there is a risk that no initial state will be entered, which would break the functioning of the state machine.</li>
 <li>A new command "Deactivate All" in the Art Build view can be used for quickly making all TCs in the workspace non-active. This makes it faster to switch from building one set of active TCs to another.</li>
 <li>Several validation rules have been updated to mark problems more accurately in an Art file. If an element spans multiple lines in the Art file (e.g. a capsule or state machine) then if the whole element would be marked, problems within the element cannot be seen in the Art file. Now smaller parts of such elements are marked such as only the element name or a certain keyword within the element. In addition to a cleaner look this also makes navigation from problems arrive closer to where the problem is located.</li>
 <li>The TC property "userLibraries" is now supported (both in TC editor and UI). It can be used for specifying a list of libraries to pass to the linker.</li>
-<li>The C++ code generator now supports capsule factories on parts by means of the <code>rt::create</code> and <code>rt::destroy</code> code snippets. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_factory_for_part">this sample</a>.</li>
+<li>The C++ code generator now supports capsule factories on parts by means of the <code>rt::create</code> and <code>rt::destroy</code> code snippets. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_factory_for_part">this sample</a>.</li>
 <li>The TargetRTS and C++ code generator now supports the predefined type <code>long long</code>.</li>
 <li>A target configuration for the Clang compiler for MacOs is now provided.</li>
 <li>The Art Compiler now prints related elements for validation problems. This means that you now get the same amount of details about a validation problem when building from command-line as from the UI.</li>
@@ -949,53 +973,53 @@
 <li>The TC property "inclusionPaths" is now supported (both in TC editor and UI). It can be used for specifying a list of include paths for the preprocessor.</li>
 <li>Some new code actions ("quick fixes") were implemented for certain validation rules.</li>
 </ol>
-<h1 id="0010-2023-09-14">0.0.10 (2023-09-14)</h1>
+<h1 id="0010-2023-09-13-1422">0.0.10 (2023-09-13 14:22)</h1>
 <ol>
-<li>The C++ code generator now supports generation of type descriptors. When you declare a type in an <code>rt::decl</code> code snippet you can tag it with a C++ attribute to tell the code generator how it should generate the type descriptor. Currently two attributes are supported: <code>rt::auto_descriptor</code> (for fully automatic type descriptor generation) and <code>rt::manual_descriptor</code> (when you prefer to write the type descriptor manually). Read more about this feature in <a href="http://opensource.hcltechsw.com/rtist-in-code/art-lang/cpp-extensions/">the documentation</a>.</li>
-<li>The C++ code generator now supports local bindings (i.e. a connector between two behavior ports on the same capsule). This makes it possible for a capsule to send events to itself. Read more about this feature <a href="http://opensource.hcltechsw.com/rtist-in-code/art-lang/#local-binding">here</a>.</li>
-<li>The support for state machine inheritance in the C++ code generator has been much improved. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/transition_inheritance">this sample</a>.</li>
-<li>Two new validation rules were implemented for checks related to ports. See <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#art_0034_serviceportwithoutevents">ART_0034_servicePortWithoutEvents</a> and <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#art_0035_timerserviceport">ART_0035_timerServicePort</a>.</li>
-<li>The C++ code generator now performs additional validation of an Art file when it's translated to C++. Dedicated validation rules are used for this purpose and they can be enabled/disabled and have their severity customized in the same way as other validation rules. Found problems appear in the Art file, in the Problems view and in diagrams. For more information see <a href="http://opensource.hcltechsw.com/rtist-in-code/validation/#code-generation-validation-rules">the documentation</a>.</li>
+<li>The C++ code generator now supports generation of type descriptors. When you declare a type in an <code>rt::decl</code> code snippet you can tag it with a C++ attribute to tell the code generator how it should generate the type descriptor. Currently two attributes are supported: <code>rt::auto_descriptor</code> (for fully automatic type descriptor generation) and <code>rt::manual_descriptor</code> (when you prefer to write the type descriptor manually). Read more about this feature in <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/cpp-extensions/">the documentation</a>.</li>
+<li>The C++ code generator now supports local bindings (i.e. a connector between two behavior ports on the same capsule). This makes it possible for a capsule to send events to itself. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/#local-binding">here</a>.</li>
+<li>The support for state machine inheritance in the C++ code generator has been much improved. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/transition_inheritance">this sample</a>.</li>
+<li>Two new validation rules were implemented for checks related to ports. See <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0034_serviceportwithoutevents">ART_0034_servicePortWithoutEvents</a> and <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0035_timerserviceport">ART_0035_timerServicePort</a>.</li>
+<li>The C++ code generator now performs additional validation of an Art file when it's translated to C++. Dedicated validation rules are used for this purpose and they can be enabled/disabled and have their severity customized in the same way as other validation rules. Found problems appear in the Art file, in the Problems view and in diagrams. For more information see <a href="https://secure-dev-ops.github.io/code-realtime/validation/#code-generation-validation-rules">the documentation</a>.</li>
 <li>You can now use colors on most symbols and lines also in class and structure diagrams.</li>
 <li>Use of certain colors have been improved to ensure that diagrams remain readable when custom symbol colors are used. For example, background patterns printed on optional and plugin parts in structure diagrams now use a light color if the background color is dark, and a dark color if the background color is light.</li>
 <li>Navigation from code snippets in generated C++ files to the source Art files is now supported. The file URIs in the USR-comments surrounding the code snippets can now be ctrl-clicked in order to perform the navigation.</li>
 <li>Structure diagrams can now be edited. You can create ports and parts, and also use the Properties view for viewing and editing some of the properties of these elements.</li>
 <li>A new "Art Build" view is now available. It shows all TCs in the workspace and for each TC its prerequisites are shown as a tree structure. Common commands are available on the TCs, such as Clean, Build and Run. A TC that is often built can be selected in the "Art Build" view, so that it's not necessary to find it in the Explorer view each time it should be built. The new view also provides a button for invoking the "Clean All" command that previously only could be invoked through the Command Palette.</li>
-<li>It's now possible to specify physical and logical threads in a TC. The C++ code generator uses this information for creating those physical threads and application code can reference the logical threads when a capsule instance is created. For more information see <a href="http://opensource.hcltechsw.com/rtist-in-code/target-rts/threads/">the documentation</a>. Note that currently thread information can only be specified in the TC text editor (the form-based editor doesn't yet support it).</li>
+<li>It's now possible to specify physical and logical threads in a TC. The C++ code generator uses this information for creating those physical threads and application code can reference the logical threads when a capsule instance is created. For more information see <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/threads/">the documentation</a>. Note that currently thread information can only be specified in the TC text editor (the form-based editor doesn't yet support it).</li>
 <li>Validation markers for showing problems in diagrams are now also supported on labels within class diagram symbols. Hence, it's now possible to see validation problems on ports, parts and events.</li>
 </ol>
-<h1 id="009-2023-07-20">0.0.9 (2023-07-20)</h1>
+<h1 id="009-2023-07-20-0739">0.0.9 (2023-07-20 07:39)</h1>
 <ol>
-<li>It's now possible to build multiple variants of an application by means of a feature called <a href="http://opensource.hcltechsw.com/rtist-in-code/building/build-variants/">Build Variants</a>. You can use JavaScript for dynamically customizing a TC at build-time, in order to implement high-level build variant settings. Build variants are implemented in the Art Compiler by means of two new options: <code>--buildConfig</code> and <code>--buildVariants</code>. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/build_variants" target="_blank">this sample</a>.</li>
+<li>It's now possible to build multiple variants of an application by means of a feature called <a href="https://secure-dev-ops.github.io/code-realtime/building/build-variants/">Build Variants</a>. You can use JavaScript for dynamically customizing a TC at build-time, in order to implement high-level build variant settings. Build variants are implemented in the Art Compiler by means of two new options: <code>--buildConfig</code> and <code>--buildVariants</code>. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/build_variants">this sample</a>.</li>
 <li>A new command "Clean All" is now available. It will remove all generated code in the workspace and also remove all generated workspace folders. It's equivalent to, but more convenient than, invoking the "Clean" command on each TC individually. Invoke "Clean All" from the command palette (Ctrl+Shift+P).</li>
-<li>The C++ code generator now supports multiple inheritance for capsules. A capsule can at most inherit one other capsule, but now it's in addition also possible to inherit any number of C++ types. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/capsule_cpp_inheritance" target="_blank">this sample</a>.</li>
-<li>The C++ code generator now assigns the correct type for the <code>rtdata</code> parameter in transition functions generated for non-triggered transitions. Previously this only worked for triggered transitions, and <code>rtdata</code> in a non-triggered transition would become untyped (const void *). Now the code generator analyzes the whole transition chain to use the more specific type also for functions generated for non-triggered transitions. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/compound_transition_rtdata" target="_blank">this sample</a>.</li>
+<li>The C++ code generator now supports multiple inheritance for capsules. A capsule can at most inherit one other capsule, but now it's in addition also possible to inherit any number of C++ types. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_cpp_inheritance">this sample</a>.</li>
+<li>The C++ code generator now assigns the correct type for the <code>rtdata</code> parameter in transition functions generated for non-triggered transitions. Previously this only worked for triggered transitions, and <code>rtdata</code> in a non-triggered transition would become untyped (const void *). Now the code generator analyzes the whole transition chain to use the more specific type also for functions generated for non-triggered transitions. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata">this sample</a>.</li>
 <li>The C++ code generator now supports specifying a guard condition either using a C++ boolean expression, or a C++ return statement that returns a boolean expression. In the former case the code generator will automatically add the return keyword in generated code. Code-to-art synchronization also handles both these cases. </li>
 <li>When a TC is built from the UI using the context menu command Build (or Run on a TC that was not built already), the Problems view is now scanned to check if it contains at least one error related to the built TC, or a prerequisite TC. If so, a dialog will appear to ask if you really want to proceed with the build. It's recommended to cancel the build, fix the error, and then redo the build. If you choose to proceed with the build you may get either build or run-time errors in the built application. A new setting <code>rtistic.build.cancelOnError</code> can be used to control this behavior.</li>
 <li>Redefined elements are now drawn in diagrams with a different line style ("dashed-dot-dot"), to make them easier to distinguish from inherited elements (that are still drawn with a dashed line style). Labels for redefined elements are still drawn with green color to further emphasize the difference between a redefined and an inherited element in diagrams.</li>
-<li>RTist in Code is now available as a Docker image on <a href="https://hub.docker.com/r/baravich/theia-rtist-in-code" target="_blank">DockerHub</a>. You can deploy this image to get the latest version of RTist in Code running in Eclipse Theia.</li>
+<li>RTist in Code is now available as a Docker image on <a href="https://hub.docker.com/r/baravich/theia-rtist-in-code">DockerHub</a>. You can deploy this image to get the latest version of RTist in Code running in Eclipse Theia.</li>
 <li>The presence of elements in the global scope with clashing names is now detected across the whole workspace. All source files that will be built by the active TC are checked. Previously such problems were not detected until linking the built application.</li>
 <li>Launch configurations are now supported for running an application built by a TC. This is a more flexible way to launch applications than using the Run context menu of a TC. You can set environment variables and command-line arguments for the launched application, as well as its current working directory. You can also easily terminate and relaunch the application using the launch toolbar.</li>
-<li>The C++ code generator now supports compound transitions. Each individual transition of the compound transition is translated to a separate C++ function to avoid code duplication. Also, for increased code readability the numbers representing states are now followed by the state name in a comment. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/compound_transition_rtdata" target="_blank">this sample</a>.</li>
-<li>A new sample <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples/PiComputer" target="_blank">PiComputer</a> is now available. It contains a few collaborating capsules with hierarchical state machines and implements a computation of Pi.</li>
-<li>The C++ code generator now supports choices. For an example, see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-samples/PiComputer" target="_blank">this sample</a>.</li>
+<li>The C++ code generator now supports compound transitions. Each individual transition of the compound transition is translated to a separate C++ function to avoid code duplication. Also, for increased code readability the numbers representing states are now followed by the state name in a comment. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata">this sample</a>.</li>
+<li>A new sample <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PiComputer">PiComputer</a> is now available. It contains a few collaborating capsules with hierarchical state machines and implements a computation of Pi.</li>
+<li>The C++ code generator now supports choices. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PiComputer">this sample</a>.</li>
 </ol>
-<h1 id="008-2023-05-31">0.0.8 (2023-05-31)</h1>
+<h1 id="008-2023-05-31-0609">0.0.8 (2023-05-31 06:09)</h1>
 <ol>
-<li>A new setting <a href="http://opensource.hcltechsw.com/rtist-in-code/settings/#output-folder"><code>rtistic.build.outputFolder</code></a> is now available. It can be used for setting a common output folder for generated code, and TCs where the <a href="http://opensource.hcltechsw.com/rtist-in-code/building/transformation-configurations/#targetfolder"><code>targetFolder</code></a> specifies a relative path will now be resolved against that output folder. This new setting hence plays the same role for a UI build as the <a href="http://opensource.hcltechsw.com/rtist-in-code/building/art-compiler/#out">--out</a> option does when building with the Art Compiler from the command-line.</li>
-<li>Several small sample applications are now available in the <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests">RTist in Code GitHub Repo</a>. These are written as tests of the Art Compiler and the TargetRTS, but can also be useful for learning more about the Art language and RTist in Code.</li>
+<li>A new setting <a href="https://secure-dev-ops.github.io/code-realtime/settings/#output-folder"><code>rtistic.build.outputFolder</code></a> is now available. It can be used for setting a common output folder for generated code, and TCs where the <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#targetfolder"><code>targetFolder</code></a> specifies a relative path will now be resolved against that output folder. This new setting hence plays the same role for a UI build as the <a href="https://secure-dev-ops.github.io/code-realtime/building/art-compiler/#out">--out</a> option does when building with the Art Compiler from the command-line.</li>
+<li>Several small sample applications are now available in the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests">RTist in Code GitHub Repo</a>. These are written as tests of the Art Compiler and the TargetRTS, but can also be useful for learning more about the Art language and RTist in Code.</li>
 <li>TC prerequisites are now taken into account when generating the <code>c_cpp_properties.json</code> file. This prevents references to definitions in prerequisite libraries to appear as broken in the UI when looking at generated code, and it also enables features such as Content Assist, hover tooltips etc for those definitions.</li>
 <li>TC prerequisites and the "sources" TC property are now taken into account when binding references in the UI. It's required to set the TC as active so name lookup can find the correct prerequisites. This means that name binding rules used in the UI now are aligned with how the build works.</li>
 <li>It's now possible to redirect a transition in a state diagram. Select the transition to redirect and the new source or target element in the diagram. Then use one of the new commands in the Ctrl+Space popup menu: <strong>Set Transition Source</strong> or <strong>Set Transition Target</strong>. Both commands have keybindings so that you don't need to always open the popup menu.</li>
-<li>The C++ code generator now supports event inheritance for protocols. For an example see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/protocol_inheritance">this sample</a>. Redefined events are also supported. For an example see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event">this sample</a>.</li>
-<li>The C++ code generator now supports part inheritance for capsules. For an example see <a href="https://github.com/HCL-TECH-SOFTWARE/rtist-in-code/tree/main/art-comp-test/tests/part_inheritance">this sample</a>.</li>
+<li>The C++ code generator now supports event inheritance for protocols. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance">this sample</a>. Redefined events are also supported. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event">this sample</a>.</li>
+<li>The C++ code generator now supports part inheritance for capsules. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/part_inheritance">this sample</a>.</li>
 <li>A new navigation command "Open Inherited State Diagram" is available in state diagrams. You can use it for navigating from the state diagram of a derived capsule to the state diagram of the base capsule. If an inherited, excluded or redefined element is selected in the derived diagram the command will open the state diagram where the element is defined.</li>
 <li>The form-based TC editor now provides graphical widgets for editing the "prerequisites" and "sources" properties. It also performs some validations to detect errors in these properties.</li>
 <li>When the "Set as Active" command is invoked on a TC, the prerequisites of the TC will also be set as active. This helps to ensure consistency in the UI and when building the TC.</li>
 <li>A target configuration for building with Clang (ver. 16) on Windows is now provided.</li>
 <li>A target configuration for building with Clang (ver. 15) for the Windows simulator for the VxWorks RTOS (ver. 7) is now provided.</li>
 </ol>
-<h1 id="007-2023-04-19">0.0.7 (2023-04-19)</h1>
+<h1 id="007-2023-04-19-1156">0.0.7 (2023-04-19 11:56)</h1>
 <ol>
 <li>The popup menu that appears when pressing Ctrl+Space in a state diagram now contains commands for creating elements in the state machine. These commands are the same as appear in the Content Assist menu in the Art text editor. For example, you can create states and pseudo states this way. The created element is added last in the state machine in the Art file. If a state is selected the popup menu contains commands for creating elements inside the state. If required, it will first be converted to a composite state. You can also create transitions using this popup menu. Select first the source and then the target and then invoke a command for creating the transition.</li>
 <li>You can now open diagrams for an element by selecting it in a diagram and then open the Ctrl+Space popup menu. For example, if you select a capsule part in a structure diagram, the popup menu contains commands for opening the state, structure or class diagram of the capsule that types the part. Previously it was necessary to first navigate to the capsule part in the Art file, then from there to the capsule, and finally from there the diagram could be opened. Now this navigation can be performed in a single step without involving the Art file at all.</li>
@@ -1006,8 +1030,8 @@
 <li>A new TC property, "sources", can now be used for controlling which Art files that should be transformed to C++ by the code generator. It is a list of glob-style patterns and anti-patterns. A file will be transformed if it matches at least one pattern (e.g. <code>*.art</code>) and doesn't match any anti-pattern (e.g. <code>!exclude.art</code>). This property is not yet supported by the form-based TC editor, but can be set in the .tcjs file in order to exclude one or several Art files in the workspace folder where the TC is located.</li>
 <li>The TC editor description tooltips now have a background color that is dynamically adjusted to make it visible regardless of selected color theme.</li>
 <li>The Art text editor now provides a "code lens" for building and running a capsule without first having to create a TC. The code lens appears as a "Run" hyperlink shown just above a capsule. The capsule will be built with default settings into an executable where it runs as the top capsule.</li>
-<li>Doxygen generated HTML for the TargetRTS C++ API is now included in the RTist in Code documentation and linked from <a href="https://opensource.hcltechsw.com/rtist-in-code/target-rts/">the Target RunTime System chapter</a>.</li>
-<li>A first version of the Art Compiler is now ready and included in the RTist in Code extension. It is a command-line tool which can be used for building a transformation configuration and a set of Art files into a library or executable, in the same way as can be done from the UI. It makes it possible to automate your builds. Read more about the Art Compiler <a href="https://opensource.hcltechsw.com/rtist-in-code/building/art-compiler/">here</a>.</li>
+<li>Doxygen generated HTML for the TargetRTS C++ API is now included in the RTist in Code documentation and linked from <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/">the Target RunTime System chapter</a>.</li>
+<li>A first version of the Art Compiler is now ready and included in the RTist in Code extension. It is a command-line tool which can be used for building a transformation configuration and a set of Art files into a library or executable, in the same way as can be done from the UI. It makes it possible to automate your builds. Read more about the Art Compiler <a href="https://secure-dev-ops.github.io/code-realtime/building/art-compiler/">here</a>.</li>
 <li>A new TC property, "prerequisites", can now be used for expressing build dependencies between TCs. It is a list of references to other TCs (absolute or relative paths) that need to be built first, before the current TC is built. By setting a library TC as a prerequisite of an executable TC, the library will be built before the executable, and the executable will also automatically link with the library. This property is not yet supported by the form-based TC editor, but can be set in the .tcjs file.</li>
 </ol>
 <h1 id="006-2023-03-09-1828">0.0.6 (2023-03-09 18:28)</h1>
@@ -1048,55 +1072,51 @@
 <li>More information for internal transitions are now shown in the Properties view. The triggers of the internal transitions are shown in a similar way as in the Outline view. Also, the blue and yellow icons representing the effect and guard code snippets for the internal transitions are shown and can be double-clicked in order to navigate to the code snippets in the Art file.</li>
 <li>If a port has multiplicity &gt; 1 it is now shown in structure diagrams.</li>
 <li>The form-based TC editor is now automatically refreshed when the underlying .tcjs file is modified and saved.</li>
-<li>It's now possible to navigate to the top capsule from a TC file by ctrl+click on the capsule name.</li>
-<li>Content assist (ctrl+space) is now supported for TC property values. Valid values appear in a popup when typing the = character. If there is not a fixed list of valid values, the expected value type (e.g. string) will be shown.</li>
+<li>It's now possible to navigate to the top capsule from a TC file by Ctrl+click on the capsule name.</li>
+<li>Content assist (Ctrl+space) is now supported for TC property values. Valid values appear in a popup when typing the <code>=</code> character. If there is not a fixed list of valid values, the expected value type (e.g. string) will be shown.</li>
 <li>Cross-references now bind across workspace folders. This makes it possible to split an application into several workspace folders. For example, Art files built into a library can now be placed in its own folder, and be used from Art files outside that folder.</li>
 <li>A composite state can now only be expanded if it contains at least one nested state. Previously the Expand button was shown also when the state only contained entry or exit points, which was misleading since expanding such a state didn't reveal anything new that could not already be seen.</li>
 <li>Attempting to open a diagram using the Art editor context menu now works even when the cursor is not placed within an Art element that can be shown in the diagram. In this case a "quick pick" will appear where you can choose one of the elements that are present in the Art file. Hence, this behavior is now the same as when you open diagrams from the Explorer context menu.</li>
 <li>Protocols now support the rt::header_preface and rt::header_ending code snippets. In particular rt::header_preface is useful for including header files with user-defined types used in the protocol.</li>
-<li>A new output channel called Art Server is now available and can be seen in the Output view. It's used by the Art language server for printing diagnostic messages (usually internal errors), and can be useful for troubleshooting problems.</li>
-<li>A new output channel called Art Build is now available and can be seen in the Output view. It's used when building a TC. For example, messages are printed when a build starts and finishes.</li>
+<li>A new output channel called <code>Art Server</code> is now available and can be seen in the Output view. It's used by the Art language server for printing diagnostic messages (usually internal errors), and can be useful for troubleshooting problems.</li>
+<li>A new output channel called <code>Art Build</code> is now available and can be seen in the Output view. It's used when building a TC. For example, messages are printed when a build starts and finishes.</li>
 <li>The editor title for diagrams now contain the name of the Art element. This makes it easier to work with multiple open diagrams at the same time.</li>
 <li>Content assist now supports creating non-triggered transitions in a state machine.</li>
 <li>Code generation now supports transition guards, events with parameters of predefined types, connectors between local port and inner structure.</li>
-<li>It's now possible to set custom colors to be used in diagrams by means of a new color property. Currently this is supported for initial and triggered transitions.</li>
+<li>It's now possible to set custom colors to be used in diagrams by means of a new <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/#color"><code>color</code></a> property. Currently this is supported for initial and triggered transitions.</li>
 </ol>
-<h1 id="003-2022-11-23">0.0.3 (2022-11-23)</h1>
+<h1 id="003-2022-11-23-1253">0.0.3 (2022-11-23 12:53)</h1>
 <ol>
 <li>The graphical appearance of symbols in class diagrams has improved. Now a line separates the name from properties such as ports and events. Also, icons were added for the properties to make it easier to understand the diagram.</li>
 <li>The Expand All/Collapse All commands in the Properties view now work also for structure diagrams. Cycles in the composition hierarchy are detected and reported with an error message if found.</li>
 <li>It's now possible to build a TC using a context menu command <strong>Build</strong>. And if it produces an executable it's possible to launch it with another context menu command <strong>Run</strong>. Of course, it's still possible to manually build and run from the terminal.</li>
-<li>The RTist in Code <a href="https://opensource.hcltechsw.com/rtist-in-code/">documentation</a> was extended with several new topics and the landing page was improved.</li>
-<li>New color themes for better syntax highlighting of Art files (and embedded C++ code) are now available. See this <a href="https://opensource.hcltechsw.com/rtist-in-code/working-with-art/art-editor/#syntax-coloring">topic</a> for more information.</li>
+<li>The RTist in Code <a href="https://secure-dev-ops.github.io/code-realtime/">documentation</a> was extended with several new topics and the landing page was improved.</li>
+<li>New color themes for better syntax highlighting of Art files (and embedded C++ code) are now available. See this <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/art-editor/#syntax-coloring">topic</a> for more information.</li>
 <li>It's now possible to edit TC properties using a form-based editor, as an alternative to directly editing the .tcjs file. The form-based editor is invoked from a context menu on the TC called <strong>Edit Properties (UI)</strong>.</li>
-<li>New TC properties are now supported for specifying which make command to use for building generated code, as well as the make arguments. The new properties are <a href="http://opensource.hcltechsw.com/rtist-in-code/building/transformation-configurations/#makecommand"><code>makeCommand</code></a> and <a href="http://opensource.hcltechsw.com/rtist-in-code/building/transformation-configurations/#makearguments"><code>makeArguments</code></a>.</li>
+<li>New TC properties are now supported for specifying which make command to use for building generated code, as well as the make arguments. The new properties are <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#makecommand"><code>makeCommand</code></a> and <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#makearguments"><code>makeArguments</code></a>.</li>
 <li>The existing TC properties <code>targetProject</code> and <code>targetServicesLibrary</code> were renamed to <code>targetFolder</code> and <code>targetRTSLocation</code> respectively.</li>
 <li>Fixed several Linux specific problems in the language server.</li>
 <li>The GLSP library was uplifted to version 1.0. Read about the improvements it brings to diagrams <a href="https://eclipsesource.com/blogs/2022/07/06/eclipse-glsp-1-0-release-is-here/">here</a>.</li>
 <li>A problem with automatically expanding symbols when doing a Rename from a diagram was fixed.</li>
 <li>When renaming an element, for which one or several diagrams have been opened, the diagrams stay open (previously they were automatically closed as a side-effect of the rename).</li>
 <li>Navigation from a C++ code snippet to generated C++ code using the hyperlink in the code snippet tooltip now works even if the cursor is not placed inside the code snippet.</li>
+<li>Target configurations for the latest version of the Visual Studio compiler (Visual Studio 2022, ver. 17) are now provided, both for 32 and 64 bit builds.</li>
 </ol>
 <h1 id="002-2022-10-20">0.0.2 (2022-10-20)</h1>
 <ul>
 <li>First public release. Initial support for the Art language, graphical diagrams, transformation configurations and C++ code generation.</li>
 </ul>
 
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
+              
+            </article>
+            
+          </div>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </button>
+          </a>
         
       </main>
       
@@ -1116,11 +1136,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
-    
-      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
         <script src="../../scripts/prism.js"></script>
       

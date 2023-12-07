@@ -71,15 +71,26 @@
 }
 
 /* Button Styles */
+.download-button {
+    border: 0.1rem solid;
+    border-radius: 0.1rem;
+    color: var(--md-primary-fg-color);
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    padding: 0.225em 0.5em;
+    transition: color 125ms,background-color 125ms,border-color 125ms;
+}
+
 .md-button {
     margin-top: .5rem;
     margin-right: .5rem;
-    color: var(--md-primary-bg-color)
+    color: var(--md-primary-bg-color)    
 }
 
 .md-button--primary {
     background-color: var(--md-primary-bg-color);
-    color: hsla(280deg, 37%, 48%, 1);
+    color: hsla(280deg, 37%, 48%, 1);    
     border-color: var(--md-primary-bg-color)
 }
 
@@ -102,7 +113,7 @@
     background-position: left bottom;
     background-size: cover;
     height: 20rem;
-	min-height: 62vh;
+	min-height: 60vh;
 }
 
 /*Style for Video clip insertion*/
@@ -145,10 +156,10 @@
 .section-designedforyou {
     color: black;
     background: url(../assets/CNX_overview_bkgd.jpg);
-    background-position: left bottom;
+    /*background-position: left bottom;*/
     background-size: cover;
     height: auto;
-    min-height: 20rem;
+    /*min-height: 20rem;*/
 }
 
 
@@ -180,9 +191,12 @@
 /* Persona Styles */
 
 .section-personas {
-    background-color: #F2F2F2;
+    /*background-color: #F2F2F2;*/
     color: black;
     height: auto;
+    background: url(../assets/CNX_overview_bkgd.jpg);
+    background-position: left center;
+    background-size: cover;
 }
 
 .persona-item {
