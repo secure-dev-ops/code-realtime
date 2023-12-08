@@ -58,7 +58,7 @@ tc.threads = [ 'LibraryThread' ];
 If you anyway define physical threads for a library TC they will be ignored by the C++ code generator, and only the logical threads will be considered.
 
 ## Running a Capsule Instance in a Custom Thread
-Capsule instances are connected in a tree structure where the top capsule is the root. A capsule instance always lives inside a part of another (container) capsule. The top capsule instance is always run by the main thread, but for all other capsule instances you can choose which thread that should run it.
+Capsule instances are connected in a tree structure where the top capsule instance is the root. A capsule instance always lives inside a part of another (container) capsule. The top capsule instance is always run by the main thread, but for all other capsule instances you can choose which thread that should run it.
 
 When a new capsule instance is created it will by default be run by the same thread that runs the container capsule instance. This means that by default all capsule instances in the application will be run by the main thread.
 

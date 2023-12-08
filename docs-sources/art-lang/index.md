@@ -1391,7 +1391,7 @@ Below is a table that lists all properties that can be used on different kinds o
 | [Port](#port) | [registration](#registration) | Enumeration (automatic, automatic_locked, application) | automatic
 | [Port](#port) | [registration_name](#registration_name) | String | ""
 | [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata](#const_rtdata) | Boolean | true
-| [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine) | [color](#color) | String | ""
+| [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine), [Port](#port), [Part](#part), [Capsule](#capsule), [Class](#class-with-state-machine) | [color](#color) | String | ""
 
 
 ### generate_file_header

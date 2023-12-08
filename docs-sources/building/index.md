@@ -40,6 +40,13 @@ If you build a TC and at least one error exists in the TC itself, in prerequisit
 
 Use the setting [`code-rt.build.cancelOnError`](../settings.md#cancel-on-error) to suppress this dialog.
 
+## Building and Running without a TC
+In some cases of rapid prototyping and testing you may want to quickly build and run a capsule without first having to create a TC or a [launch configuration](launch-configurations.md). Then you can click the "Run" link that appears just before any capsule in the Art text editor.
+
+![](images/running-without-tc.png)
+
+This command will create a temporary TC file and use a temporary target folder. All other TC properties will have their default values.
+
 ## Build Messages
 When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:
 

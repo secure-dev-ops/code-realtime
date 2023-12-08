@@ -1,6 +1,6 @@
 As described above you can launch a built executable using the [Run command](index.md#tc-context-menu-commands) in the TC context menu. This is a quick and easy way to run an executable, which is sufficient for simple applications. However, the simplicity comes with several limitations:
 
-* You cannot specify any custom command-line arguments for the launched executable. In fact, the executable is always launched with one hard-coded argument `--URTS_DEBUG=quit` which means it will run in non-debug mode.
+* You cannot specify any custom command-line arguments for the launched executable. In fact, the executable is always launched with one hard-coded argument `-URTS_DEBUG=quit` which means it will run in non-debug mode.
 * You cannot set any custom environment variables for the launched executable.
 * You cannot set the current working directory for the launched executable.
 
