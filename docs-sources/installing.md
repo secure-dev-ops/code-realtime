@@ -105,7 +105,7 @@ To uninstall {$product.name$} follow these steps:
 
 ![](images/extensions_in_sidebar.png)
 
-1) Find the {$product.name$} extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio Code the command is available in the context menu, while in Theia it shows up as a button to click).
+2) Find the {$product.name$} extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio Code the command is available in the context menu, while in Theia it shows up as a button to click).
 
 ![](images/uninstall.png)
 
