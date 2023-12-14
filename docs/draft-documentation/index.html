@@ -13,8 +13,10 @@
       
         <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/draft-documentation/">
       
+      
+      
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
@@ -22,13 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
       
+
     
     
     
@@ -45,7 +44,7 @@
     
       <link rel="stylesheet" href="../stylesheets/prism.css">
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 <!--  OneTrust Cookies Consent Notice start  -->
@@ -70,20 +69,18 @@
 
     
     
+    
   <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
   
 
   </head>
   
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    <body dir="ltr">
   
     
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -101,9 +98,17 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
 <p>Check out the commercial edition!</p>
 
           </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
         </aside>
       
     </div>
@@ -154,11 +159,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -172,7 +177,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -184,7 +189,7 @@
         <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -203,7 +208,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -303,7 +308,7 @@
       <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -339,39 +344,40 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
-        <label class="md-nav__link" for="__nav_2">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Documentation
@@ -415,8 +421,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
       
       
         
@@ -439,7 +446,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="The Art Language" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           The Art Language
@@ -478,8 +485,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -508,7 +516,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Working with Art
@@ -603,8 +611,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
       
       
         
@@ -631,7 +640,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_6">
           <span class="md-nav__icon md-icon"></span>
           Target RunTime System
@@ -684,8 +693,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -714,7 +724,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Building" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -795,8 +805,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
       
       
         
@@ -813,7 +824,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Releases
@@ -946,6 +957,110 @@
     Template
   </a>
   
+    <nav class="md-nav" aria-label="Template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frequent" class="md-nav__link">
+    frequent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_file_header" class="md-nav__link">
+    generate_file_header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_file_impl" class="md-nav__link">
+    generate_file_impl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_descriptor" class="md-nav__link">
+    generate_descriptor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind" class="md-nav__link">
+    kind
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_class" class="md-nav__link">
+    generate_class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_statemachine" class="md-nav__link">
+    generate_statemachine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const_target_param_for_decode" class="md-nav__link">
+    const_target_param_for_decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_generate" class="md-nav__link">
+    default_constructor_generate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_explicit" class="md-nav__link">
+    default_constructor_explicit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_inline" class="md-nav__link">
+    default_constructor_inline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_default" class="md-nav__link">
+    default_constructor_default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_delete" class="md-nav__link">
+    default_constructor_delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default_constructor_visibility" class="md-nav__link">
+    default_constructor_visibility
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -956,14 +1071,14 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/secure-dev-ops/code-realtime/edit/main/docs-sources/draft-documentation.md" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
 <h1 id="draft-documentation-not-yet-included-in-the-product">Draft documentation, not yet included in the product</h1>
@@ -1021,17 +1136,67 @@ class TemplateClass : `Base&lt;T,U,p1&gt;` {
 };
 </code></pre>
 <p>Template parameters can only be used from C++ code snippets, and above you see some examples of how they can be used. It's not possible to instantiate a template in Art itself. For example, even if class <code>Base</code> above was defined as an Art class, a C++ code snippet has to be used since it has template parameters.</p>
+<p>========================================================
+<strong>The Art Language - Property</strong></p>
+<h3 id="frequent">frequent</h3>
+<p>Triggers for which this property is <code>true</code> will lead to generated code that handles these triggers faster than other triggers. This is done by placing their if-statements early in the <code>rtsBehavior</code> function to ensure that as little code as possible needs to execute when dispatching a message for a frequent trigger.</p>
+<p>| <a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a> | <a href="#generate_file_header">generate_file_header</a> | Boolean | true 
+| <a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a> | <a href="#generate_file_impl">generate_file_impl</a> | Boolean | true
+| <a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a>, <a href="#protocol-and-event">Protocol</a>, <a href="#port">Port</a>, </p>
+<p>| <a href="#class-with-state-machine">Class</a>, <a href="#protocol-and-event">Protocol</a> | <a href="#version">version</a> | Integer | 0
+| <a href="#class-with-state-machine">Class</a> | <a href="#generate_descriptor">generate_descriptor</a> | Enumeration (true, false, manual) | true
+| <a href="#class-with-state-machine">Class</a> | <a href="#kind">kind</a> | Enumeration (_class, struct, union) | _class
+| <a href="#class-with-state-machine">Class</a> | <a href="#generate_class">generate_class</a> | Boolean | true
+| <a href="#class-with-state-machine">Class</a> | <a href="#generate_statemachine">generate_statemachine</a> | Boolean | true
+| <a href="#class-with-state-machine">Class</a> | <a href="#const_target_param_for_decode">const_target_param_for_decode</a> | Boolean | false
+| <a href="#class-with-state-machine">Class</a> | <a href="#default_constructor_generate">default_constructor_generate</a> | Boolean | true
+| <a href="#class-with-state-machine">Class</a> | <a href="#default_constructor_explicit">default_constructor_explicit</a> | Boolean | false
+| <a href="#class-with-state-machine">Class</a> | <a href="#default_constructor_inline">default_constructor_inline</a> | Boolean | false
+| <a href="#class-with-state-machine">Class</a> | <a href="#default_constructor_default">default_constructor_default</a> | Boolean | false
+| <a href="#class-with-state-machine">Class</a> | <a href="#default_constructor_delete">default_constructor_delete</a> | Boolean | false
+| <a href="#class-with-state-machine">Class</a> | <a href="#default_constructor_visibility">default_constructor_visibility</a> | </p>
+<h3 id="generate_file_header">generate_file_header</h3>
+<p>By default a <a href="#capsule">capsule</a> or <a href="#class-with-state-machine">class</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the header file, for example if you prefer to write it manually.</p>
+<h3 id="generate_file_impl">generate_file_impl</h3>
+<p>By default a <a href="#capsule">capsule</a> or <a href="#class-with-state-machine">class</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the implementation file, for example if you prefer to write it manually.</p>
+<h3 id="generate_descriptor">generate_descriptor</h3>
+<p>By default a type descriptor will be generated for each <a href="#class-with-state-machine">class</a>. The TargetRTS uses the type descriptor to know how to initialize, copy, move, destroy, encode or decode an instance of that class. Set this property to <code>false</code> for classes that don't need a type descriptor. Set it to <code>manual</code> if the class needs a type descriptor but you want to implement it manually rather than using the implementation that is generated by default. Note that even if you set this property to <code>true</code> so that a default type descriptor is generated, you can still override individual type descriptor functions for the class.</p>
+<h3 id="kind">kind</h3>
+<p>By default a <a href="#class-with-state-machine">class</a> is translated to a C++ class. You can use this property to instead translate it to a <code>struct</code> or <code>union</code>.</p>
+<h3 id="generate_class">generate_class</h3>
+<p>If set to <code>false</code> no C++ code will be generated for the class.</p>
+<h3 id="generate_statemachine">generate_statemachine</h3>
+<p>If set to <code>false</code> code generation for the class' state machine will be suppressed. You can use this if the state machine is informal, and you prefer to implement it manually in another way.</p>
+<h3 id="const_target_param_for_decode">const_target_param_for_decode</h3>
+<p>By default a decode function uses a non-const <code>target</code> parameter. This is because usually a decode implementation must call non-const functions on the decoded object to populate it with data from the decoding. However, if it doesn't need to call such functions you can set this property so that the <code>target</code> parameter is declared as const.</p>
+<h3 id="default_constructor_generate">default_constructor_generate</h3>
+<p>If set to <code>false</code> a default (i.e. parameterless) constructor will not be generated for the class.</p>
+<h3 id="default_constructor_explicit">default_constructor_explicit</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as explicit.</p>
+<h3 id="default_constructor_inline">default_constructor_inline</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as inline. It's implementation will then be generated into the header file.</p>
+<h3 id="default_constructor_default">default_constructor_default</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as defaulted. This tells the compiler to synthesize a default constructor even if one normally would not be synthesized (for example because there is a user-defined constructor with parameters).</p>
+<h3 id="default_constructor_delete">default_constructor_delete</h3>
+<p>If set to <code>true</code> the default (i.e. parameterless) constructor will be declared as deleted. This will cause the compiler to generate an error if it is invoked. This can be used for preventing objects of the class to be created.</p>
+<h3 id="default_constructor_visibility">default_constructor_visibility</h3>
+<p>This property can be used for setting the visibility of the default (i.e. parameterless) constructor. By default it will be <code>public</code> but you can change it either to <code>protected</code> or <code>private</code>.</p>
 
-              
-            </article>
-            
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
@@ -1051,10 +1216,11 @@ class TemplateClass : `Base&lt;T,U,p1&gt;` {
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../scripts/prism.js"></script>
       
