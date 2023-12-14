@@ -19,8 +19,8 @@ Often you don't need to use any JVM option, but if the application is huge you m
 To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:
 
 ```
-C:\openjdk-17\bin\java -jar C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\hcltechnologies.code-realtime-ce\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 1.1.0-20231212_1212
+C:\openjdk-17\bin\java -jar c:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\secure-dev-ops.code-realtime-ce-1.0.0\bin\artcompiler.jar
+10:24:53 : INFO : Art Compiler 1.0.0-20231212_1212
 10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
 10:24:54 : INFO : Arguments:
 Usage: java -jar artcompiler.jar <options>

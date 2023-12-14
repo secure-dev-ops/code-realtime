@@ -1078,6 +1078,9 @@ A class state machine can use the same constructs as a capsule state machine wit
 
 A class with state machine can have the [same code snippets](#capsule_code_snippets) as a capsule.
 
+!!! example
+    You can find a sample application that uses a class with a state machine [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TrafficLight).
+
 ### Constructor
 By default the initial transition of a class state machine executes at the time of constructing the class-with-statemachine instance. This happens because the generated default constructor will call an operation `rtg_init1()` which contains the code from the initial transition. If you want to wait with "starting" the state machine until a later point in time you need to define your own parameterless constructor which doesn't call this function.
 
@@ -1381,71 +1384,27 @@ Below is a table that lists all properties that can be used on different kinds o
 
 | Art Elements | Property | Type | Default | 
 |----------|:-------------|:-------------|:-------------|
-| [Capsule](#capsule), [Class](#class-with-state-machine) | [generate_file_header](#generate_file_header) | Boolean | true 
-| [Capsule](#capsule), [Class](#class-with-state-machine) | [generate_file_impl](#generate_file_impl) | Boolean | true
-| [Capsule](#capsule), [Class](#class-with-state-machine), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition) [Trigger](#transition) | [rule_config](#rule_config) | String | ""
-| [Class](#class-with-state-machine), [Protocol](#protocol-and-event) | [version](#version) | Integer | 0
-| [Class](#class-with-state-machine) | [generate_descriptor](#generate_descriptor) | Enumeration (true, false, manual) | true
-| [Class](#class-with-state-machine) | [kind](#kind) | Enumeration (_class, struct, union) | _class
-| [Class](#class-with-state-machine) | [generate_class](#generate_class) | Boolean | true
-| [Class](#class-with-state-machine) | [generate_statemachine](#generate_statemachine) | Boolean | true
-| [Class](#class-with-state-machine) | [const_target_param_for_decode](#const_target_param_for_decode) | Boolean | false
-| [Class](#class-with-state-machine) | [default_constructor_generate](#default_constructor_generate) | Boolean | true
-| [Class](#class-with-state-machine) | [default_constructor_explicit](#default_constructor_explicit) | Boolean | false
-| [Class](#class-with-state-machine) | [default_constructor_inline](#default_constructor_inline) | Boolean | false
-| [Class](#class-with-state-machine) | [default_constructor_default](#default_constructor_default) | Boolean | false
-| [Class](#class-with-state-machine) | [default_constructor_delete](#default_constructor_delete) | Boolean | false
-| [Class](#class-with-state-machine) | [default_constructor_visibility](#default_constructor_visibility) | Enumeration (public, protected, private) | public
+| [Capsule](#capsule) | [generate_file_header](#generate_file_header) | Boolean | true 
+| [Capsule](#capsule) | [generate_file_impl](#generate_file_impl) | Boolean | true
+| [Capsule](#capsule), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition) [Trigger](#transition) | [rule_config](#rule_config) | String | ""
+| [Protocol](#protocol-and-event) | [version](#version) | Integer | 0
 | [Port](#port) | [registration](#registration) | Enumeration (automatic, automatic_locked, application) | automatic
 | [Port](#port) | [registration_name](#registration_name) | String | ""
 | [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata](#const_rtdata) | Boolean | true
-| [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine) | [color](#color) | String | ""
+| [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine), [Port](#port), [Part](#part), [Capsule](#capsule), [Class](#class-with-state-machine) | [color](#color) | String | ""
 
 
 ### generate_file_header
-By default a [capsule](#capsule) or [class](#class-with-state-machine) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the header file, for example if you prefer to write it manually.
+By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the header file, for example if you prefer to write it manually.
 
 ### generate_file_impl
-By default a [capsule](#capsule) or [class](#class-with-state-machine) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
+By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
 
 ### rule_config
 This property is used for configuring validation rules for an Art element. Read more about this [here](../validation#configuring-validation).
 
 ### version
 Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).
-
-### generate_descriptor
-By default a type descriptor will be generated for each [class](#class-with-state-machine). The TargetRTS uses the type descriptor to know how to initialize, copy, move, destroy, encode or decode an instance of that class. Set this property to `false` for classes that don't need a type descriptor. Set it to `manual` if the class needs a type descriptor but you want to implement it manually rather than using the implementation that is generated by default. Note that even if you set this property to `true` so that a default type descriptor is generated, you can still override individual type descriptor functions for the class.
-
-### kind
-By default a [class](#class-with-state-machine) is translated to a C++ class. You can use this property to instead translate it to a `struct` or `union`.
-
-### generate_class
-If set to `false` no C++ code will be generated for the class.
-
-### generate_statemachine
-If set to `false` code generation for the class' state machine will be suppressed. You can use this if the state machine is informal, and you prefer to implement it manually in another way.
-
-### const_target_param_for_decode
-By default a decode function uses a non-const `target` parameter. This is because usually a decode implementation must call non-const functions on the decoded object to populate it with data from the decoding. However, if it doesn't need to call such functions you can set this property so that the `target` parameter is declared as const.
-
-### default_constructor_generate
-If set to `false` a default (i.e. parameterless) constructor will not be generated for the class.
-
-### default_constructor_explicit
-If set to `true` the default (i.e. parameterless) constructor will be declared as explicit.
-
-### default_constructor_inline
-If set to `true` the default (i.e. parameterless) constructor will be declared as inline. It's implementation will then be generated into the header file.
-
-### default_constructor_default
-If set to `true` the default (i.e. parameterless) constructor will be declared as defaulted. This tells the compiler to synthesize a default constructor even if one normally would not be synthesized (for example because there is a user-defined constructor with parameters).
-
-### default_constructor_delete
-If set to `true` the default (i.e. parameterless) constructor will be declared as deleted. This will cause the compiler to generate an error if it is invoked. This can be used for preventing objects of the class to be created.
-
-### default_constructor_visibility
-This property can be used for setting the visibility of the default (i.e. parameterless) constructor. By default it will be `public` but you can change it either to `protected` or `private`.
 
 ### registration
 This property specifies how to register an unwired port at runtime. The default is `automatic` which means the port will be registered automatically when the container capsule instance is initialized. The value `automatic_locked` has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to `application` to programmatically register the port using the functions `registerSPP()` and `registerSAP()` respectively.

@@ -29,9 +29,9 @@ Problems are also reported by means of icons in diagrams. Below are three states
 
 ![](images/diagram_diagnostics.png)
 
-A problem icon has a tooltip that shows the message of the problem. You can disable problem reporting in diagrams by means of a configuration setting `code-rt.diagram.showDiagnostics`.
+A problem icon has a tooltip that shows the message of the problem. You can disable problem reporting in diagrams by means of a [configuration setting](settings.md#show-diagnostics) `code-rt.diagram.showDiagnostics`.
 
-For a TC file, all properties it contains will be validated, and problems that are found during this validation are shown by underlining TC properties. You can hover 
+For a TC file, all properties it contains will be validated, and problems that are found during this validation are shown by underlining TC properties.
 
 ![](images/tc-validation.png)
 
@@ -52,14 +52,14 @@ Some problems have one or several typical solutions that are possible to apply a
 Note that most semantic errors cannot be automatically resolved like this, but in some simple cases it's possible. 
 
 ## Configuring Validation
-Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
+Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
 
 * The rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) is disabled
 * The rule [ART_0004_nameShouldStartWithLowerCase](#art_0004_nameshouldstartwithlowercase) has its severity set to Information
 * The rule [ART_0009_invalidProperty](#art_0009_invalidproperty) has its severity set to Warning
 * The rule [ART_0005_choiceWithoutElseTransition](#art_0005_choicewithoutelsetransition) has its severity set to Error
 
-To configure validation rules globally, use the configuration setting `code-rt.validation.ruleConfiguration`. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
+To configure validation rules globally, use the [configuration setting](settings.md#rule-configuration) `code-rt.validation.ruleConfiguration`. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
 
 To configure validation rules locally, set the property [rule_config](../art-lang#rule_config) on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.
 
@@ -90,7 +90,7 @@ This chapter lists all validation rules which {$product.name$} checks your Art a
 |----------|:-------------|:-------------
 | Error | An Art element has a name that is not a valid C++ name, or a name that will cause a name clash in the generated code. | Prepend Underscore
 
-Art elements are translated to C++ elements without changing the elements' names. Hence you need to choose names for Art elements that are valid in C++. For example, [C++ keywords](../art-lang#names-and-keywords) cannot be used. 
+Art elements are translated to C++ elements without changing the elements' names. Hence you need to choose names for Art elements that are valid in C++. For example, C++ keywords cannot be used. 
 
 Furthermore, names of such Art elements must not clash with global names used by the [TargetRTS](target-rts/index.md) or names within generated C++ files.
 
@@ -363,14 +363,14 @@ Most Art elements have [properties](../art-lang#art_properties) and every proper
 A Quick Fix is available for removing the setting of the property. 
 
 ``` art
-class C_PropDefaultValue [[rt::properties(
-    const_target_param_for_decode=false // ART_0011
-)]] {
+capsule C_PropDefaultValue [[rt::properties(
+    generate_file_header=true // ART_0011
+)]]{
     statemachine {
         state State;
         initial -> State;
     };
-};  
+};
 ```
 
 ### ART_0012_invalidCodeSnippet
@@ -1113,7 +1113,7 @@ capsule N {
 ```
 
 ## TC Validation Rules
-TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the Art [validation rules](#validation-rules). They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
+TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the Art [validation rules](#validation-rules) (with the exception that it's only possible to configure these rules [globally](settings.md#rule-configuration)). They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
 
 ### TC_7000_wrongValueType
 | Severity | Reason | Quick Fix

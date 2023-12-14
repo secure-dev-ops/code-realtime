@@ -3,6 +3,7 @@ There is often a need to build several variants of the same application. For exa
 * Create a debug versus release build
 * Add special instrumentation in order to detect run-time errors such as memory leaks
 * Build for multiple target platforms
+* Build a test executable for performing unit testing of a capsule.
 
 A variant of an application may often only use slightly different build settings (for example, setting a compiler flag to include debug symbols), but in some cases the application logic may also be somewhat different (for example, use of some code that is specific to a certain target platform). {$product.name$} provides a powerful mechanism, based on scripting, that allows you to build several variants of an application with minimal effort.
 
@@ -110,17 +111,16 @@ function postProcess(topTC, allTCs, targetPlatform) {
 	  }
 	  else if (TCF.globals().targetCompiler == 'GCC') {
 		allTCs[i].compileCommand = 'gcc';
-	  }
-	  
-	  if (targetPlatform == 'MacOS') {
+	  }	  	  
+	}
+	if (targetPlatform == 'MacOS') {
 	    MSG.formatWarning("MacOS builds are not fully supported yet");	  
-	  }
 	}
 }
 ```
 Also in this function we can use the [`TCF`](#tcf-object) and [`MSG`](#msg-object) objects to access global data and to print messages to the build log. But most importantly, we can directly write the properties of the `topTC` (the TC that is built) and/or `allTCs` (the TC that is built followed by all its prerequisite TCs). 
 
-By modifying the [compileArguments](transformation-configurations.md#compilearguments) TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize how the application is built, and also what it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.
+By modifying the [compileArguments](transformation-configurations.md#compilearguments) TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize *how* the application is built, and also *what* it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.
 
 !!! example
     You can find a sample application that uses build variants [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/build_variants).
@@ -140,6 +140,7 @@ In addition to standard JavaScript and Java functionality, a build variant scrip
 1. **Evaluation of a TC**:
 TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the [TCF object](#tcf-object). Typically on the first line in a TC it's used like this: `let tc = TCF.define(TCF.CPP_TRANSFORM);`.
 Since TCs are evaluated frequently all JavaScript it contains should only compute what it necessary for setting the values of TC properties. It should not have any side-effects, and should not print any messages.
+
 2. **Build Variants script**:
 A build variants script is evaluated when building a TC with the [Art Compiler](art-compiler.md). This evaluation happens early with the purpose of deciding which build variant settings that are applicable for the build. You can use the [BVF object](#bvf-object) in a build variants script.
 
