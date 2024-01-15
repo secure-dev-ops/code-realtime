@@ -1,0 +1,20 @@
+// Top capsule representing a traffic light system that consists of a 3-color light
+// and a pedestrian button. The traffic light circles red->green->yellow->red->... until
+// the pedestrian button is pressed. Then the traffic light turns red for some time
+// so the pedestrian can cross the street. After that it resumes circling through the colors.
+// A user interface, implemented with Qt, shows the current color of the traffic light and provides
+// the pedestrian button to push.
+
+capsule TLSystem {
+    part trafficLight : TrafficLight;
+    part qtUI : QtUI;
+    part pushButton : PushButton;
+
+    connect qtUI.trafficLightSignals with trafficLight.server;
+    connect trafficLight.control with pushButton.trafficLight;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

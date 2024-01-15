@@ -1,0 +1,28 @@
+// Interface to a user-interface implemented in Qt
+capsule QtUI {
+    [[rt::impl_preface]]
+    `
+        #include <mythread.h>
+    `
+    service behavior port trafficLightSignals~ : TrafficLightSignals;
+
+    statemachine {
+        state WaitForLightSwitch {
+            red: on trafficLightSignals.red
+            `
+                MyThread::Instance().redLight();
+            `;
+
+            green: on trafficLightSignals.green
+            `
+                MyThread::Instance().greenLight();
+            `;
+
+            yellow: on trafficLightSignals.yellow
+            `
+                MyThread::Instance().yellowLight();
+            `;
+        };
+        initial -> WaitForLightSwitch;
+    };
+};

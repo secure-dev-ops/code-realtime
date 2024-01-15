@@ -1,0 +1,47 @@
+capsule PushButton {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+        #include "mythread.h"
+    `
+
+    [[rt::decl]]
+    `
+        public:
+            // Called by the Qt UI when the push button is clicked
+            void onClicked();   
+    `
+
+    [[rt::impl]]
+    `
+        void PushButton_Actor::onClicked() {
+            external.raise();
+        }
+    `
+ 
+    service behavior port trafficLight~ : TrafficLightControl;
+    behavior port external : External;    
+
+    statemachine {
+        state WaitForIncomingMessage {
+            entry
+            `
+                // Enable the external port so we can receive *one* more
+                // event from the Qt UI button
+                external.enable();
+            `;
+        };
+        initial -> WaitForIncomingMessage
+        `
+            MyThread::Instance().registerPushButton(this);
+        `
+        ;
+
+        onButtonPush: WaitForIncomingMessage -> WaitForIncomingMessage on external.event
+        `
+            // The button was pushed
+            trafficLight.pedestrian().send();
+        `
+        ;
+    };
+};

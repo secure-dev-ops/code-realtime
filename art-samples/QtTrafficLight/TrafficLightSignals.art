@@ -1,0 +1,8 @@
+protocol TrafficLightSignals {
+    /* In Events */
+    
+    /* Out Events */
+    out green();
+    out red();
+    out yellow();
+};

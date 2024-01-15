@@ -1,0 +1,6 @@
+protocol TrafficLightControl {
+    /* In Events */
+    in pedestrian(); // Sent when the pedestrian wants to cross the street
+
+    /* Out Events */
+};
