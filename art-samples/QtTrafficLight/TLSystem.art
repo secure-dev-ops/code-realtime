@@ -9,10 +9,13 @@ capsule TLSystem {
     part trafficLight : TrafficLight;
     part qtUI : QtUI;
     part pushButton : PushButton;
+    part pedLight : PedLight;
 
-    connect qtUI.trafficLightSignals with trafficLight.server;
+    connect qtUI.trafficLight with trafficLight.ui;
     connect trafficLight.control with pushButton.trafficLight;
-
+    connect pedLight.pedControl with trafficLight.pedLightControl;
+    connect pedLight.ui with qtUI.pedLightControl;
+ 
     statemachine {
         state State;
         initial -> State;

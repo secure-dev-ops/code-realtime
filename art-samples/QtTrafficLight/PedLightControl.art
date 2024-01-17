@@ -1,0 +1,4 @@
+protocol PedLightControl {    
+    in stop();
+    in walk();    
+};

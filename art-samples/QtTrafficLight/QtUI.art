@@ -4,23 +4,34 @@ capsule QtUI {
     `
         #include <mythread.h>
     `
-    service behavior port trafficLightSignals~ : TrafficLightSignals;
-
+    service behavior port trafficLight~ : TrafficLightSignals;
+    service behavior port pedLightControl: PedLightControl;
+ 
     statemachine {
         state WaitForLightSwitch {
-            red: on trafficLightSignals.red
+            red: on trafficLight.red
             `
                 MyThread::Instance().redLight();
             `;
 
-            green: on trafficLightSignals.green
+            green: on trafficLight.green
             `
                 MyThread::Instance().greenLight();
             `;
 
-            yellow: on trafficLightSignals.yellow
+            yellow: on trafficLight.yellow
             `
                 MyThread::Instance().yellowLight();
+            `;
+
+            walk: on pedLightControl.walk
+            `
+                MyThread::Instance().walk();
+            `;
+
+            stop: on pedLightControl.stop
+            `
+                MyThread::Instance().stop();
             `;
         };
         initial -> WaitForLightSwitch;

@@ -1,0 +1,26 @@
+// Represents the pedestrian light that can show either
+// the Stop or Go symbols.
+capsule PedLight {
+    service behavior port pedControl : PedLightControl;
+    service behavior notify port ui~ : PedLightControl;
+
+    statemachine {
+        state DoNotWalk {
+            entry
+            `
+                ui.stop().send();
+            `;
+        };
+        state Walk {
+            entry
+            `
+                ui.walk().send();
+            `;
+        };
+        state WaitForUIReady;
+        initial -> WaitForUIReady;
+        WaitForUIReady -> DoNotWalk on ui.rtBound;
+        walk: DoNotWalk -> Walk on pedControl.walk;
+        stop: Walk -> DoNotWalk on pedControl.stop;
+    };
+};

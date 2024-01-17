@@ -1,3 +1,5 @@
+// Representation of the push button which a pedestrian can push
+// to request a safe crossing of the street.
 capsule PushButton {
     [[rt::impl_preface]]
     `

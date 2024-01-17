@@ -1,3 +1,4 @@
+// Represents the traffic light that can show either red, green or yellow.
 capsule TrafficLight {
 [[rt::decl]]
 `
@@ -9,7 +10,8 @@ capsule TrafficLight {
     behavior port timer : Timing;
     behavior port pedTimer : Timing;
     service behavior port control : TrafficLightControl;
-    service behavior port server : TrafficLightSignals;
+    service behavior port ui : TrafficLightSignals;
+    service behavior port pedLightControl~ : PedLightControl;
 
     statemachine {
         state CycleLight {
@@ -21,21 +23,21 @@ capsule TrafficLight {
                 `
                     log.log("Enter Red");
                     log.commit();
-                    server.red().send();
+                    ui.red().send();
                 `;
             }, Green[[rt::properties(color="#11d80e")]] {
                 entry 
                 `
                     log.log("Enter Green");
                     log.commit();
-                    server.green().send();
+                    ui.green().send();
                 `;
             }, Yellow[[rt::properties(color="#edc707")]] {
                 entry 
                 `
                     log.log("Enter Yellow");
                     log.commit();
-                    server.yellow().send();
+                    ui.yellow().send();
                 `;
             };
 
@@ -78,12 +80,12 @@ capsule TrafficLight {
                 pedTimer.informIn(RTTimespec(2,0), &waitForWalk, &RTType_bool);
             `;
 
-            state Red {
+            state Red [[rt::properties(color="#e60f0f")]] {
                 entry
                 `
                     log.log("Enter Red");
                     log.commit();
-                    server.red().send();
+                    ui.red().send();
                 `;
             };
 
@@ -92,13 +94,13 @@ capsule TrafficLight {
             updatePedLight: on pedTimer.timeout
             `
                 if (*((bool*) rtdata) == true) {
-                    //pedLightControl.walk().send();
+                    pedLightControl.walk().send();
                     bool waitForWalk = false;
                     pedTimer.informIn(RTTimespec(4,0), &waitForWalk, &RTType_bool);
                     // Time for pedestrians to cross
                 }
                 else {
-                    //pedLightControl.stop().send();
+                    pedLightControl.stop().send();
                     timer.informIn(RTTimespec(2,0));
                 }
             `;
