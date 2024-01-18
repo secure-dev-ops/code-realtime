@@ -34,7 +34,7 @@ capsule Receiver : ReceiverBase {
     `   
 
     statemachine {
-        redefine e1Trans: R1 -> R2
+        redefine e1Trans: R1 -> R2 on pr.e1
         `
             std::cout << "Receiver::e1Trans" << std::endl;
             PASS();
