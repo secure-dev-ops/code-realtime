@@ -12,111 +12,6 @@
             "path": "../art-samples/PingPong"
         },
         {
-            "path": "tests/art_0001"
-        },
-        {
-            "path": "tests/art_0002"
-        },
-        {
-            "path": "tests/art_0003"
-        },
-        {
-            "path": "tests/art_0004"
-        },
-        {
-            "path": "tests/art_0005"
-        },
-        {
-            "path": "tests/art_0006"
-        },
-        {
-            "path": "tests/art_0007"
-        },
-        {
-            "path": "tests/art_0008"
-        },
-        {
-            "path": "tests/art_0009"
-        },
-        {
-            "path": "tests/art_0010"
-        },
-        {
-            "path": "tests/art_0011"
-        },
-        {
-            "path": "tests/art_0012"
-        },
-        {
-            "path": "tests/art_0013"
-        },
-        {
-            "path": "tests/art_0014"
-        },
-        {
-            "path": "tests/art_0015"
-        },
-        {
-            "path": "tests/art_0016"
-        },
-        {
-            "path": "tests/art_0017"
-        },
-        {
-            "path": "tests/art_0018"
-        },
-        {
-            "path": "tests/art_0019"
-        },
-        {
-            "path": "tests/art_0020"
-        },
-        {
-            "path": "tests/art_0021"
-        },
-        {
-            "path": "tests/art_0022"
-        },
-        {
-            "path": "tests/art_0023"
-        },
-        {
-            "path": "tests/art_0024"
-        },
-        {
-            "path": "tests/art_0025"
-        },
-        {
-            "path": "tests/art_0026"
-        },
-        {
-            "path": "tests/art_0027"
-        },
-        {
-            "path": "tests/art_0028"
-        },
-        {
-            "path": "tests/art_0029"
-        },
-        {
-            "path": "tests/art_0030"
-        },
-        {
-            "path": "tests/art_0031"
-        },
-        {
-            "path": "tests/art_0032"
-        },
-        {
-            "path": "tests/art_0033"
-        },
-        {
-            "path": "tests/art_0034"
-        },
-        {
-            "path": "tests/art_0035"
-        },
-        {
             "path": "tests/build_variants"
         },
         {
@@ -157,15 +52,6 @@
         },
         {
             "path": "tests/compound_transition_rtdata_junction"
-        },
-        {
-            "path": "tests/cpp_4000"
-        },
-        {
-            "path": "tests/cpp_4001"
-        },
-        {
-            "path": "tests/cpp_4002"
         },
         {
             "path": "tests/deep_history"
@@ -213,58 +99,10 @@
             "path": "tests/receive_any"
         },
         {
-            "path": "tests/rule_config"
-        },
-        {
             "path": "tests/struct_type_descriptor"
         },
         {
             "path": "tests/struct_type_descriptor_nested"
-        },
-        {
-            "path": "tests/tc_7000"
-        },
-        {
-            "path": "tests/tc_7001"
-        },
-        {
-            "path": "tests/tc_7002"
-        },
-        {
-            "path": "tests/tc_7003"
-        },
-        {
-            "path": "tests/tc_7004"
-        },
-        {
-            "path": "tests/tc_7005"
-        },
-        {
-            "path": "tests/tc_7006_7007"
-        },
-        {
-            "path": "tests/tc_7008"
-        },
-        {
-            "path": "tests/tc_7009"
-        },
-        {
-            "path": "tests/tc_7010"
-        },
-        {
-            "path": "tests/tc_7011"
-        },
-        {
-            "path": "tests/tc_7012"
-        },
-        {
-            "path": "tests/tc_7013"
-        },
-        {
-            "path": "tests/tc_7014"
-        },
-        {
-            "path": "tests/tc_7015"
         },
         {
             "path": "tests/tc_include_paths"
