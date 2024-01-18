@@ -4,4 +4,4 @@ tc.prerequisites = [
   '../../TestUtils/testlib.tcjs',
   '../tc_sources_lib/lib1.tcjs'
 ];
-tc.targetFolder = 'tc_sources_exe_target';
+tc.targetFolder = 'tc_sources_target';
