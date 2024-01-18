@@ -3,11 +3,12 @@ capsule ChoiceSample {
     `
         int getVal() {return 5;};
     `
+    behavior port timer : Timing;
     statemachine {
         state State;
         initial -> State;
         choice x; // ART_0005
-        State -> x;
+        State -> x on timer.timeout;
         x -> State when `return getVal() == 5;`;
         x -> State when `return getVal() == 6;`;
     };
