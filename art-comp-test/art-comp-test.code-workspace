@@ -111,6 +111,9 @@
             "path": "tests/tc_sources"
         },
         {
+            "path": "tests/tc_sources_lib"
+        },
+        {
             "path": "tests/tc_user_libraries"
         },
         {

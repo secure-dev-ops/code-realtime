@@ -1,4 +1,0 @@
-let tc = TCF.define(TCF.CPP_TRANSFORM);
-tc.topCapsule = 'Top';
-tc.prerequisites = ["../../../TestUtils/testlib.tcjs", "../lib/lib1.tcjs"];
-tc.targetFolder = 'tc_sources_target/exe_target';

@@ -16,7 +16,6 @@ capsule LibCapsule {
         #include "testlib.art.h"          
     `
     /* Ports */
-    service port log : Log;
     /* Parts */
     /* Connectors */
     /* State Machine */
@@ -25,8 +24,7 @@ capsule LibCapsule {
         initial -> State
         `
             // This is the expected version of the capsule
-            log.log("Hello From Correct Library Capsule");
-            log.commit();
+            std::cout << "Hello From Correct Library Capsule" << std::endl;
         `;
     };
 };
