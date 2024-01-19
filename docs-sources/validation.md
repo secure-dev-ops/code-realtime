@@ -1032,6 +1032,123 @@ capsule C35 {
 };
 ```
 
+### ART_0036_unexpectedTriggers
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A transition that originates from a pseudo state must not have triggers, but still has at least one. | Remove Triggers
+
+A [transition](../art-lang#transition) can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a [choice or junction](../art-lang#choice-and-junction)) must therefore not have any triggers. 
+
+Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this [here](../art-lang/entry-and-exit-point-without-incoming-transition).
+
+A Quick Fix is available that will remove the triggers of the transition (hence converting it from a triggered to a non-triggered transition).
+
+``` art
+capsule C36 {
+    behavior port t : Timing;
+    statemachine { 
+        state State, State1, State2;
+        state Composite {
+            entrypoint ep, ep2;
+            exitpoint ex, ex2;
+            state Nested;
+            ep -> Nested on t.timeout; // OK (transition originates from entry point without incoming transition)
+            ep2 -> Nested on t.timeout; // ART_0036 (transition originates from entry point with an incoming transition)  
+            Nested -> ex on t.timeout;
+        };
+        junction j;
+        choice c;
+        initial -> j;
+        State -> Composite.ep2 on t.timeout;
+        t1 : j -> State on t.timeout; // ART_0036 (transition originates from junction)
+        t2 : State1 -> c on t.timeout;
+        t3: c -> State2 on t.timeout; // ART_0036 (transition originates from choice)
+        t4: Composite.ex -> State2 on t.timeout; // ART_0036 (transition originates from exit point)
+        t5: Composite.ex2 -> State2 on t.timeout; // OK (transition originates from exit point without incoming transition)
+    };
+};
+```
+
+In case the state machine is inherited, and the problem is detected for an inherited transition, then it is reported on the state machine instead. The inherited transition with the unexpected trigger(s) will be reported as a related element. In this case the Quick Fix can not be used for removing the triggers. Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:
+
+``` art
+capsule B2 {
+    behavior port t : Timing;
+    statemachine {
+        state State;
+        state Composite {
+            entrypoint ep;
+            state Nested;
+            t1 : ep -> Nested on t.timeout; // OK (ep has no incoming transition here)
+        };
+        initial -> State;
+    };
+};
+
+capsule D2 : B2 {    
+    statemachine { // ART_0036 (here ep has an incoming transition which makes the inherited t1 incorrect)
+        tx : State -> Composite.ep on t.timeout;       
+    };
+};
+```
+
+### ART_0037_missingTriggers
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Error | A transition that originates from a state must have at least one trigger, but has none. | N/A
+
+A [transition](../art-lang#transition) that originates from a [state](../art-lang#state) is only meaningful if it specifies as least one trigger. Otherwise the transition cannot be triggered and would be useless. As mentioned in [this chapter](../art-lang#entry-and-exit-point-without-incoming-transition) an entry or exit point without incoming transition represents the state that owns the entry or exit point. A transition that originates from such an entry or exit point must therefore have a trigger.
+
+``` art
+capsule C37 {
+    behavior port t : Timing;    
+    statemachine { 
+        state State, State1, State2, State3;
+        state Composite {
+            entrypoint ep, ep2;
+            exitpoint ex, ex2;
+            state Nested; 
+            t8: ep -> Nested; // ART_0037 (transition originates from entry point without incoming transition)
+            ep2 -> Nested; // OK (transition originates from entry point with incoming transition)
+            t6: Nested -> ex2; // ART_0037 (transition originates from state)
+        }; 
+        t7: State -> Composite.ep2; // ART_0037 (transition originates from state)
+        junction j;
+        choice c;
+        initial -> j;
+        t1 : j -> State;
+        t2 : State1 -> c; // ART_0037 (transition originates from state)
+        t3: c -> State2; 
+        t4: Composite.ex -> State2; // ART_0037 (transition originates from exit point without incoming transition)
+        t5: Composite.ex2 -> State3; // OK (transition originates from exit point with incoming transition)
+    };
+};
+```
+
+In case the state machine is inherited, and the problem is detected for an inherited transition, then it is reported on the state machine instead. The inherited transition with the missing trigger will be reported as a related element. Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:
+
+``` art
+capsule BB2 {
+    behavior port t : Timing;
+    statemachine {
+        state State;
+        state Composite {
+            entrypoint ep;
+            state Nested;
+            t1 : ep -> Nested; // OK (ep has an incoming transition here)
+        };
+        initial -> State;
+        tx : State -> Composite.ep on t.timeout;  
+    };
+};
+
+capsule DD2 : BB2 {    
+    statemachine { // ART_0037 (here ep has no incoming transition which makes the inherited t1 incorrect)
+        exclude tx;
+    };
+};
+```
+
 ## Code Generation Validation Rules
 Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. 
 

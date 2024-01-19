@@ -173,6 +173,12 @@ tc.prerequisites = ["../MyLibrary/lib.tcjs"];
 
 Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.
 
+You can also use the predefined variable `${workspaceFolder}` in prerequisite paths. This is often useful as it makes it possible to reference a prerequisite TC based on another workspace folder, regardless of where in the file system it's located. For example:
+
+``` js
+tc.prerequisites = ["${workspaceFolder:MyLibrary}/lib.tcjs"]; 
+```
+
 For more information about this property see [Transformation Configuration Prerequisites](#transformation-configuration-prerequisites).
 
 ### sources

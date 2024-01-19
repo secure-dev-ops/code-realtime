@@ -104,6 +104,12 @@
         {
             "path": "tests/art_0035"
         },
+		        {
+            "path": "tests/art_0036"
+        },
+		        {
+            "path": "tests/art_0037"
+        },
         {
             "path": "tests/cpp_4000"
         },

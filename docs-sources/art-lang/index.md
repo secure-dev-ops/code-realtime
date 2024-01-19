@@ -767,6 +767,7 @@ capsule MyCap {
 
 Note the following:
 
+* It's only valid to specify triggers for transitions that originate from a state. Transitions that originate from a pseudo-state (e.g. a choice or junction) cannot have triggers, i.e. they must be non-triggered transitions. Note, however, that transitions originating from [entry and exit points without incoming transitions](#entry-and-exit-point-without-incoming-transition) represent the container state and hence need a trigger.
 * Triggers are specified as `PORT.EVENT` after the keyword `on`. You may specify multiple triggers separated by comma (`,`).
 * A guard condition for the transition is specified after the `when` keyword, while a guard condition for an individual trigger is specified in square brackets (`[]`) after the trigger.
 * A guard condition can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition `requestReceived` in the above example), or it can be written as a boolean expression (as in the trigger guard for the `timeout` trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.
@@ -951,6 +952,35 @@ It is possible to only connect an entry point on the "outside". Entering the sta
     You can find a sample application that contains a composite state with an entry and exit point [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata).
 
 Just like a [junction](#choice-and-junction), an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which of them to execute, and are evaluated *before* leaving the current state. Therefore, the same recommendations as for guard conditions of [junctions](#choice-and-junction) apply for entry and exit points.
+
+#### Entry and Exit Point without Incoming Transition
+You can choose to not connect an entry or exit point with an incoming transition. In this case the entry or exit point represents the owning state, and a transition that originates from such an entry or exit point behaves the same as if it would originate from the state itself. Contrary to other transitions that originate from an entry or exit point, such a transition is therefore triggered and should have at least one trigger.
+
+An entry point without incoming transition is useful for handling events in a composite state that should be commonly handled regardless of which substate that is active. The composite state remains active when handling the event, and it will not be exited and entered. The target of such a transition may either be a nested state, the [deep history](#deep-history) pseudo state, or an exit point (see [local transition](#local-transition)).
+
+In a similar way an exit point without incoming transition can be used for exiting the composite state in a common way regardless of which substate that is active. The behavior is the same as if the transition would originate from the composite state itself, but by using an exit point you can give a descriptive name to it that tells something about why the state is exited. This can be in particular useful if there are multiple such "exit transitions" from the composite state.
+
+In the example below the transition `tx` originates from an entry point `ep2` without incoming transition. When it triggers the active state will change from `Composite::Nested` to `Composite::Nested2` without leaving the `Composite` state. The transition `done` originates from an exit point `ex2` without incoming transition. It will exit the active substate of `Composite` and then exit `Composite` itself, before activating the `Done` state.
+
+``` art
+statemachine {
+    state Composite {
+        entrypoint ep1, ep2;
+        exitpoint ex2;        
+        state Nested, Nested2;
+        ep1 -> Nested;
+        tx: ep2 -> Nested2 on port1.timeout;
+    };
+    initial -> Composite.ep1;
+    state Done;
+    done: Composite.ex2 -> Done on port1.timeout;
+};
+```
+
+![](images/entrypoint_without_incoming.png)
+
+!!! example
+    You can find a sample application that uses an entry and exit point without incoming transitions [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/entrypoint_without_incoming_transition).
 
 #### Deep History
 Every nested state machine has an implicit pseudo state with the name `history*` (in state diagrams it's shown as `H*` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a *deep* history). 

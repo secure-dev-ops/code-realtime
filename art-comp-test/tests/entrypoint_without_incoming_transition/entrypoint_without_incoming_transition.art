@@ -1,0 +1,73 @@
+capsule Top 
+{
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        private: std::string result;
+        int tCount = 0;
+    `
+
+    behavior port timer : Timing;
+
+    statemachine {
+        state Composite {
+            entrypoint ep1, ep2;
+            exitpoint ex2;
+            entry
+            `
+                result += "Enter:Composite ";
+            `;
+            exit
+            `
+                result += "Exit:Composite ";
+            `;
+            state Nested {
+                entry
+                `
+                    result += "Enter:Nested ";
+                `;
+                exit
+                `
+                    result += "Exit:Nested ";
+                `;
+            };
+            state Nested2 {
+                entry
+                `
+                    result += "Enter:Nested2 ";
+                `;
+                exit
+                `
+                    result += "Exit:Nested2 ";
+                `;
+            };
+            ep1 -> Nested;
+            tx: ep2 -> Nested2 on timer.timeout when `tCount == 1`
+            `
+                result += "Effect:tx ";
+                timer.informIn(RTTimespec(1,0));
+                tCount++;
+            `;
+        };
+        initial -> Composite.ep1
+        `
+            timer.informIn(RTTimespec(1,0));
+            tCount++;
+        `
+        ;
+        state Done;
+        done: Composite.ex2 -> Done on timer.timeout
+        `
+            std::string msg = "Unexpected result : " + result;
+            ASSERT(result == "Enter:Composite Enter:Nested Exit:Nested Effect:tx Enter:Nested2 Exit:Nested2 Exit:Composite ", msg.c_str());
+            PASS();
+        `;
+    };
+};

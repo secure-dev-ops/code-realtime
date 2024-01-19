@@ -62,6 +62,9 @@
         {
             "path": "tests/entry_exit_action"
         },
+		{
+            "path": "tests/entrypoint_without_incoming_transition"
+        },
         {
             "path": "tests/enum_type_descriptor"
         },

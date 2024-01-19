@@ -1,0 +1,43 @@
+capsule C37 {
+    behavior port t : Timing;    
+    statemachine { 
+        state State, State1, State2, State3;
+        state Composite {
+            entrypoint ep, ep2;
+            exitpoint ex, ex2;
+            state Nested; 
+            t8: ep -> Nested; // ART_0037 (transition originates from entry point without incoming transition)
+            ep2 -> Nested; // OK (transition originates from entry point with incoming transition)
+            t6: Nested -> ex2; // ART_0037 (transition originates from state)
+        }; 
+        t7: State -> Composite.ep2; // ART_0037 (transition originates from state)
+        junction j;
+        choice c;
+        initial -> j;
+        t1 : j -> State;
+        t2 : State1 -> c; // ART_0037 (transition originates from state)
+        t3: c -> State2; 
+        t4: Composite.ex -> State2; // ART_0037 (transition originates from exit point without incoming transition)
+        t5: Composite.ex2 -> State3; // OK (transition originates from exit point with incoming transition)
+    };
+};
+
+capsule C37_B2 {
+    behavior port t : Timing;
+    statemachine {
+        state State;
+        state Composite {
+            entrypoint ep;
+            state Nested;
+            t1 : ep -> Nested; // OK (ep has an incoming transition here)
+        };
+        initial -> State;
+        tx : State -> Composite.ep on t.timeout;  
+    };
+};
+
+capsule C37_D2 : C37_B2 {    
+    statemachine { // ART_0037 (here ep has no incoming transition which makes the inherited t1 incorrect)
+        exclude tx;
+    };
+};
