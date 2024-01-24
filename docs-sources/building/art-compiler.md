@@ -55,6 +55,7 @@ Below is a table that lists all options that are available for the Art Compiler.
 | [ruleConfig](#ruleconfig) | String 
 | [tc](#tc) | Path 
 | [version](#version) | N/A 
+| [ws](#ws) | Path 
 
 ### buildConfig
 A build configuration is useful when you want to build a TC that uses [build variants](build-variants.md). It provides values for build variant settings and hence specifies a certain variant of the application to be built. Read more about build configurations [here](build-variants.md#build-configuration).
@@ -88,6 +89,14 @@ Specifies the [TC](transformation-configurations.md) to build. This option is ma
 
 ### version
 Use this option to print the version of the Art Compiler. This version is the same as is used for the {$product.name$} extension and can also be seen in the file `CHANGELOG.md` in the {$product.name$} installation folder. If this option is passed, all other options are ignored.
+
+### ws
+Specifies a workspace file (`.code-workspace`) which will be used for resolving paths that are relative to the workspace. It's optional to use this option and it only needs to be set if any of the built TCs contain workspace-relative paths.
+
+```
+--ws C:/art-comp-test/validation.code-workspace
+```
+
 
 ## Art Compiler Steps and Messages
 The Art Compiler performs its work using several sequential steps. During each step messages can be printed with a severity that is either INFO, WARNING or ERROR. Messages are printed to `stdout` with a time stamp. If at least one error is reported when performing one of the steps, the Art Compiler stops and doesn't proceed with the next step.

@@ -179,6 +179,8 @@ You can also use the predefined variable `${workspaceFolder}` in prerequisite pa
 tc.prerequisites = ["${workspaceFolder:MyLibrary}/lib.tcjs"]; 
 ```
 
+Note that use of workspace-relative paths requires setting the [-ws](art-compiler.md#ws) option for the Art Compiler.
+
 For more information about this property see [Transformation Configuration Prerequisites](#transformation-configuration-prerequisites).
 
 ### sources
