@@ -1,0 +1,11 @@
+// Use of choices in a class state machine
+class MC {    
+    statemachine {
+        state State;
+        initial -> State;
+        choice cc;  
+        state Composite {
+            choice dd;
+        };
+    };
+};

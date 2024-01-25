@@ -33,8 +33,17 @@ ac_output match9b: port|t|art_0002.art|54:19
 ac_output match10: ERROR[0002]|art_0002.art:62:5|state machine|vertices|State
 ac_output match10a: state|State|art_0002.art|63:15
 ac_output match10b: state|State|art_0002.art|63:22
-ac_output match11: ERROR[0002]|art_0002.art:71:15|nested state machine|transitions|t
-ac_output match11a: transition|t|art_0002.art|73:13
-ac_output match11b: transition|t|art_0002.art|74:13
+ac_output match11: ERROR[0002]|art_0002.art:72:15|nested state machine|transitions|t
+ac_output match11a: transition|t|art_0002.art|74:13
+ac_output match11b: transition|t|art_0002.art|75:13
+
+ac_output match12: ERROR[0002]|art_0002_inherited.art|17:24|nested state machine|vertices|Nested
+ac_output match12a: state|Nested|art_0002_inherited.art|18:19
+ac_output match12b: state|Nested|art_0002_inherited.art|8:19
+ac_output match13: ERROR[0002]|art_0002_inherited.art|14:5|state machine|vertices|State|j1
+ac_output match13a: state|State|art_0002_inherited.art|15:15
+ac_output match13b: state|State|art_0002_inherited.art|4:15
+ac_output match13c: choice|j1|art_0002_inherited.art|16:16
+ac_output match13d: junction|j1|art_0002_inherited.art|6:18
 ---
 Test validation rule `ART_0002_duplicateNamesInScope`.

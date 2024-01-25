@@ -66,12 +66,13 @@ capsule StateDuplicated {
 };
 
 capsule TransitionDuplicated {
+    behavior port timer : Timing;
     statemachine {
         state State;
         state State2{
             state S1, S2;
-            t: S1 -> S2;
-            t: S1 -> S2;
+            t: S1 -> S2 on timer.timeout;
+            t: S1 -> S2 on timer.timeout;
         };
         initial -> State;
     };

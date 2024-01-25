@@ -1,0 +1,17 @@
+class ChoiceSampleClass {
+    [[rt::decl]]
+    `
+        int getVal() {return 5;};
+    `
+
+    trigger foo();
+
+    statemachine {
+        state State;
+        initial -> State;
+        choice x; // ART_0005
+        State -> x on foo();
+        x -> State when `getVal() == 5`;
+        x -> State when `getVal() == 6`;
+    };
+};

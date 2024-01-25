@@ -1,8 +1,9 @@
 capsule ChoiceSample {
+    service port ext : External;
     statemachine {
         state State;
         initial -> State;
         choice x; // ART_0006
-        State -> x;        
+        State -> x on ext.event;
     };
 };

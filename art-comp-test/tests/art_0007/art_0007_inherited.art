@@ -1,0 +1,27 @@
+// Inheritance that adds more transitions to a choice can cause the problem to appear in a derived state machine 
+// although the base state machine is correct. This can be done both in a top state machine and in a nested state machine.
+capsule CB0006 {
+   
+    statemachine {
+        state State;
+        initial -> State;
+        choice cc;
+        cc -> State;
+        state Nested {
+            exitpoint ex;
+            choice cc2;
+            cc2 -> ex;
+        };
+    };
+};
+
+capsule DB0006 : CB0006 {
+   
+    statemachine {
+        state State2;
+        cc -> State2;
+        state redefine Nested {
+            cc2 -> history*;
+        };
+    };
+};

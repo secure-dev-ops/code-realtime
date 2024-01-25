@@ -1,0 +1,32 @@
+// If a problem is detected on a transition that is defined in a base state machine while analyzing a derived state machine
+// the problem should be reported on the closest state machine within the analyzed state machine
+capsule Base2 {
+    
+    statemachine {
+        state State;
+        state Composite {
+            entrypoint ep1;            
+            t_nest: ep1 -> NestNest.nnn;
+            state NestNest {
+                entrypoint nnn;
+                state NestNestNest;
+                txxx: nnn -> NestNestNest;
+            };
+        };        
+        initial -> Composite.ep1;
+    };
+};
+
+capsule Der2 : Base2 {
+  
+    statemachine {        
+        state redefine Composite { 
+            
+            // The exclusion below makes Base2::Composite::NestNest::txxx wrong, because it no longer has
+            // an incoming transition which means it needs a trigger. This problem should not be reported
+            // on the NestNest state machine but instead on Der2::Composite since it's the closest container
+            // state machine within Der2.
+            exclude t_nest;            
+        };
+    };
+};

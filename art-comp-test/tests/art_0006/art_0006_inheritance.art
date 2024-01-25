@@ -1,0 +1,17 @@
+// Inheritance with transition exclusion can cause the problem to appear in a derived state machine 
+// although the base state machine is correct.
+capsule ChoiceSample_0006 {
+    statemachine {
+        state State;
+        initial -> State;
+        choice c;
+        t1: c -> State;
+    };
+};
+
+capsule DChoiceSample_0006 : ChoiceSample_0006 {    
+    statemachine {
+        state State2;
+        exclude t1;
+    };
+};

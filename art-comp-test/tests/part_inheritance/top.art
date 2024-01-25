@@ -8,12 +8,12 @@ capsule Top : BaseCap {
 
     /* State Machine */
     statemachine {
-        redefine _initial: initial -> State 
+        redefine _initial: initial -> State2 
         `
             // Already when the top capsule initial transition runs, fixed capsule parts should have been created
             ASSERT(incCount == 4, "In initial transition, expected 4 capsule instances to have been incarnated in the part");
         `;
-        state State {
+        state State2 {
             entry
             `                                
                 timer.informIn(RTTimespec(0,0));
