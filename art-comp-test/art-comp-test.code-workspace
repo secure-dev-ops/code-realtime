@@ -57,12 +57,15 @@
             "path": "tests/deep_history"
         },
         {
+            "path": "tests/dependency_injection_static"
+        },
+        {
             "path": "tests/duplicated_effect_and_guard"
         },
         {
             "path": "tests/entry_exit_action"
         },
-		{
+        {
             "path": "tests/entrypoint_without_incoming_transition"
         },
         {

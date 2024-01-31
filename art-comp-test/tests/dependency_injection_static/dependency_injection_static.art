@@ -1,0 +1,45 @@
+protocol PROTO {
+    out ping();
+};
+
+capsule Top {
+    part pinger : Pinger;
+    part logger : AbstractLogger;
+
+    connect logger.p with pinger.p;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule AbstractLogger {
+    service behavior port p~ : PROTO;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        t1: State1 -> State2 on p.ping `
+            FAIL("AbstractLogger executed");
+        `;
+    };
+};
+
+capsule ConcreteLogger : AbstractLogger {
+    statemachine {
+        redefine t1: State1 -> State2 on p.ping `
+            std::cout << "ConcreteLogger pinged\n";
+            PASS();
+        `;
+    };
+};
+
+capsule Pinger {
+    service behavior port p : PROTO;
+    statemachine {
+        state State;
+        initial -> State `
+            p.ping().send();
+        `;
+    };
+};

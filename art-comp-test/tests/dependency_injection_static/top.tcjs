@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'dependency_injection_static_target';
+tc.commonPreface = `
+#include <iostream>
+#include "testlib.art.h"
+#include "CapsuleFactory.art.h"
+`;
+tc.capsuleFactory = '&CapsuleFactory::factory';
