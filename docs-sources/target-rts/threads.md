@@ -64,7 +64,7 @@ When a new capsule instance is created it will by default be run by the same thr
 
 The picture below outlines the capsule instances of an Art application. `C1` is the top capsule. For simplicity we have assumed that all capsule parts are fixed with multiplicity 1 so they only can contain one capsule instance.
 
-![](../images/thread_mappings.png)
+![](images/thread_mappings.png)
 
 The capsule instances contained in `cp1` and `fp1` are run by the logical thread `Logical1` while the capsule instances contained in `dp1`, `cp2` and `ep2` are run by the logical thread `Logical2`. Other capsule instances are run by the main thread. Note that to accomplish that we need to explicitly reference the `MainThread` when incarnating `ep1` since by default it would be run by the thread that runs its container capsule, i.e. `Logical2`. In fact we need to explicitly mention a logical thread for all capsule instances in this example except `ep2` since it runs in the same logical thread as its container capsule instance `cp2`.
 

@@ -322,6 +322,8 @@ Note the following:
 !!! example
     You can find a sample application that uses a capsule constructor [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_constructor).
 
+Read more about capsule factories [here](../target-rts/capsule-factory.md).
+
 ### Capsule Destructor
 The destructor of a capsule frees the memory used for representing its states, ports etc. You cannot provide your own code to the destructor implementation. However, the `RTActor` class, which is the base class of every capsule class, provides a virtual function `_predestroy()` which you can override in your capsule. This function gets called just before the capsule instance is destroyed and is the place where you should put code that cleans up resources allocated by the capsule. Here is an example:
 
@@ -682,6 +684,10 @@ Note that you may want to create a capsule factory for a part also for other rea
 
 !!! example
     You can find a sample application [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_factory_for_part) where a fixed part uses an `rt::create` code snippet for invoking a custom capsule constructor.
+
+You can use a global capsule factory by means of setting the [`capsuleFactory`](../building/transformation-configurations.md#capsulefactory) TC property. Such a capsule factory will be used when creating or destroying any capsule instance in your application, except those that are located in a part for which you have specified a local capsule factory.
+
+Read more about capsule factories [here](../target-rts/capsule-factory.md).
 
 
 ## State Machine

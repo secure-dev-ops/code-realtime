@@ -109,6 +109,7 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 
 | Property | Type | Default Value | 
 |----------|:-------------|:-------------|
+| [capsuleFactory](#capsulefactory) | String | N/A
 | [commonPreface](#commonpreface) | String | N/A
 | [compileArguments](#compilearguments) | String | N/A 
 | [compileCommand](#compilecommand) | String | "$CC"
@@ -128,8 +129,19 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 | [unitName](#unitname) | String | "UnitName"
 | [userLibraries](#userlibraries) | List of strings | []
 
+### capsuleFactory
+This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
+
+Note that you can override the use of the global capsule factory by providing a [local capsule](../art-lang/index.md#part-with-capsule-factory) factory for a specific part.
+
 ### commonPreface
 This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called `UnitName.h`). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.
+
+``` js
+tc.commonPreface = `
+#include <iostream>
+`;
+```
 
 ### compileArguments
 Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. 
