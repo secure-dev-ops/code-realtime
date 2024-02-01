@@ -1,0 +1,30 @@
+// Capsule inheritance can introduce duplicate names of vertices and transitions in the derived capsule state machine
+capsule B0002 {
+    statemachine {
+        state State;
+        initial -> State;
+        junction j1;
+        state Composite {
+            state Nested;
+        };
+    };
+};
+
+capsule D0002 : B0002 {
+    statemachine {
+        state State; // Clash with B0002::State
+        choice j1; // Clash with B0002::j1
+        state redefine Composite { 
+            state Nested; // Clash with B0002::Composite::Nested
+        };
+    };    
+};
+
+capsule C0002 : D0002 {
+
+    statemachine { 
+        // No ART_0002 is reported here since there is no local state with a conflicting name. However, errors
+        // related to the inherited choice are reported since sometimes the reason for those errors may be within
+        // the inheriting state machine.
+    };
+};

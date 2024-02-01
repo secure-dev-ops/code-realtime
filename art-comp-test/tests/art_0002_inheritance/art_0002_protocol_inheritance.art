@@ -1,0 +1,13 @@
+protocol BaseProto {
+    in e1();
+    out e2();
+};
+
+protocol DerivedProto : BaseProto { // ART_0002
+    in e1();
+    out e2();
+};
+
+protocol VeryDerivedProto : DerivedProto { // No error here, since there is no local event with a conflicting name
+
+};

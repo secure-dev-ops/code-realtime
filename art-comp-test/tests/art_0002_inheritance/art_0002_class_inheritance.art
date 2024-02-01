@@ -1,0 +1,33 @@
+class BC {
+    trigger op();
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class BC2 {
+    trigger op();
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class BC3 : BC, BC2 { // No error here, since there is no local event with a conflicting name
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class DC : BC3 { // ART_0002 (op inherited twice)
+    trigger op();
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

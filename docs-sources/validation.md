@@ -126,9 +126,9 @@ Names of Art elements must be unique within the same scope. The following is che
 All elements with clashing names or signatures will be reported as related elements. Use this to find the element(s) that need to be renamed.
 
 ``` art
-protocol DupProto {
-    in inEvent1(); // ART_0002
-    in inEvent1(); // ART_0002
+protocol DupProto { // ART_0002 (name clash for inEvent1)
+    in inEvent1(); 
+    in inEvent1(); 
     out inEvent1(); // OK (symmetric event)
 };
 
@@ -141,6 +141,38 @@ class DNIS {
     };
 };
 ```
+
+Note that inheritance brings inherited elements into a scope and this can cause name clashes too. However, a problem is only reported if at least one of the elements with conflicting names is defined locally.
+
+``` art
+capsule B0002 {
+    statemachine {
+        state State;
+        initial -> State;
+        junction j1;
+        state Composite {
+            state Nested;
+        };
+    };
+};
+
+capsule D0002 : B0002 {
+    statemachine { // ART_0002 (name clashes with B0002::State and B0002::j1)
+        state State; 
+        choice j1; 
+        state redefine Composite { // ART_0002 (name clash with B0002::Composite::Nested)
+            state Nested;  
+        };
+    };    
+};
+
+capsule C0002 : D0002 {
+
+    statemachine { // OK. Even if this capsule inherits elements with conflicting names from D0002, none of them are defined in this state machine.
+    };
+};
+```
+
 
 ### ART_0003_nameShouldStartWithUpperCase
 | Severity | Reason | Quick Fix

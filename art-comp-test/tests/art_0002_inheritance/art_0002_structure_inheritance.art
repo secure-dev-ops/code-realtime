@@ -1,0 +1,33 @@
+capsule Cap {    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule BB1 {
+    behavior port timer : Timing;
+    behavior port p2 : Timing;
+
+    part c : Cap;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule DD1 : BB1 {
+    behavior port timer : Timing; // ART_0002
+    behavior port p2 : Frame; // ART_0002
+
+    optional part c : Cap; // ART_0002 
+    statemachine {
+        state State;
+    };
+};
+
+capsule EE1 : DD1 {
+    statemachine {
+
+    };
+};
