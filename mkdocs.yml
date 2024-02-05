@@ -106,6 +106,7 @@ nav:
         - Capsule Factory: target-rts/capsule-factory.md
         - Dependency Injection: target-rts/dependency-injection.md
         - Building, Debugging and Customizing: target-rts/build.md
+        - Change Log: target-rts/changelog.md
         - C++ API: targetrts-api/index.html
      - Building: 
         - Building: building/index.md        
