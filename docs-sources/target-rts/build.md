@@ -141,3 +141,36 @@ The member functions in a generated capsule class that contain user-defined code
 
 Default value: **none**
 
+#### RTFRAME_CHECKING
+This setting is used when you call functions on a [Frame](../targetrts-api/struct_frame.html) port, for example to destroy a capsule instance in a part. The recommendation is to declare [Frame](../targetrts-api/struct_frame.html) ports as non-service ports, so they only can be used internally by the owning capsule itself. However, if you somehow make a [Frame](../targetrts-api/struct_frame.html) port accessible for other capsules, they must at least be run by the same thread as the capsule that owns the [Frame](../targetrts-api/struct_frame.html) port.
+
+The following values are possible for this setting:
+
+* **RTFRAME_CHECK_STRICT** (this is the default value)
+
+Perform a run-time check that a [Frame](../targetrts-api/struct_frame.html) port is only used by the capsule that owns it.
+
+* **RTFRAME_CHECK_LOOSE**
+  
+Perform a run-time check that a [Frame](../targetrts-api/struct_frame.html) port is only used by code that runs in the same thread as the capsule that owns it.
+
+* **RTFRAME_CHECK_NONE**
+
+Do not perform a run-time check. It improves the application performance slightly, and can be safely set if all [Frame](../targetrts-api/struct_frame.html) ports are only used by the capsule that owns them.
+
+#### RTFRAME_THREAD_SAFE 
+This setting is used when you call functions on a [Frame](../targetrts-api/struct_frame.html) port, for example to create or destroy a capsule instance in a part. By default these functions are thread-safe, which is required when a created or destroyed capsule instance runs in a different thread than the code that calls the functions. However, in certain cases it's possible to optimize the performance by instead using function implementations that are not thread-safe. For example, if you know that you only use [Frame](../targetrts-api/struct_frame.html) ports to operate on capsule instances that run in the same thread as the capsules that owns the ports, then you can disable this setting to improve the application performance.
+
+Default value: **1** (set to **0** if you know it's safe to not use thread-safe implementations of [Frame](../targetrts-api/struct_frame.html) functions)
+
+#### RTMESSAGE_PAYLOAD_SIZE
+This setting controls the size of the data area in each message. This data area is used for message data that is small enough, such as integers, booleans and short strings. If the data that is sent with a message is bigger than the specified RTMESSAGE_PAYLOAD_SIZE, then dynamically allocated memory is used for storing the message data outside of the message itself.
+
+Default value: **100** (byte size of the message data area)
+
+Increasing the value will make each message bigger, which makes the application consume more memory, but on the other hand it may become faster since fewer messages will require dynamic memory to be allocated for storing the message data. On the other hand, if your application mostly send very small data objects, you may benefit from decreasing the RTMESSAGE_PAYLOAD_SIZE. You need to fine-tune the value of this setting to find the optimal trade-off between speed and memory consumption for your application.
+
+#### OBSERVABLE
+This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features.
+
+Default value: **1** (set to **0** to disable all target observability features)
