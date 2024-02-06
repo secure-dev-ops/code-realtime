@@ -1,0 +1,104 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] Base {
+        RTpvoid address; // RTpvoid is a typedef of void* with type descriptor
+    };
+    
+    struct [[rt::auto_descriptor]] Nested {
+        char n1;
+    };
+    
+    struct [[rt::auto_descriptor]] Data : Base {
+        int a;
+        bool b;
+        double c;
+        float d;
+        signed long e;
+        Nested nested;
+    };
+`
+
+capsule Top {
+[[rt::header_preface]]
+`
+    #include <iostream>
+    #include <RTJsonEncoding.h>
+    #include <RTJsonDecoding.h>
+    #include <RTDynamicStringOutBuffer.h>
+    #include "testlib.art.h"
+    #include "json_encode_decode.art.h"
+`    
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            Data data;
+            data.a = 5;
+            data.b = true;
+            data.c = 14141414;
+            data.d = 2.78;
+            data.e = -14;
+
+            data.address = &data;
+
+            data.nested.n1 = 'x';
+
+            // Encoding into fixed-size buffer
+            char buf[1000];
+            RTMemoryOutBuffer buffer( buf, 1000 );
+            RTJsonEncoding coding( &buffer );
+
+/* // For comparison with the ASCII encoding, uncomment this
+            char bufa[1000];
+            RTMemoryOutBuffer buffera( bufa, 1000 );
+            RTAsciiEncoding codinga( &buffera );
+            RTType_Data._encode_func(&RTType_Data, &data, &codinga);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "ASCII encoding: " << bufa << std::endl << std::flush;  
+*/
+            RTType_Data._encode_func(&RTType_Data, &data, &coding);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "JSON encoding: " << buf << std::endl << std::flush;  
+            
+            // Encoding into dynamic string buffer
+            RTDynamicStringOutBuffer buffer2;
+            RTJsonEncoding coding2(&buffer2);
+
+            // With RTJsonEncoding::put() the JSON will be prefixed with the type name within curly brackets.
+            // This is needed if we later want to decode with RTJsonEncoding::get().
+            // To get only the JSON we could call
+            //coding2.put_struct(&data, &RTType_Data);
+
+            coding2.put(&data, &RTType_Data);
+            std::cout << "JSON encoding 2: " << buffer2.getString() << std::endl << std::flush;  
+
+            Data decodedData;
+            RTMemoryInBuffer inBuffer(buffer2.getString(), RTMemoryUtil::strlen(buffer2.getString()));
+            RTJsonDecoding decoding(&inBuffer);
+            //decoding.get_struct(&decodedData, &RTType_Data);
+            void* dd;
+            const RTObject_class* type;
+            decoding.get(& dd, &type);
+            Data* decodedData2 = reinterpret_cast<Data*>(dd);
+            //std::cout << "JSON decoding: Data.a = " << decodedData.a << std::endl << std::flush;  
+            std::cout << "JSON decoding: Data.a = " << reinterpret_cast<Data*>(dd)->a << std::endl << std::flush;  
+
+            ASSERT(decodedData2->a == data.a, "Data.a has wrong value");
+            ASSERT(decodedData2->b == data.b, "Data.b has wrong value");
+            ASSERT(decodedData2->c == data.c, "Data.c has wrong value");
+            ASSERT(decodedData2->d == data.d, "Data.d has wrong value");
+            ASSERT(decodedData2->e == data.e, "Data.e has wrong value");
+
+            ASSERT(decodedData2->nested.n1 == data.nested.n1, "Data.nested.n1 has wrong value");
+
+            // Known current limitation: Decoding pointers won't work correctly (works for Ascii)
+            //std::cout << "Address: " << decodedData2->address << std::endl << std::flush;
+            //ASSERT(decodedData2->address == data.address, "Data.address has wrong value");
+
+            // RTDecoding::get() allocates a new object. Delete it using the type descriptor destroy() function.
+            type->destroy(decodedData2, RTObject_class::DestroyAndDeallocate);
+
+            PASS();          
+        `;
+    };
+};
