@@ -919,6 +919,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#art_0036_unexpectedtriggers" class="md-nav__link">
+    ART_0036_unexpectedTriggers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#art_0037_missingtriggers" class="md-nav__link">
+    ART_0037_missingTriggers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1161,6 +1175,14 @@
           
         
           
+        
+          
+        
+          
+        
+          
+        
+          
             
           
         
@@ -1194,6 +1216,62 @@
     <li class="md-nav__item">
       <a href="../target-rts/threads/" class="md-nav__link">
         Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/changelog/" class="md-nav__link">
+        Change Log
       </a>
     </li>
   
@@ -1768,6 +1846,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#art_0036_unexpectedtriggers" class="md-nav__link">
+    ART_0036_unexpectedTriggers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#art_0037_missingtriggers" class="md-nav__link">
+    ART_0037_missingTriggers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2125,9 +2217,9 @@ capsule Exception { // ART_0001 (&quot;Exception&quot; is a name reserved for us
 <li>Trigger operations of a <a href="../art-lang#class-with-state-machine">class</a>. Note that several trigger operations may have the same name as long as their signatures are unique.</li>
 </ul>
 <p>All elements with clashing names or signatures will be reported as related elements. Use this to find the element(s) that need to be renamed.</p>
-<pre><code class="language-art">protocol DupProto {
-    in inEvent1(); // ART_0002
-    in inEvent1(); // ART_0002
+<pre><code class="language-art">protocol DupProto { // ART_0002 (name clash for inEvent1)
+    in inEvent1(); 
+    in inEvent1(); 
     out inEvent1(); // OK (symmetric event)
 };
 
@@ -2137,6 +2229,34 @@ class DNIS {
     statemachine {
         state State;
         initial -&gt; State;
+    };
+};
+</code></pre>
+<p>Note that inheritance brings inherited elements into a scope and this can cause name clashes too. However, a problem is only reported if at least one of the elements with conflicting names is defined locally.</p>
+<pre><code class="language-art">capsule B0002 {
+    statemachine {
+        state State;
+        initial -&gt; State;
+        junction j1;
+        state Composite {
+            state Nested;
+        };
+    };
+};
+
+capsule D0002 : B0002 {
+    statemachine { // ART_0002 (name clashes with B0002::State and B0002::j1)
+        state State; 
+        choice j1; 
+        state redefine Composite { // ART_0002 (name clash with B0002::Composite::Nested)
+            state Nested;  
+        };
+    };    
+};
+
+capsule C0002 : D0002 {
+
+    statemachine { // OK. Even if this capsule inherits elements with conflicting names from D0002, none of them are defined in this state machine.
     };
 };
 </code></pre>
@@ -3301,6 +3421,133 @@ capsule C34 {
     statemachine {
         state State;
         initial -&gt; State;
+    };
+};
+</code></pre>
+<h3 id="art_0036_unexpectedtriggers">ART_0036_unexpectedTriggers</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Error</td>
+<td align="left">A transition that originates from a pseudo state must not have triggers, but still has at least one.</td>
+<td align="left">Remove Triggers</td>
+</tr>
+</tbody>
+</table>
+<p>A <a href="../art-lang#transition">transition</a> can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a <a href="../art-lang#choice-and-junction">choice or junction</a>) must therefore not have any triggers. </p>
+<p>Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this <a href="../art-lang/entry-and-exit-point-without-incoming-transition">here</a>.</p>
+<p>A Quick Fix is available that will remove the triggers of the transition (hence converting it from a triggered to a non-triggered transition).</p>
+<pre><code class="language-art">capsule C36 {
+    behavior port t : Timing;
+    statemachine { 
+        state State, State1, State2;
+        state Composite {
+            entrypoint ep, ep2;
+            exitpoint ex, ex2;
+            state Nested;
+            ep -&gt; Nested on t.timeout; // OK (transition originates from entry point without incoming transition)
+            ep2 -&gt; Nested on t.timeout; // ART_0036 (transition originates from entry point with an incoming transition)  
+            Nested -&gt; ex on t.timeout;
+        };
+        junction j;
+        choice c;
+        initial -&gt; j;
+        State -&gt; Composite.ep2 on t.timeout;
+        t1 : j -&gt; State on t.timeout; // ART_0036 (transition originates from junction)
+        t2 : State1 -&gt; c on t.timeout;
+        t3: c -&gt; State2 on t.timeout; // ART_0036 (transition originates from choice)
+        t4: Composite.ex -&gt; State2 on t.timeout; // ART_0036 (transition originates from exit point)
+        t5: Composite.ex2 -&gt; State2 on t.timeout; // OK (transition originates from exit point without incoming transition)
+    };
+};
+</code></pre>
+<p>In case the state machine is inherited, and the problem is detected for an inherited transition, then it is reported on the state machine instead. The inherited transition with the unexpected trigger(s) will be reported as a related element. In this case the Quick Fix can not be used for removing the triggers. Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:</p>
+<pre><code class="language-art">capsule B2 {
+    behavior port t : Timing;
+    statemachine {
+        state State;
+        state Composite {
+            entrypoint ep;
+            state Nested;
+            t1 : ep -&gt; Nested on t.timeout; // OK (ep has no incoming transition here)
+        };
+        initial -&gt; State;
+    };
+};
+
+capsule D2 : B2 {    
+    statemachine { // ART_0036 (here ep has an incoming transition which makes the inherited t1 incorrect)
+        tx : State -&gt; Composite.ep on t.timeout;       
+    };
+};
+</code></pre>
+<h3 id="art_0037_missingtriggers">ART_0037_missingTriggers</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Error</td>
+<td align="left">A transition that originates from a state must have at least one trigger, but has none.</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>A <a href="../art-lang#transition">transition</a> that originates from a <a href="../art-lang#state">state</a> is only meaningful if it specifies as least one trigger. Otherwise the transition cannot be triggered and would be useless. As mentioned in <a href="../art-lang#entry-and-exit-point-without-incoming-transition">this chapter</a> an entry or exit point without incoming transition represents the state that owns the entry or exit point. A transition that originates from such an entry or exit point must therefore have a trigger.</p>
+<pre><code class="language-art">capsule C37 {
+    behavior port t : Timing;    
+    statemachine { 
+        state State, State1, State2, State3;
+        state Composite {
+            entrypoint ep, ep2;
+            exitpoint ex, ex2;
+            state Nested; 
+            t8: ep -&gt; Nested; // ART_0037 (transition originates from entry point without incoming transition)
+            ep2 -&gt; Nested; // OK (transition originates from entry point with incoming transition)
+            t6: Nested -&gt; ex2; // ART_0037 (transition originates from state)
+        }; 
+        t7: State -&gt; Composite.ep2; // ART_0037 (transition originates from state)
+        junction j;
+        choice c;
+        initial -&gt; j;
+        t1 : j -&gt; State;
+        t2 : State1 -&gt; c; // ART_0037 (transition originates from state)
+        t3: c -&gt; State2; 
+        t4: Composite.ex -&gt; State2; // ART_0037 (transition originates from exit point without incoming transition)
+        t5: Composite.ex2 -&gt; State3; // OK (transition originates from exit point with incoming transition)
+    };
+};
+</code></pre>
+<p>In case the state machine is inherited, and the problem is detected for an inherited transition, then it is reported on the state machine instead. The inherited transition with the missing trigger will be reported as a related element. Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:</p>
+<pre><code class="language-art">capsule BB2 {
+    behavior port t : Timing;
+    statemachine {
+        state State;
+        state Composite {
+            entrypoint ep;
+            state Nested;
+            t1 : ep -&gt; Nested; // OK (ep has an incoming transition here)
+        };
+        initial -&gt; State;
+        tx : State -&gt; Composite.ep on t.timeout;  
+    };
+};
+
+capsule DD2 : BB2 {    
+    statemachine { // ART_0037 (here ep has no incoming transition which makes the inherited t1 incorrect)
+        exclude tx;
     };
 };
 </code></pre>

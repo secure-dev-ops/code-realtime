@@ -11,20 +11,20 @@
       
       
       
-        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/building/build-variants/">
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/build/">
       
       
-        <link rel="prev" href="../art-compiler/">
+        <link rel="prev" href="../dependency-injection/">
       
       
-        <link rel="next" href="../../releases/">
+        <link rel="next" href="../changelog/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Build Variants - DevOps Code RealTime</title>
+        <title>Building, Debugging and Customizing - DevOps Code RealTime</title>
       
     
     
@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dynamic-transformation-configurations" class="md-skip">
+        <a href="#build" class="md-skip">
           Skip to content
         </a>
       
@@ -140,7 +140,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Build Variants
+              Building, Debugging and Customizing
             
           </span>
         </div>
@@ -614,14 +614,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
       
       
         
@@ -648,7 +650,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../target-rts/">Target RunTime System</a>
+          <a href="../">Target RunTime System</a>
           
             <label for="__nav_2_6">
               <span class="md-nav__icon md-icon"></span>
@@ -656,7 +658,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2_6">
           <span class="md-nav__icon md-icon"></span>
           Target RunTime System
@@ -671,7 +673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../target-rts/threads/" class="md-nav__link">
+      <a href="../threads/" class="md-nav__link">
         Threads
       </a>
     </li>
@@ -685,7 +687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../target-rts/capsule-factory/" class="md-nav__link">
+      <a href="../capsule-factory/" class="md-nav__link">
         Capsule Factory
       </a>
     </li>
@@ -699,7 +701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../target-rts/dependency-injection/" class="md-nav__link">
+      <a href="../dependency-injection/" class="md-nav__link">
         Dependency Injection
       </a>
     </li>
@@ -711,11 +713,220 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../target-rts/build/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Building, Debugging and Customizing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Building, Debugging and Customizing
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    Build
+  </a>
+  
+    <nav class="md-nav" aria-label="Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flat-builds" class="md-nav__link">
+    Flat Builds
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug" class="md-nav__link">
+    Debug
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customize" class="md-nav__link">
+    Customize
+  </a>
+  
+    <nav class="md-nav" aria-label="Customize">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-target-configuration" class="md-nav__link">
+    Creating a New Target Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-or-change-the-targetrts" class="md-nav__link">
+    Configure or Change the TargetRTS
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure or Change the TargetRTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use_threads" class="md-nav__link">
+    USE_THREADS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rts_count" class="md-nav__link">
+    RTS_COUNT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defer_in_actor" class="md-nav__link">
+    DEFER_IN_ACTOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer_postfix" class="md-nav__link">
+    INTEGER_POSTFIX
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log_message" class="md-nav__link">
+    LOG_MESSAGE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object_decode-and-object_encode" class="md-nav__link">
+    OBJECT_DECODE and OBJECT_ENCODE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otrtsdebug" class="md-nav__link">
+    OTRTSDEBUG
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtreal_included" class="md-nav__link">
+    RTREAL_INCLUDED
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#purify" class="md-nav__link">
+    PURIFY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rts_inlines" class="md-nav__link">
+    RTS_INLINES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rts_compatible" class="md-nav__link">
+    RTS_COMPATIBLE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#have_inet" class="md-nav__link">
+    HAVE_INET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inline_methods" class="md-nav__link">
+    INLINE_METHODS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtframe_checking" class="md-nav__link">
+    RTFRAME_CHECKING
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtframe_thread_safe" class="md-nav__link">
+    RTFRAME_THREAD_SAFE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtmessage_payload_size" class="md-nav__link">
+    RTMESSAGE_PAYLOAD_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observable" class="md-nav__link">
+    OBSERVABLE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -727,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../target-rts/changelog/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         Change Log
       </a>
     </li>
@@ -760,16 +971,14 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -790,7 +999,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../">Building</a>
+          <a href="../../building/">Building</a>
           
             <label for="__nav_2_7">
               <span class="md-nav__icon md-icon"></span>
@@ -798,7 +1007,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -813,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transformation-configurations/" class="md-nav__link">
+      <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
       </a>
     </li>
@@ -827,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../launch-configurations/" class="md-nav__link">
+      <a href="../../building/launch-configurations/" class="md-nav__link">
         Launch Configurations
       </a>
     </li>
@@ -841,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../art-compiler/" class="md-nav__link">
+      <a href="../../building/art-compiler/" class="md-nav__link">
         Art Compiler
       </a>
     </li>
@@ -853,239 +1062,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Build Variants
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../building/build-variants/" class="md-nav__link">
         Build Variants
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#dynamic-transformation-configurations" class="md-nav__link">
-    Dynamic Transformation Configurations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-variants-script" class="md-nav__link">
-    Build Variants Script
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-variant-setting-script" class="md-nav__link">
-    Build Variant Setting Script
-  </a>
-  
-    <nav class="md-nav" aria-label="Build Variant Setting Script">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#preprocess-function" class="md-nav__link">
-    preProcess Function
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#postprocess-function" class="md-nav__link">
-    postProcess Function
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-configuration" class="md-nav__link">
-    Build Configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#javascript-api" class="md-nav__link">
-    JavaScript API
-  </a>
-  
-    <nav class="md-nav" aria-label="JavaScript API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bvf-object" class="md-nav__link">
-    BVF Object
-  </a>
-  
-    <nav class="md-nav" aria-label="BVF Object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bvfadd" class="md-nav__link">
-    BVF.add
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bvfaddcommonutils" class="md-nav__link">
-    BVF.addCommonUtils
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bvfformatinfo" class="md-nav__link">
-    BVF.formatInfo
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bvfformatwarning" class="md-nav__link">
-    BVF.formatWarning
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bvfformaterror" class="md-nav__link">
-    BVF.formatError
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#msg-object" class="md-nav__link">
-    MSG Object
-  </a>
-  
-    <nav class="md-nav" aria-label="MSG Object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#msgformatinfo" class="md-nav__link">
-    MSG.formatInfo
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#msgformatwarning" class="md-nav__link">
-    MSG.formatWarning
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#msgformaterror" class="md-nav__link">
-    MSG.formatError
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tcf-object" class="md-nav__link">
-    TCF Object
-  </a>
-  
-    <nav class="md-nav" aria-label="TCF Object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#buildvariantsfolder" class="md-nav__link">
-    buildVariantsFolder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#buildvariantsscript" class="md-nav__link">
-    buildVariantsScript
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#define" class="md-nav__link">
-    define
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gettoptc" class="md-nav__link">
-    getTopTC
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#globals" class="md-nav__link">
-    globals
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#orderedgraph" class="md-nav__link">
-    orderedGraph
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1246,37 +1227,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamic-transformation-configurations" class="md-nav__link">
-    Dynamic Transformation Configurations
+  <a href="#build" class="md-nav__link">
+    Build
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-variants-script" class="md-nav__link">
-    Build Variants Script
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-variant-setting-script" class="md-nav__link">
-    Build Variant Setting Script
-  </a>
-  
-    <nav class="md-nav" aria-label="Build Variant Setting Script">
+    <nav class="md-nav" aria-label="Build">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#preprocess-function" class="md-nav__link">
-    preProcess Function
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#postprocess-function" class="md-nav__link">
-    postProcess Function
+  <a href="#flat-builds" class="md-nav__link">
+    Flat Builds
   </a>
   
 </li>
@@ -1287,148 +1247,150 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-configuration" class="md-nav__link">
-    Build Configuration
+  <a href="#debug" class="md-nav__link">
+    Debug
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#javascript-api" class="md-nav__link">
-    JavaScript API
+  <a href="#customize" class="md-nav__link">
+    Customize
   </a>
   
-    <nav class="md-nav" aria-label="JavaScript API">
+    <nav class="md-nav" aria-label="Customize">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bvf-object" class="md-nav__link">
-    BVF Object
+  <a href="#creating-a-new-target-configuration" class="md-nav__link">
+    Creating a New Target Configuration
   </a>
   
-    <nav class="md-nav" aria-label="BVF Object">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-or-change-the-targetrts" class="md-nav__link">
+    Configure or Change the TargetRTS
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure or Change the TargetRTS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bvfadd" class="md-nav__link">
-    BVF.add
+  <a href="#use_threads" class="md-nav__link">
+    USE_THREADS
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bvfaddcommonutils" class="md-nav__link">
-    BVF.addCommonUtils
+  <a href="#rts_count" class="md-nav__link">
+    RTS_COUNT
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bvfformatinfo" class="md-nav__link">
-    BVF.formatInfo
+  <a href="#defer_in_actor" class="md-nav__link">
+    DEFER_IN_ACTOR
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bvfformatwarning" class="md-nav__link">
-    BVF.formatWarning
+  <a href="#integer_postfix" class="md-nav__link">
+    INTEGER_POSTFIX
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bvfformaterror" class="md-nav__link">
-    BVF.formatError
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#msg-object" class="md-nav__link">
-    MSG Object
-  </a>
-  
-    <nav class="md-nav" aria-label="MSG Object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#msgformatinfo" class="md-nav__link">
-    MSG.formatInfo
+  <a href="#log_message" class="md-nav__link">
+    LOG_MESSAGE
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#msgformatwarning" class="md-nav__link">
-    MSG.formatWarning
+  <a href="#object_decode-and-object_encode" class="md-nav__link">
+    OBJECT_DECODE and OBJECT_ENCODE
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#msgformaterror" class="md-nav__link">
-    MSG.formatError
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tcf-object" class="md-nav__link">
-    TCF Object
-  </a>
-  
-    <nav class="md-nav" aria-label="TCF Object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#buildvariantsfolder" class="md-nav__link">
-    buildVariantsFolder
+  <a href="#otrtsdebug" class="md-nav__link">
+    OTRTSDEBUG
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#buildvariantsscript" class="md-nav__link">
-    buildVariantsScript
+  <a href="#rtreal_included" class="md-nav__link">
+    RTREAL_INCLUDED
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#define" class="md-nav__link">
-    define
+  <a href="#purify" class="md-nav__link">
+    PURIFY
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gettoptc" class="md-nav__link">
-    getTopTC
+  <a href="#rts_inlines" class="md-nav__link">
+    RTS_INLINES
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#globals" class="md-nav__link">
-    globals
+  <a href="#rts_compatible" class="md-nav__link">
+    RTS_COMPATIBLE
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#orderedgraph" class="md-nav__link">
-    orderedGraph
+  <a href="#have_inet" class="md-nav__link">
+    HAVE_INET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inline_methods" class="md-nav__link">
+    INLINE_METHODS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtframe_checking" class="md-nav__link">
+    RTFRAME_CHECKING
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtframe_thread_safe" class="md-nav__link">
+    RTFRAME_THREAD_SAFE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtmessage_payload_size" class="md-nav__link">
+    RTMESSAGE_PAYLOAD_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observable" class="md-nav__link">
+    OBSERVABLE
   </a>
   
 </li>
@@ -1461,209 +1423,140 @@
   
 
 
-  <h1>Build Variants</h1>
+  <h1>Building, Debugging and Customizing</h1>
 
-<p>There is often a need to build several variants of the same application. For example:</p>
-<ul>
-<li>Create a debug versus release build</li>
-<li>Add special instrumentation in order to detect run-time errors such as memory leaks</li>
-<li>Build for multiple target platforms</li>
-<li>Build a test executable for performing unit testing of a capsule.</li>
-</ul>
-<p>A variant of an application may often only use slightly different build settings (for example, setting a compiler flag to include debug symbols), but in some cases the application logic may also be somewhat different (for example, use of some code that is specific to a certain target platform). Code RealTime provides a powerful mechanism, based on scripting, that allows you to build several variants of an application with minimal effort.</p>
-<h2 id="dynamic-transformation-configurations">Dynamic Transformation Configurations</h2>
-<p>A TC is defined using JavaScript which is interpreted when it is built. This opens up for dynamic TC properties where the value of a property is computed at build-time. For simple cases it may be enough to replace static values for TC properties with JavaScript expressions to be able to build several variants of an application. As an example, assume that you want to either build a release or a debug version of an application. The debug version is obtained by compiling the code with the <code>$(DEBUG_TAG)</code> flag. The TC can then for example look like this:</p>
-<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
-tc.topCapsule = 'Top';
-let system = Java.type('java.lang.System');
-let isDebug = system.getenv('DEBUG_BUILD');
-tc.compileArguments = isDebug ? '$(DEBUG_TAG)' : '';
-</code></pre>
-<p>TCs are evaluated using Nashorn which is a JavaScript engine running on the Java Virtual Machine. This is why we can access a Java class such as <code>java.lang.System</code> to read the value of an environment variable. With this TC, and the use of an environment variable <code>DEBUG_BUILD</code>, we can now build either a release or a debug version of our application depending on if the environment variable is set or not.</p>
-<p>However, defining variants of an application like this can become messy for more complex examples. Setting up several environment variables in a consistent fashion will require effort for everyone that needs to build the application, and perhaps you even need to write a script to manage it. But the biggest problem is that the JavaScript that defines the build variants is embedded into the TC file itself. This makes it impossible to reuse a build variant implementation for multiple TCs. </p>
-<h2 id="build-variants-script">Build Variants Script</h2>
-<p>A Build Variants script allows to define build variants outside the TC itself. It defines a number of high-level settings, we call them <strong>build variant settings</strong>, each of which is implemented by a separate JavaScript file. There are two kinds of build variant settings that can be defined:</p>
-<ol>
-<li><strong>Boolean settings</strong>
-These are settings that can either be turned on or off. The "debug" flag we implemented in the example above is an example of a boolean setting.</li>
-<li><strong>Enumerated settings</strong>
-These are settings that can have a fixed set of values. A list of supported target platforms could be an example of an enumerated setting.</li>
-</ol>
-<p>A Build Variants script must have a global function called <code>initBuildVariants</code> which defines the build variant settings. Here is an example where one boolean and one enumerated build variant setting are defined:</p>
-<pre><code class="language-js">// Boolean setting
-let isDebug = {
-    name: 'Debug',
-    script: 'debug.js',
-    defaultValue: false,
-    description: 'If set, a debug version of the application will be built'
-};
-
-// Enumerated setting
-let optimization = {
-    name: 'Optimization',
-    alternatives: [
-      { name: 'HIGH',  script: 'opt.js', args: ['HIGH'],  description: 'Apply all optimizations', defaultValue: true },
-      { name: 'MEDIUM',  script: 'opt.js', args: ['MEDIUM'],  description: 'Apply some optimizations'},
-      { name: 'OFF', script: 'opt.js', args: ['OFF'], description: 'Turn off all optimizations' }
-    ]
-};
-
-// This function defines which build variant settings that are applicable for a certain TC
-function initBuildVariants(tc) {
-    BVF.add(isDebug);
-    BVF.add(optimization);
-}
-</code></pre>
-<p>Note the following:</p>
-<ul>
-<li>The <code>name</code> property specifies a user-friendly name of the build variant setting.</li>
-<li>Use the <code>description</code> property to document what the build variant setting means and how it works.</li>
-<li>In case of an enumerated setting, exactly one of the alternatives should have the <code>defaultValue</code> property set. This alternative will be used in case no value is provided for that build variant setting at build-time. For a boolean setting, <code>defaultValue</code> should be set to either <code>true</code> or <code>false</code> depending on if you want the build setting to be turned on or off by default.</li>
-<li>The <code>script</code> property specifies the JavaScript file that implements the build variant setting. The path is relative to the location of the Build Variants script (usually they are all placed in the same folder). For a boolean setting the script is only invoked if the setting is set to <code>true</code>. For an enumerated setting the script is always invoked, and the value of the enumerated setting is passed as an argument to the script using the <code>args</code> property. It's therefore possible (and common) to implement all alternatives of an enumerated setting with the same script.</li>
-</ul>
-<p>The <code>initBuildVariants</code> function gets the built TC as an argument. You can use it for defining different build variant settings for different kinds of TCs. Here is an example where a build variant setting only is defined for an executable TC:</p>
-<pre><code class="language-js">function initBuildVariants(tc) {
-    if (tc.topCapsule) {
-        // Executable TC
-        BVF.add(linkOptimization);
-    }
-    else {
-        // Library TC
-    }
-}
-</code></pre>
-<h2 id="build-variant-setting-script">Build Variant Setting Script</h2>
-<p>A script that implements a build variant setting is invoked twice when a TC is built. The first time a function <code>preProcess</code> gets called, and the second time a function <code>postProcess</code> gets called. You can define either one or both of these functions depending on your needs.</p>
-<h3 id="preprocess-function">preProcess Function</h3>
-<p>If a <code>preProcess</code> function exists it will be called before the built TC is evaluated. Therefore you cannot access the TC in this function. The only input to the function is the script arguments, as defined by the <code>args</code> property for an enumerated setting. The main reason for implementing a <code>preProcess</code> function is to compute some data based on a build variant setting. Such data can be stored globally and later be accessed when <code>postProcess</code> gets called or in a TC file when setting the value of a TC property. Here is an example:</p>
-<pre><code class="language-js">function preProcess( targetPlatform ) {
-    MSG.formatInfo(&quot;Building for target platform %s&quot;, targetPlatform);
-    TCF.globals().targetPlatform = targetPlatform;
-    if (targetPlatform == 'Win64_MSVS') {
-        TCF.globals().targetCompiler = 'MSVS';
-        MSG.formatInfo(&quot;Building with Microsoft Visual Studio Compiler&quot;);       
-    } else {
-        TCF.globals().targetCompiler = 'GCC';       
-        MSG.formatInfo(&quot;Building with GNU Compiler&quot;);
-    }
-}
-</code></pre>
-<p>Here we use the <a href="#msg-object"><code>MSG</code> object</a> for printing messages to the build log and we use the <a href="#tcf-object"><code>TCF</code> object</a> for storing globally some data that we have computed based on the build variant setting. Remember that the <a href="#tcf-object"><code>TCF</code> object</a> also is available in a TC file, which means that TC properties may access the stored global data.</p>
-<h3 id="postprocess-function">postProcess Function</h3>
-<p>If a <code>postProcess</code> function exists it will be called after the built TC has been evaluated. The function gets the built TC as an argument, as well as all its prerequisite TCs. For an enumerated setting it also gets the script arguments as defined by the <code>args</code> property. The function can directly modify properties of both the built TC and all its prerequisites. The property values that the TCs have when the function returns are the ones that will be used in the build. Hence this function gives you full freedom to customize all TC properties so that they have values suitable for the build variant setting. Here is an example that uses the global data computed in the <code>preProcess</code> function above:</p>
-<pre><code class="language-js">function postProcess(topTC, allTCs, targetPlatform) {   
-    for (i = 0; i &lt; allTCs.length; ++i) {
-      if (TCF.globals().targetCompiler == 'MSVS') {
-        allTCs[i].compileCommand = 'cl';
-      }
-      else if (TCF.globals().targetCompiler == 'GCC') {
-        allTCs[i].compileCommand = 'gcc';
-      }       
-    }
-    if (targetPlatform == 'MacOS') {
-        MSG.formatWarning(&quot;MacOS builds are not fully supported yet&quot;);    
-    }
-}
-</code></pre>
-<p>Also in this function we can use the <a href="#tcf-object"><code>TCF</code></a> and <a href="#msg-object"><code>MSG</code></a> objects to access global data and to print messages to the build log. But most importantly, we can directly write the properties of the <code>topTC</code> (the TC that is built) and/or <code>allTCs</code> (the TC that is built followed by all its prerequisite TCs). </p>
-<p>By modifying the <a href="../transformation-configurations/#compilearguments">compileArguments</a> TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize <em>how</em> the application is built, and also <em>what</em> it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.</p>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<p>You can find a sample application that uses build variants <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/build_variants">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The information in this chapter is only applicable for the Commercial Edition of Code RealTime since it includes the source code for the TargetRTS. With the Community Edition comes only precompiled versions of the TargetRTS for a limited number of commonly used target configurations.</p>
 </div>
-<h2 id="build-configuration">Build Configuration</h2>
-<p>When building a TC that uses build variants you need to provide values for all build variant settings, except those for which you want to use their default values. These values are referred to as a <strong>build configuration</strong>. You can only specify a build configuration when building with the <a href="../art-compiler/">Art Compiler</a>. When building from within the IDE, all build variant settings will get their default values.</p>
-<p>Specify the build configuration by means of the <a href="../art-compiler/#buildconfig">--buildConfig</a> option for the Art Compiler. A boolean build variant setting is set by simply mentioning the name of the setting in the build configuration. To set an enumerated build variant setting use the syntax <code>setting=value</code>. Separate different build variant settings by semicolons. For the sample build variants script above, with one boolean and one enumerated build variant setting, a build configuration can look like this:</p>
-<p><code>--buildConfig="Debug;Optimization=MEDIUM"</code></p>
-<h2 id="javascript-api">JavaScript API</h2>
-<p>Build variant scripts are implemented with JavaScript and run on a Java Virtual Machine (JVM) by means of an engine called <a href="https://github.com/openjdk/nashorn">Nashorn</a>. It supports all of ECMAScript 5.1 and many things from ECMAScript 6. Since it runs on the JVM you can access Java classes and methods. See the Nashorn documentation to learn about these possibilities.</p>
-<p>In addition to standard JavaScript and Java functionality, a build variant script can also use an API provided by Code RealTime. This API consists of a few JavaScript objects and functions. Note that there are three different contexts in which JavaScript executes in Code RealTime and not all parts of the API are available or meaningful in all contexts.</p>
+<h2 id="build">Build</h2>
+<p>To build the TargetRTS you need to have Perl installed. On Linux and macOS Perl is usually already available, while on Windows you have to download and install it yourself. One way to get Perl on Windows is to use <a href="https://gitforwindows.org">GitBash</a>. See the <a href="https://www.perl.org/get.html">Perl web page</a> for other options. </p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>As a user of Code RealTime Commercial Edition you also have access to Model RealTime which includes a version of Perl, called <code>rtperl</code>. It can be found inside the plugin <code>com.ibm.xtools.umldt.rt.core.tools</code> in the Model RealTime installation. If you want to use this version of Perl, locate the version under <code>tools</code> that matches your operating system and add its folder to your PATH variable.</p>
+</div>
+<p>Follow these steps to build the TargetRTS from its sources:</p>
 <ol>
-<li>
-<p><strong>Evaluation of a TC</strong>:
-TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the <a href="#tcf-object">TCF object</a>. Typically on the first line in a TC it's used like this: <code>let tc = TCF.define(TCF.CPP_TRANSFORM);</code>.
-Since TCs are evaluated frequently all JavaScript it contains should only compute what it necessary for setting the values of TC properties. It should not have any side-effects, and should not print any messages.</p>
-</li>
-<li>
-<p><strong>Build Variants script</strong>:
-A build variants script is evaluated when building a TC with the <a href="../art-compiler/">Art Compiler</a>. This evaluation happens early with the purpose of deciding which build variant settings that are applicable for the build. You can use the <a href="#bvf-object">BVF object</a> in a build variants script.</p>
-</li>
-<li>
-<p><strong>Build Variant Setting script</strong>:
-A build variant setting script is evaluated when building a TC with the <a href="../art-compiler/">Art Compiler</a>. It's evaluated twice as explained <a href="#build-variant-setting-script">above</a>. You can use the <a href="#msg-object">MSG</a> and <a href="#tcf-object">TCF</a> objects in a build variant setting script.</p>
-</li>
+<li>Open the Code RealTime .vsix file as an archive with a ZIP tool, and unzip the folder <code>extension/TargetRTS</code> into a folder. </li>
+<li>Make sure the unzipped folder, and everything it contains, is writable.</li>
+<li>From a command-line prompt with Perl in the PATH go into the <code>src</code> subfolder of the unzipped folder and invoke a command similar to the below:</li>
 </ol>
-<h3 id="bvf-object">BVF Object</h3>
-<p>This object provides a "Build Variant Framework" with functions that are useful when implementing a Build Variants script. The object is only available in that kind of script.</p>
-<h4 id="bvfadd">BVF.add</h4>
-<p><code>add(...buildVariantSettings)</code></p>
-<p>Adds one or several build variant settings to be available for the current build. Each build variant setting is represented by a JavaScript object that either describes a boolean or enumerated setting as explained <a href="#build-variants-script">above</a>.</p>
-<h4 id="bvfaddcommonutils">BVF.addCommonUtils</h4>
-<p><code>addCommonUtils(...commonUtils)</code></p>
-<p>If you implement utility functions that you want to use from several scripts you can make them globally available by means of this function. For example:</p>
-<pre><code class="language-js">let myUtils = {
-  name: 'My utils', // Any name
-  script: 'myUtils.js' // Script that contains global utility functions
-}
-function initBuildVariants(tc) {
-  BVF.addCommonUtils(myUtils);
-  // ...
-}
+<pre><code class="language-shell">perl Build.pl WinT.x64-MinGw-12.2.0 make all
 </code></pre>
-<p>All functions defined in "myUtils.js" will now be available to be used by build variant setting scripts.</p>
-<h4 id="bvfformatinfo">BVF.formatInfo</h4>
-<p><code>formatInfo(msg,...args)</code></p>
-<p>Prints an information message to the build log. This function works the same as <a href="#msgformatinfo">MSG.formatInfo</a>.</p>
-<h4 id="bvfformatwarning">BVF.formatWarning</h4>
-<p><code>formatWarning(msg,...args)</code></p>
-<p>Prints a warning message to the build log. This function works the same as <a href="#msgformatwarning">MSG.formatWarning</a>.</p>
-<h4 id="bvfformaterror">BVF.formatError</h4>
-<p><code>formatError(msg,...args)</code></p>
-<p>Prints an error message to the build log. This function works the same as <a href="#msgformaterror">MSG.formatError</a>. Note that the Art Compiler will stop the build if an error is reported.</p>
-<h3 id="msg-object">MSG Object</h3>
-<p>This object provides functions for writing messages to the build log. Each function takes a message and optionally also additional arguments. The message may contain placeholders, such as %s, that will be replaced with the arguments. You must make sure the number of arguments provided match the number of placeholders in the message, and that the type of each argument matches the type of placeholder (e.g. %s for string).</p>
-<p>The MSG object is only available in a build variant setting script.</p>
-<h4 id="msgformatinfo">MSG.formatInfo</h4>
-<p><code>formatInfo(msg,...args)</code></p>
-<p>Prints an information message to the build log. Example:</p>
-<pre><code class="language-js">MSG.formatInfo(&quot;Building for target platform %s&quot;, targetPlatform);
-</code></pre>
-<h4 id="msgformatwarning">MSG.formatWarning</h4>
-<p><code>formatWarning(msg,...args)</code></p>
-<p>Prints a warning message to the build log. </p>
-<h4 id="msgformaterror">MSG.formatError</h4>
-<p><code>formatError(msg,...args)</code></p>
-<p>Prints an error message to the build log. Note that the Art Compiler will stop the build if an error is reported.</p>
-<h3 id="tcf-object">TCF Object</h3>
-<p>This object provides a "Transformation Configuration Framework". It is available in a build variant setting script and also in a TC file.</p>
-<h4 id="buildvariantsfolder">buildVariantsFolder</h4>
-<p><code>buildVariantsFolder() -&gt; String</code></p>
-<p>Returns the full path to the folder where the build variants script is located.</p>
-<h4 id="buildvariantsscript">buildVariantsScript</h4>
-<p><code>buildVariantsScript() -&gt; String</code></p>
-<p>Returns the full path to the build variants script.</p>
-<h4 id="define">define</h4>
-<p><code>define(descriptorId) -&gt; {TCObject}</code></p>
-<p>Creates a new TC object. This function is typically called in the beginning of a TC file to get the TC object whose properties are then set. </p>
-<h4 id="gettoptc">getTopTC</h4>
-<p><code>getTopTC() -&gt; {TCObject}</code></p>
-<p>Returns the top TC, i.e. the TC that is built. You can use this from a prerequisite TC to access properties set on the top TC. For example, it allows a library TC to set some of its properties to have the same values as are used for the executable TC. This can ensure that a library is built with the same settings that are used for the executable that links with the library. Here is an example of how a library TC can be defined to ensure that it will use the same target configuration as the executable that links with it:</p>
-<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
-let topTC = TCF.getTopTC().eval; // eval returns an evaluated TC object, where all properties have ready-to-read values (even for properties with default values)
-tc.targetConfiguration = topTC.targetConfiguration;
-</code></pre>
-<h4 id="globals">globals</h4>
-<p><code>globals() -&gt; {object}</code></p>
-<p>Returns an object that can store global data needed across evaluations of different JavaScript files. For an example, see <a href="#build-variant-setting-script">above</a>.</p>
-<h4 id="orderedgraph">orderedGraph</h4>
-<p><code>orderedGraph(topTC) -&gt; [{TCObject}]</code></p>
-<p>Traverses all prerequisites of a TC (<code>topTC</code>) and returns an array that contains them in a depth-first order. The last element of the array is the top TC itself. The function also ensures that all prerequisite TCs are loaded.</p>
-<pre><code class="language-js">var prereqs = TCF.orderedGraph(tc);
-for (i = 0; i &lt; prereqs.length; ++i) {
-   var arguments = prereqs[i].compileArguments;
-   // ...
-}
-</code></pre>
+<p>The Perl script <code>Build.pl</code> drives the build process of the TargetRTS, but uses a make tool for the bulk of the work. The first argument to the script is the name of the <a href="../#target-configurations">target configuration</a> to use. This is the same name as is specified with the TC property <a href="../../building/transformation-configurations/#targetconfiguration"><code>targetConfiguration</code></a>. The second argument to the script is the make tool to use. It corresponds to the TC property <a href="../../building/transformation-configurations/#makecommand"><code>makeCommand</code></a>. The final argument is a make target defined in the file <code>main.mk</code>. To build everything use the target <code>all</code>.</p>
+<p>The object files produced during the build will be placed in an output folder inside the <code>TargetRTS</code> folder. The name of this folder is <code>build-&lt;target_configuration&gt;</code> where <code>&lt;target_configuration&gt;</code> is the name of the target configuration used. When all object files have been built, library files will be created from them and placed in a <code>lib/&lt;target_configuration&gt;</code> sub folder. Any existing libraries in that folder, such as the precompiled versions of the TargetRTS, will be overwritten.</p>
+<h3 id="flat-builds">Flat Builds</h3>
+<p>The <code>Build.pl</code> script accepts an optional flag <code>-flat</code> which, if used, should be the first argument. This flag causes the script to concatenate all source files that belong to the same class into a single file (placed in the output folder), and then build those concatenated file. This significantly reduces the number of source files to compile and therefore often speeds up the build. But beware that when <a href="#debug">debugging the TargetRTS</a>, you will debug these concatenated files, rather than the original source code. Do not change the concatenated files as those changes will be lost the next time you build the TargetRTS with the <code>-flat</code> flag.</p>
+<h2 id="debug">Debug</h2>
+<p>To be able to debug the TargetRTS, you need to build it with debug symbols included. Follow these steps (either in an existing target configuration, or in a new one you have created):</p>
+<ol>
+<li>Open <code>libset.mk</code> in a text editor. This file is located in a subfolder under the <a href="../#libset"><code>libset</code></a> folder depending on what target configuration you are using. For example <code>TargetRTS/libset/x64-MinGw-12.2.0/libset.mk</code>.</li>
+<li>Modify the variable <code>LIBSETCCEXTRA</code> to include the flag <code>$(DEBUG_TAG)</code>. This variable expands to the debug compilation flag of the compiler. You might also want to remove any specified optimization flags since they can make debugging harder.</li>
+<li>Now build the TargetRTS by means of the <code>Build.pl</code> Perl script as <a href="#build">mentioned above</a>.</li>
+</ol>
+<p>You also need to build the generated code with debug symbols included. To do this set the <a href="../../building/transformation-configurations/#compilearguments"><code>compileArguments</code></a> property in the TC to include the <code>$(DEBUG_TAG)</code> tag (and remove any optimization flags, if present).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Visual Studio compiler also requires a link argument <code>/DEBUG</code> to be set to include debug symbols in an executable. Use the <a href="../../building/transformation-configurations/#linkarguments"><code>linkArguments</code></a> TC property to set it.</p>
+</div>
+<p>If you updated an existing target configuration and TC that were already built without debug symbols previously, make sure to do a clean build. The easiest way to do a clean build of the TargetRTS is to simply remove the entire output folder where the object files are placed (the output folder is named <code>build-&lt;target_configuration&gt;</code>). To do a clean build of your application, perform the <strong>Clean</strong> command in the TC context menu, followed by <strong>Build</strong>.</p>
+<h2 id="customize">Customize</h2>
+<p>There are many opportunities to customize the TargetRTS, and several good reasons to do so. Two common reasons are:</p>
+<ol>
+<li>You want to build your application for a target environment (OS, compiler etc) for which there is no existing target configuration. See <a href="#creating-a-new-target-configuration">Creating a New Target Configuration</a>.</li>
+<li>You want to change the behavior of the TargetRTS, for example to configure one or many of its features, remove features you don't need, or extend it with some own-developed features. See <a href="#configure-or-change-the-targetrts">Configure or Change the TargetRTS</a>.</li>
+</ol>
+<h3 id="creating-a-new-target-configuration">Creating a New Target Configuration</h3>
+<p>Examples when you need to create a new target configuration include:</p>
+<ul>
+<li>You need to use a different C++ compiler.</li>
+<li>You need to build for a different operating system (or no operating system at all).</li>
+<li>You want to modify some settings in an existing target configuration, but like to keep that original target configuration unchanged.</li>
+</ul>
+<p>Rather than creating a new target configuration from scratch, it's easier to start by copying an existing one. Pick a target configuration that resembles the one you like to create, and copy its subfolder under <a href="../#config"><code>config</code></a>. </p>
+<p>For example, if you want to create a new target configuration for using the latest version of the MinGw compiler on Windows, a good starting point is to copy <code>config/WinT.x64-MinGw-12.2.0</code> since most things will be the same as in that target configuration. Also copy the libset folder <code>libset/x64-MinGw-12.2.0</code>. Rename the copied folders for the new MinGw version and update any settings as required. For this scenario you don't need to create a new target since the existing <code>target/WinT</code> can be used also for this new target configuration.</p>
+<p>If your new target configuration is for a different operating system you also need to create a target for it. Create a subfolder under <code>target</code> according to the naming conventions (see <a href="../#target-configurations">target configurations</a>). The name of this subfolder must be used as the first part of your target configuration name (the text before the dot). Also create a new subfolder under <code>src/target</code> where you can place source code that is target specific. The files in <code>src/target/sample</code> can be used as a template for what code you need to write to integrate with the new operating system. Finally set the variable <code>$target_base</code> in the file <code>setup.pl</code> in your copied target configuration subfolder to the name of your new subfolder under <code>src/target</code>. After this you can build your new target configuration.</p>
+<h3 id="configure-or-change-the-targetrts">Configure or Change the TargetRTS</h3>
+<p>Most configuration of the TargetRTS is done at the source code level using preprocessor macros. Each macro implements a specific configuration setting and can get its value from two files:</p>
+<ul>
+<li><code>target/&lt;target&gt;/RTTarget.h</code> Settings specific for the target (e.g. operating system specific settings).</li>
+<li><code>libset/&lt;libset&gt;/RTLibSet.h</code> Settings specific for the libset (e.g. compiler specific settings).</li>
+</ul>
+<p>A setting can have a default value in <code>include/RTConfig.h</code> which a setting in the above files can override. If needed, you can add your own macros for new configuration settings you need, but in most cases it's enough to change the value of existing settings. Below is a list of the most commonly used configuration settings. Those settings that control if a certain feature should be included in the TargetRTS have the value 1 when the feature is included, and 0 when it's not included.</p>
+<h4 id="use_threads">USE_THREADS</h4>
+<p>Controls if the TargetRTS should use threads. Set to <strong>0</strong> for building a single-threaded version of the TargetRTS or <strong>1</strong> for building a multi-threaded version of it.</p>
+<p>Default value: <strong>none</strong> (must be set for a target configuration, usually in <code>target/&lt;target&gt;/RTTarget.h</code>)</p>
+<h4 id="rts_count">RTS_COUNT</h4>
+<p>Controls if the TargetRTS should keep track of statistics, such as the number of messages sent, the number of created capsules instances, etc. Collected statistics is saved per thread in the <a href="targetrts-api/class_r_t_controller.html">controller</a> object. See <a href="targetrts-api/class_r_t_counts.html">RTCounts</a> for what data that gets collected when this feature is enabled.</p>
+<p>Default value: <strong>0</strong> (do not collect statistics)</p>
+<h4 id="defer_in_actor">DEFER_IN_ACTOR</h4>
+<p>When a message is deferred it gets stored in a queue from where it later can be recalled. There can either be one such defer queue per capsule instance or only one defer queue per thread (i.e. stored in the <a href="targetrts-api/class_r_t_controller.html">controller</a> object). Separate queues for each capsule instance will use more memory but can on the other hand result in better performance.</p>
+<p>Default value: <strong>0</strong> (use one defer queue per thread). If your application doesn't use message deferral you should keep this default value.</p>
+<h4 id="integer_postfix">INTEGER_POSTFIX</h4>
+<p>This is a deprecated setting that controls if the <a href="targetrts-api/class_r_t_integer.html">RTInteger</a> class should support the increment (++) and decrement (--) operators. The setting is deprecated since use of <a href="targetrts-api/class_r_t_data_object.html">RTDataObject</a> subclasses for representing primitive types is deprecated. Use a primitive C++ type instead, such as <code>int</code>.</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> only if you use <a href="targetrts-api/class_r_t_integer.html">RTInteger</a> and a very old C++ compiler)</p>
+<h4 id="log_message">LOG_MESSAGE</h4>
+<p>By default a capsule has a function <code>logMsg()</code> which gets called when a received message gets dispatched to a capsule instance, just before the message is handled by the capsule's state machine. This is a virtual function that you can override in your capsule to perform any general action needed when a message is dispatched (logging is a common, but not the only example). The default implementation is used by the debugger to log the dispatched message.</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> if you don't need this feature and want to slightly improve the performance)</p>
+<h4 id="object_decode-and-object_encode">OBJECT_DECODE and OBJECT_ENCODE</h4>
+<p>The TargetRTS contains features that can convert an object to a string representation (encoding) and create an object from a string representation (decoding). It can for example be used when persisting objects from memory to a file or database, when building distributed applications where data needs to be sent between processes or machines, or when using APIs of web services (often JSON).</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> if you don't need this feature)</p>
+<p>Note that encoding/decoding is controlled by two separate settings since it's possible that you need one but not the other.</p>
+<h4 id="otrtsdebug">OTRTSDEBUG</h4>
+<p>This setting controls the level of debugging support that the TargetRTS will provide. There are 3 possible values:</p>
+<ul>
+<li><strong>DEBUG_VERBOSE</strong>
+Enable all debugger features. For example, it will make it possible to log all delivery of messages, the creation and destruction of capsule instances, etc. But the executable size will be bigger, and there is an impact on performance.</li>
+<li><strong>DEBUG_TERSE</strong>
+Most debugger features are disabled, but some tracing in case of errors is still supported. The size of the executable will be reduced.</li>
+<li><strong>DEBUG_NONE</strong>
+All debugger features are disabled. The size of the executable will be reduced, and performance will be better.</li>
+</ul>
+<p>Default value: <strong>DEBUG_VERBOSE</strong></p>
+<p>Note that regardless how you set this setting you can of course always <a href="#debug">build the TargetRTS with debug symbols</a> to debug it with a C++ debugger.</p>
+<h4 id="rtreal_included">RTREAL_INCLUDED</h4>
+<p>Controls if the <a href="targetrts-api/class_r_t_real.html">RTReal</a> class should be included or not. If your target environment doesn't support floating point data types, or your application doesn't use them, you can disable this feature.</p>
+<p>Default value: <strong>1</strong></p>
+<h4 id="purify">PURIFY</h4>
+<p>If you use tools for tracking run-time problems such as memory leaks or access violations, for example Purify, you can enable this feature. It will remove some optimizations in the TargetRTS which otherwise can hide some memory allocation and deallocation events from such tools.</p>
+<p>Default value: <strong>0</strong></p>
+<h4 id="rts_inlines">RTS_INLINES</h4>
+<p>Controls if the TargetRTS uses any inline functions. If enabled, inline functions of classes will be compiled with the class header file. If disabled, they will instead be compiled from a special file <code>inline.cc</code> which most classes have.</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> if you use an old compiler without proper support for inline functions)</p>
+<h4 id="rts_compatible">RTS_COMPATIBLE</h4>
+<p>This setting is used for controlling backwards compatibility in the TargetRTS. It corresponds to the version number <code>RT_VERSION_NUMBER</code> which is defined in the file <a href="targetrts-api/_r_t_version_8h_source.html"><code>RTVersion.h</code></a>.</p>
+<p>Default value: <strong>520</strong>. This is a very old version of the TargetRTS, but it means that by default certain deprecated code gets included to make the TargetRTS compatible for old applications that use it. If you set it to <code>RT_VERSION_NUMBER</code>, then such deprecated code will not be included which will slightly reduce the size of the executable.</p>
+<h4 id="have_inet">HAVE_INET</h4>
+<p>Controls if the TargetRTS can use TCP/IP. This is required for certain features such as debugging.</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> if your target environment doesn't provide TCP/IP support)</p>
+<h4 id="inline_methods">INLINE_METHODS</h4>
+<p>The member functions in a generated capsule class that contain user-defined code, such as transition or guard code, will be declared with this macro. You can set it to <code>inline</code> if you want those function to be declared as inline functions. This may (or may not, depending on compiler) improve the performance, but may also lead to a larger executable.</p>
+<p>Default value: <strong>none</strong></p>
+<h4 id="rtframe_checking">RTFRAME_CHECKING</h4>
+<p>This setting is used when you call functions on a <a href="../../targetrts-api/struct_frame.html">Frame</a> port, for example to destroy a capsule instance in a part. The recommendation is to declare <a href="../../targetrts-api/struct_frame.html">Frame</a> ports as non-service ports, so they only can be used internally by the owning capsule itself. However, if you somehow make a <a href="../../targetrts-api/struct_frame.html">Frame</a> port accessible for other capsules, they must at least be run by the same thread as the capsule that owns the <a href="../../targetrts-api/struct_frame.html">Frame</a> port.</p>
+<p>The following values are possible for this setting:</p>
+<ul>
+<li><strong>RTFRAME_CHECK_STRICT</strong> (this is the default value)</li>
+</ul>
+<p>Perform a run-time check that a <a href="../../targetrts-api/struct_frame.html">Frame</a> port is only used by the capsule that owns it.</p>
+<ul>
+<li><strong>RTFRAME_CHECK_LOOSE</strong></li>
+</ul>
+<p>Perform a run-time check that a <a href="../../targetrts-api/struct_frame.html">Frame</a> port is only used by code that runs in the same thread as the capsule that owns it.</p>
+<ul>
+<li><strong>RTFRAME_CHECK_NONE</strong></li>
+</ul>
+<p>Do not perform a run-time check. It improves the application performance slightly, and can be safely set if all <a href="../../targetrts-api/struct_frame.html">Frame</a> ports are only used by the capsule that owns them.</p>
+<h4 id="rtframe_thread_safe">RTFRAME_THREAD_SAFE</h4>
+<p>This setting is used when you call functions on a <a href="../../targetrts-api/struct_frame.html">Frame</a> port, for example to create or destroy a capsule instance in a part. By default these functions are thread-safe, which is required when a created or destroyed capsule instance runs in a different thread than the code that calls the functions. However, in certain cases it's possible to optimize the performance by instead using function implementations that are not thread-safe. For example, if you know that you only use <a href="../../targetrts-api/struct_frame.html">Frame</a> ports to operate on capsule instances that run in the same thread as the capsules that owns the ports, then you can disable this setting to improve the application performance.</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> if you know it's safe to not use thread-safe implementations of <a href="../../targetrts-api/struct_frame.html">Frame</a> functions)</p>
+<h4 id="rtmessage_payload_size">RTMESSAGE_PAYLOAD_SIZE</h4>
+<p>This setting controls the size of the data area in each message. This data area is used for message data that is small enough, such as integers, booleans and short strings. If the data that is sent with a message is bigger than the specified RTMESSAGE_PAYLOAD_SIZE, then dynamically allocated memory is used for storing the message data outside of the message itself.</p>
+<p>Default value: <strong>100</strong> (byte size of the message data area)</p>
+<p>Increasing the value will make each message bigger, which makes the application consume more memory, but on the other hand it may become faster since fewer messages will require dynamic memory to be allocated for storing the message data. On the other hand, if your application mostly send very small data objects, you may benefit from decreasing the RTMESSAGE_PAYLOAD_SIZE. You need to fine-tune the value of this setting to find the optimal trade-off between speed and memory consumption for your application.</p>
+<h4 id="observable">OBSERVABLE</h4>
+<p>This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features.</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> to disable all target observability features)</p>
 
 
 

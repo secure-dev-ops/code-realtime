@@ -634,6 +634,14 @@
           
         
           
+        
+          
+        
+          
+        
+          
+        
+          
             
           
         
@@ -667,6 +675,62 @@
     <li class="md-nav__item">
       <a href="../target-rts/threads/" class="md-nav__link">
         Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/changelog/" class="md-nav__link">
+        Change Log
       </a>
     </li>
   
@@ -1187,6 +1251,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#entry-and-exit-point-without-incoming-transition" class="md-nav__link">
+    Entry and Exit Point without Incoming Transition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deep-history" class="md-nav__link">
     Deep History
   </a>
@@ -1683,6 +1754,7 @@ if (!id.isValid()) {
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that uses a capsule constructor <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_constructor">here</a>.</p>
 </div>
+<p>Read more about capsule factories <a href="../target-rts/capsule-factory/">here</a>.</p>
 <h3 id="capsule-destructor">Capsule Destructor</h3>
 <p>The destructor of a capsule frees the memory used for representing its states, ports etc. You cannot provide your own code to the destructor implementation. However, the <code>RTActor</code> class, which is the base class of every capsule class, provides a virtual function <code>_predestroy()</code> which you can override in your capsule. This function gets called just before the capsule instance is destroyed and is the place where you should put code that cleans up resources allocated by the capsule. Here is an example:</p>
 <pre><code class="language-art">capsule C {    
@@ -1970,6 +2042,8 @@ frame.destroy(id);
 <p class="admonition-title">Example</p>
 <p>You can find a sample application <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_factory_for_part">here</a> where a fixed part uses an <code>rt::create</code> code snippet for invoking a custom capsule constructor.</p>
 </div>
+<p>You can use a global capsule factory by means of setting the <a href="../building/transformation-configurations/#capsulefactory"><code>capsuleFactory</code></a> TC property. Such a capsule factory will be used when creating or destroying any capsule instance in your application, except those that are located in a part for which you have specified a local capsule factory.</p>
+<p>Read more about capsule factories <a href="../target-rts/capsule-factory/">here</a>.</p>
 <h2 id="state-machine">State Machine</h2>
 <p>State machines are used for specifying the behavior of <a href="#capsule">capsules</a>. It is also possible to provide a state machine for a passive class; see <a href="#class-with-state-machine">Class with State Machine</a> for more information about that. In this chapter we focus on state machines in capsules. </p>
 <p>A state machine consists of states and transitions. During its lifetime a capsule instance transitions between the various states of its state machine, as a consequence of receiving events on its behavior ports. When transitioning between two states one or several code snippets may execute. Such code may for example send events to other capsule instances, something that may cause transitions to execute in their state machines. </p>
@@ -2033,6 +2107,7 @@ frame.destroy(id);
 <p><img alt="" src="images/triggered_transitions.png" /></p>
 <p>Note the following:</p>
 <ul>
+<li>It's only valid to specify triggers for transitions that originate from a state. Transitions that originate from a pseudo-state (e.g. a choice or junction) cannot have triggers, i.e. they must be non-triggered transitions. Note, however, that transitions originating from <a href="#entry-and-exit-point-without-incoming-transition">entry and exit points without incoming transitions</a> represent the container state and hence need a trigger.</li>
 <li>Triggers are specified as <code>PORT.EVENT</code> after the keyword <code>on</code>. You may specify multiple triggers separated by comma (<code>,</code>).</li>
 <li>A guard condition for the transition is specified after the <code>when</code> keyword, while a guard condition for an individual trigger is specified in square brackets (<code>[]</code>) after the trigger.</li>
 <li>A guard condition can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition <code>requestReceived</code> in the above example), or it can be written as a boolean expression (as in the trigger guard for the <code>timeout</code> trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.</li>
@@ -2185,6 +2260,29 @@ frame.destroy(id);
 <p>You can find a sample application that contains a composite state with an entry and exit point <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata">here</a>.</p>
 </div>
 <p>Just like a <a href="#choice-and-junction">junction</a>, an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which of them to execute, and are evaluated <em>before</em> leaving the current state. Therefore, the same recommendations as for guard conditions of <a href="#choice-and-junction">junctions</a> apply for entry and exit points.</p>
+<h4 id="entry-and-exit-point-without-incoming-transition">Entry and Exit Point without Incoming Transition</h4>
+<p>You can choose to not connect an entry or exit point with an incoming transition. In this case the entry or exit point represents the owning state, and a transition that originates from such an entry or exit point behaves the same as if it would originate from the state itself. Contrary to other transitions that originate from an entry or exit point, such a transition is therefore triggered and should have at least one trigger.</p>
+<p>An entry point without incoming transition is useful for handling events in a composite state that should be commonly handled regardless of which substate that is active. The composite state remains active when handling the event, and it will not be exited and entered. The target of such a transition may either be a nested state, the <a href="#deep-history">deep history</a> pseudo state, or an exit point (see <a href="#local-transition">local transition</a>).</p>
+<p>In a similar way an exit point without incoming transition can be used for exiting the composite state in a common way regardless of which substate that is active. The behavior is the same as if the transition would originate from the composite state itself, but by using an exit point you can give a descriptive name to it that tells something about why the state is exited. This can be in particular useful if there are multiple such "exit transitions" from the composite state.</p>
+<p>In the example below the transition <code>tx</code> originates from an entry point <code>ep2</code> without incoming transition. When it triggers the active state will change from <code>Composite::Nested</code> to <code>Composite::Nested2</code> without leaving the <code>Composite</code> state. The transition <code>done</code> originates from an exit point <code>ex2</code> without incoming transition. It will exit the active substate of <code>Composite</code> and then exit <code>Composite</code> itself, before activating the <code>Done</code> state.</p>
+<pre><code class="language-art">statemachine {
+    state Composite {
+        entrypoint ep1, ep2;
+        exitpoint ex2;        
+        state Nested, Nested2;
+        ep1 -&gt; Nested;
+        tx: ep2 -&gt; Nested2 on port1.timeout;
+    };
+    initial -&gt; Composite.ep1;
+    state Done;
+    done: Composite.ex2 -&gt; Done on port1.timeout;
+};
+</code></pre>
+<p><img alt="" src="images/entrypoint_without_incoming.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses an entry and exit point without incoming transitions <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/entrypoint_without_incoming_transition">here</a>.</p>
+</div>
 <h4 id="deep-history">Deep History</h4>
 <p>Every nested state machine has an implicit pseudo state with the name <code>history*</code> (in state diagrams it's shown as <code>H*</code> to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a <em>deep</em> history). </p>
 <p>In the <a href="#hierarchical_sm_sample">example above</a> we can see that the transition from <code>ep2</code> targets the deep history pseudo state. This means that if the <code>Nested</code> substate is active and then the transition to <code>ex1</code> gets triggered, the state <code>Other</code> becomes active. If then the transition to <code>ep2</code> gets triggered the <code>CompositeState</code> will be entered using deep history so that the <code>Nested</code> substate will again become active.</p>
