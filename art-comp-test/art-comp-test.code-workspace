@@ -84,6 +84,9 @@
             "path": "tests/internal_transition_receive_any"
         },
         {
+            "path": "tests/json_encode_decode"
+        },
+        {
             "path": "tests/local_binding"
         },
         {
