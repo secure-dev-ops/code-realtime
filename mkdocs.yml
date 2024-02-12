@@ -105,6 +105,7 @@ nav:
         - Threads: target-rts/threads.md
         - Capsule Factory: target-rts/capsule-factory.md
         - Dependency Injection: target-rts/dependency-injection.md
+        - Encoding and Decoding: target-rts/encoding-decoding.md
         - Building, Debugging and Customizing: target-rts/build.md
         - Change Log: target-rts/changelog.md
         - C++ API: targetrts-api/index.html

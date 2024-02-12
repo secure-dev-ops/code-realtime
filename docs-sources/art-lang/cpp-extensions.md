@@ -43,7 +43,7 @@ These are functions with a certain prototype, each of which performs a specific 
 | encode | `void rtg_MyType_encode(const RTObject_class* type, const MyType* source, RTEncoding* coding)` | Encodes an instance of the type|
 | decode | `void rtg_MyType_decode(const RTObject_class* type, MyType* target, RTDecoding* coding)` | Decodes an instance of the type|
 
-The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes `RTEncoding` and `RTDecoding` from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros `OBJECT_ENCODE` and `OBJECT_DECODE` respectively. 
+The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes `RTEncoding` and `RTDecoding` from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_ENCODE` and `OBJECT_DECODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
 
 **3) A type installer object**
 
@@ -227,6 +227,9 @@ Use the [Content Assist](../working-with-art/art-editor.md#content-assist) templ
 
 !!! example
     You can find a sample application that uses a manually implemented type descriptor [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/enum_type_descriptor_manual).
+
+#### Versioning
+Type descriptors support versioning by means of the field `RTObject_class::_version`. By default the version field is set to 0 which denotes the first version of the type described by the type descriptor. For types that are part of an API for which you need to maintain backwards compatibility, you can raise the version in case you need to modify the type in a way that is not backwards compatible. Use of versioning requires a manually implemented type descriptor, and the version information is for example used when you perform [encoding/decoding](../target-rts/encoding-decoding.md) using the `RTVAsciiEncoding` and `RTVAsciiDecoding` classes.
 
 ### Field Descriptor
 A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class `RTFieldDescriptor`. 
