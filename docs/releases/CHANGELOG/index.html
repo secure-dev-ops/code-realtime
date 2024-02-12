@@ -20,7 +20,7 @@
     
     
       
-        <title>1.0.0 (2023-12-12) - DevOps Code RealTime</title>
+        <title>1.0.1 (2024-02-08) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#100-2023-12-12" class="md-skip">
+        <a href="#101-2024-02-08" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1.0.0 (2023-12-12)
+              1.0.1 (2024-02-08)
             
           </span>
         </div>
@@ -624,6 +624,14 @@
           
         
           
+        
+          
+        
+          
+        
+          
+        
+          
             
           
         
@@ -657,6 +665,62 @@
     <li class="md-nav__item">
       <a href="../../target-rts/threads/" class="md-nav__link">
         Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/changelog/" class="md-nav__link">
+        Change Log
       </a>
     </li>
   
@@ -955,6 +1019,21 @@
   
 
 
+<h1 id="101-2024-02-08">1.0.1 (2024-02-08)</h1>
+<ol>
+<li>A new sample <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/QtTrafficLight">QtTrafficLight</a> is now available. It shows how to integrate the code generated from Code RealTime with a user interface developed with Qt. Note that the Qt part of the sample application is found in <a href="https://github.com/HCL-TECH-SOFTWARE/qt-traffic-light">another Git repository</a>.</li>
+<li>A new validation rule <a href="https://github.com/secure-dev-ops/code-realtime/validation/#art_0036_unexpectedtriggers">ART_0036_unexpectedTriggers</a> detects if a transition that is supposed to be non-triggered still has at least one trigger. A Quick Fix can then be used for removing the unexpected triggers. </li>
+<li>A new validation rule <a href="https://github.com/secure-dev-ops/code-realtime/validation/#art_0037_missingtriggers">ART_0037_missingTriggers</a> detects if a transition that is supposed to be triggered doesn't have any triggers.</li>
+<li>The showing of validation problems in diagrams was improved to be more accurate, for example when expanding or collapsing a composite state. Also, a derived capsule state machine that has an inherited transition that is incorrect in the context of the derived state machine will now cause an error to be shown for the inherited transition in a state diagram for the derived capsule.</li>
+<li>The predefined variable <code>${workspaceFolder}</code> can now be used when specifying the prerequisites of a TC. This is often a better alternative than using a relative path since it allows the prerequisite TC to be located anywhere in the file system and still be found when resolving the prerequisite. As an example you can write <code>${workspaceFolder:MyLibrary/lib.tcjs}</code> where <code>MyLibrary</code> is the name of the workspace folder where the prerequisite TC is located.</li>
+<li>The Art Compiler now has a new option <code>-ws</code> which can be used for specifying the location of the workspace (in the form of a <code>.code-workspace</code> file). It's optional to use this option, but it must be specified if built TCs contain workspace-relative paths.</li>
+<li>The validation rule <a href="https://github.com/secure-dev-ops/code-realtime/validation/#art_0002_duplicatenamesinscope">ART_0002_duplicateNamesInScope</a> was improved to find naming conflicts caused by inheritance.</li>
+<li>The C++ code generator now supports global capsule factories by means of a new TC property <code>capsuleFactory</code>. This allows to globally control how capsule instances in an application are created and destroyed. One scenario where this is useful is when using the <code>RTInjector</code> class from the TargetRTS to implement dependency injection for capsule creation. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/dependency_injection_static">this sample</a>. Read more about these topics in new documentation chapters <a href="https://github.com/secure-dev-ops/code-realtime/target-rts/capsule-factory">Capsule Factory</a> and <a href="https://github.com/secure-dev-ops/code-realtime/target-rts/dependency-injection">Dependency Injection</a>.</li>
+<li>The Art Compiler now sorts reported messages according to their file position. This means that messages, such as errors and warnings, now are reported in the same order when building from the command-line as when building from the UI.</li>
+<li>The TargetRTS now has support for decoding a JSON string into an object (already before it had support for the opposite, i.e. encoding an object into JSON). This is useful when implementing applications that exchange JSON, for example with a web service or some other API. It can also be used for persisting application data in files or object databases. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/json_encode_decode">this sample</a>.</li>
+<li>Rename refactorings have been improved to also update references in <code>art_diagram_settings.json</code>.</li>
+<li>The TargetRTS documentation has been extended. For example, it now covers how to <a href="https://github.com/secure-dev-ops/code-realtime/target-rts/build">build, debug and customize</a> the TargetRTS.</li>
+</ol>
 <h1 id="100-2023-12-12">1.0.0 (2023-12-12)</h1>
 <ol>
 <li>The product is now renamed to DevOps Code RealTime and in addition to the Community Edition a Commercial Edition is also available. With the Commercial Edition comes support entitlement, the right to use the product and generated applications for commercial purposes, and access to the TargetRTS source files which makes it possible to build applications for any target platform.</li>

@@ -632,6 +632,14 @@
           
         
           
+        
+          
+        
+          
+        
+          
+        
+          
             
           
         
@@ -665,6 +673,62 @@
     <li class="md-nav__item">
       <a href="../../target-rts/threads/" class="md-nav__link">
         Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/changelog/" class="md-nav__link">
+        Change Log
       </a>
     </li>
   
@@ -820,6 +884,13 @@
   
     <nav class="md-nav" aria-label="Properties">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capsulefactory" class="md-nav__link">
+    capsuleFactory
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#commonpreface" class="md-nav__link">
@@ -1222,6 +1293,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#capsulefactory" class="md-nav__link">
+    capsuleFactory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#commonpreface" class="md-nav__link">
     commonPreface
   </a>
@@ -1487,6 +1565,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#capsulefactory">capsuleFactory</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
 <td><a href="#commonpreface">commonPreface</a></td>
 <td align="left">String</td>
 <td align="left">N/A</td>
@@ -1578,8 +1661,15 @@
 </tr>
 </tbody>
 </table>
+<h3 id="capsulefactory">capsuleFactory</h3>
+<p>This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See <a href="../../target-rts/capsule-factory/">Capsule Factory</a> and <a href="../../target-rts/dependency-injection/">Dependency Injection</a> for more information.</p>
+<p>Note that you can override the use of the global capsule factory by providing a <a href="../../art-lang/#part-with-capsule-factory">local capsule</a> factory for a specific part.</p>
 <h3 id="commonpreface">commonPreface</h3>
 <p>This property allows you to write some code that will be inserted verbatimly into the header unit file (by default called <code>UnitName.h</code>). Since the header unit file is included by all files that are generated from the TC, you can use the common preface to define or include definitions that should be available everywhere in generated code.</p>
+<pre><code class="language-js">tc.commonPreface = `
+#include &lt;iostream&gt;
+`;
+</code></pre>
 <h3 id="compilearguments">compileArguments</h3>
 <p>Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. </p>
 <h3 id="compilecommand">compileCommand</h3>
@@ -1606,6 +1696,10 @@
 <pre><code class="language-js">tc.prerequisites = [&quot;../MyLibrary/lib.tcjs&quot;]; 
 </code></pre>
 <p>Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.</p>
+<p>You can also use the predefined variable <code>${workspaceFolder}</code> in prerequisite paths. This is often useful as it makes it possible to reference a prerequisite TC based on another workspace folder, regardless of where in the file system it's located. For example:</p>
+<pre><code class="language-js">tc.prerequisites = [&quot;${workspaceFolder:MyLibrary}/lib.tcjs&quot;]; 
+</code></pre>
+<p>Note that use of workspace-relative paths requires setting the <a href="../art-compiler/#ws">-ws</a> option for the Art Compiler.</p>
 <p>For more information about this property see <a href="#transformation-configuration-prerequisites">Transformation Configuration Prerequisites</a>.</p>
 <h3 id="sources">sources</h3>
 <p>By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the <code>sources</code> property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the <code>!</code> character. In both patterns and anti-patterns you can use the wildcards <code>*</code> (matches any sequence of characters) and <code>?</code> (matches a single character). Below are a few examples:</p>
@@ -1619,7 +1713,7 @@ tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform al
 <p>You can find a sample application that has a TC with the "sources" property set <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/tc_sources">here</a>.</p>
 </div>
 <h3 id="targetconfiguration">targetConfiguration</h3>
-<p>Specifies which TargetRTS configuration to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the Code RealTime installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
+<p>Specifies which <a href="../../target-rts/#target-configurations">TargetRTS configuration</a> to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the Code RealTime installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
 <h3 id="targetconfigurationname">targetConfigurationName</h3>
 <p>This property maps to a subfolder of the <a href="#targetfolder">target folder</a> where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is <code>default</code>.</p>
 <h3 id="targetfolder">targetFolder</h3>

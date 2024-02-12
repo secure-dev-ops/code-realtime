@@ -632,6 +632,14 @@
           
         
           
+        
+          
+        
+          
+        
+          
+        
+          
             
           
         
@@ -665,6 +673,62 @@
     <li class="md-nav__item">
       <a href="../../target-rts/threads/" class="md-nav__link">
         Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/changelog/" class="md-nav__link">
+        Change Log
       </a>
     </li>
   
@@ -880,6 +944,13 @@
           <li class="md-nav__item">
   <a href="#version" class="md-nav__link">
     version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ws" class="md-nav__link">
+    ws
   </a>
   
 </li>
@@ -1158,6 +1229,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ws" class="md-nav__link">
+    ws
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1274,6 +1352,10 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <td><a href="#version">version</a></td>
 <td align="left">N/A</td>
 </tr>
+<tr>
+<td><a href="#ws">ws</a></td>
+<td align="left">Path</td>
+</tr>
 </tbody>
 </table>
 <h3 id="buildconfig">buildConfig</h3>
@@ -1297,6 +1379,10 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <p>Specifies the <a href="../transformation-configurations/">TC</a> to build. This option is mandatory, unless you only pass the <a href="#help">help</a> or <a href="#version">version</a> options.</p>
 <h3 id="version">version</h3>
 <p>Use this option to print the version of the Art Compiler. This version is the same as is used for the Code RealTime extension and can also be seen in the file <code>CHANGELOG.md</code> in the Code RealTime installation folder. If this option is passed, all other options are ignored.</p>
+<h3 id="ws">ws</h3>
+<p>Specifies a workspace file (<code>.code-workspace</code>) which will be used for resolving paths that are relative to the workspace. It's optional to use this option and it only needs to be set if any of the built TCs contain workspace-relative paths.</p>
+<pre><code>--ws C:/art-comp-test/validation.code-workspace
+</code></pre>
 <h2 id="art-compiler-steps-and-messages">Art Compiler Steps and Messages</h2>
 <p>The Art Compiler performs its work using several sequential steps. During each step messages can be printed with a severity that is either INFO, WARNING or ERROR. Messages are printed to <code>stdout</code> with a time stamp. If at least one error is reported when performing one of the steps, the Art Compiler stops and doesn't proceed with the next step.</p>
 <p>The following steps are performed:</p>
