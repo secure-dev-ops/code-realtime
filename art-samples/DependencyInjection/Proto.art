@@ -1,0 +1,4 @@
+protocol PROTO {
+    out ping();
+    in result();
+};

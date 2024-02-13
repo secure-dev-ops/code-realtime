@@ -1,0 +1,112 @@
+
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include <CapsuleFactory.art.h>
+        #include <SlowPinger.h>
+        #include <AbstractLogger.h>
+        #include <RTInjector.h>
+    `
+
+    part pinger : SlowPinger;
+    part logger : AbstractLogger;
+    connect logger.p with pinger.p;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+capsule AbstractLogger {
+    service behavior port p~ : PROTO;
+    statemachine {
+        state State1 {
+            on p.ping `
+                std::cout << "Pinged ! " << std::endl << std::flush;
+                p.result().send();
+            `;
+        };
+        _inti: initial -> State1;
+    };
+};
+capsule TimeStampLogger : AbstractLogger {
+    statemachine {
+        state  State2 {
+            on p.ping `
+                auto curr_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+                std::cout << "Pinged on " << std::ctime(&curr_time) << std::endl << std::flush;
+                p.result().send();  
+            `;
+        };
+        redefine _inti : initial -> State2;
+    };
+};
+capsule SlowPinger {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        int count = 0;
+    `
+    subscribe behavior unwired port timing : Timing;
+    service behavior port p : PROTO;
+    statemachine {
+        state State1 {
+            entry `
+                timing.informIn(RTTimespec(2,0)); // 2 s
+            `;
+            timeout: on timing.timeout `
+                count++;
+                p.ping().send();
+            `;
+        }, Done {
+            entry `
+                std::cout << "Done!" << std::endl;
+            `;
+        };
+        choice choice1;
+        _initial: initial -> State1 `
+            std::cout << "Slow Pinger initialized!" << std::endl << std::flush;;
+        `;
+        result: State1 -> choice1 on p.result;
+        else: choice1 -> Done when `else`;
+        false: choice1 -> State1 when `return count < 10;`;
+    };
+};
+capsule FastPinger : SlowPinger {
+
+     [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        int count = 0;
+    `
+
+    statemachine {
+
+        state  State2 {
+            entry `
+                timing.informIn(RTTimespec(0,500000000)); // 0.5 s
+            `;
+            timeout: on timing.timeout `
+                count++;
+                p.ping().send();
+            `;
+        }, Done2 {
+            entry `
+                std::cout << "Done!" << std::endl;
+            `;
+        };
+        choice choice2;
+         redefine _initial: initial -> State2 `
+            std::cout << "Fast Pinger initialized!" << std::endl << std::flush;;
+        `;
+         result2: State2 -> choice2 on p.result;
+         else2: choice2 -> Done2 when `else`;
+         false2: choice2 -> State2 when `return count < 10;`;
+    };
+};
