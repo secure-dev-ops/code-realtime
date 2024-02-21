@@ -592,9 +592,9 @@ capsule CComp3 {
 ### ART_0018_circularTransitions
 | Severity | Reason | Quick Fix
 |----------|:-------------|:-------------
-| Error | A state machine has a cycle in the transitions that execute when leaving a junction. | N/A
+| Error | A state machine has a cycle in the transitions that execute when leaving a junction or entry/exit point. | N/A
 
-A [junction](../art-lang#choice-and-junction) can split an incoming transition flow into multiple outgoing transition flows based on evaluating guard conditions for the outgoing transitions. If care is not taken it's possible to introduce cycles in the outgoing transition flows. Such cycles could lead to infinite recursion when the state machine executes, depending on what guard conditions will be fulfilled at runtime. You should therefore ensure there are no such transition cycles.
+A [junction](art-lang/index.md#choice-and-junction) or an [entry or exit point](art-lang/index.md#hierarchical-state-machine) can split an incoming transition flow into multiple outgoing transition flows based on evaluating guard conditions for the outgoing transitions. If care is not taken it's possible to introduce cycles in the outgoing transition flows. Even if the code generator also detects such cycles and prevents them from leading to infinite recursion at run-time, the transitions that form the cycle will not reach a state or choice when (or if, depending on the guard conditions) they execute. If guard conditions on such transitions have side-effects (which guard conditions should not have), it's possible that the application can work correctly even if there is a transition cycle. But it's very much recommended to change the state machine so it doesn't have any transition cycles.
 
 The transitions that form the cycle will be reported as related elements. Use this to decide how to break the transition cycle.
 
@@ -611,8 +611,30 @@ capsule CT_cap {
 };
 ```
 
-!!! note 
-    Entry and exit points can also split an incoming transition flow and a transition cycle can involve transitions of a nested state machines. Such cycles cannot be detected by this validation rule. 
+With entry and exit points a transition cycle can involve transitions in a nested state machine too.
+
+``` art
+capsule Cap0018 {
+    statemachine { // ART_0018
+        state State {
+            entrypoint ep;
+            exitpoint ex;
+            junction j1;
+            state N1;
+            ep -> j1;
+            j1 -> ex;
+        };
+        initial -> State.ep;
+        State.ex -> State.ep; 
+        state Final;
+        State.ex -> Final when `true`;
+    };
+};
+```
+
+![](images/ART_0018.png)
+
+With state machine inheritance it's possible to introduce transition cycles when an inherited state machine is redefined or extended. This validation rule will also detect such cycles and report them on the inheriting state machine that contains the cycle.
 
 ### ART_0019_unwiredPortBothPublisherAndSubscriber
 | Severity | Reason | Quick Fix

@@ -1,0 +1,24 @@
+capsule B18 {
+    behavior port timer : Timing;
+    statemachine {
+        state State;
+        initial -> State;
+        choice c1;
+        junction j1, j2;
+        t1: State -> c1 on timer.timeout;
+        c1 -> State;
+        c1 -> j1 when `false`;  
+        j1 -> j2; 
+        
+    };
+};
+
+capsule D18 : B18 {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        j2 -> j1;
+    };
+};

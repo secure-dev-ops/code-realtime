@@ -72,8 +72,9 @@ extra_javascript:
   - scripts/prism.js
 
 plugins:
-  - search
+  - search  
   - markdownextradata:
+      data: variables
       jinja_options:
           variable_start_string: '{$'
           variable_end_string: '$}'

@@ -1,15 +1,18 @@
 capsule CT_cap {
+    behavior port timer : Timing;
     statemachine { // ART_0018
         state S1;
         initial -> S1;
-        junction j1, j2;
-        t1: S1 -> j1;
+        junction j0, j1, j2;
+        t0: S1 -> j0 on timer.timeout;
+        t1: j0 -> j1;
         t2: j1 -> j2;
-        t3: j2 -> j1;
+        t3: j2 -> j1 /*when `false`*/;  
+        t4: j1 -> S2 when `false`;
+        state S2;
     };
 };
-// TODO: Cycles that involve nested state machines cannot currently be detected
-/*
+
 capsule Cap0018 {
     statemachine {      
         state State {
@@ -21,6 +24,8 @@ capsule Cap0018 {
             j1 -> ex;
         };
         initial -> State.ep;
-        State.ex -> State.ep;
+        State.ex -> State.ep; 
+        state Final;
+        State.ex -> Final when `true`;
     };
-};*/
+};
