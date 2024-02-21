@@ -104,11 +104,12 @@ nav:
      - Target RunTime System: 
         - Target RunTime System: target-rts/index.md        
         - Threads: target-rts/threads.md
+        - Integration with External Code: target-rts/integrate-with-external-code.md
         - Capsule Factory: target-rts/capsule-factory.md
         - Dependency Injection: target-rts/dependency-injection.md
         - Encoding and Decoding: target-rts/encoding-decoding.md
         - Building, Debugging and Customizing: target-rts/build.md
-        - Change Log: target-rts/changelog.md
+        - Versions: target-rts/versions.md
         - C++ API: targetrts-api/index.html
      - Building: 
         - Building: building/index.md        
