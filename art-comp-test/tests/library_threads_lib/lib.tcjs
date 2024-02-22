@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetFolder = 'library_threads_lib_target';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+// Define two logical threads used by the library
+tc.threads = [ 'LibraryThread1', 'LibraryThread2' ];

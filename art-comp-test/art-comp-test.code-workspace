@@ -87,6 +87,12 @@
             "path": "tests/json_encode_decode"
         },
         {
+            "path": "tests/library_threads_exe"
+        },
+        {
+            "path": "tests/library_threads_lib"
+        },
+        {
             "path": "tests/local_binding"
         },
         {

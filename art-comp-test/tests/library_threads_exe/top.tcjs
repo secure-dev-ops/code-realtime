@@ -1,0 +1,21 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs", "../library_threads_lib/lib.tcjs"];
+tc.targetFolder = 'library_threads_exe_target';
+tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY'
+},
+{
+    name: 'MyThread1',
+    implClass: 'RTPeerController',
+    stackSize: '30000',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'LibraryThread1', 'LibraryThread2'
+    ]
+}
+];
