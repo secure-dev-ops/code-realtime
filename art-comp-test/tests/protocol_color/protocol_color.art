@@ -1,0 +1,11 @@
+protocol TestProtocol[[rt::properties(color="#c93131")]]
+{
+     out logMsg(`RTString`);
+};
+
+capsule Top {
+   statemachine {
+        state State;
+        initial -> State;        
+    };
+};
