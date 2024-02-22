@@ -1,0 +1,34 @@
+capsule B30_1 {    
+    behavior port t : Timing;
+    statemachine {
+        state State {
+            state Nested;
+            initial -> Nested;
+        };
+        state State2 {
+            state Nested;
+            //_ini2: initial -> Nested;
+        };
+        _ini: initial -> State;
+        _tx : State -> State2 on t.timeout;
+    };
+};
+
+capsule B30_2 : B30_1{
+    
+    statemachine {
+        state redefine State2 {
+            _ini2: initial -> Nested;
+        };
+    };
+};
+
+capsule D30 : B30_2 {    
+    statemachine {         
+        redefine _ini: initial -> State; // There is an inherited initial transition
+
+        state redefine State2 {
+            exclude _ini2;
+        };
+    };
+};

@@ -7,19 +7,3 @@ capsule Cap {
         _Initial: initial -> BS; // ART_0030
     };
 };
-
-capsule B {    
-    statemachine {
-        state State {
-            state Nested;
-            initial -> Nested;
-        };
-        _ini: initial -> State;
-    };
-};
-
-capsule D : B {    
-    statemachine {        
-        redefine _ini: initial -> State; // There is an inherited initial transition
-    };
-};
