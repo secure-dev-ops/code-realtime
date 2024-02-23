@@ -1,5 +1,10 @@
 [[rt::decl]]
 `
+    #include <RTJsonEncoding.h>
+
+    enum [[rt::auto_descriptor]] Col {
+        Red, Green = 4, Yellow
+    };
     struct [[rt::auto_descriptor]] Base {
         RTpvoid address; // RTpvoid is a typedef of void* with type descriptor
     };
@@ -15,6 +20,23 @@
         float d;
         signed long e;
         Nested nested;
+        Col en = Green;
+        RTString str;        
+    };
+
+    class CustomJsonEncoding : public RTJsonEncoding {
+        public:
+        CustomJsonEncoding(RTOBuffer * buffer)
+            : RTJsonEncoding(buffer) {}
+
+        virtual int put_bool(bool value) {
+            if (output->write("\"", 1 ) != 1)
+                return 0;
+            int res = RTJsonEncoding::put_bool(value);
+            if (output->write("\"", 1 ) != 1)
+                return 0;
+            return res;
+        }
     };
 `
 
@@ -28,6 +50,7 @@ capsule Top {
     #include "testlib.art.h"
     #include "json_encode_decode.art.h"
 `    
+    behavior port t : Timing;
     statemachine {
         state State1;
         initial -> State1
@@ -43,19 +66,25 @@ capsule Top {
 
             data.nested.n1 = 'x';
 
+            data.str = "Hello";
+
             // Encoding into fixed-size buffer
             char buf[1000];
             RTMemoryOutBuffer buffer( buf, 1000 );
             RTJsonEncoding coding( &buffer );
 
-/* // For comparison with the ASCII encoding, uncomment this
-            char bufa[1000];
-            RTMemoryOutBuffer buffera( bufa, 1000 );
-            RTAsciiEncoding codinga( &buffera );
-            RTType_Data._encode_func(&RTType_Data, &data, &codinga);
-            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
-            std::cout << "ASCII encoding: " << bufa << std::endl << std::flush;  
-*/
+ // For comparison with the ASCII encoding, uncomment this
+//            char bufa[1000];
+//            RTMemoryOutBuffer buffera( bufa, 1000 );
+//            RTAsciiEncoding codinga( &buffera );
+//            RTType_Data._encode_func(&RTType_Data, &data, &codinga);
+//            buffera.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+ //           std::cout << "ASCII encoding: " << bufa << std::endl << std::flush;  
+
+ //           codinga.put(&data, &RTType_Data);
+ //           std::cout << "ASCII encoding: " << bufa << std::endl << std::flush;  
+
+
             RTType_Data._encode_func(&RTType_Data, &data, &coding);
             buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
             std::cout << "JSON encoding: " << buf << std::endl << std::flush;  
@@ -75,13 +104,14 @@ capsule Top {
             Data decodedData;
             RTMemoryInBuffer inBuffer(buffer2.getString(), RTMemoryUtil::strlen(buffer2.getString()));
             RTJsonDecoding decoding(&inBuffer);
+            // If we instead had an encoding without type name, we could decode by calling
             //decoding.get_struct(&decodedData, &RTType_Data);
             void* dd;
             const RTObject_class* type;
-            decoding.get(& dd, &type);
+            decoding.get(&dd, &type);
             Data* decodedData2 = reinterpret_cast<Data*>(dd);
             //std::cout << "JSON decoding: Data.a = " << decodedData.a << std::endl << std::flush;  
-            std::cout << "JSON decoding: Data.a = " << reinterpret_cast<Data*>(dd)->a << std::endl << std::flush;  
+            std::cout << "JSON decoding: Data.a = " << decodedData2->a << std::endl << std::flush;  
 
             ASSERT(decodedData2->a == data.a, "Data.a has wrong value");
             ASSERT(decodedData2->b == data.b, "Data.b has wrong value");
@@ -90,13 +120,22 @@ capsule Top {
             ASSERT(decodedData2->e == data.e, "Data.e has wrong value");
 
             ASSERT(decodedData2->nested.n1 == data.nested.n1, "Data.nested.n1 has wrong value");
-
-            // Known current limitation: Decoding pointers won't work correctly (works for Ascii)
-            //std::cout << "Address: " << decodedData2->address << std::endl << std::flush;
-            //ASSERT(decodedData2->address == data.address, "Data.address has wrong value");
+            
+            std::cout << "Address: " << decodedData2->address << std::endl << std::flush;
+            ASSERT(decodedData2->address == data.address, "Data.address has wrong value");
 
             // RTDecoding::get() allocates a new object. Delete it using the type descriptor destroy() function.
-            type->destroy(decodedData2, RTObject_class::DestroyAndDeallocate);
+            type->destroy(dd, RTObject_class::DestroyAndDeallocate);
+
+            // Finally, try the custom JSON encoding (where booleans are encoded as strings)
+            RTDynamicStringOutBuffer buffer3;
+            CustomJsonEncoding coding3(&buffer3);
+            coding3.put_struct(&data, &RTType_Data);
+            std::cout << "Custom JSON encoding: " << buffer3.getString() << std::endl << std::flush;  
+            std::string str(buffer3.getString());
+            if (str.find("\"b\" : \"true\"") == std::string::npos) {
+                FAIL("Custom JSON encoding didn't produce the expected result")
+            }
 
             PASS();          
         `;
