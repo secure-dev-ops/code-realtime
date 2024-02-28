@@ -160,6 +160,7 @@ capsule Top : TopBase {
                 FAIL("SUPERMETHOD should not be defined in not redefined transition at choice");
             #endif
             count++;
+            timer3.informIn(RTTimespec(0,50));
         `;
     };
 };
