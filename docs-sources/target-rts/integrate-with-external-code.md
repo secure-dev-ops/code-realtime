@@ -15,7 +15,7 @@ External ports can for example be useful in scenarios when external code has to 
 All these types of scenarios are supported by means of external ports.
 
 !!! example
-    You can find a sample application that uses an external port [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/QtTrafficLight).
+    You can find a sample application that uses an external port [here]({$vars.github.repo$}/tree/main/art-samples/QtTrafficLight).
 
 ### General Usage
 The capsule that owns an external port has full control over when it's ready to accept an event on the external port. This is important to prevent an external thread from "starving" the thread that runs the capsule. The following rules apply for how an external port must be used:
@@ -43,7 +43,7 @@ else {
 ```
 
 !!! note
-    To allow the external code to call `raise()` on the external port it's necessary to somehow provide the external code with a way to access it. A good way to do this is to let the capsule implement an interface class which provides a function for raising the event on the external port. The external code can then be given a reference to the capsule through that interface class. This prevents the need to expose the external port itself to the external code, and it effectively ensures that the external code cannot do anything with the capsule except calling the provided function. See [this sample](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TrafficLight) for an example of how to let a capsule implement an interface class.
+    To allow the external code to call `raise()` on the external port it's necessary to somehow provide the external code with a way to access it. A good way to do this is to let the capsule implement an interface class which provides a function for raising the event on the external port. The external code can then be given a reference to the capsule through that interface class. This prevents the need to expose the external port itself to the external code, and it effectively ensures that the external code cannot do anything with the capsule except calling the provided function. See [this sample]({$vars.github.repo$}/tree/main/art-samples/TrafficLight) for an example of how to let a capsule implement an interface class.
 
 
 ### Passing Data
@@ -85,7 +85,7 @@ do {
 while (remaining > 0);
 ```
 
-Note that the external code is responsible for allocating data pushed on the external port, while the capsule is responsible for deleting the data once it has fetched it. The capsule can choose whether it wants to fetch all available data at once (as in the above example), or only some of it. However, it's important to design the application so that external port data doesn't just keep growing as that eventually will cause the application to run out of memory.
+Note that the external code is responsible for allocating the data pushed on the external port, while the capsule is responsible for deleting the data once it has fetched it. The capsule can choose whether it wants to fetch all available data at once (as in the above example), or only some of it. However, it's important to design the application so that external port data doesn't just keep growing as that eventually would cause the application to run out of memory.
 
 It's of course possible to implement another scheme for passing data from external code to a capsule, and the data area of an external port should just be seen as a convenience. Any data structure can be shared between the external code and the capsule, but it's important that it is thread-safe. You can for example use a mutex (see `RTMutex` in the TargetRTS) for protecting data that is shared by the external thread and the capsule's thread.
 
@@ -100,4 +100,4 @@ The generated implementation of `RTMain::entryPoint()` performs certain set-up a
 One example where you typically cannot let the main thread run the top capsule instance, is when the application has a user interface. This is because the main thread then already is busy running the event loop that manages the user interface. In this case you can create a separate thread responsible for running the realtime part of your application (i.e. the top capsule instance).
 
 !!! example
-     You can find a sample application where a user interface is integrated with a realtime application [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/QtTrafficLight).
+     You can find a sample application where a user interface is integrated with a realtime application [here]({$vars.github.repo$}/tree/main/art-samples/QtTrafficLight).

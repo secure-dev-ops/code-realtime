@@ -320,7 +320,7 @@ Note the following:
 * Code that calls the capsule constructor must include the header file where the capsule is located.
 
 !!! example
-    You can find a sample application that uses a capsule constructor [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_constructor).
+    You can find a sample application that uses a capsule constructor [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_constructor).
 
 Read more about capsule factories [here](../target-rts/capsule-factory.md).
 
@@ -344,7 +344,7 @@ capsule C {
 It's important to remember to invoke the inherited function by calling `SUPER::_predestroy()`. 
 
 !!! example
-    You can find a sample application with a capsule that overrides `_predestroy()` [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/optional_part).
+    You can find a sample application with a capsule that overrides `_predestroy()` [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/optional_part).
 
 ## Protocol and Event
 A protocol defines events that may be sent in to a [port](#port) (so called in-events) and events that may be sent out from the same port (so called out-events). By grouping events into protocols, and then typing ports with such protocols, we can precisely define which events the capsule may send and receive through that port.
@@ -420,7 +420,7 @@ pingPort.ping(5).send(); // Send event "ping" with data (an integer) on the "pin
 ```
 
 !!! example
-    You can find a sample application that sends events on ports with and without data [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PingPong).
+    You can find a sample application that sends events on ports with and without data [here]({$vars.github.repo$}/tree/main/art-samples/PingPong).
 
 Note that `send()` is not the only function you can call. For example, you can call `invoke()` if you want to wait until the receiver has received and replied to the event. This is useful for implementing synchronous communication between capsules.
 
@@ -528,7 +528,7 @@ registration_name = "myService")
 Note that the keyword `unwired` can be implicit when you declare a port as either a `subscribe` or `publish` port.
 
 !!! example
-    You can find a sample application that uses an unwired port [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/unwired_port).
+    You can find a sample application that uses an unwired port [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/unwired_port).
 
 
 ## Connector
@@ -592,7 +592,7 @@ capsule Top {
 One reason for a capsule to send events to itself could be to split a big and long-running task into smaller tasks. By sending an event to itself after completion of each small task, the capsule can remain responsive to other events that may arrive in the meantime. When it receives the event it sent it can proceed with the next part of the big task.
 
 !!! example
-    You can find a sample application that uses a local binding [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/local_binding).
+    You can find a sample application that uses a local binding [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/local_binding).
 
 ## Part
 A capsule can be decomposed by means of parts (also called "capsule parts" to emphasize that they are parts of a capsule). A part is a container that at run-time may hold one or many capsule instances. The part has a multiplicity that specifies the maximum number of capsule instances it can contain at run-time, and it has a type which is another capsule. All capsule instances must either be of that specific capsule type, or of a capsule type that inherits from it.
@@ -606,7 +606,7 @@ There are three kinds of parts which determine how and when they will be populat
 In a fixed part capsule instances are created automatically when the container capsule is created, and destroyed when the container is destroyed. Fixed parts by default have multiplicity 1. Such a part will always contain one and only one instance of the capsule that types the part.
 
 !!! example
-    You can find a sample application that has a fixed part with a multiplicity [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/fixed_part_with_multiplicity).
+    You can find a sample application that has a fixed part with a multiplicity [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/fixed_part_with_multiplicity).
 
 2) **Optional part**
    
@@ -625,7 +625,7 @@ It's important to check that incarnation was successful since there are many rea
 If the instantiated capsule has a constructor you need to use a capsule factory for providing the constructor arguments (either provided when doing the incarnation as shown [here](#capsule-constructor) or specified on the part as described [here](#part-with-capsule-factory)).
 
 !!! example
-    You can find a sample application that creates and destroys capsule instances in optional parts [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/optional_part).
+    You can find a sample application that creates and destroys capsule instances in optional parts [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/optional_part).
 
 3) **Plugin part**
    
@@ -683,7 +683,7 @@ part engine : Engine [[rt::create]]
 Note that you may want to create a capsule factory for a part also for other reasons than passing custom constructor parameters. For example, you may want to change the default thread (`RTController*`) that should execute the created capsule instance, or you may want to instantiate an inherited capsule rather than the capsule that types the part.
 
 !!! example
-    You can find a sample application [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_factory_for_part) where a fixed part uses an `rt::create` code snippet for invoking a custom capsule constructor.
+    You can find a sample application [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_factory_for_part) where a fixed part uses an `rt::create` code snippet for invoking a custom capsule constructor.
 
 You can use a global capsule factory by means of setting the [`capsuleFactory`](../building/transformation-configurations.md#capsulefactory) TC property. Such a capsule factory will be used when creating or destroying any capsule instance in your application, except those that are located in a part for which you have specified a local capsule factory.
 
@@ -739,7 +739,7 @@ state Walking {
 ```
 
 !!! example
-    You can find a sample application where a state has an entry and exit action [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/entry_exit_action).
+    You can find a sample application where a state has an entry and exit action [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/entry_exit_action).
 
 ### Transition
 A transition connects a source state (or pseudo state) to a target state (or pseudo state). When a capsule instance handles a message that was received on one of its behavior ports, one or several transitions may execute.
@@ -810,7 +810,7 @@ By default `rtdata` cannot be modified (it has type `const void*`). However, by 
 Note that the `const_rtdata` [property](#const_rtdata) can be set on any transition, not just the initial transition. It allows the data received when the transition is triggered to be modified.
 
 !!! example
-    You can find a sample application that has transitions with the property `const_rtdata` unset [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/move_function_2).
+    You can find a sample application that has transitions with the property `const_rtdata` unset [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/move_function_2).
 
 #### Internal Transition
 An internal transition doesn't change the active state and therefore doesn't have a target state. An internal transition is always a triggered transition. You define an internal transition inside the state to which it belongs. Here is an example:
@@ -827,7 +827,7 @@ state Done {
 Note the usage of an asterisk (`*`) to specify that any event received on `myPort` will trigger the internal transition when the state machine is in the `Done` state. Such "receive-any" events can of course be used for a trigger of any transition, but can in particular be useful for internal transitions that should handle all messages received on a port that are not handled by other triggered transitions leaving substates of the state. If another event is added to the port's protocol in the future, such a trigger will handle the new event too without a need for being updated.
 
 !!! example
-    You can find a sample application that has an internal transition with a "receive-any" event trigger [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/internal_transition_receive_any).
+    You can find a sample application that has an internal transition with a "receive-any" event trigger [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/internal_transition_receive_any).
 
 Internal transitions are examples of so called self-transitions. To learn about other types of self-transitions see [this chapter](#local-transition).
 
@@ -914,7 +914,7 @@ Of course, in the above simple example the same code reuse could also be obtaine
 When multiple triggered transitions converge into a common transition as in the example above, and the events that trigger those transitions have a data parameter, it's best to access that data in the triggered transitions and not in the common transition. This is especially true if the types of those data parameters are not the same, because in that case the `rtdata` parameter of the function generated for the common transition will be untyped (`void*`). You can of course still cast it to another type, but that requires that you can know which of the triggered transitions that were triggered. It's therefore better to access the data in the triggered transitions and if necessary store it in a capsule variable which you then can access in the common transition if needed.
 
 !!! example
-    You can find a sample application that demonstrates usage of a choice and junction [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_and_junction).
+    You can find a sample application that demonstrates usage of a choice and junction [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_and_junction).
 
 ### Hierarchical State Machine
 A state machine is hierarchical if it contains at least one composite state, i.e. a state with a nested state machine. A transition that is triggered in the enclosing state machine (i.e. the state machine that contains the composite state) should enter a composite state by specifying an entry point of the composite state as the target. In the nested state machine another transition can connect that entry point to a state in the nested state machine. A transition in the nested state machine may specify an exit point of the composite state as the target. In the enclosing state machine another transition can connect that exit point to a state in the enclosing state machine.
@@ -955,7 +955,7 @@ Note that a dot (`.`) is used as scope resolution operator, to make it possible 
 It is possible to only connect an entry point on the "outside". Entering the state via such an entry point will behave in the same way as entering the composite state without using an entry point (see above). It's therefore not recommended. In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
 
 !!! example
-    You can find a sample application that contains a composite state with an entry and exit point [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata).
+    You can find a sample application that contains a composite state with an entry and exit point [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/compound_transition_rtdata).
 
 Just like a [junction](#choice-and-junction), an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which of them to execute, and are evaluated *before* leaving the current state. Therefore, the same recommendations as for guard conditions of [junctions](#choice-and-junction) apply for entry and exit points.
 
@@ -986,7 +986,7 @@ statemachine {
 ![](images/entrypoint_without_incoming.png)
 
 !!! example
-    You can find a sample application that uses an entry and exit point without incoming transitions [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/entrypoint_without_incoming_transition).
+    You can find a sample application that uses an entry and exit point without incoming transitions [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/entrypoint_without_incoming_transition).
 
 #### Deep History
 Every nested state machine has an implicit pseudo state with the name `history*` (in state diagrams it's shown as `H*` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. If that state again is a composite state, its previously active substate will also be restored. This goes on recursively for all nested state machines (which is why it's called a *deep* history). 
@@ -994,7 +994,7 @@ Every nested state machine has an implicit pseudo state with the name `history*`
 In the [example above](#hierarchical_sm_sample) we can see that the transition from `ep2` targets the deep history pseudo state. This means that if the `Nested` substate is active and then the transition to `ex1` gets triggered, the state `Other` becomes active. If then the transition to `ep2` gets triggered the `CompositeState` will be entered using deep history so that the `Nested` substate will again become active.
 
 !!! example
-    You can find a sample application that uses the deep history pseudo state [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/deep_history).
+    You can find a sample application that uses the deep history pseudo state [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/deep_history).
 
 #### Local Transition
 A transition in a nested state machine that connects an entry point and exit point on the same state, and these entry/exit points only are connected on the "inside", is a **local transition**. A local transition is a self-transition that behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the substates, run the effect code, and then enter the substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. 
@@ -1063,7 +1063,7 @@ No state is exited and the active state configuration remains unchanged.
 7) `Nested2` is entered.
 
 !!! example
-    You can find a sample application that has a local transition [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/local_transition).
+    You can find a sample application that has a local transition [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/local_transition).
 
 ## Class with State Machine
 Art allows you to create passive classes with state machines. This can be an alternative to using a [capsule](#capsule) in case you only need a passive stateful data object, and don't need the ability to send events to it, or to let it execute in its own context. A class with a state machine is more lightweight than a capsule at runtime. 
@@ -1115,7 +1115,7 @@ A class state machine can use the same constructs as a capsule state machine wit
 A class with state machine can have the [same code snippets](#capsule_code_snippets) as a capsule.
 
 !!! example
-    You can find a sample application that uses a class with a state machine [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TrafficLight).
+    You can find a sample application that uses a class with a state machine [here]({$vars.github.repo$}/tree/main/art-samples/TrafficLight).
 
 ### Constructor
 By default the initial transition of a class state machine executes at the time of constructing the class-with-statemachine instance. This happens because the generated default constructor will call an operation `rtg_init1()` which contains the code from the initial transition. If you want to wait with "starting" the state machine until a later point in time you need to define your own parameterless constructor which doesn't call this function.
@@ -1237,7 +1237,7 @@ capsule D : B, `IDataManager`, `IController` {
 In the example we can see that `D` overrides functions from the base C++ classes that are assumed to be virtual (or pure virtual). For brevity the implementations of these functions have been omitted but would be placed in the `rt::impl` code snippet. `D` also overrides a virtual function `doSmth()` from the base capsule `B`. The implementation of that function (also placed in the `rt::impl` code snippet) calls the inherited function by using a macro `SUPER`. This macro expands to the name of the base capsule class. Using this macro, instead of the base capsule class name, makes it easier to copy/paste code from one capsule to another.
 
 !!! example
-    You can find a sample application where a capsule inherits from both another capsule and from C++ classes [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_cpp_inheritance).
+    You can find a sample application where a capsule inherits from both another capsule and from C++ classes [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_cpp_inheritance).
 
 We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background.
 
@@ -1250,10 +1250,10 @@ The rule that a capsule state machine must have exactly one initial transition a
 !!! example
     You can find sample applications where capsule state machines are inherited here:
 
-    * [Redefining a transition effect](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/transition_inheritance)
-    * [Redefining a transition trigger](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata_inherited)
-    * [Redefining a transition guard](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_guard_redefinition)
-    * [Excluding a transition](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_guard_exclude)
+    * [Redefining a transition effect]({$vars.github.repo$}/tree/main/art-comp-test/tests/transition_inheritance)
+    * [Redefining a transition trigger]({$vars.github.repo$}/tree/main/art-comp-test/tests/compound_transition_rtdata_inherited)
+    * [Redefining a transition guard]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_guard_redefinition)
+    * [Excluding a transition]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_guard_exclude)
 
 Capsule inheritance also has a third dimension, which relates to its structure. [Parts](#part) and [ports](#port) defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. [protocol](#protocol-and-event)), [multiplicity](#port-multiplicity) and the [notification property](#notification-port) of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. 
 
@@ -1288,7 +1288,7 @@ Redefined and excluded elements are also shown in class diagrams. Below is the c
 ![](images/class_diagram_redefinitions.png)
 
 !!! example
-    You can find a sample application where parts are inherited [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/part_inheritance).
+    You can find a sample application where parts are inherited [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/part_inheritance).
 
 ### Class Inheritance
 A [class with state machine](#class-with-state-machine) can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.
@@ -1339,8 +1339,8 @@ protocol ExtendedMachineEvents : MachineEvents {
 !!! example
     You can find sample applications using protocol inheritance here:
 
-    * [A derived protocol inherits events from a base protocol](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance)
-    * [A derived protocol redefines the parameter type of an inherited event](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event)
+    * [A derived protocol inherits events from a base protocol]({$vars.github.repo$}/tree/main/art-comp-test/tests/protocol_inheritance)
+    * [A derived protocol redefines the parameter type of an inherited event]({$vars.github.repo$}/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event)
 
 ## Property
 Properties are name-value pairs that provide a generic mechanism for augmenting Art elements with extra data. Such data can be utilized by tools that operate on a parsed Art file, such as the code generator and semantic checker. Most Art elements can have properties and the syntax for specifying properties is the same regardless of the kind of element. However, different kinds of Art elements can have different properties.

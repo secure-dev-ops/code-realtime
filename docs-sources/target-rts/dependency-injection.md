@@ -25,7 +25,7 @@ RTInjector::getInstance().registerCreateFunction("/logSystem:0/logger",
 ```
 
 !!! example
-    You can find a sample application that uses dependency injection [here](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/dependency_injection_static).
+    You can find a sample application that uses dependency injection [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/dependency_injection_static).
 
 In most cases your application will only register create-functions once at start-up. However, [`RTInjector`](../targetrts-api/class_r_t_injector.html) allows to do it at any time, and you can also remove or replace an already registered create-function. This makes it possible to implement very dynamic dependency injection scenarios. For example, you can change which capsule that gets instantiated depending on how much memory is currently available.
 
