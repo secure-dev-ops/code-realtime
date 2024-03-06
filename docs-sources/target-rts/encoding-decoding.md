@@ -138,7 +138,7 @@ The JSON Decoder has to parse a JSON string before it can create an object repre
 
 There are, however, scenarios where you may need to parse JSON, not for the purpose of decoding it, but for some other reason. For example, you may get JSON as the result of making an API call, and then need to parse the JSON to more easily extract the relevant information from it. To support this scenario the TargetRTS includes a general-purpose JSON parser implemented in [`RTJsonParser`](../targetrts-api/class_r_t_json_parser.html).
 
-You parse a JSON string by calling `RTJsonParser::parseJsonString()`. The parser result is represented by an object of [`RTJsonResult`](../targetrts-api/class_r_t_json_result). On this object you can call functions to
+You parse a JSON string by calling `RTJsonParser::parseJsonString()`. The parser result is represented by an object of [`RTJsonResult`](../targetrts-api/class_r_t_json_result.html). On this object you can call functions to
 
 * query the type of result (either a JSON object or a JSON array) (`get_type()`)
 * get the keys of a JSON object (`get_keys()`)
@@ -146,7 +146,7 @@ You parse a JSON string by calling `RTJsonParser::parseJsonString()`. The parser
 * get the values of a JSON array (`get_values()`)
 * get the value at a certain index of a JSON array (`operator[size_t]`)
 
-Values are also represented by [`RTJsonResult`](../targetrts-api/class_r_t_json_result) and you can check their type (either `null`, JSON object, array, string, number or boolean). For values with types that correspond to C++ primitive types you can call "get_" functions (e.g. `get_bool()` to get a C++ bool from a JSON boolean value). Do not forget to first check the type of the value, because if you try to convert to the wrong kind of value, the result may be unexpected. Often it's more convenient to use one of the `operator==` functions to directly compare a JSON value with the corresponding C++ value.
+Values are also represented by [`RTJsonResult`](../targetrts-api/class_r_t_json_result.html) and you can check their type (either `null`, JSON object, array, string, number or boolean). For values with types that correspond to C++ primitive types you can call "get_" functions (e.g. `get_bool()` to get a C++ bool from a JSON boolean value). Do not forget to first check the type of the value, because if you try to convert to the wrong kind of value, the result may be unexpected. Often it's more convenient to use one of the `operator==` functions to directly compare a JSON value with the corresponding C++ value.
 
 Here is an example of how to parse a JSON string and check the result:
 

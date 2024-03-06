@@ -40,7 +40,7 @@ A new decoder class `RTJsonDecoding` is now available for decoding messages and 
 New macros were added in makefiles to support building generated applications without using `rtperl`.
 
 ### JSON parser
-A new class `RTJsonParser` can be used for parsing arbitrary JSON strings. It has a more general use than `RTJsonDecoding` which is specifically for decoding JSON that has been produced by `RTJsonEncoding`.
+A new class `RTJsonParser` can be used for parsing arbitrary JSON strings. It has a more general use than `RTJsonDecoding` which is specifically for decoding JSON that has been produced by `RTJsonEncoding`. See [this chapter](encoding-decoding.md#json-parser) for more information.
 
 ### Script for creating TargetRTS patch files
 A Bash script `createPatch.sh` is now available in the `tools` folder of the TargetRTS. It can be used for producing patch files describing the differences between two versions of the TargetRTS. See [Patch Files](#patch-files) for more information.
