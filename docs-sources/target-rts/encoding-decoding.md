@@ -31,7 +31,7 @@ std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
 
 Here we call the static encode function of the type descriptor (`_encode_func`) and provide the type descriptor object (`RTType_T`), the object to encode (`data`) and the ASCII coding object (`coding`). If you instead prefer to use the JSON encoding, just change the type of the coding object from `RTAsciiEncoding` to `RTJsonEncoding` (see the example below).
 
-To avoid the risk of overflowing a fixed-sized buffer, and get a slightly more compact code, you can use the [`RTDynamicStringOutBuffer`](targetrts-api/class_r_t_dynamic_string_out_buffer.html) utility class. You can encode by calling `put()` on the coding object:
+To avoid the risk of overflowing a fixed-sized buffer, and get a slightly more compact code, you can use the [`RTDynamicStringOutBuffer`](../targetrts-api/class_r_t_dynamic_string_out_buffer.html) utility class. You can encode by calling `put()` on the coding object:
 
 ```cpp
 RTDynamicStringOutBuffer buffer;
