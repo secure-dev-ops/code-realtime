@@ -1,0 +1,91 @@
+capsule Top {
+[[rt::header_preface]]
+`
+    #include <iostream>
+    #include <string>
+    #include <RTJsonParser.h>    
+    #include "testlib.art.h"    
+`    
+    statemachine {
+        state State1;
+        initial -> State1
+        `            // Basic API testing
+            std::string str1("{\"field1\" : \"string\"}");
+            RTJsonParser parser;
+            RTJsonResult result;
+            bool ok = parser.parseJsonString(result, str1);
+            ASSERT(ok, "Unexpected syntax error in str1");
+            std::cout << "type " << result.get_type() << std::endl;
+            ASSERT(result.get_type() == RTJsonResult::RTJSON_OBJ, "Expected str1 to parse as JSON object");
+            ASSERT(result["field1"].get_type() == RTJsonResult::RTJSON_STR, "Expected type of field1 to be string");
+            ASSERT(result["field1"].get_string() == "string", "Unexpected value of field1");
+            ASSERT(result.get_size() == 1, "Expected str1 to parse as JSON object with 1 key");
+            ASSERT(result.get_keys().size() == 1, "Expected str1 to parse as JSON object with 1 key (get_keys)");
+            ASSERT(result.get_keys()[0] == "field1", "First field is 'field1'");
+            ASSERT(result.get_values().size() == 1, "Expected str1 to parse as JSON object with 1 value (get_values)");
+            ASSERT(result.get_values()[0] == "string", "First value is 'string'");
+            ASSERT(result["field1"].get_float() == 0, "String not convertible to float");
+            ASSERT(result["field1"].get_double() == 0, "String not convertible to double");
+            ASSERT(result["field1"].get_int() == 0, "String not convertible to int");
+            ASSERT(!result["nonexisting"].ok(), "Attempt to access non-existing key was successful");
+            ASSERT(result["field1"].get_size() == 0, "Size of scalar values should be 0");
+            ASSERT(result["field1"] == result[0], "Index of first key should be 0");
+            
+            {
+                RTJsonParser parser;
+                RTJsonResult result;
+                bool ok = parser.parseJsonString(result, "{\"field1\" : \"string\", \"arr\" : [1,true,3.14]}");
+
+                std::cout << result["field1"].get_string() << std::endl; // "string"
+                if (result["arr"].ok()) { // Check if the "arr" key is present
+                    std::cout << result["arr"].get_size() << std::endl; // 3
+                    if (result["arr"][2] == 3.14) {
+                        std::cout << "yes" << std::endl; 
+                    }
+                    if (result["arr"][1].get_type() == RTJsonResult::RTJSON_BOOL) {
+                        std::cout << "yess" << std::endl; 
+                    }
+                }
+            }
+
+            // Different kinds of JSON values
+            std::string str2("[1, null, true, 3.14, \"str\", {}, []]");
+            parser.parseJsonString(result, str2);
+            ASSERT(result.get_type() == RTJsonResult::RTJSON_ARR, "Expected str2 to parse as JSON array");
+            ASSERT(result.get_size() == 7, "Expected 7 values in the array");
+
+            ASSERT(result[0] == 1, "Expected array element #1 to be 1");
+            ASSERT(result[1].get_type() == RTJsonResult::RTJSON_NULL && result[1].get_string() == "null", "Expected array element #2 to be null");
+            ASSERT(result[2] == true, "Expected array element #3 to be true");
+            ASSERT(result[3] == 3.14, "Expected array element #4 to be 3.14");            
+            ASSERT(result[4] == "str", "Expected array element #5 to be \"str\"");
+            ASSERT(result[5].get_type() == RTJsonResult::RTJSON_OBJ, "Expected array element #6 to be an object");
+            ASSERT(result[6].get_type() == RTJsonResult::RTJSON_ARR, "Expected array element #7 to be an array");
+            ASSERT(result[5].get_size() == 0, "Array element #6 should be empty object");
+            ASSERT(result[6].get_size() == 0, "Array element #7 should be empty array");
+
+            ASSERT(result[0].get_int() == 1, "Expected array element 1 to be convertible to int");
+            ASSERT(result[0].get_float() == 1.0, "Expected array element 1 to be convertible to float");
+            ASSERT(result[0].get_double() == 1.0, "Expected array element 1 to be convertible to double");            
+
+            // In case of syntax errors, false is returned
+            RTJsonResult result2;
+            ok = parser.parseJsonString(result2, "{not valid JSON}");
+            ASSERT(!ok, "Expected a syntax error");
+
+            // Unicode character
+            std::string str3("  {  \"åäö\"  :          \"↺\"  }");
+            ok = parser.parseJsonString(result, str3);
+            ASSERT(ok, "Unexpected syntax error in str3");
+            ASSERT(result["åäö"] == "↺", "Unexpected value for JSON key åäö");
+
+            // Escaping
+            std::string str4("{\"_\":\"\\\"quoted\\\" string\"}");            
+            ok = parser.parseJsonString(result, str4);
+            ASSERT(ok, "Unexpected syntax error in str4");            
+            ASSERT(result["_"] == "\"quoted\" string", "Unexpected value for JSON key _");            
+
+            PASS();          
+        `;
+    };
+};
