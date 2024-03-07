@@ -86,6 +86,9 @@
         {
             "path": "tests/json_encode_decode"
         },
+		{
+            "path": "tests/json_parse"
+        },
         {
             "path": "tests/library_threads_exe"
         },
@@ -145,6 +148,6 @@
         },
         {
             "path": "tests/typedef_type_descriptor"
-        }
+        }        
     ]
 }
