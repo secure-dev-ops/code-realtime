@@ -86,7 +86,7 @@
         {
             "path": "tests/json_encode_decode"
         },
-		{
+        {
             "path": "tests/json_parse"
         },
         {
@@ -100,6 +100,9 @@
         },
         {
             "path": "tests/local_transition"
+        },
+        {
+            "path": "tests/macro_callsuper_supermethod"
         },
         {
             "path": "tests/optional_part"
@@ -148,6 +151,6 @@
         },
         {
             "path": "tests/typedef_type_descriptor"
-        }        
+        }
     ]
 }

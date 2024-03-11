@@ -771,15 +771,47 @@ capsule MyCap {
 
 ![](images/triggered_transitions.png)
 
-Note the following:
+Triggers are specified as `PORT.EVENT` after the keyword `on`. You may specify multiple triggers separated by comma (`,`).
 
-* It's only valid to specify triggers for transitions that originate from a state. Transitions that originate from a pseudo-state (e.g. a choice or junction) cannot have triggers, i.e. they must be non-triggered transitions. Note, however, that transitions originating from [entry and exit points without incoming transitions](#entry-and-exit-point-without-incoming-transition) represent the container state and hence need a trigger.
-* Triggers are specified as `PORT.EVENT` after the keyword `on`. You may specify multiple triggers separated by comma (`,`).
-* A guard condition for the transition is specified after the `when` keyword, while a guard condition for an individual trigger is specified in square brackets (`[]`) after the trigger.
-* A guard condition can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition `requestReceived` in the above example), or it can be written as a boolean expression (as in the trigger guard for the `timeout` trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.
+It's only valid to specify triggers for transitions that originate from a state. Transitions that originate from a pseudo-state (e.g. a choice or junction) cannot have triggers, i.e. they must be non-triggered transitions. Note, however, that transitions originating from [entry and exit points without incoming transitions](#entry-and-exit-point-without-incoming-transition) represent the container state and hence need a trigger.
+
+#### Transition Code
+A transition can have code snippets:
+
+* **Effect code**, which runs when the transition executes. There can be at most one effect for a transition.
+* **Guard code**, which runs to decide if the transition can execute or not. There can be a guard for the transition itself (specified after the `when` keyword), but also a guard for each individual trigger (specified in square brackets (`[]`) after the trigger). The guard for an individual trigger is only evaluated when the received message matches the port and event specified by that trigger, while the guard for the transition itself is always evaluated. A transition can only execute if both these guard conditions are fulfilled.
+
+A guard code snippet can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition `requestReceived` in the above example), or it can be written as a boolean expression (as in the trigger guard for the `timeout` trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.
 
 !!! note 
-    Guard conditions should execute fast and have no side-effects. They are called frequently to decide which transition to execute when a message has arrived.
+    Guard code snippets should execute fast and have no side-effects. They are called frequently to decide which transition to execute when a message has arrived.
+
+Both effects and guards are translated to C++ functions in the generated code. These functions have two arguments that can be used in the effect and guard code snippets:
+
+* `rtdata`: A const pointer to the event data carried by the received message
+* `rtport`: A pointer to the [RTProtocol](../targetrts-api/class_r_t_protocol.html) that represents the port on which the message was received
+
+In some cases `rtdata` will be an untyped pointer (`const void*`):
+
+1. If the transition has multiple triggers, which specify events with data parameters of different types
+2. If the transition has no triggers, but is part of a compound transition which can be triggered by events with data parameters of different types
+3. If the transition is an [initial transition](#initial-transition)
+4. If the transition is triggered by the predefined `Timing::timeout` or `External::event` events
+
+In these cases you need to cast `rtdata` to the correct type. Such casting should normally be avoided, and for cases 1, 2 and 3 above there are ways to do so. For example, instead of one transition with multiple triggers, you can have several transition with one trigger each. And instead of accessing `rtdata` in a non-triggered transition, it's better to access it in the triggered transition that precedes it.
+
+You can set the `const_rtdata` [property](#const_rtdata) to false on a transition, to make 
+`rtdata` a non-const pointer (`void*`). One reason could be that you want to move the data into a capsule variable, so you can access it later. Moving data can be more efficient than copying it.
+
+``` art
+[[rt::properties(const_rtdata=false)]] First -> Second on myport.myevent 
+`
+    pC = std::move(*rtdata);
+`;
+```
+
+!!! example
+    You can find a sample application that has transitions with the property `const_rtdata` unset [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/move_function_2).
 
 #### Initial Transition
 Every state machine needs exactly one initial transition. When the state machine starts to run, the first thing that happens is that the initial transition executes and takes the state machine to its first state. Therefore, an initial transition is a non-triggered transition and also cannot have a guard condition. But it can of course have an effect code snippet. 
@@ -797,20 +829,6 @@ initial -> WaitForServerInit
 
 !!! note 
     Any type of data object can be passed as initialization data which means that `rtdata` is an untyped pointer that has to be casted to the expected type. A more type-safe way of passing initialization data is to define a constructor for a capsule. A [capsule constructor](#capsule-constructor) can take any number of arguments, while with `rtdata` only one data object can be passed (even if you of course can group several data objects into a struct or class to circumvent this limitation). With capsule constructors you can pass initialization data also for capsule instances that are located in fixed parts.
-    
-By default `rtdata` cannot be modified (it has type `const void*`). However, by setting the `const_rtdata` [property](#const_rtdata) to false on the initial transition, you can make it non-const. One reason for doing this could be that the initial transition effect code wants to pass some data back to the code that creates the capsule instance. However, you must be very careful if you do this since this will only work if the creating code runs in the same thread that runs the initial transition. A more legitimate reason could be that you want to move the initialization data into a capsule variable, so you can access it later. Moving data can be  more efficient than copying it.
-
-``` art
-[[rt::properties(const_rtdata=false)]] initial -> Waiting 
-`
-    pC = std::move(*((MyClass*) rtdata));
-`;
-```
-
-Note that the `const_rtdata` [property](#const_rtdata) can be set on any transition, not just the initial transition. It allows the data received when the transition is triggered to be modified.
-
-!!! example
-    You can find a sample application that has transitions with the property `const_rtdata` unset [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/move_function_2).
 
 #### Internal Transition
 An internal transition doesn't change the active state and therefore doesn't have a target state. An internal transition is always a triggered transition. You define an internal transition inside the state to which it belongs. Here is an example:
@@ -1289,6 +1307,19 @@ Redefined and excluded elements are also shown in class diagrams. Below is the c
 
 !!! example
     You can find a sample application where parts are inherited [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/part_inheritance).
+
+#### Calling Code from an Inherited Transition
+[Guard and effect code](#transition-code) for a transition that redefines an inherited transition can call the guard and effect code snippet from that inherited transition. For this purpose two C++ macros are available:
+
+* **CALLSUPER** Calls the inherited code snippet with the same `rtdata` and `rtport` arguments.
+* **SUPERMETHOD** Calls the inherited code snippet with custom values for `rtdata` and `rtport`.
+
+That is, `CALLSUPER` is equivalent to `SUPERMETHOD(rtdata, rtport)`.
+
+!!! example
+    You can find a sample application where these macros are used [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/macro_callsuper_supermethod).
+
+Note that these macros are just a convenience and you can accomplish the same thing if you place the code of the transition code snippet in a virtual capsule member function, which then can be overridden in the sub capsule.
 
 ### Class Inheritance
 A [class with state machine](#class-with-state-machine) can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.
