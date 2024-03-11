@@ -1,0 +1,56 @@
+protocol Proto {    
+    in ack(`int`);    
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "CapsuleWithUserDefinedConstructor.h"        
+    `
+    behavior port frame : Frame;
+    behavior port p : Proto;
+
+    fixed part thePart : CapsuleWithUserDefinedConstructor;
+    
+    connect p with thePart.p;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1;            
+        State1 -> State2 on p.ack
+        `
+            int result = *rtdata;
+            ASSERT(result == 15, "Unexpected result - expected 15 as set by capsule constructor");
+            PASS();
+        `;
+    };
+};
+
+capsule CapsuleWithUserDefinedConstructor {
+    [[rt::decl]]
+    `
+    private:
+        int number;
+    public:
+        CapsuleWithUserDefinedConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref): RTActor(rtg_rts, rtg_ref) {
+                   number = 15;
+        }
+       CapsuleWithUserDefinedConstructor_Actor(RTController*, RTActorRef*, int i);
+    `
+    [[rt::impl]]
+    `
+        // User-defined capsule constructor without any "extra" parameters
+        CapsuleWithUserDefinedConstructor_Actor::CapsuleWithUserDefinedConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, int i)
+            : RTActor(rtg_rts, rtg_ref), number(14) {             
+            }
+    `
+    service behavior port p~ : Proto;
+    statemachine {
+        state State;
+        initial -> State
+        `
+            p.ack(number).send();
+        `;
+    };
+};
