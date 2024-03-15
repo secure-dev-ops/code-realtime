@@ -11,13 +11,13 @@
       
       
       
-        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/dependency-injection/">
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/integrate-with-external-code/">
       
       
-        <link rel="prev" href="../capsule-factory/">
+        <link rel="prev" href="../threads/">
       
       
-        <link rel="next" href="../encoding-decoding/">
+        <link rel="next" href="../capsule-factory/">
       
       
       <link rel="icon" href="../../assets/favicon.png">
@@ -25,7 +25,7 @@
     
     
       
-        <title>Dependency Injection - DevOps Code RealTime</title>
+        <title>Integration with External Code - DevOps Code RealTime</title>
       
     
     
@@ -92,6 +92,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#external-port" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -138,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dependency Injection
+              Integration with External Code
             
           </span>
         </div>
@@ -841,10 +846,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../integrate-with-external-code/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Integration with External Code
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -853,6 +876,66 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#external-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Port
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External Port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passing Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Function
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -883,17 +966,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../dependency-injection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -902,7 +978,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1338,6 +1413,56 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#external-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Port
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External Port">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passing Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Function
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1354,30 +1479,89 @@
   
 
 
-  <h1>Dependency Injection</h1>
+  <h1>Integration with External Code</h1>
 
-<p>An object in an application has several "dependencies", i.e. various things that affect how it behaves at run-time. For a capsule part that gets incarnated with capsule instances at run-time, examples of such dependencies include which capsule to create an instance of, what data to pass to the capsule constructor, and which thread that should run the created capsule instance. But the behavior of a capsule instance also depends a lot on which other capsule instances it communicates with at run-time, so those are also examples of dependencies.</p>
-<p><strong>Dependency injection</strong> is a technique where run-time dependencies of objects are managed by a central <strong>injector</strong> object, instead of being hardcoded across the application. The injector is configured so it provides the desired dependencies for objects when they are needed at run-time. One benefit with using dependency injection is that objects in your application become more loosly coupled and it becomes much easier to configure and customize the behavior of your application.</p>
-<p>There are many dependency injection frameworks for C++ which you can use for the passive C++ classes of your application. To use dependency injection for capsules, the TargetRTS provides a class <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. You can use this class for registering create-functions for capsule parts at application start-up. When the TargetRTS needs to incarnate a capsule part, it will check if a create-function is registered for it. If so, that create-function will be called for creating the capsule instance. Otherwise, the capsule instance will be created by the TargetRTS itself, as usual.</p>
-<p>To use dependency injection in your realtime application you need to implement a <a href="../capsule-factory/#global-capsule-factory">global capsule factory</a> and specify it in your TC. The <code>create()</code> function of the global capsule factory delegates all calls to the <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> singleton object.</p>
-<p>You also must configure the injector by registering create-functions for all capsule parts where you want to customize how a capsule instance should be created. You need to do this early, typically at application start-up. At least it must be done before the TargetRTS attempts to create a capsule instance in a capsule part which you want to customize with dependency injection. A good place can be to do it in the constructor of the top capsule, in the main function of your application, or in the constructor of a static object (such as the global capsule factory object itself).</p>
-<p>A create-function is registered by calling <code>registerCreateFunction()</code> on <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. The second argument is the create-function, and the first argument is a string that specifies the path to the capsule part in the composite structure of the application. Such paths always start with a <code>/</code> denoting the top capsule, and then follows names of capsules parts separated by <code>/</code>. You can use a <code>:</code> to specify the index of a capsule instance in a part with multiplicity. For example, if the application has this composite structure</p>
-<p><img alt="" src="../images/composite_structure_paths.png" /></p>
-<p>then the path string <code>/logSystem:0/logger</code> refers to the capsule part <code>logger</code> that is contained in the <code>LogSystem</code> capsule instance which is the first (index 0) capsule instance in the capsule part <code>logSystem</code> of the top capsule <code>Top</code>.</p>
-<p>A call to <code>registerCreateFunction()</code> to customize the incarnation of capsule instances in the <code>logger</code> capsule part could then look like this:</p>
-<pre><code class="language-cpp">RTInjector::getInstance().registerCreateFunction(&quot;/logSystem:0/logger&quot;,
-    [this](RTController * c, RTActorRef * a, int index) {                       
-        return new TimestampLogger_Actor(c, a);
-    }
-);
-</code></pre>
+<p>In most cases a realtime application contains at least some code that is not generated by Code RealTime. The application can use libraries, both 3rd party libraries and libraries you have created yourself. It can also contain other C++ code which is built together with generated code, either from within Code RealTime or from another IDE or build system. In this chapter we'll look at some techniques and best practises for integrating the code generated by Code RealTime with other code, which we here refer to as <strong>external code</strong>.</p>
+<h2 id="external-port">External Port</h2>
+<p>External code can send events to a capsule in a thread-safe way by means of an <strong>external port</strong> defined on the capsule. Such a port is typed by the predefined <a href="../../targetrts-api/struct_external.html"><code>External</code></a> protocol. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even if an external port can be considered to be part of the capsule's public API, it must be declared as a non-service port.</p>
+</div>
+<p>External ports can for example be useful in scenarios when external code has to wait for some event to occur or some data to become available, and then notify a capsule about it. Such external code has to run in its own thread (an <strong>external thread</strong>), to avoid blocking the application while it's waiting. In some cases it's enough to just notify the capsule about what has happened, while in other cases it's necessary to also transfer some data from the external code to the capsule. Here are examples for three typical scenarios:</p>
+<ul>
+<li>Notify a capsule when a button is pushed. In this case it's not necessary to transfer any data to the capsule, but it's enough to raise an event on the external port.</li>
+<li>Periodically read the temperature from a sensor, and notify a capsule when the temperature has changed. In this case the external code can use a periodic timer to read the temperature sensor. When a change is detected the capsule can be notified about the new temperature by raising an event on the external port, and use a <code>float</code> as event data.</li>
+<li>Wait for string data to become available on a socket, and when it does pass the read strings to a capsule. If strings arrive on the socket at a high pace it may be inefficient to pass them one by one to the capsule. Instead the external code can store received strings in a shared data area from where the capsule can fetch it when it's ready to do so.</li>
+</ul>
+<p>All these types of scenarios are supported by means of external ports.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p>You can find a sample application that uses dependency injection <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/dependency_injection_static">here</a>.</p>
+<p>You can find a sample application that uses an external port <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/QtTrafficLight">here</a>.</p>
 </div>
-<p>In most cases your application will only register create-functions once at start-up. However, <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> allows to do it at any time, and you can also remove or replace an already registered create-function. This makes it possible to implement very dynamic dependency injection scenarios. For example, you can change which capsule that gets instantiated depending on how much memory is currently available.</p>
-<p>Dependency injection can for example be useful when implementing capsule unit testing in order to "mock out" capsules which the capsule-under-test depends on. In this case you could for example let the registration of create-functions be controlled by a configuration file that is part of the test case.</p>
-<p>Another possibility is to combine dependency injection with <a href="../../building/build-variants/">Build Variants</a> to build multiple variants of an application by means of high-level build settings (so called "build variants"). The build variant script can set compilation macros that control how injected create-functions behave.</p>
+<h3 id="general-usage">General Usage</h3>
+<p>The capsule that owns an external port has full control over when it's ready to accept an event on the external port. This is important to prevent an external thread from "starving" the thread that runs the capsule. The following rules apply for how an external port must be used:</p>
+<ol>
+<li>An external port is initially disabled. In this state the external code cannot raise an event on the port. It can try, but nothing will happen.</li>
+<li>The external port can only be enabled by the capsule itself, by calling <code>enable()</code> on the port. It's important that this call happens from the same thread that runs the capsule. If the port is already enabled, nothing happens and it stays enabled.</li>
+<li>External code can raise exactly one event on an external port that has been already enabled. The event is raised by calling <code>raise()</code> on the port, and it's important that this call happens from the external thread (i.e. the capsule itself should not call it). Once an event has been raised on the external port, it automatically becomes disabled and has to be enabled by the capsule again before another event can be raised on it.</li>
+<li>The capsule can choose to disable an external port that it previously enabled. It does so by calling <code>disable()</code> on the port. If the port is already disabled, nothing happens and the port stays disabled.</li>
+</ol>
+<p>The state machine below shows these rules graphically:</p>
+<p><img alt="" src="../images/external_port.png" /></p>
+<p>The external code can use the return value of <code>raise()</code> to know if the event was successfully raised on the port or not. It should never assume that raising the event will succeed, because it cannot know if the capsule has enabled the external port or not. If raising the event fails, the external code can choose to try again a little later, or skip it altogether. How to best handle this situation depends on the application and how important it is for the capsule to be notified about the event.</p>
+<p>Here is code which can be called from the external thread to attempt to raise an event on an external port <code>extPort</code>:</p>
+<pre><code class="language-cpp">if (extPort.raise() == 0){
+    // failure (possibly try again a little later)
+}
+else {
+    // success
+}
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To allow the external code to call <code>raise()</code> on the external port it's necessary to somehow provide the external code with a way to access it. A good way to do this is to let the capsule implement an interface class which provides a function for raising the event on the external port. The external code can then be given a reference to the capsule through that interface class. This prevents the need to expose the external port itself to the external code, and it effectively ensures that the external code cannot do anything with the capsule except calling the provided function. See <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TrafficLight">this sample</a> for an example of how to let a capsule implement an interface class.</p>
+</div>
+<h3 id="passing-data">Passing Data</h3>
+<p>The external code can choose to pass a data argument with the event that it raises on an external port. The same rules apply for such data as for all other event data, except that it will always be copied (i.e. it's not possible to move it). Just like when data is associated with a timeout event, it's necessary to provide both the data and its type descriptor when raising an event with data. Here is an example where the raised event carries a string as data:</p>
+<pre><code class="language-cpp">char* str = &quot;external data&quot;;
+extPort.raise(&amp;str, &amp;RTType_RTpchar);
+</code></pre>
+<p>As with all other events, the capsule receives the passed data through the <code>rtdata</code> argument in the transition that is triggered on the event called <code>event</code> of the <a href="../../targetrts-api/struct_external.html"><code>External</code></a> protocol. For example, to receive the string data used above:</p>
+<pre><code class="language-cpp">RTpchar d = *((RTpchar*) rtdata);
+std::cout &lt;&lt; &quot;Received data on external port: &quot; &lt;&lt; d &lt;&lt; std::endl;
+</code></pre>
+<p>Sometimes data may become available in the external thread at a higher pace than what the capsule can (or want to) handle. In that case it’s not convenient to pass the data to the capsule thread in the call of <code>raise()</code>. Instead, the external code can call <code>dataPushBack()</code> to push the data into a data area on the external port itself. The external code can push any number of data objects on the external port. The capsule can access the data, when it's ready to do so, by calling either <code>dataPopFront()</code> or <code>dataPopBack</code> depending on if it wants to handle the data in a "first-in-first-out" (FIFO) or "last-in-first-out" (LIFO) manner. The external code can call <code>raise()</code> to notify the capsule that data is available for it to fetch. It can either do this as soon as it has pushed any data on the external port, or wait until a certain number of data objects have been pushed. </p>
+<p>Here is an example of external code for pushing a data object consisting of a string and an integer on the external port:</p>
+<pre><code class="language-cpp">std::pair&lt;std::string,int&gt;* data = new std::pair&lt;std::string,int&gt;(&quot;external data&quot;, 15);
+extPort.dataPushBack(data);
+</code></pre>
+<p>And here is how the capsule can choose to fetch the data in a FIFO manner:</p>
+<pre><code class="language-cpp">unsigned int remaining;
+do {
+    std::pair&lt;std::string,int&gt;* data;
+    remaining = extPort.dataPopFront((void**) &amp;data);
+    if (data == 0)
+        break;
+    // Handle received external data here...
+    delete data;
+}
+while (remaining &gt; 0);
+</code></pre>
+<p>Note that the external code is responsible for allocating the data pushed on the external port, while the capsule is responsible for deleting the data once it has fetched it. The capsule can choose whether it wants to fetch all available data at once (as in the above example), or only some of it. However, it's important to design the application so that external port data doesn't just keep growing as that eventually would cause the application to run out of memory.</p>
+<p>It's of course possible to implement another scheme for passing data from external code to a capsule, and the data area of an external port should just be seen as a convenience. Any data structure can be shared between the external code and the capsule, but it's important that it is thread-safe. You can for example use a mutex (see <code>RTMutex</code> in the TargetRTS) for protecting data that is shared by the external thread and the capsule's thread.</p>
+<h2 id="main-function">Main Function</h2>
+<p>The TargetRTS contains a <code>main()</code> function implementation which is used when you build an executable. However, its implementation simply calls <code>RTMain::entryPoint()</code> which is provided by the generated code in the unit file (by default called <code>UnitName.cpp</code>). If you want to integrate the generated code with external code that already contains a <code>main()</code> function you can either </p>
+<ol>
+<li>build a library from Code RealTime and then let your application link with that library, or</li>
+<li>only generate the code in Code RealTime and build it together with the external code using another IDE or build system.</li>
+</ol>
+<p>The generated implementation of <code>RTMain::entryPoint()</code> performs certain set-up activities such as defining the <a href="../../targetrts-api/struct_r_t_system_descriptor.html"><code>RTSystemDescriptor</code></a> which among other things contains a reference to the type descriptor of the top capsule. It then calls <code>RTMain::execute()</code> which will start-up the TargetRTS and create and run an instance of the top capsule. This means that when you build an executable, the top capsule instance will always be run by the main thread. But if you instead provide the <code>main()</code> function in the external code, you can create a different thread and call <code>RTMain::entryPoint()</code> from that thread, and then the top capsule instance will be executed by that thread. </p>
+<p>One example where you typically cannot let the main thread run the top capsule instance, is when the application has a user interface. This is because the main thread then already is busy running the event loop that manages the user interface. In this case you can create a separate thread responsible for running the realtime part of your application (i.e. the top capsule instance).</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application where a user interface is integrated with a realtime application <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/QtTrafficLight">here</a>.</p>
+</div>
 
 
 

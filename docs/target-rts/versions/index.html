@@ -11,13 +11,13 @@
       
       
       
-        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/dependency-injection/">
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/versions/">
       
       
-        <link rel="prev" href="../capsule-factory/">
+        <link rel="prev" href="../build/">
       
       
-        <link rel="next" href="../encoding-decoding/">
+        <link rel="next" href="../../targetrts-api/">
       
       
       <link rel="icon" href="../../assets/favicon.png">
@@ -25,7 +25,7 @@
     
     
       
-        <title>Dependency Injection - DevOps Code RealTime</title>
+        <title>Versions - DevOps Code RealTime</title>
       
     
     
@@ -92,6 +92,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#patch-files" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -138,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dependency Injection
+              Versions
             
           </span>
         </div>
@@ -883,17 +888,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../dependency-injection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -902,7 +900,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -954,10 +951,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../versions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Versions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -966,6 +981,93 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#patch-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patch Files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Log
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json-decoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON decoder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-without-rtperl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building without rtperl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON parser
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-for-creating-targetrts-patch-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Script for creating TargetRTS patch files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointers-in-json-encodingdecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pointers in JSON encoding/decoding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1338,6 +1440,83 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#patch-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patch Files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Log
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json-decoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON decoder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-without-rtperl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building without rtperl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON parser
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-for-creating-targetrts-patch-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Script for creating TargetRTS patch files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointers-in-json-encodingdecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pointers in JSON encoding/decoding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1354,30 +1533,59 @@
   
 
 
-  <h1>Dependency Injection</h1>
+  <h1>Versions</h1>
 
-<p>An object in an application has several "dependencies", i.e. various things that affect how it behaves at run-time. For a capsule part that gets incarnated with capsule instances at run-time, examples of such dependencies include which capsule to create an instance of, what data to pass to the capsule constructor, and which thread that should run the created capsule instance. But the behavior of a capsule instance also depends a lot on which other capsule instances it communicates with at run-time, so those are also examples of dependencies.</p>
-<p><strong>Dependency injection</strong> is a technique where run-time dependencies of objects are managed by a central <strong>injector</strong> object, instead of being hardcoded across the application. The injector is configured so it provides the desired dependencies for objects when they are needed at run-time. One benefit with using dependency injection is that objects in your application become more loosly coupled and it becomes much easier to configure and customize the behavior of your application.</p>
-<p>There are many dependency injection frameworks for C++ which you can use for the passive C++ classes of your application. To use dependency injection for capsules, the TargetRTS provides a class <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. You can use this class for registering create-functions for capsule parts at application start-up. When the TargetRTS needs to incarnate a capsule part, it will check if a create-function is registered for it. If so, that create-function will be called for creating the capsule instance. Otherwise, the capsule instance will be created by the TargetRTS itself, as usual.</p>
-<p>To use dependency injection in your realtime application you need to implement a <a href="../capsule-factory/#global-capsule-factory">global capsule factory</a> and specify it in your TC. The <code>create()</code> function of the global capsule factory delegates all calls to the <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> singleton object.</p>
-<p>You also must configure the injector by registering create-functions for all capsule parts where you want to customize how a capsule instance should be created. You need to do this early, typically at application start-up. At least it must be done before the TargetRTS attempts to create a capsule instance in a capsule part which you want to customize with dependency injection. A good place can be to do it in the constructor of the top capsule, in the main function of your application, or in the constructor of a static object (such as the global capsule factory object itself).</p>
-<p>A create-function is registered by calling <code>registerCreateFunction()</code> on <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. The second argument is the create-function, and the first argument is a string that specifies the path to the capsule part in the composite structure of the application. Such paths always start with a <code>/</code> denoting the top capsule, and then follows names of capsules parts separated by <code>/</code>. You can use a <code>:</code> to specify the index of a capsule instance in a part with multiplicity. For example, if the application has this composite structure</p>
-<p><img alt="" src="../images/composite_structure_paths.png" /></p>
-<p>then the path string <code>/logSystem:0/logger</code> refers to the capsule part <code>logger</code> that is contained in the <code>LogSystem</code> capsule instance which is the first (index 0) capsule instance in the capsule part <code>logSystem</code> of the top capsule <code>Top</code>.</p>
-<p>A call to <code>registerCreateFunction()</code> to customize the incarnation of capsule instances in the <code>logger</code> capsule part could then look like this:</p>
-<pre><code class="language-cpp">RTInjector::getInstance().registerCreateFunction(&quot;/logSystem:0/logger&quot;,
-    [this](RTController * c, RTActorRef * a, int index) {                       
-        return new TimestampLogger_Actor(c, a);
-    }
-);
-</code></pre>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<p>You can find a sample application that uses dependency injection <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/dependency_injection_static">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some of the information in this chapter is only applicable for the Commercial Edition of Code RealTime since it includes the source code for the TargetRTS. With the Community Edition comes only precompiled versions of the TargetRTS for a limited number of commonly used target configurations.</p>
 </div>
-<p>In most cases your application will only register create-functions once at start-up. However, <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> allows to do it at any time, and you can also remove or replace an already registered create-function. This makes it possible to implement very dynamic dependency injection scenarios. For example, you can change which capsule that gets instantiated depending on how much memory is currently available.</p>
-<p>Dependency injection can for example be useful when implementing capsule unit testing in order to "mock out" capsules which the capsule-under-test depends on. In this case you could for example let the registration of create-functions be controlled by a configuration file that is part of the test case.</p>
-<p>Another possibility is to combine dependency injection with <a href="../../building/build-variants/">Build Variants</a> to build multiple variants of an application by means of high-level build settings (so called "build variants"). The build variant script can set compilation macros that control how injected create-functions behave.</p>
+<p>It's common to extend and modify the TargetRTS with your own utilities and customizations. In this case you will build your application against a copy of the TargetRTS that contains these changes. However, when a new version of the TargetRTS is released, you then must incorporate the changes in that new version into your own copy of the TargetRTS. This document helps with this process by documenting all changes made in the TargetRTS. It also describes some strategies for more easily managing multiple versions of the TargetRTS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The version of the TargetRTS is defined in the file <code>RTVersion.h</code> by means of the macro <code>RT_VERSION_NUMBER</code>.</p>
+</div>
+<h2 id="patch-files">Patch Files</h2>
+<p>To simplify the process of adopting changes from a new version of the TargetRTS, so called patch files are provided in the folder <code>TargetRTS_changelog</code> (located next to the <code>TargetRTS</code> folder). The patch files have names <code>&lt;from-version&gt;_&lt;to-version&gt;.patch</code> and contain all changes made from one version to another. You can use the command-line tool <code>patch</code> to automatically apply the changes of a patch file to your own copy of the TargetRTS. </p>
+<p>For example, to apply the changes from version 8000 to version 8002, go to the folder that contains the <code>TargetRTS</code> and <code>TargetRTS_changelog</code> folders and run this command:</p>
+<pre><code>patch -p3 &lt; TargetRTS_changelog/8000_8002.patch
+</code></pre>
+<p>You can also downgrade the version of the TargetRTS by running the same command but with the <code>-R</code> flag.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>patch</code> command is included in Linux and Unix-like operating systems, but on Windows you have to download it separately. You can for example get it through the <a href="https://gitforwindows.org/">Git for Windows</a> set of tools.</p>
+</div>
+<p>The patch files in the <code>TargetRTS_changelog</code> folder have been created by a Bash script <code>TargetRTS/tools/createPatch.sh</code>. You can use this script if you have your version of the TargetRTS in a Git repo and want to produce a patch file for the changes you have made to the TargetRTS. You can then later use that patch file to apply your changes to a newer version of the TargetRTS.</p>
+<p>Whether it's best to adopt changes in a standard TargetRTS into your version of the TargetRTS, or to do the opposite, i.e. adopt your changes into a standard TargetRTS, may depend on how big changes you have made. If your changes are small and limited the latter may be easiest, while if you have made substantial changes the former may be the better option.</p>
+<h2 id="change-log">Change Log</h2>
+<p>Below is a table that lists all changes made in the TargetRTS since version 8000 (which were delivered with Code RealTime 1.0.0). For changes in older versions of the TargetRTS, which were done for Model RealTime, see <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/pdf/ModelRealTime_RoseRT_All_Changes_in_Cpp_TargetRTS.pdf">this document</a>.</p>
+<table>
+<thead>
+<tr>
+<th>TargetRTS Version</th>
+<th style="text-align: left;">Included Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8001</td>
+<td style="text-align: left;"><a href="#json-decoder">JSON Decoding</a></td>
+</tr>
+<tr>
+<td>8002</td>
+<td style="text-align: left;"><a href="#building-without-rtperl">Building without rtperl</a> <br> <a href="#json-parser">JSON parser</a> <br> <a href="#script-for-creating-targetrts-patch-files">Script for creating TargetRTS patch files</a> <br> <a href="#pointers-in-json-encodingdecoding">Pointers in JSON encoding/decoding</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="json-decoder">JSON decoder</h3>
+<p>A new decoder class <code>RTJsonDecoding</code> is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder (<code>RTJsonEncoding</code>) can be decoded back to (a copy of) the original data.</p>
+<h3 id="building-without-rtperl">Building without rtperl</h3>
+<p>New macros were added in makefiles to support building generated applications without using <code>rtperl</code>.</p>
+<h3 id="json-parser">JSON parser</h3>
+<p>A new class <code>RTJsonParser</code> can be used for parsing arbitrary JSON strings. It has a more general use than <code>RTJsonDecoding</code> which is specifically for decoding JSON that has been produced by <code>RTJsonEncoding</code>. See <a href="../encoding-decoding/#json-parser">this chapter</a> for more information.</p>
+<h3 id="script-for-creating-targetrts-patch-files">Script for creating TargetRTS patch files</h3>
+<p>A Bash script <code>createPatch.sh</code> is now available in the <code>tools</code> folder of the TargetRTS. It can be used for producing patch files describing the differences between two versions of the TargetRTS. See <a href="#patch-files">Patch Files</a> for more information.</p>
+<h3 id="pointers-in-json-encodingdecoding">Pointers in JSON encoding/decoding</h3>
+<p>Data of pointer type is now encoded to a string by the JSON encoder (<code>RTJsonEncoding</code>) and can be decoded back to a memory address by the JSON decoder (<code>RTJsonDecoding</code>).</p>
 
 
 

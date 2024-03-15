@@ -11,13 +11,13 @@
       
       
       
-        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/dependency-injection/">
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/encoding-decoding/">
       
       
-        <link rel="prev" href="../capsule-factory/">
+        <link rel="prev" href="../dependency-injection/">
       
       
-        <link rel="next" href="../encoding-decoding/">
+        <link rel="next" href="../build/">
       
       
       <link rel="icon" href="../../assets/favicon.png">
@@ -25,7 +25,7 @@
     
     
       
-        <title>Dependency Injection - DevOps Code RealTime</title>
+        <title>Encoding and Decoding - DevOps Code RealTime</title>
       
     
     
@@ -92,6 +92,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#encode-and-decode-apis" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -138,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dependency Injection
+              Encoding and Decoding
             
           </span>
         </div>
@@ -883,6 +888,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../dependency-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dependency Injection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -893,29 +919,18 @@
       
       
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   <span class="md-ellipsis">
-    Dependency Injection
+    Encoding and Decoding
   </span>
   
 
-      </a>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../encoding-decoding/" class="md-nav__link">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -924,6 +939,75 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#encode-and-decode-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encode and Decode APIs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encode and Decode APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoding-a-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encoding a Message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-encodingdecoding-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Encoding/Decoding Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-encodingdecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Encoding/Decoding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Parser
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1338,6 +1422,65 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#encode-and-decode-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encode and Decode APIs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encode and Decode APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoding-a-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encoding a Message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-encodingdecoding-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Encoding/Decoding Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-encodingdecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Encoding/Decoding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Parser
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1354,30 +1497,134 @@
   
 
 
-  <h1>Dependency Injection</h1>
+  <h1>Encoding and Decoding</h1>
 
-<p>An object in an application has several "dependencies", i.e. various things that affect how it behaves at run-time. For a capsule part that gets incarnated with capsule instances at run-time, examples of such dependencies include which capsule to create an instance of, what data to pass to the capsule constructor, and which thread that should run the created capsule instance. But the behavior of a capsule instance also depends a lot on which other capsule instances it communicates with at run-time, so those are also examples of dependencies.</p>
-<p><strong>Dependency injection</strong> is a technique where run-time dependencies of objects are managed by a central <strong>injector</strong> object, instead of being hardcoded across the application. The injector is configured so it provides the desired dependencies for objects when they are needed at run-time. One benefit with using dependency injection is that objects in your application become more loosly coupled and it becomes much easier to configure and customize the behavior of your application.</p>
-<p>There are many dependency injection frameworks for C++ which you can use for the passive C++ classes of your application. To use dependency injection for capsules, the TargetRTS provides a class <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. You can use this class for registering create-functions for capsule parts at application start-up. When the TargetRTS needs to incarnate a capsule part, it will check if a create-function is registered for it. If so, that create-function will be called for creating the capsule instance. Otherwise, the capsule instance will be created by the TargetRTS itself, as usual.</p>
-<p>To use dependency injection in your realtime application you need to implement a <a href="../capsule-factory/#global-capsule-factory">global capsule factory</a> and specify it in your TC. The <code>create()</code> function of the global capsule factory delegates all calls to the <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> singleton object.</p>
-<p>You also must configure the injector by registering create-functions for all capsule parts where you want to customize how a capsule instance should be created. You need to do this early, typically at application start-up. At least it must be done before the TargetRTS attempts to create a capsule instance in a capsule part which you want to customize with dependency injection. A good place can be to do it in the constructor of the top capsule, in the main function of your application, or in the constructor of a static object (such as the global capsule factory object itself).</p>
-<p>A create-function is registered by calling <code>registerCreateFunction()</code> on <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. The second argument is the create-function, and the first argument is a string that specifies the path to the capsule part in the composite structure of the application. Such paths always start with a <code>/</code> denoting the top capsule, and then follows names of capsules parts separated by <code>/</code>. You can use a <code>:</code> to specify the index of a capsule instance in a part with multiplicity. For example, if the application has this composite structure</p>
-<p><img alt="" src="../images/composite_structure_paths.png" /></p>
-<p>then the path string <code>/logSystem:0/logger</code> refers to the capsule part <code>logger</code> that is contained in the <code>LogSystem</code> capsule instance which is the first (index 0) capsule instance in the capsule part <code>logSystem</code> of the top capsule <code>Top</code>.</p>
-<p>A call to <code>registerCreateFunction()</code> to customize the incarnation of capsule instances in the <code>logger</code> capsule part could then look like this:</p>
-<pre><code class="language-cpp">RTInjector::getInstance().registerCreateFunction(&quot;/logSystem:0/logger&quot;,
-    [this](RTController * c, RTActorRef * a, int index) {                       
-        return new TimestampLogger_Actor(c, a);
+<p>Encoding is the process of serializing data from memory into a string representation. Decoding is the opposite, i.e. deserializing a string representation of data into memory. There are many situations when it's useful to encode and/or decode:</p>
+<ul>
+<li>During run-time logging and tracing it can be useful to print a compact representation of data by encoding it into a string.</li>
+<li>If your application is distributed into several binaries that run in separate processes (or even on separate machines), and you need to send data from one binary to another, then a string representation of the data to send can be useful. The sender can encode the data into a string which for example can be sent over TCP to the receiver. The receiver can then decode the string back into data in its memory space.</li>
+<li>Even within the same process it can sometimes be useful to clone an object by first encoding it to a string, and then decoding that string back into a copy of the original object. However, in most cases use of copy constructors is a more efficient way of cloning objects.</li>
+<li>If you need to save data from your application into some form of persistent storage (file, database etc.) you can encode it into a string representation, and then persist that string. Later (possibly in another instance of your application) you can load the saved data by decoding the persisted string back to memory.</li>
+</ul>
+<p>The TargetRTS provides support for encoding and decoding data by means of the <code>encode</code> and <code>decode</code> functions of a <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>. This means that if you want to use encoding and/or decoding for a data type, you just need to make sure that it has a type descriptor with one or both of these functions implemented. The TargetRTS has a default implementation for encoding and decoding many types, including all predefined C++ types, structured types and enums. You can choose between three string formats:</p>
+<ul>
+<li><strong>ASCII</strong> This is a format that is intended to be readable both by humans and machines, while still being as compact as possible. It's however a proprietary format that is not understood by other tools.</li>
+<li><strong>ASCIIV</strong> This format is identical to <strong>ASCII</strong> but in addition it includes the <a href="../../art-lang/cpp-extensions/#versioning">version of the type descriptor</a>. This can be useful if you change the type that gets encoded and need to maintain backwards compatibility. The decoder can then use the version information to know how to decode the encoded string.</li>
+<li><strong>JSON</strong> This is a standardized format that is supported by a large number of tools. There are JSON parsers for most programming languages which makes it a good choice if your application includes components written in other languages than C++. Because of this, it's also a popular format for Internet-of-Things (IoT) applications that need to interact with web services or APIs.</li>
+</ul>
+<p>If your data type is too complex for the default encode/decode implementation in the TargetRTS, or if you want to use some other format than the above two, you can write your own encode/decode functions. If you let your implementation inherit from the <code>RTEncoding</code> and <code>RTDecoding</code> interface classes, then the TargetRTS can seamlessly manage encoding and decoding also for your custom implementation.</p>
+<p>If you don't need support for encoding and/or decoding in your application you should unset the macros <a href="../build/#object_decode-and-object_encode"><code>OBJECT_ENCODE</code> and/or <code>OBJECT_DECODE</code></a> both when building the TargetRTS and your application. This will reduce the application footprint.</p>
+<h2 id="encode-and-decode-apis">Encode and Decode APIs</h2>
+<p>Assume you have a data object stored in a variable <code>data</code> of type <code>T</code>, and the type descriptor of <code>T</code> has support for encoding and decoding. The sample below will encode the object to ASCII and print it to stdout. </p>
+<pre><code class="language-cpp">T data = new T(); // Object to encode
+
+char buf[1000];
+RTMemoryOutBuffer buffer( buf, 1000 );
+RTAsciiEncoding coding( &amp;buffer );
+RTType_T._encode_func(&amp;RTType_T, &amp;data, &amp;coding);
+buffer.write(&quot;&quot;, 1); // IMPORTANT: Terminate the buffer string before printing it!
+std::cout &lt;&lt; &quot;ASCII encoding: &quot; &lt;&lt; buf &lt;&lt; std::endl &lt;&lt; std::flush;  
+</code></pre>
+<p>Here we call the static encode function of the type descriptor (<code>_encode_func</code>) and provide the type descriptor object (<code>RTType_T</code>), the object to encode (<code>data</code>) and the ASCII coding object (<code>coding</code>). If you instead prefer to use the JSON encoding, just change the type of the coding object from <code>RTAsciiEncoding</code> to <code>RTJsonEncoding</code> (see the example below).</p>
+<p>To avoid the risk of overflowing a fixed-sized buffer, and get a slightly more compact code, you can use the <a href="../../targetrts-api/class_r_t_dynamic_string_out_buffer.html"><code>RTDynamicStringOutBuffer</code></a> utility class. You can encode by calling <code>put()</code> on the coding object:</p>
+<pre><code class="language-cpp">RTDynamicStringOutBuffer buffer;
+RTJsonEncoding coding(&amp;buffer);
+coding.put(&amp;data, &amp;RTType_T);
+std::cout &lt;&lt; &quot;JSON encoding: &quot; &lt;&lt; buffer.getString() &lt;&lt; std::endl &lt;&lt; std::flush;  
+</code></pre>
+<p><code>RTEncoding::put()</code> produces a string that is prefixed with the type name. For JSON encoding it may look like this: </p>
+<pre><code class="language-json">{T}{&quot;a&quot; : 5,&quot;b&quot; : true}
+</code></pre>
+<p>The <code>{T}</code> prefix is needed if you later want to decode this string back to an object, but it has to be stripped off to get a string with valid JSON syntax. If you only are interested in getting the JSON encoding, without the type prefix, you can instead call <code>RTEncoding::put_struct()</code> (assuming <code>T</code> is a structured type).</p>
+<p>Let's continue the above example and decode the string stored in <code>buffer</code> back to an object of type <code>T</code>:</p>
+<pre><code class="language-cpp">RTMemoryInBuffer inBuffer(buffer.getString(), RTMemoryUtil::strlen(buffer.getString()));
+RTJsonDecoding decoding(&amp;inBuffer);
+void* decodedObj;
+const RTObject_class* type;
+decoding.get(&amp;decodedObj, &amp;type);
+T* decodedData = reinterpret_cast&lt;T*&gt;(decodedObj);
+</code></pre>
+<p>Here we call <code>RTJsonDecoding::get()</code> to perform the decoding. This function expects a string that is prefixed with the type name, and it will look-up the type descriptor object based on it (<code>type</code> in the example). The decoded object is assigned to <code>decodedObj</code> which is untyped (<code>void*</code>). You can cast this pointer to the expected type (<code>T</code>).</p>
+<p>If your JSON string is not prefixed with the type name, you can instead call <code>RTJsonDecoding::get_struct</code> which takes the type descriptor object as an argument.</p>
+<pre><code class="language-cpp">decoding.get_struct(&amp;decodedObj, &amp;RTType_T);
+T* decodedData = reinterpret_cast&lt;T*&gt;(decodedObj);
+</code></pre>
+<p>Note that decoding will allocate and initialize a new object in memory. It's your responsibility to delete this object when you no longer need it. If you prefer to work with the decoded object as an untyped pointer, you can delete the object by calling the destroy function on the type descriptor like this:</p>
+<pre><code class="language-cpp">type-&gt;destroy(decodedObj, RTObject_class::DestroyAndDeallocate);
+</code></pre>
+<h3 id="encoding-a-message">Encoding a Message</h3>
+<p>The JSON encoder has a special function <code>put_msg</code> which can be used for encoding a received <a href="../../targetrts-api/class_r_t_message.html"><code>RTMessage</code></a> to JSON. It can for example be useful as a way to trace received messages in a standard format which other tools can read and use. Here is an example of how it can be used in a code snippet within a capsule (e.g. a transition):</p>
+<pre><code class="language-cpp">RTDynamicStringOutBuffer buf;
+RTJsonEncoding coding(&amp;buf);
+coding.put_msg(msg);
+cout &lt;&lt; &quot;Received msg: &quot; &lt;&lt; buf.getString() &lt;&lt; endl &lt;&lt; flush;
+</code></pre>
+<p>The encoding includes the name of the message's event, its argument data type (if any) and the data object itself (if any). Here is an example of what it may look like:</p>
+<pre><code class="language-json">{
+    &quot;event&quot; : &quot;event_with_class&quot;,
+    &quot;type&quot; : &quot;MyClass&quot;,
+    &quot;data&quot; : {&quot;a&quot; : 8, &quot;b&quot; : false}
+}
+</code></pre>
+<h2 id="default-encodingdecoding-rules">Default Encoding/Decoding Rules</h2>
+<p>The default encoding/decoding in the TargetRTS follows these rules:</p>
+<ol>
+<li>Structured types are encoded as a list of name-value pairs. The name of each member variable (field) is followed by its value. Member variables are encoded in the same order as they are declared in the structured type.</li>
+<li>Inherited member variables are encoded before local ones. Only single inheritance is supported. If your data type uses multiple inheritance you have to provide a <a href="#custom-encodingdecoding">custom implementation</a> for encoding/decoding it.</li>
+<li>An enum literal is encoded using an integer that corresponds to its order of declaration in the enum (0 for the first literal). Note that this is not always the same as the literal's integer value in C++.</li>
+<li>Primitive C++ types, such as int, bool and float, are encoded with the string representation of its value. Note that float values are always encoded with maximum precision, which may lead to more decimals than wanted. After decoding you can round it to the desired precision.</li>
+<li>For some primitive C++ types, such as char, there is no directly corresponsing JSON type. In those cases a string value is used in the JSON encoding.</li>
+<li>Some types provided by the TargetRTS, such as RTString and RTByteBlock, has a type descriptor that supports encoding/decoding. But not all of these types are supported by the JSON encoding/decoding.</li>
+<li>Attributes of pointer type can be encoded (as a hexadecimal number), but naturally you should only decode objects containing pointers in the same memory space where they are valid.</li>
+</ol>
+<p>If you wish to change any of these rules, you can <a href="#custom-encodingdecoding">customize encoding/decoding</a>.</p>
+<h2 id="custom-encodingdecoding">Custom Encoding/Decoding</h2>
+<p>If you want to customize how a certain type gets encoded/decoded, you can write a custom encode and/or decode function for its type descriptor. Note that you can also define a typedef or type alias of an existing type, if you only want to change the encoding/decoding for some objects typed by that type (i.e. then change the type of those objects to your typedef or type alias instead). See <a href="../../art-lang/cpp-extensions/#automatically-generated">this chapter</a> for more information and examples.</p>
+<p>If you want to encode/decode using a different format, such as another textual format or even a binary format, you need to write your own encoder and/or decoder. If possible you should let your implementation inherit from the <code>RTEncoding</code> and <code>RTDecoding</code> classes. That allows the TargetRTS to work seamlessly with your implementation from encode/decode functions of a type descriptor. </p>
+<p>You can also let your encoder and/or decoder class inherit from the classes that implement ASCII and JSON encoding/decoding by overriding some of their virtual functions. This can be useful if you just want to slightly customize the ASCII or JSON encoding/decoding. For example, assume you want to change the JSON encoding to encode boolean data as strings. Then you can define your custom encoder class like below:</p>
+<pre><code class="language-cpp">#include &lt;RTJsonEncoding.h&gt;
+
+class CustomJsonEncoding : public RTJsonEncoding {
+    public:
+    CustomJsonEncoding(RTOBuffer * buffer)
+        : RTJsonEncoding(buffer) {}
+
+    virtual int put_bool(bool value) {
+        if (output-&gt;write(&quot;\&quot;&quot;, 1 ) != 1)
+            return 0;
+        int res = RTJsonEncoding::put_bool(value);
+        if (output-&gt;write(&quot;\&quot;&quot;, 1 ) != 1)
+            return 0;
+        return res;
     }
-);
+};
+</code></pre>
+<h2 id="json-parser">JSON Parser</h2>
+<p>The JSON Decoder has to parse a JSON string before it can create an object representation of it in memory. However, it only needs to support parsing a subset of JSON, namely the subset of JSON which can be produced by the JSON Encoder. Because of this it doesn't need to use a general-purpose JSON parser.</p>
+<p>There are, however, scenarios where you may need to parse JSON, not for the purpose of decoding it, but for some other reason. For example, you may get JSON as the result of making an API call, and then need to parse the JSON to more easily extract the relevant information from it. To support this scenario the TargetRTS includes a general-purpose JSON parser implemented in <a href="../../targetrts-api/class_r_t_json_parser.html"><code>RTJsonParser</code></a>.</p>
+<p>You parse a JSON string by calling <code>RTJsonParser::parseJsonString()</code>. The parser result is represented by an object of <a href="../../targetrts-api/class_r_t_json_result.html"><code>RTJsonResult</code></a>. On this object you can call functions to</p>
+<ul>
+<li>query the type of result (either a JSON object or a JSON array) (<code>get_type()</code>)</li>
+<li>get the value for a key of a JSON object (<code>operator[const std::string&amp;]</code>)</li>
+<li>get the value at a certain index of a JSON array (<code>operator[size_t]</code>)</li>
+</ul>
+<p>Values are also represented by <a href="../../targetrts-api/class_r_t_json_result.html"><code>RTJsonResult</code></a> and you can check their type (either <code>null</code>, JSON object, array, string, number or boolean). For values with types that correspond to C++ primitive types you can call "get_" functions (e.g. <code>get_bool()</code> to get a C++ bool from a JSON boolean value). Do not forget to first check the type of the value, because if you try to convert to the wrong kind of value, the result may be unexpected. Often it's more convenient to use one of the <code>operator==</code> functions to directly compare a JSON value with the corresponding C++ value.</p>
+<p>Here is an example of how to parse a JSON string and check the result:</p>
+<pre><code class="language-cpp">RTJsonParser parser;
+RTJsonResult result;
+bool ok = parser.parseJsonString(result, &quot;{\&quot;field1\&quot; : \&quot;string\&quot;, \&quot;arr\&quot; : [1,true,3.14]}&quot;);
+
+std::cout &lt;&lt; result[&quot;field1&quot;].get_string() &lt;&lt; std::endl; // &quot;string&quot;
+if (result[&quot;arr&quot;].ok()) { // Check if the &quot;arr&quot; key is present
+    std::cout &lt;&lt; result[&quot;arr&quot;].get_size() &lt;&lt; std::endl; // 3
+    if (result[&quot;arr&quot;][2] == 3.14) {} // will be true
+    if (result[&quot;arr&quot;][1].get_type() == RTJsonResult::RTJSON_BOOL) {} // will be true
+}
 </code></pre>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p>You can find a sample application that uses dependency injection <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/dependency_injection_static">here</a>.</p>
+<p>You can find a sample application that uses the JSON parser <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/json_parse">here</a>.</p>
 </div>
-<p>In most cases your application will only register create-functions once at start-up. However, <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> allows to do it at any time, and you can also remove or replace an already registered create-function. This makes it possible to implement very dynamic dependency injection scenarios. For example, you can change which capsule that gets instantiated depending on how much memory is currently available.</p>
-<p>Dependency injection can for example be useful when implementing capsule unit testing in order to "mock out" capsules which the capsule-under-test depends on. In this case you could for example let the registration of create-functions be controlled by a configuration file that is part of the test case.</p>
-<p>Another possibility is to combine dependency injection with <a href="../../building/build-variants/">Build Variants</a> to build multiple variants of an application by means of high-level build settings (so called "build variants"). The build variant script can set compilation macros that control how injected create-functions behave.</p>
 
 
 

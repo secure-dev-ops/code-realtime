@@ -3,8 +3,10 @@ var indexSectionsWithContent =
   0: "_abcdefgiklmnoprstuvwz",
   1: "bcefilnrstu",
   2: "abcdefgiklmnoprstuvw",
-  3: "_bcdfikmnorstvz",
-  4: "d"
+  3: "_bcdefikmnorstvz",
+  4: "r",
+  5: "r",
+  6: "d"
 };
 
 var indexSectionNames =
@@ -13,7 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "functions",
   3: "variables",
-  4: "pages"
+  4: "enums",
+  5: "enumvalues",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -22,6 +26,8 @@ var indexSectionLabels =
   1: "Classes",
   2: "Functions",
   3: "Variables",
-  4: "Pages"
+  4: "Enumerations",
+  5: "Enumerator",
+  6: "Pages"
 };
 
