@@ -110,12 +110,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae9271869725c05062489c130f47b903c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_json_result.html#ae9271869725c05062489c130f47b903c">get_size</a> () const</td></tr>
 <tr class="memdesc:ae9271869725c05062489c130f47b903c"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a JSON array, return the number of array elements.  <br /></td></tr>
 <tr class="separator:ae9271869725c05062489c130f47b903c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3d60c5e3179d6ae76aaec3b0d380827"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_json_result.html#ab3d60c5e3179d6ae76aaec3b0d380827">get_keys</a> () const</td></tr>
-<tr class="memdesc:ab3d60c5e3179d6ae76aaec3b0d380827"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a JSON object, return its keys.  <br /></td></tr>
-<tr class="separator:ab3d60c5e3179d6ae76aaec3b0d380827"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae847ad6e8e8706fd5c56a63b9d34566"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="class_r_t_json_result.html">RTJsonResult</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_json_result.html#aae847ad6e8e8706fd5c56a63b9d34566">get_values</a> () const</td></tr>
-<tr class="memdesc:aae847ad6e8e8706fd5c56a63b9d34566"><td class="mdescLeft">&#160;</td><td class="mdescRight">For a JSON array, return its values.  <br /></td></tr>
-<tr class="separator:aae847ad6e8e8706fd5c56a63b9d34566"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2490401ed6c252c675256f9029858db4"><td class="memItemLeft" align="right" valign="top"><a id="a2490401ed6c252c675256f9029858db4" name="a2490401ed6c252c675256f9029858db4"></a>
 <a class="el" href="class_r_t_json_result.html">RTJsonResult</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_r_t_json_result.html">RTJsonResult</a> &amp;other)</td></tr>
 <tr class="memdesc:a2490401ed6c252c675256f9029858db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator. <br /></td></tr>
@@ -303,26 +297,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTJsonParserUtils</b
 
 </div>
 </div>
-<a id="ab3d60c5e3179d6ae76aaec3b0d380827" name="ab3d60c5e3179d6ae76aaec3b0d380827"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3d60c5e3179d6ae76aaec3b0d380827">&#9670;&#160;</a></span>get_keys()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; std::string &gt; &amp; RTJsonResult::get_keys </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>For a JSON object, return its keys. </p>
-<p>For other JSON values, an empty vector is returned. </p>
-
-</div>
-</div>
 <a id="ae9271869725c05062489c130f47b903c" name="ae9271869725c05062489c130f47b903c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae9271869725c05062489c130f47b903c">&#9670;&#160;</a></span>get_size()</h2>
 
@@ -360,26 +334,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTJsonParserUtils</b
 
 <p>Get a string representation of the JSON value. </p>
 <p>Note that all values have a string representation except arrays and objects for which an empty string is returned. </p>
-
-</div>
-</div>
-<a id="aae847ad6e8e8706fd5c56a63b9d34566" name="aae847ad6e8e8706fd5c56a63b9d34566"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae847ad6e8e8706fd5c56a63b9d34566">&#9670;&#160;</a></span>get_values()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="class_r_t_json_result.html">RTJsonResult</a> &gt; &amp; RTJsonResult::get_values </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>For a JSON array, return its values. </p>
-<p>For a JSON object, return the values for all its keys. For other JSON values, an empty vector is returned. </p>
 
 </div>
 </div>
