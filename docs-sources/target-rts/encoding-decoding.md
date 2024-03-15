@@ -141,9 +141,7 @@ There are, however, scenarios where you may need to parse JSON, not for the purp
 You parse a JSON string by calling `RTJsonParser::parseJsonString()`. The parser result is represented by an object of [`RTJsonResult`](../targetrts-api/class_r_t_json_result.html). On this object you can call functions to
 
 * query the type of result (either a JSON object or a JSON array) (`get_type()`)
-* get the keys of a JSON object (`get_keys()`)
 * get the value for a key of a JSON object (`operator[const std::string&]`)
-* get the values of a JSON array (`get_values()`)
 * get the value at a certain index of a JSON array (`operator[size_t]`)
 
 Values are also represented by [`RTJsonResult`](../targetrts-api/class_r_t_json_result.html) and you can check their type (either `null`, JSON object, array, string, number or boolean). For values with types that correspond to C++ primitive types you can call "get_" functions (e.g. `get_bool()` to get a C++ bool from a JSON boolean value). Do not forget to first check the type of the value, because if you try to convert to the wrong kind of value, the result may be unexpected. Often it's more convenient to use one of the `operator==` functions to directly compare a JSON value with the corresponding C++ value.
