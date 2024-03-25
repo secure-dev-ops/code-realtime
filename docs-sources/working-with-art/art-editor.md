@@ -44,8 +44,13 @@ MyTransition: State -> X on timer.timeout
 
 ![](images/content-assist-keywords.png)
 
+### Use in Code Snippets
+If you use Content Assist within a C++ code snippet, {$product.name$} will delegate the request to the C++ language server extension that is installed. It works by computing valid completions from the cursor position based on the generated C++ file that contains the code from the code snippet.
+
+Note that the "Microsoft C++" and "clangd" language servers work slightly differently in this regard. It can happen that you in some cases need to invoke Content Assist twice, before the correct results appear. This has to do with how the language servers keep cached information from C++ files, and will hopefully improve in future versions.
+
 ## Renaming Elements
 To rename an Art element place the cursor on the element's name and press ++"F2"++ (or invoke the command **Rename Symbol** from the context menu). This performs a "rename refactoring" that updates all references to the renamed element too.
 
 !!! note 
-    Avoid renaming an element by simply editing its name. For {$product.name$} to understand that you want to rename an element, you need to use the approach described above.
+    Avoid renaming an element by simply editing its name. For {$product.name$} to understand that you want to rename an element, rather than replacing it with another element, you need to use the approach described above.

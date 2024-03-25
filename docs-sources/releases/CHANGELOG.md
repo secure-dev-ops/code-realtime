@@ -1,3 +1,15 @@
+# 1.0.2 (2024-03-27)
+1. Semantic errors related to the triggers of a transition are now shown in state diagrams.
+2. The C++ code generator now generates the macros `SUPERMETHOD` and `CALLSUPER` for redefined transitions. They make it possible to call the effect or guard code of an inherited transition from a redefined transition, without having to place such code in a capsule member function. For an example, see [this sample]({$vars.github.repo$}/tree/main/art-comp-test/tests/macro_callsuper_supermethod).
+3. The Art Compiler now prints the total number of errors and warnings at the end, before it terminates.
+4. The TargetRTS now contains so called patch-files with all changes made from one version to another. These files make it possible to automatically apply those changes to your own version of the TargetRTS, when you uplift to a newer version of Code RealTime. A shell script which can produce such patch-files are also included, and can help if you instead want to apply your own changes to a new TargetRTS version. For more information, see [Patch Files]({$vars.doc.server$}/target-rts/versions/#patch-files).
+5. A new sample [DependencyInjection]({$vars.github.repo$}/tree/main/art-samples/DependencyInjection) is now available. It shows how dependency injection can be used together with build variants to build different versions of an application, where capsules behave differently.
+6. The validation rule [ART_0018_circularTransitions]({$vars.doc.server$}/validation/#art_0018_circulartransitions) has been improved so it now also can detect transition cycles caused by incorrect usage of entry/exit points, or cycles introduced because of state machine inheritance.
+7. You can now invoke Content Assist within a C++ code snippet in an Art file, and get the same result as if you would invoke it from the generated C++ code. This significantly increases the productivity when working with C++ in Art files, and reduces the need to navigate to generated code for typing C++ code. This feature works both for the "Microsoft C++" and "clangd" language servers, but with small differences due to the way they are implemented. Common is that the feature may sometimes need to be invoked twice, before it starts to work, when an Art file has been opened for the first time (or the first time in a while).
+8. The TargetRTS now includes a JSON parser, which makes it easier to consume or expose JSON-based APIs from your realtime application. For more information see [JSON Parser]({$vars.doc.server$}/target-rts/encoding-decoding/#json-parser).
+9. The C++ code generator now analyzes `rt::decl` code snippets of a capsule, looking for user-defined constructors. If at least one user-defined constructor is present, it doesn't generate the default capsule constructor it otherwise generates. Other parts of generated code were updated accordingly to no longer assume that a capsule has a default constructor. For an example, see [this sample]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_userdefined_constructor).
+10. You can now open Art and TC files specified in the `sources` and `prerequisites` TC properties by means of hyperlinks in the TC editor. When specified paths can be resolved to valid Art or TC files, they will become underlined, and can be opened by Ctrl+click.
+
 # 1.0.1 (2024-02-08)
 1. A new sample [QtTrafficLight]({$vars.github.repo$}/tree/main/art-samples/QtTrafficLight) is now available. It shows how to integrate the code generated from Code RealTime with a user interface developed with Qt. Note that the Qt part of the sample application is found in [another Git repository](https://github.com/HCL-TECH-SOFTWARE/qt-traffic-light).
 2. A new validation rule [ART_0036_unexpectedTriggers]({$vars.doc.server$}/validation/#art_0036_unexpectedtriggers) detects if a transition that is supposed to be non-triggered still has at least one trigger. A Quick Fix can then be used for removing the unexpected triggers. 
@@ -57,7 +69,6 @@
 11. It's now possible to specify physical and logical threads in a TC. The C++ code generator uses this information for creating those physical threads and application code can reference the logical threads when a capsule instance is created. For more information see [the documentation](https://secure-dev-ops.github.io/code-realtime/target-rts/threads/). Note that currently thread information can only be specified in the TC text editor (the form-based editor doesn't yet support it).
 12. Validation markers for showing problems in diagrams are now also supported on labels within class diagram symbols. Hence, it's now possible to see validation problems on ports, parts and events.
 
-
 # 0.0.9 (2023-07-20 07:39)
 1. It's now possible to build multiple variants of an application by means of a feature called [Build Variants](https://secure-dev-ops.github.io/code-realtime/building/build-variants/). You can use JavaScript for dynamically customizing a TC at build-time, in order to implement high-level build variant settings. Build variants are implemented in the Art Compiler by means of two new options: `--buildConfig` and `--buildVariants`. For an example, see [this sample]({$vars.github.repo$}/tree/main/art-comp-test/tests/build_variants).
 2. A new command "Clean All" is now available. It will remove all generated code in the workspace and also remove all generated workspace folders. It's equivalent to, but more convenient than, invoking the "Clean" command on each TC individually. Invoke "Clean All" from the command palette (Ctrl+Shift+P).
@@ -115,7 +126,6 @@
 11. Choices and junctions can now be created with Content Assist in the Art text editor inside a state machine and inside a composite state.
 12. It's now possible to build a library, rather than an executable, from a TC. If the built TC has the `topCapsule` property set an executable will be built. Otherwise a library will be built.
 
-
 # 0.0.5 (2023-01-26 06:59)
 1. Common diagram commands can now be invoked using the keyboard by pressing Ctrl+Space and selecting the command in the popup menu that appears. The following commands are available: Zoom In, Zoom Out, Center, Expand All, Collapse All
 2. The presence of internal transitions on a state is now shown by means of an icon on the state symbol in a state diagram. As before the internal transitions will be shown in the Properties view if such a state symbol is selected.
@@ -151,7 +161,6 @@
 18. It's now possible to set custom colors to be used in diagrams by means of a new [`color`](https://secure-dev-ops.github.io/code-realtime/art-lang/#color) property. Currently this is supported for initial and triggered transitions.
 
 # 0.0.3 (2022-11-23 12:53)
-
 1. The graphical appearance of symbols in class diagrams has improved. Now a line separates the name from properties such as ports and events. Also, icons were added for the properties to make it easier to understand the diagram.
 2. The Expand All/Collapse All commands in the Properties view now work also for structure diagrams. Cycles in the composition hierarchy are detected and reported with an error message if found.
 3. It's now possible to build a TC using a context menu command **Build**. And if it produces an executable it's possible to launch it with another context menu command **Run**. Of course, it's still possible to manually build and run from the terminal.
@@ -168,5 +177,4 @@
 14. Target configurations for the latest version of the Visual Studio compiler (Visual Studio 2022, ver. 17) are now provided, both for 32 and 64 bit builds.
 
 # 0.0.2 (2022-10-20)
-
 * First public release. Initial support for the Art language, graphical diagrams, transformation configurations and C++ code generation.

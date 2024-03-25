@@ -301,7 +301,7 @@ capsule MyCap {
 };
 ```
 
-When you create an instance of the capsule you have to provide arguments that match the parameters of one of its capsule constructors. For this you need to use a **capsule factory**. You can either specify such a capsule factory statically on a part that is typed by the capsule (see [Part with Capsule Factory](#part-with-capsule-factory)), or you can provide a capsule factory dynamically when calling `incarnateCustom()` on a [Frame](../targetrts-api/struct_frame.html) port to incarnate an optional capsule part. Here is C++ code for doing the latter (assuming the optional part is called `thePart`):
+If you don't define any constructor for your capsule, a default capsule constructor will be generated automatically. It only has the two mandatory constructor parameters, and passes them to the TargetRTS which will create the capsule instance. But if your capsule has at least one user-defined constructor, a default capsule constructor will not be generated, and you then need to make sure to provide arguments that match the constructor parameters, when an instance of the capsule should be created. For this you need to use a **capsule factory**. You can either specify such a capsule factory statically on a part that is typed by the capsule (see [Part with Capsule Factory](#part-with-capsule-factory)), or you can provide a capsule factory dynamically when calling `incarnateCustom()` on a [Frame](../targetrts-api/struct_frame.html) port to incarnate an optional capsule part. Here is C++ code for doing the latter (assuming the optional part is called `thePart`):
 
 ``` cpp
 RTActorId id = frame.incarnateCustom(thePart,
