@@ -1,5 +1,6 @@
 protocol Events {
     out e1();
+    out e2();
 };
 
 capsule Top 
@@ -15,28 +16,53 @@ capsule Top
     };
 };
 
-capsule Sender {            
+capsule SenderBase {
     service behavior port ps : Events;
 
     statemachine {
         state S1;
-        initial -> S1 
+        iniSender: initial -> S1
         `
             ps.e1().send();
         `;
     };
 };
 
+capsule Sender : SenderBase {
+    statemachine {
+        redefine iniSender: initial -> S1
+        `
+            ps.e1().send();
+            ps.e2().send();
+        `;
+    };
+};
+
+
 capsule Receiver : ReceiverBase { 
     [[rt::impl_preface]]
     `
         #include "testlib.art.h"    
-    `   
+    `
+    [[rt::decl]]
+    `
+        virtual void unhandledMessage() override;
+        int n = 0;
+    `
+    [[rt::impl]]
+    `
+    void Receiver_Actor::unhandledMessage() {
+        ASSERT(RTMemoryUtil::strcmp("e1", msg->getSignalName(), 2) == 0, "Event e1 must be unhandled");
+        cout << "unhandledMessage " << msg->getSignalName() << endl;
+        n++;
+    }
+    `
 
     statemachine {
-        redefine e1Trans: R1 -> R2 on pr.e1
+        redefine e1Trans: R1 -> R2 on pr.e2
         `
-            std::cout << "Receiver::e1Trans" << std::endl;
+            std::cout << "Receiver::e1Trans on e2" << std::endl;
+            ASSERT(n == 1, "Expect 1 unhandled event e1");
             PASS();
         `;
     };
