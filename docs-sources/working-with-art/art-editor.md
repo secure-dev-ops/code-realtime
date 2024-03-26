@@ -49,6 +49,9 @@ If you use Content Assist within a C++ code snippet, {$product.name$} will deleg
 
 Note that the "Microsoft C++" and "clangd" language servers work slightly differently in this regard. It can happen that you in some cases need to invoke Content Assist twice, before the correct results appear. This has to do with how the language servers keep cached information from C++ files, and will hopefully improve in future versions.
 
+!!! hint 
+    The "clangd" language server supports an argument `--completion-parse=always` which you can add in its settings. It's recommended to set this argument, since it will force the generated C++ file to be parsed each time Content Assist is invoked, without relying on cached information.
+
 ## Renaming Elements
 To rename an Art element place the cursor on the element's name and press ++"F2"++ (or invoke the command **Rename Symbol** from the context menu). This performs a "rename refactoring" that updates all references to the renamed element too.
 
