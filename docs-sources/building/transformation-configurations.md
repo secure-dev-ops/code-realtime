@@ -131,6 +131,12 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 ### capsuleFactory
 This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
 
+The value of this property should be a C++ expression of type [`RTActorFactoryInterface*`](../targetrts-api/class_r_t_actor_factory_interface.html).
+
+``` js
+tc.capsuleFactory = '&CapsuleFactory::factory';
+```
+
 Note that you can override the use of the global capsule factory by providing a [local capsule](../art-lang/index.md#part-with-capsule-factory) factory for a specific part.
 
 ### commonPreface
@@ -145,11 +151,25 @@ tc.commonPreface = `
 ### compileArguments
 Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. 
 
+``` js
+tc.compileArguments = '$(DEBUG_TAG)'; // Compile code for debugging
+```
+
 ### compileCommand
 Specifies which C++ compiler to use for compiling generated C++ code. The default value for this property is `$(CC)` which is a variable that gets its value from the TargetRTS configuration that is used.
 
 ### copyrightText
-This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text.
+This property may be used to insert a common comment block in the beginning of each generated file, typically a copyright text. 
+
+``` js
+tc.copyrightText = 
+`
+Copyright © 2024 
+All rights reserved!
+`;
+```
+
+You can use a multi-line text with empty lines in the beginning and end as shown above, to make the TC more readable. Such empty lines will be ignored by the code generator.
 
 ### cppCodeStandard
 Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 98`, `C++ 11`, `C++ 14` and `C++ 20`. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set [TargetRTSLocation](#targetrtslocation) to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to `Older than C++ 98`.
@@ -158,7 +178,7 @@ Defines the C++ language standard to which generated code will conform. The defa
 Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a [user library](#userlibraries) or [user object file](#userobjectfiles) you need to add the location of the header file(s) that belong to the library or object file.
 
 ``` js
-tc.inclusionPaths = ["/libs/myLib/includes"];
+tc.inclusionPaths = ["/libs/myLib1/includes", "/libs/myLib2/includes"];
 ```
 
 Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.
@@ -166,11 +186,19 @@ Note that you don't need to add inclusion paths for target folders of prerequisi
 ### linkArguments
 Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.
 
+``` js
+tc.linkArguments = '/DEBUG'; // Build executable for debugging with Visual Studio
+```
+
 ### linkCommand
 Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is `$(LD)` which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.
 
 ### makeArguments
 Specifies the arguments for the [make command](#makecommand) to be used.
+
+``` js
+tc.makeArguments = '-s'; // Silent make (do not print build commands to the terminal)
+```
 
 ### makeCommand
 Specifies which make command to use for processing the generated make file. By default the make command is `$defaultMakeCommand` which gets its value from which TargetRTS configuration that is used.
@@ -209,6 +237,10 @@ tc.sources = ["source??.art", "!*_gen.art"]; // Transform all Art files with nam
 
 ### targetConfiguration
 Specifies which [TargetRTS configuration](../target-rts/index.md#target-configurations) to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
+
+``` js
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+```
 
 ### targetConfigurationName
 This property maps to a subfolder of the [target folder](#targetfolder) where all generated files that are not source code will be placed. This includes for example makefiles and the files that are produced by these makefiles (typically binaries). The default value of this property is `default`.
