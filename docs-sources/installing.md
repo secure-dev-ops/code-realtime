@@ -3,7 +3,7 @@
 
 {$product.name$} can be installed on top of Visual Studio Code or Eclipse Theia.
 
-The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/code-realtime-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
+The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
 
 1) Click "Extensions" in the activity bar to open the Extensions view.
 
@@ -24,7 +24,7 @@ The screenshot above also shows that an extension for working with C/C++ has bee
 After you have installed {$product.name$} it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command `Developer: Reload Window` which is available in the Command Palette (++ctrl+shift+"P"++).
 
 ### Install from VSIX
-Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HCLTechnologies.code-realtime-ce) and the [Open VSX Registry](https://open-vsx.org/extension/HCLTechnologies/code-realtime-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
+Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
 
 1) If you already have a version of {$product.name$} installed, you can manually uninstall it first (see [Uninstalling](#uninstalling)). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.
 

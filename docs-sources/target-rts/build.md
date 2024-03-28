@@ -71,19 +71,19 @@ Controls if the TargetRTS should use threads. Set to **0** for building a single
 Default value: **none** (must be set for a target configuration, usually in `target/<target>/RTTarget.h`)
 
 #### RTS_COUNT
-Controls if the TargetRTS should keep track of statistics, such as the number of messages sent, the number of created capsules instances, etc. Collected statistics is saved per thread in the [controller](targetrts-api/class_r_t_controller.html) object. See [RTCounts](targetrts-api/class_r_t_counts.html) for what data that gets collected when this feature is enabled.
+Controls if the TargetRTS should keep track of statistics, such as the number of messages sent, the number of created capsules instances, etc. Collected statistics is saved per thread in the [controller](../targetrts-api/class_r_t_controller.html) object. See [RTCounts](../targetrts-api/class_r_t_counts.html) for what data that gets collected when this feature is enabled.
 
 Default value: **0** (do not collect statistics)
 
 #### DEFER_IN_ACTOR
-When a message is deferred it gets stored in a queue from where it later can be recalled. There can either be one such defer queue per capsule instance or only one defer queue per thread (i.e. stored in the [controller](targetrts-api/class_r_t_controller.html) object). Separate queues for each capsule instance will use more memory but can on the other hand result in better performance.
+When a message is deferred it gets stored in a queue from where it later can be recalled. There can either be one such defer queue per capsule instance or only one defer queue per thread (i.e. stored in the [controller](../targetrts-api/class_r_t_controller.html) object). Separate queues for each capsule instance will use more memory but can on the other hand result in better performance.
 
 Default value: **0** (use one defer queue per thread). If your application doesn't use message deferral you should keep this default value.
 
 #### INTEGER_POSTFIX
-This is a deprecated setting that controls if the [RTInteger](targetrts-api/class_r_t_integer.html) class should support the increment (++) and decrement (--) operators. The setting is deprecated since use of [RTDataObject](targetrts-api/class_r_t_data_object.html) subclasses for representing primitive types is deprecated. Use a primitive C++ type instead, such as `int`.
+This is a deprecated setting that controls if the [RTInteger](../targetrts-api/class_r_t_integer.html) class should support the increment (++) and decrement (--) operators. The setting is deprecated since use of [RTDataObject](../targetrts-api/class_r_t_data_object.html) subclasses for representing primitive types is deprecated. Use a primitive C++ type instead, such as `int`.
 
-Default value: **1** (set to **0** only if you use [RTInteger](targetrts-api/class_r_t_integer.html) and a very old C++ compiler)
+Default value: **1** (set to **0** only if you use [RTInteger](../targetrts-api/class_r_t_integer.html) and a very old C++ compiler)
 
 #### LOG_MESSAGE
 By default a capsule has a function `logMsg()` which gets called when a received message gets dispatched to a capsule instance, just before the message is handled by the capsule's state machine. This is a virtual function that you can override in your capsule to perform any general action needed when a message is dispatched (logging is a common, but not the only example). The default implementation is used by the debugger to log the dispatched message.
@@ -112,7 +112,7 @@ Default value: **DEBUG_VERBOSE**
 Note that regardless how you set this setting you can of course always [build the TargetRTS with debug symbols](#debug) to debug it with a C++ debugger.
 
 #### RTREAL_INCLUDED
-Controls if the [RTReal](targetrts-api/class_r_t_real.html) class should be included or not. If your target environment doesn't support floating point data types, or your application doesn't use them, you can disable this feature.
+Controls if the [RTReal](../targetrts-api/class_r_t_real.html) class should be included or not. If your target environment doesn't support floating point data types, or your application doesn't use them, you can disable this feature.
 
 Default value: **1**
 
@@ -127,7 +127,7 @@ Controls if the TargetRTS uses any inline functions. If enabled, inline function
 Default value: **1** (set to **0** if you use an old compiler without proper support for inline functions)
 
 #### RTS_COMPATIBLE
-This setting is used for controlling backwards compatibility in the TargetRTS. It corresponds to the version number `RT_VERSION_NUMBER` which is defined in the file [`RTVersion.h`](targetrts-api/_r_t_version_8h_source.html).
+This setting is used for controlling backwards compatibility in the TargetRTS. It corresponds to the version number `RT_VERSION_NUMBER` which is defined in the file [`RTVersion.h`](../targetrts-api/_r_t_version_8h_source.html).
 
 Default value: **520**. This is a very old version of the TargetRTS, but it means that by default certain deprecated code gets included to make the TargetRTS compatible for old applications that use it. If you set it to `RT_VERSION_NUMBER`, then such deprecated code will not be included which will slightly reduce the size of the executable.
 

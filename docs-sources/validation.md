@@ -1071,7 +1071,7 @@ capsule C34 {
 |----------|:-------------|:-------------
 | Warning | A timer port is a declared to be a service port. | Make Non-Service Behavior Port
 
-A timer [port](../art-lang#port) is typed by the predefined [Timing](../targetrts-api/struct_timing.html) protocol. It has one event `timeout` which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the `timeout` event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.
+A timer [port](../art-lang#port) is typed by the predefined [Timing](targetrts-api/struct_timing.html) protocol. It has one event `timeout` which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the `timeout` event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.
 
 A Quick Fix is available that will remove the `service` keyword for the port and if necessary also add the `behavior` keyword.
 
@@ -1093,7 +1093,7 @@ capsule C35 {
 
 A [transition](../art-lang#transition) can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a [choice or junction](../art-lang#choice-and-junction)) must therefore not have any triggers. 
 
-Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this [here](../art-lang/entry-and-exit-point-without-incoming-transition).
+Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this [here](../art-lang#entry-and-exit-point-without-incoming-transition).
 
 A Quick Fix is available that will remove the triggers of the transition (hence converting it from a triggered to a non-triggered transition).
 

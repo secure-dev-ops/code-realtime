@@ -44,9 +44,9 @@ markdown_extensions:
   - attr_list
 
 extra:
-  analytics: 
-    provider: custom
-    property: UA-169645537-2
+#  analytics: 
+#    provider: custom
+#    property: UA-169645537-2
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/secure-dev-ops/code-realtime
