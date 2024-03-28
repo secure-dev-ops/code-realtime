@@ -126,6 +126,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a457331800e26444b0a8021c65f456dc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#a457331800e26444b0a8021c65f456dc5">move</a> (void *to, void *from) const</td></tr>
 <tr class="memdesc:a457331800e26444b0a8021c65f456dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move an instance of the described type.  <br /></td></tr>
 <tr class="separator:a457331800e26444b0a8021c65f456dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad015dfa7ffc676993900e7176a8a9f64"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#ad015dfa7ffc676993900e7176a8a9f64">decode</a> (void *data, <a class="el" href="class_r_t_decoding.html">RTDecoding</a> *decoder) const</td></tr>
+<tr class="memdesc:ad015dfa7ffc676993900e7176a8a9f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode an external representation (e.g.  <br /></td></tr>
+<tr class="separator:ad015dfa7ffc676993900e7176a8a9f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a123c62181ab608814ddf14e1e769652b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#a123c62181ab608814ddf14e1e769652b">encode</a> (const void *data, <a class="el" href="class_r_t_encoding.html">RTEncoding</a> *encoder) const</td></tr>
+<tr class="memdesc:a123c62181ab608814ddf14e1e769652b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode an instance of the described type into an external representation (e.g.  <br /></td></tr>
+<tr class="separator:a123c62181ab608814ddf14e1e769652b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31361e1557e264e1e987242fb34998b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#a31361e1557e264e1e987242fb34998b2">destroy</a> (void *inst, DestroyOption opt) const</td></tr>
 <tr class="memdesc:a31361e1557e264e1e987242fb34998b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an instance of the described type.  <br /></td></tr>
 <tr class="separator:a31361e1557e264e1e987242fb34998b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +141,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae172a3c9d360050394069d56c7fed29e"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#ae172a3c9d360050394069d56c7fed29e">lookup</a> (const char *className)</td></tr>
+<tr class="memdesc:ae172a3c9d360050394069d56c7fed29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookup a type descriptor by the name of the type it describes.  <br /></td></tr>
+<tr class="separator:ae172a3c9d360050394069d56c7fed29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1a7107b6759a983fab2734c9724c4f4"><td class="memTemplParams" colspan="2">template&lt;typename TYPE &gt; </td></tr>
 <tr class="memitem:ae1a7107b6759a983fab2734c9724c4f4"><td class="memTemplItemLeft" align="right" valign="top">static const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#ae1a7107b6759a983fab2734c9724c4f4">fromType</a> ()</td></tr>
 <tr class="memdesc:ae1a7107b6759a983fab2734c9724c4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a type descriptor from a type TYPE at compile-time.  <br /></td></tr>
@@ -227,6 +236,14 @@ RTFieldOffset&#160;</td><td class="memItemRight" valign="bottom"><b>_size</b></t
 <tr class="memitem:a14df7d874ccc14c01cbadbb1af151161"><td class="memItemLeft" align="right" valign="top">RTMoveFunction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#a14df7d874ccc14c01cbadbb1af151161">_move_func</a></td></tr>
 <tr class="memdesc:a14df7d874ccc14c01cbadbb1af151161"><td class="mdescLeft">&#160;</td><td class="mdescRight">The move function of the type, i.e.  <br /></td></tr>
 <tr class="separator:a14df7d874ccc14c01cbadbb1af151161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab861b4c107068ef4679b8baba6beb81"><td class="memItemLeft" align="right" valign="top"><a id="aab861b4c107068ef4679b8baba6beb81" name="aab861b4c107068ef4679b8baba6beb81"></a>
+RTDecodeFunction&#160;</td><td class="memItemRight" valign="bottom"><b>_decode_func</b></td></tr>
+<tr class="memdesc:aab861b4c107068ef4679b8baba6beb81"><td class="mdescLeft">&#160;</td><td class="mdescRight">The decode function of the type. <br /></td></tr>
+<tr class="separator:aab861b4c107068ef4679b8baba6beb81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03cd6389f97d4aa0428be4bbb83c5fb0"><td class="memItemLeft" align="right" valign="top"><a id="a03cd6389f97d4aa0428be4bbb83c5fb0" name="a03cd6389f97d4aa0428be4bbb83c5fb0"></a>
+RTEncodeFunction&#160;</td><td class="memItemRight" valign="bottom"><b>_encode_func</b></td></tr>
+<tr class="memdesc:a03cd6389f97d4aa0428be4bbb83c5fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The encode function of the type. <br /></td></tr>
+<tr class="separator:a03cd6389f97d4aa0428be4bbb83c5fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12a4448dcbda20338dae4afbb8d8b951"><td class="memItemLeft" align="right" valign="top">RTDestroyFunction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_object__class.html#a12a4448dcbda20338dae4afbb8d8b951">_destroy_func</a></td></tr>
 <tr class="memdesc:a12a4448dcbda20338dae4afbb8d8b951"><td class="mdescLeft">&#160;</td><td class="mdescRight">The destroy function of the type, i.e.  <br /></td></tr>
 <tr class="separator:a12a4448dcbda20338dae4afbb8d8b951"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,6 +316,44 @@ RTFieldOffset&#160;</td><td class="memItemRight" valign="bottom"><b>_size</b></t
 
 </div>
 </div>
+<a id="ad015dfa7ffc676993900e7176a8a9f64" name="ad015dfa7ffc676993900e7176a8a9f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad015dfa7ffc676993900e7176a8a9f64">&#9670;&#160;</a></span>decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RTObject_class::decode </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_r_t_decoding.html">RTDecoding</a> *&#160;</td>
+          <td class="paramname"><em>decoder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decode an external representation (e.g. </p>
+<p>a string representation) and populate an instance of the described type accordingly. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>The target object into which the decoded data will be written. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">decoder</td><td>The decoder implementation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if decoding was successful, 0 otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="a31361e1557e264e1e987242fb34998b2" name="a31361e1557e264e1e987242fb34998b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31361e1557e264e1e987242fb34998b2">&#9670;&#160;</a></span>destroy()</h2>
 
@@ -333,6 +388,44 @@ RTFieldOffset&#160;</td><td class="memItemRight" valign="bottom"><b>_size</b></t
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a123c62181ab608814ddf14e1e769652b" name="a123c62181ab608814ddf14e1e769652b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a123c62181ab608814ddf14e1e769652b">&#9670;&#160;</a></span>encode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RTObject_class::encode </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_r_t_encoding.html">RTEncoding</a> *&#160;</td>
+          <td class="paramname"><em>encoder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Encode an instance of the described type into an external representation (e.g. </p>
+<p>a string representation). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>The instance of the described type to encode. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">encoder</td><td>The encoder implementation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if encoding was successful, 0 otherwise. </dd></dl>
 
 </div>
 </div>
@@ -406,7 +499,7 @@ template&lt;typename TYPE &gt; </div>
 </div><div class="memdoc">
 
 <p>Register the type descriptor so it can be looked up quickly using the name of the described type as the key. </p>
-<p>See lookup() for how to perform the lookup. All generated type descriptors will be automatically installed, so normally this function should not be called from user code. See RTTypeInstaller for more information. However, if you have manually written types for which you want to register a type descriptor, you need to call this function to install it in the registry. The name of the installed type is used as the key in the registry. If a type with that name is already registered (the same type or a different one) this function does nothing, but prints a warning. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>See <a class="el" href="struct_r_t_object__class.html#ae172a3c9d360050394069d56c7fed29e" title="Lookup a type descriptor by the name of the type it describes.">lookup()</a> for how to perform the lookup. All generated type descriptors will be automatically installed, so normally this function should not be called from user code. See RTTypeInstaller for more information. However, if you have manually written types for which you want to register a type descriptor, you need to call this function to install it in the registry. The name of the installed type is used as the key in the registry. If a type with that name is already registered (the same type or a different one) this function does nothing, but prints a warning. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">warnForDuplicates</td><td>Set to false to avoid printing a warning if trying to register a type descriptor with a name that is already used. </td></tr>
   </table>
@@ -439,6 +532,41 @@ template&lt;typename TYPE &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if yes, 0 if no. </dd></dl>
+
+</div>
+</div>
+<a id="ae172a3c9d360050394069d56c7fed29e" name="ae172a3c9d360050394069d56c7fed29e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae172a3c9d360050394069d56c7fed29e">&#9670;&#160;</a></span>lookup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> * RTObject_class::lookup </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>className</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lookup a type descriptor by the name of the type it describes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">className</td><td>Name of the type. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The type descriptor for the type, or null if the TYPE doesn't have a type descriptor defined. </dd></dl>
 
 </div>
 </div>

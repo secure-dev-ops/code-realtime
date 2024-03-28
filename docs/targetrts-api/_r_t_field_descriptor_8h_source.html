@@ -96,8 +96,8 @@ $(function() {
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;RTFieldOffset.h&gt;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class  </span>RTDecoding;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class  </span>RTEncoding;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_decoding.html">RTDecoding</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_encoding.html">RTEncoding</a>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_r_t_object__class.html">RTObject_class</a>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_r_t_type_modifier.html">RTTypeModifier</a>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
@@ -128,16 +128,18 @@ $(function() {
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                      <span class="keyword">const</span> <span class="keywordtype">void</span> * source_record ) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#if OBJECT_DECODE</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">int</span>                         decode( <span class="keywordtype">void</span>       * record,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                    RTDecoding * ) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                    <a class="code hl_class" href="class_r_t_decoding.html">RTDecoding</a> * ) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#if OBJECT_ENCODE</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">int</span>                         encode( <span class="keyword">const</span> <span class="keywordtype">void</span> * record,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                    RTEncoding * ) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                    <a class="code hl_class" href="class_r_t_encoding.html">RTEncoding</a> * ) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span>                        destroy( <span class="keywordtype">void</span> * record ) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif </span><span class="comment">// __RTFieldDescriptor_h__</span></div>
+<div class="ttc" id="aclass_r_t_decoding_html"><div class="ttname"><a href="class_r_t_decoding.html">RTDecoding</a></div><div class="ttdef"><b>Definition:</b> RTDecoding.h:27</div></div>
+<div class="ttc" id="aclass_r_t_encoding_html"><div class="ttname"><a href="class_r_t_encoding.html">RTEncoding</a></div><div class="ttdef"><b>Definition:</b> RTEncoding.h:27</div></div>
 <div class="ttc" id="astruct_r_t_field_descriptor_html"><div class="ttname"><a href="struct_r_t_field_descriptor.html">RTFieldDescriptor</a></div><div class="ttdef"><b>Definition:</b> RTFieldDescriptor.h:40</div></div>
 <div class="ttc" id="astruct_r_t_object__class_html"><div class="ttname"><a href="struct_r_t_object__class.html">RTObject_class</a></div><div class="ttdoc">A type descriptor providing information about a type.</div><div class="ttdef"><b>Definition:</b> RTObject_class.h:64</div></div>
 <div class="ttc" id="astruct_r_t_type_modifier_html"><div class="ttname"><a href="struct_r_t_type_modifier.html">RTTypeModifier</a></div><div class="ttdef"><b>Definition:</b> RTTypeModifier.h:33</div></div>
