@@ -1,0 +1,64 @@
+protocol Proto {    
+    out ping();    
+};
+
+capsule Top {    
+    behavior port p : Proto;
+
+    part thePart : A;
+    
+    connect p with thePart.p;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1
+        `   
+            p.ping().send();
+        `;     
+    };
+};
+
+capsule A {
+    part b : B;
+    connect b.p with p; // Delegation connector
+    service port p~ : Proto;
+    statemachine {
+        state State;
+        initial -> State;        
+    };
+};
+
+capsule B {
+    part c : C;
+    connect c.p with p; // Delegation connector
+    service port p~ : Proto;
+    statemachine {
+        state State;
+        initial -> State;        
+    };
+};
+capsule C {
+    part d : D;
+    connect d.p with p; // Delegation connector
+    service port p~ : Proto;
+    statemachine {
+        state State;
+        initial -> State;        
+    };
+};
+
+capsule D {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"     
+    `
+    service behavior port p~ : Proto;
+    statemachine {
+        state State, Done;
+        initial -> State;
+        State -> Done on p.ping 
+        `
+            PASS();
+        `;
+    };
+};
