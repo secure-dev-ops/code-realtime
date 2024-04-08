@@ -1,0 +1,33 @@
+capsule C38 {
+
+    behavior notify port timing : Timing; // The predefined protocols Timing cannot be set to Notify  ART_0038_preDefinedProtocolInvalid
+    behavior notify port exception : Exception; // The predefined protocols Exception cannot be set to Notify  ART_0038_preDefinedProtocolInvalid
+    behavior notify port external : External; // The predefined protocols External cannot be set to Notify  ART_0038_preDefinedProtocolInvalid
+    behavior notify port log : Log; // The predefined protocols Timing Log be set to Notify  ART_0038_preDefinedProtocolInvalid
+    behavior notify port frame : Frame; // The predefined protocols Frame cannot be set to Notify  ART_0038_preDefinedProtocolInvalid
+
+    behavior publish port timing1 : Timing; //The predefined protocols Timing cannot be set to Publish  ART_0038_preDefinedProtocolInvalid
+    behavior publish port exception1 : Exception; //The predefined protocols Exception cannot be set to Publish  ART_0038_preDefinedProtocolInvalid
+    behavior publish port external1 : External; //The predefined protocols External cannot be set to Publish  ART_0038_preDefinedProtocolInvalid
+    behavior publish port log1 : Log; //The predefined protocols Log cannot be set to Publish  ART_0038_preDefinedProtocolInvalid
+    behavior publish port frame1 : Frame; //The predefined protocols Frame cannot be set to Publish  ART_0038_preDefinedProtocolInvalid
+
+    behavior port timing2~ : Timing; // The predefined protocols Timing cannot be set to Conjugated  ART_0038_preDefinedProtocolInvalid 
+    behavior port exception2~ : Exception; // The predefined protocols Exception cannot be set to Conjugated  ART_0038_preDefinedProtocolInvalid
+    behavior port external2~ : External; // The predefined protocols External cannot be set to Conjugated  ART_0038_preDefinedProtocolInvalid
+    behavior port log2~ : Log; // The predefined protocols Log cannot be set to Conjugated  ART_0038_preDefinedProtocolInvalid
+    behavior port frame2~ : Frame; // The predefined protocols Frame cannot be set to Conjugated  ART_0038_preDefinedProtocolInvalid
+
+    behavior notify publish port timin3~ : Timing; // The predefined protocols Timing cannot be set to Conjugated,Notify,Publish  ART_0038_preDefinedProtocolInvalid
+    behavior notify publish port exception3~ : Exception; // The predefined protocols Exception cannot be set to Conjugated,Notify,Publish  ART_0038_preDefinedProtocolInvalid
+    behavior notify publish port external3~ : External; // The predefined protocols External cannot be set to Conjugated,Notify,Publish  ART_0038_preDefinedProtocolInvalid
+    behavior notify publish port log3~ : Log; // The predefined protocols Log cannot be set to Conjugated,Notify,Publish  ART_0038_preDefinedProtocolInvalid
+    behavior notify publish port frame3~ : Frame; // The predefined protocols Frame cannot be set to Conjugated,Notify,Publish  ART_0038_preDefinedProtocolInvalid
+
+
+    statemachine { 
+        state State;
+        initial -> State;
+    };
+};
+
