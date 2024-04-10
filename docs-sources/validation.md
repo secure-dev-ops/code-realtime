@@ -1208,9 +1208,9 @@ capsule DD2 : BB2 {
 |----------|:-------------|:-------------
 | Warning | A port with a predefined protocol is declared in a way that is only applicable for ports with a user-defined protocol. | N/A
 
-Ports typed by a predefined protocol ([Timing](targetrts-api/struct_timing.html), [Log](targetrts-api/struct_log.html), [External](targetrts-api/struct_external.html), [Exception](targetrts-api/struct_exception.html) or [Frame](targetrts-api/struct_frame.html)) cannot be used in the same way as ports that are typed by user-defined protocols. For example, it does not make sense to connect such a port with a connector since no events can be sent to them. Because of this, the following keywords are not applicable for such ports: `notify`, `publish`, `subscribe`, `unwired`.
+Ports typed by a predefined protocol ([Timing](targetrts-api/struct_timing.html), [Log](targetrts-api/struct_log.html), [External](targetrts-api/struct_external.html), [Exception](targetrts-api/struct_exception.html) or [Frame](targetrts-api/struct_frame.html)) cannot be used in the same way as ports that are typed by user-defined protocols. For example, it does not make sense to connect such ports with connectors since no events can be sent to them. Because of this, the following keywords are not applicable for such ports: `notify`, `publish`, `subscribe`, `unwired`.
 
-If you use one or many of these keywords when declaring a port with a predefined protocol, they will be ignored and this problem will be reported. It will also be reported if you declare such a port as conjugated.
+If you use one or many of these keywords when declaring a port with a predefined protocol, they will be ignored and this problem will be reported. The problem will also be reported if you declare such a port as conjugated.
 
 ``` art
 capsule C38 {
