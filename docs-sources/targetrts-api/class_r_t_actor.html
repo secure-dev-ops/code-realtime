@@ -135,7 +135,7 @@ Public Member Functions</h2></td></tr>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>designLevel</b> (void) const</td></tr>
 <tr class="separator:a98a5ef32124b580417cd11bea159677c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01c745d5874c0345a910ae7c389746be"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a01c745d5874c0345a910ae7c389746be">getTypeName</a> (void) const</td></tr>
-<tr class="memdesc:a01c745d5874c0345a910ae7c389746be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the capsule as defined in the model.  <br /></td></tr>
+<tr class="memdesc:a01c745d5874c0345a910ae7c389746be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the capsule.  <br /></td></tr>
 <tr class="separator:a01c745d5874c0345a910ae7c389746be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e3a0a9a0706b5631b2d7b548d6630fb"><td class="memItemLeft" align="right" valign="top"><a id="a4e3a0a9a0706b5631b2d7b548d6630fb" name="a4e3a0a9a0706b5631b2d7b548d6630fb"></a>
 RTVersionId&#160;</td><td class="memItemRight" valign="bottom"><b>getVersion</b> (void) const</td></tr>
@@ -219,7 +219,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a4ff70c41166a0ab5738eefa38541917f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called if the TargetRTS detects that the state machine of the capsule instance in in an invalid state (i.e.  <br /></td></tr>
 <tr class="separator:a4ff70c41166a0ab5738eefa38541917f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83ae2b2d3cf3fceee994496bbb7a147d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a83ae2b2d3cf3fceee994496bbb7a147d">rtgChainBegin</a> (int origin, const char *trans)</td></tr>
-<tr class="memdesc:a83ae2b2d3cf3fceee994496bbb7a147d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called at the beginning of every generated chain function that corresponds to a transition in the model.  <br /></td></tr>
+<tr class="memdesc:a83ae2b2d3cf3fceee994496bbb7a147d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called at the beginning of every generated chain function that corresponds to a transition in the state machine.  <br /></td></tr>
 <tr class="separator:a83ae2b2d3cf3fceee994496bbb7a147d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45a0b60ee459dd55c8a4aa86d2a15620"><td class="memItemLeft" align="right" valign="top"><a id="a45a0b60ee459dd55c8a4aa86d2a15620" name="a45a0b60ee459dd55c8a4aa86d2a15620"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>rtgTransitionBegin</b> (void)</td></tr>
@@ -385,10 +385,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 </div><div class="memdoc">
 
 <p>Get the default capsule class for a capsule part contained in the capsule instance. </p>
-<p>This function is used by the <a class="el" href="struct_frame.html" title="Represents the UML-RT &quot;Frame&quot; protocol.">Frame</a> service when incarnating capsules without specifying the capsule type. The default implementation just returns the capsule that types the capsule part. You may override the function to use a different capsule as the default capsule class. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This function is used by the <a class="el" href="struct_frame.html" title="Represents the predefined &quot;Frame&quot; protocol.">Frame</a> service when incarnating capsules without specifying the capsule type. The default implementation just returns the capsule that types the capsule part. You may override the function to use a different capsule as the default capsule class. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">component</td><td>A capsule part of the capsule instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">repIndex</td><td>The index within the capsule part where the <a class="el" href="struct_frame.html" title="Represents the UML-RT &quot;Frame&quot; protocol.">Frame</a> service will insert the capsule instance to be created. It is unused in the default implementation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">repIndex</td><td>The index within the capsule part where the <a class="el" href="struct_frame.html" title="Represents the predefined &quot;Frame&quot; protocol.">Frame</a> service will insert the capsule instance to be created. It is unused in the default implementation. </td></tr>
   </table>
   </dd>
 </dl>
@@ -431,10 +431,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 </div><div class="memdoc">
 
 <p>Get the default controller for a capsule part contained in the capsule instance. </p>
-<p>This function is used by the <a class="el" href="struct_frame.html" title="Represents the UML-RT &quot;Frame&quot; protocol.">Frame</a> service when incarnating capsules without specifying the controller to run the created capsule instance. The default implementation just returns the controller of this capsule instance. You may override the function to use a different controller as the default. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This function is used by the <a class="el" href="struct_frame.html" title="Represents the predefined &quot;Frame&quot; protocol.">Frame</a> service when incarnating capsules without specifying the controller to run the created capsule instance. The default implementation just returns the controller of this capsule instance. You may override the function to use a different controller as the default. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">component</td><td>A capsule part of the capsule instance. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">repIndex</td><td>The index within the capsule part where the <a class="el" href="struct_frame.html" title="Represents the UML-RT &quot;Frame&quot; protocol.">Frame</a> service will insert the capsule instance to be created. It is unused in the default implementation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">repIndex</td><td>The index within the capsule part where the <a class="el" href="struct_frame.html" title="Represents the predefined &quot;Frame&quot; protocol.">Frame</a> service will insert the capsule instance to be created. It is unused in the default implementation. </td></tr>
   </table>
   </dd>
 </dl>
@@ -467,7 +467,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 </div><div class="memdoc">
 
 <p>Get information (meta data) about the capsule, such as its name, ports, states etc. </p>
-<p>This information is static and comes from the definition of the capsule in the model. </p><dl class="section return"><dt>Returns</dt><dd>Information about the capsule. </dd></dl>
+<p>This information is static and comes from the definition of the capsule. </p><dl class="section return"><dt>Returns</dt><dd>Information about the capsule. </dd></dl>
 
 <p>Implemented in <a class="el" href="class_r_t_super_actor.html#ad158fe76a221bd85973e0167278d7880">RTSuperActor</a>, and <a class="el" href="class_r_t_timer_actor.html#a3c98903aadf63a3da9bcb7b410dd1549">RTTimerActor</a>.</p>
 
@@ -734,7 +734,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
       </table>
 </div><div class="memdoc">
 
-<p>Get the name of the capsule as defined in the model. </p>
+<p>Get the name of the capsule. </p>
 <dl class="section return"><dt>Returns</dt><dd>Name of the capsule instance type. </dd></dl>
 
 </div>
@@ -898,7 +898,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>This function is called at the beginning of every generated chain function that corresponds to a transition in the model. </p>
+<p>This function is called at the beginning of every generated chain function that corresponds to a transition in the state machine. </p>
 <p>The parameters identifies the start of the transition chain. Note that the first argument is implied by the second, but skipping it would require generation of a mapping table which, on some architectures, could be larger than the code which passes the argument. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">origin</td><td>Identifies the start point of the chain. Numbers from 1 to <a class="el" href="class_r_t_actor.html#a2fbb7d06ff8917ebf2fe9aa5506a4dd1" title="Get the number of states in the capsule state machine.">getNumStates()</a>, inclusive, refer to states, larger numbers refer to choice-points. </td></tr>
@@ -934,7 +934,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 </div><div class="memdoc">
 
 <p>This function is called when the state machine of the capsule instance enters a new state. </p>
-<p>The call is made immediately after the state has become active, before the entry action of that state executes. The default implementation of this function does nothing. The function can be overridden on a capsule that wants to perform some common actions whenever a new state in its state machine becomes active. To override this function, simply add a new operation to the capsule in the model with the same name and prototype. </p>
+<p>The call is made immediately after the state has become active, before the entry action of that state executes. The default implementation of this function does nothing. The function can be overridden on a capsule that wants to perform some common actions whenever a new state in its state machine becomes active. To override this function, simply add a new operation to the capsule with the same name and prototype. </p>
 
 </div>
 </div>
