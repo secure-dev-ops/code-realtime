@@ -1,11 +1,11 @@
 capsule PiComputer {
     [[rt::impl_preface]]
     `
-        #include <cstdio>
+        #include <iostream>
+        #include <iomanip>
     `
     /* Ports */
-    behavior port computer~ : PI_REQ;
-    behavior port log : Log;
+    behavior port computer~ : PI_REQ;    
     /* Parts */
     part adder : Adder;
     part multiplier : Multiplier;
@@ -23,19 +23,14 @@ capsule PiComputer {
         };
         initial -> WaitForComputation
         `
-        int noOfIterations = 100; // noOfIterations
-
-        char msg[255];
-        sprintf(msg, "Starting computation of pi using the Madhavas formula with %d iterations.", noOfIterations);
-        log.log(msg);
-        computer.compute(noOfIterations).send();
+            int noOfIterations = 100;        
+            std::cout << "Starting computation of pi using the Madhavas formula with " << noOfIterations << " iterations" << std::endl;
+            computer.compute(noOfIterations).send();
         `;
 
         WaitForComputation -> Finished on computer.result
         `
-            char msg[255];
-            sprintf(msg, "Result is: %.20f", *rtdata);
-            log.log(msg);
+            std::cout << "Result is : " << std::setprecision(20) << std::fixed << *rtdata << std::endl;
         `;
     };
 };

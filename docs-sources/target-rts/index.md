@@ -83,5 +83,5 @@ This folder contains files related to the target part of a target configuration,
 * `RTTarget.h` Defines target specific preprocessor macros, for example `USE_THREADS` which is set to 1 for multi-threaded targets, and 0 for single-threaded targets. It gets included from the main configuration file `RTConfig.h` (see [include](#include)).
 
 ### tools
-This folder contains various utility Perl scripts, some of which are used when building the TargetRTS.
+This folder contains various utility scripts, some of which are used when building the TargetRTS.
 

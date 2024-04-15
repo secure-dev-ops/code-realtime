@@ -1,0 +1,119 @@
+[[rt::decl]]
+`
+    enum class [[rt::auto_descriptor]] TimerData {
+        one,two,three,four,ERROR
+    }; 
+`
+
+[[rt::impl]]
+`
+    static void rtg_TimerData_copy( const RTObject_class * type, TimerData * target, const TimerData * source )
+    {
+        if (*source == TimerData::one)
+            *target = TimerData::two;
+        else if (*source == TimerData::two)
+            *target = TimerData::three;
+        else if (*source == TimerData::three)
+            *target = TimerData::four;
+        else 
+            *target = TimerData::ERROR;
+    }
+`
+
+capsule Top {  
+    [[rt::header_preface]]
+    `
+        #include "timer_periodic.art.h"
+    `
+    [[rt::decl]]
+    `
+        RTTimerId tid1, tid2, tid3;
+        unsigned int i1 = 0, i2 = 0, i3 = 0;
+        const TimerData* t3 = nullptr;
+    `  
+
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include <string>
+        #include <chrono>
+        #include <iostream>
+        
+        std::string result;
+    `
+
+    behavior port   timer1 : Timing, timer2 : Timing, timer3 : Timing, done : Timing; 
+
+    statemachine {
+        state First {
+            timeout1: on timer1.timeout
+            `
+                result += "1";
+
+                ASSERT(*(static_cast<const TimerData*>(rtdata)) == TimerData::two, "Unexpected timer data for timer 1");
+
+                // Cancel all timers
+                ASSERT(tid1.isValid(), "Expected timer1 to be active before canceling it");
+                timer1.cancelTimer(tid1);
+                ASSERT(tid2.isValid(), "Expected timer2 to be active before canceling it");
+                timer2.cancelTimer(tid2);
+                ASSERT(tid3.isValid(), "Expected timer3 to be active before canceling it");
+                timer3.cancelTimer(tid3);
+            `;
+            timeout2: on timer2.timeout
+            `
+                result += "2";
+                
+                ASSERT(*(static_cast<const TimerData*>(rtdata)) == TimerData::three, "Unexpected timer data for timer 2");
+            `;
+            timeout3: on timer3.timeout
+            `
+                result += "3";
+
+                const TimerData* t = static_cast<const TimerData*>(rtdata);
+                if (!t3)
+                    t3 = t;
+                else
+                    ASSERT(t3 == t, "Expected the same timer data to come in all timeouts");
+                
+                ASSERT(*(t) == TimerData::four, "Unexpected timer data for timer 3");
+            `;        
+        };
+        initial -> First
+        `        
+            TimerData td1 = TimerData::one;
+            TimerData td2 = TimerData::two;
+            TimerData td3 = TimerData::three;
+
+            // Set timer with relative time using RTTimerspec API (seconds, nanoseconds)
+            tid1 = timer1.informEvery(RTTimespec(1, 0), &td1, &RTType_TimerData);
+            ASSERT(tid1.isValid(), "timer1 could not be set");
+
+            // Set timer with relative time using std::chrono API
+            tid2 = timer2.informEvery(std::chrono::milliseconds(400), &td2, &RTType_TimerData);
+            ASSERT(tid2.isValid(), "timer2 could not be set");
+
+            // Set timer with relative time using std::chrono_literals API (requires C++ 14)
+            tid3 = timer3.informEvery(300ms, &td3, &RTType_TimerData);
+            ASSERT(tid3.isValid(), "timer3 could not be set");
+
+            // Final timer to complete the test
+            RTTimerId tid_done = done.informIn(1s + 500ms); // 1.5 s
+            ASSERT(tid_done.isValid(), "timer 'done' could not be set"); 
+        `;
+        state Done;
+        done : First -> Done on done.timeout
+        `
+            std::cout << "Timeout order: " << result << std::endl;
+            // Expected timeout times:
+            // At 300ms: timer3
+            // At 400ms: timer2
+            // At 600ms: timer3
+            // At 800ms: timer2
+            // At 900ms: timer3
+            // At 1s: timer1
+            ASSERT(result == "323231", "Timers expired in an unexpected order");
+            PASS();
+        `;
+    };
+};

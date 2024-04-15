@@ -3,9 +3,6 @@ In most cases a realtime application contains at least some code that is not gen
 ## External Port
 External code can send events to a capsule in a thread-safe way by means of an **external port** defined on the capsule. Such a port is typed by the predefined [`External`](../targetrts-api/struct_external.html) protocol. 
 
-!!! note
-    Even if an external port can be considered to be part of the capsule's public API, it must be declared as a non-service port.
-
 External ports can for example be useful in scenarios when external code has to wait for some event to occur or some data to become available, and then notify a capsule about it. Such external code has to run in its own thread (an **external thread**), to avoid blocking the application while it's waiting. In some cases it's enough to just notify the capsule about what has happened, while in other cases it's necessary to also transfer some data from the external code to the capsule. Here are examples for three typical scenarios:
 
 * Notify a capsule when a button is pushed. In this case it's not necessary to transfer any data to the capsule, but it's enough to raise an event on the external port.
@@ -45,6 +42,30 @@ else {
 !!! note
     To allow the external code to call `raise()` on the external port it's necessary to somehow provide the external code with a way to access it. A good way to do this is to let the capsule implement an interface class which provides a function for raising the event on the external port. The external code can then be given a reference to the capsule through that interface class. This prevents the need to expose the external port itself to the external code, and it effectively ensures that the external code cannot do anything with the capsule except calling the provided function. See [this sample]({$vars.github.repo$}/tree/main/art-samples/TrafficLight) for an example of how to let a capsule implement an interface class.
 
+The capsule with the external port handles the raised event like any other event it receives (it has the name `event`). Here is an example of a PushButton capsule that uses an external port for getting notified when a button is pushed:
+
+```art
+capsule PushButton {
+
+    behavior port external : External;    
+
+    statemachine {
+        state WaitForPush {
+            entry
+            `
+                // Enable the external port so we can receive *one* event on it
+                external.enable();
+            `;
+        };
+        initial -> WaitForPush;
+
+        onButtonPush: WaitForPush -> WaitForPush on external.event
+        `
+            // The button was pushed
+        `;
+    };
+};
+```
 
 ### Passing Data
 The external code can choose to pass a data argument with the event that it raises on an external port. The same rules apply for such data as for all other event data, except that it will always be copied (i.e. it's not possible to move it). Just like when data is associated with a timeout event, it's necessary to provide both the data and its type descriptor when raising an event with data. Here is an example where the raised event carries a string as data:

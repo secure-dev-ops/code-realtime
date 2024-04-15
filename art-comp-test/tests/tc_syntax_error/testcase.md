@@ -1,5 +1,5 @@
 ---
-group: validation
+group: tc
 steps: generate
 ac_output match1: ERROR|top.tcjs|2:21|Missing close quote
 ac_output match2: ERROR|Failed to evaluate TC

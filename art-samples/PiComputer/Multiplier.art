@@ -3,8 +3,7 @@ capsule Multiplier {
     `
         #include <cmath>
     `
-    /* Ports */
-    behavior port log : Log;
+    /* Ports */    
     service behavior port result~ : INC_REQ;
     /* Parts */
 

@@ -1,0 +1,125 @@
+capsule Top {  
+    
+    [[rt::decl]]
+    `
+        RTTimerId tid1;
+        unsigned int count = 0;
+        
+        void setClock(const RTTimespec & new_time);
+    `  
+
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include <string>
+        #include <chrono>
+        #include <iostream>
+        #include <windows.h>
+        #include <time.h>
+        
+        std::string result;
+    `
+
+    [[rt::impl]]
+    `        
+        void TimetToFileTime(time_t t, LPFILETIME pft){
+            ULARGE_INTEGER time_value;
+            time_value.QuadPart = (t * 10000000LL) + 116444736000000000LL;
+            pft->dwLowDateTime = time_value.LowPart;
+            pft->dwHighDateTime = time_value.HighPart;
+        }     
+        
+        void Top_Actor::setClock(const RTTimespec & new_time) {        
+            RTTimespec old_time, delta;
+            
+            timer1.adjustTimeBegin();
+        
+            RTTimespec::getclock(old_time); // Read system clock            
+
+            // Set clock (Windows specific)            
+            SYSTEMTIME st, st_old, the_st, lt, lt_old;
+            FILETIME ft, ft_old, the_ft;
+
+            TimetToFileTime(old_time.tv_sec, &ft_old); // Skip nanoseconds
+            ASSERT(FileTimeToSystemTime(&ft_old, &st_old), "Failed to convert FILETIME to SYSTEMTIME");
+            GetLocalTime(&lt_old);
+            printf("The system time before is: %02d:%02d:%02d\n", st_old.wHour, st_old.wMinute, st_old.wSecond);
+            printf(" The local time before is: %02d:%02d:%02d\n", lt_old.wHour, lt_old.wMinute, lt_old.wSecond);
+
+            TimetToFileTime(new_time.tv_sec, &ft); // Skip nanoseconds
+        
+            ASSERT(FileTimeToSystemTime(&ft, &st), "Failed to convert FILETIME to SYSTEMTIME");
+        
+            ASSERT(SetSystemTime(&st), "Failed to SetSystemTime");
+
+            RTTimespec the_new_time;
+            RTTimespec::getclock(the_new_time); // Read system clock   
+            TimetToFileTime(the_new_time.tv_sec, &the_ft); // Skip nanoseconds
+            ASSERT(FileTimeToSystemTime(&the_ft, &the_st), "Failed to convert FILETIME to SYSTEMTIME");
+
+            GetLocalTime(&lt);
+            printf("The system time after is: %02d:%02d:%02d\n", the_st.wHour, the_st.wMinute, the_st.wSecond);
+            printf(" The local time after is: %02d:%02d:%02d\n", lt.wHour, lt.wMinute, lt.wSecond);
+
+            delta = new_time;
+            delta -= old_time;
+        
+            timer1.adjustTimeEnd(delta);
+        }
+    `           
+
+    behavior port   timer1 : Timing, timer2 : Timing, done : Timing; 
+
+    statemachine {
+        state First {
+            timeout1: on timer1.timeout
+            `
+                result += "1";
+                count++;
+
+                if (count == 2) {
+                    // Second timeout - change system clock 100 seconds forward                    
+
+                    // Change the system clock.
+                    // Move time forward 100 seconds. We expect this to immediately cause timer2 to timeout
+                    // since it has been set with an absolute time, while timer1 should keep timing out at the
+                    // same intervals as before.
+                    RTTimespec now;
+                    RTTimespec::getclock(now);                
+                    RTTimespec newTime = now + RTTimespec(100,0); 
+                    setClock(newTime);                         
+                }
+                else if (count == 4) {
+                    // Fourth timeout - cancel the timer
+                    timer1.cancelTimer(tid1);
+                }
+                
+            `;  
+            timeout2: on timer2.timeout
+            `
+                result += "2";
+            `;              
+        };
+        initial -> First
+        `            
+            tid1 = timer1.informEvery(250ms);
+            ASSERT(tid1.isValid(), "timer1 could not be set");            
+
+            RTTimespec now;
+            RTTimespec::getclock(now);
+            RTTimerId tid2 = timer2.informAt(now + RTTimespec(50, 0)); // 50 seconds in the future
+            ASSERT(tid2.isValid(), "timer2 could not be set"); 
+
+            // Final timer to complete the test
+            RTTimerId tid_done = done.informIn(2s); 
+            ASSERT(tid_done.isValid(), "timer 'done' could not be set"); 
+        `;
+        state Done;
+        done : First -> Done on done.timeout
+        `
+            std::cout << "Timeout order: " << result << std::endl;            
+            ASSERT(result == "11211", "Unexpected timeouts");
+            PASS();
+        `;
+    };
+};
