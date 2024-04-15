@@ -1,0 +1,26 @@
+capsule Top {
+     [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"  
+
+    `
+    [[rt::decl]]
+    `
+    public:
+        ~Top_Actor();
+    `
+    [[rt::impl]]
+    `
+        Top_Actor::~Top_Actor() { 
+            PASS();           
+        }
+        
+    `    
+    statemachine {
+        state S1;
+        initial -> S1
+        `                      
+           context()->abort();
+        `;   
+    };
+};
