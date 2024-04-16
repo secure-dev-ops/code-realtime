@@ -120,7 +120,7 @@ timer2.informIn(1s, &now, &RTTimespec::classData);
 ```
 
 !!! note
-    Since timer data is untyped, any timeout event can carry any kind of data. While this is flexible, it requires caution since in the timeout transition you need to explicitly cast `rtdata` from `void*` to a pointer to the timer data. You must therefore be sure what type of data each timeout event carries. It's therefore recommended to not use different types of data for the same timer.
+    Since timer data is untyped, any timeout event can carry any kind of data. While this is flexible, it requires caution since in the timeout transition you need to explicitly cast `rtdata` from `void*` to a pointer to the timer data. You must therefore be sure what type of data each timeout event carries. It's recommended to not use different types of data for the same timer.
     
 Here is an example of how to access the data of timer2 from the above example:
 
@@ -162,3 +162,6 @@ void AdjustTimeCapsule_Actor::setClock(const RTTimespec& new_time)
 ```
 
 Error handling is important in this function; if the function for setting the system clock fails (for example because the application doesn't have enough privileges to change the clock), it must call `adjustTimeEnd()` with a zero time argument, to restart the timing service without changing the clock. `adjustTimeEnd()` works by simply adding a time offset to account for the changed system time, and if the system time was not modified that offset must be zero.
+
+!!! example
+    You can find a sample application that changes the system clock [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/timer_adjust_time). The sample is for Windows but can easily be modified for other operating systems.
