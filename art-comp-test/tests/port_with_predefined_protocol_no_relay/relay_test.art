@@ -1,0 +1,24 @@
+/**
+   Ports typed by a predefined protocol (Timing, Log, External, Exception or Frame) are not considered as relay ports
+*/
+capsule Top {   
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    service behavior port external : External;
+    service behavior port exception : Exception;
+    service behavior port timing : Timing;
+    service behavior port log : Log;
+    service behavior port frame : Frame;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1
+        `   
+            ASSERT(Top.numRelays == 0, "Expected none of the predefined service port is added to rtg_relays");
+            ASSERT(Top.relays == nullptr, "Expected relays as nullptr");
+            PASS();
+        `;
+    };
+};

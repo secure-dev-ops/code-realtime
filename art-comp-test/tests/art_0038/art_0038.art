@@ -1,0 +1,50 @@
+/** 
+    Added Validation ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared
+    Ports typed by a predefined protocol (Timing, Log, External, Exception or Frame) 
+    cannot be used in the same way as ports that are typed by user-defined protocols.	
+    For example, it does not make sense to connect such ports with connectors since no events can be sent to them. 
+    Because of the following keywords are not applicable for such ports: notify, publish, subscribe, unwired
+*/
+capsule C38 {
+    behavior notify port timing : Timing;
+    behavior notify port exception : Exception;
+    behavior notify port external : External;
+    behavior notify port log : Log;
+    behavior notify port frame : Frame;
+
+    behavior publish port timing1 : Timing;
+    behavior publish port exception1 : Exception;
+    behavior publish port external1 : External;
+    behavior publish port log1 : Log;
+    behavior publish port frame1 : Frame;
+
+    behavior subscribe port timing2 : Timing;
+    behavior subscribe port exception2 : Exception;
+    behavior subscribe port external2 : External;
+    behavior subscribe port log2 : Log;
+    behavior subscribe port frame2 : Frame;
+
+    behavior port timing3~ : Timing;
+    behavior port exception3~ : Exception; 
+    behavior port external3~ : External; 
+    behavior port log3~ : Log;
+    behavior port frame3~ : Frame;
+
+    behavior notify publish unwired port timing4~ : Timing;
+    behavior notify publish unwired port exception4~ : Exception;
+    behavior notify publish unwired port external4~ : External;
+    behavior notify publish unwired port log4~ : Log;
+    behavior notify publish unwired port frame4~ : Frame;
+
+    subscribe behavior unwired port timing5 : Timing;
+    subscribe behavior unwired port exception5 : Exception;
+    subscribe behavior unwired port external5 : External;
+    subscribe behavior unwired port log5 : Log;
+    subscribe behavior unwired port frame5 : Frame;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
