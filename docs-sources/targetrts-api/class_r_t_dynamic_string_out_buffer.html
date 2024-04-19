@@ -92,12 +92,12 @@ Inheritance diagram for RTDynamicStringOutBuffer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad28dc6661be66332c76ab1658e6e6d16"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_dynamic_string_out_buffer.html#ad28dc6661be66332c76ab1658e6e6d16">write</a> (const char *data, int size) override</td></tr>
-<tr class="memdesc:ad28dc6661be66332c76ab1658e6e6d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string to the buffer.  <br /></td></tr>
-<tr class="separator:ad28dc6661be66332c76ab1658e6e6d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a396fef17eefd2359ad68282e458ce298"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_dynamic_string_out_buffer.html#a396fef17eefd2359ad68282e458ce298">flush</a> (void) override</td></tr>
-<tr class="memdesc:a396fef17eefd2359ad68282e458ce298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the data written to the buffer.  <br /></td></tr>
-<tr class="separator:a396fef17eefd2359ad68282e458ce298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a158e9e9b14cb446933ebb0c52bb845ab"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_dynamic_string_out_buffer.html#a158e9e9b14cb446933ebb0c52bb845ab">write</a> (const char *data, int size)</td></tr>
+<tr class="memdesc:a158e9e9b14cb446933ebb0c52bb845ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string to the buffer.  <br /></td></tr>
+<tr class="separator:a158e9e9b14cb446933ebb0c52bb845ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93ffabf2900226f111841965996e1b67"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_dynamic_string_out_buffer.html#a93ffabf2900226f111841965996e1b67">flush</a> (void)</td></tr>
+<tr class="memdesc:a93ffabf2900226f111841965996e1b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the data written to the buffer.  <br /></td></tr>
+<tr class="separator:a93ffabf2900226f111841965996e1b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3cf80c2de21c13f5aff338b7a8e4aaf"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_dynamic_string_out_buffer.html#ae3cf80c2de21c13f5aff338b7a8e4aaf">getString</a> ()</td></tr>
 <tr class="memdesc:ae3cf80c2de21c13f5aff338b7a8e4aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer to the buffer string (owned by this buffer).  <br /></td></tr>
 <tr class="separator:ae3cf80c2de21c13f5aff338b7a8e4aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,8 +111,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A dynamic string buffer. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a396fef17eefd2359ad68282e458ce298" name="a396fef17eefd2359ad68282e458ce298"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a396fef17eefd2359ad68282e458ce298">&#9670;&#160;</a></span>flush()</h2>
+<a id="a93ffabf2900226f111841965996e1b67" name="a93ffabf2900226f111841965996e1b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93ffabf2900226f111841965996e1b67">&#9670;&#160;</a></span>flush()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -130,13 +130,13 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Flushes the data written to the buffer. </p>
-<p>For some output buffers, the written data will not appear in the output until <a class="el" href="class_r_t_dynamic_string_out_buffer.html#a396fef17eefd2359ad68282e458ce298" title="Flushes the data written to the buffer.">flush()</a> has been called. For others explicit flushing is not needed. </p><dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise </dd></dl>
+<p>For some output buffers, the written data will not appear in the output until <a class="el" href="class_r_t_dynamic_string_out_buffer.html#a93ffabf2900226f111841965996e1b67" title="Flushes the data written to the buffer.">flush()</a> has been called. For others explicit flushing is not needed. </p><dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise </dd></dl>
 
 <p>Implements <a class="el" href="class_r_t_o_buffer.html#a86f3c112e3473ae2eda74357e71db9cf">RTOBuffer</a>.</p>
 
@@ -162,8 +162,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad28dc6661be66332c76ab1658e6e6d16" name="ad28dc6661be66332c76ab1658e6e6d16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad28dc6661be66332c76ab1658e6e6d16">&#9670;&#160;</a></span>write()</h2>
+<a id="a158e9e9b14cb446933ebb0c52bb845ab" name="a158e9e9b14cb446933ebb0c52bb845ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a158e9e9b14cb446933ebb0c52bb845ab">&#9670;&#160;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,7 +191,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

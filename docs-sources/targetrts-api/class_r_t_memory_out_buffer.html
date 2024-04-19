@@ -91,12 +91,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af6ae1143aee0cc5567815bb0d06883d1"><td class="memItemLeft" align="right" valign="top"><a id="af6ae1143aee0cc5567815bb0d06883d1" name="af6ae1143aee0cc5567815bb0d06883d1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RTMemoryOutBuffer</b> (char *, int size)</td></tr>
 <tr class="separator:af6ae1143aee0cc5567815bb0d06883d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a490e127ea0c43a6bac76338b3ec9528a"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_memory_out_buffer.html#a490e127ea0c43a6bac76338b3ec9528a">write</a> (const char *data, int size) override</td></tr>
-<tr class="memdesc:a490e127ea0c43a6bac76338b3ec9528a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string to the buffer.  <br /></td></tr>
-<tr class="separator:a490e127ea0c43a6bac76338b3ec9528a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae62df96300e0c890767f9c7adbf781d8"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_memory_out_buffer.html#ae62df96300e0c890767f9c7adbf781d8">flush</a> (void) override</td></tr>
-<tr class="memdesc:ae62df96300e0c890767f9c7adbf781d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the data written to the buffer.  <br /></td></tr>
-<tr class="separator:ae62df96300e0c890767f9c7adbf781d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a14a006cbec27576de276b62a025726"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_memory_out_buffer.html#a0a14a006cbec27576de276b62a025726">write</a> (const char *data, int size)</td></tr>
+<tr class="memdesc:a0a14a006cbec27576de276b62a025726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string to the buffer.  <br /></td></tr>
+<tr class="separator:a0a14a006cbec27576de276b62a025726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c5aa1d5b00fe527d1b725601a3ca64"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_memory_out_buffer.html#af3c5aa1d5b00fe527d1b725601a3ca64">flush</a> (void)</td></tr>
+<tr class="memdesc:af3c5aa1d5b00fe527d1b725601a3ca64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the data written to the buffer.  <br /></td></tr>
+<tr class="separator:af3c5aa1d5b00fe527d1b725601a3ca64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5705ef44b354b50a74cd3e81bb97fb9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_o_buffer.html#ad5705ef44b354b50a74cd3e81bb97fb9">write</a> (const char *data, int size)=0</td></tr>
 <tr class="memdesc:ad5705ef44b354b50a74cd3e81bb97fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string to the buffer.  <br /></td></tr>
 <tr class="separator:ad5705ef44b354b50a74cd3e81bb97fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,8 +105,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a86f3c112e3473ae2eda74357e71db9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae62df96300e0c890767f9c7adbf781d8" name="ae62df96300e0c890767f9c7adbf781d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae62df96300e0c890767f9c7adbf781d8">&#9670;&#160;</a></span>flush()</h2>
+<a id="af3c5aa1d5b00fe527d1b725601a3ca64" name="af3c5aa1d5b00fe527d1b725601a3ca64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c5aa1d5b00fe527d1b725601a3ca64">&#9670;&#160;</a></span>flush()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,20 +124,20 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Flushes the data written to the buffer. </p>
-<p>For some output buffers, the written data will not appear in the output until <a class="el" href="class_r_t_memory_out_buffer.html#ae62df96300e0c890767f9c7adbf781d8" title="Flushes the data written to the buffer.">flush()</a> has been called. For others explicit flushing is not needed. </p><dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise </dd></dl>
+<p>For some output buffers, the written data will not appear in the output until <a class="el" href="class_r_t_memory_out_buffer.html#af3c5aa1d5b00fe527d1b725601a3ca64" title="Flushes the data written to the buffer.">flush()</a> has been called. For others explicit flushing is not needed. </p><dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise </dd></dl>
 
 <p>Implements <a class="el" href="class_r_t_o_buffer.html#a86f3c112e3473ae2eda74357e71db9cf">RTOBuffer</a>.</p>
 
 </div>
 </div>
-<a id="a490e127ea0c43a6bac76338b3ec9528a" name="a490e127ea0c43a6bac76338b3ec9528a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a490e127ea0c43a6bac76338b3ec9528a">&#9670;&#160;</a></span>write()</h2>
+<a id="a0a14a006cbec27576de276b62a025726" name="a0a14a006cbec27576de276b62a025726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a14a006cbec27576de276b62a025726">&#9670;&#160;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +165,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

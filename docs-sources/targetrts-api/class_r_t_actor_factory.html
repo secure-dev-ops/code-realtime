@@ -95,12 +95,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a71c62c8a8dd12e7aa075b2bcb34c8359"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory.html#a71c62c8a8dd12e7aa075b2bcb34c8359">RTActorFactory</a> (std::function&lt; <a class="el" href="class_r_t_actor.html">RTActor</a> *(<a class="el" href="class_r_t_controller.html">RTController</a> *, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *, int)&gt; createFunc)</td></tr>
 <tr class="memdesc:a71c62c8a8dd12e7aa075b2bcb34c8359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a capsule factory which will use the provided function to implement capsule instance creation.  <br /></td></tr>
 <tr class="separator:a71c62c8a8dd12e7aa075b2bcb34c8359"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58c49deb45a29f180b88d8e376fcef18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory.html#a58c49deb45a29f180b88d8e376fcef18">create</a> (<a class="el" href="class_r_t_controller.html">RTController</a> *rts, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *ref, int index) override</td></tr>
-<tr class="memdesc:a58c49deb45a29f180b88d8e376fcef18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to create a capsule instance, which later will be inserted into a capsule part.  <br /></td></tr>
-<tr class="separator:a58c49deb45a29f180b88d8e376fcef18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70f1f74e2f1552f8991d775f0875a726"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory.html#a70f1f74e2f1552f8991d775f0875a726">destroy</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *actor) override</td></tr>
-<tr class="memdesc:a70f1f74e2f1552f8991d775f0875a726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to destroy a capsule instance.  <br /></td></tr>
-<tr class="separator:a70f1f74e2f1552f8991d775f0875a726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebd959ed488ca0f8d80535e039ff3090"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory.html#aebd959ed488ca0f8d80535e039ff3090">create</a> (<a class="el" href="class_r_t_controller.html">RTController</a> *rts, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *ref, int index)</td></tr>
+<tr class="memdesc:aebd959ed488ca0f8d80535e039ff3090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to create a capsule instance, which later will be inserted into a capsule part.  <br /></td></tr>
+<tr class="separator:aebd959ed488ca0f8d80535e039ff3090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51dfaea5b5148674c2518edf8cebda8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory.html#a51dfaea5b5148674c2518edf8cebda8d">destroy</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *actor)</td></tr>
+<tr class="memdesc:a51dfaea5b5148674c2518edf8cebda8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to destroy a capsule instance.  <br /></td></tr>
+<tr class="separator:a51dfaea5b5148674c2518edf8cebda8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff088a5b336b5ea1f6aab416c90e3a65"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory_interface.html#aff088a5b336b5ea1f6aab416c90e3a65">create</a> (<a class="el" href="class_r_t_controller.html">RTController</a> *rts, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *ref, int index)=0</td></tr>
 <tr class="memdesc:aff088a5b336b5ea1f6aab416c90e3a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to create a capsule instance, which later will be inserted into a capsule part.  <br /></td></tr>
 <tr class="separator:aff088a5b336b5ea1f6aab416c90e3a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,8 +138,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a58c49deb45a29f180b88d8e376fcef18" name="a58c49deb45a29f180b88d8e376fcef18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58c49deb45a29f180b88d8e376fcef18">&#9670;&#160;</a></span>create()</h2>
+<a id="aebd959ed488ca0f8d80535e039ff3090" name="aebd959ed488ca0f8d80535e039ff3090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd959ed488ca0f8d80535e039ff3090">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,7 +173,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -193,8 +193,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a70f1f74e2f1552f8991d775f0875a726" name="a70f1f74e2f1552f8991d775f0875a726"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70f1f74e2f1552f8991d775f0875a726">&#9670;&#160;</a></span>destroy()</h2>
+<a id="a51dfaea5b5148674c2518edf8cebda8d" name="a51dfaea5b5148674c2518edf8cebda8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51dfaea5b5148674c2518edf8cebda8d">&#9670;&#160;</a></span>destroy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +212,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

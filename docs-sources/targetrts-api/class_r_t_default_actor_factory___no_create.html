@@ -92,12 +92,12 @@ Inheritance diagram for RTDefaultActorFactory_NoCreate:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0190566263d571781456031672b801bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_default_actor_factory___no_create.html#a0190566263d571781456031672b801bb">create</a> (<a class="el" href="class_r_t_controller.html">RTController</a> *rts, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *ref, int index) override</td></tr>
-<tr class="memdesc:a0190566263d571781456031672b801bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to create a capsule instance, which later will be inserted into a capsule part.  <br /></td></tr>
-<tr class="separator:a0190566263d571781456031672b801bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b2a6441f02fcda708ed2acfbea4fa17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_default_actor_factory___no_create.html#a1b2a6441f02fcda708ed2acfbea4fa17">destroy</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *actor) override</td></tr>
-<tr class="memdesc:a1b2a6441f02fcda708ed2acfbea4fa17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to destroy a capsule instance.  <br /></td></tr>
-<tr class="separator:a1b2a6441f02fcda708ed2acfbea4fa17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87de19c036ee16aaa0e3d690e9287a24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_default_actor_factory___no_create.html#a87de19c036ee16aaa0e3d690e9287a24">create</a> (<a class="el" href="class_r_t_controller.html">RTController</a> *rts, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *ref, int index)</td></tr>
+<tr class="memdesc:a87de19c036ee16aaa0e3d690e9287a24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to create a capsule instance, which later will be inserted into a capsule part.  <br /></td></tr>
+<tr class="separator:a87de19c036ee16aaa0e3d690e9287a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2642318b7fe99f48af91af67f969ad71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_default_actor_factory___no_create.html#a2642318b7fe99f48af91af67f969ad71">destroy</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *actor)</td></tr>
+<tr class="memdesc:a2642318b7fe99f48af91af67f969ad71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to destroy a capsule instance.  <br /></td></tr>
+<tr class="separator:a2642318b7fe99f48af91af67f969ad71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff088a5b336b5ea1f6aab416c90e3a65"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_factory_interface.html#aff088a5b336b5ea1f6aab416c90e3a65">create</a> (<a class="el" href="class_r_t_controller.html">RTController</a> *rts, <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *ref, int index)=0</td></tr>
 <tr class="memdesc:aff088a5b336b5ea1f6aab416c90e3a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the TargetRTS to create a capsule instance, which later will be inserted into a capsule part.  <br /></td></tr>
 <tr class="separator:aff088a5b336b5ea1f6aab416c90e3a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,8 +109,8 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>A capsule factory with a default destroy implementation, but without a create implementation (the create function will return nullptr). </p>
 <p>In generated code this class is used as base class for a custom capsule factory for a capsule part where the type of the capsule part is a capsule without a default capsule constructor. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0190566263d571781456031672b801bb" name="a0190566263d571781456031672b801bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0190566263d571781456031672b801bb">&#9670;&#160;</a></span>create()</h2>
+<a id="a87de19c036ee16aaa0e3d690e9287a24" name="a87de19c036ee16aaa0e3d690e9287a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87de19c036ee16aaa0e3d690e9287a24">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,7 +144,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -164,8 +164,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1b2a6441f02fcda708ed2acfbea4fa17" name="a1b2a6441f02fcda708ed2acfbea4fa17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b2a6441f02fcda708ed2acfbea4fa17">&#9670;&#160;</a></span>destroy()</h2>
+<a id="a2642318b7fe99f48af91af67f969ad71" name="a2642318b7fe99f48af91af67f969ad71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2642318b7fe99f48af91af67f969ad71">&#9670;&#160;</a></span>destroy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +183,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
