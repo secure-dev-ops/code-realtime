@@ -2370,10 +2370,27 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = RTS_INLINE= \
+						 RTS_INLINES= \
                          RTUseCPP11= \
                          OBJECT_ENCODE= \
                          OBJECT_DECODE= \
-                         RTAsciiEncoding
+						 HAVE_INET= \
+						 INTEGER_POSTFIX= \
+						 LOG_MESSAGE= \
+						 RTIMPORT_ISREFERENCEDBY_CHECK= \
+						 RTFRAME_THREAD_SAFE= \
+						 RTUseFloatingPoint= \
+						 RTTYPECHECK_WARN= \
+						 RTS_COMPATIBLE= \
+						 RTFRAME_CHECKING=RTFRAME_CHECK_STRICT \
+						 RTMESSAGE_PAYLOAD_SIZE= \
+						 RTREAL_INCLUDED= \
+						 RTTYPECHECK_PROTOCOL=RTTYPECHECK_WARN \
+						 RTTYPECHECK_SEND=RTTYPECHECK_WARN \
+						 INLINE_METHODS= \
+						 INLINE_CHAINS= \
+						 OBSERVABLE= \
+						 override=
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
@@ -2382,12 +2399,28 @@ PREDEFINED             = RTS_INLINE= \
 # definition found in the source code.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-EXPAND_AS_DEFINED      = RTS_INLINE \
-                         RTFRAME_CHECKING \
+EXPAND_AS_DEFINED      = RTS_INLINE= \
+						 RTS_INLINES= \
                          RTUseCPP11= \
                          OBJECT_ENCODE= \
                          OBJECT_DECODE= \
-                         RTAsciiEncoding
+						 HAVE_INET= \
+						 INTEGER_POSTFIX= \
+						 LOG_MESSAGE= \
+						 RTIMPORT_ISREFERENCEDBY_CHECK= \
+						 RTFRAME_THREAD_SAFE= \
+						 RTUseFloatingPoint= \
+						 RTTYPECHECK_WARN= \
+						 RTS_COMPATIBLE= \
+						 RTFRAME_CHECKING=RTFRAME_CHECK_STRICT \
+						 RTMESSAGE_PAYLOAD_SIZE= \
+						 RTREAL_INCLUDED= \
+						 RTTYPECHECK_PROTOCOL=RTTYPECHECK_WARN \
+						 RTTYPECHECK_SEND=RTTYPECHECK_WARN \
+						 INLINE_METHODS= \
+						 INLINE_CHAINS= \
+						 OBSERVABLE= \
+						 override=
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES then doxygen's preprocessor will
 # remove all references to function-like macros that are alone on a line, have
