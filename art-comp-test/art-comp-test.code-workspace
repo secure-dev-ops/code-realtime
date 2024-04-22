@@ -120,6 +120,9 @@
             "path": "tests/receive_any"
         },
         {
+            "path": "tests/redefined_entry_action"
+        },
+        {
             "path": "tests/struct_type_descriptor"
         },
         {

@@ -1,0 +1,85 @@
+protocol Events {
+    out e1();
+};
+
+capsule Top
+{
+    part sender : Sender;
+    part receiver : Receiver1;
+
+    connect sender.ps with receiver.pr;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {
+    service behavior port ps : Events;
+
+    statemachine {
+        state S1;
+        initial -> S1
+        `
+            ps.e1().send();
+        `;
+    };
+};
+
+capsule Receiver : ReceiverBase {
+    behavior port timer : Timing;
+    statemachine {
+        state redefine R1 {
+            exit
+            `
+                std::cout << "Receiver::R1 exit" << std::endl;
+                exit2++;
+            `;
+        };
+        state redefine R2 {
+            entry
+            `
+                std::cout << "Receiver::R2 entry" << std::endl;
+                r2_entry2++;
+            `;
+        };
+        redefine e1Trans: R1 -> R2 on pr.e1
+        `
+            std::cout << "Receiver::e1Trans" << std::endl;
+            RTTimerId tid = timer.informIn(RTTimespec(1, 0));
+            if (!tid.isValid()) {
+                FAIL("timer could not be set");
+            }
+        `;
+    };
+};
+
+capsule Receiver1 : Receiver {
+    statemachine {
+        state redefine R1 {
+            entry
+            `
+                std::cout << "Receiver1::R1 entry" << std::endl;
+                entry3++;
+            `;
+        };
+        state redefine R2 {
+            entry
+            `
+                std::cout << "Receiver1::R2 entry" << std::endl;
+                r2_entry3++;
+            `;
+            verdict: on timer.timeout
+            `
+                ASSERT(entry1 == 0, "R1 entry from ReceiverBase must not be called because it is redefined");
+                ASSERT(entry3 == 1, "Expect R1 entry from Receiver1 to be called");
+                ASSERT(exit2 == 1, "Expect R1 exit from Receiver to be called");
+                ASSERT(r2_entry2 == 0, "R2 entry from Receiver must not be called because it is redefined");
+                ASSERT(r2_entry3 == 1, "Expect R2 entry from Receiver1 to be called");
+                PASS();
+            `;
+        };
+    };
+};
+
