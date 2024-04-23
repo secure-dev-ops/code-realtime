@@ -1,14 +1,6 @@
 Draft documentation, not yet included in the product
 ====================================================
 
-**Building - Transformation Configurations - capsuleFactory**
-The capsule factory is specified by means of a C++ expression that must have the type `RTActorFactoryInterface*`. If the expression contains the variable `$(CAPSULE_CLASS)` it will be replaced with the name of the C++ class for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.
-===
-
-**TargetRTS - Capsule Factory - Global Capsule Factory**
-If the expression specified in the [`capsuleFactory`](../building/transformation-configurations.md#capsulefactory) property contains the variable `$(CAPSULE_CLASS)` it will be replaced with the name of the C++ class that is generated for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.
-===
-
 **The Art Language - State Machine - Transition - Frequent Transition**
 
 #### Frequent Transition

@@ -159,6 +159,15 @@
             "path": "tests/threads"
         },
         {
+            "path": "tests/timer_adjust_time"
+        },
+        {
+            "path": "tests/timer_oneshot"
+        },
+        {
+            "path": "tests/timer_periodic"
+        },
+        {
             "path": "tests/transition_inheritance"
         },
         {
