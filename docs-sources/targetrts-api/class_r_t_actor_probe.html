@@ -91,7 +91,7 @@ Inheritance diagram for RTActorProbe:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af2093be325e34b3e4192045c4337636d"><td class="memItemLeft" align="right" valign="top"><a id="af2093be325e34b3e4192045c4337636d" name="af2093be325e34b3e4192045c4337636d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RTActorProbe</b> (RTDebugger *debugger, int id, const char *strPath, int actorIndex)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RTActorProbe</b> (<a class="el" href="class_r_t_debugger.html">RTDebugger</a> *debugger, int id, const char *strPath, int actorIndex)</td></tr>
 <tr class="separator:af2093be325e34b3e4192045c4337636d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf368aa95583057e989e11e5ce625543"><td class="memItemLeft" align="right" valign="top"><a id="abf368aa95583057e989e11e5ce625543" name="abf368aa95583057e989e11e5ce625543"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>evtHistory</b> (int state)</td></tr>
@@ -126,12 +126,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setChain</b> (int ori
 <tr class="memitem:a4276de5e1cda3ad3e2445bb06763e22f"><td class="memItemLeft" align="right" valign="top"><a id="a4276de5e1cda3ad3e2445bb06763e22f" name="a4276de5e1cda3ad3e2445bb06763e22f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>evtMsgQueue</b> (<a class="el" href="class_r_t_message.html">RTMessage</a> *msg)</td></tr>
 <tr class="separator:a4276de5e1cda3ad3e2445bb06763e22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b071a0398577fa9e2adbcc819d45d45"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_probe.html#a6b071a0398577fa9e2adbcc819d45d45">connectProbe</a> (void)</td></tr>
-<tr class="separator:a6b071a0398577fa9e2adbcc819d45d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecb599d9312807759ae790def74d34e5"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_probe.html#aecb599d9312807759ae790def74d34e5">disconnectProbe</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *actor)</td></tr>
-<tr class="separator:aecb599d9312807759ae790def74d34e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1a99a4712e23b425c4048e38699866c"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_probe.html#ab1a99a4712e23b425c4048e38699866c">getTypeStr</a> (void) const</td></tr>
-<tr class="separator:ab1a99a4712e23b425c4048e38699866c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574c1bb7727708c60c68dd1ff30112c9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_probe.html#a574c1bb7727708c60c68dd1ff30112c9">connectProbe</a> (void) override</td></tr>
+<tr class="separator:a574c1bb7727708c60c68dd1ff30112c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be862dee20f9608c8a54c80360a24d7"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_probe.html#a2be862dee20f9608c8a54c80360a24d7">disconnectProbe</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *actor) override</td></tr>
+<tr class="separator:a2be862dee20f9608c8a54c80360a24d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58b0df8ae328e36d091525e9d5998821"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor_probe.html#a58b0df8ae328e36d091525e9d5998821">getTypeStr</a> (void) const override</td></tr>
+<tr class="separator:a58b0df8ae328e36d091525e9d5998821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18c6f5aa5b69da1c5c1a1bcd74ca9772"><td class="memItemLeft" align="right" valign="top"><a id="a18c6f5aa5b69da1c5c1a1bcd74ca9772" name="a18c6f5aa5b69da1c5c1a1bcd74ca9772"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>inject</b> (int inwards, const char *signal, int prio, const void *data, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *type, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo)</td></tr>
 <tr class="separator:a18c6f5aa5b69da1c5c1a1bcd74ca9772"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,11 +202,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_destroyMe</b></td></t
 <tr class="separator:afc4a5dd45a69e2c4cb44025995fa7adf inherit pub_attribs_class_r_t_probe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_r_t_probe"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_r_t_probe')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_r_t_probe.html">RTProbe</a></td></tr>
 <tr class="memitem:a16f38763265c066fbaf589baadad6f2d inherit pro_methods_class_r_t_probe"><td class="memItemLeft" align="right" valign="top"><a id="a16f38763265c066fbaf589baadad6f2d" name="a16f38763265c066fbaf589baadad6f2d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RTProbe</b> (RTDebugger *debugger, int id, const char *strPath, int actorIndex)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RTProbe</b> (<a class="el" href="class_r_t_debugger.html">RTDebugger</a> *debugger, int id, const char *strPath, int actorIndex)</td></tr>
 <tr class="separator:a16f38763265c066fbaf589baadad6f2d inherit pro_methods_class_r_t_probe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_r_t_probe"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_r_t_probe')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_r_t_probe.html">RTProbe</a></td></tr>
 <tr class="memitem:a7fb8bafcb6f5c6111821a21d34dc0a4f inherit pro_attribs_class_r_t_probe"><td class="memItemLeft" align="right" valign="top"><a id="a7fb8bafcb6f5c6111821a21d34dc0a4f" name="a7fb8bafcb6f5c6111821a21d34dc0a4f"></a>
-RTDebugger *&#160;</td><td class="memItemRight" valign="bottom"><b>_debugger</b></td></tr>
+<a class="el" href="class_r_t_debugger.html">RTDebugger</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_debugger</b></td></tr>
 <tr class="separator:a7fb8bafcb6f5c6111821a21d34dc0a4f inherit pro_attribs_class_r_t_probe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebdc08c150411071d433bfbf81155939 inherit pro_attribs_class_r_t_probe"><td class="memItemLeft" align="right" valign="top"><a id="aebdc08c150411071d433bfbf81155939" name="aebdc08c150411071d433bfbf81155939"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>_id</b></td></tr>
@@ -231,8 +231,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_actorIndex</b></td></
 <tr class="separator:af05b117e7b3fbae5336e2b1d313d8c69 inherit pro_attribs_class_r_t_probe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6b071a0398577fa9e2adbcc819d45d45" name="a6b071a0398577fa9e2adbcc819d45d45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b071a0398577fa9e2adbcc819d45d45">&#9670;&#160;</a></span>connectProbe()</h2>
+<a id="a574c1bb7727708c60c68dd1ff30112c9" name="a574c1bb7727708c60c68dd1ff30112c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a574c1bb7727708c60c68dd1ff30112c9">&#9670;&#160;</a></span>connectProbe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +250,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_actorIndex</b></td></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -259,8 +259,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_actorIndex</b></td></
 
 </div>
 </div>
-<a id="aecb599d9312807759ae790def74d34e5" name="aecb599d9312807759ae790def74d34e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecb599d9312807759ae790def74d34e5">&#9670;&#160;</a></span>disconnectProbe()</h2>
+<a id="a2be862dee20f9608c8a54c80360a24d7" name="a2be862dee20f9608c8a54c80360a24d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2be862dee20f9608c8a54c80360a24d7">&#9670;&#160;</a></span>disconnectProbe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +278,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_actorIndex</b></td></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -287,8 +287,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_actorIndex</b></td></
 
 </div>
 </div>
-<a id="ab1a99a4712e23b425c4048e38699866c" name="ab1a99a4712e23b425c4048e38699866c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1a99a4712e23b425c4048e38699866c">&#9670;&#160;</a></span>getTypeStr()</h2>
+<a id="a58b0df8ae328e36d091525e9d5998821" name="a58b0df8ae328e36d091525e9d5998821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58b0df8ae328e36d091525e9d5998821">&#9670;&#160;</a></span>getTypeStr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +306,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>_actorIndex</b></td></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
