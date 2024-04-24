@@ -131,7 +131,7 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 ### capsuleFactory
 This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
 
-The value of this property should be a C++ expression of type [`RTActorFactoryInterface*`](../targetrts-api/class_r_t_actor_factory_interface.html).
+The value of this property should be a C++ expression of type [`RTActorFactoryInterface*`](../targetrts-api/class_r_t_actor_factory_interface.html). If the expression contains the variable `$(CAPSULE_CLASS)` it will be replaced with the name of the C++ class for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.
 
 ``` js
 tc.capsuleFactory = '&CapsuleFactory::factory';

@@ -1,0 +1,45 @@
+capsule A {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"  
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            unsigned int val;
+        public:
+            A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref, unsigned int p );
+            A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref );
+    `
+    [[rt::impl]]
+    `
+        A_Actor::A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref, unsigned int p )
+            : val( 0 )
+            , RTActor( rtg_rts ,rtg_ref )
+        {
+            val = p;
+        }    
+        A_Actor::A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref)
+            : val( 0 )
+            , RTActor( rtg_rts ,rtg_ref )
+        {
+            val = 100;
+        }    
+    `
+    statemachine {
+        state Created {
+            entry
+            `
+            std::cout << "val = " << val << std::endl;
+            if (RTMemoryUtil::strcmp("part1", getName()) == 0) {
+                ASSERT(22 == val, "Incorrect value for capsule instance in part 'part1'");
+            }
+            if (RTMemoryUtil::strcmp("part2", getName()) == 0) {
+                ASSERT(23 == val, "Incorrect value for capsule instance in part 'part2'");
+            }
+        `;
+        };
+        initial -> Created;
+    };
+};

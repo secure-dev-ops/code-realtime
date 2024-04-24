@@ -1,0 +1,28 @@
+[[rt::decl]]
+`
+#include <A.h>
+
+template <class T>
+class GlobalCapsuleFactory : public RTActorFactoryInterface {
+    public:
+        GlobalCapsuleFactory(unsigned int v) : val(v) {}
+
+        RTActor* create(RTController *rts, RTActorRef *ref, int index) override {
+            return new T(rts, ref, val);
+        }
+
+        void destroy(RTActor* actor) override {
+            delete actor;
+        }
+
+        static GlobalCapsuleFactory<T> factory2;
+    private:
+        unsigned int val;
+    };
+
+`
+[[rt::impl]]
+`
+template<>
+GlobalCapsuleFactory<A_Actor> GlobalCapsuleFactory<A_Actor>::factory2(22); // Used as default factory (referenced in TC)
+`

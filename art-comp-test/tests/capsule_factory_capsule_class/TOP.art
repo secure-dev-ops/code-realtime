@@ -1,0 +1,37 @@
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "CapsuleFactory.art.h"
+        #include "A.h"  
+    `
+    behavior port timer1 : Timing, timer2 : Timing;
+    behavior port frame : Frame;
+    optional part part1 : A [0..1];
+    optional part part2 : A [0..1][[rt::create]]
+    `
+        return new A_Actor(rtg_rts, rtg_ref, 23);
+    `;
+    statemachine {
+        state S1, S2, Done {
+            entry
+            `
+                PASS();
+            `;
+        };
+        initial -> S1
+        `
+            RTActorId id = frame.incarnate(part1);
+            ASSERT(id.isValid(), "Failed to incarnate part1");
+            timer1.informIn(RTTimespec(1,0));
+
+        `;
+        S1 -> S2 on timer1.timeout
+        `
+            RTActorId id = frame.incarnate(part2);
+            ASSERT(id.isValid(), "Failed to incarnate part2");
+            timer2.informIn(RTTimespec(1,0));
+        `;
+        S2 -> Done on timer2.timeout;
+    };
+};

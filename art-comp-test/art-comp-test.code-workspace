@@ -21,6 +21,9 @@
             "path": "tests/capsule_cpp_inheritance"
         },
         {
+            "path": "tests/capsule_factory_capsule_class"
+        },
+        {
             "path": "tests/capsule_factory_for_part"
         },
         {
@@ -55,6 +58,12 @@
         },
         {
             "path": "tests/deep_history"
+        },
+        {
+            "path": "tests/delegation_connector"
+        },
+        {
+            "path": "tests/delegation_connector_nested"
         },
         {
             "path": "tests/dependency_injection_static"
@@ -111,6 +120,9 @@
             "path": "tests/part_inheritance"
         },
         {
+            "path": "tests/port_with_predefined_protocol_no_relay"
+        },
+        {
             "path": "tests/protocol_inheritance"
         },
         {
@@ -118,6 +130,9 @@
         },
         {
             "path": "tests/receive_any"
+        },
+        {
+            "path": "tests/redefined_entry_action"
         },
         {
             "path": "tests/struct_type_descriptor"
@@ -142,6 +157,15 @@
         },
         {
             "path": "tests/threads"
+        },
+        {
+            "path": "tests/timer_adjust_time"
+        },
+        {
+            "path": "tests/timer_oneshot"
+        },
+        {
+            "path": "tests/timer_periodic"
         },
         {
             "path": "tests/transition_inheritance"

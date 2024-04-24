@@ -19,6 +19,10 @@ Scenarios where a local capsule factory could be useful include:
 * Creating a capsule instance in a fixed part and let it be run by a different thread than what runs the container capsule instance.
 * Incarnate a fixed part by creating an instance of a capsule that inherits from the capsule that types the part.
 
+!!! example
+    You can find a sample application that uses a local capsule factory [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_factory_for_part).
+
+
 ## Global Capsule Factory
 A global capsule factory will be used for creating and destroying capsule instances in *all* capsule parts in the application, except those for which a [local capsule factory](#local-capsule-factory) has been provided. Implement a global capsule factory by means of a class that inherits [`RTActorFactoryInterface`](../targetrts-api/class_r_t_actor_factory_interface.html). You need to implement the `create()` and `destroy()` functions. Then define an object of this class and set the [`capsuleFactory`](../building/transformation-configurations.md#capsulefactory) TC property to the address of that object.
 
@@ -57,8 +61,13 @@ tc.commonPreface = `
 `;
 ```
 
+If the expression specified in the [`capsuleFactory`](../building/transformation-configurations.md#capsulefactory) property contains the variable `$(CAPSULE_CLASS)` it will be replaced with the name of the C++ class that is generated for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.
+
 Scenarios where a global capsule factory could be useful include:
 
 * Allocating capsule instances in a memory pool by using the placement new operator.
 * Logging capsule instance creation and destruction.
 * Customizing creation of certain capsule instances by means of [dependency injection](dependency-injection.md).
+
+!!! example
+    You can find a sample application that uses a global capsule factory [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_factory_capsule_class).

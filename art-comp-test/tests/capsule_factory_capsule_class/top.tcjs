@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'capsule_factory_capsule_class_target';
+tc.capsuleFactory = '&GlobalCapsuleFactory<$(CAPSULE_CLASS)>::factory2';

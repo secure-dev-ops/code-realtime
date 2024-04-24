@@ -1,0 +1,32 @@
+capsule ReceiverBase {
+    [[rt::decl]]
+    `
+    public:
+        static int entry1, entry3, exit2, r2_entry2, r2_entry3;
+    `
+    [[rt::impl]]
+    `
+        int ReceiverBase_Actor::entry1 = 0;
+        int ReceiverBase_Actor::entry3 = 0;
+        int ReceiverBase_Actor::exit2 = 0;
+        int ReceiverBase_Actor::r2_entry2 = 0;
+        int ReceiverBase_Actor::r2_entry3 = 0;
+    `
+
+    service behavior port pr~ : Events;
+
+    statemachine {
+        state R1 {
+            entry
+            `
+                std::cout << "ReceiverBase::R1 entry" << std::endl;
+                entry1++;
+            `;
+        }, R2;
+        initial -> R1;
+        e1Trans: R1 -> R2 on pr.e1
+        `
+            std::cout << "ReceiverBase::e1Trans" << std::endl;
+        `;
+    };
+};
