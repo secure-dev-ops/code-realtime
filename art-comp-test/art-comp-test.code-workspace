@@ -1,16 +1,7 @@
 { "folders": [
         {
             "path": "TestUtils"
-        },
-        {
-            "path": "../art-samples/HelloWorld"
-        },
-        {
-            "path": "../art-samples/PiComputer"
-        },
-        {
-            "path": "../art-samples/PingPong"
-        },
+        },        
         {
             "path": "tests/build_variants"
         },
@@ -139,6 +130,9 @@
         },
         {
             "path": "tests/struct_type_descriptor_nested"
+        },
+        {
+            "path": "tests/tc_getTopTC"
         },
         {
             "path": "tests/tc_include_paths"

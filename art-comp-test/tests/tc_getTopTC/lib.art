@@ -1,0 +1,10 @@
+[[rt::decl]]
+`
+    bool libFunc();
+`
+
+[[rt::impl]]
+`
+    // RESULT macro is defined in a property of the top TC that is accessed as commonPreface from the lib.tcjs
+    bool libFunc() { return RESULT; }
+`

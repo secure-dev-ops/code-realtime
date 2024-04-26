@@ -1,0 +1,18 @@
+{ "folders": [
+        {
+            "path": "HelloWorld"
+        },
+        {
+            "path": "PiComputer"
+        },
+        {
+            "path": "PingPong"
+        },
+        {
+            "path": "QtTrafficLight"
+        },
+        {
+            "path": "TrafficLight"
+        }
+    ]
+}

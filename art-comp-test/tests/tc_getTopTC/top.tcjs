@@ -1,0 +1,7 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetFolder = 'tc_getTopTC_target'; 
+tc.topCapsule = "Top";
+tc.sources = ['tc_getTopTC.art'];
+tc.prerequisites = ["../../TestUtils/testlib.tcjs", "lib.tcjs"];
+tc.copyrightText = '#define RESULT true';

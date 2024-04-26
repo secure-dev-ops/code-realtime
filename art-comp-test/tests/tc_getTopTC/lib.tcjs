@@ -1,0 +1,6 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetFolder = 'lib_target';
+tc.sources = ['lib.art'];
+// Test that we can access a property from the top TC
+tc.commonPreface = TCF.getTopTC().eval.copyrightText;

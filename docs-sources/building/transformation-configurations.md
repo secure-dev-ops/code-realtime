@@ -75,6 +75,17 @@ A TC can either build a library or an executable. This is controlled by the [top
 
 If you change the prerequisites of a TC you should again [set it as active](#setting-a-transformation-configuration-as-active) so that the prerequisite TCs also become active.
 
+### Accessing the Top TC from a Prerequisite TC
+A library TC that is built as a prerequisite of an executable TC should typically use the same values for many TC properties as are used by the executable TC. For example, both TCs should be compiled with the same compiler and use the same [TargetRTS configuration](../target-rts/index.md#target-configurations), otherwise build inconsistencies could occur. To avoid the need of duplicating such common properties both in the executable TC and in all its prerequisite library TCs, it's possible to access properties of the executable TC in the library TC. Here is an example:
+
+``` js
+tc.compileArguments = TCF.getTopTC().eval.compileArguments;
+```
+
+The function `TCF.getTopTC()` will at build-time return a reference to the TC that is at the "top" of the prerequisite hierarchy, i.e. the TC on which the build command is performed. It's typically an executable TC, but could also be a library TC (in case you build a library that depends on other libraries).
+
+Since we construct a TC property value based on the value of another TC property (here coming from the top TC) we should use the [`eval`](#eval) property to ensure all default values get expanded into real values.
+
 ## Art Build View
 {$product.name$} provides a view called Art Build which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.
 
@@ -114,6 +125,8 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 | [compileCommand](#compilecommand) | String | "$CC"
 | [copyrightText](#copyrighttext) | String | N/A 
 | [cppCodeStandard](#cppcodestandard) | Enum string | "C++ 17"
+| [eval](#eval) | TC object | N/A
+| [inclusionPaths](#inclusionpaths) | List of strings | []
 | [linkArguments](#linkarguments) | String | N/A
 | [linkCommand](#linkcommand) | String | "$LD"
 | [makeArguments](#makearguments) | String | N/A
@@ -124,9 +137,11 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 | [targetConfigurationName](#targetconfigurationname) | String | "default"
 | [targetFolder](#targetfolder) | String | Name of TC with "_target" appended
 | [targetRTSLocation](#targetrtslocation) | String | "${code_rt_home}/TargetRTS"
+| [threads](#threads) | List of Thread objects | List of two Thread objects (MainThread and TimerThread)
 | [topCapsule](#topcapsule) | String | N/A
 | [unitName](#unitname) | String | "UnitName"
 | [userLibraries](#userlibraries) | List of strings | []
+| [userObjectFiles](#userobjectfiles) | List of strings | []
 
 ### capsuleFactory
 This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
@@ -173,6 +188,23 @@ You can use a multi-line text with empty lines in the beginning and end as shown
 
 ### cppCodeStandard
 Defines the C++ language standard to which generated code will conform. The default value for this property is `C++ 17`. Other valid values are `C++ 98`, `C++ 11`, `C++ 14` and `C++ 20`. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set [TargetRTSLocation](#targetrtslocation) to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to `Older than C++ 98`.
+
+### eval
+This is a special property that returns a copy of the TC where all properties with implicit default values have been expanded into real values. It's useful when you want to define a TC property value based on the value of another TC property which has a default value.
+
+As an example consider this TC file which builds an application where the copyright statement is placed in the unit header file:
+
+``` js
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.commonPreface = `
+/** Copyright by me */
+`;
+tc.copyrightText = "See copyright in " + tc.eval.unitName + ".h";
+```
+
+This TC doesn't set the value of the [unitName](#unitname) property, but it has a default value ("UnitName") which can be obtained by means of the `eval` property. If you would directly access `tc.unitName` in the above example, the string "undefined" would be returned when the [unitName](#unitname) property has not been explicitly set.
+
+The `eval` property is often used together with the `TCF.getTopTC()` function as described [here](#accessing-the-top-tc-from-a-prerequisite-tc).
 
 ### inclusionPaths
 Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a [user library](#userlibraries) or [user object file](#userobjectfiles) you need to add the location of the header file(s) that belong to the library or object file.

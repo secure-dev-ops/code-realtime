@@ -1,0 +1,19 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "lib.art.h"
+    `
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State 
+        `
+            ASSERT(libFunc(), "Unexpected return value from library function");
+                PASS();
+        `;
+    };
+};
