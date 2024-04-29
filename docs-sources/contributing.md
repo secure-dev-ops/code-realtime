@@ -69,5 +69,6 @@ where contribute-feature-x is your new branch name.
 ## Best practices
 
 - Follow coding style guides, if available, to ensure consistency across the codebase.
-- Consider adding unit tests to prevent unintended errors, especially if your changes are substantial.
-- Stay updated about any changes to the contribution process.
+- Consider adding unit tests to prevent unintended errors, especially if your changes are substantial. Note that you can add unit tests in the [art-comp-test/tests](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests) GitHub repo.
+- Stay updated about any changes to the contribution process.  
+  
