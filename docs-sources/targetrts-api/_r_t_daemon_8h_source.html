@@ -103,7 +103,7 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;RTMutex.h&gt;</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">class </span><a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">class </span>RTDebugger;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">class </span><a class="code hl_class" href="class_r_t_debugger.html">RTDebugger</a>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_r_t_daemon.html">   30</a></span><span class="keyword">class </span><a class="code hl_class" href="class_r_t_daemon.html">RTDaemon</a></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
@@ -119,7 +119,7 @@ $(function() {
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    };</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    RTDebugger     * debugger;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="class_r_t_debugger.html">RTDebugger</a>     * debugger;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="class_r_t_elastic_array.html">RTElasticArray</a>   actorInfo;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    RTMutex          lock;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
@@ -129,7 +129,7 @@ $(function() {
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span>             setInfo_( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a> &amp; );</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a>   * eventMatches_( <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a> &amp; );</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">explicit</span>         <a class="code hl_class" href="class_r_t_daemon.html">RTDaemon</a>( RTDebugger * );</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">explicit</span>         <a class="code hl_class" href="class_r_t_daemon.html">RTDaemon</a>( <a class="code hl_class" href="class_r_t_debugger.html">RTDebugger</a> * );</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>             <a class="code hl_class" href="class_r_t_daemon.html">~RTDaemon</a>( <span class="keywordtype">void</span> );</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span>             updateSettings( <span class="keyword">const</span> <span class="keywordtype">char</span> * settingsString );</div>
@@ -174,6 +174,7 @@ $(function() {
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#endif </span><span class="comment">// __RTDaemon_h__</span></div>
 <div class="ttc" id="aclass_r_t_daemon_html"><div class="ttname"><a href="class_r_t_daemon.html">RTDaemon</a></div><div class="ttdef"><b>Definition:</b> RTDaemon.h:31</div></div>
 <div class="ttc" id="aclass_r_t_daemon_info_html"><div class="ttname"><a href="class_r_t_daemon_info.html">RTDaemonInfo</a></div><div class="ttdef"><b>Definition:</b> RTDaemonInfo.h:24</div></div>
+<div class="ttc" id="aclass_r_t_debugger_html"><div class="ttname"><a href="class_r_t_debugger.html">RTDebugger</a></div><div class="ttdef"><b>Definition:</b> RTDebugger.h:58</div></div>
 <div class="ttc" id="aclass_r_t_elastic_array_html"><div class="ttname"><a href="class_r_t_elastic_array.html">RTElasticArray</a></div><div class="ttdef"><b>Definition:</b> RTElasticArray.h:22</div></div>
 <div class="ttc" id="aclass_r_t_event_info_html"><div class="ttname"><a href="class_r_t_event_info.html">RTEventInfo</a></div><div class="ttdef"><b>Definition:</b> RTEventInfo.h:26</div></div>
 <div class="ttc" id="astruct_r_t_object__class_html"><div class="ttname"><a href="struct_r_t_object__class.html">RTObject_class</a></div><div class="ttdoc">A type descriptor providing information about a type.</div><div class="ttdef"><b>Definition:</b> RTObject_class.h:64</div></div>
