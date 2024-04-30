@@ -2453,25 +2453,17 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = RTS_INLINE= \
-                         USE_THREADS \
-                         RTS_COUNT \
-                         DEFER_IN_ACTOR \
                          INTEGER_POSTFIX \
                          LOG_MESSAGE \
                          OBJECT_DECODE \
                          OBJECT_ENCODE \
-                         OTRTSDEBUG \
                          RTREAL_INCLUDED \
-                         PURIFY \
                          RTS_INLINES \
-                         RTS_COMPATIBLE \
                          HAVE_INET \
-                         INLINE_METHODS \
-                         RTFRAME_CHECKING \
                          RTFRAME_THREAD_SAFE \
-                         RTMESSAGE_PAYLOAD_SIZE \
                          OBSERVABLE \
-                         RTUseCPP11
+                         RTUseCPP11 \
+						 RTIMPORT_ISREFERENCEDBY_CHECK
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
