@@ -2463,15 +2463,15 @@ PREDEFINED             = RTS_INLINE= \
                          RTFRAME_THREAD_SAFE \
                          OBSERVABLE \
                          RTUseCPP11 \
-						 RTIMPORT_ISREFERENCEDBY_CHECK \
-						 USE_THREADS \
-						 INLINE_METHODS \
-						 INLINE_CHAINS \
-						 OTRTSDEBUG=2 \
-						 RTFRAME_CHECKING=2 \
-						 RTTYPECHECK_PROTOCOL \
-						 RTTYPECHECK_SEND \
-						 RTS_COMPATIBLE=520
+			 RTIMPORT_ISREFERENCEDBY_CHECK \
+			 USE_THREADS \
+			 INLINE_METHODS \
+			 INLINE_CHAINS \
+			 OTRTSDEBUG=2 \
+			 RTFRAME_CHECKING=2 \
+			 RTTYPECHECK_PROTOCOL \
+			 RTTYPECHECK_SEND \
+			 RTS_COMPATIBLE=520
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
