@@ -182,6 +182,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>_preinitialize</b> (i
 <tr class="memitem:abf79df29104e6fd2d10fb08ffd8a8060 inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="abf79df29104e6fd2d10fb08ffd8a8060" name="abf79df29104e6fd2d10fb08ffd8a8060"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>initMe</b> (const void *data, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *type, <a class="el" href="class_r_t_controller.html">RTController</a> *sender)</td></tr>
 <tr class="separator:abf79df29104e6fd2d10fb08ffd8a8060 inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc04fd06af2245bd9218a09921213f8c inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="afc04fd06af2245bd9218a09921213f8c" name="afc04fd06af2245bd9218a09921213f8c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>isReferencedBy</b> (const <a class="el" href="class_r_t_actor.html">RTActor</a> *) const</td></tr>
+<tr class="separator:afc04fd06af2245bd9218a09921213f8c inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a195ae09e6f66d9a4f307d838f4bc633b inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="struct_r_t_actor_class.html">RTActorClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a195ae09e6f66d9a4f307d838f4bc633b">defaultClass</a> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;component, int repIndex)</td></tr>
 <tr class="memdesc:a195ae09e6f66d9a4f307d838f4bc633b inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default capsule class for a capsule part contained in the capsule instance.  <br /></td></tr>
 <tr class="separator:a195ae09e6f66d9a4f307d838f4bc633b inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,10 +203,10 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>_followInV</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
 Protected Types</h2></td></tr>
-<tr class="memitem:a3077bb4d1c72a3d338fc520d7e365580"><td class="memItemLeft" align="right" valign="top"><a id="a3077bb4d1c72a3d338fc520d7e365580" name="a3077bb4d1c72a3d338fc520d7e365580"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>rtid_frame</b> = 1
+<tr class="memitem:adcdeddc6848a43a1b5862698f2d3cc0d"><td class="memItemLeft" align="right" valign="top"><a id="adcdeddc6848a43a1b5862698f2d3cc0d" name="adcdeddc6848a43a1b5862698f2d3cc0d"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>rtid_frame</b> = 1
 , <b>rtid_timer</b>
  }</td></tr>
-<tr class="separator:a3077bb4d1c72a3d338fc520d7e365580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:adcdeddc6848a43a1b5862698f2d3cc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -302,12 +305,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a2562cec96d8e1f2d649a832f461969b9"><td class="memItemLeft" align="right" valign="top"><a id="a2562cec96d8e1f2d649a832f461969b9" name="a2562cec96d8e1f2d649a832f461969b9"></a>
 <a class="el" href="class_timing_1_1_base.html">Timing::Base</a>&#160;</td><td class="memItemRight" valign="bottom"><b>timer</b></td></tr>
 <tr class="separator:a2562cec96d8e1f2d649a832f461969b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb624978c0f14f3a726c248c6893ae13"><td class="memItemLeft" align="right" valign="top"><a id="aeb624978c0f14f3a726c248c6893ae13" name="aeb624978c0f14f3a726c248c6893ae13"></a>
-<a class="el" href="class_r_t_controller.html">RTController</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>timerController</b></td></tr>
-<tr class="separator:aeb624978c0f14f3a726c248c6893ae13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95a176b32fe89c19a78cdd2291f455c1"><td class="memItemLeft" align="right" valign="top"><a id="a95a176b32fe89c19a78cdd2291f455c1" name="a95a176b32fe89c19a78cdd2291f455c1"></a>
-<a class="el" href="class_r_t_thread.html">RTThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>timerThread</b></td></tr>
-<tr class="separator:a95a176b32fe89c19a78cdd2291f455c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>

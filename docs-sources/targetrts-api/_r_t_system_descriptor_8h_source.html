@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_r_t_actor_class.html">RTActorClass</a>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_controller.html">RTController</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">class  </span><a class="code hl_class" href="class_r_t_debugger.html">RTDebugger</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">class  </span>RTDebugger;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_r_t_system_descriptor.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_r_t_system_descriptor.html">RTSystemDescriptor</a></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
@@ -112,7 +112,7 @@ $(function() {
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">int</span>                  timerPriority;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">int</span>                  timerStackSize;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    void             ( * createThreads )( <a class="code hl_class" href="class_r_t_debugger.html">RTDebugger</a> * );</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    void             ( * createThreads )( RTDebugger * );</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    void             ( * deleteThreads )( void );</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif </span><span class="comment">// USE_THREADS</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
@@ -121,7 +121,6 @@ $(function() {
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif </span><span class="comment">// __RTSystemDescriptor_h__</span></div>
 <div class="ttc" id="aclass_r_t_controller_html"><div class="ttname"><a href="class_r_t_controller.html">RTController</a></div><div class="ttdoc">A controller manages a group of capsule instances that all run in the same physical thread (i....</div><div class="ttdef"><b>Definition:</b> RTController.h:54</div></div>
-<div class="ttc" id="aclass_r_t_debugger_html"><div class="ttname"><a href="class_r_t_debugger.html">RTDebugger</a></div><div class="ttdef"><b>Definition:</b> RTDebugger.h:58</div></div>
 <div class="ttc" id="astruct_r_t_actor_class_html"><div class="ttname"><a href="struct_r_t_actor_class.html">RTActorClass</a></div><div class="ttdoc">A type descriptor providing information about the external characteristics of a capsule.</div><div class="ttdef"><b>Definition:</b> RTActorClass.h:36</div></div>
 <div class="ttc" id="astruct_r_t_system_descriptor_html"><div class="ttname"><a href="struct_r_t_system_descriptor.html">RTSystemDescriptor</a></div><div class="ttdef"><b>Definition:</b> RTSystemDescriptor.h:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
