@@ -71,7 +71,7 @@ The capsule instances contained in `cp1` and `fp1` are run by the logical thread
 If you don't want a capsule instance to be run by the same thread that runs its container capsule you can specify another thread when creating the capsule instance. When incarnating a capsule instance into an optional part this can be done in a call to `incarnate()` on a [Frame](../targetrts-api/struct_frame.html) port. Here is an example:
 
 ``` cpp
-frame.incarnate(myPart, 0 /* data */, 0 /* type */, LogicalThread, -1);
+frame.incarnate(myPart, nullptr /* data */, nullptr /* type */, LogicalThread, -1);
 ```
 
 Here `LogicalThread` refers to a logical thread that must exist in the TC. The physical thread to which it is mapped will run the created capsule instance.
