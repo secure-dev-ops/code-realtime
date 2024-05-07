@@ -1,5 +1,6 @@
-[[rt::decl]]
-`
+#ifndef CapsuleFactory_h
+#define CapsuleFactory_h
+
 #include <RTInjector.h>
 #include "ConcreteLogger.h"
 
@@ -55,9 +56,5 @@ public:
 
 	static CapsuleFactory factory;
 };
-`
 
-[[rt::impl]]
-`
-CapsuleFactory CapsuleFactory::factory;
-`
+#endif /* CapsuleFactory_h */

@@ -1,8 +1,8 @@
 let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = ['!*.cpp'];
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'tc_user_object_files_target';
-tc.inclusionPaths = ["../../../tc_user_object_files"];
 tc.userObjectFiles = [
     '../../../tc_user_object_files/UserObjectFile.o'
 ];

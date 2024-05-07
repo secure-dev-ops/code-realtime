@@ -5,6 +5,6 @@ tc.targetFolder = 'dependency_injection_static_target';
 tc.commonPreface = `
 #include <iostream>
 #include "testlib.art.h"
-#include "CapsuleFactory.art.h"
+#include "CapsuleFactory.h"
 `;
 tc.capsuleFactory = '&CapsuleFactory::factory';

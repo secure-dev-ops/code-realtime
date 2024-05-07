@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'cpp_source_files_target';
+tc.commonPreface = '#include "testlib.art.h"';

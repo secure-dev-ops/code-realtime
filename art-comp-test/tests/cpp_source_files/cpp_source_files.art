@@ -1,0 +1,21 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "numbers.h"
+        #include "stringUtils.h"
+    `
+    statemachine {
+        state State;
+        initial -> State
+        `
+            bool isSimple = is_simple(17);
+            std::cout << "is_simple(17) = " << isSimple << endl;
+            ASSERT(is_simple(17) == true, "is_simple(17) function returned false");
+            ASSERT(is_simple(15) == false, "is_simple(15) function returned true");
+
+            ASSERT(isCPPFile("src/numbers.cpp"), "isCPPFile(\"src/numbers.cpp\") returned false");
+            ASSERT(isCPPFile("file.art") == false, "file.art considered as CPP");
+            PASS();
+        `;
+    };
+};
