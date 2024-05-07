@@ -50,7 +50,7 @@ where contribute-feature-x is your new branch name.
 
 ## Creating a pull request
 
-1. Visit your forked repository on GitHub (e.g., [https://github.com/<your-username>/code-realtime](https://github.com/<your-username>/code-realtime.git)).
+1. Visit your forked repository on GitHub (e.g., https://github.com/<your-username>/code-realtime).
 
 2. Locate the **Pull requests** tab and click the **New pull request** button.
    ![New pull request](images/new-pull-request.jpg)
