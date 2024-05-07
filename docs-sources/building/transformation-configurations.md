@@ -122,21 +122,23 @@ Below is a table that lists all properties that can be used in a TC. Note that m
 | [capsuleFactory](#capsulefactory) | String | N/A
 | [commonPreface](#commonpreface) | String | N/A
 | [compileArguments](#compilearguments) | String | N/A 
-| [compileCommand](#compilecommand) | String | "$CC"
+| [compileCommand](#compilecommand) | String | "`$(CC)`"
 | [copyrightText](#copyrighttext) | String | N/A 
 | [cppCodeStandard](#cppcodestandard) | Enum string | "C++ 17"
 | [eval](#eval) | TC object | N/A
+| [executableName](#executablename) | String | "`$(TOP_CAPSULE)$(EXEC_EXT)`"
 | [inclusionPaths](#inclusionpaths) | List of strings | []
+| [libraryName](#libraryname) | String | "`$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)`"
 | [linkArguments](#linkarguments) | String | N/A
-| [linkCommand](#linkcommand) | String | "$LD"
+| [linkCommand](#linkcommand) | String | "`$(LD)`"
 | [makeArguments](#makearguments) | String | N/A
-| [makeCommand](#makecommand) | String | "$defaultMakeCommand"
+| [makeCommand](#makecommand) | String | "`$defaultMakeCommand`"
 | [prerequisites](#prerequisites) | List of strings | []
 | [sources](#sources) | List of strings | ["*.art"]
 | [targetConfiguration](#targetconfiguration) | String | Depends on current operating system
 | [targetConfigurationName](#targetconfigurationname) | String | "default"
 | [targetFolder](#targetfolder) | String | Name of TC with "_target" appended
-| [targetRTSLocation](#targetrtslocation) | String | "${code_rt_home}/TargetRTS"
+| [targetRTSLocation](#targetrtslocation) | String | "`${code_rt_home}`/TargetRTS"
 | [threads](#threads) | List of Thread objects | List of two Thread objects (MainThread and TimerThread)
 | [topCapsule](#topcapsule) | String | N/A
 | [unitName](#unitname) | String | "UnitName"
@@ -206,6 +208,11 @@ This TC doesn't set the value of the [unitName](#unitname) property, but it has 
 
 The `eval` property is often used together with the `TCF.getTopTC()` function as described [here](#accessing-the-top-tc-from-a-prerequisite-tc).
 
+### executableName
+Specifies the name of the executable that is built by the TC. This property is only applicable for TCs that build executables.
+
+The default value of this property is "`$(TOP_CAPSULE)$(EXEC_EXT)`" where `$(TOP_CAPSULE)` is the name of the [`topCapsule`](#topcapsule) and `$(EXEC_EXT)` is a variable for the file extension which gets its value from the TargetRTS configuration that is used.
+
 ### inclusionPaths
 Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a [user library](#userlibraries) or [user object file](#userobjectfiles) you need to add the location of the header file(s) that belong to the library or object file.
 
@@ -214,6 +221,11 @@ tc.inclusionPaths = ["/libs/myLib1/includes", "/libs/myLib2/includes"];
 ```
 
 Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.
+
+### libraryName
+Specifies the name of the library that is built by the TC. This property is only applicable for TCs that build libraries.
+
+The default value of this property is "`$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)`" where `$(LIB_PFX)` is a prefix and `$(LIB_EXT)` is a file extension which get their values from the TargetRTS configuration that is used. `$(TCONFIG_NAME)` expands to the name of the TC file (only the base name, not including the file extension).
 
 ### linkArguments
 Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.
