@@ -115,6 +115,7 @@ nav:
      - Building: 
         - Building: building/index.md        
         - Transformation Configurations: building/transformation-configurations.md
+        - C++ Source Files: building/build-cpp-files.md
         - Launch Configurations: building/launch-configurations.md
         - Art Compiler: building/art-compiler.md   
         - Build Variants: building/build-variants.md  
