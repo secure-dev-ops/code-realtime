@@ -113,6 +113,9 @@
         {
             "path": "tests/art_0038"
         },
+		{
+            "path": "tests/art_0039"
+        },
         {
             "path": "tests/cpp_4000"
         },
@@ -169,10 +172,6 @@
         },
         {
             "path": "tests/tc_7015"
-        },
-        {
-            "name": "lib_target",
-            "path": "tests/lib_target"
         }
     ]
 }

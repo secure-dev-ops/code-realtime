@@ -767,17 +767,63 @@ Two Quick Fixes are available for fixing this problem. Either the port can be tu
 
 An [unwired port](../art-lang#unwired-port) must not be connected to another port by means of a [connector](../art-lang#connector). Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.
 
-A wired port, however, must be connected. A service port that is not a behavior port must be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".
+A wired port, however, should be connected. A service port that is not a behavior port should be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".
+
+The sample below contains several unwired ports that are connected (although they should not be). The validation rule also detects the problem that the service behavior port `p1` is connected on the "inside". (The fact that it's also not connected on the "outside" is reported by [ART_0039_portPartMultiplicityMismatch](#art_0039_portpartmultiplicitymismatch)).
 
 ``` art
+protocol PROTO {
+    in in1();
+    out out1();
+};
+
 capsule Top {    
-    part ping : Pinger, // ART_0025 (not connected in capsule Top)
-    pong : Ponger; // ART_0025 (not connected in capsule Top)
+    part ping : Pinger, // ART_0025 (unwired_port1 is connected in capsule Top)                        
+    pong : Ponger; // ART_0025 (unwired_port2 is connected in capsule Top)
+
+    part a : Another; // ART_0025 (behavior port p1 is connected on the inside)
+                      // ART_0039 (behavior port p1 is not connected on the outside)
+
+    connect ping.unwired_port1 with pong.unwired_port2;
     
+    service publish behavior port unwired_port1 : PROTO; // ART_0025 (publish implies unwired and unwired ports must not be connected)
+    service subscribe behavior port unwired_port2~ : PROTO; // ART_0025 (subscribe implies unwired and unwired ports must not be connected)
+    connect unwired_port1 with unwired_port2; 
+
+    unwired behavior port unwired_port3~ : PROTO; // ART_0025 (unwired ports must not be connected)
+
+    connect ping.p2 with unwired_port3; 
+
     statemachine {
         state T21;
         initial -> T21;
     };
+};
+
+capsule Pinger {
+    service publish behavior port unwired_port1 : PROTO;
+
+    service port p2 : PROTO;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Ponger {
+    service subscribe behavior port unwired_port2~ : PROTO;
+
+    statemachine {
+        state State1;                    
+        initial -> State1;
+    };
+};
+
+capsule Another {
+    service behavior port p1 : PROTO;      
+    part inner : Inner;
+    connect p1 with inner.p;   
 };
 
 capsule Inner {
@@ -788,31 +834,10 @@ capsule Inner {
         initial -> State;
     };
 };
-
-capsule Pinger {
-    service port p1 : PROTO;      
-    part inner : Inner;
-    connect p1 with inner.p;    
-    
-    statemachine {
-        state State1;
-        initial -> State1;
-    };
-};
-
-capsule Ponger {
-    service behavior port p2~ : PROTO;    
-    
-    statemachine {
-        state State1;                    
-        initial -> State1;
-    };
-};
 ```
 
 ![](images/ART_0025_portOnPartConnectionError.png)
 
-In the above picture we can more easily understand the two errors reported for the `Top` capsule's two parts `ping` and `pong`. Port `Ponger::p2` is a behavior port so one connection is expected for that port (but none is present), while port `Pinger::p1` is a non-behavior port so two connections are expected for that port (but only one is present, on its "inside"). Both problems can be solved by adding a connector in `Top` which connects these ports on their "outside".
 
 ### ART_0026_connectedPortsWithIncompatibleConjugations
 | Severity | Reason | Quick Fix
@@ -1223,6 +1248,107 @@ capsule C38 {
     };
 };
 ```
+
+### ART_0039_portPartMultiplicityMismatch
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | The multiplicities of two connected ports are inconsistent, or a port is missing an expected connector. | N/A
+
+Wired ports should be connected, and connected in a way that is consistent with their multiplicities. The following problems can otherwise occur at runtime:
+
+- If an expected connector is missing for a wired port, all messages sent on that port will be lost. And  unconnected wired ports that are not used is a waste of resources since they consume unnecessary memory.
+- Each connector between two ports yields one or many connections at runtime on which messages can be transported. The number of such connections should for each connected port exactly match its runtime capacity. This capacity is determined by the port's multiplicity, and, if the connector also references a part, also the part's multiplicity. If the number of runtime connections is higher than this capacity, some of them cannot be established which means that messages sent on unconnected port indicies will be lost. And if the number of runtime connections is lower than the port's runtime capacity, it's again a waste of resources since a higher than required port capacity consumes unnecessary memory.
+
+In the example below a connector is missing between port `p2` of part `pong` and port `p1` of part `ping`. Without this connector no runtime connection can be established between ports `p2` and `p` which means that any message sent on those ports will be lost.
+
+``` art
+capsule Top {   
+    part ping : Pinger, // ART_0039 (not connected in capsule Top)
+    pong : Ponger; // ART_0039 (not connected in capsule Top)    
+    
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p : PROTO;    
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+
+capsule Pinger {
+    service port p1 : PROTO;      
+    part inner : Inner;
+    connect p1 with inner.p;    
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Ponger {
+    service behavior port p2~ : PROTO;    
+
+    statemachine {
+        state State1;                    
+        initial -> State1;
+    };
+};
+```
+
+![](images/ART_0039_missing_connector.png)
+
+In the example below the connectors connect ports and ports with parts where the multiplicities don't match.
+
+``` art
+capsule Top {   
+    part ping : Pinger; 
+
+    behavior port topP1 : PROTO[2]; // ART_0039
+    behavior port topP2~ : PROTO; // ART_0039
+ 
+    connect topP1 with topP2;
+
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p~ : PROTO[2];    
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Pinger {       
+    part inner : Inner [4]; // ART_0039
+
+    behavior port px : PROTO[3]; // ART_0039
+    connect px with inner.p;
+    behavior port px2 : PROTO[4]; // ART_0039
+    connect px2 with inner.p;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+```
+
+![](images/ART_0039_inconsistent_multiplicities.png)
+
+Note that the runtime capacity of port `p` is 8 (the port multiplicity times the part multiplicity; 2 * 4 = 8). This port is connected to two other ports (`px` and `px2`) with a total capacity of 4 + 3 = 7. Raising the multiplicity of `px` to 4 will remove the inconsistency.
 
 ## Code Generation Validation Rules
 Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. 

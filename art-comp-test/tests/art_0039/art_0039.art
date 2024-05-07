@@ -1,0 +1,63 @@
+protocol PROTO {
+    in in1();
+    out out1();
+};
+
+capsule Top {   
+    part ping : Pinger, // ART_0039 (not connected in capsule Top)
+    pong : Ponger; // ART_0039 (not connected in capsule Top)    
+
+    behavior port topP1 : PROTO[2];  
+    behavior port topP2~ : PROTO; 
+ 
+    connect topP1 with topP2;
+
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p : PROTO;    
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Inner2 {
+    service behavior port p~ : PROTO[2];    
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Pinger {
+    service port p1 : PROTO;      
+    part inner : Inner;
+    part inner2 : Inner2[4];  
+    connect p1 with inner.p;    
+
+    behavior port px : PROTO[3]; 
+    connect px with inner2.p;
+    behavior port px2 : PROTO[4];    
+    connect px2 with inner2.p;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule Ponger {
+    service behavior port p2~ : PROTO;    
+
+    statemachine {
+        state State1;                    
+        initial -> State1;
+    };
+};

@@ -82,7 +82,7 @@ A library TC that is built as a prerequisite of an executable TC should typicall
 tc.compileArguments = TCF.getTopTC().eval.compileArguments;
 ```
 
-The function `TCF.getTopTC()` will at build-time return a reference to the TC that is at the "top" of the prerequisite hierarchy, i.e. the TC on which the build command is performed. It's typically an executable TC, but could also be a library TC (in case you build a library that depends on other libraries).
+The function [`TCF.getTopTC()`](build-variants.md#gettoptc) will at build-time return a reference to the TC that is at the "top" of the prerequisite hierarchy, i.e. the TC on which the build command is performed. It's typically an executable TC, but could also be a library TC (in case you build a library that depends on other libraries).
 
 Since we construct a TC property value based on the value of another TC property (here coming from the top TC) we should use the [`eval`](#eval) property to ensure all default values get expanded into real values.
 
@@ -261,11 +261,14 @@ By default all Art files that are located in the same folder as the TC will be t
 tc.sources = ["*.art"]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the "sources" property is not set.
 tc.sources = ["cap1.art", "cap2.art"]; // Only transform two specific Art files
 tc.sources = ["*.art", "!code_rt_gen.art"]; // Transform all Art files except one
+tc.sources = ["!code_rt_gen.art"]; // Same as above (i.e. the pattern "*.art" is optional)
 tc.sources = ["source??.art", "!*_gen.art"]; // Transform all Art files with names starting with "source" and followed by two arbitrary characters. Art files with a name that ends with "_gen" are excluded.
 ```
 
 !!! example
     You can find a sample application that has a TC with the "sources" property set [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/tc_sources).
+
+The `sources` property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. See [this chapter](build-cpp-files.md#excluding-source-files) for more information.
 
 ### targetConfiguration
 Specifies which [TargetRTS configuration](../target-rts/index.md#target-configurations) to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.

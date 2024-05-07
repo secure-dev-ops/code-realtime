@@ -4,7 +4,7 @@ Art and C++ files can be built into applications or libraries. The build process
 In this step Art files are translated to C++ source files. 
 
 2. **Generate a make file**
-A make file for building generated C++ code (and possibly also other C++ code) is generated.
+A make file for building generated C++ code (and possibly also other [non-generated C++ source files](build-cpp-files.md)) is generated.
 
 3. **Run make to generate binaries**
 A make tool is invoked for building an executable or library from the generated make file.

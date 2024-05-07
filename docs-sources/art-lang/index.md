@@ -161,7 +161,10 @@ capsule Cx {
 };
 ```
 
-Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include `sample.art.h` while an rt::decl code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.
+Here an `rt::header_preface` code snippet is used for making the generated capsule and protocol header files include `sample.art.h` while an rt::decl code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.
+
+!!! hint
+    As an alternative to placing common C++ code in an Art file you can also use regular C++ files and then include these into the build. See [Non-Generated C++ Files](../building/build-cpp-files.md) for more information.
 
 ## Art Files and Folders and Reference Binding
 Any but the simplest of applications will consist of multiple Art files organized into folders. You can create as many Art files as you like, and every Art file may contain one or several Art elements. Art files containing Art elements that are related to each other should be grouped in a folder. For example, if you build a library from certain Art elements it makes sense to put the Art files with those elements in their own folder. 
