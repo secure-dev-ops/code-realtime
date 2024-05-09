@@ -378,6 +378,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -646,6 +648,8 @@
           
         
           
+        
+          
             
           
         
@@ -669,6 +673,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -817,6 +835,8 @@
         
           
         
+          
+        
       
       
         
@@ -847,6 +867,20 @@
     <li class="md-nav__item">
       <a href="../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -968,6 +1002,20 @@
     <li class="md-nav__item">
       <a href="../support/" class="md-nav__link">
         Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        Contributing
       </a>
     </li>
   
@@ -1592,7 +1640,11 @@ capsule Cx {
     // ...
 };
 </code></pre>
-<p>Here an rt::header_preface code snippet is used for making the generated capsule  and protocol header files include <code>sample.art.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.</p>
+<p>Here an <code>rt::header_preface</code> code snippet is used for making the generated capsule and protocol header files include <code>sample.art.h</code> while an rt::decl code snippet is used for declaring a member variable <code>m_ptr</code> for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>As an alternative to placing common C++ code in an Art file you can also use regular C++ files and then include these into the build. See <a href="../building/build-cpp-files/">Non-Generated C++ Files</a> for more information.</p>
+</div>
 <h2 id="art-files-and-folders-and-reference-binding">Art Files and Folders and Reference Binding</h2>
 <p>Any but the simplest of applications will consist of multiple Art files organized into folders. You can create as many Art files as you like, and every Art file may contain one or several Art elements. Art files containing Art elements that are related to each other should be grouped in a folder. For example, if you build a library from certain Art elements it makes sense to put the Art files with those elements in their own folder. </p>
 <p>Folders with Art files should be added as workspace folders, either using the command <strong>File - Add Folder to Workspace</strong> (to add a folder to an existing workspace), or using the command <strong>File - Open Workspace from File</strong> (to open an existing workspace from a file that defines the workspace folders). If your application consists of more than a couple of workspace folders use of a workspace file is recommended as it makes it quick and easy to add all workspace folders in one go with a single command.</p>

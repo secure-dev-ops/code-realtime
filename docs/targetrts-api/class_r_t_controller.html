@@ -74,6 +74,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_r_t_controller-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">RTController Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
@@ -189,7 +190,7 @@ typedef Error&#160;</td><td class="memItemRight" valign="bottom"><b>rtsErrors</b
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a093d087f386e5264d50ef7a9a27960a6"><td class="memItemLeft" align="right" valign="top"><a id="a093d087f386e5264d50ef7a9a27960a6" name="a093d087f386e5264d50ef7a9a27960a6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RTController</b> (RTDebugger *debug, const char *<a class="el" href="class_r_t_controller.html#abc07d990d27d0b07325b3726379d8784">name</a>)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RTController</b> (<a class="el" href="class_r_t_debugger.html">RTDebugger</a> *debug, const char *<a class="el" href="class_r_t_controller.html#abc07d990d27d0b07325b3726379d8784">name</a>)</td></tr>
 <tr class="separator:a093d087f386e5264d50ef7a9a27960a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a957da61d5c71df18b52fd6e26252455b"><td class="memItemLeft" align="right" valign="top"><a id="a957da61d5c71df18b52fd6e26252455b" name="a957da61d5c71df18b52fd6e26252455b"></a>
 Error&#160;</td><td class="memItemRight" valign="bottom"><b>canPlugIn</b> (const <a class="el" href="struct_r_t_actor_class.html">RTActorClass</a> *, const <a class="el" href="struct_r_t_component_descriptor.html">RTComponentDescriptor</a> *)</td></tr>
@@ -209,6 +210,16 @@ Error&#160;</td><td class="memItemRight" valign="bottom"><b>canPlugIn</b> (const
 <tr class="memitem:a842d39b1f38a3dfcb46ce5043f36fdab"><td class="memItemLeft" align="right" valign="top"><a id="a842d39b1f38a3dfcb46ce5043f36fdab" name="a842d39b1f38a3dfcb46ce5043f36fdab"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>trace</b> (Primitive, const void *, const void *)</td></tr>
 <tr class="separator:a842d39b1f38a3dfcb46ce5043f36fdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a642d0bc0e274792da90acc8f204696da"><td class="memItemLeft" align="right" valign="top"><a id="a642d0bc0e274792da90acc8f204696da" name="a642d0bc0e274792da90acc8f204696da"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>breakPoint</b> (<a class="el" href="class_r_t_actor.html">RTActor</a> *, <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> *)</td></tr>
+<tr class="separator:a642d0bc0e274792da90acc8f204696da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80577f4e5e2d2c862c5cd49834290a37"><td class="memItemLeft" align="right" valign="top"><a id="a80577f4e5e2d2c862c5cd49834290a37" name="a80577f4e5e2d2c862c5cd49834290a37"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>evtMsgQueue</b> (void)</td></tr>
+<tr class="separator:a80577f4e5e2d2c862c5cd49834290a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b7d59ef2b678c5fcebdf6bbeddd6d4"><td class="memItemLeft" align="right" valign="top"><a id="ad4b7d59ef2b678c5fcebdf6bbeddd6d4" name="ad4b7d59ef2b678c5fcebdf6bbeddd6d4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>getMessages</b> (const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo)</td></tr>
+<tr class="memdesc:ad4b7d59ef2b678c5fcebdf6bbeddd6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Report all incoming messages satisfying actorPath in daemonInfo. <br /></td></tr>
+<tr class="separator:ad4b7d59ef2b678c5fcebdf6bbeddd6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc07d990d27d0b07325b3726379d8784"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_controller.html#abc07d990d27d0b07325b3726379d8784">name</a> (void) const override</td></tr>
 <tr class="memdesc:abc07d990d27d0b07325b3726379d8784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the controller, which is the name of its physical thread (as defined in the transformation configuration).  <br /></td></tr>
 <tr class="separator:abc07d990d27d0b07325b3726379d8784"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -221,7 +232,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>trace</b> (Primitive,
 <tr class="memitem:a824d35f717566d74ab067dd8b325af5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_controller.html#a824d35f717566d74ab067dd8b325af5e">abort</a> (void)</td></tr>
 <tr class="memdesc:a824d35f717566d74ab067dd8b325af5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abort the application.  <br /></td></tr>
 <tr class="separator:a824d35f717566d74ab067dd8b325af5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad165024334821d09257a0ad18b352e1d"><td class="memItemLeft" align="right" valign="top">RTDebugger *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_controller.html#ad165024334821d09257a0ad18b352e1d">debugger</a> (void)</td></tr>
+<tr class="memitem:ad165024334821d09257a0ad18b352e1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_debugger.html">RTDebugger</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_controller.html#ad165024334821d09257a0ad18b352e1d">debugger</a> (void)</td></tr>
 <tr class="memdesc:ad165024334821d09257a0ad18b352e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the debugger associated with this controller, if any.  <br /></td></tr>
 <tr class="separator:ad165024334821d09257a0ad18b352e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3951d9770c6f8c2477ae3bf0e5ae79ee"><td class="memItemLeft" align="right" valign="top"><a id="a3951d9770c6f8c2477ae3bf0e5ae79ee" name="a3951d9770c6f8c2477ae3bf0e5ae79ee"></a>
@@ -236,6 +247,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>receive</b> (<a class
 <tr class="memitem:a469b7553e85c4b123c3225039fe5598b"><td class="memItemLeft" align="right" valign="top"><a id="a469b7553e85c4b123c3225039fe5598b" name="a469b7553e85c4b123c3225039fe5598b"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>receiveMsgCopy</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="class_r_t_controller.html">RTController</a> *sender)</td></tr>
 <tr class="separator:a469b7553e85c4b123c3225039fe5598b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac535838c4423460db854223f533240c4"><td class="memItemLeft" align="right" valign="top"><a id="ac535838c4423460db854223f533240c4" name="ac535838c4423460db854223f533240c4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>peer_receive</b> (<a class="el" href="class_r_t_message.html">RTMessage</a> *)</td></tr>
+<tr class="separator:ac535838c4423460db854223f533240c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1310ee9772481fb86d473c06d553246b"><td class="memItemLeft" align="right" valign="top"><a id="a1310ee9772481fb86d473c06d553246b" name="a1310ee9772481fb86d473c06d553246b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>requeueMsg</b> (<a class="el" href="class_r_t_message.html">RTMessage</a> *, int front)</td></tr>
 <tr class="separator:a1310ee9772481fb86d473c06d553246b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,10 +312,11 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>mainLoop</b> 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
 Protected Types</h2></td></tr>
-<tr class="memitem:ab5046750a3054c970dd8cc7bee3aacbb"><td class="memItemLeft" align="right" valign="top"><a id="ab5046750a3054c970dd8cc7bee3aacbb" name="ab5046750a3054c970dd8cc7bee3aacbb"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>OneDelivered</b>
+<tr class="memitem:a1e1a58b3f31ee557448695aa09564d21"><td class="memItemLeft" align="right" valign="top"><a id="a1e1a58b3f31ee557448695aa09564d21" name="a1e1a58b3f31ee557448695aa09564d21"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>OneDelivered</b>
+, <b>PermissionDenied</b>
 , <b>NoneToDeliver</b>
  }</td></tr>
-<tr class="separator:ab5046750a3054c970dd8cc7bee3aacbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a1e1a58b3f31ee557448695aa09564d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -314,10 +329,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>awaitResponse</b> (vo
 <tr class="memitem:a720476638e0e373f86266339fb1882e1"><td class="memItemLeft" align="right" valign="top"><a id="a720476638e0e373f86266339fb1882e1" name="a720476638e0e373f86266339fb1882e1"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>waitForEvents</b> (void)=0</td></tr>
 <tr class="separator:a720476638e0e373f86266339fb1882e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18418ee295585ae1985d541c85d3b4ad"><td class="memItemLeft" align="right" valign="top"><a id="a18418ee295585ae1985d541c85d3b4ad" name="a18418ee295585ae1985d541c85d3b4ad"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>wakeup</b> (void)</td></tr>
+<tr class="separator:a18418ee295585ae1985d541c85d3b4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_r_t_job"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_r_t_job')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_r_t_job.html">RTJob</a></td></tr>
 <tr class="memitem:afea0c477cf1aa1c0bce0ed392d1ca6ec inherit pro_methods_class_r_t_job"><td class="memItemLeft" align="right" valign="top"><a id="afea0c477cf1aa1c0bce0ed392d1ca6ec" name="afea0c477cf1aa1c0bce0ed392d1ca6ec"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>enter</b> (Phase)</td></tr>
 <tr class="separator:afea0c477cf1aa1c0bce0ed392d1ca6ec inherit pro_methods_class_r_t_job"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ae937706851a1747ec210092243f537c7"><td class="memItemLeft" align="right" valign="top"><a id="ae937706851a1747ec210092243f537c7" name="ae937706851a1747ec210092243f537c7"></a>
+RTSyncObject *&#160;</td><td class="memItemRight" valign="bottom"><b>_sync</b></td></tr>
+<tr class="separator:ae937706851a1747ec210092243f537c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_r_t_job"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_r_t_job')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_r_t_job.html">RTJob</a></td></tr>
+<tr class="memitem:a47cbf8c338c5265205fd3ee43d84eb40 inherit pro_attribs_class_r_t_job"><td class="memItemLeft" align="right" valign="top"><a id="a47cbf8c338c5265205fd3ee43d84eb40" name="a47cbf8c338c5265205fd3ee43d84eb40"></a>
+RTMutex *&#160;</td><td class="memItemRight" valign="bottom"><b>_mutex</b></td></tr>
+<tr class="separator:a47cbf8c338c5265205fd3ee43d84eb40 inherit pro_attribs_class_r_t_job"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -327,6 +355,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTMessage</b></td></
 <tr class="memitem:a5e75f7ca9efcae5275eb1753b036b30d"><td class="memItemLeft" align="right" valign="top"><a id="a5e75f7ca9efcae5275eb1753b036b30d" name="a5e75f7ca9efcae5275eb1753b036b30d"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td></tr>
 <tr class="separator:a5e75f7ca9efcae5275eb1753b036b30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a632282972b0b5f6cd394a261964435e2"><td class="memItemLeft" align="right" valign="top"><a id="a632282972b0b5f6cd394a261964435e2" name="a632282972b0b5f6cd394a261964435e2"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>RTDebugger</b></td></tr>
+<tr class="separator:a632282972b0b5f6cd394a261964435e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A controller manages a group of capsule instances that all run in the same physical thread (i.e. </p>
@@ -360,7 +391,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTProtocol</b></td><
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">RTDebugger * RTController::debugger </td>
+          <td class="memname"><a class="el" href="class_r_t_debugger.html">RTDebugger</a> * RTController::debugger </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>

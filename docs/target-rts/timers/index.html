@@ -1,0 +1,1408 @@
+<!-- Elements added to main will be displayed on all pages -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+      
+      
+      
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/timers/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../threads/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+    
+    
+      
+        <title>Timers - DevOps Code RealTime</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/style.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/prism.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+<!--  OneTrust Cookies Consent Notice start  -->
+<!-- <script type="text/javascript" src="https://cdn.cookielaw.org/consent/99b8d579-c52a-43c9-ab7b-a35e60de7103/OtAutoBlock.js"></script> -->
+<!-- <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="99b8d579-c52a-43c9-ab7b-a35e60de7103"></script> -->
+<!--<script type="text/javascript"> -->
+<!--	function OptanonWrapper() { }  -->
+<!-- </script> -->
+<!--  OneTrust Cookies Consent Notice end  -->
+
+<!--  Global site tag (gtag.js) - Google Analytics start -->
+<!-- <script src="https://www.googletagmanager.com/gtag/js?id=UA-169645537-2" class="optanon-category-C0002-C0003-C0004-C0005"></script> -->
+<!-- <script type="text/plain" class="optanon-category-C0002-C0003-C0004-C0005"> -->
+<!--  window.dataLayer = window.dataLayer || []; -->
+<!--  function gtag(){dataLayer.push(arguments);} -->
+<!--  gtag('js', new Date()); -->
+
+<!--  gtag('config', 'UA-169645537-2'); -->
+<!--</script> -->
+ 
+<!--  Global site tag (gtag.js) - Google Analytics end -->
+
+    
+    
+    
+  <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#set-a-timer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+<p>Check out the commercial edition!</p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DevOps Code RealTime" class="md-header__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevOps Code RealTime
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Timers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    secure-dev-ops/code-realtime
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../overview/" class="md-tabs__link md-tabs__link--active">
+        Documentation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-tabs__link">
+      Samples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-tabs__link">
+      Forum
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh" class="md-tabs__link">
+      Videos
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevOps Code RealTime" class="md-nav__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    DevOps Code RealTime
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    secure-dev-ops/code-realtime
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../working-with-art/">Working with Art</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Working with Art
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-editor/" class="md-nav__link">
+        Text Editor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/diagrams/" class="md-nav__link">
+        Diagrams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/outline-view/" class="md-nav__link">
+        Outline View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/references/" class="md-nav__link">
+        References View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/" class="md-nav__link">
+        Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Target RunTime System</a>
+          
+            <label for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Target RunTime System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Timers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Timers
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#set-a-timer" class="md-nav__link">
+    Set a Timer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timer-priority" class="md-nav__link">
+    Timer Priority
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cancel-a-timer" class="md-nav__link">
+    Cancel a Timer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timer-data" class="md-nav__link">
+    Timer Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adjust-the-system-time" class="md-nav__link">
+    Adjust the System Time
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrate-with-external-code/" class="md-nav__link">
+        Integration with External Code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encoding-decoding/" class="md-nav__link">
+        Encoding and Decoding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versions/" class="md-nav__link">
+        Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../targetrts-api/" class="md-nav__link">
+        C++ API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../building/">Building</a>
+          
+            <label for="__nav_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Building
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/transformation-configurations/" class="md-nav__link">
+        Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/launch-configurations/" class="md-nav__link">
+        Launch Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/art-compiler/" class="md-nav__link">
+        Art Compiler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-variants/" class="md-nav__link">
+        Build Variants
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../releases/">Releases</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../settings/" class="md-nav__link">
+        Settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/" class="md-nav__link">
+        Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-nav__link">
+        Samples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-nav__link">
+        Forum
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh" class="md-nav__link">
+        Videos
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#set-a-timer" class="md-nav__link">
+    Set a Timer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timer-priority" class="md-nav__link">
+    Timer Priority
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cancel-a-timer" class="md-nav__link">
+    Cancel a Timer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timer-data" class="md-nav__link">
+    Timer Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adjust-the-system-time" class="md-nav__link">
+    Adjust the System Time
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Timers</h1>
+
+<p>Capsules can use timers to get notified when some time has passed. A timer is implemented by means of a port typed by the predefined <a href="../../targetrts-api/struct_timing.html"><code>Timing</code></a> protocol. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A timer port should always be a non-service behavior port. This is checked by the validation rule <a href="../../validation#art_0035_timerserviceport">ART_0035</a>.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find sample applications that use timers here:</p>
+<ul>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/timer_oneshot">One-shot timers</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/timer_periodic">Periodic timers</a></li>
+</ul>
+</div>
+<h2 id="set-a-timer">Set a Timer</h2>
+<p>When you set a timer you specify the time when it should timeout. At that time the capsule will receive the event <code>timeout</code> on the timer port, and it can trigger a transition in the capsule state machine that handles the timeout.</p>
+<p>There are three ways to set a timer:</p>
+<ul>
+<li>If you call <code>informAt</code> you set a <strong>one-shot timer</strong> that will timeout once, at a specific point in time (absolute time).</li>
+<li>If you call <code>informIn</code> you set a <strong>one-shot timer</strong> that will timeout once, when a certain time has passed (relative time). </li>
+<li>If you call <code>informEvery</code> you set a <strong>periodic timer</strong> that will timeout repeatedly at certain intervals (relative time).</li>
+</ul>
+<p>The same timer port can be set in any of these ways, and you can "reuse" the timer by setting it again when it has timed out. If you set the same timer multiple times, before it has timed out, you will get multiple timeout events (one for each time the timer was set). </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While it's possible to implement a periodic timer by re-setting a one-shot timer each time it times out, it's not recommended to do so. You will get a higher precision by using a proper periodic timer. This is because it takes some time to set the timer which may add to some drift in the timeouts.</p>
+</div>
+<p>The time specified for a one-shot timer, or interval for a periodic timer, can be specified in three ways:</p>
+<ul>
+<li>Using an <a href="../../targetrts-api/struct_r_t_timespec.html">RTTimespec</a> object that contains the number of seconds and nanoseconds. It can be used both for absolute and relative time. In the former case, it holds the number of seconds and nanoseconds that have passed since 1 January 1970 UTC (known as a Unix timestamp).</li>
+<li>Using an object of type <code>std::chrono::duration</code> (for relative time) or <code>std::chrono::time_point</code> (for absolute time). You need to include the <code>&lt;chrono&gt;</code> header file and use a C++ 11 compiler.</li>
+<li>Using chrono literals that represent an appropriate time unit (e.g. seconds or milliseconds). You need to include the <code>&lt;chrono&gt;</code> header file and use a C++ 14 compiler.</li>
+</ul>
+<p>All functions that set a timer return an <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>, and in case the timer could not be set <code>nullptr</code> is returned. It's good practise to always check this return value, to ensure the timer was successfully set. If you later need to operate on the timer (for example to <a href="#cancel-a-timer">cancel it</a>) you should construct an <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> object from the <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>. You can then call <code>isValid()</code> on that object to make sure the timer was successfully set. </p>
+<p>The example below shows some different ways to set timers and to handle the timeouts:</p>
+<pre><code class="language-art">capsule Timers {
+    behavior port timer1 : Timing, timer2 : Timing, timer3 : Timing; 
+
+    statemachine {
+        state S {
+            timeout : on timer1.timeout, timer2.timeout, timer3.timeout
+            `
+                // TODO: Handle timeouts here
+            `;
+        };
+
+        initial -&gt; S
+        `
+            RTTimerId tid1 = timer1.informIn(RTTimespec(2, 0)); // one-shot timer to time out in 2 s
+            if (!tid1.isValid()) {
+                // timer1 could not be set
+            }
+
+            std::chrono::system_clock::time_point t = std::chrono::system_clock::now() + std::chrono::milliseconds(50);
+            RTTimerNode* t2 = timer2.informAt(t); // one-shot timer to timeout in 50 ms from now
+            if (!t2) {
+                // timer2 could not be set
+            }
+
+            RTTimerId tid3 = timer3.informEvery(800ms); // periodic timer to timeout every 800 ms
+            if (!tid3.isValid()) {
+                // timer3 could not be set
+            }
+        `;
+    }
+}
+</code></pre>
+<p>If you set a timer with an absolute time that has already passed, or a relative time of 0, the timeout will happen almost immediately. Note the word "almost", because in practise it always takes a little time for the timeout event to be placed in the controller's event queue, and from there be dispatched to the capsule. </p>
+<h2 id="timer-priority">Timer Priority</h2>
+<p>If you want a timeout event to be processed as quickly as possible you can use a higher than default priority when setting the timer. The last parameter of <code>informIn()</code>, <code>informAt()</code> and <code>informEvery()</code> specifies the priority of the timeout event (by default it's <code>General</code> which is the normal priority of an event). In the same way you can lower the priority, if you want the timeout event to be handled at a lower priority.</p>
+<p>The timer set in the example below will timeout immediately and the timeout event will be processed with a higher than normal priority.</p>
+<pre><code class="language-cpp">timer.informIn(0s, High); 
+</code></pre>
+<h2 id="cancel-a-timer">Cancel a Timer</h2>
+<p>To cancel a timer you need the <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> object that you constructed when the timer was set. Call <code>cancelTimer()</code> on the timer port, with the <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> as argument, to cancel the timer. Here is an example where a timer is set, and then immediately cancelled.</p>
+<pre><code class="language-cpp">RTTimerId tid = timer.informIn(RTTimespec(10, 0)); // 10 s
+if (!tid.isValid()) {
+    // error when setting timer
+}
+else {
+    timer.cancelTimer(tid); 
+    // now tid.isValid() will return false
+}
+</code></pre>
+<p>If you need to cancel a timer from a different code snippet from where it was set, you need to store the <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> object in a member variable of the capsule.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When you create an <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> object from an <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>, the <code>RTTimerNode</code> will store a pointer to internal data of the <code>RTTimerId</code> object. The TargetRTS keeps track of <code>RTTimerNode</code>s for active timer requests, and may access that internal data of your <code>RTTimerId</code> object. It's therefore important to make sure that the address of an <code>RTTimerId</code> object doesn't change, as that would make the <code>RTTimerNode</code> reference invalid memory. For example, you should not insert <code>RTTimerId</code> objects into an <code>std::vector</code> as that could change their addresses, and hence invalidate such pointers, when the vector is modified. Either use a collection that doesn't do this (e.g. <code>std::list</code>) or store pointers to <code>RTTimerId</code> objects in the collection instead of the objects themselves.</p>
+</div>
+<p>Cancelling a timer guarantees that its timeout event will not be received by the capsule. This is true even if, at the time of cancellation, the timeout period has already lapsed, and the timeout event is waiting in the controller's event queue to be dispatched to the capsule. In this case cancelling the timer will remove the timeout event from the queue so that it doesn't get dispatched to the capsule.</p>
+<p>However, when the timeout event already has been dispatched, it's too late to cancel the timer. If you still do it you will receive an error. In the same way, it's an error to cancel the same timer more than once. You can call <code>RTTimerId.isValid()</code> to check if the <code>RTTimerId</code> is still valid (meaning that its timeout event has not been dispatched) before cancelling the timer.</p>
+<h2 id="timer-data">Timer Data</h2>
+<p>Just like other events, the timeout event that is sent when a timer has timed out, can have data. At most one data object can be passed, and if you need more you can use a struct or class as data type.</p>
+<p>Contrary to data of user-defined events, timer data is untyped (<code>void*</code>). You therefore need to provide the <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a> of the data as an extra argument when setting the timer. The TargetRTS will copy the provided data into the timeout event, so the type descriptor must provide a copy function.</p>
+<p>Here are examples of setting timers with timer data:</p>
+<pre><code class="language-cpp">// Pass a boolean as timer data
+bool b = true;
+timer1.informIn(RTTimespec(5, 0), &amp;b, &amp;RTType_bool);
+
+// Pass the current time as timer data
+RTTimespec now;
+RTTimespec::getclock(now);
+timer2.informIn(1s, &amp;now, &amp;RTTimespec::classData);
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since timer data is untyped, any timeout event can carry any kind of data. While this is flexible, it requires caution since in the timeout transition you need to explicitly cast <code>rtdata</code> from <code>void*</code> to a pointer to the timer data. You must therefore be sure what type of data each timeout event carries. It's recommended to not use different types of data for the same timer.</p>
+</div>
+<p>Here is an example of how to access the data of timer2 from the above example:</p>
+<pre><code class="language-art">timeout: on timer2.timeout
+`
+    const RTTimespec then = *(static_cast&lt;const RTTimespec*&gt;(rtdata));
+`;
+</code></pre>
+<p>The data pointed at by <code>rtdata</code> for a timeout event is owned by the TargetRTS. It is allocated to a copy of the data that is provided when setting the timer, and deallocated if the timer is cancelled. For a one-shot timer it's also deallocated after the timeout event has been dispatched and handled by the capsule, while for a periodic timer the same data object will be used for each timeout event that is produced.</p>
+<h2 id="adjust-the-system-time">Adjust the System Time</h2>
+<p>Sometimes you may need to adjust the clock of your realtime application. For example, distributed applications that run on different machines in a network may use the Network Time Protocol (NTP) to synchronize the system time over the network. While any timer port can be used for adjusting the system time, it's recommended to only do it through one specific timer port on one specific capsule within the application.</p>
+<p>Adjusting the clock is a three-step process:</p>
+<ol>
+<li>Call <code>adjustTimeBegin()</code> on the timer port. This suspends the timing service so no timeouts can happen, and no new timers can be set.</li>
+<li>Change the system clock by calling a function provided by the operating system.</li>
+<li>Call <code>adjustTimeEnd()</code> on the timer port, and provide the time adjustment as argument. The TargetRTS will recompute new timeout time points for all active timers that have been set with a relative time, for example periodic timers. After that the timing service is resumed.</li>
+</ol>
+<p>Note that <code>adjustTimeEnd()</code> takes a relative time as argument (positive to move the clock forwards, and negative to move it backwards). However, operating system functions for setting the system clock usually take an absolute time. Here is an example of a capsule member function for setting the system clock to a new absolute time. Replace <code>sys_setclock()</code> with the actual function for setting the system clock in your operating system.</p>
+<pre><code class="language-cpp">void AdjustTimeCapsule_Actor::setClock(const RTTimespec&amp; new_time)
+{
+    RTTimespec old_time, delta;
+
+    timer.adjustTimeBegin();
+
+    RTTimespec::getclock(old_time); // Read system clock
+    if (sys_setclock(new_time)) { // Set system clock with OS function
+        delta = new_time;
+        delta -= old_time;
+    }
+
+    timer.adjustTimeEnd(delta);
+}
+</code></pre>
+<p>Error handling is important in this function; if the function for setting the system clock fails (for example because the application doesn't have enough privileges to change the clock), it must call <code>adjustTimeEnd()</code> with a zero time argument, to restart the timing service without changing the clock. <code>adjustTimeEnd()</code> works by simply adding a time offset to account for the changed system time, and if the system time was not modified that offset must be zero.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that changes the system clock <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/timer_adjust_time">here</a>. The sample is for Windows but can easily be modified for other operating systems.</p>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+ 
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-hcl md-grid1">
+     <a href="https://www.hcltechsw.com/legal/disclaimer" class="nav-link footer-launch" target="_blank">Disclaimer</a>
+	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
+	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
+	 
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../../scripts/prism.js"></script>
+      
+    
+  </body>
+</html>

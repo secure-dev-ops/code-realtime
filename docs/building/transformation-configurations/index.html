@@ -17,7 +17,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../launch-configurations/">
+        <link rel="next" href="../build-cpp-files/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
@@ -378,6 +378,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -644,6 +646,8 @@
           
         
           
+        
+          
             
           
         
@@ -667,6 +671,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -817,6 +835,8 @@
         
           
         
+          
+        
       
       
         
@@ -900,6 +920,19 @@
     Transformation Configuration Prerequisites
   </a>
   
+    <nav class="md-nav" aria-label="Transformation Configuration Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-top-tc-from-a-prerequisite-tc" class="md-nav__link">
+    Accessing the Top TC from a Prerequisite TC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -960,8 +993,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    eval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executablename" class="md-nav__link">
+    executableName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inclusionpaths" class="md-nav__link">
     inclusionPaths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libraryname" class="md-nav__link">
+    libraryName
   </a>
   
 </li>
@@ -1091,6 +1145,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../build-cpp-files/" class="md-nav__link">
+        C++ Source Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../launch-configurations/" class="md-nav__link">
         Launch Configurations
       </a>
@@ -1206,6 +1274,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1307,6 +1389,19 @@
     Transformation Configuration Prerequisites
   </a>
   
+    <nav class="md-nav" aria-label="Transformation Configuration Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-the-top-tc-from-a-prerequisite-tc" class="md-nav__link">
+    Accessing the Top TC from a Prerequisite TC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1367,8 +1462,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    eval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executablename" class="md-nav__link">
+    executableName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inclusionpaths" class="md-nav__link">
     inclusionPaths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libraryname" class="md-nav__link">
+    libraryName
   </a>
   
 </li>
@@ -1557,6 +1673,12 @@
 <h2 id="transformation-configuration-prerequisites">Transformation Configuration Prerequisites</h2>
 <p>A TC can either build a library or an executable. This is controlled by the <a href="#topcapsule">topCapsule</a> property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the <a href="#prerequisites">prerequisites</a> property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).</p>
 <p>If you change the prerequisites of a TC you should again <a href="#setting-a-transformation-configuration-as-active">set it as active</a> so that the prerequisite TCs also become active.</p>
+<h3 id="accessing-the-top-tc-from-a-prerequisite-tc">Accessing the Top TC from a Prerequisite TC</h3>
+<p>A library TC that is built as a prerequisite of an executable TC should typically use the same values for many TC properties as are used by the executable TC. For example, both TCs should be compiled with the same compiler and use the same <a href="../../target-rts/#target-configurations">TargetRTS configuration</a>, otherwise build inconsistencies could occur. To avoid the need of duplicating such common properties both in the executable TC and in all its prerequisite library TCs, it's possible to access properties of the executable TC in the library TC. Here is an example:</p>
+<pre><code class="language-js">tc.compileArguments = TCF.getTopTC().eval.compileArguments;
+</code></pre>
+<p>The function <a href="../build-variants/#gettoptc"><code>TCF.getTopTC()</code></a> will at build-time return a reference to the TC that is at the "top" of the prerequisite hierarchy, i.e. the TC on which the build command is performed. It's typically an executable TC, but could also be a library TC (in case you build a library that depends on other libraries).</p>
+<p>Since we construct a TC property value based on the value of another TC property (here coming from the top TC) we should use the <a href="#eval"><code>eval</code></a> property to ensure all default values get expanded into real values.</p>
 <h2 id="art-build-view">Art Build View</h2>
 <p>Code RealTime provides a view called Art Build which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.</p>
 <p><img alt="" src="../images/art-build-view.png" /></p>
@@ -1614,7 +1736,7 @@
 <tr>
 <td><a href="#compilecommand">compileCommand</a></td>
 <td align="left">String</td>
-<td align="left">"$CC"</td>
+<td align="left">"<code>$(CC)</code>"</td>
 </tr>
 <tr>
 <td><a href="#copyrighttext">copyrightText</a></td>
@@ -1627,6 +1749,26 @@
 <td align="left">"C++ 17"</td>
 </tr>
 <tr>
+<td><a href="#eval">eval</a></td>
+<td align="left">TC object</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td><a href="#executablename">executableName</a></td>
+<td align="left">String</td>
+<td align="left">"<code>$(TOP_CAPSULE)$(EXEC_EXT)</code>"</td>
+</tr>
+<tr>
+<td><a href="#inclusionpaths">inclusionPaths</a></td>
+<td align="left">List of strings</td>
+<td align="left">[]</td>
+</tr>
+<tr>
+<td><a href="#libraryname">libraryName</a></td>
+<td align="left">String</td>
+<td align="left">"<code>$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)</code>"</td>
+</tr>
+<tr>
 <td><a href="#linkarguments">linkArguments</a></td>
 <td align="left">String</td>
 <td align="left">N/A</td>
@@ -1634,7 +1776,7 @@
 <tr>
 <td><a href="#linkcommand">linkCommand</a></td>
 <td align="left">String</td>
-<td align="left">"$LD"</td>
+<td align="left">"<code>$(LD)</code>"</td>
 </tr>
 <tr>
 <td><a href="#makearguments">makeArguments</a></td>
@@ -1644,7 +1786,7 @@
 <tr>
 <td><a href="#makecommand">makeCommand</a></td>
 <td align="left">String</td>
-<td align="left">"$defaultMakeCommand"</td>
+<td align="left">"<code>$defaultMakeCommand</code>"</td>
 </tr>
 <tr>
 <td><a href="#prerequisites">prerequisites</a></td>
@@ -1674,7 +1816,12 @@
 <tr>
 <td><a href="#targetrtslocation">targetRTSLocation</a></td>
 <td align="left">String</td>
-<td align="left">"${code_rt_home}/TargetRTS"</td>
+<td align="left">"<code>${code_rt_home}</code>/TargetRTS"</td>
+</tr>
+<tr>
+<td><a href="#threads">threads</a></td>
+<td align="left">List of Thread objects</td>
+<td align="left">List of two Thread objects (MainThread and TimerThread)</td>
 </tr>
 <tr>
 <td><a href="#topcapsule">topCapsule</a></td>
@@ -1691,11 +1838,16 @@
 <td align="left">List of strings</td>
 <td align="left">[]</td>
 </tr>
+<tr>
+<td><a href="#userobjectfiles">userObjectFiles</a></td>
+<td align="left">List of strings</td>
+<td align="left">[]</td>
+</tr>
 </tbody>
 </table>
 <h3 id="capsulefactory">capsuleFactory</h3>
 <p>This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See <a href="../../target-rts/capsule-factory/">Capsule Factory</a> and <a href="../../target-rts/dependency-injection/">Dependency Injection</a> for more information.</p>
-<p>The value of this property should be a C++ expression of type <a href="../../targetrts-api/class_r_t_actor_factory_interface.html"><code>RTActorFactoryInterface*</code></a>.</p>
+<p>The value of this property should be a C++ expression of type <a href="../../targetrts-api/class_r_t_actor_factory_interface.html"><code>RTActorFactoryInterface*</code></a>. If the expression contains the variable <code>$(CAPSULE_CLASS)</code> it will be replaced with the name of the C++ class for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.</p>
 <pre><code class="language-js">tc.capsuleFactory = '&amp;CapsuleFactory::factory';
 </code></pre>
 <p>Note that you can override the use of the global capsule factory by providing a <a href="../../art-lang/#part-with-capsule-factory">local capsule</a> factory for a specific part.</p>
@@ -1722,11 +1874,28 @@ All rights reserved!
 <p>You can use a multi-line text with empty lines in the beginning and end as shown above, to make the TC more readable. Such empty lines will be ignored by the code generator.</p>
 <h3 id="cppcodestandard">cppCodeStandard</h3>
 <p>Defines the C++ language standard to which generated code will conform. The default value for this property is <code>C++ 17</code>. Other valid values are <code>C++ 98</code>, <code>C++ 11</code>, <code>C++ 14</code> and <code>C++ 20</code>. Note that the latest version of the TargetRTS requires at least C++ 11, so if you use an older code standard you have to set <a href="#targetrtslocation">TargetRTSLocation</a> to an older version of the TargetRTS that doesn't contain any C++ 11 constructs. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to <code>Older than C++ 98</code>.</p>
+<h3 id="eval">eval</h3>
+<p>This is a special property that returns a copy of the TC where all properties with implicit default values have been expanded into real values. It's useful when you want to define a TC property value based on the value of another TC property which has a default value.</p>
+<p>As an example consider this TC file which builds an application where the copyright statement is placed in the unit header file:</p>
+<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.commonPreface = `
+/** Copyright by me */
+`;
+tc.copyrightText = &quot;See copyright in &quot; + tc.eval.unitName + &quot;.h&quot;;
+</code></pre>
+<p>This TC doesn't set the value of the <a href="#unitname">unitName</a> property, but it has a default value ("UnitName") which can be obtained by means of the <code>eval</code> property. If you would directly access <code>tc.unitName</code> in the above example, the string "undefined" would be returned when the <a href="#unitname">unitName</a> property has not been explicitly set.</p>
+<p>The <code>eval</code> property is often used together with the <code>TCF.getTopTC()</code> function as described <a href="#accessing-the-top-tc-from-a-prerequisite-tc">here</a>.</p>
+<h3 id="executablename">executableName</h3>
+<p>Specifies the name of the executable that is built by the TC. This property is only applicable for TCs that build executables.</p>
+<p>The default value of this property is "<code>$(TOP_CAPSULE)$(EXEC_EXT)</code>" where <code>$(TOP_CAPSULE)</code> is the name of the <a href="#topcapsule"><code>topCapsule</code></a> and <code>$(EXEC_EXT)</code> is a variable for the file extension which gets its value from the TargetRTS configuration that is used.</p>
 <h3 id="inclusionpaths">inclusionPaths</h3>
 <p>Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a <a href="#userlibraries">user library</a> or <a href="#userobjectfiles">user object file</a> you need to add the location of the header file(s) that belong to the library or object file.</p>
 <pre><code class="language-js">tc.inclusionPaths = [&quot;/libs/myLib1/includes&quot;, &quot;/libs/myLib2/includes&quot;];
 </code></pre>
 <p>Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.</p>
+<h3 id="libraryname">libraryName</h3>
+<p>Specifies the name of the library that is built by the TC. This property is only applicable for TCs that build libraries.</p>
+<p>The default value of this property is "<code>$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)</code>" where <code>$(LIB_PFX)</code> is a prefix and <code>$(LIB_EXT)</code> is a file extension which get their values from the TargetRTS configuration that is used. <code>$(TCONFIG_NAME)</code> expands to the name of the TC file (only the base name, not including the file extension).</p>
 <h3 id="linkarguments">linkArguments</h3>
 <p>Specifies the arguments for the C++ linker used for linking object files and libraries into an executable. This property is only applicable for TCs that build executables.</p>
 <pre><code class="language-js">tc.linkArguments = '/DEBUG'; // Build executable for debugging with Visual Studio
@@ -1754,12 +1923,14 @@ All rights reserved!
 <pre><code class="language-js">tc.sources = [&quot;*.art&quot;]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the &quot;sources&quot; property is not set.
 tc.sources = [&quot;cap1.art&quot;, &quot;cap2.art&quot;]; // Only transform two specific Art files
 tc.sources = [&quot;*.art&quot;, &quot;!code_rt_gen.art&quot;]; // Transform all Art files except one
+tc.sources = [&quot;!code_rt_gen.art&quot;]; // Same as above (i.e. the pattern &quot;*.art&quot; is optional)
 tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform all Art files with names starting with &quot;source&quot; and followed by two arbitrary characters. Art files with a name that ends with &quot;_gen&quot; are excluded.
 </code></pre>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that has a TC with the "sources" property set <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/tc_sources">here</a>.</p>
 </div>
+<p>The <code>sources</code> property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. See <a href="../build-cpp-files/#excluding-source-files">this chapter</a> for more information.</p>
 <h3 id="targetconfiguration">targetConfiguration</h3>
 <p>Specifies which <a href="../../target-rts/#target-configurations">TargetRTS configuration</a> to use. The TargetRTS location specified in the <a href="#targetrtslocation">targetRTSLocation</a> property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the Code RealTime installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.</p>
 <pre><code class="language-js">tc.targetConfiguration = &quot;WinT.x64-VisualC++-17.0&quot;;

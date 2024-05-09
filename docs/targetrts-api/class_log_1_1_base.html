@@ -81,7 +81,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a log service port.  
+<p>Represents a log port.  
  <a href="class_log_1_1_base.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_r_t_log_8h_source.html">RTLog.h</a>&gt;</code></p>
@@ -259,7 +259,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> (void)</td>
 <tr class="memdesc:a4759bbdb8fcd25545f463a9caf15961d inherit pub_methods_class_r_t_protocol"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the registration name of the port.  <br /></td></tr>
 <tr class="separator:a4759bbdb8fcd25545f463a9caf15961d inherit pub_methods_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0dafbdb3f5339378036a1f9800ac8b8 inherit pub_methods_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_protocol.html#ad0dafbdb3f5339378036a1f9800ac8b8">registerAs</a> (const char *service)</td></tr>
-<tr class="memdesc:ad0dafbdb3f5339378036a1f9800ac8b8 inherit pub_methods_class_r_t_protocol"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an unwired port either as an SAP or SPP (depending on the "Publish" property set on the port in the model).  <br /></td></tr>
+<tr class="memdesc:ad0dafbdb3f5339378036a1f9800ac8b8 inherit pub_methods_class_r_t_protocol"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an unwired port either as an SAP or SPP (depending on the "Publish" property of the port).  <br /></td></tr>
 <tr class="separator:ad0dafbdb3f5339378036a1f9800ac8b8 inherit pub_methods_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed18e2ea1cd805cf48df1c4dda1a56df inherit pub_methods_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_protocol.html#aed18e2ea1cd805cf48df1c4dda1a56df">deregister</a> (void)</td></tr>
 <tr class="memdesc:aed18e2ea1cd805cf48df1c4dda1a56df inherit pub_methods_class_r_t_protocol"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister an unwired port (either an SAP or SPP).  <br /></td></tr>
@@ -346,7 +346,7 @@ static const <a class="el" href="struct_r_t_protocol_descriptor.html">RTProtocol
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_types_class_r_t_protocol"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_r_t_protocol')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="class_r_t_protocol.html">RTProtocol</a></td></tr>
-<tr class="memitem:abf537db66f86337bdc9dad4e91e86ec8 inherit pro_types_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top"><a id="abf537db66f86337bdc9dad4e91e86ec8" name="abf537db66f86337bdc9dad4e91e86ec8"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="memitem:aa9db557a5ebfcf5b8eceedd15dc0e5d5 inherit pro_types_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top"><a id="aa9db557a5ebfcf5b8eceedd15dc0e5d5" name="aa9db557a5ebfcf5b8eceedd15dc0e5d5"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
 &#160;&#160;<b>BindingNotification</b> = 1
 , <b>RegisteredAsSAP</b> = 2
 , <b>SendTypeCheck</b> = 4
@@ -355,10 +355,10 @@ Additional Inherited Members</h2></td></tr>
 &#160;&#160;<b>Resized</b> = 16
 <br />
  }</td></tr>
-<tr class="separator:abf537db66f86337bdc9dad4e91e86ec8 inherit pro_types_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ac8e5422790b78a36a5e99deff8dbae inherit pro_types_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top"><a id="a2ac8e5422790b78a36a5e99deff8dbae" name="a2ac8e5422790b78a36a5e99deff8dbae"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>rtiLast_RTProtocol</b> = 0
+<tr class="separator:aa9db557a5ebfcf5b8eceedd15dc0e5d5 inherit pro_types_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3bf1044e6f75455f11dd4edce2af616 inherit pro_types_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top"><a id="ae3bf1044e6f75455f11dd4edce2af616" name="ae3bf1044e6f75455f11dd4edce2af616"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>rtiLast_RTProtocol</b> = 0
  }</td></tr>
-<tr class="separator:a2ac8e5422790b78a36a5e99deff8dbae inherit pro_types_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ae3bf1044e6f75455f11dd4edce2af616 inherit pro_types_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_r_t_protocol"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_r_t_protocol')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_r_t_protocol.html">RTProtocol</a></td></tr>
 <tr class="memitem:ac7a17e8dc831575b8b324c123af2b0da inherit pro_methods_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top"><a id="ac7a17e8dc831575b8b324c123af2b0da" name="ac7a17e8dc831575b8b324c123af2b0da"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const <a class="el" href="struct_r_t_port_descriptor.html">RTPortDescriptor</a> *)</td></tr>
@@ -389,7 +389,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyBoundAt</b> (in
 <tr class="separator:a2536ee9af988c7bebd23c626cb3f4898 inherit pro_methods_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a log service port. </p>
+<div class="textblock"><p>Represents a log port. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8d6ae542d48d6f5f5a464d8c1a1e5822" name="a8d6ae542d48d6f5f5a464d8c1a1e5822"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d6ae542d48d6f5f5a464d8c1a1e5822">&#9670;&#160;</a></span>commit()</h2>

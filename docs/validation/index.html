@@ -378,6 +378,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -933,6 +935,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#art_0038_portwithpredefinedprotocolnotcorrectlydeclared" class="md-nav__link">
+    ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#art_0039_portpartmultiplicitymismatch" class="md-nav__link">
+    ART_0039_portPartMultiplicityMismatch
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1187,6 +1203,8 @@
           
         
           
+        
+          
             
           
         
@@ -1210,6 +1228,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -1358,6 +1390,8 @@
         
           
         
+          
+        
       
       
         
@@ -1388,6 +1422,20 @@
     <li class="md-nav__item">
       <a href="../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -1509,6 +1557,20 @@
     <li class="md-nav__item">
       <a href="../support/" class="md-nav__link">
         Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        Contributing
       </a>
     </li>
   
@@ -1888,6 +1950,20 @@
           <li class="md-nav__item">
   <a href="#art_0037_missingtriggers" class="md-nav__link">
     ART_0037_missingTriggers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#art_0038_portwithpredefinedprotocolnotcorrectlydeclared" class="md-nav__link">
+    ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#art_0039_portpartmultiplicitymismatch" class="md-nav__link">
+    ART_0039_portPartMultiplicityMismatch
   </a>
   
 </li>
@@ -3075,15 +3151,60 @@ capsule CComp3 {
 </tbody>
 </table>
 <p>An <a href="../art-lang#unwired-port">unwired port</a> must not be connected to another port by means of a <a href="../art-lang#connector">connector</a>. Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.</p>
-<p>A wired port, however, must be connected. A service port that is not a behavior port must be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".</p>
-<pre><code class="language-art">capsule Top {    
-    part ping : Pinger, // ART_0025 (not connected in capsule Top)
-    pong : Ponger; // ART_0025 (not connected in capsule Top)
+<p>A wired port, however, should be connected. A service port that is not a behavior port should be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".</p>
+<p>The sample below contains several unwired ports that are connected (although they should not be). The validation rule also detects the problem that the service behavior port <code>p1</code> is connected on the "inside". (The fact that it's also not connected on the "outside" is reported by <a href="#art_0039_portpartmultiplicitymismatch">ART_0039_portPartMultiplicityMismatch</a>).</p>
+<pre><code class="language-art">protocol PROTO {
+    in in1();
+    out out1();
+};
+
+capsule Top {    
+    part ping : Pinger, // ART_0025 (unwired_port1 is connected in capsule Top)                        
+    pong : Ponger; // ART_0025 (unwired_port2 is connected in capsule Top)
+
+    part a : Another; // ART_0025 (behavior port p1 is connected on the inside)
+                      // ART_0039 (behavior port p1 is not connected on the outside)
+
+    connect ping.unwired_port1 with pong.unwired_port2;
+
+    service publish behavior port unwired_port1 : PROTO; // ART_0025 (publish implies unwired and unwired ports must not be connected)
+    service subscribe behavior port unwired_port2~ : PROTO; // ART_0025 (subscribe implies unwired and unwired ports must not be connected)
+    connect unwired_port1 with unwired_port2; 
+
+    unwired behavior port unwired_port3~ : PROTO; // ART_0025 (unwired ports must not be connected)
+
+    connect ping.p2 with unwired_port3; 
 
     statemachine {
         state T21;
         initial -&gt; T21;
     };
+};
+
+capsule Pinger {
+    service publish behavior port unwired_port1 : PROTO;
+
+    service port p2 : PROTO;
+
+    statemachine {
+        state State1;
+        initial -&gt; State1;
+    };
+};
+
+capsule Ponger {
+    service subscribe behavior port unwired_port2~ : PROTO;
+
+    statemachine {
+        state State1;                    
+        initial -&gt; State1;
+    };
+};
+
+capsule Another {
+    service behavior port p1 : PROTO;      
+    part inner : Inner;
+    connect p1 with inner.p;   
 };
 
 capsule Inner {
@@ -3094,29 +3215,8 @@ capsule Inner {
         initial -&gt; State;
     };
 };
-
-capsule Pinger {
-    service port p1 : PROTO;      
-    part inner : Inner;
-    connect p1 with inner.p;    
-
-    statemachine {
-        state State1;
-        initial -&gt; State1;
-    };
-};
-
-capsule Ponger {
-    service behavior port p2~ : PROTO;    
-
-    statemachine {
-        state State1;                    
-        initial -&gt; State1;
-    };
-};
 </code></pre>
 <p><img alt="" src="../images/ART_0025_portOnPartConnectionError.png" /></p>
-<p>In the above picture we can more easily understand the two errors reported for the <code>Top</code> capsule's two parts <code>ping</code> and <code>pong</code>. Port <code>Ponger::p2</code> is a behavior port so one connection is expected for that port (but none is present), while port <code>Pinger::p1</code> is a non-behavior port so two connections are expected for that port (but only one is present, on its "inside"). Both problems can be solved by adding a connector in <code>Top</code> which connects these ports on their "outside".</p>
 <h3 id="art_0026_connectedportswithincompatibleconjugations">ART_0026_connectedPortsWithIncompatibleConjugations</h3>
 <table>
 <thead>
@@ -3599,6 +3699,139 @@ capsule DD2 : BB2 {
     };
 };
 </code></pre>
+<h3 id="art_0038_portwithpredefinedprotocolnotcorrectlydeclared">ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">A port with a predefined protocol is declared in a way that is only applicable for ports with a user-defined protocol.</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>Ports typed by a predefined protocol (<a href="../targetrts-api/struct_timing.html">Timing</a>, <a href="../targetrts-api/struct_log.html">Log</a>, <a href="../targetrts-api/struct_external.html">External</a>, <a href="../targetrts-api/struct_exception.html">Exception</a> or <a href="../targetrts-api/struct_frame.html">Frame</a>) cannot be used in the same way as ports that are typed by user-defined protocols. For example, it does not make sense to connect such ports with connectors since no events can be sent to them. Because of this, the following keywords are not applicable for such ports: <code>notify</code>, <code>publish</code>, <code>subscribe</code>, <code>unwired</code>.</p>
+<p>If you use one or many of these keywords when declaring a port with a predefined protocol, they will be ignored and this problem will be reported. The problem will also be reported if you declare such a port as conjugated.</p>
+<pre><code class="language-art">capsule C38 {
+    unwired publish behavior port x : Timing; // ART_0038 ('unwired' and 'publish' not applicable)
+    behavior port log~ : Log; // ART_0038 (cannot be conjugated)
+    notify behavior port frame : Frame; // ART_0038 ('notify' not applicable)
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+</code></pre>
+<h3 id="art_0039_portpartmultiplicitymismatch">ART_0039_portPartMultiplicityMismatch</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">The multiplicities of two connected ports are inconsistent, or a port is missing an expected connector.</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>Wired ports should be connected, and connected in a way that is consistent with their multiplicities. The following problems can otherwise occur at runtime:</p>
+<ul>
+<li>If an expected connector is missing for a wired port, all messages sent on that port will be lost. And  unconnected wired ports that are not used is a waste of resources since they consume unnecessary memory.</li>
+<li>Each connector between two ports yields one or many connections at runtime on which messages can be transported. The number of such connections should for each connected port exactly match its runtime capacity. This capacity is determined by the port's multiplicity, and, if the connector also references a part, also the part's multiplicity. If the number of runtime connections is higher than this capacity, some of them cannot be established which means that messages sent on unconnected port indicies will be lost. And if the number of runtime connections is lower than the port's runtime capacity, it's again a waste of resources since a higher than required port capacity consumes unnecessary memory.</li>
+</ul>
+<p>In the example below a connector is missing between port <code>p2</code> of part <code>pong</code> and port <code>p1</code> of part <code>ping</code>. Without this connector no runtime connection can be established between ports <code>p2</code> and <code>p</code> which means that any message sent on those ports will be lost.</p>
+<pre><code class="language-art">capsule Top {   
+    part ping : Pinger, // ART_0039 (not connected in capsule Top)
+    pong : Ponger; // ART_0039 (not connected in capsule Top)    
+
+    statemachine {
+        state T21;
+        initial -&gt; T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p : PROTO;    
+
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+
+
+capsule Pinger {
+    service port p1 : PROTO;      
+    part inner : Inner;
+    connect p1 with inner.p;    
+
+    statemachine {
+        state State1;
+        initial -&gt; State1;
+    };
+};
+
+capsule Ponger {
+    service behavior port p2~ : PROTO;    
+
+    statemachine {
+        state State1;                    
+        initial -&gt; State1;
+    };
+};
+</code></pre>
+<p><img alt="" src="../images/ART_0039_missing_connector.png" /></p>
+<p>In the example below the connectors connect ports and ports with parts where the multiplicities don't match.</p>
+<pre><code class="language-art">capsule Top {   
+    part ping : Pinger; 
+
+    behavior port topP1 : PROTO[2]; // ART_0039
+    behavior port topP2~ : PROTO; // ART_0039
+
+    connect topP1 with topP2;
+
+    statemachine {
+        state T21;
+        initial -&gt; T21;
+    };
+};
+
+capsule Inner {
+    service behavior port p~ : PROTO[2];    
+
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+
+capsule Pinger {       
+    part inner : Inner [4]; // ART_0039
+
+    behavior port px : PROTO[3]; // ART_0039
+    connect px with inner.p;
+    behavior port px2 : PROTO[4]; // ART_0039
+    connect px2 with inner.p;
+
+    statemachine {
+        state State1;
+        initial -&gt; State1;
+    };
+};
+</code></pre>
+<p><img alt="" src="../images/ART_0039_inconsistent_multiplicities.png" /></p>
+<p>Note that the runtime capacity of port <code>p</code> is 8 (the port multiplicity times the part multiplicity; 2 * 4 = 8). This port is connected to two other ports (<code>px</code> and <code>px2</code>) with a total capacity of 4 + 3 = 7. Raising the multiplicity of <code>px</code> to 4 will remove the inconsistency.</p>
 <h2 id="code-generation-validation-rules">Code Generation Validation Rules</h2>
 <p>Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. </p>
 <div class="admonition note">

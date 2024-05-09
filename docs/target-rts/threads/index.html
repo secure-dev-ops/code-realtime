@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/target-rts/threads/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../timers/">
       
       
         <link rel="next" href="../integrate-with-external-code/">
@@ -378,6 +378,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -646,6 +648,8 @@
           
         
           
+        
+          
             
           
         
@@ -669,6 +673,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -895,6 +913,8 @@
         
           
         
+          
+        
       
       
         
@@ -925,6 +945,20 @@
     <li class="md-nav__item">
       <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -1046,6 +1080,20 @@
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
       </a>
     </li>
   
@@ -1248,7 +1296,7 @@
 <p><img alt="" src="../images/thread_mappings.png" /></p>
 <p>The capsule instances contained in <code>cp1</code> and <code>fp1</code> are run by the logical thread <code>Logical1</code> while the capsule instances contained in <code>dp1</code>, <code>cp2</code> and <code>ep2</code> are run by the logical thread <code>Logical2</code>. Other capsule instances are run by the main thread. Note that to accomplish that we need to explicitly reference the <code>MainThread</code> when incarnating <code>ep1</code> since by default it would be run by the thread that runs its container capsule, i.e. <code>Logical2</code>. In fact we need to explicitly mention a logical thread for all capsule instances in this example except <code>ep2</code> since it runs in the same logical thread as its container capsule instance <code>cp2</code>.</p>
 <p>If you don't want a capsule instance to be run by the same thread that runs its container capsule you can specify another thread when creating the capsule instance. When incarnating a capsule instance into an optional part this can be done in a call to <code>incarnate()</code> on a <a href="../../targetrts-api/struct_frame.html">Frame</a> port. Here is an example:</p>
-<pre><code class="language-cpp">frame.incarnate(myPart, 0 /* data */, 0 /* type */, LogicalThread, -1);
+<pre><code class="language-cpp">frame.incarnate(myPart, nullptr /* data */, nullptr /* type */, LogicalThread, -1);
 </code></pre>
 <p>Here <code>LogicalThread</code> refers to a logical thread that must exist in the TC. The physical thread to which it is mapped will run the created capsule instance.</p>
 <p>If the part is fixed you need to use a <a href="../../art-lang/#part-with-capsule-factory">capsule factory</a> for specifying the thread that should run a capsule instance that is incarnated into the part. For example:</p>

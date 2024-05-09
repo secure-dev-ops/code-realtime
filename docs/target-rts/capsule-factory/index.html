@@ -378,6 +378,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -646,6 +648,8 @@
           
         
           
+        
+          
             
           
         
@@ -669,6 +673,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -861,6 +879,8 @@
         
           
         
+          
+        
       
       
         
@@ -891,6 +911,20 @@
     <li class="md-nav__item">
       <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -1012,6 +1046,20 @@
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
       </a>
     </li>
   
@@ -1145,6 +1193,10 @@
 <li>Creating a capsule instance in a fixed part and let it be run by a different thread than what runs the container capsule instance.</li>
 <li>Incarnate a fixed part by creating an instance of a capsule that inherits from the capsule that types the part.</li>
 </ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses a local capsule factory <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_factory_for_part">here</a>.</p>
+</div>
 <h2 id="global-capsule-factory">Global Capsule Factory</h2>
 <p>A global capsule factory will be used for creating and destroying capsule instances in <em>all</em> capsule parts in the application, except those for which a <a href="#local-capsule-factory">local capsule factory</a> has been provided. Implement a global capsule factory by means of a class that inherits <a href="../../targetrts-api/class_r_t_actor_factory_interface.html"><code>RTActorFactoryInterface</code></a>. You need to implement the <code>create()</code> and <code>destroy()</code> functions. Then define an object of this class and set the <a href="../../building/transformation-configurations/#capsulefactory"><code>capsuleFactory</code></a> TC property to the address of that object.</p>
 <p>Here is an example of how a global capsule factory can be implemented in an Art file called <code>CapsuleFactory.art</code>:</p>
@@ -1176,12 +1228,17 @@ tc.commonPreface = `
 #include &quot;CapsuleFactory.art.h&quot;
 `;
 </code></pre>
+<p>If the expression specified in the <a href="../../building/transformation-configurations/#capsulefactory"><code>capsuleFactory</code></a> property contains the variable <code>$(CAPSULE_CLASS)</code> it will be replaced with the name of the C++ class that is generated for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.</p>
 <p>Scenarios where a global capsule factory could be useful include:</p>
 <ul>
 <li>Allocating capsule instances in a memory pool by using the placement new operator.</li>
 <li>Logging capsule instance creation and destruction.</li>
 <li>Customizing creation of certain capsule instances by means of <a href="../dependency-injection/">dependency injection</a>.</li>
 </ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses a global capsule factory <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_factory_capsule_class">here</a>.</p>
+</div>
 
 
 

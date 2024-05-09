@@ -256,7 +256,7 @@ RTEncodeFunction&#160;</td><td class="memItemRight" valign="bottom"><b>_encode_f
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A type descriptor providing information about a type. </p>
-<p>For most types defined in the model a static variable of this struct will be automatically generated. For more complex types, or to have a type descriptor with a non-default behavior, you can write you own custom type descriptor. Capsule types have their own type descriptor struct; see <a class="el" href="struct_r_t_actor__class.html">RTActor_class</a>. </p>
+<p>For most defined types a static variable of this struct will be automatically generated. For more complex types, or to have a type descriptor with a non-default behavior, you can write you own custom type descriptor. Capsule types have their own type descriptor struct; see <a class="el" href="struct_r_t_actor__class.html">RTActor_class</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab279a52b5021c3448ede84ad6a361fa6" name="ab279a52b5021c3448ede84ad6a361fa6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab279a52b5021c3448ede84ad6a361fa6">&#9670;&#160;</a></span>allocate()</h2>
@@ -499,7 +499,7 @@ template&lt;typename TYPE &gt; </div>
 </div><div class="memdoc">
 
 <p>Register the type descriptor so it can be looked up quickly using the name of the described type as the key. </p>
-<p>See <a class="el" href="struct_r_t_object__class.html#ae172a3c9d360050394069d56c7fed29e" title="Lookup a type descriptor by the name of the type it describes.">lookup()</a> for how to perform the lookup. All generated type descriptors will be automatically installed, so normally this function should not be called from user code. See RTTypeInstaller for more information. However, if you have manually written types for which you want to register a type descriptor, you need to call this function to install it in the registry. The name of the installed type is used as the key in the registry. If a type with that name is already registered (the same type or a different one) this function does nothing, but prints a warning. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>See <a class="el" href="struct_r_t_object__class.html#ae172a3c9d360050394069d56c7fed29e" title="Lookup a type descriptor by the name of the type it describes.">lookup()</a> for how to perform the lookup. All generated type descriptors will be automatically installed, so normally this function should not be called from user code. See <a class="el" href="class_r_t_type_installer.html">RTTypeInstaller</a> for more information. However, if you have manually written types for which you want to register a type descriptor, you need to call this function to install it in the registry. The name of the installed type is used as the key in the registry. If a type with that name is already registered (the same type or a different one) this function does nothing, but prints a warning. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">warnForDuplicates</td><td>Set to false to avoid printing a warning if trying to register a type descriptor with a name that is already used. </td></tr>
   </table>

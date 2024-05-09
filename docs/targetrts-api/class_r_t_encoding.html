@@ -75,14 +75,23 @@ $(function() {
   <div class="headertitle"><div class="title">RTEncoding Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for RTEncoding:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_r_t_encoding.png" usemap="#RTEncoding_map" alt=""/>
+  <map id="RTEncoding_map" name="RTEncoding_map">
+<area href="class_r_t_ascii_encoding.html" title="The default encoding implementation that is used for all default type descriptors." alt="RTAsciiEncoding" shape="rect" coords="63,56,180,80"/>
+<area href="class_r_t_json_encoding.html" alt="RTJsonEncoding" shape="rect" coords="0,112,117,136"/>
+<area href="class_r_t_v_ascii_encoding.html" alt="RTVAsciiEncoding" shape="rect" coords="127,112,244,136"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a36f7d483a413b84882c2bd1962b35e1f"><td class="memItemLeft" align="right" valign="top"><a id="a36f7d483a413b84882c2bd1962b35e1f" name="a36f7d483a413b84882c2bd1962b35e1f"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>flush</b> (void)=0</td></tr>
+<tr class="memitem:a36f7d483a413b84882c2bd1962b35e1f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_encoding.html#a36f7d483a413b84882c2bd1962b35e1f">flush</a> (void)=0</td></tr>
 <tr class="separator:a36f7d483a413b84882c2bd1962b35e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9a2ce737779a30d0c99f461e5fd5ef4"><td class="memItemLeft" align="right" valign="top"><a id="ae9a2ce737779a30d0c99f461e5fd5ef4" name="ae9a2ce737779a30d0c99f461e5fd5ef4"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put</b> (const void *, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *)=0</td></tr>
+<tr class="memitem:ae9a2ce737779a30d0c99f461e5fd5ef4"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_encoding.html#ae9a2ce737779a30d0c99f461e5fd5ef4">put</a> (const void *, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *)=0</td></tr>
 <tr class="separator:ae9a2ce737779a30d0c99f461e5fd5ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a410cd91e634ea993b9f0f5dba2dfbb92"><td class="memItemLeft" align="right" valign="top"><a id="a410cd91e634ea993b9f0f5dba2dfbb92" name="a410cd91e634ea993b9f0f5dba2dfbb92"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_address</b> (const void *)=0</td></tr>
@@ -150,10 +159,104 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_indirect</
 <tr class="memitem:a0684ff7d7ecf02c95e8c6feb62817bfb"><td class="memItemLeft" align="right" valign="top"><a id="a0684ff7d7ecf02c95e8c6feb62817bfb" name="a0684ff7d7ecf02c95e8c6feb62817bfb"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_struct</b> (const void *record, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *recordType)=0</td></tr>
 <tr class="separator:a0684ff7d7ecf02c95e8c6feb62817bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aac324b312bf9fd85a5904bdd4ae8ef"><td class="memItemLeft" align="right" valign="top"><a id="a6aac324b312bf9fd85a5904bdd4ae8ef" name="a6aac324b312bf9fd85a5904bdd4ae8ef"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>write_string</b> (const char *)</td></tr>
+<tr class="memitem:a6aac324b312bf9fd85a5904bdd4ae8ef"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_encoding.html#a6aac324b312bf9fd85a5904bdd4ae8ef">write_string</a> (const char *)</td></tr>
 <tr class="separator:a6aac324b312bf9fd85a5904bdd4ae8ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a36f7d483a413b84882c2bd1962b35e1f" name="a36f7d483a413b84882c2bd1962b35e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f7d483a413b84882c2bd1962b35e1f">&#9670;&#160;</a></span>flush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int RTEncoding::flush </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_r_t_ascii_encoding.html#a3e45a5e7abe121c56216185092e7b97f">RTAsciiEncoding</a>.</p>
+
+</div>
+</div>
+<a id="ae9a2ce737779a30d0c99f461e5fd5ef4" name="ae9a2ce737779a30d0c99f461e5fd5ef4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9a2ce737779a30d0c99f461e5fd5ef4">&#9670;&#160;</a></span>put()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int RTEncoding::put </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_r_t_json_encoding.html#afa157b94a5cb6bd055c98e94977fab8f">RTJsonEncoding</a>, and <a class="el" href="class_r_t_ascii_encoding.html#af534d32dd15bb1ef212c515a8b51228e">RTAsciiEncoding</a>.</p>
+
+</div>
+</div>
+<a id="a6aac324b312bf9fd85a5904bdd4ae8ef" name="a6aac324b312bf9fd85a5904bdd4ae8ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aac324b312bf9fd85a5904bdd4ae8ef">&#9670;&#160;</a></span>write_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int RTEncoding::write_string </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="class_r_t_ascii_encoding.html#ae68154bb76687e4ccf00fcf5eeb70b14">RTAsciiEncoding</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_r_t_encoding_8h_source.html">RTEncoding.h</a></li>
 </ul>
