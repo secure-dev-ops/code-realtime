@@ -73,7 +73,7 @@ Default value: **none** (must be set for a target configuration, usually in `tar
 #### RTS_COUNT
 Controls if the TargetRTS should keep track of statistics, such as the number of messages sent, the number of created capsules instances, etc. Collected statistics is saved per thread in the [controller](../targetrts-api/class_r_t_controller.html) object. See [RTCounts](../targetrts-api/class_r_t_counts.html) for what data that gets collected when this feature is enabled.
 
-Default value: **0** (do not collect statistics)
+Default value: **0** (do not collect statistics) 
 
 #### DEFER_IN_ACTOR
 When a message is deferred it gets stored in a queue from where it later can be recalled. There can either be one such defer queue per capsule instance or only one defer queue per thread (i.e. stored in the [controller](../targetrts-api/class_r_t_controller.html) object). Separate queues for each capsule instance will use more memory but can on the other hand result in better performance.
