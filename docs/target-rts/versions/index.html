@@ -378,6 +378,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -646,6 +648,8 @@
           
         
           
+        
+          
             
           
         
@@ -669,6 +673,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -840,6 +858,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configurable-max-tcp-connections" class="md-nav__link">
+    Configurable max TCP connections
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -902,6 +927,8 @@
         
           
         
+          
+        
       
       
         
@@ -932,6 +959,20 @@
     <li class="md-nav__item">
       <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -1053,6 +1094,20 @@
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
       </a>
     </li>
   
@@ -1184,6 +1239,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configurable-max-tcp-connections" class="md-nav__link">
+    Configurable max TCP connections
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1248,18 +1310,24 @@
 <td>8002</td>
 <td align="left"><a href="#building-without-rtperl">Building without rtperl</a> <br> <a href="#json-parser">JSON parser</a> <br> <a href="#script-for-creating-targetrts-patch-files">Script for creating TargetRTS patch files</a> <br> <a href="#pointers-in-json-encodingdecoding">Pointers in JSON encoding/decoding</a></td>
 </tr>
+<tr>
+<td>8003</td>
+<td align="left"><a href="#configurable-max-tcp-connections">Configurable max TCP Connections</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
-<p>A new decoder class <code>RTJsonDecoding</code> is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder (<code>RTJsonEncoding</code>) can be decoded back to (a copy of) the original data.</p>
+<p>A new decoder class <a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a> is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder (<a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a>) can be decoded back to (a copy of) the original data.</p>
 <h3 id="building-without-rtperl">Building without rtperl</h3>
 <p>New macros were added in makefiles to support building generated applications without using <code>rtperl</code>.</p>
 <h3 id="json-parser">JSON parser</h3>
-<p>A new class <code>RTJsonParser</code> can be used for parsing arbitrary JSON strings. It has a more general use than <code>RTJsonDecoding</code> which is specifically for decoding JSON that has been produced by <code>RTJsonEncoding</code>. See <a href="../encoding-decoding/#json-parser">this chapter</a> for more information.</p>
+<p>A new class <a href="../../targetrts-api/class_r_t_json_parser.html"><code>RTJsonParser</code></a> can be used for parsing arbitrary JSON strings. It has a more general use than <a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a> which is specifically for decoding JSON that has been produced by <a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a>. See <a href="../encoding-decoding/#json-parser">this chapter</a> for more information.</p>
 <h3 id="script-for-creating-targetrts-patch-files">Script for creating TargetRTS patch files</h3>
 <p>A Bash script <code>createPatch.sh</code> is now available in the <code>tools</code> folder of the TargetRTS. It can be used for producing patch files describing the differences between two versions of the TargetRTS. See <a href="#patch-files">Patch Files</a> for more information.</p>
 <h3 id="pointers-in-json-encodingdecoding">Pointers in JSON encoding/decoding</h3>
-<p>Data of pointer type is now encoded to a string by the JSON encoder (<code>RTJsonEncoding</code>) and can be decoded back to a memory address by the JSON decoder (<code>RTJsonDecoding</code>).</p>
+<p>Data of pointer type is now encoded to a string by the JSON encoder (<a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a>) and can be decoded back to a memory address by the JSON decoder (<a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a>).</p>
+<h3 id="configurable-max-tcp-connections">Configurable max TCP connections</h3>
+<p>The <a href="../../targetrts-api/class_r_t_tcp_socket.html"><code>RTTcpSocket</code></a> class has a new function <code>setMaxPendingConnections()</code> which can be used for setting the maximum number of clients that can connect to the TCP socket. Previously this limit was always 5, and this is still the default in case you don't call this function to change it.</p>
 
 
 

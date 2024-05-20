@@ -370,6 +370,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -636,6 +638,8 @@
           
         
           
+        
+          
             
           
         
@@ -659,6 +663,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -807,6 +825,8 @@
         
           
         
+          
+        
       
       
         
@@ -837,6 +857,20 @@
     <li class="md-nav__item">
       <a href="../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -958,6 +992,20 @@
     <li class="md-nav__item">
       <a href="../support/" class="md-nav__link">
         Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        Contributing
       </a>
     </li>
   
@@ -1178,12 +1226,6 @@
 
 
 <h1 id="draft-documentation-not-yet-included-in-the-product">Draft documentation, not yet included in the product</h1>
-<p><strong>Building - Transformation Configurations - capsuleFactory</strong>
-The capsule factory is specified by means of a C++ expression that must have the type <code>RTActorFactoryInterface*</code>. If the expression contains the variable <code>$(CAPSULE_CLASS)</code> it will be replaced with the name of the C++ class for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.
-===</p>
-<p><strong>TargetRTS - Capsule Factory - Global Capsule Factory</strong>
-If the expression specified in the <a href="../building/transformation-configurations.md#capsulefactory"><code>capsuleFactory</code></a> property contains the variable <code>$(CAPSULE_CLASS)</code> it will be replaced with the name of the C++ class that is generated for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.
-===</p>
 <p><strong>The Art Language - State Machine - Transition - Frequent Transition</strong></p>
 <h4 id="frequent-transition">Frequent Transition</h4>
 <p>Sometimes you may have a state where one or a few outgoing transitions can be expected to execute much more frequently than others. You can then set a <code>frequent</code> <a href="#property">property</a> on the transition trigger that you expect will trigger the transition frequently. The Art compiler uses this information to optimize generated C++ code so that such transition triggers are evaluated before other triggers that are expected to trigger the transition less frequently. </p>

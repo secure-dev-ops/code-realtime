@@ -20,7 +20,7 @@
     
     
       
-        <title>1.0.2 (2024-03-27 21:14) - DevOps Code RealTime</title>
+        <title>1.0.3 (2024-05-08 12:45) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#102-2024-03-27-2114" class="md-skip">
+        <a href="#103-2024-05-08-1245" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1.0.2 (2024-03-27 21:14)
+              1.0.3 (2024-05-08 12:45)
             
           </span>
         </div>
@@ -349,6 +349,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
+        
+          
         
           
         
@@ -636,6 +638,8 @@
           
         
           
+        
+          
             
           
         
@@ -659,6 +663,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
             
           
             
@@ -807,6 +825,8 @@
         
           
         
+          
+        
       
       
         
@@ -837,6 +857,20 @@
     <li class="md-nav__item">
       <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
       </a>
     </li>
   
@@ -964,6 +998,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1051,6 +1099,22 @@
   
 
 
+<h1 id="103-2024-05-08-1245">1.0.3 (2024-05-08 12:45)</h1>
+<ol>
+<li>The C++ code generator now supports <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/?h=delegation#connector">delegation connectors</a>. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/delegation_connector">this sample</a>.</li>
+<li>The C++ code generator now analyzes <code>rt::decl</code> code snippets of a capsule, looking for a user-defined destructor. If a user-defined destructor is present, the code generator doesn't generate the capsule destructor it otherwise generates. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_userdefined_destructor">this sample</a>.</li>
+<li>A new documentation chapter explaining how timers work is now available <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/timers/">here</a>. Three new sample applications that show how to use timers are also included (linked from the new documentation chapter).</li>
+<li>Content Assist for capsules was extended to allow creation of a destructor, as well as overriding some of the virtual functions from the <code>RTActor</code> base class (such as <code>_predestroy()</code>).</li>
+<li>Three more checkboxes are now present in the Properties view of a structure diagram for a selected port. They allow setting the port as <code>notify</code>, <code>publish</code> and <code>subscribe</code>. Another improvement is that checkboxes for properties that are not applicable for a port with a predefined protocol (such as <code>Timing</code> or <code>Frame</code>) will now be hidden.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0038_art_0038_portwithpredefinedprotocolnotcorrectlydeclared">ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared</a> now reports a warning if a port with a predefined protocol (such as <code>Timing</code> or <code>Frame</code>) is declared with properties that are not applicable for such a port (for example <code>notify</code> or <code>unwired</code>).</li>
+<li>It's now possible to use the variable <code>$(CAPSULE_CLASS)</code> in the value for the <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations.md#capsulefactory"><code>capsuleFactory</code></a> TC property. It will be replaced with the name of the C++ class that is generated for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.</li>
+<li>The C++ code generator now supports state redefinition with regards to entry and exit actions. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/redefined_entry_action">this sample</a>.</li>
+<li>It's now possible to access properties from the top TC from a prerequisite TC by means of the <code>TCF.getTopTC()</code> function and the special <code>eval</code> property. This is useful in order to allow the same library to be built as a prerequisite from multiple executables. For more information, see <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#accessing-the-top-tc-from-a-prerequisite-tc">the documentation</a>.</li>
+<li>You are now welcome to contribute to the contents of the Code RealTime <a href="https://github.com/secure-dev-ops/code-realtime">GitHub repo</a>(samples, test cases and documentation). See <a href="https://secure-dev-ops.github.io/code-realtime/contributing/">this page</a> for information on how to do it.</li>
+<li>Two new TC properties are now available for controlling the name of a generated executable or library: <code>executableName</code> and <code>libraryName</code>.</li>
+<li>Each connector between two ports yields one or many connections at runtime on which messages can be transported. The number of such connections should for each connected port exactly match its runtime capacity. This capacity is determined by the port's multiplicity, and, if the connector also references a part, also the part's multiplicity. This constraint is now checked by a new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0039_portpartmultiplicitymismatch">ART_0039_portPartMultiplicityMismatch</a>. If a mismatch is detected, a warning is reported.</li>
+<li>You can now build regular, non-generated, C++ source files together with the generated C++ files. It's no longer necessary to place such C++ code into wrapper Art files. The generated make file will automatically include rules for building all .cpp files that are present in the workspace folder (or a subfolder of it), and all folders that contain .h files will be added to the <code>inclusionPath</code> property. The <code>sources</code> TC property can be used to precisely control which C++ source files that should be included into the build. For more information, see <a href="https://secure-dev-ops.github.io/code-realtime/building/build-cpp-files/">the documentation</a>.</li>
+</ol>
 <h1 id="102-2024-03-27-2114">1.0.2 (2024-03-27 21:14)</h1>
 <ol>
 <li>Semantic errors related to the triggers of a transition are now shown in state diagrams.</li>

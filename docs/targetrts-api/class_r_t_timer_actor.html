@@ -161,6 +161,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>adjustTimeEnd</b> (co
 <tr class="memitem:ab318ad0d3a0510da89da3d7858cdaa74 inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#ab318ad0d3a0510da89da3d7858cdaa74">rtsBehavior</a> (int signal, int port)=0</td></tr>
 <tr class="memdesc:ab318ad0d3a0510da89da3d7858cdaa74 inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the state machine behavior for this capsule instance.  <br /></td></tr>
 <tr class="separator:ab318ad0d3a0510da89da3d7858cdaa74 inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67fc8760790c667bdbae0d2005738f4e inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a67fc8760790c667bdbae0d2005738f4e">logMsg</a> (void)</td></tr>
+<tr class="memdesc:a67fc8760790c667bdbae0d2005738f4e inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called just before a received message is processed by the capsule instance.  <br /></td></tr>
+<tr class="separator:a67fc8760790c667bdbae0d2005738f4e inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed6931db977ea5d6cf6002d7b094f9e2 inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_controller.html">RTController</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#aed6931db977ea5d6cf6002d7b094f9e2">context</a> (void) const</td></tr>
 <tr class="memdesc:aed6931db977ea5d6cf6002d7b094f9e2 inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the controller which runs this capsule instance.  <br /></td></tr>
 <tr class="separator:aed6931db977ea5d6cf6002d7b094f9e2 inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,7 +174,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>adjustTimeEnd</b> (co
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>designLevel</b> (void) const</td></tr>
 <tr class="separator:a98a5ef32124b580417cd11bea159677c inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01c745d5874c0345a910ae7c389746be inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a01c745d5874c0345a910ae7c389746be">getTypeName</a> (void) const</td></tr>
-<tr class="memdesc:a01c745d5874c0345a910ae7c389746be inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the capsule as defined in the model.  <br /></td></tr>
+<tr class="memdesc:a01c745d5874c0345a910ae7c389746be inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the capsule.  <br /></td></tr>
 <tr class="separator:a01c745d5874c0345a910ae7c389746be inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e3a0a9a0706b5631b2d7b548d6630fb inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="a4e3a0a9a0706b5631b2d7b548d6630fb" name="a4e3a0a9a0706b5631b2d7b548d6630fb"></a>
 RTVersionId&#160;</td><td class="memItemRight" valign="bottom"><b>getVersion</b> (void) const</td></tr>
@@ -212,6 +215,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>_preinitialize</b> (i
 <tr class="memitem:abf79df29104e6fd2d10fb08ffd8a8060 inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="abf79df29104e6fd2d10fb08ffd8a8060" name="abf79df29104e6fd2d10fb08ffd8a8060"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>initMe</b> (const void *data, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *type, <a class="el" href="class_r_t_controller.html">RTController</a> *sender)</td></tr>
 <tr class="separator:abf79df29104e6fd2d10fb08ffd8a8060 inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc04fd06af2245bd9218a09921213f8c inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="afc04fd06af2245bd9218a09921213f8c" name="afc04fd06af2245bd9218a09921213f8c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>isReferencedBy</b> (const <a class="el" href="class_r_t_actor.html">RTActor</a> *) const</td></tr>
+<tr class="separator:afc04fd06af2245bd9218a09921213f8c inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a195ae09e6f66d9a4f307d838f4bc633b inherit pub_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="struct_r_t_actor_class.html">RTActorClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a195ae09e6f66d9a4f307d838f4bc633b">defaultClass</a> (<a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> &amp;component, int repIndex)</td></tr>
 <tr class="memdesc:a195ae09e6f66d9a4f307d838f4bc633b inherit pub_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default capsule class for a capsule part contained in the capsule instance.  <br /></td></tr>
 <tr class="separator:a195ae09e6f66d9a4f307d838f4bc633b inherit pub_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -273,7 +279,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTimeouts</b> (voi
 <tr class="memdesc:a4ff70c41166a0ab5738eefa38541917f inherit pro_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called if the TargetRTS detects that the state machine of the capsule instance in in an invalid state (i.e.  <br /></td></tr>
 <tr class="separator:a4ff70c41166a0ab5738eefa38541917f inherit pro_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83ae2b2d3cf3fceee994496bbb7a147d inherit pro_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_actor.html#a83ae2b2d3cf3fceee994496bbb7a147d">rtgChainBegin</a> (int origin, const char *trans)</td></tr>
-<tr class="memdesc:a83ae2b2d3cf3fceee994496bbb7a147d inherit pro_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called at the beginning of every generated chain function that corresponds to a transition in the model.  <br /></td></tr>
+<tr class="memdesc:a83ae2b2d3cf3fceee994496bbb7a147d inherit pro_methods_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called at the beginning of every generated chain function that corresponds to a transition in the state machine.  <br /></td></tr>
 <tr class="separator:a83ae2b2d3cf3fceee994496bbb7a147d inherit pro_methods_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45a0b60ee459dd55c8a4aa86d2a15620 inherit pro_methods_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="a45a0b60ee459dd55c8a4aa86d2a15620" name="a45a0b60ee459dd55c8a4aa86d2a15620"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>rtgTransitionBegin</b> (void)</td></tr>
@@ -354,6 +360,10 @@ Additional Inherited Members</h2></td></tr>
 const <a class="el" href="class_r_t_message.html">RTMessage</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>msg</b></td></tr>
 <tr class="memdesc:a86e67b3cf069baa9fd58fad4abf3bc58 inherit pub_attribs_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message which is currently being processed by the capsule instance. <br /></td></tr>
 <tr class="separator:a86e67b3cf069baa9fd58fad4abf3bc58 inherit pub_attribs_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8245471f1d4c871d4d02e41dd02d86a4 inherit pub_attribs_class_r_t_actor"><td class="memItemLeft" align="right" valign="top"><a id="a8245471f1d4c871d4d02e41dd02d86a4" name="a8245471f1d4c871d4d02e41dd02d86a4"></a>
+<a class="el" href="class_r_t_actor_probe.html">RTActorProbe</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>probe</b></td></tr>
+<tr class="memdesc:a8245471f1d4c871d4d02e41dd02d86a4 inherit pub_attribs_class_r_t_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">A probe attached to the capsule instance for monitoring it. <br /></td></tr>
+<tr class="separator:a8245471f1d4c871d4d02e41dd02d86a4 inherit pub_attribs_class_r_t_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a744bbeaa85d5a6496c78d3979a505377" name="a744bbeaa85d5a6496c78d3979a505377"></a>
@@ -409,7 +419,7 @@ const <a class="el" href="class_r_t_message.html">RTMessage</a> *&#160;</td><td 
 </div><div class="memdoc">
 
 <p>Get information (meta data) about the capsule, such as its name, ports, states etc. </p>
-<p>This information is static and comes from the definition of the capsule in the model. </p><dl class="section return"><dt>Returns</dt><dd>Information about the capsule. </dd></dl>
+<p>This information is static and comes from the definition of the capsule. </p><dl class="section return"><dt>Returns</dt><dd>Information about the capsule. </dd></dl>
 
 <p>Implements <a class="el" href="class_r_t_actor.html#a9970639cb3dbc0d7a77c57f60fcae59b">RTActor</a>.</p>
 
