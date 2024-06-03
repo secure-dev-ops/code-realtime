@@ -1,0 +1,33 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.targetFolder = 'message_count_target';
+tc.targetRTSLocation = 'C:/TargetRTSWinDebug/TargetRTS_RTS_COUNT';
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '11111',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'L1'
+    ]
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '22222',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+},
+{
+    name: 'MyThread',
+    implClass: 'RTPeerController',
+    stackSize: '33333',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'MyLogicalThread'
+    ]
+}
+];

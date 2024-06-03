@@ -11,7 +11,7 @@ The C++ implementation of a type descriptor consists of four parts. In the code 
 
 **1) A type descriptor object**
 
-This is a variable typed by `RTObject_class` with a name that has the prefix "RTType_". It will be declared in the header file:
+This is a variable typed by [RTObject_class](../targetrts-api/struct_r_t_object__class.html) with a name that has the prefix "RTType_". It will be declared in the header file:
 
 ``` cpp
 extern const RTObject_class RTType_MyType;
@@ -26,7 +26,7 @@ const RTObject_class RTType_MyType =
 };
 ```
 
-Member variables of RTObject_class store all information about the type, such as its name and byte size. Some of the member variables store pointers to type descriptor functions which the TargetRTS will call when it needs to do something with an instance of the type, for example copy or encode it.
+Member variables of [RTObject_class](../targetrts-api/struct_r_t_object__class.html) store all information about the type, such as its name and byte size. Some of the member variables store pointers to type descriptor functions which the TargetRTS will call when it needs to do something with an instance of the type, for example copy or encode it.
 
 **2) Type descriptor functions**
 

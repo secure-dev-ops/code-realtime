@@ -1,0 +1,81 @@
+protocol PROT {
+    out eOut();
+    in eIn();
+};
+
+capsule Top 
+{             
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+        using namespace std::chrono_literals;
+    `
+    optional part caps : Cap[0..1];
+    behavior port frame : Frame;
+    behavior port p~ : PROT;
+    connect p with caps.p;
+    behavior port timer : Timing;
+
+    statemachine {
+        state State1 {
+            t: on p.eOut
+            `
+                // Send 900 messages
+                for (auto i = 0; i < 900; i++) {
+                    p.eIn().send();
+                }
+                timer.informIn(6s);                
+            `;
+            timeout: on timer.timeout
+            `
+                std::cout << "Top controller stats:" << std::endl;
+                context()->printStats();
+            `;
+        };
+        initial -> State1 
+        `            
+            frame.incarnate(caps, EmptyObject /* no initialization data */, MyLogicalThread);            
+        `;
+    };
+};
+
+capsule Cap {     
+    [[rt::decl]]
+    `
+        unsigned int count = 0;
+    `   
+    [[rt::impl_preface]]
+    `
+        #include <thread>
+        #include <iostream>
+        using namespace std::chrono_literals;
+    `
+    service behavior port p : PROT;
+    behavior port timer : Timing;
+
+    statemachine {
+        state State {
+            timeout: on timer.timeout
+            `
+                p.eOut().send();
+                // Suspend this thread so it's unable to process incoming events
+                std::this_thread::sleep_for(5000ms);                
+            `;
+            x: on p.eIn
+            `
+                std::cout << "Received message" << std::endl;
+                count++;
+                if (count == 900) {
+                    std::cout << "Cap controller stats:" << std::endl;
+                    context()->printStats();
+                }
+            `;
+        };
+        initial -> State 
+        `                         
+            timer.informIn(500ms);            
+        `;
+        
+    };
+};
+

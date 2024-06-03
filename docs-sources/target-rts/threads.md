@@ -86,9 +86,11 @@ fixed part server : Server [[rt::create]]
 ```
 
 ## TargetRTS Implementation
-The `implClass` property of a physical thread that is defined in a TC refers to the class in the TargetRTS that implements the thread. This class must inherit from [RTController](../targetrts-api/class_r_t_controller.html). A default implementation is provided by the [RTPeerController](../targetrts-api/class_r_t_peer_controller.html). It implements a simple event loop that in each iteration delivers the most prioritized event to the capsule instance that should handle it.
+The `implClass` property of a physical thread that is defined in a TC refers to the class in the TargetRTS that implements the thread. This class must inherit from [RTController](../targetrts-api/class_r_t_controller.html). A default implementation is provided by the [RTPeerController](../targetrts-api/class_r_t_peer_controller.html). It implements a simple event loop that in each iteration delivers the most prioritized message to the capsule instance that should handle it.
 
 You can implement your own controller class by creating another subclass of [RTController](../targetrts-api/class_r_t_controller.html). As an example, look at [RTCustomController](../targetrts-api/class_r_t_custom_controller.html).
+
+See [Message Communication](message-communication.md) for more details about how controllers work.
 
 If the application uses timers it needs a timer thread for implementing the timeouts. The TargetRTS provides a default implementation [RTTimerController](../targetrts-api/class_r_t_timer_controller.html) which implements basic support for processing timeout events and timer cancellation.
 

@@ -71,7 +71,7 @@ Controls if the TargetRTS should use threads. Set to **0** for building a single
 Default value: **none** (must be set for a target configuration, usually in `target/<target>/RTTarget.h`)
 
 #### RTS_COUNT
-Controls if the TargetRTS should keep track of statistics, such as the number of messages sent, the number of created capsules instances, etc. Collected statistics is saved per thread in the [controller](../targetrts-api/class_r_t_controller.html) object. See [RTCounts](../targetrts-api/class_r_t_counts.html) for what data that gets collected when this feature is enabled.
+Controls if the TargetRTS should keep track of statistics, such as the number of messages sent, the number of created capsules instances, etc. Collected statistics is saved per thread in the [controller](../targetrts-api/class_r_t_controller.html) object, and can be printed by calling `RTController::printStats()`. See [RTCounts](../targetrts-api/class_r_t_counts.html) for what data that gets collected when this feature is enabled.
 
 Default value: **0** (do not collect statistics) 
 
@@ -164,7 +164,7 @@ This setting is used when you call functions on a [Frame](../targetrts-api/struc
 Default value: **1** (set to **0** if you know it's safe to not use thread-safe implementations of [Frame](../targetrts-api/struct_frame.html) functions)
 
 #### RTMESSAGE_PAYLOAD_SIZE
-This setting controls the size of the data area in each message. This data area is used for message data that is small enough, such as integers, booleans and short strings. If the data that is sent with a message is bigger than the specified RTMESSAGE_PAYLOAD_SIZE, then dynamically allocated memory is used for storing the message data outside of the message itself.
+This setting controls the size of the data area in each message. This data area is used for message data that is small enough, such as integers, booleans and short strings. If the data that is sent with a message is bigger than the specified RTMESSAGE_PAYLOAD_SIZE, then dynamically allocated memory is used for storing the message data outside of the message itself. See [Message Data Area](message-communication.md#message-data-area) for more information about the message data area.
 
 Default value: **100** (byte size of the message data area)
 
