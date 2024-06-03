@@ -105,6 +105,7 @@ nav:
         - Target RunTime System: target-rts/index.md        
         - Timers: target-rts/timers.md
         - Threads: target-rts/threads.md
+        - Message Communication: target-rts/message-communication.md
         - Integration with External Code: target-rts/integrate-with-external-code.md
         - Capsule Factory: target-rts/capsule-factory.md
         - Dependency Injection: target-rts/dependency-injection.md
