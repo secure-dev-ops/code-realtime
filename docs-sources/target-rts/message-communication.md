@@ -91,3 +91,6 @@ Note that freeing a message doesn't deallocate its memory. Instead it is reset b
 
 !!! hint
     You can compile the TargetRTS with the [`RTS_COUNT`](build.md#rts_count) flag set to collect run-time statistics for your application. Among other things it counts the peek number of messages allocated by each controller. This information can help you configure the free list to have a size that is appropriate for your application.
+
+!!! example
+    You can find a sample application that shows how to collect and print statistics [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/message_count)
