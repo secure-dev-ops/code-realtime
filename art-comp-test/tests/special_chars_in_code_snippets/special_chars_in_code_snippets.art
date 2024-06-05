@@ -1,0 +1,38 @@
+capsule SpecialChars {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        // We can use backtick in comment if we escape it: \`
+        char c1 = '\`'; // Backtick in char literal also requires escaping
+        std::string s1 = "\`"; // also in string literals
+
+        // We can use backslash in comment to make a\
+        multiline comment, and also inside \ the comment
+        char c2 = '\\';
+
+        std::string s2 = "\\";
+
+        // Backslashes can be used for concatenating lines too
+        std::string s3 = "line1\
+        line2";
+    `
+    statemachine {
+        state State;
+        initial -> State
+        `
+            ASSERT(c1 == '\`', "Expected c1 to hold a backtick");
+            ASSERT(s1 == "\`", "Expected s1 to hold a backtick");
+            ASSERT(c2 == '\\', "Expected c2 to hold a backslash");
+            ASSERT(s2 == "\\" && s2.size() == 1, "Expected s2 to hold a backslash");
+            ASSERT(s3 == "line1line2", "Unexpected string in s3");
+            PASS();
+        `;
+    };
+};

@@ -92,6 +92,23 @@ capsule BrewControl {
 };
 ```
 
+If the code snippet needs to contain the backtick character, for example in a comment or a string literal, you need to escape it by preceeding it with a backslash (`\`). For example:
+
+``` art
+capsule StringProcessor {
+    [[rt::decl]]
+    `
+        // A member variable with default value \`
+        char escapeChar = '\`';  
+    `
+    statemachine {
+        state State;
+        initial -> State;
+    };
+}; 
+```
+
+### File-level Code Snippets
 Code snippets can not only be associated with Art language constructs as in the above two examples, but can also be placed at the Art file level. There are two such file-level code snippets:
 
 * **Declarations (rt::decl)**
