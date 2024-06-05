@@ -24,8 +24,7 @@ capsule Top {
             ASSERT(result["field1"].get_double() == 0, "String not convertible to double");
             ASSERT(result["field1"].get_int() == 0, "String not convertible to int");
             ASSERT(!result["nonexisting"].ok(), "Attempt to access non-existing key was successful");
-            ASSERT(result["field1"].get_size() == 0, "Size of scalar values should be 0");
-            ASSERT(result["field1"] == result[0], "Index of first key should be 0");
+            ASSERT(result["field1"].get_size() == 0, "Size of scalar values should be 0");            
             
             {
                 RTJsonParser parser;
@@ -40,6 +39,16 @@ capsule Top {
                     }
                     if (result["arr"][1].get_type() == RTJsonResult::RTJSON_BOOL) {
                         std::cout << "yess" << std::endl; 
+                    }
+                }
+
+                // Iterate over keys                
+                for (auto i = result.keys_begin(); i != result.keys_end(); i++) {
+                    if (i->first == "field1") {                        
+                        ASSERT(i->second.get_string() == "string", "Unexpected value for key field1");
+                    }
+                    else if (i->first == "arr") {
+                        ASSERT(i->second.get_type() == RTJsonResult::RTJSON_ARR, "Unexpected value for key arr");
                     }
                 }
             }
