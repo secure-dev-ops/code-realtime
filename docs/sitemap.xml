@@ -2,162 +2,167 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/contributing/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/draft-documentation/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/installing/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/overview/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/settings/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/support/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/validation/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/art-lang/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/art-lang/cpp-extensions/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/building/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/building/art-compiler/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/building/build-cpp-files/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/building/build-variants/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/building/launch-configurations/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/releases/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/releases/CHANGELOG/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/build/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/capsule-factory/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/dependency-injection/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/encoding-decoding/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/integrate-with-external-code/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/message-communication/</loc>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/threads/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/timers/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/target-rts/versions/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/working-with-art/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/working-with-art/art-editor/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/working-with-art/diagrams/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/working-with-art/outline-view/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://secure-dev-ops.github.io/code-realtime/working-with-art/references/</loc>
-         <lastmod>2024-05-09</lastmod>
+         <lastmod>2024-06-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
