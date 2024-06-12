@@ -32,7 +32,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8001 | [JSON Decoding](#json-decoder) | 
 | 8002 | [Building without rtperl](#building-without-rtperl) <br> [JSON parser](#json-parser) <br> [Script for creating TargetRTS patch files](#script-for-creating-targetrts-patch-files) <br> [Pointers in JSON encoding/decoding](#pointers-in-json-encodingdecoding) | 
 | 8003 | [Align terminology in comments](#align-terminology-in-comments) <br> [Configurable max TCP Connections](#configurable-max-tcp-connections) |
-| 8004 | [Improved implementation of JSON parser](#improved-implementation-of-json-parser) <br> [JSON encoding/decoding for RTByteBlock](#json-encodingdecoding-for-rtbyteblock) |
+| 8004 | [Improved implementation of JSON parser](#improved-implementation-of-json-parser) <br> [JSON encoding/decoding for RTByteBlock](#json-encodingdecoding-for-rtbyteblock) <br> [New target configuration for MacOS on AArch64](#new-target-configuration-for-macos-on-aarch64) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -59,4 +59,7 @@ The [`RTTcpSocket`](../targetrts-api/class_r_t_tcp_socket.html) class has a new 
 The [`RTJsonParser`](../targetrts-api/class_r_t_json_parser.html) now has an improved recursive implementation that uses a map instead of a vector for storing keys and values in the [`RTJsonResult`](../targetrts-api/class_r_t_json_result.html) object. The new implementation provides new functions `RTJsonResult::keys_begin()` and `RTJsonResult::keys_end()` which allows to iterate over the keys in the parse result without knowing their names.
 
 ### JSON encoding/decoding for RTByteBlock
-The [`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html) and [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) now support JSON encoding/decoding for objects of the [`RTByteBlock`](../targetrts-api/class_r_t_byte_block..html) class.
+The [`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html) and [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) now support JSON encoding/decoding for objects of the [`RTByteBlock`](../targetrts-api/class_r_t_byte_block.html) class.
+
+### New target configuration for MacOS on AArch64
+A new target configuration for the Clang 15 compiler for MacOs with ARM processor is now available. It has the name `MacT.AArch64-Clang-15.x`.
