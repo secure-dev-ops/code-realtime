@@ -889,6 +889,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#new-target-configuration-for-macos-on-aarch64" class="md-nav__link">
+    New target configuration for MacOS on AArch64
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1289,6 +1296,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#new-target-configuration-for-macos-on-aarch64" class="md-nav__link">
+    New target configuration for MacOS on AArch64
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1359,7 +1373,7 @@
 </tr>
 <tr>
 <td>8004</td>
-<td align="left"><a href="#improved-implementation-of-json-parser">Improved implementation of JSON parser</a> <br> <a href="#json-encodingdecoding-for-rtbyteblock">JSON encoding/decoding for RTByteBlock</a></td>
+<td align="left"><a href="#improved-implementation-of-json-parser">Improved implementation of JSON parser</a> <br> <a href="#json-encodingdecoding-for-rtbyteblock">JSON encoding/decoding for RTByteBlock</a> <br> <a href="#new-target-configuration-for-macos-on-aarch64">New target configuration for MacOS on AArch64</a></td>
 </tr>
 </tbody>
 </table>
@@ -1380,7 +1394,9 @@
 <h3 id="improved-implementation-of-json-parser">Improved implementation of JSON parser</h3>
 <p>The <a href="../../targetrts-api/class_r_t_json_parser.html"><code>RTJsonParser</code></a> now has an improved recursive implementation that uses a map instead of a vector for storing keys and values in the <a href="../../targetrts-api/class_r_t_json_result.html"><code>RTJsonResult</code></a> object. The new implementation provides new functions <code>RTJsonResult::keys_begin()</code> and <code>RTJsonResult::keys_end()</code> which allows to iterate over the keys in the parse result without knowing their names.</p>
 <h3 id="json-encodingdecoding-for-rtbyteblock">JSON encoding/decoding for RTByteBlock</h3>
-<p>The <a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a> and <a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a> now support JSON encoding/decoding for objects of the <a href="../targetrts-api/class_r_t_byte_block..html"><code>RTByteBlock</code></a> class.</p>
+<p>The <a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a> and <a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a> now support JSON encoding/decoding for objects of the <a href="../../targetrts-api/class_r_t_byte_block.html"><code>RTByteBlock</code></a> class.</p>
+<h3 id="new-target-configuration-for-macos-on-aarch64">New target configuration for MacOS on AArch64</h3>
+<p>A new target configuration for the Clang 15 compiler for MacOs with ARM processor is now available. It has the name <code>MacT.AArch64-Clang-15.x</code>.</p>
 
               
             </article>
