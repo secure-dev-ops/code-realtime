@@ -33,6 +33,9 @@
             "path": "tests/choice_transition_exclude"
         },
         {
+            "path": "tests/code_snippets"
+        },
+        {
             "path": "tests/composite_state_entry_exit_guards"
         },
         {
