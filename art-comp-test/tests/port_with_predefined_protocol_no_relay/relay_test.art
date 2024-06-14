@@ -16,8 +16,8 @@ capsule Top {
         state State1, State2;
         initial -> State1
         `   
-            ASSERT(Top.numRelays == 0, "Expected none of the predefined service port is added to rtg_relays");
-            ASSERT(Top.relays == nullptr, "Expected relays as nullptr");
+            ASSERT(RTType_Top.numRelays == 0, "Expected none of the predefined service port is added to rtg_relays");
+            ASSERT(RTType_Top.relays == nullptr, "Expected relays as nullptr");
             PASS();
         `;
     };

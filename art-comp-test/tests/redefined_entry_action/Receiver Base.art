@@ -6,11 +6,11 @@ capsule ReceiverBase {
     `
     [[rt::impl]]
     `
-        int ReceiverBase_Actor::entry1 = 0;
-        int ReceiverBase_Actor::entry3 = 0;
-        int ReceiverBase_Actor::exit2 = 0;
-        int ReceiverBase_Actor::r2_entry2 = 0;
-        int ReceiverBase_Actor::r2_entry3 = 0;
+        int ReceiverBase::entry1 = 0;
+        int ReceiverBase::entry3 = 0;
+        int ReceiverBase::exit2 = 0;
+        int ReceiverBase::r2_entry2 = 0;
+        int ReceiverBase::r2_entry3 = 0;
     `
 
     service behavior port pr~ : Events;

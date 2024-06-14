@@ -9,18 +9,18 @@ capsule A {
         private:
             unsigned int val;
         public:
-            A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref, unsigned int p );
-            A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref );
+            A( RTController * rtg_rts, RTActorRef * rtg_ref, unsigned int p );
+            A( RTController * rtg_rts, RTActorRef * rtg_ref );
     `
     [[rt::impl]]
     `
-        A_Actor::A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref, unsigned int p )
+        A::A( RTController * rtg_rts, RTActorRef * rtg_ref, unsigned int p )
             : val( 0 )
             , RTActor( rtg_rts ,rtg_ref )
         {
             val = p;
         }    
-        A_Actor::A_Actor( RTController * rtg_rts, RTActorRef * rtg_ref)
+        A::A( RTController * rtg_rts, RTActorRef * rtg_ref)
             : val( 0 )
             , RTActor( rtg_rts ,rtg_ref )
         {

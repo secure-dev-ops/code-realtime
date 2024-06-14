@@ -13,7 +13,7 @@ capsule Top {
 
     part thePart : CapsuleWithConstructor [[rt::create]]
     `
-        return new CapsuleWithConstructor_Actor(rtg_rts, rtg_ref, 14); // Use capsule constructor
+        return new CapsuleWithConstructor(rtg_rts, rtg_ref, 14); // Use capsule constructor
     `;
     
     connect p with thePart.p;
@@ -36,11 +36,11 @@ capsule CapsuleWithConstructor {
     private:
         int number;
     public:
-        CapsuleWithConstructor_Actor(RTController*, RTActorRef*, int);
+        CapsuleWithConstructor(RTController*, RTActorRef*, int);
     `
     [[rt::impl]]
     `
-        CapsuleWithConstructor_Actor::CapsuleWithConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, int v)
+        CapsuleWithConstructor::CapsuleWithConstructor(RTController* rtg_rts, RTActorRef* rtg_ref, int v)
             : RTActor(rtg_rts, rtg_ref), number(v) {}
     `
     service behavior port p~ : Proto;

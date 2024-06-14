@@ -16,7 +16,7 @@ public:
 			[this](RTController *c, RTActorRef *a, int index)
 			{
 				std::cout << "Creating ConcreteLogger with RTInjector registered create function\n";
-				return new ConcreteLogger_Actor(c, a);
+				return new ConcreteLogger(c, a);
 			});
 	}
 

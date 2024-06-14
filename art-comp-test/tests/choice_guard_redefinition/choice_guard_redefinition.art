@@ -23,7 +23,7 @@ capsule Top {
         state State1, State2, State3;
         initial -> State1
         `
-            Base_Actor::initialState = Base_Actor::STATE_A;
+            Base::initialState = Base::STATE_A;
             RTActorId id = frame.incarnate(basePart);
             if (!id.isValid()) {
                 FAIL("Failed to incarnate basePart");
@@ -31,7 +31,7 @@ capsule Top {
         `;     
         State1 -> State2 on p_base.ack
         `
-            Base_Actor::initialState = Base_Actor::STATE_B;
+            Base::initialState = Base::STATE_B;
             RTActorId id = frame.incarnate(derivedPart);
             if (!id.isValid()) {
                 FAIL("Failed to incarnate derivedPart");
@@ -39,10 +39,10 @@ capsule Top {
         `;
         State2 -> State3 on p_derived.ack
         `
-            std::cout << "Base_Actor::baseGuard = " << Base_Actor::baseGuard << std::endl;
-            std::cout << "Derived_Actor::derivedGuard = " << Derived_Actor::derivedGuard << std::endl;
-            ASSERT(Base_Actor::baseGuard == 1, "Incorrect number of base guard calls");
-            ASSERT(Derived_Actor::derivedGuard == 1, "Incorrect number of derived guard calls");
+            std::cout << "Base::baseGuard = " << Base::baseGuard << std::endl;
+            std::cout << "Derived::derivedGuard = " << Derived::derivedGuard << std::endl;
+            ASSERT(Base::baseGuard == 1, "Incorrect number of base guard calls");
+            ASSERT(Derived::derivedGuard == 1, "Incorrect number of derived guard calls");
             PASS();
         `;
     };
@@ -65,8 +65,8 @@ capsule Base {
     `
     [[rt::impl]]
     `
-        Base_Actor::FirstState Base_Actor::initialState;
-        int Base_Actor::baseGuard = 0;
+        Base::FirstState Base::initialState;
+        int Base::baseGuard = 0;
     `
 
     service behavior port p~ : Proto;
@@ -78,7 +78,7 @@ capsule Base {
         
         aTrans: c -> A when `
             std::cout << "Calling guard in Base\n";
-            Base_Actor::baseGuard++;
+            Base::baseGuard++;
             return initialState == STATE_A;
         `
         `
@@ -103,7 +103,7 @@ capsule Derived : Base {
     `
     [[rt::impl]]
     `
-        int Derived_Actor::derivedGuard = 0;
+        int Derived::derivedGuard = 0;
     `
     statemachine {
         state State1;
@@ -113,7 +113,7 @@ capsule Derived : Base {
         `;
         redefine bTrans: c -> B when `
             std::cout << "Calling guard in Derived\n";
-            Derived_Actor::derivedGuard++;
+            Derived::derivedGuard++;
             return initialState == STATE_B;
         `
         `
