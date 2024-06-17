@@ -1,3 +1,10 @@
+[[rt::decl]]
+`
+`
+
+[[rt::impl]]
+``
+
 capsule Top {
     [[rt::header_preface]]
     `
@@ -17,6 +24,10 @@ protected:
     int i = 0;
 
 
+    `
+
+    [[rt::impl]]
+    `
     `
 
     behavior port timer : Timing;
@@ -80,6 +91,9 @@ std::cout << "transition E -> F" << std::endl;
                 std::cerr << "TEST FAILED (i != 2)" << std::endl;
             }
             context()->abort();
+        `;
+        H -> I on timer.timeout ``;
+        I -> J on timer.timeout `
         `;
     };
 };
