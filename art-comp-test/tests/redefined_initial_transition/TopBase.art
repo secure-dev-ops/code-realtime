@@ -15,7 +15,7 @@ protected:
         };
         _initial: initial -> WaitForRequest
         `
-            cout << "TopBase initial transition: TCP server started" << endl;
+            cout << "TopBase initial transition" << endl;
             init++;
         `;
     };

@@ -2,7 +2,7 @@ capsule Top : TopBase {
     statemachine {
         redefine _initial : initial -> WaitForRequest
         `
-            cout << "Server started!" << endl;
+            cout << "Top initial transition" << endl;
             CALLSUPER;
             init++;
             ASSERT(init == 2, "Both initial transitions must be called, from TopBase via CALLSUPER, and redefined from Top");
