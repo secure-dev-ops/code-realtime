@@ -1,6 +1,10 @@
 // Representation of the push button which a pedestrian can push
 // to request a safe crossing of the street.
-capsule PushButton {
+capsule PushButton : `IPushButton` {
+    [[rt::header_preface]]
+    `
+        #include "IPushButton.h"
+    `
     [[rt::impl_preface]]
     `
         #include <iostream>
@@ -11,12 +15,12 @@ capsule PushButton {
     `
         public:
             // Called by the Qt UI when the push button is clicked
-            void onClicked();   
+            virtual void onClicked() override;
     `
 
     [[rt::impl]]
     `
-        void PushButton_Actor::onClicked() {
+        void PushButton::onClicked() {
             external.raise();
         }
     `
