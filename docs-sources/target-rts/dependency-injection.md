@@ -19,7 +19,7 @@ A call to `registerCreateFunction()` to customize the incarnation of capsule ins
 ``` cpp
 RTInjector::getInstance().registerCreateFunction("/logSystem:0/logger",
 	[this](RTController * c, RTActorRef * a, int index) {						
-		return new TimestampLogger_Actor(c, a);
+		return new TimestampLogger(c, a);
 	}
 );
 ```

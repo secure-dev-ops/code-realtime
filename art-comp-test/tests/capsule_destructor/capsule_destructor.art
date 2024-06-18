@@ -1,0 +1,60 @@
+protocol Proto {    
+    in ack();
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include "CapsuleWithDestructor.h"        
+    `
+    behavior port frame : Frame;
+    behavior port p : Proto;
+
+    optional part thePart : CapsuleWithDestructor;
+    
+    connect p with thePart.p;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1
+        `   
+            RTActorId id = frame.incarnate(thePart);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate thePart");
+            }        
+        `;     
+        State1 -> State2 on p.ack
+        `
+            ASSERT(frame.destroy(thePart) == 1, "Failed to destroy");            
+            ASSERT(CapsuleWithDestructor::destroyed, "Seems the destructor was not called");
+            PASS();
+        `;
+    };
+};
+
+capsule CapsuleWithDestructor {
+    [[rt::decl]]
+    `
+    public:
+        static bool destroyed;
+    public:
+        virtual ~CapsuleWithDestructor();
+    `
+    [[rt::impl]]
+    `
+        bool CapsuleWithDestructor::CapsuleWithDestructor::destroyed = false;
+
+        CapsuleWithDestructor::~CapsuleWithDestructor() {
+            destroyed = true;
+        }
+    `
+    service behavior port p~ : Proto;
+    statemachine {
+        state State;
+        initial -> State
+        `
+            p.ack().send();
+        `;
+    };
+};

@@ -81,7 +81,7 @@ If the part is fixed you need to use a [capsule factory](../art-lang/index.md#pa
 ``` art
 fixed part server : Server [[rt::create]]
 `
-    return new Server_Actor(LogicalThread, rtg_ref);
+    return new Server(LogicalThread, rtg_ref);
 `;
 ```
 

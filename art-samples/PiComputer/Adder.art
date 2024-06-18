@@ -9,7 +9,7 @@ capsule Adder {
     [[rt::impl]]
     `
         #include <math.h>
-        void Adder_Actor::printDouble(double p1, int inc) {
+        void Adder::printDouble(double p1, int inc) {
             log.show(p1); 
             log.show(" ");
             log.log(inc);        

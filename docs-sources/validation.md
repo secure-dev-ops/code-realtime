@@ -429,11 +429,11 @@ capsule Name {
     part x : OtherCap 
     [[rt::create]]
     `
-        return new DemoCap_Actor(rtg_rts, rtg_ref);
+        return new DemoCap(rtg_rts, rtg_ref);
     `
     [[rt::create]] // ART_0012 (duplicated code snippet)
     `
-        return new DemoCap_Actor(rtg_rts, rtg_ref);
+        return new DemoCap(rtg_rts, rtg_ref);
     `;
 
     statemachine {

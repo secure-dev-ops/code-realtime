@@ -44,7 +44,7 @@ capsule Top
             }
             id = frame.incarnate(caps, EmptyObject /* no initialization data */, MyLogicalThread);
             if (!id.isValid()) {
-                FAIL("Failed to incarnate caps[0]");
+                FAIL("Failed to incarnate caps[1]");
             }
             // caps[0] will run in the same physical thread as Top, i.e. in the main thread
             // caps[1] will run in the physical thread to which MyLogicalThread is mapped
