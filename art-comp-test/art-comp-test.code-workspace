@@ -132,6 +132,9 @@
             "path": "tests/redefined_entry_action"
         },
         {
+            "path": "tests/redefined_initial_transition"
+        },
+        {
             "path": "tests/struct_type_descriptor"
         },
         {

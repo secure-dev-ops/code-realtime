@@ -1,0 +1,22 @@
+capsule TopBase {
+    [[rt::decl]]
+    `
+protected:
+        int init = 0;
+    `
+    behavior port external : External;
+
+    statemachine {
+        state WaitForRequest {
+            entry
+            `
+                external.enable();
+            `;
+        };
+        _initial: initial -> WaitForRequest
+        `
+            cout << "TopBase initial transition: TCP server started" << endl;
+            init++;
+        `;
+    };
+};
