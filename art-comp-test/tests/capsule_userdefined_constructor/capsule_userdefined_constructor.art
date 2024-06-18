@@ -33,15 +33,15 @@ capsule CapsuleWithUserDefinedConstructor {
     private:
         int number;
     public:
-        CapsuleWithUserDefinedConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref): RTActor(rtg_rts, rtg_ref) {
+        CapsuleWithUserDefinedConstructor(RTController* rtg_rts, RTActorRef* rtg_ref): RTActor(rtg_rts, rtg_ref) {
                    number = 15;
         }
-       CapsuleWithUserDefinedConstructor_Actor(RTController*, RTActorRef*, int i);
+       CapsuleWithUserDefinedConstructor(RTController*, RTActorRef*, int i);
     `
     [[rt::impl]]
     `
         // User-defined capsule constructor without any "extra" parameters
-        CapsuleWithUserDefinedConstructor_Actor::CapsuleWithUserDefinedConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, int i)
+        CapsuleWithUserDefinedConstructor::CapsuleWithUserDefinedConstructor(RTController* rtg_rts, RTActorRef* rtg_ref, int i)
             : RTActor(rtg_rts, rtg_ref), number(14) {             
             }
     `

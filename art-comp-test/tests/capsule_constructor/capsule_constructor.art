@@ -21,7 +21,7 @@ capsule Top {
         `   
             RTActorId id = frame.incarnateCustom(thePart,
             RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
-                return new CapsuleWithConstructor_Actor(c, a, 14); // Use capsule constructor
+                return new CapsuleWithConstructor(c, a, 14); // Use capsule constructor
             }));
             if (!id.isValid()) {
                 FAIL("Failed to incarnate thePart");
@@ -42,11 +42,11 @@ capsule CapsuleWithConstructor {
     private:
         int number;
     public:
-        CapsuleWithConstructor_Actor(RTController*, RTActorRef*, int);
+        CapsuleWithConstructor(RTController*, RTActorRef*, int);
     `
     [[rt::impl]]
     `
-        CapsuleWithConstructor_Actor::CapsuleWithConstructor_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, int v)
+        CapsuleWithConstructor::CapsuleWithConstructor(RTController* rtg_rts, RTActorRef* rtg_ref, int v)
             : RTActor(rtg_rts, rtg_ref), number(v) {}
     `
     service behavior port p~ : Proto;

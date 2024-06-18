@@ -24,5 +24,5 @@ class GlobalCapsuleFactory : public RTActorFactoryInterface {
 [[rt::impl]]
 `
 template<>
-GlobalCapsuleFactory<A_Actor> GlobalCapsuleFactory<A_Actor>::factory2(22); // Used as default factory (referenced in TC)
+GlobalCapsuleFactory<A> GlobalCapsuleFactory<A>::factory2(22); // Used as default factory (referenced in TC)
 `

@@ -10,7 +10,7 @@ capsule Top {
     optional part part1 : A [0..1];
     optional part part2 : A [0..1][[rt::create]]
     `
-        return new A_Actor(rtg_rts, rtg_ref, 23);
+        return new A(rtg_rts, rtg_ref, 23);
     `;
     statemachine {
         state S1, S2, Done {

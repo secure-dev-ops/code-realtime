@@ -51,7 +51,7 @@ capsule Receiver : ReceiverBase {
     `
     [[rt::impl]]
     `
-    void Receiver_Actor::unhandledMessage() {
+    void Receiver::unhandledMessage() {
         ASSERT(RTMemoryUtil::strcmp("e1", msg->getSignalName(), 2) == 0, "Event e1 must be unhandled");
         cout << "unhandledMessage " << msg->getSignalName() << endl;
         n++;

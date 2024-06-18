@@ -7,11 +7,11 @@ capsule Top {
     [[rt::decl]]
     `
     public:
-        ~Top_Actor();
+        ~Top();
     `
     [[rt::impl]]
     `
-        Top_Actor::~Top_Actor() { 
+        Top::~Top() { 
             PASS();           
         }
         

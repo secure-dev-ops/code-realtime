@@ -1,0 +1,99 @@
+[[rt::decl]]
+`
+`
+
+[[rt::impl]]
+``
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]] `#include <iostream>`
+    [[rt::impl_ending]]
+    `
+#define ELENA 1
+    `
+    [[rt::decl]]
+    `
+public:
+    std::string myStr = "ELENA";
+
+protected:
+    int i = 0;
+
+
+    `
+
+    [[rt::impl]]
+    `
+    `
+
+    behavior port timer : Timing;
+    statemachine {
+        state A, B, C, D, E, F, G, H, I, J, K;
+        initial -> A
+        `
+            // common with spaces
+            std::cout << "initial transition" << std::endl;
+            RTTimerId tid = timer.informEvery(RTTimespec(0, 100000000));
+            if (!tid.isValid()) {
+                // timer could not be set
+            }
+        `;
+        A -> B on timer.timeout
+        `
+			// common with tabs
+			std::cout << "transition A -> B" << std::endl;
+        `;
+        B -> C on timer.timeout
+        `
+			// common with tabs and spaces combined
+			std::cout << "transition B -> C  1" << std::endl;
+            std::cout << "transition B -> C  2" << std::endl;
+			std::cout << "transition B -> C  3" << std::endl;
+			
+
+        `;
+        C -> D on timer.timeout
+        `
+            // common with spaces and tabs combined
+            std::cout << "transition C -> D  1" << std::endl;
+			std::cout << "transition C -> D  2" << std::endl;
+            std::cout << "transition C -> D  3" << std::endl;
+            
+
+            
+        `;
+        D -> E on timer.timeout
+        `
+
+            if (true) {
+                std::cout << "transition D -> E" << std::endl;
+            }
+
+
+
+        `;
+        E -> F on timer.timeout when `myStr.size() == 5`
+        `
+i++;
+std::cout << "transition E -> F" << std::endl;
+
+        `;
+        F -> G on timer.timeout `i++; std::cout << "transition F -> G" << std::endl;`;
+        G -> H on timer.timeout `   // Comment in the first line
+            std::cout << "transition G -> H" << std::endl;
+            if (i == 2) {
+                std::cout << "***PASS***" << std::endl;
+            } else {
+                std::cerr << "TEST FAILED (i != 2)" << std::endl;
+            }
+            context()->abort();
+        `;
+        H -> I on timer.timeout ``;
+        I -> J on timer.timeout `
+        `;
+    };
+};

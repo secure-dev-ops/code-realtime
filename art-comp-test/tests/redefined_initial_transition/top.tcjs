@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'redefined_initial_transition_target';
+tc.topCapsule = "Top";
+tc.commonPreface = `
+#include <iostream>
+using namespace std;
+
+#include "testlib.art.h"
+`;

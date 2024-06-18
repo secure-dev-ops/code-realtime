@@ -33,6 +33,9 @@
             "path": "tests/choice_transition_exclude"
         },
         {
+            "path": "tests/code_snippets"
+        },
+        {
             "path": "tests/composite_state_entry_exit_guards"
         },
         {
@@ -127,6 +130,9 @@
         },
         {
             "path": "tests/redefined_entry_action"
+        },
+        {
+            "path": "tests/redefined_initial_transition"
         },
         {
             "path": "tests/struct_type_descriptor"
