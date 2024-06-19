@@ -1,0 +1,30 @@
+abstract capsule AbstractCapsule {
+    statemachine {
+        state AbstractState;
+    // OK to not define an initial transition in this state machine since the 
+    // capsule is abstract.
+    };
+};
+capsule Top : AbstractCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    statemachine {
+        state AnotherState;
+        initial -> AbstractState
+        `
+            PASS();
+        `;
+    };
+};
+abstract class AClass {
+    [[rt::decl]]
+    `
+        virtual void implementMe() = 0;
+    `
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

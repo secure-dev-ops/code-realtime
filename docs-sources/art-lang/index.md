@@ -235,15 +235,14 @@ Names of Art elements must be valid C++ identifiers since they will be used as n
 
 Just like any language, Art has certain keywords that are reserved and which cannot be used as names. These keywords are listed below:
 
-| Art keywords | | |  |  |
-|----------|:-------------|:-------------|:-------------|:-------------|
-|behavior|capsule|choice|class|connect
-|entry|entrypoint|exclude|exit|exitpoint
-|fixed|history|in|initial|junction
-|notify|on|optional|out|part|
-|plugin|port|protocol|publish|redefine
-|service|state|statemachine|subscribe|template
-|trigger|typename|unwired|when|with
+| Art keywords | | | | | |
+|----------|:-------------|:-------------|:-------------|:-------------|:-------------|
+|abstract|behavior|capsule|choice|class|connect
+|entry|entrypoint|exclude|exit|exitpoint|fixed
+|history|in|initial|junction|notify|on
+|optional|out|part|plugin|port|protocol
+|publish|redefine|service|state|statemachine|subscribe
+|template|trigger|typename|unwired|when|with
 
 Art is a case-sensitive language and names may use any capitalization. However, just like with most languages, there are conventions for how to capitalize names. Those conventions are described below where each Art language construct is described in detail.
 
@@ -309,13 +308,13 @@ capsule MyCap {
     [[rt::decl]]
     `
         public:
-            MyCap_Actor(RTController*, RTActorRef*, MyClass&);
+            MyCap(RTController*, RTActorRef*, MyClass&);
         private:
             MyClass& m_c;
     `
     [[rt::impl]]
     `
-        MyCap_Actor::MyCap_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass& c) 
+        MyCap::MyCap(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass& c) 
             :RTActor(rtg_rts, rtg_ref), m_c(c) { }
     `
 };
@@ -326,7 +325,7 @@ If you don't define any constructor for your capsule, a default capsule construc
 ``` cpp
 RTActorId id = frame.incarnateCustom(thePart,
     RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
-        return new MyCap_Actor(c, a, getMyClass()); // Use capsule constructor
+        return new MyCap(c, a, getMyClass()); // Use capsule constructor
     }));
 if (!id.isValid()) {
     // Failed to incarnate thePart
@@ -335,7 +334,6 @@ if (!id.isValid()) {
 
 Note the following:
 
-* In C++ the capsule class has the "_Actor" suffix.
 * A capsule constructor must call the `RTActor` constructor in its initializer.
 * Code that calls the capsule constructor must include the header file where the capsule is located.
 
@@ -345,7 +343,30 @@ Note the following:
 Read more about capsule factories [here](../target-rts/capsule-factory.md).
 
 ### Capsule Destructor
-The destructor of a capsule frees the memory used for representing its states, ports etc. You cannot provide your own code to the destructor implementation. However, the `RTActor` class, which is the base class of every capsule class, provides a virtual function `_predestroy()` which you can override in your capsule. This function gets called just before the capsule instance is destroyed and is the place where you should put code that cleans up resources allocated by the capsule. Here is an example:
+The destructor of a capsule frees the memory used for representing its states, ports etc. You can provide your own destructor if you want to perform additional clean-up activites when a capsule instance is destroyed (for example, freeing resources allocated in the capsule constructor).
+
+``` art
+capsule CapsuleWithDestructor {
+    [[rt::decl]]
+    `    
+    public:
+        virtual ~CapsuleWithDestructor();
+    `
+    [[rt::impl]]
+    `     
+        CapsuleWithDestructor::~CapsuleWithDestructor() {
+            // Clean-up code here
+        }
+    `    
+};
+```
+
+!!! example
+    You can find a sample application with a capsule that implements its own destructor [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_destructor).
+
+Clean-up code can also be placed in a function `_predestroy()` which overrides `RTActor::_predestroy()`. This function gets called just before the capsule instance is destroyed and may often be a better place where to write clean-up code. If you are using a custom capsule factory which doesn't destroy capsule instances by means of the standard `delete` operator, then the capsule destructor will not be called, and you can instead use `_predestroy()` which always is called when a capsule instance is about to be destroyed.
+
+Here is an example of how to use `_predestroy()`:
 
 ``` art
 capsule C {    
@@ -696,7 +717,7 @@ Here is an example where a part defines a capsule factory that specifies a creat
 ``` art
 part engine : Engine [[rt::create]]
 `
-    return new Engine_Actor(rtg_rts, rtg_ref, true /* custom constructor arg */);
+    return new Engine(rtg_rts, rtg_ref, true /* custom constructor arg */);
 `;
 ```
 
@@ -1231,7 +1252,7 @@ capsule B {
     `
     [[rt::impl]]
     `        
-        void B_Actor::doSmth() {
+        void B::doSmth() {
             // ...
         }
     `
@@ -1258,7 +1279,7 @@ capsule D : B, `IDataManager`, `IController` {
     `
         // impl of manageData() and control()
 
-        void D_Actor::doSmth() {
+        void D::doSmth() {
             // ...
             SUPER::doSmth(); // Call inherited function
         }
@@ -1341,6 +1362,37 @@ That is, `CALLSUPER` is equivalent to `SUPERMETHOD(rtdata, rtport)`.
 
 Note that these macros are just a convenience and you can accomplish the same thing if you place the code of the transition code snippet in a virtual capsule member function, which then can be overridden in the sub capsule.
 
+#### Abstract Capsule
+Some capsules are not intended to be instantiated, and just provides a base implementation which other capsules can reuse and specialize by means of inheritance. Such capsules should be declared as **abstract**. By doing so, you can leave the state machine of the abstract capsule incomplete, with only a partial implementation. Validation rules that check the correctness of capsule state machines will not report any problems for state machines of abstract capsules.
+
+Below is an example of an abstract capsule `Base` which provides a partial implementation of a state machine. The capsule `C` inherits from `Base` and extends the inherited state machine to make it complete.
+
+``` art
+abstract capsule Base {    
+    statemachine {
+        state State;
+        initial -> State;
+        choice x; // Would normally report error ART_0006, but not for abstract capsule        
+    };
+};
+
+capsule C : Base {
+    statemachine {
+        state A, B;
+        x -> A when `expr()`;
+        x -> B when `else`;
+    };
+};
+```
+
+The `Base` capsule state machine has a choice `x` without any outgoing transitions. Normally a problem would be reported for that ([`ART_0006`](../validation.md#art_0006_choicewithoutoutgoingtransitions)), but because `Base` is an abstract capsule, no error is reported. The capsule `C`, which is non-abstract, can inherit `Base` but must then define the missing outgoing transitions.
+
+!!! note
+    A capsule that contains one or many pure virtual functions (either locally defined or inherited) is effectively also abstract in the sense that it cannot be instantiated. However, to use a partial state machine in a capsule you need to declare it with the `abstract` keyword. Of course, you can still declare pure virtual functions for an abstract capsule if needed.
+
+!!! example
+    You can find a sample application with an abstract capsule [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/abstract_capsule).
+
 ### Class Inheritance
 A [class with state machine](#class-with-state-machine) can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.
 
@@ -1359,6 +1411,22 @@ class DataClass : `DataContainer<CData>`, `IDisposable` {
         void DataClass:dispose() {
             // impl
         }
+    `
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+```
+
+#### Abstract Class
+Just like for [abstract capsules](#abstract-capsule), you can declare a class with the `abstract` keyword. However, since class state machines are not inherited, there is no formal meaning in doing so. It can still sometimes be useful to declare a class as abstract, to tell users of the class that it should not be directly instantiated. For example, if a class has a pure virtual function it is effectively abstract, and you can then use the `abstract` keyword to further emphasize this.
+
+``` art
+abstract class AClass {
+    [[rt::decl]]
+    `
+        virtual void implementMe() = 0;
     `
     statemachine {
         state State;
@@ -1392,6 +1460,43 @@ protocol ExtendedMachineEvents : MachineEvents {
 
     * [A derived protocol inherits events from a base protocol]({$vars.github.repo$}/tree/main/art-comp-test/tests/protocol_inheritance)
     * [A derived protocol redefines the parameter type of an inherited event]({$vars.github.repo$}/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event)
+
+## Template
+A template is a type that is parameterized by means of template parameters to make it more generic. When a template is used (a.k.a. instantiated), actual template parameters must be provided that match the formal template parameters defined in the template. Currently only [classes](#class-with-state-machine) can have template parameters. Just like in C++, two kinds of template parameters are supported:
+
+* **Type template parameter**
+
+Replaced with a type when the template is instantiated.
+
+* **Non-type template parameters**
+
+Replaced with a non-type, for example a constant value, when the template is instantiated.
+
+Template parameters may have defaults that will be used if a matching actual template parameter is not provided when instantiating the template.
+
+Below is an example of a class with template parameters, some of which have defaults specified. The keywords `typename` and `class` can both be used for defining a type template parameter. A non-type template parameter is defined by specifying its type as a C++ code snippet.
+
+``` art
+template <typename T = `int`, class U, `int` p1 = `5`>
+class TemplateClass : `Base<T,U,p1>` {
+    [[rt::decl]]
+    `
+        void func(T arg1) {
+            // impl
+        }
+    `
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+```
+Template parameters can only be used from C++ code snippets, and above you see some examples of how they can be used. It's not possible to instantiate a template in Art itself. For example, even if class `Base` above was defined as an Art class, a C++ code snippet has to be used since it has template parameters.
+
+!!! example
+    You can find a sample application using templates [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/class_with_template).
+
 
 ## Property
 Properties are name-value pairs that provide a generic mechanism for augmenting Art elements with extra data. Such data can be utilized by tools that operate on a parsed Art file, such as the code generator and semantic checker. Most Art elements can have properties and the syntax for specifying properties is the same regardless of the kind of element. However, different kinds of Art elements can have different properties.
