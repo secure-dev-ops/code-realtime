@@ -1,0 +1,90 @@
+template <typename T, class U, `int` p1>
+class Base {
+statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+template <typename T, class U, `int` p1 >
+class TemplateClass : `Base<T,U,p1>` {
+
+    [[rt::header_preface]]
+    `
+        #include "Base.h"
+    `
+    [[rt::decl]]
+    `
+    public:
+        T var;
+        U v;
+        int x = p1;
+    `
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+template <typename T = `MyClass`, class U = `int`, `int` p1 = `5`>
+class TemplateClassWithDefaultTemplateValues : `Base<T,U,p1>` {
+
+    [[rt::header_preface]]
+    `
+        #include "Base.h"
+        #include "MyClass.h"   
+
+    `
+    [[rt::decl]]
+    `
+    public:
+        T var;
+        U v;
+        int x = p1;
+    `
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+class MyClass {
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"      
+        #include "TemplateClass.h"    
+        #include "TemplateClassWithDefaultTemplateValues.h"    
+        #include "MyClass.h"   
+    `
+    statemachine {
+        state State1;
+        initial -> State1 
+        `        
+            TemplateClass<int, MyClass, 42> instance;
+            ASSERT(instance.x == 42, "Unexpected value of x");
+            instance.var = 5;
+            instance.v = MyClass();
+
+            TemplateClass<double, float, 0> instance2;
+            ASSERT(instance2.x == 0, "Unexpected value of x");
+            instance2.var = 3.14f;
+            instance2.v = 3.14;
+
+
+            TemplateClassWithDefaultTemplateValues instance3;
+            ASSERT(instance3.x == 5, "Unexpected value of x");
+            instance3.var = MyClass();
+            instance3.v = 25;
+
+            PASS();
+        `;
+    };
+};
+

@@ -39,6 +39,9 @@
             "path": "tests/choice_transition_exclude"
         },
         {
+            "path": "tests/class_with_template"
+        },
+        {
             "path": "tests/code_snippets"
         },
         {
