@@ -1,0 +1,69 @@
+capsule Top {
+[[rt::impl_preface]]
+`
+    #include <iostream>
+`
+    
+[[rt::decl]]
+`
+private:
+    unsigned int port = 0;          // TCP port
+    void parseCommandLine();
+`
+[[rt::impl]]
+`
+    void Top::parseCommandLine() {
+        int ac = RTMain::argCount();
+        const char * const * av = RTMain::argStrings();
+        std::string arg_port = "-port=";
+    
+        while( --ac > 0 ) {
+            std::string arg = *++av;
+            if (arg.compare(0, arg_port.size(), arg_port) == 0 )
+                port = RTMemoryUtil::atoi(*av + arg_port.size());
+        }
+        if (port == 0) 
+            std::cout << "'port' is invalid: " << port << std::endl;        
+    }
+`
+
+    optional part server : Server;
+    optional part counter : RangeCounter;
+    behavior port frame : Frame;
+    behavior port serverControlPort~ : TCPServerControl;    
+    connect serverControlPort with server.control;
+    connect server.counter with counter.server;
+
+    statemachine {
+        state ManageCommandPrompt {
+            entry
+            `
+                parseCommandLine();
+                if (port == 0) {                    
+                    context()->abort();
+                    return;
+                }
+
+                std::cout << "TcpRangeCounter listens for TCP requests on port " << port << std::endl;
+                RTActorId id = frame.incarnateCustom(server, 
+                    RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
+                        return new Server(ServerThread, a, port); // Pass port and remotePort to capsule constructor
+                    }
+                ));
+                if (!id.isValid()) {
+                    std::cout << "Failed to start Server!" << std::endl;
+                }
+                id = frame.incarnateCustom(counter, 
+                    RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
+                        return new RangeCounter(ServerThread, a);
+                    }
+                ));
+                if (!id.isValid()) {
+                    std::cout << "Failed to start RangeCounter!" << std::endl;
+                }
+                std::cout << "Ready to start counting!" << std::endl;
+          `;
+        };
+        initial -> ManageCommandPrompt;
+    };
+};

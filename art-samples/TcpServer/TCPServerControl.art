@@ -1,0 +1,5 @@
+// General events for controlling the TCPServer that are not specific to a certain Code RealTime application.
+protocol TCPServerControl {
+    // Stop the TCPServer
+    in stop();
+};

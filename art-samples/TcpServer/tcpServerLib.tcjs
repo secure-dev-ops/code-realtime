@@ -1,0 +1,17 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+// TCF.getTopTC() will return a top TC for which this TC must be a direct or indirect prerequisite
+
+tc.compileArguments = TCF.getTopTC().eval.compileArguments;
+tc.copyrightText = `
+/*******************************************************************************
+ * (c) Copyright HCLSoftware 2024.  MIT Licensed!
+ *******************************************************************************/
+`;
+//tc.libraryName = 'tcpServerLib$(LIB_EXT)';
+tc.targetConfiguration = TCF.getTopTC().eval.targetConfiguration;
+
+tc.targetProject = 'LibTCPServer_target';
+tc.targetRTSLocation = TCF.getTopTC().eval.targetServicesLibrary;
+//tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+
+tc.unitName = 'UnitName_TCPLib';

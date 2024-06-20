@@ -1,0 +1,28 @@
+capsule Server : TCPServer {
+[[rt::impl_preface]]
+`
+    #include <iostream>
+    #include <string>
+`
+[[rt::decl]]
+`
+public:
+    Server(RTController* rtg_rts, RTActorRef* rtg_ref, unsigned int port);
+`
+
+[[rt::impl]]
+`
+    Server::Server(RTController* rtg_rts, RTActorRef* rtg_ref, unsigned int port)
+        : SUPER(rtg_rts, rtg_ref) {
+        config.port = port; 
+        config.logToStdOut = false;       
+        std::cout << "Server started!" << std::endl;
+    }
+`
+
+    service behavior port counter~ : Events;    
+
+    statemachine {
+        
+    };
+ };

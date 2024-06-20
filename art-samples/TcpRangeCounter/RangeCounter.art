@@ -1,0 +1,94 @@
+/**
+ * Counts the integers in a range, from min to max
+ */
+capsule RangeCounter {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+
+    [[rt::decl]]
+    `
+    private:
+        unsigned int counter = 0;
+        unsigned int min = 0;
+        unsigned int max = 10;
+        int delta = 1; 
+
+        RTTimerId timerId;
+    `
+    service behavior port server : Events;
+    
+    behavior port timer : Timing;
+    statemachine {
+        state Active {
+            entrypoint ep;
+            state MinReached;
+            state MaxReached;
+
+            state Counting {
+                entry
+                `
+                    // Start counting
+                    counter+=delta;
+                    timerId = timer.informEvery(RTTimespec(1,0));
+                `;                
+
+                timeout: on timer.timeout
+                `                 
+                    std::cout << counter << std::endl;               
+                    counter+=delta;
+                `;
+
+                resumeCounting: on server.resumeCounting; // Already counting - ignore
+            };  
+
+            ep -> Counting;          
+
+            maxReached: Counting -> MaxReached on timer.timeout when `counter >= max`
+            `
+                std::cout << "Max reached: " << max << std::endl;
+                counter = max;
+                if (timerId.isValid()) {
+                    timer.cancelTimer(timerId);
+                }
+            `;
+
+            minReached: Counting -> MinReached on timer.timeout when `counter <= min`
+            `
+                std::cout << "Min reached: " << min << std::endl;
+                counter = min;
+                if (timerId.isValid())
+                    timer.cancelTimer(timerId);
+            `;
+
+            // We start counting again when entering Counting state.
+            MaxReached -> Counting on server.resumeCounting;
+            MinReached -> Counting on server.resumeCounting;
+
+            setMin: on server.setMin
+            `
+                min = * static_cast<const unsigned int*>(rtdata);
+                std::cout << "Min set to " << min << std::endl;
+            `;
+            setMax: on server.setMax
+            `
+                max = * static_cast<const unsigned int*>(rtdata);
+                std::cout << "Max set to " << max << std::endl;
+            `;
+            setDelta: on server.setDelta
+            `
+                int newDelta = * static_cast<const int*>(rtdata);
+                if (newDelta != 0) {
+                    delta = newDelta;
+                    std::cout << "Delta set to " << delta << std::endl;
+                }
+                else
+                    std::cout << "Invalid delta 0 ignored" << std::endl;
+            `;            
+
+        };
+
+        initial -> Active.ep;
+    };
+};

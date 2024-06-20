@@ -1,17 +1,26 @@
 { "folders": [
-        {
+		{
+            "path": "DependencyInjection"
+        },
+		{
             "path": "HelloWorld"
         },
-        {
+		{
             "path": "PiComputer"
         },
-        {
+		{
             "path": "PingPong"
         },
-        {
+		{
             "path": "QtTrafficLight"
         },
+		{
+            "path": "TcpRangeCounter"
+        },
         {
+            "path": "TcpServer"
+        },
+		{
             "path": "TrafficLight"
         }
     ]

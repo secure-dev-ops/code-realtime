@@ -1,0 +1,32 @@
+[[rt::decl]]
+`
+#include <string>
+
+// Configuration properties for the TCPServer capsule
+struct TCPServer_Config {
+    // The TCP port in the Code RealTime application used for incoming messages.
+    unsigned int port = 9911;
+
+    // If true, all incoming TCP messages are assumed to be string-encoded JSON objects according to the format described below. 
+    // Set to false if you wish to implement your own custom handling of incoming messages.
+    bool defaultHandlingOfReceivedMessages = true;
+
+    // The max number of milliseconds to wait for the Code RealTime application to reply to a request for sending or invoking an event to it. 
+    // If the TCPServer doesn't get a confirmation from the application within the specified time limit, it will assume that the Code RealTime application 
+    // failed to receive the event and return an error message.
+    unsigned int maxWaitForReply = 5000;
+
+    // The TCP port on which the remote application (that will receive outgoing messages) listens.
+    unsigned int remotePort = 2234;
+
+    // The name or IP address of the machine where the remote application (that will receive outgoing messages) runs.
+    std::string remoteHost = "127.0.0.1";
+
+    // By default various log message are printed to stdout. This can help troubleshooting while developing. Set this property to false to disable such printouts.
+    bool logToStdOut = true;
+
+    // The max number of clients that can be connected to the TCP server simultaneously.
+    unsigned int maxSupportedClient = 100;
+};
+
+`

@@ -1,0 +1,894 @@
+capsule TCPServer {
+[[rt::header_preface]]
+`
+#include <string>
+#include "TCPServer_Config.art.h"
+class ITCPConnection;
+`
+[[rt::impl_preface]]
+`
+#include <iostream>
+#include <sstream>
+#include <chrono>
+#include <thread>
+#include <atomic>
+#include <list>
+#include <RTUnknownObject.h>
+#include <RTDynamicStringOutBuffer.h>
+#include <RTJsonResult.h>
+#include <RTJsonParser.h>
+#include "../src/include/RTIOMonitor.h"
+
+#include "ITCPConnection.h"
+
+// Enclose string in double quotes, and escape with backslash any double quote it already contains
+std::string& stringify(std::string& s) {
+	const std::string quote = "\"";
+	const std::string escaped = "\\\"";
+	for(size_t pos = 0; (pos = s.find(quote, pos)) != std::string::npos; pos += escaped.size())
+		s.replace(pos, quote.size(), escaped);
+	
+	s.insert(0, quote);
+	s.insert(s.size(), quote);
+	return s;
+}
+
+static const std::string NL = "\n";
+
+class LocalServerConnection : public ITCPConnection {
+	TCPServer& server;
+	RTTcpSocket& listenSock;
+	RTTcpSocket clientSock;
+	RTIOMonitor ioMonitorClient;
+	long maxWaitForReply;
+	bool logToStdOut;
+	std::atomic_bool hasReplied;
+
+	friend class ServerJob;
+
+public:
+	LocalServerConnection(TCPServer& srv, RTTcpSocket& sock, bool log, long maxWait)
+			:server(srv), listenSock(sock), logToStdOut(log),
+			 hasReplied(false), maxWaitForReply(maxWait) {
+		clientSock.registerWith(&ioMonitorClient);
+	}
+
+	~LocalServerConnection() {
+		clientSock.close();
+	}
+
+	bool init() {
+
+		if (!clientSock.acceptFrom(listenSock)) {
+			std::cerr << "Connection failed to accept socket" << std::endl;
+			return false;
+		}
+		
+		if (logToStdOut)
+			std::cout << "TCP request received: ";
+
+		// Wait for data to be available on the socket
+		static const RTTimespec awhile(maxWaitForReply/1000, 0L);
+		while (!ioMonitorClient.wait(&awhile)) {
+			if (logToStdOut) {
+				std::cout << "No data available within "<< maxWaitForReply << " ms" << std::endl;
+			}
+			return false;
+		}
+
+		// Read request from socket
+		char buffer[1024];
+		int n;
+		std::string received;
+		do {
+			RTMemoryUtil::memset(buffer, 0, sizeof(buffer));
+			n = clientSock.read(buffer, 1024);
+			if (n > 0)
+				received.append(buffer, n);
+		} while (n > 0);
+
+		if (logToStdOut)
+			std::cout << received << std::endl;
+
+		if (received.empty()) {
+			reply(""); // Empty request - empty response
+			return true;
+		}
+
+		std::pair<std::string, LocalServerConnection*> *data = new std::pair<std::string, LocalServerConnection*>(received, this);
+		server.external.dataPushBack(data);
+
+		if (server.external.raise() == 0) {
+			// The capsule is not ready to receive the external event. Wait a little and try 2 more times before giving up.
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			if (server.external.raise() == 0) {
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
+				if (server.external.raise() == 0) {
+					replyStatus(Status::Error,
+							"Failed to notify TCPServer capsule about received message after 3 attempts. Message is lost!");
+					// Need to remove the data object since this LocalServerConnection soon will become invalid
+					server.external.dataDelete(data);
+
+					return false;
+				}
+			}
+		}
+
+		return true; // success
+	}
+
+	void createStatusJSONMsg(Status status, const std::string& msg, const std::string& result, std::string& str) {
+		std::string s = "ok";
+		if (status == Status::Error) {
+			s = "error";
+			std::cout << s << ": " << msg << std::endl;
+		}
+
+		str = "{\"status\":\"" + s + "\", \"msg\":\"" + msg + "\"";
+		if (!result.empty()) {
+			str.append(", \"result\": ");
+			str.append(result);
+		}
+		str.append("}");
+	}
+
+	virtual void reply(const std::string& msg) {
+		if (hasReplied) {
+			std::cout << "Warning: Multiple reply detected for request. Message: " << msg << std::endl;
+			return;
+		}
+
+		// Send the reply
+		clientSock.write(msg.c_str(), msg.length());
+		clientSock.write(NL.c_str(), NL.length());
+
+		hasReplied = true;
+	}
+
+	virtual void replyStatus(Status status, const std::string& msg, const std::string& result) {
+		std::string str;
+		createStatusJSONMsg(status, msg, result, str);
+		reply(str);
+	}
+
+	virtual void replyStatus(Status status, const std::string& msg) {
+		replyStatus(status, msg, "");
+	}
+
+	virtual void replyHTTPStatus(Status status, const std::string& result) {
+		std::string str = "HTTP/1.1 200 OK\n";
+		str.append("Content-Type: application/json\n");
+		str.append("Access-Control-Allow-Origin: *\n");
+		str.append("Content-Length: " + std::to_string(result.size()));
+		str.append("\n\n");		
+		str.append(result);
+		reply(str);
+	}
+};
+
+// Intercept incoming TCP requests and give them to the TCPServer for processing
+class ServerJob : public RTJob {
+	TCPServer & server;
+	const unsigned int maxSupportedClient;
+	unsigned int port;
+	long maxWaitForReply;
+	bool logToStdOut;
+	std::list<LocalServerConnection*> connections;
+
+public:
+	ServerJob(TCPServer & s, unsigned int p, bool log, long maxWait, const unsigned int maxClient)
+	:server(s), port(p), logToStdOut(log), maxWaitForReply(maxWait), maxSupportedClient(maxClient) {}
+
+	virtual const char* name( void ) const override {
+		return "TCP Server Job";
+	}
+
+	virtual void mainLoop( void ) override {
+		enter( RTJob::running );
+
+		RTIOMonitor ioMonitor;
+		RTTcpSocket listenSock;
+		listenSock.registerWith(&ioMonitor);
+		listenSock.setMaxPendingConnections(maxSupportedClient);
+		if (!listenSock.create() || !listenSock.listen(port))
+		{
+			std::cerr << "Failed to create TCP accept socket" << std::endl;
+			listenSock.close();
+			return;
+		}
+
+		do {
+			static const RTTimespec awhile(maxWaitForReply / 1000 /* s */, 0L /* ns */);
+
+			if (ioMonitor.wait(&awhile)) {
+				//Incoming connection
+
+				LocalServerConnection* lsc = new LocalServerConnection(server, listenSock, logToStdOut, maxWaitForReply);
+
+				if (!lsc->init()) {
+					delete lsc;
+					continue;
+				}
+
+				connections.push_back(lsc);
+			}
+			else {
+				// Ongoing connections should all have been replied to by now
+				while (!connections.empty()) {
+					LocalServerConnection* lsc = connections.front();
+					if (lsc->hasReplied) {
+						if (logToStdOut) {
+							std::cout << "Reply detected. Removing LocalServerConnection" << std::endl;
+						}
+					}
+					else {
+						std::ostringstream s;
+						s << "No response from RT application within " << maxWaitForReply << " ms";
+						lsc->replyStatus(ITCPConnection::Status::Error, s.str(), "");
+					}
+					connections.pop_front();
+					delete lsc;
+				}
+			}
+		} while (phase() != RTJob::finished);
+
+		while (!connections.empty()) {
+			LocalServerConnection* lsc = connections.front();
+			if (!lsc->hasReplied) {
+				lsc->replyStatus(ITCPConnection::Status::Error, "TCP server was stopped before the request was finished", "");
+			}
+			connections.pop_front();
+			delete lsc;
+		}
+
+		delete this;
+	}
+
+	virtual void kill( void ) override {
+		enter( RTJob::finished );
+	}
+};
+
+`
+    
+[[rt::decl]]
+`
+public:
+    friend class LocalServerConnection;
+    friend class ServerJob;
+protected:
+    TCPServer_Config config;
+private:
+    RTJob* job;
+    RTThread* serverThread;
+
+protected:
+    // Returns a JSON array with the names of all capsule ports
+    std::string getPorts();
+
+    virtual void init();
+    virtual void unexpectedMessage();
+    virtual void handleReceivedMessageCustom(const std::string& str, ITCPConnection* conn);
+    virtual void handleReceivedMessageDefault(const std::string& str, ITCPConnection* conn);
+    virtual void handleResponseForOutMessage(const std::string& response);
+`
+
+[[rt::impl]]
+`
+    std::string TCPServer::getPorts() {
+        const RTActor_class* actorData = getActorData();
+    
+    		const RTPortDescriptor* portDescriptor = actorData->ports;
+    		std::string strResult = "[";
+    		bool firstPort = true;
+    		for (int i = actorData->numPorts; --i >= 0; ++portDescriptor ) {
+    			RTProtocol* port = RTObjectOf( RTProtocol, portDescriptor->offset, this );
+    			if (port->getName() == "external" && port->getInfo()->protocol->name == "External")
+    				continue; // Skip the 'external' port of the TCPServer capsule since it's only for internal use
+    
+    			if (!firstPort)
+    				strResult.append(", ");
+    			firstPort = false;
+    
+    			strResult.append("{ \"name\" : \"");
+    			strResult.append(port->getName());
+    			strResult.append("\", \"events\" : [");
+    
+    			// Get all out events of the port's protocol
+    			const RTProtocolDescriptor* protocolDescriptor = portDescriptor->protocol;
+    			const RTProtocolDescriptor* protocolDescriptorConjugate = protocolDescriptor->conjugate;
+    
+    			const RTSignalDescriptor* signalDescriptor = protocolDescriptorConjugate->inSignals;
+    			bool firstEvent = true;
+    			for (int sigCount = protocolDescriptorConjugate->numInSignals; --sigCount >= 0; ++signalDescriptor ) {
+    				if (!signalDescriptor->type)
+    					continue; // Skip TargetRTS internal events such as rtBound and rtUnbound
+    
+    				if (!firstEvent)
+    					strResult.append(", ");
+    				firstEvent = false;
+    
+    				strResult.append("\"");
+    				strResult.append(signalDescriptor->name);
+    				strResult.append("\"");
+    			}
+    
+    			strResult.append("] }");
+    
+    		}
+    		strResult.append("]");
+    		return strResult;
+    }
+    
+    void TCPServer::init() {
+        // Override to set custom values of configuration properties 
+    }
+    
+    void TCPServer::unexpectedMessage() {
+        // Called when an outgoing message arrives at the TCPServer capsule part.
+        // JSON encode it and send the encoding to the specified remote host.
+    
+        if (config.remoteHost.empty() || config.remotePort == 0)
+            return; // Sending of outgoing messages is disabled
+    
+        const RTMessage* msg = getMsg();
+            
+        //RTJsonEncoding coding(&buf);
+        //coding.put_msg(msg);
+        //string str(buf.getString(), RTMemoryUtil::strlen(buf.getString()) - 1);
+    
+        std::string str = "{ \"event\" : \"";
+        str.append(msg->getSignalName());
+        str.append("\" ");
+    
+        const RTObject_class * type = msg->getType();
+        const void* data = msg->getData();
+    
+        if (type != 0) {
+            str.append(", \"type\" : \"");
+            str.append(type->name());
+            str.append("\" ");
+        }
+        if (data != 0) {
+            RTDynamicStringOutBuffer buf;
+            RTAsciiEncoding coding(&buf);
+            coding.put(data, type);
+            str.append(", \"data\" : ");
+            // Make sure the data is encoded as a valid JSON string
+            std::string data(buf.getString());
+            str.append(stringify(data));
+            str.append(" ");
+        }
+    
+        // Make the JSON format identical to 'sendEvent' or 'invokeEvent' objects for incoming events
+        // so it becomes possible to build a distributed Model RealTime application where one
+        // executable can consume the output of another executable.
+        str.append(", \"command\" : \"");
+        if (msg->priority == System) {
+            // Invoked event
+            str.append("invokeEvent\"");
+        }
+        else {
+            // Sent event
+            std::string priority = "General";
+            if (msg->priority == Panic)
+                priority = "Panic";
+            else if (msg->priority == High)
+                priority = "High";
+            else if (msg->priority == Low)
+                priority = "Low";
+            else if (msg->priority == Background)
+                priority = "Background";
+    
+            str.append("sendEvent\", \"priority\" : \"");
+            str.append(priority);
+            str.append("\"");
+        }
+    
+        // Append port and portIndex
+        RTProtocol * port = msg->sap();
+        if( port != 0 && port->getName() != 0) {
+            str.append(", \"port\" : \"");
+            str.append(port->getName());
+            str.append("\", \"portIndex\" : ");
+            str.append(std::to_string(msg->sapIndex0()));
+        }
+        str.append("}");
+    
+        if (config.logToStdOut)
+            std::cout << "Out message: " << str << std::endl;
+    
+        bool writeSuccess = false;
+    
+        RTTcpSocket tcp;
+        RTIOMonitor ioMonitor;
+        tcp.registerWith(&ioMonitor);
+        if (!tcp.create()) {
+            std::cerr << "TCP socket creation is failed." << std::endl;
+            tcp.close();
+            return;
+        }
+        if (!tcp.connect(static_cast<const char*>(config.remoteHost.c_str()),
+                static_cast<int>(config.remotePort))) {
+            std::cerr << "Unable to connect to " << config.remoteHost << " on port "
+                    << config.remotePort << std::endl;
+            tcp.close();
+            return;
+        }
+        if (tcp.write(static_cast<const char*>(str.c_str()),
+                static_cast<int>(str.length())) < 0) {
+            std::cerr << "Error: Failed to write to socket for "
+                    << config.remoteHost << " on port " << config.remotePort
+                    << std::endl;
+            tcp.close();
+            return;
+        }
+        writeSuccess = true;
+    
+        static const RTTimespec awhile(config.maxWaitForReply / 1000, 0L);
+        while (!ioMonitor.wait(&awhile)) {
+            if(config.logToStdOut) {
+                std::cout << "No out message available within "<< config.maxWaitForReply << " ms" << std::endl;
+            }
+            tcp.close();
+            return;
+        }
+    
+        // Read response, if any
+        char buffer[1024];
+        int n;
+        std::string received;
+        do {
+            RTMemoryUtil::memset(buffer, 0, sizeof(buffer));
+            n = tcp.read(buffer, 1024);
+            if (n > 0)
+                received.append(buffer, n);
+        } while (n > 0);
+    
+        tcp.close();
+    
+        if (config.logToStdOut) {
+            std::cout << "Response for out message: " << received << std::endl;
+        }
+    
+        handleResponseForOutMessage(received);
+    }
+    
+    void TCPServer::handleReceivedMessageCustom(const std::string& str, ITCPConnection* conn) {
+    
+    }
+    
+    void TCPServer::handleReceivedMessageDefault(const std::string& str, ITCPConnection* conn) {        
+        if(str.empty()) {
+            return;
+        }
+        // First check for some special HTTP requests
+        if (str.rfind("GET /getPorts", 0) == 0) {
+            std::string strResult = getPorts();
+            conn->replyHTTPStatus(ITCPConnection::Status::OK, strResult);
+            return;
+        }
+    
+        // Everything else is handled as TCP requests
+        RTJsonParser parse;
+        RTJsonResult jsonResult;
+        if(!parse.parseJsonString(jsonResult, str))
+        {
+            conn->replyStatus(ITCPConnection::Status::Error, "Failed to parse JSON: " + str);
+            return;
+        }
+    
+        RTJsonResult command = jsonResult["command"];
+        if (!command.ok()) {
+            conn->replyStatus(ITCPConnection::Status::Error, "Failed to get 'command' key from JSON: " + str);
+            return;
+        }
+        std::string cmd = command.get_string();
+        if (config.logToStdOut)
+            std::cout << "JSON command received: " << cmd << std::endl;
+    
+        if (cmd == "sendEvent" || cmd == "invokeEvent") {
+            RTJsonResult port = jsonResult["port"];
+            if(!port.ok()) {
+                conn->replyStatus(ITCPConnection::Status::Error, "Failed to get 'port' key from JSON: " + str);
+                return;
+            }
+            std::string portName =  port.get_string();
+    
+            // Find a matching port in this capule
+            const RTActor_class* actorData = getActorData();
+    
+            RTProtocol* foundPort = 0;
+            const RTPortDescriptor* foundPortDescriptor = 0;
+            const RTPortDescriptor* portDescriptor = actorData->ports;
+            for (int i = actorData->numPorts; --i >= 0 && !foundPortDescriptor; ++portDescriptor ) {
+                RTProtocol* port = RTObjectOf( RTProtocol, portDescriptor->offset, this );
+                if (portName == port->getName()) {
+                    foundPortDescriptor = portDescriptor;
+                    foundPort = port;
+                }
+            }
+    
+            if (!foundPortDescriptor || !foundPort) {
+                conn->replyStatus(ITCPConnection::Status::Error, "Failed to find port: " + portName);
+                return;
+            }
+    
+            const RTProtocolDescriptor* protocolDescriptor = foundPortDescriptor->protocol;
+            const RTProtocolDescriptor* protocolDescriptorConjugate = protocolDescriptor->conjugate;
+    
+            // Find a matching out event in the port protocol
+            RTJsonResult event = jsonResult["event"];
+            if(!event.ok()) {
+                conn->replyStatus(ITCPConnection::Status::Error, "Failed to get 'event' key from JSON: " + str);
+                return;
+            }
+            std::string eventName =  event.get_string();
+    
+            const RTSignalDescriptor* foundSignalDescriptor = 0;
+            const RTSignalDescriptor* signalDescriptor = protocolDescriptorConjugate->inSignals;
+            for (int sigCount  = protocolDescriptorConjugate->numInSignals; --sigCount >= 0 && !foundSignalDescriptor; ++signalDescriptor ) {
+                if (eventName == signalDescriptor->name) {
+                    foundSignalDescriptor = signalDescriptor;
+                }
+            }
+    
+            bool incomingEvent = false;
+            if (!foundSignalDescriptor) {
+                // No out event found. Check if the "incomingEvent" flag is set. In that case the event is "incoming" and should be handled by
+                // the TCPServer or the capsule that inherits from it, rather than being sent out to another capsule.
+                std::string incomingEventString =  jsonResult["incomingEvent"].get_string();
+    
+                if (!incomingEventString.empty()) {
+                    // Doesn't matter what this attribute is set to
+                    incomingEvent = true;
+                    const RTSignalDescriptor* signalDescriptor = protocolDescriptor->inSignals;
+                    for (int sigCount = protocolDescriptor->numInSignals; --sigCount >= 0 && !foundSignalDescriptor; ++signalDescriptor) {
+                        if (eventName == signalDescriptor->name) {
+                            foundSignalDescriptor = signalDescriptor;
+                        }
+                    }
+                }
+            }
+            
+            if (!foundSignalDescriptor) {
+                conn->replyStatus(ITCPConnection::Status::Error, "Failed to find event: " + eventName);
+                return;
+            }
+    
+            std::string dataString =  jsonResult["data"].get_string();
+            void* data = 0;
+            const RTObject_class* dataType = 0;
+            if (foundSignalDescriptor->type != &RTType_void && !dataString.empty()) {
+                // The signal expects data and we have data. Decode the data from ASCII format.	    		    		   
+                RTMemoryInBuffer source (dataString.c_str(), dataString.size());
+                RTAsciiDecoding decoder(&source);
+    
+                if (decoder.get(&data, &dataType) == 0) {
+                    conn->replyStatus(ITCPConnection::Status::Error, "Failed to decode data: " + dataString);
+                    return;
+                }
+                
+                if (dataType == &RTType_RTUnknownObject) {
+                    conn->replyStatus(ITCPConnection::Status::Error, "Failed to decode data (it has an unknown type): " + dataString);
+                    return;
+                }
+    
+                // TODO: Check so that dataType is compatible with foundSignalDescriptor->type
+    
+                //foundSignalDescriptor->type->decode(data, &decoder);
+            }
+    
+            // Is a port index specified?
+            int portIndex = -1;
+            std::string portIndexString = jsonResult["portIndex"].get_string();
+    
+            if (!portIndexString.empty()) {
+                for( int i = 0; i < portIndexString.length(); i++ ) {
+                    if(!isdigit(portIndexString[i])) {
+                        // reply error and return if portIndex is not digit
+                        conn->replyStatus(ITCPConnection::Status::Error, "Illegal portIndex: " + portIndexString);
+                        return;
+                    }
+                }
+                portIndex = RTMemoryUtil::atoi(portIndexString.c_str());
+            }
+    
+            if (cmd == "sendEvent") {	    
+                std::string priorityString =  jsonResult["priority"].get_string();
+                std::string str_priority = "General";
+                if (!priorityString.empty())
+                    str_priority = priorityString;
+                        
+                int priority = General; // Default
+                if (str_priority == "Panic")
+                    priority = Panic;
+                else if (str_priority == "High")
+                    priority = High;
+                else if (str_priority == "Low")
+                    priority = Low;
+                else if (str_priority == "Background")
+                    priority = Background;
+                
+                if (incomingEvent) {
+                    // Special case: Send as an incoming event on a port
+                    RTMessage * msg = context()->newMsg();
+    
+                    if( msg == (RTMessage *)0 )
+                    {
+                        conn->replyStatus(ITCPConnection::Status::Error, "Out of memory when attempting to inject incoming event " + eventName);
+                        context()->setError(RTController::noMem, RTController::SystemService, (const void *)0, (const void *)0 );
+                        return;
+                    }
+    
+                    msg->setData(data, foundSignalDescriptor->type);
+                    msg->setSignal(foundSignalDescriptor->value);
+                    msg->setPriority(priority);
+                    msg->setDestination(this, foundPort, portIndex > 0 ? portIndex : 0);
+                    msg->internData();
+    
+                    context()->receive(msg, context());
+    
+                }
+                else {
+                    // Normal case: Send as an outgoing event on a port
+                    int result = (portIndex == -1) ?
+                            foundPort->send(foundSignalDescriptor->value, data, foundSignalDescriptor->type, priority) :
+                            foundPort->sendAt(portIndex, foundSignalDescriptor->value, data, foundSignalDescriptor->type, priority);
+                    if (result == 0) {
+                        // Failed to send
+                        conn->replyStatus(ITCPConnection::Status::Error, context()->strerror());
+                        return;
+                    }
+                }
+                
+                conn->replyStatus(ITCPConnection::Status::OK, "Command sendEvent succeeded!");
+            }
+            else if (cmd == "invokeEvent") {
+                RTMessage* replies = new RTMessage[foundPort->size()];
+                int result = (portIndex == -1) ?
+                        foundPort->invoke(replies, foundSignalDescriptor->value, data, foundSignalDescriptor->type, true /* implicitReply */) :
+                        foundPort->invokeAt(portIndex, replies, foundSignalDescriptor->value, data, foundSignalDescriptor->type, true /* implicitReply */);
+                if (result == 0) {
+                    // Failed to invoke
+                    conn->replyStatus(ITCPConnection::Status::Error, context()->strerror());
+                    delete[] replies;
+                    return;
+                }   
+                
+                std::string strResult = "[";
+                for (int i = 0; i < result /* number of replies */; i++) {
+                    if (i > 0)
+                        strResult.append(", ");
+                    if (!replies[i].isValid()) {
+                        // Invalid reply.
+                        strResult.append("{\"isValid\" : false}");
+                        continue;
+                    }
+                    RTDynamicStringOutBuffer buf;			
+                    strResult.append("{ \"event\" : \"");
+                    strResult.append(replies[i].getSignalName());
+                    strResult.append("\" ");
+                    
+                    const RTObject_class * replyType = replies[i].getType();
+                    const void* replyData = replies[i].getData();
+    
+                    if (replyType != 0) {
+                        strResult.append(", \"type\" : \"");
+                        strResult.append(replyType->name());
+                        strResult.append("\" ");
+                    }
+                    if (replyData != 0) {
+                        RTDynamicStringOutBuffer buf;		
+                        RTAsciiEncoding coding(&buf);
+                        coding.put(replyData, replyType);	
+                        strResult.append(", \"data\" : ");
+                        std::string data(buf.getString());
+    
+                        strResult.append(stringify(data));
+                        strResult.append(" ");
+                    }					
+                    strResult.append("}");
+                }
+                strResult.append("]");
+                delete[] replies;
+                
+                conn->replyStatus(ITCPConnection::Status::OK, "Command invokeEvent succeeded!", strResult);
+            }
+    
+            if (dataType != 0) {
+                // The data was copied when sending or invoking the event, so now we must destroy it
+                dataType->destroy(data, RTObject_class::DestroyAndDeallocate);
+            }			
+        }
+        else if (cmd == "getPorts") {
+            // Get all ports of this capule		
+            std::string strResult = getPorts();
+            conn->replyStatus(ITCPConnection::Status::OK, "Command getPorts succeeded!", strResult);
+        }
+        else {
+            // Unknown command
+            conn->replyStatus(ITCPConnection::Status::Error, "Unknown command: " + cmd);
+        }
+    }
+    
+    void TCPServer::handleResponseForOutMessage(const std::string& response) {
+        if(response.empty()) {
+            return;
+        }
+    
+        RTJsonParser parse;
+        RTJsonResult jsonResult;
+        if(!parse.parseJsonString(jsonResult, response))
+        {
+            return;
+        }
+    
+        std::string cmd = jsonResult["command"].get_string();
+        if (cmd.empty())
+            return; // No command provided - skip it
+    
+        if (config.logToStdOut)
+            std::cout << "Response contained JSON command: " << cmd << std::endl;
+    
+        if (cmd == "reply") {
+            RTJsonResult port = jsonResult["port"];
+            if(!port.ok()) {
+                std::cerr << "ERROR: Failed to get 'port' key from JSON: " + response;
+                return;
+            }
+            std::string portName =  port.get_string();
+            // Find a matching port in this capule
+            const RTActor_class* actorData = getActorData();
+    
+            RTProtocol* foundPort = 0;
+            const RTPortDescriptor* foundPortDescriptor = 0;
+            const RTPortDescriptor* portDescriptor = actorData->ports;
+            for (int i = actorData->numPorts; --i >= 0 && !foundPortDescriptor; ++portDescriptor ) {
+                RTProtocol* port = RTObjectOf( RTProtocol, portDescriptor->offset, this );
+                if (portName == port->getName()) {
+                    foundPortDescriptor = portDescriptor;
+                    foundPort = port;
+                }
+            }
+    
+            if (!foundPortDescriptor || !foundPort) {
+                std::cerr << "ERROR: Failed to find port: " << portName << std::endl;
+                return;
+            }
+    
+            const RTProtocolDescriptor* protocolDescriptor = foundPortDescriptor->protocol;
+            const RTProtocolDescriptor* protocolDescriptorConjugate = protocolDescriptor->conjugate;
+    
+            // Find a matching out event in the port protocol
+            RTJsonResult event = jsonResult["event"];
+            if(!event.ok()) {
+                std::cerr << "ERROR: Failed to get 'event' key from JSON: " + response;
+                return;
+            }
+            std::string eventName =  event.get_string();
+    
+            const RTSignalDescriptor* foundSignalDescriptor = 0;
+            const RTSignalDescriptor* signalDescriptor = protocolDescriptorConjugate->inSignals;
+            for (int sigCount  = protocolDescriptorConjugate->numInSignals; --sigCount >= 0 && !foundSignalDescriptor; ++signalDescriptor ) {
+                if (eventName == signalDescriptor->name) {
+                    foundSignalDescriptor = signalDescriptor;
+                }
+            }
+    
+            if (!foundSignalDescriptor) {
+                std::cerr << "ERROR: Failed to find event: " << eventName << std::endl;
+                return;
+            }
+    
+            std::string dataString =  jsonResult["data"].get_string();
+            void* data = 0;
+            const RTObject_class* dataType = 0;
+            if (foundSignalDescriptor->type != &RTType_void && !dataString.empty()) {
+                // The signal expects data and we have data. Decode the data from ASCII format.	    		    		   
+    
+                RTMemoryInBuffer source (dataString.c_str(), dataString.size());
+                RTAsciiDecoding decoder(&source);
+                
+                /*
+                Var var_type = object->get("type");
+                if (var_type.isEmpty()) {
+                    conn->replyStatus(ITCPConnection::Status::Error, "Type of event data must be specified.");
+                    return;
+                }					
+                
+                RTJsonDecoding decoder(dataString, var_type.convert<string>());
+                */
+                if (decoder.get(&data, &dataType) == 0) {
+                    std::cerr << "ERROR: Failed to decode data: " << dataString << std::endl;
+                    return;
+                }
+                
+                if (dataType == &RTType_RTUnknownObject) {
+                    std::cerr << "ERROR: Failed to decode data (it has an unknown type): " << dataString << std::endl;
+                    return;
+                }
+    
+                // TODO: Check so that dataType is compatible with foundSignalDescriptor->type
+    
+                //foundSignalDescriptor->type->decode(data, &decoder);
+            }
+            
+            // We are now ready to perform the reply
+            int result = foundPort->reply(foundSignalDescriptor->value, data, foundSignalDescriptor->type);		
+            if (result == 0) {
+                // Failed to reply
+                std::cerr << "ERROR: " << context()->strerror() << std::endl;
+                return;
+            }   
+            
+            if (dataType != 0) {
+                // The data was copied when replying the event, so now we must destroy it
+                dataType->destroy(data, RTObject_class::DestroyAndDeallocate);
+            }			
+        }	
+        else {
+            // Unknown command
+            std::cerr << "ERROR: Unknown command: " << cmd << std::endl;
+        }
+            
+    }
+`
+
+    service behavior port control : TCPServerControl;
+    behavior port external : External;
+
+    statemachine {
+        state WaitForRequest {
+            entry
+            `
+                external.enable();
+            `;
+        };
+        state Stopped;
+        _initial: initial -> WaitForRequest
+        `
+            // Give the subcapsule a chance to override configuration properties
+            init();
+
+            // Launch server thread
+            job = new ServerJob(*this, config.port, config.logToStdOut, config.maxWaitForReply, config.maxSupportedClient);
+            serverThread = new RTThread(job, 20000 /* stack size */);
+
+            if (config.logToStdOut)
+                std::cout << "TCP server started" << std::endl;
+        `;
+        requestReceived: WaitForRequest -> WaitForRequest on external.event
+        `
+            // Process all available external data
+            unsigned int remaining;
+            do {
+                std::pair<std::string, LocalServerConnection*>* data;
+                remaining = external.dataPopFront((void**) &data);
+                if (data == 0)
+                    break;
+
+                std::string& str = data->first;
+                if (config.logToStdOut)
+                    std::cout << "External data: " << str << std::endl;
+
+                if (config.defaultHandlingOfReceivedMessages) {
+                    // Perform default message handling, assuming JSON encoded messages on RT specific format
+                    handleReceivedMessageDefault(str, data->second);
+                }
+                else {
+                    // Let subclasses implement a custom handling of the received message
+                    handleReceivedMessageCustom(str, data->second);
+                }
+
+                delete data;
+            }
+            while (remaining > 0);
+        `;
+        WaitForRequest -> Stopped on control.stop
+        `
+            delete serverThread;
+            delete job;
+        `;
+    };
+};

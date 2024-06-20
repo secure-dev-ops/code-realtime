@@ -1,0 +1,9 @@
+{
+    "name": "tcp-range-counter-client",
+    "description": "Simple client for the TcpRangeCounter sample",    
+    "version": "1.0.0",
+    "main": "client.js",
+    "dependencies": {
+        "rt-test-probe" : "^1.0.4"        
+    }
+}

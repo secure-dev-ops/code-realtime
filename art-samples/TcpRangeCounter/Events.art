@@ -1,0 +1,6 @@
+protocol Events {    
+    in setMin(`unsigned int`);
+    in setMax(`unsigned int`);
+    in setDelta(`int`);
+    in resumeCounting();
+};
