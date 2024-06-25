@@ -24,6 +24,21 @@
             "path": "tests/capsule_factory_for_part"
         },
         {
+            "path": "tests/capsule_userdefined_constructor"
+        },        
+        {
+            "path": "tests/capsule_userdefined_destructor"
+        },        
+        {
+            "path": "tests/capsule_with_abstract_and_purevirtualfunction"
+        },        
+        {
+            "path": "tests/capsule_with_abstract_keyword"
+        },        
+        {
+            "path": "tests/capsule_with_purevirtualfunction"
+        },        
+        {
             "path": "tests/choice_and_junction"
         },
         {
