@@ -1,0 +1,42 @@
+capsule BaseCapsule {
+   
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    ` 
+        public:
+            virtual int base_show() = 0;
+    `
+    statemachine {
+        state State;
+        base_initial : initial -> State;
+    };    
+};
+
+capsule Top : BaseCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+    public:
+       virtual int base_show() override;
+    
+    `
+    [[rt::impl]]
+    `
+       int Top::base_show() {return 1;};
+    `
+    statemachine {
+        
+        redefine base_initial : initial -> State
+        `
+            
+            ASSERT(1 == base_show(), "Failed to call base_show()");
+            PASS();
+        `;
+    };
+};

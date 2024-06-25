@@ -1,0 +1,58 @@
+abstract capsule AbstarctCapsule {     
+    [[rt::decl]]
+    ` 
+        public:
+            virtual int abstract_show() = 0;
+    `
+    statemachine {
+        state S;
+        abstract_initial : initial -> S;
+    };    
+};
+capsule CapsuleExtendsAbstract : AbstarctCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+    public:
+        int child_show();       
+       
+    `
+    [[rt::impl]]
+    `
+       int CapsuleExtendsAbstract::child_show() {return 2;};       
+    `
+     statemachine {        
+        redefine abstract_initial : initial -> S;        
+    };
+   
+};
+
+capsule Top : CapsuleExtendsAbstract {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+    public:
+        virtual int abstract_show() override;       
+       
+    `
+    [[rt::impl]]
+    `
+       int Top::abstract_show() {return 2;};       
+    `
+     statemachine {        
+         
+        redefine abstract_initial : initial -> S
+        `
+            ASSERT(2 == abstract_show(), "Failed to call abstract_show()");
+            PASS();
+        `
+        ;
+    };
+   
+};
