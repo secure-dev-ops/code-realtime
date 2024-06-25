@@ -1,0 +1,73 @@
+capsule Top {
+    part client : Client;
+    part server : Server;
+    // client and server connect automatically
+    // when the container capsule instance is created
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+protocol Protocol {
+    out message(`int`);
+};
+
+capsule Server {
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+        #include "testlib.art.h"
+
+    `
+    
+    publish service unwired notify behavior port spp~
+    [[rt::properties(
+        registration_name = "messageService"
+    )]]
+    : Protocol;
+    statemachine {
+        initial -> Running `
+            ASSERT(Server::rtg_ports[0].layerName == "messageService", "registration_name property ignored on port");
+            std::cout << getName() << ": Waiting for client" << std::endl;
+        `;
+        state Running {
+            clientConnected: on spp.rtBound
+            `
+                std::cout << getName() << ": Connected to client" << std::endl;
+            `;
+            requestReceived: on spp.message
+            `
+                const int receivedData = *rtdata;
+                std::cout << getName() << ": Received message: " << receivedData << std::endl;
+                PASS();
+            `;
+        };
+    };
+};
+capsule Client {
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+        #include "testlib.art.h"
+    `
+    subscribe service unwired notify behavior port sap
+    [[rt::properties(
+        registration_name = "messageService"
+    )]]
+    : Protocol;
+    statemachine {
+        state WaitForConnection, Connected;
+        initial -> WaitForConnection
+        `
+            ASSERT(Client::rtg_ports[0].layerName == "messageService", "registration_name property ignored on port");
+
+            std::cout << getName() << ": Waiting for connection" << std::endl;
+        `;
+        connectedToServer: WaitForConnection -> Connected on sap.rtBound
+        `
+            std::cout << getName() << ": Connected to Server" << std::endl;
+            std::cout << getName() << ": Sending message to Server" << std::endl;
+            sap.message(12).send();
+        `;
+    };
+};

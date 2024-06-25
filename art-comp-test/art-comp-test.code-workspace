@@ -129,6 +129,9 @@
             "path": "tests/port_with_predefined_protocol_no_relay"
         },
         {
+            "path": "tests/port_registration_name"
+        },
+        {
             "path": "tests/protocol_inheritance"
         },
         {
