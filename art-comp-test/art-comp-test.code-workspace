@@ -145,7 +145,7 @@
         },
         {
             "path": "tests/special_chars_in_code_snippets"
-        },    
+        },
         {
             "path": "tests/struct_type_descriptor"
         },
@@ -157,6 +157,9 @@
         },
         {
             "path": "tests/tc_include_paths"
+        },		
+        {
+            "path": "tests/tc_libraryname"
         },
         {
             "path": "tests/tc_sources"

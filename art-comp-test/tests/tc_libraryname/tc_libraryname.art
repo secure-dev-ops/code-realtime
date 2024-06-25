@@ -1,0 +1,21 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "lib.art.h"
+    `
+    statemachine {
+        initial -> State1
+        `
+            int x = UserFunction(15); //
+            std::cout << "UserFunction(15) returned " << x << std::endl;
+            ASSERT(x == 16, "UserFunction returned unexpected value");
+        `;
+        state State1 {
+            entry
+            `
+                PASS();
+            `;  
+        };
+    };
+};

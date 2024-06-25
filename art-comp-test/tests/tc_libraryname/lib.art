@@ -1,0 +1,11 @@
+[[rt::decl]]
+`
+    int UserFunction(int x);
+`
+
+[[rt::impl]]
+`
+    int UserFunction(int x) {
+    return x + 1;
+}
+`
