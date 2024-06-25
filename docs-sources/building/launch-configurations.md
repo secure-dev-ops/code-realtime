@@ -8,7 +8,7 @@ A more flexible way to launch an executable is to use a **launch configuration**
 
 * Visual Studio Code and Eclipse Theia knows about launch configurations and provides a dedicated UI for working with them.
 * You can easily manage multiple ways of launching the same application. Just create a launch configuration for each way of launching it.
-* The output from the launched application is printed in the Debug Console rather than the Terminal view. The Debug Console colorizes printed output from the application (red for text printed to stderr and orange for text printed to stdout).
+* The output from the launched application is printed in the Debug Console rather than the Terminal view. The Debug Console colorizes printed output from the application (<span style="color: red;">red</span> for text printed to stderr and <span style="color: orange;">orange</span> for text printed to stdout).
 * You can terminate and relaunch the application using a toolbar instead of using the Terminal view.
 
 ## Creating a Launch Configuration

@@ -15,7 +15,7 @@ Each validation rule has a default severity which will be used for the problems 
 You can customize the default severity of any validation rule, and you can also choose to completely disable a certain validation rule that you don't think provides any value. See [Configuring Validation](#configuring-validation) for more information.
 
 ## Problem Reporting
-When a validation rule has found a problem in an Art file, it is marked by underlining one or several Art elements in the file. The underlining is red for errors, yellow for warnings and blue for information messages. For example, in the capsule shown below one warning and two errors have been found.
+When a validation rule has found a problem in an Art file, it is marked by underlining one or several Art elements in the file. The underlining is <span style="color: red;">red</span> for errors, <span style="color: orange;">orange</span> for warnings and <span style="color: blue;">blue</span> for information messages. For example, in the capsule shown below one warning and two errors have been found.
 
 ![](images/problem_underlining.png)
 
@@ -23,7 +23,7 @@ You can hover the cursor over these underlinings to get a tooltip with informati
 
 ![](images/problem_hover.png)
 
-Often a problem may be associated with more than one Art element. There is a main element on which the problem will be shown, but there often also are other elements that are related to the problem in one way or another. You can navigate to related elements to get a better understanding of why a problem is reported and how to fix it. In the screenshot above the problem has a single related element (the capsule `tlSystem`) but in general a problem can have an arbitrary number of related elements.
+Often a problem may be associated with more than one Art element. There is a main element on which the problem will be shown, but there often also are other elements that are related to the problem in one way or another. You can navigate to related elements to get a better understanding of why a problem is reported and how to fix it. In the screenshot above the problem has a single related element (the capsule `Another`) but in general a problem can have an arbitrary number of related elements.
 
 Problems are also reported by means of icons in diagrams. Below are three states with problems of different severity:
 

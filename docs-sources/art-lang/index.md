@@ -482,7 +482,7 @@ In a structure diagram a port is shown as "stacked" if it has non-single multipl
 
 ![](images/port_multiplicity.png)
 
-You can also use a C++ expression to specify the port multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr. For example:
+You can also use a C++ expression to specify the port multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro or a constexpr. For example:
 
 ``` art
 capsule Server {
@@ -692,7 +692,7 @@ Part `c` is optional with multiplicity 0..1. At run-time it can contain at most 
 
 Part `e` is plugin with the default multiplicity 0..1. At run-time at most one instance of capsule `D` can be imported into it. That instance must already have been created in another part, for example part `c`.
 
-Part `f` uses a C++ expression for specifying the multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr.
+Part `f` uses a C++ expression for specifying the multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro or a constexpr.
 
 Parts can be shown in a structure diagram:
 
@@ -1363,7 +1363,7 @@ That is, `CALLSUPER` is equivalent to `SUPERMETHOD(rtdata, rtport)`.
 Note that these macros are just a convenience and you can accomplish the same thing if you place the code of the transition code snippet in a virtual capsule member function, which then can be overridden in the sub capsule.
 
 #### Abstract Capsule
-Some capsules are not intended to be instantiated, and just provides a base implementation which other capsules can reuse and specialize by means of inheritance. Such capsules should be declared as **abstract**. By doing so, you can leave the state machine of the abstract capsule incomplete, with only a partial implementation. Validation rules that check the correctness of capsule state machines will not report any problems for state machines of abstract capsules.
+Some capsules are not intended to be instantiated, and just provide a base implementation which other capsules can reuse and specialize by means of inheritance. Such capsules should be declared as **abstract**. By doing so, you can leave the state machine of the abstract capsule incomplete, with only a partial implementation. Validation rules that check the correctness of capsule state machines will not report any problems for state machines of abstract capsules.
 
 Below is an example of an abstract capsule `Base` which provides a partial implementation of a state machine. The capsule `C` inherits from `Base` and extends the inherited state machine to make it complete.
 
@@ -1391,7 +1391,7 @@ The `Base` capsule state machine has a choice `x` without any outgoing transitio
     A capsule that contains one or many pure virtual functions (either locally defined or inherited) is effectively also abstract in the sense that it cannot be instantiated. However, to use a partial state machine in a capsule you need to declare it with the `abstract` keyword. Of course, you can still declare pure virtual functions for an abstract capsule if needed.
 
 !!! example
-    You can find a sample application with an abstract capsule [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/abstract_capsule).
+    You can find a sample application with an abstract capsule [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/abstract_capsule). An example with an abstract capsule that has a pure virtual function can be found [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_with_abstract_and_purevirtualfunction).
 
 ### Class Inheritance
 A [class with state machine](#class-with-state-machine) can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.
