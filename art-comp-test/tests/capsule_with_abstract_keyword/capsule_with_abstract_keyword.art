@@ -1,0 +1,32 @@
+abstract capsule AbstarctCapsule {     
+    statemachine {
+        state S;
+        abstract_initial : initial -> S;
+    };    
+};
+capsule Top : AbstarctCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+    public:
+        int child_show();
+       
+    `
+    [[rt::impl]]
+    `
+       int Top::child_show() {return 2;};
+    `
+     statemachine {        
+         
+        redefine abstract_initial : initial -> S
+        `
+            ASSERT(2 == child_show(), "Failed to call child_show()");
+            PASS();
+        `
+        ;
+    };
+   
+};
