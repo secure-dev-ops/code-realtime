@@ -2,9 +2,5 @@ let tc = TCF.define(TCF.CPP_TRANSFORM);
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs", "lib.tcjs"];
 tc.targetFolder = 'tc_libraryname_target';
-//tc.compileArguments = '-I../../../tc_user_libraries';
-//tc.userLibraries = [
-//    '../../../tc_libraryname/mylib$(OS).a'
-//];
 tc.sources = ['tc_libraryname.art'];
-tc.executableName = 'myexe$(EXEC_EXT)';
+tc.executableName = 'Top$(EXEC_EXT)';
