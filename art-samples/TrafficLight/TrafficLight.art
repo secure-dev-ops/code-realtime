@@ -16,7 +16,7 @@ capsule TrafficLight : `ILogger` {
     `
     [[rt::impl]]
     `
-        void TrafficLight_Actor::logMsg( RTString str )
+        void TrafficLight::logMsg( RTString str )
         {
             logPort.logMsg(str).send();
         }
