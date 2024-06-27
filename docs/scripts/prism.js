@@ -1751,7 +1751,7 @@ Prism.languages.js = Prism.languages.javascript;
 			lookbehind: true,
 			greedy: true
 		},
-		'keyword': /\b(?:capsule|port|service|behavior|notify|protocol|in|out|part|fixed|optional|plugin|connect|with|redefine|exclude|class|trigger|template|typename|unwired|publish|subscribe|state|statemachine|initial|on|when|entry|exit|history|exclude|junction|choice|entrypoint|exitpoint)\b/
+		'keyword': /\b(?:capsule|port|service|behavior|notify|protocol|in|out|part|fixed|optional|plugin|connect|with|redefine|exclude|class|trigger|template|typename|unwired|publish|subscribe|state|statemachine|initial|on|when|entry|exit|history|exclude|junction|choice|entrypoint|exitpoint|abstract)\b/
 	};	
 
 }(Prism));

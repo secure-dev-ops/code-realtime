@@ -13,8 +13,14 @@
       
         <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/art-lang/">
       
+      
+        <link rel="prev" href="../installing/">
+      
+      
+        <link rel="next" href="cpp-extensions/">
+      
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
@@ -22,13 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
       
+
     
     
     
@@ -45,7 +48,7 @@
     
       <link rel="stylesheet" href="../stylesheets/prism.css">
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 <!--  OneTrust Cookies Consent Notice start  -->
@@ -70,20 +73,18 @@
 
     
     
+    
   <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
   
 
   </head>
   
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    <body dir="ltr">
   
     
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -101,9 +102,17 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
 <p>Check out the commercial edition!</p>
 
           </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
         </aside>
       
     </div>
@@ -154,11 +163,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -172,7 +181,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -184,7 +193,7 @@
         <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -203,7 +212,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -305,7 +314,7 @@
       <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -343,41 +352,42 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
-        <label class="md-nav__link" for="__nav_2">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Documentation
@@ -423,8 +433,9 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
       
       
         
@@ -447,7 +458,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="The Art Language" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           The Art Language
@@ -486,8 +497,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -516,7 +528,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Working with Art
@@ -611,8 +623,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
       
       
         
@@ -655,7 +668,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_6">
           <span class="md-nav__icon md-icon"></span>
           Target RunTime System
@@ -820,8 +833,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -852,7 +866,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Building" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -947,8 +961,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
       
       
         
@@ -965,7 +980,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Releases
@@ -1432,6 +1447,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#abstract-capsule" class="md-nav__link">
+    Abstract Capsule
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1441,6 +1463,19 @@
   <a href="#class-inheritance" class="md-nav__link">
     Class Inheritance
   </a>
+  
+    <nav class="md-nav" aria-label="Class Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstract-class" class="md-nav__link">
+    Abstract Class
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1453,6 +1488,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    Template
+  </a>
   
 </li>
       
@@ -1533,14 +1575,14 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/secure-dev-ops/code-realtime/edit/main/docs-sources/art-lang/index.md" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
   <h1>The Art Language</h1>
@@ -1718,11 +1760,13 @@ capsule Cx {
 <th align="left"></th>
 <th align="left"></th>
 <th align="left"></th>
+<th align="left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>behavior</td>
+<td>abstract</td>
+<td align="left">behavior</td>
 <td align="left">capsule</td>
 <td align="left">choice</td>
 <td align="left">class</td>
@@ -1734,37 +1778,35 @@ capsule Cx {
 <td align="left">exclude</td>
 <td align="left">exit</td>
 <td align="left">exitpoint</td>
+<td align="left">fixed</td>
 </tr>
 <tr>
-<td>fixed</td>
-<td align="left">history</td>
+<td>history</td>
 <td align="left">in</td>
 <td align="left">initial</td>
 <td align="left">junction</td>
+<td align="left">notify</td>
+<td align="left">on</td>
 </tr>
 <tr>
-<td>notify</td>
-<td align="left">on</td>
-<td align="left">optional</td>
+<td>optional</td>
 <td align="left">out</td>
 <td align="left">part</td>
-</tr>
-<tr>
-<td>plugin</td>
+<td align="left">plugin</td>
 <td align="left">port</td>
 <td align="left">protocol</td>
-<td align="left">publish</td>
-<td align="left">redefine</td>
 </tr>
 <tr>
-<td>service</td>
+<td>publish</td>
+<td align="left">redefine</td>
+<td align="left">service</td>
 <td align="left">state</td>
 <td align="left">statemachine</td>
 <td align="left">subscribe</td>
-<td align="left">template</td>
 </tr>
 <tr>
-<td>trigger</td>
+<td>template</td>
+<td align="left">trigger</td>
 <td align="left">typename</td>
 <td align="left">unwired</td>
 <td align="left">when</td>
@@ -1856,13 +1898,13 @@ capsule Cx {
     [[rt::decl]]
     `
         public:
-            MyCap_Actor(RTController*, RTActorRef*, MyClass&amp;);
+            MyCap(RTController*, RTActorRef*, MyClass&amp;);
         private:
             MyClass&amp; m_c;
     `
     [[rt::impl]]
     `
-        MyCap_Actor::MyCap_Actor(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass&amp; c) 
+        MyCap::MyCap(RTController* rtg_rts, RTActorRef* rtg_ref, MyClass&amp; c) 
             :RTActor(rtg_rts, rtg_ref), m_c(c) { }
     `
 };
@@ -1870,7 +1912,7 @@ capsule Cx {
 <p>If you don't define any constructor for your capsule, a default capsule constructor will be generated automatically. It only has the two mandatory constructor parameters, and passes them to the TargetRTS which will create the capsule instance. But if your capsule has at least one user-defined constructor, a default capsule constructor will not be generated, and you then need to make sure to provide arguments that match the constructor parameters, when an instance of the capsule should be created. For this you need to use a <strong>capsule factory</strong>. You can either specify such a capsule factory statically on a part that is typed by the capsule (see <a href="#part-with-capsule-factory">Part with Capsule Factory</a>), or you can provide a capsule factory dynamically when calling <code>incarnateCustom()</code> on a <a href="../targetrts-api/struct_frame.html">Frame</a> port to incarnate an optional capsule part. Here is C++ code for doing the latter (assuming the optional part is called <code>thePart</code>):</p>
 <pre><code class="language-cpp">RTActorId id = frame.incarnateCustom(thePart,
     RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
-        return new MyCap_Actor(c, a, getMyClass()); // Use capsule constructor
+        return new MyCap(c, a, getMyClass()); // Use capsule constructor
     }));
 if (!id.isValid()) {
     // Failed to incarnate thePart
@@ -1878,7 +1920,6 @@ if (!id.isValid()) {
 </code></pre>
 <p>Note the following:</p>
 <ul>
-<li>In C++ the capsule class has the "_Actor" suffix.</li>
 <li>A capsule constructor must call the <code>RTActor</code> constructor in its initializer.</li>
 <li>Code that calls the capsule constructor must include the header file where the capsule is located.</li>
 </ul>
@@ -1888,7 +1929,27 @@ if (!id.isValid()) {
 </div>
 <p>Read more about capsule factories <a href="../target-rts/capsule-factory/">here</a>.</p>
 <h3 id="capsule-destructor">Capsule Destructor</h3>
-<p>The destructor of a capsule frees the memory used for representing its states, ports etc. You cannot provide your own code to the destructor implementation. However, the <code>RTActor</code> class, which is the base class of every capsule class, provides a virtual function <code>_predestroy()</code> which you can override in your capsule. This function gets called just before the capsule instance is destroyed and is the place where you should put code that cleans up resources allocated by the capsule. Here is an example:</p>
+<p>The destructor of a capsule frees the memory used for representing its states, ports etc. You can provide your own destructor if you want to perform additional clean-up activites when a capsule instance is destroyed (for example, freeing resources allocated in the capsule constructor).</p>
+<pre><code class="language-art">capsule CapsuleWithDestructor {
+    [[rt::decl]]
+    `    
+    public:
+        virtual ~CapsuleWithDestructor();
+    `
+    [[rt::impl]]
+    `     
+        CapsuleWithDestructor::~CapsuleWithDestructor() {
+            // Clean-up code here
+        }
+    `    
+};
+</code></pre>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application with a capsule that implements its own destructor <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_destructor">here</a>.</p>
+</div>
+<p>Clean-up code can also be placed in a function <code>_predestroy()</code> which overrides <code>RTActor::_predestroy()</code>. This function gets called just before the capsule instance is destroyed and may often be a better place where to write clean-up code. If you are using a custom capsule factory which doesn't destroy capsule instances by means of the standard <code>delete</code> operator, then the capsule destructor will not be called, and you can instead use <code>_predestroy()</code> which always is called when a capsule instance is about to be destroyed.</p>
+<p>Here is an example of how to use <code>_predestroy()</code>:</p>
 <pre><code class="language-art">capsule C {    
     [[rt::decl]]
     `
@@ -1989,7 +2050,7 @@ pingPort.ping(5).send(); // Send event &quot;ping&quot; with data (an integer) o
 </code></pre>
 <p>In a structure diagram a port is shown as "stacked" if it has non-single multiplicity.</p>
 <p><img alt="" src="images/port_multiplicity.png" /></p>
-<p>You can also use a C++ expression to specify the port multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr. For example:</p>
+<p>You can also use a C++ expression to specify the port multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro or a constexpr. For example:</p>
 <pre><code class="language-art">capsule Server {
     service port clients : ComEvents[`NBR_CLIENTS`];
 
@@ -2150,7 +2211,7 @@ frame.destroy(id);
 <p>Part <code>a</code> is fixed with multiplicity 1 since neither kind nor multiplicity is specified for it. Part <code>b</code> is also fixed (using the <code>fixed</code> keyword for more clarity) and with multiplicity 4. When an instance of capsule <code>C</code> is created 5 instances of capsule <code>D</code> will be automatically created. One of these instances will be inserted into part <code>a</code> and the others into part <code>b</code>. These instances will remain there until the <code>C</code> capsule instance is destroyed.</p>
 <p>Part <code>c</code> is optional with multiplicity 0..1. At run-time it can contain at most one instance of capsule <code>D</code>. Part <code>d</code> is also optional but can contain up to 5 instances of <code>D</code> as specified by its multiplicity 0..5.</p>
 <p>Part <code>e</code> is plugin with the default multiplicity 0..1. At run-time at most one instance of capsule <code>D</code> can be imported into it. That instance must already have been created in another part, for example part <code>c</code>.</p>
-<p>Part <code>f</code> uses a C++ expression for specifying the multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro, a template parameter or a constexpr.</p>
+<p>Part <code>f</code> uses a C++ expression for specifying the multiplicity. This can for example be useful if the multiplicity is defined in C++ as a macro or a constexpr.</p>
 <p>Parts can be shown in a structure diagram:</p>
 <p><img alt="" src="images/parts.png" /></p>
 <p>Parts are shown as "stacked" if they have non-single multiplicity (multiplicities specified with a C++ expression are assumed to be non-single). Optional parts are shown with a "diagonal" background pattern, while plugin parts are shown with a "double diagonal" background pattern.</p>
@@ -2166,7 +2227,7 @@ frame.destroy(id);
 <p>Here is an example where a part defines a capsule factory that specifies a create function. The create function gets the mandatory constructor parameters <code>rtg_rts</code> and <code>rtg_ref</code> as arguments, as well as an <code>index</code> argument that specifies the index where the created capsule instance will be inserted.</p>
 <pre><code class="language-art">part engine : Engine [[rt::create]]
 `
-    return new Engine_Actor(rtg_rts, rtg_ref, true /* custom constructor arg */);
+    return new Engine(rtg_rts, rtg_ref, true /* custom constructor arg */);
 `;
 </code></pre>
 <p>Note that you may want to create a capsule factory for a part also for other reasons than passing custom constructor parameters. For example, you may want to change the default thread (<code>RTController*</code>) that should execute the created capsule instance, or you may want to instantiate an inherited capsule rather than the capsule that types the part.</p>
@@ -2599,7 +2660,7 @@ frame.destroy(id);
     `
     [[rt::impl]]
     `        
-        void B_Actor::doSmth() {
+        void B::doSmth() {
             // ...
         }
     `
@@ -2626,7 +2687,7 @@ capsule D : B, `IDataManager`, `IController` {
     `
         // impl of manageData() and control()
 
-        void D_Actor::doSmth() {
+        void D::doSmth() {
             // ...
             SUPER::doSmth(); // Call inherited function
         }
@@ -2700,6 +2761,34 @@ capsule DPPI : BPPI {
 <p>You can find a sample application where these macros are used <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/macro_callsuper_supermethod">here</a>.</p>
 </div>
 <p>Note that these macros are just a convenience and you can accomplish the same thing if you place the code of the transition code snippet in a virtual capsule member function, which then can be overridden in the sub capsule.</p>
+<h4 id="abstract-capsule">Abstract Capsule</h4>
+<p>Some capsules are not intended to be instantiated, and just provide a base implementation which other capsules can reuse and specialize by means of inheritance. Such capsules should be declared as <strong>abstract</strong>. By doing so, you can leave the state machine of the abstract capsule incomplete, with only a partial implementation. Validation rules that check the correctness of capsule state machines will not report any problems for state machines of abstract capsules.</p>
+<p>Below is an example of an abstract capsule <code>Base</code> which provides a partial implementation of a state machine. The capsule <code>C</code> inherits from <code>Base</code> and extends the inherited state machine to make it complete.</p>
+<pre><code class="language-art">abstract capsule Base {    
+    statemachine {
+        state State;
+        initial -&gt; State;
+        choice x; // Would normally report error ART_0006, but not for abstract capsule        
+    };
+};
+
+capsule C : Base {
+    statemachine {
+        state A, B;
+        x -&gt; A when `expr()`;
+        x -&gt; B when `else`;
+    };
+};
+</code></pre>
+<p>The <code>Base</code> capsule state machine has a choice <code>x</code> without any outgoing transitions. Normally a problem would be reported for that (<a href="../validation/#art_0006_choicewithoutoutgoingtransitions"><code>ART_0006</code></a>), but because <code>Base</code> is an abstract capsule, no error is reported. The capsule <code>C</code>, which is non-abstract, can inherit <code>Base</code> but must then define the missing outgoing transitions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A capsule that contains one or many pure virtual functions (either locally defined or inherited) is effectively also abstract in the sense that it cannot be instantiated. However, to use a partial state machine in a capsule you need to declare it with the <code>abstract</code> keyword. Of course, you can still declare pure virtual functions for an abstract capsule if needed.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application with an abstract capsule <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/abstract_capsule">here</a>. An example with an abstract capsule that has a pure virtual function can be found <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_with_abstract_and_purevirtualfunction">here</a>.</p>
+</div>
 <h3 id="class-inheritance">Class Inheritance</h3>
 <p>A <a href="#class-with-state-machine">class with state machine</a> can inherit from other classes with state machines, or from C++ classes (or structs). Multiple inheritance is supported.</p>
 <p>Contrary to <a href="#capsule-inheritance">capsule inheritance</a>, class inheritance does not imply inheritance between the state machines in the derived and base classes. This means it's not possible to redefine or exclude states and transitions in an inherited class state machine. Nor is it possible to redefine trigger operations. In fact, the derived class will have two state machines (its own, plus the one inherited from the base class) and these two state machines will execute independently of each other. That is, class inheritance is more a way of aggregating state machines rather than reusing and redefining them. Because of this, it's rather unusual to let two classes with state machines inherit each other. It's more useful to let a class with state machine inherit from other C++ classes.</p>
@@ -2714,6 +2803,19 @@ capsule DPPI : BPPI {
         void DataClass:dispose() {
             // impl
         }
+    `
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+</code></pre>
+<h4 id="abstract-class">Abstract Class</h4>
+<p>Just like for <a href="#abstract-capsule">abstract capsules</a>, you can declare a class with the <code>abstract</code> keyword. However, since class state machines are not inherited, there is no formal meaning in doing so. It can still sometimes be useful to declare a class as abstract, to tell users of the class that it should not be directly instantiated. For example, if a class has a pure virtual function it is effectively abstract, and you can then use the <code>abstract</code> keyword to further emphasize this.</p>
+<pre><code class="language-art">abstract class AClass {
+    [[rt::decl]]
+    `
+        virtual void implementMe() = 0;
     `
     statemachine {
         state State;
@@ -2744,6 +2846,38 @@ protocol ExtendedMachineEvents : MachineEvents {
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance">A derived protocol inherits events from a base protocol</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/protocol_inheritance_redefined_event">A derived protocol redefines the parameter type of an inherited event</a></li>
 </ul>
+</div>
+<h2 id="template">Template</h2>
+<p>A template is a type that is parameterized by means of template parameters to make it more generic. When a template is used (a.k.a. instantiated), actual template parameters must be provided that match the formal template parameters defined in the template. Currently only <a href="#class-with-state-machine">classes</a> can have template parameters. Just like in C++, two kinds of template parameters are supported:</p>
+<ul>
+<li><strong>Type template parameter</strong></li>
+</ul>
+<p>Replaced with a type when the template is instantiated.</p>
+<ul>
+<li><strong>Non-type template parameters</strong></li>
+</ul>
+<p>Replaced with a non-type, for example a constant value, when the template is instantiated.</p>
+<p>Template parameters may have defaults that will be used if a matching actual template parameter is not provided when instantiating the template.</p>
+<p>Below is an example of a class with template parameters, some of which have defaults specified. The keywords <code>typename</code> and <code>class</code> can both be used for defining a type template parameter. A non-type template parameter is defined by specifying its type as a C++ code snippet.</p>
+<pre><code class="language-art">template &lt;typename T = `int`, class U, `int` p1 = `5`&gt;
+class TemplateClass : `Base&lt;T,U,p1&gt;` {
+    [[rt::decl]]
+    `
+        void func(T arg1) {
+            // impl
+        }
+    `
+
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
+};
+</code></pre>
+<p>Template parameters can only be used from C++ code snippets, and above you see some examples of how they can be used. It's not possible to instantiate a template in Art itself. For example, even if class <code>Base</code> above was defined as an Art class, a C++ code snippet has to be used since it has template parameters.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application using templates <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/class_with_template">here</a>.</p>
 </div>
 <h2 id="property">Property</h2>
 <p>Properties are name-value pairs that provide a generic mechanism for augmenting Art elements with extra data. Such data can be utilized by tools that operate on a parsed Art file, such as the code generator and semantic checker. Most Art elements can have properties and the syntax for specifying properties is the same regardless of the kind of element. However, different kinds of Art elements can have different properties.</p>
@@ -2896,16 +3030,21 @@ MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -&gt; NextState
 <p>Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").</p>
 <p><img alt="" src="images/color_picker_diagram.png" /></p>
 
-              
-            </article>
-            
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
@@ -2925,10 +3064,11 @@ MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -&gt; NextState
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../scripts/prism.js"></script>
       
