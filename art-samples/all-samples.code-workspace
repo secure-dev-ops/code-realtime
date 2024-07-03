@@ -1,26 +1,32 @@
 { "folders": [
-		{
+        {
             "path": "DependencyInjection"
         },
-		{
+        {
+            "path": "gRPCServer"
+        },
+        {
+            "path": "gRPC_MazeRunner"
+        },
+        {
             "path": "HelloWorld"
         },
-		{
+        {
             "path": "PiComputer"
         },
-		{
+        {
             "path": "PingPong"
         },
-		{
+        {
             "path": "QtTrafficLight"
         },
-		{
+        {
             "path": "TcpRangeCounter"
         },
         {
             "path": "TcpServer"
         },
-		{
+        {
             "path": "TrafficLight"
         }
     ]

@@ -1,0 +1,244 @@
+capsule GRPC_Server {
+[[rt::header_preface]]
+`
+#include <string>
+#include <map>
+#include <mutex>
+#include <grpcpp/grpcpp.h>
+
+using grpc::ServerCompletionQueue;
+using grpc::Server;
+using grpc::ServerBuilder;
+class ServerJob;
+
+class SubscribeData;
+`
+[[rt::impl_preface]]
+`
+#include "CallData.h"
+#include "SubscribeData.h"
+
+#include <grpcpp/ext/proto_server_reflection_plugin.h>
+#include <grpcpp/grpcpp.h>
+#include <grpcpp/health_check_service_interface.h>
+
+// Intercept incoming RPC requests and give them to the GRPC_Server for processing
+class ServerJob : public RTJob {
+	GRPC_Server* server;
+
+public:
+	ServerJob(GRPC_Server* s) : server(s) {}
+
+	virtual const char* name( void ) const override {
+		return "GRPC Server Job";
+	}
+
+	virtual void mainLoop( void ) override {
+		// Spawn CallData instances to serve new clients.
+		server->createCallDatas();
+
+		void* tag;  // uniquely identifies a request.
+		bool ok;
+		while (true) {
+			// Block waiting to read the next event from the completion queue. The
+			// event is uniquely identified by its tag, which in this case is the
+			// memory address of a CallData instance.
+			// The return value of Next should always be checked. This return value
+			// tells us whether there is any kind of event or cq_ is shutting down.
+			GPR_ASSERT(server->cq->Next(&tag, &ok));
+			GPR_ASSERT(ok);
+			
+			// Pass the request to the server capsule
+			server->external.dataPushBack(tag);
+			if (server->external.raise() == 0) {
+				// The server capsule is not ready to receive the external event. 
+				// TODO: Wait a little and try 2 more times before giving up.
+			}
+		}
+	}
+
+	virtual void kill( void ) override {
+
+	}
+};
+
+`
+    
+[[rt::decl]]
+`
+public:    
+    friend class ServerJob;
+protected:
+    uint16_t port {0}; // Port used by the gRPC server
+    std::unique_ptr<ServerCompletionQueue> cq; // Completion queue for incoming gRPC requests (used in asynchronous communication with the gRPC runtime)
+    bool logToStdOut; // Should the server print info-messages to stdout?
+private:
+    ServerJob* job;
+    std::unique_ptr<Server> server; // gRPC server object
+
+    std::map<std::string, SubscribeData*> subscriptionsForOutgoingEvents; // Map of active subscriptions for notifications about outgoing events
+    std::mutex subscriptionMutex; // Mutex protecting the map above
+
+protected:
+    // Initialize the gRPC server. The default implementation reads the port from a -port command-line argument. 
+    // Override to customize the initialization, for example to obtain the port in some other way.
+    virtual void initServer();
+
+    // Register all services that clients need to access through this gRPC server.
+    // They should all be **asynchronous** services since the server
+    // in general has to process the request and the reply asynchronously.
+    virtual void registerServices(ServerBuilder& builder) = 0;
+
+    // Create CallData instances for each type of request the server can handle.
+    virtual void createCallDatas() = 0;
+
+    // Subscribe to be notified when an outgoing event arrives
+    void subscribe(const std::string& id, SubscribeData* conn);
+
+    // Unsubscribe to be notified when an outgoing event arrives
+    SubscribeData* unsubscribe( const std::string& id );
+
+    // Get an active subscription for an outgoing event (nullptr if non-existent).
+    SubscribeData* getSubscription( const std::string& id );
+
+public:
+    GRPC_Server(RTController* c, RTActorRef* a, bool logStdOut);
+
+    ~GRPC_Server();
+`
+
+[[rt::impl]]
+`
+void GRPC_Server::initServer( void ) {
+    if (port == 0) {
+        
+        // Read port from command-line
+        port = 50051; // Default
+        int ac = RTMain::argCount();
+        const char * const * av = RTMain::argStrings();
+        while( --ac > 0 ) {
+            const char* arg = *++av;
+            if( RTMemoryUtil::strcmp( arg, "-port=", 6 ) == 0 )
+                port = RTMemoryUtil::atoi(*av + 6);
+        }
+    }
+
+    std::string server_address = absl::StrFormat("0.0.0.0:%d", port);
+
+    grpc::EnableDefaultHealthCheckService(true);
+    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
+    ServerBuilder builder;
+    // Listen on the given address without any authentication mechanism.
+    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+
+    // Register services that clients need to access through this gRPC server
+    registerServices(builder);
+
+    // Get hold of the completion queue used for the asynchronous communication
+    // with the gRPC runtime.
+    cq = builder.AddCompletionQueue();
+
+    // Finally assemble the server.
+    server = builder.BuildAndStart();
+    if (logToStdOut)
+        std::cout << "gRPC server listening on " << server_address << std::endl;
+
+    // Launch server thread
+    job = new ServerJob(this);
+    RTThread* serverThread = new RTThread(job, 20000 /* stack size */);    
+}
+
+void GRPC_Server::subscribe( const std::string& id, SubscribeData* data )
+{
+	std::lock_guard<std::mutex> guard(subscriptionMutex);
+	auto s = subscriptionsForOutgoingEvents.find(id);
+
+	if (s != subscriptionsForOutgoingEvents.end()) {
+		// A subscribe data for this id was already present. Delete it.
+		delete s->second;
+	}
+
+    subscriptionsForOutgoingEvents[id] = data;
+}
+
+SubscribeData* GRPC_Server::unsubscribe( const std::string& id )
+{
+	std::lock_guard<std::mutex> guard(subscriptionMutex);
+
+	auto s = subscriptionsForOutgoingEvents.find(id);
+	if (s != subscriptionsForOutgoingEvents.end()) {
+		SubscribeData* data = s->second;
+		subscriptionsForOutgoingEvents.erase(s);
+		return data;
+	}
+
+	return nullptr;
+}
+
+SubscribeData* GRPC_Server::getSubscription( const std::string& id )
+{
+	std::lock_guard<std::mutex> guard(subscriptionMutex);
+	auto s = subscriptionsForOutgoingEvents.find(id);
+
+	if (s != subscriptionsForOutgoingEvents.end()) {
+		return s->second;
+	}
+
+	return nullptr;
+}
+
+GRPC_Server::GRPC_Server(RTController* c, RTActorRef* a, bool logStdOut) 
+    : RTActor(c, a), logToStdOut(logStdOut) 
+{};
+
+GRPC_Server::~GRPC_Server( void )
+{
+	server.get()->Shutdown();
+
+	// Prevent the queueing of more requests
+	cq.get()->Shutdown();
+	// Drain the completion queue from active requests
+	void* tag;
+	bool ok;
+	do {} while (cq.get()->Next(&tag, &ok));
+}
+`
+    behavior port external : External;
+
+    statemachine {
+        state WaitForRequest {
+            entry
+            `
+                external.enable();
+            `;
+        };
+        state Stopped;
+        _initial: initial -> WaitForRequest
+        `            
+            initServer();
+        `;
+        requestReceived: WaitForRequest -> WaitForRequest on external.event
+        `
+            if (logToStdOut)
+	        std::cout << "Request received" << std::endl;
+
+            // Process all available external data
+            unsigned int remaining;
+            do {
+                CallData* request;
+                remaining = external.dataPopFront((void**) &request);
+
+                if (request == nullptr)
+                    break; // No more data available
+
+                request->proceed();
+
+                // No need to delete the request here, since it's automatically deleted when processed
+            }
+            while (remaining > 0);
+
+            if (logToStdOut)
+                std::cout << "Request processed" << std::endl;
+        `;
+    };      
+};

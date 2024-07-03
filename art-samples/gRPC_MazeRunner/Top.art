@@ -1,0 +1,11 @@
+capsule Top {
+    part maze : Maze;
+    part gRPC_server : MazeServer;    
+
+    connect gRPC_server.commands with maze.server;
+    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

@@ -1,0 +1,20 @@
+[
+  {
+    "directory": "C:/git/rtistic-pub-doc/art-samples/gRPC_MazeRunner",
+    "arguments": [
+      "C:/Program Files/LLVM/bin/clang++.exe",
+      "-IC:/git/rtistic-pub-doc/art-samples/gRPC_MazeRunner/include",
+      "-Ic:/git/rtistic-pub-doc/art-samples/grpc-server_lib_target",
+      "-IC:/grpc/install/include",
+      "-IC:/github/lib-grpc-server/grpc-client/build",
+      "-IC:/TargetRTSWinDebug/TargetRTS/include",
+      "-IC:/TargetRTSWinDebug/TargetRTS/target/WinT",
+      "-std=c++14",
+      "-c",
+      "-o",
+      "CallData_Go.o",
+      "src/CallData_Go.cpp"
+    ],
+    "file": "CallData_Go"
+  }
+]

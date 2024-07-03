@@ -1,0 +1,24 @@
+// Commands implemented by the MazeRunner gRPC server. They correspond to RPCs defined in the 
+// file maze.proto
+protocol Commands {
+    // Replies the current number of steps taken, in response to getSteps()
+    in getSteps_reply(`unsigned int`);
+
+    // Notification (with a message) that a step could not be taken
+    in wrongWay(`RTString`);
+
+    // Notification that the goal of the maze was reached (in a certain number of steps)
+    in goalReached(`unsigned int`);
+
+    // Attempt to take a step in a certain direction
+    out north();
+    out south();
+    out east();
+    out west();
+
+    // Get the current number of steps taken (replies with getSteps_reply())
+    out getSteps();
+
+    // Adjust the step counter with the specified amount
+    out adjustStepCount(`int`);
+};

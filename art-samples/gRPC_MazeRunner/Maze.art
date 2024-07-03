@@ -1,0 +1,62 @@
+// A capsule with a maze-like state machine, controllable via gRPC.
+capsule Maze {    
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            unsigned int stepCount {0};   
+    `
+    service behavior port server~ : Commands;
+    
+    statemachine {
+        state Walking {
+            noWay: on server.east, server.west, server.north, server.south
+            `
+                std::string str("There is no way to go ");
+                str.append(msg->getSignalName());
+                std::cout << str << std::endl;
+                RTString s(str.c_str());
+                server.wrongWay(s).send();
+            `;
+            getSteps: on server.getSteps
+            `
+                server.getSteps_reply(stepCount).reply();
+            `;
+            adjustStepCount: on server.adjustStepCount
+            `
+                const int adjustment = *(static_cast<const int*>(rtdata));
+                stepCount += adjustment;
+            `;
+
+            entrypoint entry1;
+            exitpoint exit1;
+
+            state A1, A2, B1, B2, B3, C2;
+            entry1 -> A1;
+            A1 -> A2 on server.east `stepCount++;`;
+            A2 -> A1 on server.west `stepCount++;`;
+            B1 -> A1 on server.north `stepCount++;`;
+            A2 -> B2 on server.south `stepCount++;`;
+            B2 -> B1 on server.west `stepCount++;`;
+            B2 -> C2 on server.south `stepCount++;`;
+            C2 -> B2 on server.north `stepCount++;`;
+            B2 -> B3 on server.east `stepCount++;`;
+            B3 -> exit1 on server.east `stepCount++;`;
+        };
+        initial -> Walking.entry1
+        `
+            std::cout << "gRPC server started. Let's go for a walk!" << std::endl;
+        `;
+        state ReachedGoal {
+            entry
+            `
+                std::cout << "You reached the goal!" << std::endl;
+                server.goalReached(stepCount).send();
+            `;  
+        };
+        Walking.exit1 -> ReachedGoal;
+    };
+};

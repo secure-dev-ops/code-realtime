@@ -1,0 +1,85 @@
+class CallData {
+[[rt::header_preface]]
+`
+#include <grpcpp/grpcpp.h>
+
+using grpc::ServerCompletionQueue;
+using grpc::ServerContext;
+`
+
+[[rt::impl_preface]]
+`
+using grpc::Status;
+`
+
+[[rt::decl]]
+`
+protected:
+    ServerCompletionQueue* cq_;
+    ServerContext ctx_;
+
+public:
+    // "Start" the request (i.e. make the server ready to handle it when it arrives)
+    virtual void startRequest() = 0;
+
+    // Create a new CallData instance of this kind. 
+    // Called as part of processing the request, so the server becomes ready 
+    // to handle another request of the same kind.
+    virtual void newCallData() = 0;
+
+    // Complete the request. This is where the request actually is carried out.
+    virtual void completeRequest() = 0;
+
+    // Called when the request has finished. The default implementation
+    // deletes the CallData instance. Override to keep the request alive for longer.
+    virtual void onFinished();
+
+    CallData(ServerCompletionQueue* cq);
+`
+
+[[rt::impl]]
+`
+void CallData::onFinished() {
+    delete this;
+}
+
+CallData::CallData(ServerCompletionQueue* cq) : cq_(cq) {
+    rtg_init1(); // Initialize the CallData state machine
+}
+`
+
+    /* Trigger Operations */
+    trigger proceed();
+    /* State Machine */
+    statemachine {
+        state Create;
+        initial -> Create;
+        state Process;
+        state Finish;
+        state FinalState[[rt::properties(color="#2fe432")]];
+        startRequest: Create -> Process on proceed()
+        `
+            // Start request processing by calling startRequest().
+            // The memory address of this CallData instance acts as the tag 
+            // uniquely identifying the request (so that different CallData
+            // instances can serve different requests concurrently).
+            startRequest();
+        `;
+        completeRequest: Process -> Finish on proceed()
+        `
+            // Spawn a new CallData instance to serve new clients while we process
+            // the one for this CallData. The instance will deallocate itself when 
+            // it reaches the Finish state
+            newCallData();
+
+            // Complete processing of this request
+            completeRequest();
+        `;
+        Finish -> FinalState on proceed()
+        `
+            // Deallocate ourselves (CallData).
+            onFinished();
+            return;
+        `;
+    };
+};

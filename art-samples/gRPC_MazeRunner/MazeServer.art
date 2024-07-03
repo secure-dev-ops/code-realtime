@@ -1,0 +1,146 @@
+capsule MazeServer : GRPC_Server, `ICommands_ProtocolServer` {
+
+[[rt::header_preface]]
+`
+    #include "ICommands_ProtocolServer.h"
+`
+
+[[rt::impl_preface]]
+`
+    #include "CallData_Go.h"
+    #include "CallData_StepCount.h"
+    #include "CallData_AdjustStepCount.h"
+    #include "SubscribeData_WrongWay.h"
+    #include "CallData_Unsubscribe_WrongWay.h"
+    #include "SubscribeData_GoalReached.h"
+`
+
+
+[[rt::decl]]
+`
+
+public:
+    MazeServer(RTController* rtg_rts, RTActorRef* rtg_ref);
+private:
+    MazeWalker::AsyncService service;
+protected:    
+    void registerServices( ServerBuilder& builder );
+    void createCallDatas( void ) override;
+
+    MazeWalker::AsyncService& getService( void ) override;
+    unsigned int getSteps( void ) override;
+    void goEast( void ) override;
+    void goWest( void ) override;
+    void goSouth( void ) override;
+    void goNorth( void ) override;
+    void adjustStepCount( int adjustment ) override;
+    void subscribeWrongWay( SubscribeData_WrongWay* data ) override;
+    void unsubscribeWrongWay( void ) override;
+    void subscribeGoalReached( SubscribeData_GoalReached* data ) override;
+`
+
+[[rt::impl]]
+`
+    #include "SubscribeData_WrongWay.h" 
+    
+    MazeServer::MazeServer(RTController* rtg_rts, RTActorRef* rtg_ref)
+        : SUPER(rtg_rts, rtg_ref, true) {        
+    }
+    
+    void MazeServer::registerServices( ServerBuilder& builder ) {
+        // Here we should register all services that clients need to access through this gRPC server.
+        // They should all be **asynchronous** services since the server
+        // in general has to process the request and the reply asynchronously.
+        
+        builder.RegisterService(&service);
+    }
+    
+    void MazeServer::createCallDatas() {
+        // Create a CallData for each RPC supported by this server
+        new CallData_Go(*this, cq.get(), CallData_Go::East);
+        new CallData_Go(*this, cq.get(), CallData_Go::West);
+        new CallData_Go(*this, cq.get(), CallData_Go::North);
+        new CallData_Go(*this, cq.get(), CallData_Go::South);
+        new CallData_StepCount(*this, cq.get());
+        new CallData_AdjustStepCount(*this, cq.get());
+        
+        new SubscribeData_WrongWay(*this, cq.get());
+        new CallData_Unsubscribe_WrongWay(*this, cq.get());
+        new SubscribeData_GoalReached(*this, cq.get());
+    }
+    
+    MazeWalker::AsyncService& MazeServer::getService(){    
+        return service;
+    }
+    
+    unsigned int MazeServer::getSteps() {    
+        RTMessage reply;
+        commands.getSteps().invoke(&reply);
+        unsigned int* count = static_cast<unsigned int*>(reply.getData());
+
+        return *count;    
+    }
+
+    void MazeServer::goWest() {
+        commands.west().send();    
+    }
+
+    void MazeServer::goEast() {
+        commands.east().send();    
+    }
+
+    void MazeServer::goSouth() {
+        commands.south().send();    
+    }
+    void MazeServer::goNorth() {
+        commands.north().send();    
+    }
+
+    void MazeServer::adjustStepCount( int adjustment ) {
+        commands.adjustStepCount(adjustment).send();    
+    }
+
+    void MazeServer::subscribeWrongWay( SubscribeData_WrongWay* data ) {
+        subscribe("WrongWay", data);
+    }
+
+    void MazeServer::unsubscribeWrongWay() {    
+        SubscribeData* data = unsubscribe("WrongWay");
+        if (data) {
+            data->unsubscribe();
+        }    
+    }
+
+    void MazeServer::subscribeGoalReached( SubscribeData_GoalReached* data ) {
+        subscribe("GoalReached", data);
+    }
+
+`
+
+    /* Ports */
+    service behavior port commands : Commands;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state redefine WaitForRequest {
+            wrongWay: on commands.wrongWay
+            `
+                SubscribeData_WrongWay* subscribeData = static_cast<SubscribeData_WrongWay*>(getSubscription("WrongWay"));
+                if (subscribeData) {
+                    const RTString* str = rtdata;
+                    subscribeData->notifySubscriber(str);
+                }
+            `;
+
+            goalReached: on commands.goalReached
+            `
+                SubscribeData_GoalReached* subscribeData = static_cast<SubscribeData_GoalReached*>(getSubscription("GoalReached"));
+                if (subscribeData) {
+                    const unsigned int* stepCount = rtdata;
+                    subscribeData->notifySubscriber(*stepCount);
+                }
+            `;
+        };
+    };
+};

@@ -1,0 +1,171 @@
+/*
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.    
+*/
+
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+// Where gRPC sources are located
+let grpcSourceLocation = 'C:/github/grpc';
+// Where gRPC tools and libraries are installed
+let grpcInstallLocation = 'C:/grpc/install';
+// Where the build folder of the client application is located
+let clientBuildLocation = 'C:/github/lib-grpc-server/grpc-client/build';
+
+tc.prerequisites = ['${workspaceFolder:gRPCServer}/grpcServerLib.tcjs']; 
+tc.executableName = 'maze_server$(EXEC_EXT)';
+tc.targetProject = 'grpc-server_target';
+tc.targetConfiguration = 'WinT.x64-VisualC++-17.0';
+tc.compilationMakeArguments = '';
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.inclusionPaths = [
+    grpcSourceLocation + '/include',
+    grpcSourceLocation + '/third_party/abseil-cpp',
+    grpcInstallLocation + '/include',
+    clientBuildLocation,
+]; 
+tc.linkArguments = '/DEBUG /ignore:4221';
+tc.targetRTSLocation = 'C:/TargetRTSWinDebug/TargetRTS'; // Replace with location where your TargetRTS is located
+tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY'
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+},
+];
+tc.topCapsule = 'Top'; 
+tc.userLibraries = [
+    clientBuildLocation + '/Debug/maze_grpc_proto.lib', 
+    grpcInstallLocation + '/lib/absl_flags_parse.lib',
+    grpcInstallLocation + '/lib/grpc++_reflection.lib',
+    grpcInstallLocation + '/lib/grpc++.lib',
+    grpcInstallLocation + '/lib/libprotobufd.lib',
+    grpcInstallLocation + '/lib/grpc.lib',
+    grpcInstallLocation + '/lib/upb_json_lib.lib',
+    grpcInstallLocation + '/lib/upb_textformat_lib.lib',
+    grpcInstallLocation + '/lib/upb_message_lib.lib',
+    grpcInstallLocation + '/lib/upb_base_lib.lib',
+    grpcInstallLocation + '/lib/upb_mem_lib.lib',
+    grpcInstallLocation + '/lib/utf8_range_lib.lib',
+    grpcInstallLocation + '/lib/re2.lib',
+    grpcInstallLocation + '/lib/zlibstaticd.lib',
+    grpcInstallLocation + '/lib/cares.lib',
+    'advapi32.lib',
+    'iphlpapi.lib',
+    grpcInstallLocation + '/lib/gpr.lib',
+    grpcInstallLocation + '/lib/absl_random_distributions.lib',
+    grpcInstallLocation + '/lib/absl_random_seed_sequences.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_pool_urbg.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_randen.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_randen_hwaes.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_randen_hwaes_impl.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_randen_slow.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_platform.lib',
+    grpcInstallLocation + '/lib/absl_random_internal_seed_material.lib',
+    grpcInstallLocation + '/lib/absl_random_seed_gen_exception.lib',
+    grpcInstallLocation + '/lib/ssl.lib',
+    grpcInstallLocation + '/lib/crypto.lib',
+    grpcInstallLocation + '/lib/address_sorting.lib',
+    'ws2_32.lib',
+    'crypt32.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_check_op.lib',
+    grpcInstallLocation + '/lib/absl_leak_check.lib',
+    grpcInstallLocation + '/lib/absl_die_if_null.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_conditions.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_message.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_nullguard.lib',
+    grpcInstallLocation + '/lib/absl_examine_stack.lib',
+	grpcInstallLocation + '/lib/absl_log_internal_format.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_proto.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_log_sink_set.lib',
+    grpcInstallLocation + '/lib/absl_log_sink.lib',
+    grpcInstallLocation + '/lib/absl_log_entry.lib',
+    grpcInstallLocation + '/lib/absl_log_initialize.lib',
+    grpcInstallLocation + '/lib/absl_log_globals.lib',
+    grpcInstallLocation + '/lib/absl_vlog_config_internal.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_fnmatch.lib',
+    grpcInstallLocation + '/lib/absl_log_internal_globals.lib',
+    grpcInstallLocation + '/lib/absl_statusor.lib',
+    grpcInstallLocation + '/lib/absl_status.lib',
+    grpcInstallLocation + '/lib/absl_strerror.lib',
+    grpcInstallLocation + '/lib/utf8_validity.lib',
+    grpcInstallLocation + '/lib/absl_flags_usage.lib',
+    grpcInstallLocation + '/lib/absl_flags_usage_internal.lib',
+    grpcInstallLocation + '/lib/absl_flags_internal.lib',
+    grpcInstallLocation + '/lib/absl_flags_marshalling.lib',
+    grpcInstallLocation + '/lib/absl_flags_reflection.lib',
+    grpcInstallLocation + '/lib/absl_flags_config.lib',
+    grpcInstallLocation + '/lib/absl_cord.lib',
+    grpcInstallLocation + '/lib/absl_cordz_info.lib',
+    grpcInstallLocation + '/lib/absl_cord_internal.lib',
+    grpcInstallLocation + '/lib/absl_cordz_functions.lib',
+    grpcInstallLocation + '/lib/absl_cordz_handle.lib',
+    grpcInstallLocation + '/lib/absl_crc_cord_state.lib',
+    grpcInstallLocation + '/lib/absl_crc32c.lib',
+    grpcInstallLocation + '/lib/absl_str_format_internal.lib',
+    grpcInstallLocation + '/lib/absl_crc_internal.lib',
+    grpcInstallLocation + '/lib/absl_crc_cpu_detect.lib',
+    grpcInstallLocation + '/lib/absl_raw_hash_set.lib',
+    grpcInstallLocation + '/lib/absl_hash.lib',
+    grpcInstallLocation + '/lib/absl_bad_variant_access.lib',
+    grpcInstallLocation + '/lib/absl_city.lib',
+    grpcInstallLocation + '/lib/absl_low_level_hash.lib',
+    grpcInstallLocation + '/lib/absl_hashtablez_sampler.lib',
+    grpcInstallLocation + '/lib/absl_exponential_biased.lib',
+    grpcInstallLocation + '/lib/absl_flags_private_handle_accessor.lib',
+    grpcInstallLocation + '/lib/absl_flags_commandlineflag.lib',
+    grpcInstallLocation + '/lib/absl_bad_optional_access.lib',
+    grpcInstallLocation + '/lib/absl_flags_commandlineflag_internal.lib',
+    grpcInstallLocation + '/lib/absl_flags_program_name.lib',
+    grpcInstallLocation + '/lib/absl_synchronization.lib',
+    grpcInstallLocation + '/lib/absl_graphcycles_internal.lib',
+    grpcInstallLocation + '/lib/absl_kernel_timeout_internal.lib',
+    grpcInstallLocation + '/lib/absl_time.lib',
+    grpcInstallLocation + '/lib/absl_civil_time.lib',
+    grpcInstallLocation + '/lib/absl_time_zone.lib',
+    grpcInstallLocation + '/lib/absl_stacktrace.lib',
+    grpcInstallLocation + '/lib/absl_symbolize.lib',
+    grpcInstallLocation + '/lib/absl_strings.lib',
+    grpcInstallLocation + '/lib/absl_strings_internal.lib',
+    grpcInstallLocation + '/lib/absl_string_view.lib',
+    grpcInstallLocation + '/lib/absl_int128.lib',
+    grpcInstallLocation + '/lib/absl_throw_delegate.lib',
+    grpcInstallLocation + '/lib/absl_malloc_internal.lib',
+    grpcInstallLocation + '/lib/absl_debugging_internal.lib',
+    grpcInstallLocation + '/lib/absl_demangle_internal.lib',
+    grpcInstallLocation + '/lib/absl_base.lib',
+    grpcInstallLocation + '/lib/absl_raw_logging_internal.lib',
+    grpcInstallLocation + '/lib/absl_log_severity.lib',
+    grpcInstallLocation + '/lib/absl_spinlock_wait.lib',
+    //'-ignore:4221',
+    'kernel32.lib',
+    'user32.lib',
+    'gdi32.lib',
+    'winspool.lib',
+    'shell32.lib',
+    'ole32.lib',
+    'oleaut32.lib',
+    'uuid.lib',
+    'comdlg32.lib',
+];
+tc.cppCodeStandard = "C++ 14"

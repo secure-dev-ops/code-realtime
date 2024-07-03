@@ -1,0 +1,33 @@
+class SubscribeData : CallData {
+[[rt::decl]]
+`
+    public:
+        void onFinished() override;
+    
+        // Implements the unsubscription. A typical implementation should
+        // finish the subscription RPC here, to let the client free up resources
+        // allocated for the subscription (such as termination of a thread for reading subscription notifications).
+        virtual void unsubscribe() = 0;
+    
+        SubscribeData( ServerCompletionQueue* cq );
+`
+
+[[rt::impl]]
+`
+    void SubscribeData::onFinished() {
+        // Do not delete when the request has completed since the object should be kept alive
+        // as long as the subscription is active.
+    }
+    
+    SubscribeData::SubscribeData( ServerCompletionQueue* cq ) : CallData(cq) {
+    
+    }
+`
+
+    /* Trigger Operations */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
