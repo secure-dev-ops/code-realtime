@@ -1667,6 +1667,17 @@ tc.threads = [
 ];
 ```
 
+### TC_7016_prerequisitesWithoutActiveTC
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A TC has prerequisites specified, but its workspace folder has no active TC. | Set TC as active
+
+[Setting a TC as active](building/transformation-configurations.md#setting-a-transformation-configuration-as-active) impacts on how references in an Art file are resolved. If your TC has one or many prerequisites, it's typical that the Art files built by the TC have at least some references to Art elements that are built by those prerequisite TCs. For those references to be possible to resolve, it's required to set the TC as active. This validation rule helps you remember to do so by printing a warning if it finds a TC with prerequisites that is located in a workspace folder without an active TC.
+
+A Quick Fix is available that will fix the problem by setting the TC as active. If your workspace folder contains more than one TC with prerequisites, the warning will be reported for all of them, and you then need to decide which of the TCs that should be made active.
+
+Note that the concept of an active TC is not applicable when you build an application with the Art Compiler, because then you always specify explicitly which TC that should be built. Therefore, this validation rule only runs in the IDE, and not in the Art Compiler.
+
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
 
