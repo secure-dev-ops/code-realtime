@@ -1,0 +1,67 @@
+abstract capsule AbstarctCapsule {     
+    [[rt::decl]]
+    ` 
+        public:
+            virtual int abstract_show() = 0;
+            virtual int abstract_show(bool b) = 0;
+            virtual int abstract_show(bool b, int i) = 0;
+    `
+    statemachine {
+        state S;
+        abstract_initial : initial -> S;
+    };    
+};
+capsule CapsuleExtendsAbstract : AbstarctCapsule {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+    public:
+        virtual int abstract_show() override; 
+        int child_show(bool b); 
+        void foo();      
+       
+    `
+    [[rt::impl]]
+    `
+       int CapsuleExtendsAbstract::child_show(bool b) {return 2;};    
+       int CapsuleExtendsAbstract::abstract_show() {return 1;};   
+    `
+     statemachine {        
+        redefine abstract_initial : initial -> S;        
+    };
+   
+};
+
+capsule Top : CapsuleExtendsAbstract {
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+    `
+    [[rt::decl]]
+    `
+    public:
+        virtual int abstract_show(bool b) override;
+        virtual int abstract_show() override; 
+        virtual int abstract_show(bool b, int i) override;       
+       
+    `
+    [[rt::impl]]
+    `
+       int Top::abstract_show(bool b) {return 2;};
+       int Top::abstract_show() {return 3;};
+       int Top::abstract_show(bool b, int i) {return 4;};       
+    `
+     statemachine {        
+         
+        redefine abstract_initial : initial -> S
+        `
+            ASSERT(4 == abstract_show(true, 4), "Failed to call abstract_show(bool b, int i)");
+            PASS();
+        `
+        ;
+    };
+   
+};

@@ -6,6 +6,9 @@
             "path": "tests/abstract_capsule"
         },
         {
+            "path": "tests/abstract_capsule_method_signatures"
+        },
+        {
             "path": "tests/build_variants"
         },
         {
