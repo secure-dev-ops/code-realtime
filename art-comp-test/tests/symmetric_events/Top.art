@@ -1,0 +1,152 @@
+
+/**
+Exoected RTOutSignal void, RTInSignal void in Base and Conjugate
+*/
+protocol Proto1{
+    in  sayHello();
+    out sayBye();
+};
+
+/**
+Exoected RTSymmetricSignal in Base and Conjugate
+*/
+protocol Proto2{
+    in  sayHello();
+    out sayHello();
+};
+
+/**
+Expected RTOutSignal with 1 args and RTInSignal void in Conjugate 
+Expected RTSymmetricSignal in Base
+*/
+protocol Proto3{
+    in  sayHello(`int`);
+    out sayHello();
+};
+
+
+/**
+Expected RTOutSignal with 1 args and RTInSignal void in Base 
+Exoected RTSymmetricSignal in Conjugate
+*/
+protocol Proto4{
+    in  sayHello();
+    out sayHello(`int`);
+};
+
+
+/**
+Expected RTOutSignal with 1 args and RTInSignal void in both Base and Conjugate
+*/
+protocol Proto5{
+    in  sayHello(`int`);
+    out sayHello(`int`);
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+        #include "testlib.art.h"        
+    `
+    
+    behavior port timer : Timing;
+    part pingger: Ping, pongger: Pong;
+    connect pingger._porto1 with pongger._porto1;
+    connect pingger._porto2 with pongger._porto2;
+    connect pingger._porto3 with pongger._porto3;
+    connect pingger._porto4 with pongger._porto4;
+    connect pingger._porto5 with pongger._porto5;
+
+    statemachine {
+        state S1, S2;
+        initial -> S1;
+    };
+};
+
+capsule Ping {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+        #include "testlib.art.h"        
+    `
+
+    service behavior port _porto1: Proto1, _porto2: Proto2, _porto3: Proto3, _porto4: Proto4, _porto5: Proto5;
+    statemachine {
+        state S1 {
+            ponged1: on _porto1.sayHello
+                `
+                    std::cout << "Ponged 1!" << std::endl;
+                    _porto2.sayHello().send();
+                `;
+            ponged2: on _porto2.sayHello
+                `
+                    std::cout << "Ponged 2!" << std::endl;
+                    _porto3.sayHello().send();
+                `;
+            ponged3: on _porto3.sayHello
+            `
+                std::cout << "Ponged 3!" << std::endl;
+                _porto4.sayHello(1).send();
+            `;
+            ponged4: on _porto4.sayHello
+            `
+                std::cout << "Ponged 4!" << std::endl;
+                _porto5.sayHello(99).send();
+            `;
+            ponged5: on _porto5.sayHello
+            `
+                std::cout << "Ponged 5!" << std::endl;
+                PASS();
+            `;
+        };
+        initial -> S1 `
+            std::cout << "Ping initial !" << std::endl;
+            _porto1.sayBye().send();
+        `;
+    
+    };
+};
+
+capsule Pong {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+        #include "testlib.art.h"        
+    `
+
+    service behavior port _porto1~: Proto1, _porto2~: Proto2, _porto3~: Proto3, _porto4~: Proto4, _porto5~: Proto5;
+    statemachine {
+        state S1{
+            pinged1: on _porto1.sayBye
+            `
+                std::cout << "Pinged 1!" << std::endl;
+                _porto1.sayHello().send();
+            `;
+            pinged2: on _porto2.sayHello
+            `
+                std::cout << "Pinged 2!" << std::endl;
+                _porto2.sayHello().send();
+            `;
+            pinged3: on _porto3.sayHello
+            `
+                std::cout << "Pinged 3!" << std::endl;
+                _porto3.sayHello(99).send();
+            `;
+            pinged4: on _porto4.sayHello
+            `
+                std::cout << "Pinged 4!" << std::endl;
+                _porto4.sayHello().send();
+            `;
+            pinged5: on _porto5.sayHello
+            `
+                std::cout << "Pinged 5!" << std::endl;
+                _porto5.sayHello(99).send();
+            `;
+        };
+        initial -> S1 `            
+             std::cout << "Pong initial !" << std::endl;
+        `;
+    
+    };
+};
