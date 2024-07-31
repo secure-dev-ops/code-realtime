@@ -1,0 +1,6 @@
+protocol PingPongProtocol{
+    in ping(`int`);
+    out ping(`int`);
+    in pong(`int`);
+    out pong(`int`);
+};

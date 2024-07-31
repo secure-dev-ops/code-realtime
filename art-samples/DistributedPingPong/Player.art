@@ -1,0 +1,36 @@
+capsule Player {
+    [[rt::decl]]
+    `
+        public: int count = 0;
+    `
+
+    service behavior port server~: PingPongProtocol;
+    behavior port timer : Timing;
+    statemachine {
+        state WaitForBall{
+            ping: on server.ping
+            `
+                bool b = true; // ping
+                count = *((int*) rtdata);
+                timer.informIn(RTTimespec(1, 0), &b, &RTType_bool);          
+            `;
+            pong: on server.pong
+            `
+                bool b = false; // pong
+                count = *((int*) rtdata);
+                timer.informIn(RTTimespec(1, 0), &b, &RTType_bool);
+            `;
+            timmer: on timer.timeout
+            `
+                bool isPing = *((bool*) rtdata);
+                if (isPing)
+                    server.pong(count + 1).send();
+                else
+                    server.ping(count + 1).send();
+
+            `;
+
+        };
+        initial -> WaitForBall;
+    };  
+};

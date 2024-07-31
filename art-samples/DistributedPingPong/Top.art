@@ -1,0 +1,23 @@
+
+
+capsule TOP {
+
+    [[rt::impl]]
+    `
+#include <iostream>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+    `
+    /* Ports */
+    /* Parts */
+    part player : Player;
+    part pingPongServer : PingPongServer;
+    /* Connectors */
+    connect   pingPongServer.player with player.server;
+    /* State Machine */
+    statemachine {
+        state State1;
+        initial -> State1 ;
+    };
+};

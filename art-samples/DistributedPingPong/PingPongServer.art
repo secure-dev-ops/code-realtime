@@ -1,0 +1,72 @@
+capsule PingPongServer : TCPServer {
+
+
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+        using namespace std;
+
+    `
+    [[rt::impl_preface]]
+    `
+
+        #include <chrono>
+        #include <thread>
+        using namespace std;
+
+
+    `
+    
+    [[rt::decl]]
+    `
+        public:
+            bool injectPing = false;
+            virtual void init();
+    `
+    [[rt::impl]]
+    `
+             void PingPongServer::init(){
+                int ac = RTMain::argCount();
+                const char * const * av = RTMain::argStrings();
+                         
+                while( --ac > 0 ) {
+                    const char* arg = *++av;
+                    if( RTMemoryUtil::strcmp( arg, "-remotePort=", 12 ) == 0 )
+                        config.remotePort = RTMemoryUtil::atoi(*av + 12);
+                    if( RTMemoryUtil::strcmp( arg, "-port=", 6 ) == 0 )
+                            config.port = RTMemoryUtil::atoi(*av + 6);
+                    if( RTMemoryUtil::strcmp( arg, "-injectFirstPing", 16 ) == 0 )
+                        injectPing = true;
+                }
+                         
+                cout << "Incoming port: " << config.port << endl << flush;
+             }
+    `
+    service behavior port player: PingPongProtocol;
+    statemachine {
+        redefine _initial: initial -> WaitForRequest `
+        
+            CALLSUPER;
+            cout << "TCP server started!" << endl;
+
+            // Inject first signal
+            if (injectPing) {
+                cout << "Sleeping 1 second before injecting a signal ..." << endl;
+                chrono::seconds timespan(1);
+                this_thread::sleep_for(timespan);
+                cout << "Sleeping done" << endl;
+
+                RTMessage * msg = context()->newMsg();
+                int* data = new int(0);
+
+                msg->setData(data, &RTType_int);
+                msg->setSignal(PingPongProtocol::Base::rti_ping);
+                msg->setPriority(General);
+                msg->setDestination(this, &player, 0);
+                msg->internData();
+
+                context()->receive(msg, context());
+            }
+        `;
+    };
+};
