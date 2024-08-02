@@ -1,0 +1,7 @@
+protocol ForkProt{
+
+    in ack();
+    out down();
+    in nack();
+    out up();
+};

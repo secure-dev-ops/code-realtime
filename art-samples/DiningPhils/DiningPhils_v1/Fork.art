@@ -1,0 +1,40 @@
+capsule Fork{
+
+    [[rt::header_preface]]
+    `
+        #include <cstdio>
+        #include <cstdlib>
+        #include <iostream>
+    `
+   
+    [[rt::decl]]
+    `
+        private:
+            const char * myName;
+    `
+    service behavior port leftP~: ForkProt;
+    service behavior port rightP~: ForkProt;
+     behavior port logP: Log;
+    statemachine {
+        state Down, Up;
+        initial -> Down `
+            // what is my name?
+            myName = getName();
+            std::cout << myName << " starting up"  << std::endl;
+        `;
+        gotUpFromLeft : Down -> Up on leftP.up `
+            leftP.ack().send();
+        `;
+        gotUpFromRight : Down -> Up on rightP.up `
+            rightP.ack().send();
+        `;
+         gotUpFromLeft1 : Up -> Up on leftP.up `
+            leftP.nack().send();
+        `;
+        gotUpFromRight1 : Up -> Up on rightP.up `
+            rightP.nack().send();
+        `;
+         gotDown : Up -> Down on rightP.down , leftP.down`
+        `;
+    };
+};

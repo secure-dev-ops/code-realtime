@@ -1,0 +1,57 @@
+capsule Fork {
+    [[rt::header_preface]]
+    `
+        #include <cstdio>
+        #include <cstdlib>
+        #include <iostream>
+        #include <cstring>
+        #include "ForkArgs.art.h"
+        #include <PickUpStrategy.art.h>
+        
+    `
+    [[rt::decl]]
+    `
+    public:
+        char * myName;
+        int id;
+        int numPhils;
+        PickUpStrategy pickUpStrat;
+    `
+    service behavior port leftP~ : ForkProt;
+    service behavior port rightP~ : ForkProt;
+    behavior port logP : Log;
+    statemachine {
+        state Down, Up;
+        initial -> Down
+        `// receive initialization arguments
+            ForkArgs fArgs = (ForkArgs) *((ForkArgs *) rtdata);
+            id = fArgs.id;
+            numPhils = fArgs.numPhils;
+
+            // my name is 'f'+id
+            char buffer1[10];
+            snprintf(buffer1, 10, "f%d", id);
+            myName = new char[strlen(buffer1) + 1];
+            strcpy(myName, buffer1);
+            //logP.log("[%s] starting up", myName);
+            std::cout << myName << " starting up" << std::endl;
+        `;
+        gotUp: Down -> Up on leftP.up, rightP.up
+        `
+            RTProtocol * port = msg->sap();
+            if (port != (RTProtocol *) 0)
+                ((ForkProt::Conjugate *) port)->ack().send();
+        `;
+        gotUp1: Up -> Up on leftP.up, rightP.up
+        `
+
+            RTProtocol * port = msg->sap();
+            if (port != (RTProtocol *) 0)
+                ((ForkProt::Conjugate *) port)->nack().send();        
+        `;
+        gotDown: Up -> Down on rightP.down, leftP.down
+        `                                
+
+        `;
+    };
+};

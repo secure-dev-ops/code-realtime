@@ -1,0 +1,132 @@
+capsule Top {
+
+    [[rt::header_preface]]
+    `
+            #include <cstdio>
+            #include <cstdlib>
+            #include <iostream>
+    `
+    
+    [[rt::decl]]
+    `
+        int numPhils = 4;
+        PickUpStrategy pickUpStrat = PickUpStrategy::RANDOM;
+    `
+
+    behavior port logP: Log;
+    behavior port frameP: Frame; 
+    optional part fork0: Fork[0..1], fork1: Fork[0..1],fork2: Fork[0..1],fork3: Fork[0..1];
+    optional part phil0: Phil[0..1], phil1: Phil[0..1],phil2: Phil[0..1],phil3: Phil[0..1];
+
+    connect phil0.leftP with fork0.rightP;
+    connect fork0.leftP with phil1.rightP;
+    connect phil1.leftP with fork1.rightP;
+    connect fork1.leftP with phil2.rightP;
+    connect phil2.leftP with fork2.rightP;
+    connect fork2.leftP with phil3.rightP;
+    connect phil3.leftP with fork3.rightP;
+    connect fork3.leftP with phil0.rightP;
+
+
+    statemachine{
+        state State1;
+        initial -> State1 
+        `
+            std::cout << "[Top] starting up"  << std::endl;
+
+            int argc = RTMain::argCount();
+            std::cout << "arg count => " << argc << std::endl;
+            std::cout << "arg1 => " << RTMain::argStrings()[0] << std::endl;
+            std::cout << "arg2 => " << RTMain::argStrings()[1] << std::endl;
+
+            //  
+            if (argc==0) {
+                std::cout << "[Top] 0 command line arguments detected"  << std::endl;
+                std::cout << "[Top] using default pickup strategy: 'random' pickup strategy"  << std::endl;
+
+            }
+            else if (argc==2) {
+                logP.show("[Top] 1 command line arguments detected: ");
+                const char * arg1 = RTMain::argStrings()[1];
+                if (arg1[0]=='l') {
+                    pickUpStrat = PickUpStrategy::LEFTFIRST;
+                    std::cout << "numPhils= "<< numPhils << ", pickUpStrategy='leftFirst'" << std::endl;
+
+                }
+                else if (arg1[0]=='r' && arg1[1]=='i') {
+                    pickUpStrat = PickUpStrategy::RIGHTFIRST;
+                    std::cout << "numPhils= "<< numPhils << ", pickUpStrategy='rightFirst'"  << std::endl;
+
+                }
+                else if	(arg1[0]=='r' && arg1[1]=='a') {
+                    pickUpStrat = PickUpStrategy::RANDOM;
+                    std::cout << "numPhils= "<< numPhils << ", pickUpStrategy='random'"  << std::endl;
+
+                }
+                else {
+                    pickUpStrat = PickUpStrategy::RANDOM;
+                    std::cout << "[Top] unrecognized strategy; using default" << std::endl;
+                    std::cout << "numPhils= "<< numPhils << " pickUpStrategy='random'"  << std::endl;
+
+
+                }
+            } else {                
+                std::cout << "[Top] too many command line arguments detected" << std::endl;
+                std::cout << "[Top] exiting" << numPhils << std::endl;
+                exit(0);
+            }
+            
+
+            // incarnating forks and philosophers with appropriate arguments
+            PhilArgs pArgs;
+            pArgs.numPhils = numPhils;
+            pArgs.pickUpStrat = pickUpStrat;
+            ForkArgs fArgs;
+            fArgs.numPhils = numPhils;
+            RTActorId rtId;
+
+            pArgs.id = 0;
+            fArgs.id = 0;
+            rtId = frameP.incarnate(phil0, EmptyActorClass, &pArgs);
+            if (!rtId.isValid()) {
+                std::cout << "[Top] incarnation failed! " << numPhils << std::endl;
+                context()->perror("[Top] incarnation failed!");
+            }
+            rtId = frameP.incarnate(fork0, EmptyActorClass, &fArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+            pArgs.id = 1;
+            fArgs.id = 1;
+            rtId = frameP.incarnate(phil1, EmptyActorClass, &pArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+            rtId = frameP.incarnate(fork1, EmptyActorClass, &fArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+            pArgs.id = 2;
+            fArgs.id = 2;
+            rtId = frameP.incarnate(phil2, EmptyActorClass, &pArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+            rtId = frameP.incarnate(fork2, EmptyActorClass, &fArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+            pArgs.id = 3;
+            fArgs.id = 3;
+            rtId = frameP.incarnate(phil3, EmptyActorClass, &pArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+            rtId = frameP.incarnate(fork3, EmptyActorClass, &fArgs);
+            if (!rtId.isValid()) {
+                context()->perror("[Top] incarnation failed!");
+            }
+
+        `;
+    };
+};

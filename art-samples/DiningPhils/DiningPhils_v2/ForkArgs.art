@@ -1,0 +1,10 @@
+[[rt::decl]]
+`
+    #include <PickUpStrategy.art.h>
+    class [[rt::auto_descriptor]] ForkArgs {
+        public:
+            int id;
+            int numPhils;
+    };
+    
+    `

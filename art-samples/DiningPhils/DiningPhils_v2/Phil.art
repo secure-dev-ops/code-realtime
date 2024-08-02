@@ -1,0 +1,142 @@
+capsule Phil {
+    [[rt::header_preface]]
+    `
+        #include <cstring>
+        #include <cstdio>
+        #include <cstdlib>
+        #include <time.h>
+        #include <iostream>
+        #include "ForkProt.h"
+        #include "PhilArgs.art.h"
+        #include <PickUpStrategy.art.h>
+    `
+   
+    [[rt::decl]]
+    `
+        char * myName;
+        int id;
+        int numPhils;
+        PickUpStrategy pickUpStrat;    
+    `
+    service behavior port rightP : ForkProt;
+    service behavior port leftP : ForkProt;
+    behavior port timerP : Timing;
+    behavior port logP : Log;
+    statemachine {
+        state Thinking {
+            entry
+            `
+                std::cout  << myName << " thinking" << std::endl;
+                timerP.informIn(RTTimespec(2,100000000));
+            `;
+        }, Wait4Right, Wait4Left, Wait4First, GoLeftWait4Right, GoRightWait4Right, Eating {
+            entry
+            `
+                std::cout << "                                         " << myName  << " eating" << std::endl;
+
+                int rnd = rand() % 10;
+                timerP.informIn(RTTimespec(0,rnd*10000000));
+            `;
+        };
+        choice _junction;
+        _initial: initial -> Thinking
+        `
+            // read in the initialization arguments
+            PhilArgs pArgs = (PhilArgs) *((PhilArgs*) rtdata);
+
+            id = pArgs.id;
+            numPhils = pArgs.numPhils;
+            pickUpStrat = pArgs.pickUpStrat;
+
+            // my name is 'phil'+id
+            char buffer1[10];
+            snprintf(buffer1, 10, "phil%d", id);            
+            myName = new char[strlen(buffer1) + 1];
+            strcpy(myName, buffer1);
+            std::cout<< myName << " starting up "  << std::endl;
+
+            // initialize random number generator
+            srand(time(NULL));
+        `;
+        gotTimeout: Thinking -> _junction on timerP.timeout;
+        left_first: _junction -> Wait4Left when
+        `
+            return (pickUpStrat==PickUpStrategy::LEFTFIRST);`
+        `
+            leftP.up().send();
+        `;
+        right_first: _junction -> Wait4Right when
+        `
+            return (pickUpStrat==PickUpStrategy::RIGHTFIRST);`
+        `
+            rightP.up().send();
+        `;
+        random: _junction -> Wait4First when
+        `
+            return (pickUpStrat==PickUpStrategy::RANDOM);
+        `
+        `
+            int rnd = rand() % 100;
+            if (rnd>50) 
+                leftP.up().send();
+            else 
+                rightP.up().send();
+        `;
+        random_else: _junction -> Wait4First when `else`;
+        gotLeft1: Wait4Left -> GoLeftWait4Right on leftP.ack
+        `
+            std::cout << "                                         " << myName << " got left " << std::flush << std::endl;
+            rightP.up().send();
+        `;
+        gotLeft2: Wait4First -> GoLeftWait4Right on leftP.ack
+        `
+            std::cout<< "                                         " << myName << " got left "  << std::flush << std::endl;
+            rightP.up().send();
+        `;
+        gotRight1: Wait4Right -> GoRightWait4Right on rightP.ack
+        `
+            std::cout << "                                         "<< myName  << " got right " << std::flush << std::endl;
+            leftP.up().send();
+        `;
+        gotRight2: Wait4First -> GoRightWait4Right on rightP.ack
+        `
+            std::cout << "                                         "<< myName << " got right " << std::flush << std::endl;
+            leftP.up().send();
+        `;
+        gotLeft3: GoRightWait4Right -> Eating on leftP.ack
+        `
+            // std::cout  << myName << " to eating 1 " << std::flush << std::endl;
+        `;
+        gotRight3: GoLeftWait4Right -> Eating on rightP.ack
+        `
+            // std::cout << myName << " to eating 2 "  << std::flush << std::endl;
+        `;
+        putDownForks: Eating -> Thinking on timerP.timeout
+        `
+            leftP.down().send();
+            rightP.down().send();
+        `;
+        noNack1: Wait4Left -> Wait4Left on leftP.nack
+        `
+            leftP.up().send();
+        `;
+        noNeck2: Wait4First -> Wait4First on leftP.nack, rightP.nack
+        `
+            RTProtocol * port = msg->sap();
+            if (port != (RTProtocol *) 0)
+                ((ForkProt::Base *) port)->up().send();       
+         `;
+        noNeck3: Wait4Right -> Wait4Right on rightP.nack
+        `
+            rightP.up().send();
+         `;
+        noNeck4: GoLeftWait4Right -> GoLeftWait4Right on rightP.nack
+        `
+            rightP.up().send();
+         `;
+        noNeck5: GoRightWait4Right -> GoRightWait4Right on leftP.nack
+        `
+            leftP.up().send();
+         `;
+    };
+};

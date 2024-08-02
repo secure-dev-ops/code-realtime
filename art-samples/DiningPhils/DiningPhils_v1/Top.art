@@ -1,0 +1,32 @@
+capsule Top {
+
+    [[rt::header_preface]]
+    `
+            #include <cstdio>
+            #include <cstdlib>
+            #include <iostream>
+    `
+
+    behavior port logP: Log;
+    behavior port frameP: Frame; 
+    fixed part fork0: Fork, fork1: Fork,fork2: Fork,fork3: Fork;
+    fixed part phil0: Phil, phil1: Phil,phil2: Phil,phil3: Phil;
+
+    connect phil0.leftP with fork0.rightP;
+    connect fork0.leftP with phil1.rightP;
+    connect phil1.leftP with fork1.rightP;
+    connect fork1.leftP with phil2.rightP;
+    connect phil2.leftP with fork2.rightP;
+    connect fork2.leftP with phil3.rightP;
+    connect phil3.leftP with fork3.rightP;
+    connect fork3.leftP with phil0.rightP;
+
+
+    statemachine{
+        state State1;
+        initial -> State1 
+        `
+            std::cout << "[Top] starting up" << std::endl;
+        `;
+    };
+};

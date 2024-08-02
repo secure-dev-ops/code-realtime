@@ -1,0 +1,11 @@
+[[rt::decl]]
+`
+    #include <PickUpStrategy.art.h>
+    class [[rt::auto_descriptor]] PhilArgs {
+        public:
+            int id;
+            int numPhils;
+            PickUpStrategy pickUpStrat; // Declare pickUpStrat as a non-static data member
+    };
+    
+`
