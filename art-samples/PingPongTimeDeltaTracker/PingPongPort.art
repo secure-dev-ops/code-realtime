@@ -1,0 +1,6 @@
+protocol PingPongPort {
+    /* In Events */
+    in pong();
+    /* Out Events */
+    out ping();
+};

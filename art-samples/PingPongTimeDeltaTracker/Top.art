@@ -1,0 +1,16 @@
+capsule Top {
+       
+    part ping : Pinger, pong : Ponger;
+    behavior port log : Log;
+    /* Connectors */
+    connect ping.pingPort with pong.pongPort;
+    /* State Machine */
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            log.log("[Top] starting up");
+        `;
+    };
+};
+

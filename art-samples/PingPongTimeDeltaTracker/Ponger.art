@@ -1,0 +1,34 @@
+capsule Ponger {   
+    [[rt::header_preface]]
+    `
+        #include <iostream>       
+    `
+    [[rt::decl]]
+    `
+        public:
+            static const long int DELAY = 0;
+    `
+    behavior port log:Log;
+    service behavior port pongPort~ : PingPongPort;
+    behavior service port timing:Timing;
+    statemachine {
+        state Playing, HitBack{
+            entry `
+                timing.informIn(RTTimespec(0,DELAY));
+            `;
+        };
+        initial -> Playing 
+        `
+           log.log("[Ponger] starting up");
+         `;
+        Playing -> HitBack on pongPort.ping
+        `
+            log.log("[Ponger] ping received!");
+        `;
+        HitBack -> Playing on timing.timeout
+        `
+            pongPort.pong().send();
+            log.log("[Ponger] pong sent ...");          
+        `;
+    };
+};

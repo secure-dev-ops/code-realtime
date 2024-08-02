@@ -1,0 +1,104 @@
+capsule Pinger {
+    [[rt::header_preface]]
+    `
+       #include <cstdio>
+        #include <cstdlib>
+        #include <iostream>
+        #include <ctime>        
+        #include <chrono>
+        #include <iomanip>
+        #include <cmath>
+        #include <cstring>      
+    `
+    [[rt::impl_preface]]
+    `
+        #include <stdlib.h>             
+    `
+    [[rt::decl]]
+    `
+        public:
+            int count = 0;
+            RTTimespec startTime;
+            RTTimespec prevTime;
+            RTTimespec nowTime;
+            int ROUNDS;
+            void printReadableFormat(const RTTimespec& timeToConvert) {
+                long long totalMilliseconds = (timeToConvert.tv_sec * 1000LL) + (timeToConvert.tv_nsec / 1000000LL);
+                totalMilliseconds = std::abs(totalMilliseconds);
+                std::chrono::milliseconds duration(totalMilliseconds);
+                std::chrono::system_clock::time_point time_point = std::chrono::system_clock::time_point(duration);
+                std::time_t timeFormat = std::chrono::system_clock::to_time_t(time_point);
+                std::tm* timeValue = std::gmtime(&timeFormat);
+                char buffer[80];
+                std::strftime(buffer, sizeof(buffer), "%H:%M:%S", timeValue);
+                std::cout << buffer << " " << std::setw(3) << std::setfill('0') << timeToConvert.tv_nsec / 1000000 << " msec";
+            }
+
+            void printDifference(const RTTimespec& startTime, const RTTimespec& lastPongTime) {
+                long long diffSeconds = lastPongTime.tv_sec - startTime.tv_sec;
+                long long diffNanoseconds = lastPongTime.tv_nsec - startTime.tv_nsec;
+                if (diffNanoseconds < 0) {
+                    diffSeconds--;
+                    diffNanoseconds += 1000000000LL;
+                }
+                std::cout << std::setw(2) << std::setfill('0') << (diffSeconds / 3600) << ":"; // hours
+                std::cout << std::setw(2) << std::setfill('0') << ((diffSeconds % 3600) / 60) << ":"; // minutes
+                std::cout << std::setw(2) << std::setfill('0') << (diffSeconds % 60); // seconds
+                std::cout << " " << std::setw(3) << std::setfill('0') << (diffNanoseconds / 1000000)  << " msec" << std::endl; // milliseconds
+            }
+
+    `
+    behavior port log:Log;
+    service behavior port pingPort : PingPongPort; 
+    
+    statemachine {
+        choice _myChoice;
+        state State1, Done{
+            entry `
+                log.log("[Pinger] stopping");
+            `;
+        };
+        initial -> State1 `
+                std::cout << "Enter number of Rounds" << std::endl;
+                std::cin >> ROUNDS;
+                
+                RTTimespec::getclock(startTime);
+                prevTime = startTime;
+
+                // Start the game by sending a "ping" to the other player
+                log.log("[Pinger] starting game");
+                pingPort.ping().send();
+                log.show("[Pinger] ping sent ... ");                
+            `;
+        State1 -> _myChoice on pingPort.pong 
+            `
+                 log.log("[Pinger] pong received!");
+
+                // grab current time and store in now
+                RTTimespec::getclock(nowTime);         
+                
+                // RTTimespec diff = nowTime - prevTime;
+                // std::cout << "[Pinger] time of previous pong:" << prevTime.tv_sec << " Seconds, " << prevTime.tv_nsec << " NanoSeconds" << std::endl;
+                // std::cout << "[Pinger] time of this pong    :" << nowTime.tv_sec << " Seconds, " << nowTime.tv_nsec << " NanoSeconds" << std::endl;
+                // std::cout << "[Pinger] difference           : " << diff.tv_sec << " Seconds, " << diff.tv_nsec << " NanoSeconds" << std::endl;
+                           
+            `;
+        _myChoice -> State1 when `return (count<ROUNDS);`
+            `
+                prevTime = nowTime;
+                count++;
+                log.log("[Pinger] ------");
+                pingPort.ping().send();
+                log.show("[Pinger] ping sent ... \n");
+            `;
+        _myChoice -> Done when `else`
+            `
+                log.log("[Pinger] -----");
+                log.log("[Pinger] time to stop");
+                std::cout << "[Pinger] start time           :"; printReadableFormat(startTime); std::cout << std::endl;
+                std::cout << "[Pinger] time of last pong    :"; printReadableFormat(nowTime); std::cout << std::endl;
+                std::cout << "[Pinger] difference           :"; printDifference(startTime, nowTime);
+               
+            `;
+    };
+};
