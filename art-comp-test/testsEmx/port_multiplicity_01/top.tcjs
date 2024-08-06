@@ -1,0 +1,14 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/port_multiplicity_01/port_multiplicity_01.emx#_rhb7gEk5Ee-mV-UQTNJH8A',
+];
+tc.commonPreface = `
+#include <iostream>
+
+
+`;
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'port_multiplicity_01_target';
+tc.topCapsule = 'platform:/resource/port_multiplicity_01/port_multiplicity_01.emx#_yOsdsEk5Ee-mV-UQTNJH8A';

@@ -1,0 +1,49 @@
+protocol Events {
+    in tokenIn();
+    out tokenOut();
+};
+
+capsule Top {
+    /* Ports */
+    behavior port serverPort : Events;
+    /* Parts */
+    part server : Server;
+    part tokenManager : TokenManager;
+    /* Connectors */
+    connect server.tokenManager with tokenManager.server;
+    connect serverPort with tokenManager.server;
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State
+        `
+            serverPort.tokenOut().send();
+        `;
+    };
+};
+
+capsule Server {
+    service behavior port tokenManager : Events;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on tokenManager.tokenIn
+        `
+            PASS();
+        `;
+    };
+ };
+
+capsule TokenManager {
+    service behavior port server~ : Events[2];
+    behavior port timer : Timing;
+    statemachine {
+        state WaitForToken {
+            tokenReceived: on server.tokenOut
+            `
+                server.tokenIn().send();
+            `;
+        };
+        initial -> WaitForToken;
+    };
+};

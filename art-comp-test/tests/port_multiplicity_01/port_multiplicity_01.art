@@ -1,0 +1,41 @@
+protocol Proto {
+    out e1();
+    in e2();
+};
+
+capsule Inner {
+    service behavior port p~ : Proto;
+    statemachine {
+        state Initial, First, Second;
+        initial -> Initial;
+        Initial -> First on p.e1
+        `
+            p.e2().send();
+        `;
+        First -> Second on p.e1
+        `
+            FAIL("Unexpected second receiving of e1 signal");
+        `;
+    };
+};
+
+capsule Top {
+    part inner : Inner[3];
+    behavior port pb : Proto [3];
+    connect pb with inner.p;
+    statemachine {
+        state State0, State1, State2, State3;
+        initial -> State0
+        `
+            pb.e1().sendAt(0);
+            pb.e1().sendAt(1);
+            pb.e1().sendAt(2);
+        `;
+        State0 -> State1 on pb.e2;
+        State1 -> State2 on pb.e2;
+        State2 -> State3 on pb.e2
+        `
+            PASS();
+        `;
+    };
+};

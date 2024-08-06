@@ -1,0 +1,9 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.topCapsule = 'Top';
+tc.targetProject = 'port_multiplicity_01_target';
+tc.prerequisites = [
+    '../../TestUtils/testlib.tcjs'
+];
+tc.commonPreface = `
+#include "testlib.art.h"
+`;

@@ -1,0 +1,12 @@
+{ "folders": [
+        {
+            "path": "TestUtils"
+        },
+        {
+            "path": "tests/port_multiplicity_01"
+        },
+        {
+            "path": "tests/port_multiplicity_02"
+        }
+    ]
+}
