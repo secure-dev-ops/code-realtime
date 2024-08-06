@@ -18,7 +18,7 @@ public:
 			[this](RTController *c, RTActorRef *a, int index)
 			{
 				std::cout << "Creating LoggerWithTimeStamp with RTInjector registered create function\n";
-				return new TimeStampLogger_Actor(c, a);
+				return new TimeStampLogger(c, a);
 			});
 		#endif
 		#ifdef FAST_PINGER
@@ -26,7 +26,7 @@ public:
 			[this](RTController *c, RTActorRef *a, int index)
 			{
 				std::cout << "Creating FastPinger with RTInjector registered create function\n";
-				return new FastPinger_Actor(c, a);
+				return new FastPinger(c, a);
 			});
 		#endif
 		
