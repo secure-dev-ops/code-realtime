@@ -1108,6 +1108,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7016_prerequisiteswithoutactivetc" class="md-nav__link">
+    TC_7016_prerequisitesWithoutActiveTC
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2139,6 +2146,13 @@
           <li class="md-nav__item">
   <a href="#tc_7015_librarythreadnotmappedtophysicalthread" class="md-nav__link">
     TC_7015_libraryThreadNotMappedToPhysicalThread
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tc_7016_prerequisiteswithoutactivetc" class="md-nav__link">
+    TC_7016_prerequisitesWithoutActiveTC
   </a>
   
 </li>
@@ -4324,6 +4338,26 @@ tc.threads = [
 }
 ];
 </code></pre>
+<h3 id="tc_7016_prerequisiteswithoutactivetc">TC_7016_prerequisitesWithoutActiveTC</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">A TC has prerequisites specified, but its workspace folder has no active TC.</td>
+<td align="left">Set TC as active</td>
+</tr>
+</tbody>
+</table>
+<p><a href="../building/transformation-configurations/#setting-a-transformation-configuration-as-active">Setting a TC as active</a> impacts on how references in an Art file are resolved. If your TC has one or many prerequisites, it's typical that the Art files built by the TC have at least some references to Art elements that are built by those prerequisite TCs. For those references to be possible to resolve, it's required to set the TC as active. This validation rule helps you remember to do so by printing a warning if it finds a TC with prerequisites that is located in a workspace folder without an active TC.</p>
+<p>A Quick Fix is available that will fix the problem by setting the TC as active. If your workspace folder contains more than one TC with prerequisites, the warning will be reported for all of them, and you then need to decide which of the TCs that should be made active.</p>
+<p>Note that the concept of an active TC is not applicable when you build an application with the Art Compiler, because then you always specify explicitly which TC that should be built. Therefore, this validation rule only runs in the IDE, and not in the Art Compiler.</p>
 <h2 id="core-validation-rules">Core Validation Rules</h2>
 <p>There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.</p>
 <p>Since these rules run before semantic <a href="#validation-rules">validation rules</a> they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.</p>

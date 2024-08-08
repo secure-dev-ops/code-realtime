@@ -20,7 +20,7 @@
     
     
       
-        <title>1.0.4 (2024-06-26 10:50) - DevOps Code RealTime</title>
+        <title>1.0.5 (2024-08-06 13:21) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#104-2024-06-26-1050" class="md-skip">
+        <a href="#105-2024-08-06-1321" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1.0.4 (2024-06-26 10:50)
+              1.0.5 (2024-08-06 13:21)
             
           </span>
         </div>
@@ -1115,6 +1115,19 @@
   
 
 
+<h1 id="105-2024-08-06-1321">1.0.5 (2024-08-06 13:21)</h1>
+<ol>
+<li>Files from the Code RealTime installation are now by default treated as read-only and will appear with a padlock in the editor title when you open them. Examples of such files include <code>RTPredefined.art</code> and all files from the TargetRTS. Having these files read-only helps to avoid accidental modifications, but if you anyway want to edit them you can do so by updating the setting <code>files.readonlyInclude</code>.</li>
+<li>Support for port multiplicity has been improved. Now code generation supports connecting the same port to several other ports including local ports and other part's ports. It is also possible to use C++ constant expressions as port multiplicity, for example, macros.</li>
+<li>Art compiler now fully supports protocols with symmetrical events, which can be both sent and received by the same port. Check out <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/symmetric_events">this test case</a> for an example.</li>
+<li>Detection of abstract capsules has been improved to fully analyze parent capsules, their pure virtual methods and overrides.</li>
+<li>Navigation options from transformation configuration (TC) text editor have been extended. A user now can Ctrl+click on paths to files and folders specified in values of various attributes such as sources, targetFolder, inclusionPaths, targetRTSlocation and open the file or reveal the folder in Explorer.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#tc_7016_prerequisiteswithoutactivetc">TC_7016_prerequisitesWithoutActiveTC</a> now reports a warning if a TC has prerequisites, but the container workspace folder has no TC set as active. This rule is helpful when you work in the IDE, and forgot to set a TC as active. With no active TC, references to source elements of prerequisite TCs become unresolved, and previously it could be difficult to understand why. The validation rule provides a Quick Fix for resolving the problem by setting the TC as active.</li>
+<li>A new <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/gRPCServer">gRPCServer library</a> is now available which allows to connect your realtime application to other applications with <a href="https://grpc.io/">gRPC</a>. The library is provided as a sample that you either can use as is, or customize according to your needs.</li>
+<li>A new <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/gRPC_MazeRunner">sample application</a> is provided to show how to use the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/gRPCServer">gRPCServer library</a>. A sample client application written in C++ is also available on <a href="https://github.com/HCL-TECH-SOFTWARE/lib-grpc-server/blob/main/grpc-client">GitHub</a>.</li>
+<li>New examples have been added including <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/DiningPhils">DiningPhils</a> implementing different algorithms to solve classical Dining Philosophers problem, and <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PingPongTimeDeltaTracker">Ping-Pong</a> with added time measurements.</li>
+<li>Code RealTime docker image is available on <a href="https://hub.docker.com/r/baravich/vscode-code-realtime">DockerHub</a> and is based on web version Visual Studio Code provided by <a href="https://github.com/gitpod-io/openvscode-server">openvscode-server</a>.</li>
+</ol>
 <h1 id="104-2024-06-26-1050">1.0.4 (2024-06-26 10:50)</h1>
 <ol>
 <li>It's now possible to use newer JVMs than Java 17 for running Code RealTime. Information about which Java (and version) that will be used is printed in the Art Server output channel at start-up.</li>
