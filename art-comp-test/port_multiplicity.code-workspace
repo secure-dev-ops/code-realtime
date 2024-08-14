@@ -7,6 +7,9 @@
         },
         {
             "path": "tests/port_multiplicity_02"
+        },
+        {
+            "path": "tests/threads"
         }
     ]
 }

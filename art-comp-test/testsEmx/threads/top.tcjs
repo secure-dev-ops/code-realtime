@@ -1,0 +1,33 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/threads/threads.emx#_AMybUEGxEe6lrPfMTn7A5Q'
+];
+tc.createTargetProject = true;
+tc.targetProject = 'threads_target';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.commonPreface = '#include <iostream>';
+tc.threads = [
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY'
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+},
+{
+    name: 'MyThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'MyLogicalThread'
+    ]
+}
+];
+tc.topCapsule = 'platform:/resource/threads/threads.emx#_hWp_MEGxEe6lrPfMTn7A5Q';
