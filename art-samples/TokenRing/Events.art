@@ -1,0 +1,5 @@
+protocol Events {
+    // A single symmetric event that can be both sent and received
+    in token(); 
+    out token();
+};

@@ -1,0 +1,29 @@
+/**
+ * When a token is received, wait 1 second and then send out the token again
+ * to the next participant in the token ring. 
+ */
+capsule TokenManager {
+[[rt::impl_preface]]
+`
+    #include <iostream>
+`
+
+    service behavior port server~ : Events;
+    service behavior port top~ : Events;
+    behavior port timer : Timing;
+    statemachine {
+        state WaitForToken {
+            tokenReceived: on server.token, top.token
+            `                
+                timer.informIn(RTTimespec(1,0));
+            `;
+
+            timeout: on timer.timeout
+            `
+                std::cout << "Passing token forward" << std::endl;
+                server.token().send();
+            `;
+        };
+        initial -> WaitForToken;        
+    };
+};

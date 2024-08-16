@@ -1,0 +1,32 @@
+capsule Server : TCPServer {
+[[rt::impl_preface]]
+`
+    #include <iostream>
+    #include <string>
+`
+[[rt::decl]]
+`
+public:
+    Server(RTController* rtg_rts, RTActorRef* rtg_ref, unsigned int port, unsigned int remotePort);
+`
+
+[[rt::impl]]
+`
+    Server::Server(RTController* rtg_rts, RTActorRef* rtg_ref, unsigned int port, unsigned int remotePort)
+        : SUPER(rtg_rts, rtg_ref) {
+        config.port = port;
+        config.remotePort = remotePort;
+        config.logToStdOut = false; // Avoid detailed logging to stdout
+        std::cout << "Server started (port=" << config.port << ", remotePort=" << config.remotePort << ")!" << std::endl;
+    }
+`
+
+    service behavior port tokenManager : Events;    
+
+    statemachine {
+        redefine _initial: initial -> WaitForRequest
+        `
+            CALLSUPER;
+        `;
+    };
+ };

@@ -1,0 +1,90 @@
+capsule Top {
+[[rt::impl_preface]]
+`
+    #include <iostream>
+`
+    
+[[rt::decl]]
+`
+private:
+    unsigned int port = 0;          // My port
+    unsigned int remotePort = 0;    // Port of other application to which I'm connected    
+    void parseCommandLine();
+`
+[[rt::impl]]
+`
+    void Top::parseCommandLine() {
+        int ac = RTMain::argCount();
+        const char * const * av = RTMain::argStrings();
+        std::string arg_remotePort = "-remotePort=", arg_port = "-port=";
+    
+        while( --ac > 0 ) {
+            std::string arg = *++av;
+            if (arg.compare(0, arg_remotePort.size(), arg_remotePort) == 0 )
+                remotePort = RTMemoryUtil::atoi(*av + arg_remotePort.size());
+            else if (arg.compare(0, arg_port.size(), arg_port) == 0 )
+                port = RTMemoryUtil::atoi(*av + arg_port.size());
+        }
+        if (port == 0) 
+            std::cout << "'port' is invalid: " << port << std::endl;
+        if (remotePort == 0) 
+            std::cout << "'remotePort' is invalid: " << remotePort << std::endl;
+        if (port == 0 || remotePort == 0)
+            context()->abort();
+    }
+`
+
+    optional part server : Server;
+    optional part tokenManager : TokenManager;
+    behavior port frame : Frame;
+    behavior port serverControlPort~ : TCPServerControl;
+    behavior port serverPort : Events;
+    connect serverControlPort with server.control;
+    connect serverPort with tokenManager.top;
+    connect server.tokenManager with tokenManager.server;
+
+    statemachine {
+        state ManageCommandPrompt {
+            entry
+            `
+                parseCommandLine();
+                std::cout << "TokenRing app on port " << port << " connected to port " << remotePort << std::endl;
+                RTActorId id = frame.incarnateCustom(server, 
+                    RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
+                        return new Server(ServerThread, a, port, remotePort); // Pass port and remotePort to capsule constructor
+                    }
+                ));
+                if (!id.isValid()) {
+                    std::cout << "Failed to start Server!" << std::endl;
+                }
+                id = frame.incarnateCustom(tokenManager, 
+                    RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
+                        return new TokenManager(ServerThread, a);
+                    }
+                ));
+                if (!id.isValid()) {
+                    std::cout << "Failed to start TokenManager!" << std::endl;
+                }
+                std::cout << "Commands:" << std::endl;
+                std::cout << "token : Start token circulation in the ring" << std::endl;
+                std::cout << "exit : Exit" << std::endl;
+                std::string command;
+                while (true) {
+                    std::cout << ">" << std::flush;
+                    std::getline(std::cin, command);
+                    if (command == "exit") {
+                        context()->abort();
+                        return;
+                    }
+                    else if (command == "token") {                                                                        
+                        serverPort.token().send();
+                    }
+                    else {
+                        std::cout << "Unknown command '" << command << "'" << std::endl;
+                    }
+                }
+            `;
+        };
+        initial -> ManageCommandPrompt;
+    };
+};

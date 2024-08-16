@@ -37,10 +37,11 @@ capsule Top {
             int argc = RTMain::argCount();
             std::cout << "arg count => " << argc << std::endl;
             std::cout << "arg1 => " << RTMain::argStrings()[0] << std::endl;
-            std::cout << "arg2 => " << RTMain::argStrings()[1] << std::endl;
+            if (argc > 1)
+                std::cout << "arg2 => " << RTMain::argStrings()[1] << std::endl;
 
             //  
-            if (argc==0) {
+            if (argc==1) {
                 std::cout << "[Top] 0 command line arguments detected"  << std::endl;
                 std::cout << "[Top] using default pickup strategy: 'random' pickup strategy"  << std::endl;
 

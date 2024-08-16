@@ -1,6 +1,6 @@
 let tc = TCF.define(TCF.CPP_TRANSFORM);
 tc.topCapsule = 'Top';
-tc.targetFolder = 'dependency_injection';
+tc.targetFolder = 'DependencyInjection_target';
 tc.commonPreface = `
 #include <iostream>
 `;

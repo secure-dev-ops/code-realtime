@@ -10,7 +10,7 @@ capsule Ponger {
     `
     behavior port log:Log;
     service behavior port pongPort~ : PingPongPort;
-    behavior service port timing:Timing;
+    behavior port timing:Timing;
     statemachine {
         state Playing, HitBack{
             entry `

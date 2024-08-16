@@ -1,4 +1,4 @@
-# pingpong-distributed
+# Distributed PingPong
 A distributed [DevOps Code RealTime](https://www.hcl-software.com/devops-code-realtime) application consisting of two executables that send ping and pong messages back and forth. The applications communicate with each other using the library [TCP server](../TcpServer/).
 
 ## Usage
@@ -16,4 +16,3 @@ TOP.EXE -URTS_DEBUG=quit -port=15000 -remotePort=16000
 TOP.EXE -URTS_DEBUG=quit -port=16000 -remotePort=15000 -injectFirstPing
 ```
 * inject either the "ping" or "pong" event on the "PingPongServer::player" port. You can do this from another application by using the JSON API provided by [TCP server](../TcpServer/).
-* attach to one of the applications using the Code RealTime and send the "timeout" event to the "Player::timer" port.

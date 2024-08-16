@@ -14,7 +14,7 @@ capsule Fork{
     `
     service behavior port leftP~: ForkProt;
     service behavior port rightP~: ForkProt;
-     behavior port logP: Log;
+    behavior port logP: Log;
     statemachine {
         state Down, Up;
         initial -> Down `

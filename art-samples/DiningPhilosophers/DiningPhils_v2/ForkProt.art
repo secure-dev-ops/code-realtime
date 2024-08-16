@@ -1,5 +1,4 @@
-protocol ForkProt{
-
+protocol ForkProt {
     in ack();
     out down();
     in nack();

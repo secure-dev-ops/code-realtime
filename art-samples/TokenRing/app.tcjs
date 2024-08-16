@@ -1,0 +1,23 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.targetFolder = 'TokenRing_target'; 
+tc.prerequisites = ['../TcpServer/tcpServerLib.tcjs'];
+
+tc.topCapsule = "Top";
+tc.threads = [
+    {
+        name: 'MainThread',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY'        
+    },
+    {
+        name: 'ServerThread',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'ServerThread'
+        ]
+    }
+];

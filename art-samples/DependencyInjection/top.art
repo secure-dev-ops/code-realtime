@@ -50,7 +50,7 @@ capsule SlowPinger {
     `
         int count = 0;
     `
-    subscribe behavior unwired port timing : Timing;
+    behavior port timing : Timing;
     service behavior port p : PROTO;
     statemachine {
         state State1 {
