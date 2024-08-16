@@ -824,6 +824,11 @@ capsule Another {
     service behavior port p1 : PROTO;      
     part inner : Inner;
     connect p1 with inner.p;   
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
 };
 
 capsule Inner {
