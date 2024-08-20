@@ -1,0 +1,111 @@
+
+class DataObject {
+
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include <CustomData.h>
+        #include <iostream>
+    `
+    /* Trigger Operations */
+    trigger initialize();
+    trigger initialize(`int` data);
+    trigger initialize(`float` data);
+    trigger initialize(`char` data);
+    trigger initialize(`int` data, `char` data2);
+    trigger initialize(`CustomData` data);
+    trigger initialize(`CustomData*` data);
+
+    /* State Machine */
+    statemachine {
+        state Initial, Initialized;
+        initial -> Initial;
+        onInt: Initial -> Initialized on initialize(`int`)
+        `
+            ASSERT(data == 12, "Unexpected value of data");
+        `;
+        onFloat: Initial -> Initialized on initialize(`float`)
+        `
+            ASSERT(data == 1.3f, "Unexpected value of data");
+        `;
+        onChar: Initial -> Initialized on initialize(`char`)
+        `
+            ASSERT(data == 'a', "Unexpected value of data");
+        `;
+         onChar: Initial -> Initialized on initialize(`CustomData`)
+        `
+            ASSERT(data.getName() == "CRT", "Unexpected value of data");
+            ASSERT(data.getAge() == 12, "Unexpected value of data");
+        `;
+         onInt_Char: Initial -> Initialized on initialize(`int`,`char`)
+        `
+            ASSERT(data == 1, "Unexpected value of data");
+            ASSERT(data2 == 'a', "Unexpected value of data");
+        `;
+         onNullPointer: Initial -> Initialized on initialize(`CustomData*` )
+        `
+            ASSERT(data == nullptr, "Unexpected value of data");
+        `;
+    };
+};
+
+capsule Top{
+
+
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "DataObject.h"
+        #include <CustomData.h>
+
+    `
+    behavior port t : Timing;
+    statemachine {
+        state State1, State2, State3, State4, State5, State6;
+        initial -> State1
+        `
+             int i = 12;
+            DataObject _dataObject;
+            _dataObject.initialize(i);
+            t.informIn(RTTimespec(0,50000));
+
+        `;
+        onState1: State1 -> State2 on t.timeout
+        `
+            float f = 1.3f;
+            DataObject _dataObject;
+            _dataObject.initialize(f);
+            t.informIn(RTTimespec(0,50000));
+        `;
+        onState2: State2 -> State3 on t.timeout
+        `
+            char c = 'a';
+            DataObject _dataObject;
+            _dataObject.initialize(c);
+            t.informIn(RTTimespec(0,50000));
+        `;
+
+        onState3: State3 -> State4 on t.timeout
+        `
+             float f = 1.3f;
+            DataObject _dataObject;
+            _dataObject.initialize(f, 'a');
+            t.informIn(RTTimespec(0,50000));
+
+        `;
+        onState4: State4 -> State5 on t.timeout
+        `
+            DataObject _dataObject;
+            CustomData data("CRT", 12);
+            _dataObject.initialize(data);
+            t.informIn(RTTimespec(0,50000));
+        `;
+         onState5: State5 -> State6 on t.timeout
+        `
+            DataObject _dataObject;
+            _dataObject.initialize(nullptr);
+            PASS();
+        `;
+    };
+
+};
