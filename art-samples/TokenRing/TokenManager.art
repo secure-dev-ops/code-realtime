@@ -15,13 +15,15 @@ capsule TokenManager {
         state WaitForToken {
             tokenReceived: on server.token, top.token
             `                
-                timer.informIn(RTTimespec(1,0));
+                RTString str = *((RTString*) rtdata);
+                timer.informIn(RTTimespec(1,0), &str, &RTType_RTString);
             `;
 
             timeout: on timer.timeout
             `
-                std::cout << "Passing token forward" << std::endl;
-                server.token().send();
+                RTString str = *((RTString*) rtdata);
+                std::cout << "Passing token forward: " << (char*) str << std::endl;
+                server.token(str).send();
             `;
         };
         initial -> WaitForToken;        

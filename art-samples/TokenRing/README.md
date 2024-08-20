@@ -20,4 +20,6 @@ The application reads commands from the terminal:
 
 * **exit** Exit the application. This will remove it from the ring.
 
+Each injected token gets a unique ID which is printed by the application when it forwards the token.
+
 Note that you can inject multiple tokens in the ring, and they will circulate independently of each other.

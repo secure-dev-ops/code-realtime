@@ -1,6 +1,5 @@
 capsule PingPongServer : TCPServer {
 
-
     [[rt::header_preface]]
     `
         #include <iostream>
@@ -12,9 +11,6 @@ capsule PingPongServer : TCPServer {
 
         #include <chrono>
         #include <thread>
-        using namespace std;
-
-
     `
     
     [[rt::decl]]

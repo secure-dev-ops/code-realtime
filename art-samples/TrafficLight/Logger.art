@@ -1,5 +1,4 @@
-// A Logger class that implements an interface ILogger through which the passive class Light
-// can send events.
+// A Logger capsule which the passive class Light can use through the ILogger interface implemented by the TrafficLight capsule
 capsule Logger  {
 
     /* Ports */

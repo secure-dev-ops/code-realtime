@@ -125,6 +125,6 @@ nav:
      - Settings: settings.md
      - Support Procedures: support.md
      - Contributing: contributing.md
-  - Samples: https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples   
+  - Samples: samples.md   
   - Forum: https://github.com/secure-dev-ops/code-realtime/discussions
   - Videos: https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh
