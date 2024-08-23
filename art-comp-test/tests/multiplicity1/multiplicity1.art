@@ -1,0 +1,73 @@
+protocol Prot {
+    out m(`int`);
+};
+
+capsule A {
+    service behavior port p1~ : Prot;
+    service behavior port p2 : Prot;
+    statemachine {
+        state WaitingForM;
+        initial -> WaitingForM `
+            printf("[%s:A] starting\n", this->getName());
+        `;
+        m: WaitingForM -> WaitingForM on p1.m
+        `
+            const char * myName = this->getName();
+            int toSend;
+            if (myName[1] == '1')
+                toSend = 1;
+            else if (myName[1] == '2')
+                toSend = 2;
+            else toSend = 3;
+
+            printf("[%s:A] received m(%d) on p1, sending m(%d) on port p2\n", myName, *rtdata, toSend);
+            p2.m(toSend).send();
+        `;
+    };
+};
+
+capsule B {
+    [[rt::decl]]
+    `
+    public:
+        int count = 0;
+        int pIndexes = 0;
+    `
+    service behavior port p1 : Prot[3];
+    service behavior port p2~ : Prot[3];
+    statemachine {
+        state State1;
+        initial -> State1 `
+            printf("[%s:B] starting\n", this->getName());
+            printf("[%s:B] sending m(42) on port p1\n", this->getName());
+            p1.m(42).send();
+        `;
+        m: State1 -> State1 on p2.m `
+            printf("[%s:B] received m(%d) on port p2[%d]\n", this->getName(), *rtdata, msg->sapIndex0());
+
+            count += *rtdata;
+            pIndexes += msg->sapIndex0();
+            if (count == 1 + 2 + 3) {
+                ASSERT(pIndexes == 0 + 1 + 2, "Sum of port indexes does not match 0 + 1 + 2");
+                PASS();
+            }
+        `;
+    };
+};
+
+capsule Top {
+    part a1 : A;
+    part a2 : A;
+    part a3 : A;
+    part b : B;
+    connect b.p1 with a1.p1;
+    connect b.p1 with a2.p1;
+    connect b.p1 with a3.p1;
+    connect a1.p2 with b.p2;
+    connect a2.p2 with b.p2;
+    connect a3.p2 with b.p2;
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};

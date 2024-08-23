@@ -1,0 +1,73 @@
+protocol TestEvents {
+};
+
+capsule A {
+    service behavior notify port p: TestEvents;
+    statemachine {
+        state Created {
+            rtBound: on p.rtBound
+            `
+                std::cout << "Bound port " << this->getName() << ".p[" << msg->sapIndex0() << "]\n";
+            `;
+        };
+        initial -> Created
+        `
+            std::cout << "Created " << this->getName() << ":A\n";
+        `;
+    };
+
+};
+
+capsule Top {
+    behavior notify port pb~ : TestEvents [4];
+    behavior port frame : Frame;
+
+    part part1 : A;
+    connect part1.p with pb;
+
+    part part2 : A;
+    connect part2.p with pb;
+
+    optional part part3 : A [0..1];
+    connect part3.p with pb;
+
+    optional part part4 : A [0..1];
+    connect part4.p with pb;
+
+    statemachine {
+        state S1, S2, S3, S4;
+        state AllDone {
+            entry `PASS();`;
+        };
+
+        initial -> S1
+        `
+            std::cout << "Created " << this->getName() << ":Top\n";
+        `;
+
+        t1: S1 -> S2 on pb.rtBound
+        `
+            std::cout << "Bound port " << this->getName() << ".pb[" << msg->sapIndex0() << "]\n";
+            ASSERT(msg->sapIndex0() == 0, "Expect pb bound on index 0");
+        `;
+        incarnate_part3: S2 -> S3 on pb.rtBound
+        `
+            std::cout << "Bound port " << this->getName() << ".pb[" << msg->sapIndex0() << "]\n";
+            ASSERT(msg->sapIndex0() == 1, "Expect pb bound on index 1");
+            RTActorId id = frame.incarnate(part3);
+            ASSERT(id.isValid(), "Incarnate in 'part3' failed");
+        `;
+        incarnate_part4: S3 -> S4 on pb.rtBound
+        `
+            std::cout << "Bound port " << this->getName() << ".pb[" << msg->sapIndex0() << "]\n";
+            ASSERT(msg->sapIndex0() == 2, "Expect pb bound on index 2");
+            RTActorId id = frame.incarnate(part4);
+            ASSERT(id.isValid(), "Incarnate in 'part4' failed");
+        `;
+        pass: S4 -> AllDone on pb.rtBound
+        `
+            std::cout << "Bound port " << this->getName() << ".pb[" << msg->sapIndex0() << "]\n";
+            ASSERT(msg->sapIndex0() == 3, "Expect pb bound on index 3");
+        `;
+    };
+};
