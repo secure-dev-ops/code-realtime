@@ -3,10 +3,19 @@
             "path": "TestUtils"
         },
         {
+            "path": "tests/multiplicity1"
+        },
+        {
+            "path": "tests/multiplicity2"
+        },
+        {
             "path": "tests/port_multiplicity_01"
         },
         {
             "path": "tests/port_multiplicity_02"
+        },
+        {
+            "path": "tests/port_multiplicity_03"
         },
         {
             "path": "tests/threads"

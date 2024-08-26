@@ -1,0 +1,57 @@
+protocol Prot {
+    out m();
+};
+
+capsule A {
+    service behavior port inA~ : Prot;
+    service behavior port outA : Prot;
+    statemachine {
+        state State1;
+        initial -> State1 `
+            printf("Instance of capsule A with index %d started\n", this->getIndex());
+        `;
+        m: State1 -> State1 on inA.m
+        `
+            printf("Instance of A with index %d: received m at port inA[%d]\n", this->getIndex(), msg->sapIndex0());
+            ASSERT(this->getIndex() == 2, "Expect message m to be received only in instance with index 2");
+            printf("Instance of A with index %d: sending m back to outA\n", this->getIndex());
+            outA.m().send();
+        `;
+    };
+};
+
+capsule B {
+    service behavior port inB~ : Prot[3];
+    service behavior port outB : Prot[3];
+    behavior port timer : Timing;
+    statemachine {
+        state State1, State2, FAIL;
+        state PASS {
+            entry `PASS();`;
+        };
+        initial -> State1 `
+            printf("B: sending m on outB[2]\n");
+            outB.m().sendAt(2);
+        `;
+        m: State1 -> State2 on inB.m `
+            printf("Instance of B with index %d: receiving m at port inB[%d]\n", this->getIndex(), msg->sapIndex0());
+            ASSERT(msg->sapIndex0() == 2, "Expect reply only from one capsule instance connected on port 2");
+            timer.informIn(RTTimespec(1,0));
+        `;
+        timeout: State2 -> PASS on timer.timeout;
+        m2: State2 -> FAIL on inB.m `
+            FAIL("Expect only one m to be received");
+        `;
+    };
+};
+
+capsule Top {
+    part a : A[3];
+    part b : B;
+    connect b.outB with a.inA;
+    connect a.outA with b.inB;
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};

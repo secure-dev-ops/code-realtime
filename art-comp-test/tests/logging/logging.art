@@ -1,0 +1,60 @@
+[[rt::decl]]
+`
+    #include <ostream>
+
+    struct [[rt::auto_descriptor]] MyType {
+        int x = 0;
+        int y = 0;
+    };
+
+    std::ostream& operator<< ( std::ostream& out, const MyType& mt);
+`
+[[rt::impl]]
+`
+    std::ostream& operator<< ( std::ostream& out, const MyType& mt)
+    {
+        out << "[" << mt.x << "," << mt.y << "]"; 
+        return out;
+    }
+`
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "logging.art.h"
+    `
+    [[rt::impl_preface]]
+    `
+        #include <sstream>
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        int x = 14;
+        RTString s = "Hello!";
+        MyType mt;
+    `
+    /* Ports */
+    behavior port log : Log;
+    behavior port frame : Frame;
+
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State
+        `
+            // Default logging of data
+            log.log(x);
+            log.log(s);
+            log.log(&mt, &RTType_MyType);
+
+            // Custom logging of data
+            std::stringstream ss;
+            ss << x << " " << s.Contents << " " << mt;
+            log.log(ss.str().c_str());
+            PASS();
+        `;
+    };
+};

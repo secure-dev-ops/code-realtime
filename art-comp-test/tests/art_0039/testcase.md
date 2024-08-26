@@ -19,7 +19,7 @@ ac_output match5d: connector|Pinger|3 connections|46:13
 ac_output match5e: connector|Pinger|4 connections|48:13
 ac_output match6: WARNING[0039]|45:19|4 connections|px|only 3 connections
 ac_output match6a: connector|Pinger|4 connections|46:21
-ac_output match7: WARNING[0039]|47:19|5 connections|px|only 4 connections
+ac_output match7: WARNING[0039]|47:19|5 connections|px2|only 4 connections
 ac_output match7a: connector|Pinger|5 connections|48:22
 ---
 Test validation rule `ART_0039_portPartMultiplicityMismatch`.
