@@ -1,0 +1,10 @@
+class PC {
+    trigger op1();    
+
+    statemachine {
+        state S1, S2;        
+        initial -> S1;        
+        junction j;
+        j -> S1 on op1(); // ART_0036 (transition originates from junction)
+    };
+};

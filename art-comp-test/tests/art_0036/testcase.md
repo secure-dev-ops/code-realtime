@@ -7,5 +7,6 @@ ac_output match3: ERROR[0036]|19:9|t3|choice
 ac_output match4: ERROR[0036]|20:9|t4|exit point with incoming
 ac_output match5: ERROR[0036]|39:5|inherited transition|entry point with incoming
 ac_output match5a: t1|32:13
+ac_output match6: ERROR[0036]|art_0036_passive_class_sm.art|8:9|junction
 ---
 Test validation rule `ART_0036_unexpectedTriggers`.

@@ -1,0 +1,9 @@
+class PC {
+    trigger op1();    
+
+    statemachine {
+        state S1, S2;        
+        initial -> S1;
+        S1 -> S2; // ART_0037 (transition originates from state)        
+    };
+};

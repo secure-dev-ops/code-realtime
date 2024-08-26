@@ -1,0 +1,16 @@
+class C0018 {
+    statemachine { // ART_0018
+        state State {
+            entrypoint ep;
+            exitpoint ex;
+            junction j1;
+            state N1;
+            ep -> j1;
+            j1 -> ex;
+        };
+        initial -> State.ep;
+        State.ex -> State.ep; 
+        state Final;
+        State.ex -> Final when `true`;
+    };
+};

@@ -12,5 +12,10 @@ ac_output match2c: Transition|27:9
 ac_output match3: ERROR[0018]|art_0018_inherited_sm.art|21:5
 ac_output match3a: Transition|11:9
 ac_output match3b: Transition|22:9
+
+ac_output match4: ERROR[0018]|art_0018_passive_class_sm.art|2:5
+ac_output match4a: Transition|8:13
+ac_output match4b: Transition|9:13
+ac_output match4c: Transition|12:9
 ---
 Test validation rule `ART_0018_circularTransitions`. Transition cycles can occur when junction or entry/exit points are incorrectly used.

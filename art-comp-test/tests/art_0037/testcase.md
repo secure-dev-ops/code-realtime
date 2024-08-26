@@ -10,6 +10,6 @@ ac_output match6: ERROR[0037]|40:5|inherited transition|entry point without inco
 ac_output match6a: Inherited transition|t1|32:13
 ac_output match7: ERROR[0037]|art_0037_inherited_sm.art:23:24|inherited transition|entry point without incoming
 ac_output match7a: Inherited transition|txxx|13:17
-
+ac_output match8: ERROR[0037]|art_0037_passive_class.art|7:9|state
 ---
 Test validation rule `ART_0037_missingTriggers`.

@@ -1,0 +1,9 @@
+class C {
+    statemachine {
+        state BS {
+            entrypoint ep1;            
+            state Nested;
+        };
+        _Initial: initial -> BS; // ART_0030
+    };
+};
