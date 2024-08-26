@@ -10,7 +10,7 @@ The most classical of samples for learning a new programming language. This vers
 **TargetRTS:** [RTTiming](targetrts-api/class_timing_1_1_base.html)::informIn(), [RTController](targetrts-api/class_r_t_controller.html)::abort()
 
 ## [PingPong](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PingPong)
-Two capsules, `Pinger` and `Ponger`, send the events `ping` and `pong` back and forth. The `ping` event has an integer parameter which gets incremented by one for each ping-pong round. The sample prints messages to stdout both using standard C++ code and with the Log service of the TargetRTS.
+Two capsules, `Pinger` and `Ponger`, send the events `ping` and `pong` back and forth. The `ping` event has an integer parameter which gets incremented by one for each ping-pong round. The sample prints messages to stdout both using standard C++ code and with the [Log service](target-rts/logging.md) of the TargetRTS.
 
 **Art:** fixed [part](art-lang/index.md#part), [connector](art-lang/index.md#connector), service and behavior [port](art-lang/index.md#port), [protocol and event](art-lang/index.md#protocol-and-event), log [port](art-lang/index.md#port)
 

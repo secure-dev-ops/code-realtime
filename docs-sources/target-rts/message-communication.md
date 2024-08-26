@@ -38,6 +38,41 @@ The picture below illustrates a controller and how messages arriving from capsul
 
 ![](images/controller.png)
 
+### Defer Queue
+Sometimes a capsule may be designed to handle certain messages in a sequence. If another unrelated message arrives in the middle of the sequence, and it's not urgent to handle that message right away, it can be useful to defer its handling to a later point in time, when the whole message sequence has arrived. This is especially true if the received message is the beginning of another message sequence (processing multiple message sequences with interleaved parallelism can be tricky).
+
+![](images/message_sequence.png)
+
+Messages can be deferred by calling the function [RTMessage](../targetrts-api/class_r_t_message.html)::`defer()`. A deferred message is put in the **defer queue** which is a special message queue located either in the capsule instance, or in the controller that runs the capsule instance (see the TargetRTS setting [`DEFER_IN_ACTOR`](build.md#defer_in_actor)). Later, a deferred message can be recalled from the defer queue by calling [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`recall()` (to recall only one deferred message) or [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`recallAll()` (to recall all deferred messages). A recalled message is moved from the defer queue back to the normal message queue, from where it later will be dispatched again to the receiver capsule instance. By default a recalled message is placed at the end of the message queue as any other received message, but you can also choose to put it at the front of the queue (by passing an argument to `recall()` or `recallAll()`) in order to handle it before other messages that may have arrived while the message waited in the defer queue. Here is a code example:
+
+```cpp
+msg->defer(); // Defer the currently processed message (usually done early in a transition)
+
+myPort.myEvent().recall(); // Recall one deferred message and put it at the back of the normal message queue
+
+myPort.myEvent().recall(1); // As above but put the recalled message at the front of the message queue instead
+
+myPort.myEvent().recallAll(); // Recall all deferred messages and put them at the back of the normal message queue
+```
+
+`recall()` will recall the first message from the defer queue, i.e. the one that has been deferred the longest. However, only messages that match the port and event (`myPort` and `myEvent` in the above sample) can be recalled. Other messages remain in the defer queue. This is true even when calling `recallAll()`. You can be even more specific about which message(s) to recall by specifying a port index using the function `recallAt()` or `recallAllAt()`. In that case it's required that a recalled message was originally received on the specified port index for it to be recalled.
+
+Sometimes you may have deferred a message that you later decide to ignore. For example, the capsule may have received another message which makes it unnecessary to handle a deferred message. In that case you can remove a deferred message from the defer queue without recalling it. Call the function [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`purge()` to remove all deferred messages that match the port and event, or [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`purgeAt()` to also require that the port index matches.
+
+!!! note
+    It's recommended to use the defer queue sparingly, and only when really needed. Deferring and recalling messages can make it harder to follow the application logic. Also make sure not to forget any messages in the defer queue. All messages that are deferred should sooner or later be recalled or purged.
+
+#### sendCopyToMe()
+A simpler and more light-weight alternative to using the defer queue, especially for messages without data, is to defer the handling of a received message by letting a capsule instance send a copy of the received message to itself. This allows a capsule to break down the handling of a message into several transitions, each triggered by another copy of the message. The function to call is [RTActor](../targetrts-api/class_r_t_actor.html)::`sendCopyToMe()`. Here is an example where this technique is used for deferring the reply message of an invoked event:
+
+```cpp
+RTMessage reply;
+myPort.myEvent().invoke(&reply);
+sendCopyToMe(&reply);
+```
+
+`sendCopyToMe()` can be useful whenever a message cannot be fully handled by a single transition. It's similar to deferring a message and then immediately recall it again.
+
 ## Message Priority
 The sender of a message can choose between the following priority levels:
 
@@ -94,3 +129,15 @@ Note that freeing a message doesn't deallocate its memory. Instead it is reset b
 
 !!! example
     You can find a sample application that shows how to collect and print statistics [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/message_count)
+
+## Unhandled Messages
+In a correctly designed application, under normal circumstances, all messages that are dispatched to a capsule instance lead to the triggering of a transition in its state machine. However, in practise it can happen that a dispatched message is not handled, and therefore is "useless". The most common reason when this happens is that you simply forgot to create a transition with a trigger that matches the received event (with a fulfilled guard condition) in each state that can be active when the message is dispatched. During development of an application, when it still is incomplete and may contain bugs, it's therefore fairly common that some dispatched messages are not handled.
+
+As explained [above](#controllers-and-message-queues) the function [RTActor](../targetrts-api/class_r_t_actor.html)::`rtsBehavior()` implements the capsule state machine in the generated code, and gets called when a message is dispatched to the capsule instance. If there is no enabled transition for the combination of the currently active state, and the port on which the message was received, the `rtsBehavior()` function will treat the message as unhandled and make a call to [RTActor](../targetrts-api/class_r_t_actor.html)::`unhandledMessage()`. In that function two cases are handled:
+
+1. The message was not handled because it was dispatched at an early time in the capsule instance's life, when it hasn't yet been fully initialized. More precisely the initial transition has not yet executed, which in turn means that there isn't yet an active state in the state machine. This is a rather unusual situation and it's handled by calling [RTActor](../targetrts-api/class_r_t_actor.html)::`messageReceivedBeforeInitialized()` which will save the message in the [defer queue](#defer-queue). When later the initial transition runs, the message will be recalled from the defer queue and put back into the normal message queue so it once again can be dispatched to the capsule instance. Thereby the message is not lost, and eventually becomes handled (or at least gets another chance to be handled).
+2. The message was not handled because of a missing enabled transition. This is the most common case, especially for applications that are still under development. This situation is handled by calling [RTActor](../targetrts-api/class_r_t_actor.html)::`unexpectedMessage()` which will cause an error message to be logged on `stderr`. See [this chapter](logging.md#targetrts-error-logging) for more information about this error message and how you can use it for understanding what needs to be fixed in the state machine to handle the message.
+
+Both [RTActor](../targetrts-api/class_r_t_actor.html)::`messageReceivedBeforeInitialized()` and [RTActor](../targetrts-api/class_r_t_actor.html)::`unexpectedMessage()` are virtual functions that you can override in your capsule, in case you want to treat unhandled messages in a different way. For example, you can override [RTActor](../targetrts-api/class_r_t_actor.html)::`unexpectedMessage()` if some of the received messages should not be handled by the capsule state machine, but by some other C++ code.
+
+

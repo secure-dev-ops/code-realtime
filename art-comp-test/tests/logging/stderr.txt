@@ -1,0 +1,4 @@
+int 14
+Hello!
+MyType{x 0,y 0}
+14 Hello! [0,0]
