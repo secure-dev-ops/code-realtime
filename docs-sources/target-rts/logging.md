@@ -1,4 +1,4 @@
-It's often useful to print log messages in an application, either as a quick way of throubleshooting a problem without having to use a debugger, or as a more permanent means of reporting errors or other interesting information at runtime. In the latter case it's recommended to use one of the many logging frameworks for C++ that are available. Examples of such frameworks include, but are certainly not limited to:
+It's often useful to print log messages in an application, either as a quick way of trouble shooting a problem without having to use a debugger, or as a more permanent means of reporting errors or other interesting information at runtime. In the latter case it's recommended to use one of the many logging frameworks for C++ that are available. Examples of such frameworks include, but are certainly not limited to:
 
 * [Boost.Log](https://github.com/boostorg/log)
 * [Apache Log4cxx](https://github.com/apache/logging-log4cxx)
@@ -29,12 +29,12 @@ capsule C {
 Note the following:
 
 * To flush the log and make sure the logged message becomes visible you must call `commit()`.
-* Use `show()` instead of `log()` to avoid printing a carriage return after the message. Note, however, that all logging functions eventually use the class [RTDiagStream](../targetrts-api/class_r_t_diag_stream) for writing in a thread-safe way to `stderr`. To avoid interleaving printouts in a multi-threaded application it can therefore be better to fully create the string to log (for example using `std::stringstream`) and then print it with a single call to `log()`.
+* Use `show()` instead of `log()` to avoid printing a carriage return after the message. Note, however, that all logging functions eventually use the class [RTDiagStream](../targetrts-api/class_r_t_diag_stream.html) for writing in a thread-safe way to `stderr`. To avoid interleaving printouts in a multi-threaded application it can therefore be better to fully create the string to log (for example using `std::stringstream`) and then print it with a single call to `log()`.
 * You can print an indented message to the log by calling `crtab()`.
 * In addition to strings you can also [log data](#logging-data).
 
 ### Logging Data
-A log port provides several overloaded versions of `log()` (and `show()`) which let you log the values of variables. There are overloads for most primitive C++ types, and for some types from the TargetRTS such as `RTString`. You can also log objects of user-defined types, provided that they have a [type descriptor](../art-lang/cpp-extensions.md#type-descriptor). Here is an example of logging a few values of different types:
+A log port provides several overloaded versions of `log()` (and `show()`) which lets you log the values of variables. There are overloads for most primitive C++ types, and for some types from the TargetRTS such as `RTString`. You can also log objects of user-defined types, provided that they have a [type descriptor](../art-lang/cpp-extensions.md#type-descriptor). Here is an example of logging a few values of different types:
 
 ```cpp
 struct [[rt::auto_descriptor]] MyType {
@@ -104,7 +104,7 @@ In addition to the actual error message ("Reference full") the text contains inf
 * `incarnate` The TargetRTS function that was called when the error occurred.
 * `application` The capsule part in which the error occured. The special name `application` denotes the implicit part in which the top capsule instance is located, i.e. the very root of the capsule instance tree.
 * `Top` The type (i.e. capsule) of the capsule part in which the error occurred.
-* `<machine>` The state of the capsule state machine that is currently active when the error occurred. The special name `<machine>` denotes the implicit state that is active before the first state is activated (i.e. if the error occurs in the initial transition)
+* `<machine>` The state of the capsule state machine that is currently active when the error occurred. The special name `<machine>` denotes the implicit state that is active before the first state is activated (i.e. if the error occurs in the initial transition).
 * `p` The capsule part that could not be incarnated.
 * `-1` The index at which a new capsule instance was attempted to be incarnated. -1 means it was not specified and the first "free" index would be used.
 

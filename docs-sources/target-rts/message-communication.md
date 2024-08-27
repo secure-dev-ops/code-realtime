@@ -21,7 +21,7 @@ myPort.myEvent().send();
     - If the sender and receiver controller is the same (intra-thread communication) the message is placed in the internal queue. 
     - If the sender and receiver controllers are different (inter-thread communication) the message is placed in the incoming queue.
 
-    Note that both the internal and incoming message queue is actually an array of queues, one for each [message priority level](#message-priority). The received message is inserted in the end of the queue that matches the priority of the message as specified by the sender. This ensures that messages are handled in priority order, and, within each level of priority, in a FIFO ("first-in-first-out") manner.
+    Note that both the internal and incoming message queue is actually an array of queues, one for each [message priority level](#message-priority). The received message is inserted at the end of the queue that matches the priority of the message as specified by the sender. This ensures that messages are handled in priority order, and, within each level of priority, in a FIFO ("first-in-first-out") manner.
 
 4. If the message was placed in the incoming queue, it gets transferred to the internal queue in the beginning of the `RTController::dispatch()` function which is called once in each iteration of the controller's event loop. This happens in the function `RTController::acceptIncoming()`.
 5. The rest of the `RTController::dispatch()` function checks the contents of the incoming queue, starting with the queue at the highest priority level (`Synchronous`), proceeding with queues at lower priority levels, until the queue at the lowest priority level (`Background`). As soon as it encounters a non-empty queue it dispatches the first message of that queue. 
