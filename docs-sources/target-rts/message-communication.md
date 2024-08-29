@@ -117,10 +117,10 @@ There is a single free list in the application and it's implemented by the [RTRe
 
 If the application needs to send a large number of messages at a faster pace than they can be dispatched, it can happen that the free list becomes empty. In that case another block of messages get allocated.
 
-The size and behavior of the free list is controlled by a few constants in the TargetRTS implementation:
+The size and behavior of the free list is controlled by a few TargetRTS settings:
 
 * **RTMessageBlock::Size** Controls how many messages are contained in each message block.
-* **maxFreeListSize** and **minFreeListSize** Controls how messages are freed by `RTController::freeMsg()`. If the size of the free list exceeds **maxFreeListSize** a number of messages are freed to reduce the size of the free list to **minFreeListSize**. Hence, the size of the free list is always kept in the range defined by these two constants.
+* **maxFreeListSize** and **minFreeListSize** Controls how messages are freed by `RTController::freeMsg()`. If the size of the free list exceeds **maxFreeListSize** a number of message blocks are freed to reduce the size of the free list to **minFreeListSize**. Hence, the size of the free list is always kept in the range defined by these two constants.
 
 Note that freeing a message doesn't deallocate its memory. Instead it is reset by calling `RTMessage::clear()` so it becomes ready to be used again. This means that the memory occupied by the free list will grow until a certain limit when it's big enough to always contain a free message when the application needs one. That limit is different for different applications, and if you want to avoid dynamic allocation of additional message blocks after application start-up, you may need to adjust the `RTMessageBlock::Size` constant.
 

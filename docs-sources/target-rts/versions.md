@@ -33,6 +33,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8002 | [Building without rtperl](#building-without-rtperl) <br> [JSON parser](#json-parser) <br> [Script for creating TargetRTS patch files](#script-for-creating-targetrts-patch-files) <br> [Pointers in JSON encoding/decoding](#pointers-in-json-encodingdecoding) | 
 | 8003 | [Align terminology in comments](#align-terminology-in-comments) <br> [Configurable max TCP Connections](#configurable-max-tcp-connections) |
 | 8004 | [Improved implementation of JSON parser](#improved-implementation-of-json-parser) <br> [JSON encoding/decoding for RTByteBlock](#json-encodingdecoding-for-rtbyteblock) <br> [New target configuration for MacOS on AArch64](#new-target-configuration-for-macos-on-aarch64) |
+| 8005 | [New free list macros](#new-free-list-macros) <br> [Static analysis warning reductions](#static-analysis-warning-reductions) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -63,3 +64,18 @@ The [`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html) and [`RTJs
 
 ### New target configuration for MacOS on AArch64
 A new target configuration for the Clang 15 compiler for MacOs with ARM processor is now available. It has the name `MacT.AArch64-Clang-15.x`.
+
+### New free list macros
+New TargetRTS configuration macros are now available in `include/RTConfig.h` for configuring the [free list](message-communication.md#message-memory-management). The new macros are [MIN_FREE_LIST_SIZE](build.md#min_free_list_size), [MAX_FREE_LIST_SIZE](build.md#max_free_list_size) and [RTMESSAGE_BLOCK_SIZE](build.md#rtmessage_block_size). Previously these configuration settings were hard-coded at a number of places in the TargetRTS implementation, but now they are handled like all other configuration settings.
+
+### Static analysis warning reductions
+Some static analysis tools previously reported a few warnings on the TargetRTS source code which now have been fixed.
+
+- Reordered member variables according to their types to potentially reduce the size of the container struct or class on certain platforms
+- Moved definition of [RTInjector](../targetrts-api/class_r_t_injector.html)::getInstance() from inline function to `RTInjector.cpp` to ensure it always returns a singleton object
+- Removed the unused local variable `attached` in the implementation of [RTDebugger](../targetrts-api/class_r_t_debugger.html)::printActorInfo()
+- Removed unused #includes
+- Removed duplicated assignments of `remotePort` and `remoteIndex` in [RTProtocol](../targetrts-api/class_r_t_protocol.html)::reply()
+- Changed type of the `need_lock` variable in [RTProtocol](../targetrts-api/class_r_t_protocol.html)::reply() from int to bool
+- Removed dead code
+- Improved initialization of a memory buffer in [RTToolSetObserver](../targetrts-api/class_r_t_toolset_observer.html)::sendTxBuffer()

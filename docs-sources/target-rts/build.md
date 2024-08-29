@@ -174,3 +174,18 @@ Increasing the value will make each message bigger, which makes the application 
 This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features.
 
 Default value: **1** (set to **0** to disable all target observability features)
+
+#### MIN_FREE_LIST_SIZE
+This setting is related to the [free list](message-communication.md#message-memory-management). It defines the lower limit of the free list size. The free list will always contain at least this number of message blocks.
+
+Default value: **20**
+
+#### MAX_FREE_LIST_SIZE
+This setting is related to the [free list](message-communication.md#message-memory-management). It defines the upper limit of the free list size, i.e. the maximum number of message blocks that the free list will contain.
+
+Default value: **100**
+
+#### RTMESSAGE_BLOCK_SIZE
+This setting is related to the [free list](message-communication.md#message-memory-management). It defines how many messages each message block contains.
+
+Default value: **250**
