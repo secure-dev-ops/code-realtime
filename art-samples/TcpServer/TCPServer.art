@@ -283,7 +283,7 @@ protected:
     		bool firstPort = true;
     		for (int i = actorData->numPorts; --i >= 0; ++portDescriptor ) {
     			RTProtocol* port = RTObjectOf( RTProtocol, portDescriptor->offset, this );
-    			if (port->getName() == "external" && port->getInfo()->protocol->name == "External")
+                if (!RTMemoryUtil::strcmp(port->getName(), "external") && !RTMemoryUtil::strcmp(port->getInfo()->protocol->name, "External"))    			
     				continue; // Skip the 'external' port of the TCPServer capsule since it's only for internal use
     
     			if (!firstPort)
