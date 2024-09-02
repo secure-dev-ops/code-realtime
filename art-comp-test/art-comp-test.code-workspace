@@ -156,6 +156,9 @@
             "path": "tests/protocol_inheritance_redefined_event"
         },
         {
+            "path": "tests/protocol_signals_array_sorted"
+        },
+        {
             "path": "tests/receive_any"
         },
         {
