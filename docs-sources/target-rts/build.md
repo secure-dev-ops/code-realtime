@@ -171,7 +171,7 @@ Default value: **100** (byte size of the message data area)
 Increasing the value will make each message bigger, which makes the application consume more memory, but on the other hand it may become faster since fewer messages will require dynamic memory to be allocated for storing the message data. On the other hand, if your application mostly send very small data objects, you may benefit from decreasing the RTMESSAGE_PAYLOAD_SIZE. You need to fine-tune the value of this setting to find the optimal trade-off between speed and memory consumption for your application.
 
 #### OBSERVABLE
-This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features.
+This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features (for example [the Art Debugger](../debugging/index.md)).
 
 Default value: **1** (set to **0** to disable all target observability features)
 

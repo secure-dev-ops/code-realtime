@@ -97,7 +97,7 @@ The encoding includes the name of the message's event, its argument data type (i
 ## Default Encoding/Decoding Rules
 The default encoding/decoding in the TargetRTS follows these rules:
 
-1. Structured types are encoded as a list of name-value pairs. The name of each member variable (field) is followed by its value. Member variables are encoded in the same order as they are declared in the structured type.
+1. Structured types are encoded as a comma-separated list of name-value pairs enclosed in curly brackets. The name of each member variable (field) is followed by its value. Member variables are encoded in the same order as they are declared in the structured type.
 2. Inherited member variables are encoded before local ones. Only single inheritance is supported. If your data type uses multiple inheritance you have to provide a [custom implementation](#custom-encodingdecoding) for encoding/decoding it.
 3. An enum literal is encoded using an integer that corresponds to its order of declaration in the enum (0 for the first literal). Note that this is not always the same as the literal's integer value in C++.
 4. Primitive C++ types, such as int, bool and float, are encoded with the string representation of its value. Note that float values are always encoded with maximum precision, which may lead to more decimals than wanted. After decoding you can round it to the desired precision.

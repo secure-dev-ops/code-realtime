@@ -121,6 +121,8 @@ nav:
         - Launch Configurations: building/launch-configurations.md
         - Art Compiler: building/art-compiler.md   
         - Build Variants: building/build-variants.md  
+     - Debugging: 
+        - Debugging: debugging/index.md  
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md

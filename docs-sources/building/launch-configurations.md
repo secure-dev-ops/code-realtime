@@ -10,6 +10,7 @@ A more flexible way to launch an executable is to use a **launch configuration**
 * You can easily manage multiple ways of launching the same application. Just create a launch configuration for each way of launching it.
 * The output from the launched application is printed in the Debug Console rather than the Terminal view. The Debug Console colorizes printed output from the application (<span style="color: red;">red</span> for text printed to stderr and <span style="color: orange;">orange</span> for text printed to stdout).
 * You can terminate and relaunch the application using a toolbar instead of using the Terminal view.
+* With few or no changes a launch configuration can also be used for [debugging the application with the Art Debugger](../debugging/index.md).
 
 ## Creating a Launch Configuration
 To create a launch configuration open the "Run and Debug" view from the activity bar and then click the **create a launch.json file** hyperlink.
@@ -28,7 +29,7 @@ The created launch configuration looks like this:
 {
    "type": "art",
    "request": "launch",
-   "name": "runTC",
+   "name": "launchTC",
    "tc": "${workspaceFolder}/${command:AskForTC}"
 }
 ```
@@ -39,14 +40,14 @@ You can have multiple launch configurations in the same `launch.json` file. Crea
 
 ![](images/create-launch-config.png)
 
+You can also create launch configurations by pressing (++ctrl+space++) in the `launch.json` file.
+
 ## Launching a Launch Configuration
 The name of a launch configuration appears in the launch configuration drop down menu:
 
 ![](images/launch-config-dropdown.png)
 
-Launch the launch configuration by pressing the green arrow button that appears to the left of this drop down menu.
-
-You can also perform the launch from the `Run` menu, using the command **Run without Debugging** (++ctrl+"F5"++). In that case the launch configuration that is selected in the "Run and Debug" view drop down menu will be used.
+If you want to launch the launch configuration, and attach the Art Debugger to the launched application in order to [debug](../debugging/index.md) it, press the green arrow button that appears to the left of this drop down menu. This invokes the command **Start Debugging** (++"F5"++). If you just want to launch the application without debugging, perform instead the command **Run without Debugging** (++ctrl+"F5"++). Both these commands can be found in the `Run` menu.
 
 ## Launch Configuration Attributes
 Below is a table that lists all attributes that can be used in a launch configuration. Each attribute is described in a section of its own below the table.
@@ -56,21 +57,24 @@ Below is a table that lists all attributes that can be used in a launch configur
 | Attribute | Description | Mandatory |
 |----------|:-------------|:-------------|
 | [type](#type) | The type of launch configuration. Always "art". | Yes
-| [request](#request) | What the launch configuration will do. Always "launch". | Yes
+| [request](#request) | What the launch configuration will do. Either "launch" or "attach". | Yes
 | [name](#name) | The name of the launch configuration | Yes
-| [tc](#tc) | The TC file to use for building and launching the application. | Yes
+| [tc](#tc) | The TC file to use for building and launching the application. | Yes (unless request is "attach")
 | [args](#args) | Command line arguments to pass to the launched application. | No
 | [environment](#environment) | Environment variables to set for the launched application. | No
 | [cwd](#cwd) | Current working directory for the launched application | No
+| [port](#port) | Which debug port to use when debugging the application | No
+| [hostname](#hostname) | The machine where the application runs to which the debugger should be attached | No
+| [stopAtEntry](#stopatentry) | Should the debugger pause execution of the launched application? | No
 
 ### type
 This attribute specifies the type of launch configuration. It is mandatory and is always the string "art". 
 
 ### request
-This attribute specifies what the launch configuration will do. It is mandatory and is always the string "launch".
+This attribute specifies what the launch configuration will do. It is mandatory and should be set to "launch" if you want the launch configuration to start your application. For a launch configuration that is used for [debugging](../debugging/index.md) you can also set this attribute to "attach" to specify that the Art Debugger should attach to an application that is already running.
 
 ### name
-Specifies the name of the launch configuration. You should give a meaningful and unique name to each launch configuration that describes what it does. The chosen name appears in the drop down menu in the "Run and Debug" view. When you first create a launch configuration it gets the name "runTC". Make sure to change this default name.
+Specifies the name of the launch configuration. You should give a meaningful and unique name to each launch configuration that describes what it does. The chosen name appears in the drop down menu in the "Run and Debug" view. When you first create a launch configuration it gets the name "launchTC". Make sure to change this default name.
 
 ### tc
 This attribute specifies which TC file to use for building and launching. The specified TC must build an executable. You must use an absolute path to the TC file, but it can contain the `${workspaceFolder}` variable which expands to the location of the workspace folder. By default the `tc` attribute is set to `${workspaceFolder}/${command:AskForTC}` which means you will be prompted for choosing which TC to use when the launch configuration is launched.
@@ -79,8 +83,10 @@ This attribute specifies which TC file to use for building and launching. The sp
 
 For a list of other variables that can be used in this attribute see [this page](https://code.visualstudio.com/docs/editor/variables-reference#_settings-command-variables-and-input-variables).
 
+If the [request](#request) attribute is set to "attach" then you should not set the [tc](#tc) attribute, because in that case the launch configuration will not start your application, and just attach the Art Debugger to an application that is already running.
+
 ### args
-Specifies the command-line arguments for the launched executable. This is a list of strings, and by default it is set to `["-URTS_DEBUG=quit"]` which means that the executable will run in non-debug mode. You may add custom command-line arguments for your application as necessary. For example:
+Specifies the command-line arguments for the launched executable. This is a list of strings, and by default it is empty which means that no additional command-line arguments will be passed to the executable. You may add custom command-line arguments for your application as necessary. For example:
 
 ``` json
 {
@@ -88,9 +94,11 @@ Specifies the command-line arguments for the launched executable. This is a list
    "request": "launch",
    "name": "Let my exe listen to a port",
    "tc": "${workspaceFolder}/app.tcjs",
-   "args": ["-URTS_DEBUG=quit", "--port=12345"]
+   "args": ["-port=12345"]
 }
 ```
+
+Note that the special command-line argument `-URTS_DEBUG`, which tells if the application should run in debug mode or not, is set automatically depending on how you launch the launch configuration (see [Launching a Launch Configuration](#launching-a-launch-configuration)) so you should not include that in the [args](#args) attribute.
 
 ### environment
 Specifies environment variables to be set for the launched executable. This is a list of objects where each object has a property that specifies the name of an environment variable. The environment variable will be set to the value of that property. In the example below the environment variable `LD_LIBRARY_PATH` will be set to `/libs/mylibs` to tell a Linux system where to load shared libraries needed by the application.
@@ -108,3 +116,11 @@ Specifies environment variables to be set for the launched executable. This is a
 ### cwd
 By default the launched application runs in the same folder as where the executable is located. By setting this attribute you can change the current working directory to something else. The value of this attribute must be an absolute path, but certain variables can be used. See [this page](https://code.visualstudio.com/docs/editor/variables-reference#_settings-command-variables-and-input-variables) for more information.
 
+### port
+This attribute applies only for launch configurations that are used for [debugging](../debugging/index.md). You can use it for specifying which TCP port to use as the debug port. By default the debug port is 3650. You need to change this to another value if that port for some reason is not available (for example because another debug session is already using that port).
+
+### hostname
+This attribute applies only for launch configurations that are used for [debugging](../debugging/index.md) and only when the [request](#request) attribute is set to "attach". In that case it specifies the IP address where the application is running, to which the Art Debugger should attach. It defaults to "localhost", i.e. by default the Art Debugger assumes that the application to debug runs on the same machine as where {$product.name$} runs.
+
+### stopAtEntry
+By default the application is paused as soon as it has been launched for debugging, and you have to manually perform the **Continue** command to resume its execution. You can set this attribute to `false` to prevent this from happening, and let the launched application start running immediately. This attribute is ignored when the [request](#request) attribute is set to "attach".
