@@ -1,0 +1,68 @@
+protocol AlphaSorted {
+
+    in zTestSymmetric();
+    in zTestSymmetric2();
+    in rTest();
+    in ktest();
+    in mTest();
+    in aCap();
+    in bCap();
+    in aTest();
+
+    
+    out zTest();
+    out zTestSymmetric();
+    out zTestSymmetric2();
+    out rTest();
+    out ktest();
+    out mTest();
+    out aCap();
+    out bCap();
+    out aTest();
+    
+};
+capsule Top{
+
+
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "AlphaSorted.h"
+
+    `
+    behavior port alphaAlphaSortedConj~ : AlphaSorted;    
+    behavior port alphaAlphaSorted : AlphaSorted;    
+
+    connect alphaAlphaSortedConj with alphaAlphaSorted;
+
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            const RTProtocolDescriptor& pdConj = alphaAlphaSortedConj.rt_class;
+            int i = pdConj.inSignalNamed("zTestSymmetric");
+            ASSERT(i == 4, "Event zTestSymmetric was not found at the expected index 4");
+            i = pdConj.outSignalNamed("zTestSymmetric");
+            ASSERT(i == 3, "Event zTestSymmetric was not found at the expected index 3");
+
+            i = pdConj.inSignalNamed("zTest");
+            ASSERT(i == 3, "Event zTest was not found at the expected index 3");
+            i = pdConj.outSignalNamed("aTest");
+            ASSERT(i == 10, "Event aTest was not found at the expected index 10");
+
+            const RTProtocolDescriptor& pd = alphaAlphaSorted.rt_class;
+            i = pd.inSignalNamed("zTestSymmetric");
+            ASSERT(i == 3, "Event zTestSymmetric was not found at the expected index 3");
+            i = pd.outSignalNamed("zTestSymmetric");
+            ASSERT(i == 4, "Event zTestSymmetric was not found at the expected index 4");
+
+            i = pd.inSignalNamed("aTest");
+            ASSERT(i == 10, "Event aTest was not found at the expected index 10");
+            i = pd.outSignalNamed("zTest");
+            ASSERT(i == 3, "Event zTest was not found at the expected index 3");
+            PASS();
+
+        `;
+    };
+
+};
