@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>TcpRangeCounter Client</title>
+<link rel="stylesheet" href="stylesheets/style.css"/>
+</head>
+	<body>
+		<hr class="lightgrey"></hr>
+		<h1>TcpRangeCounter Client</h1>
+		<section id="statusSection">
+			<h3>The following event type and its associated argument has been submitted to the Range Counter Server.</h3>
+			<p id="eventTable"></p>
+			<script>	
+				var eventData = <%-data%>;
+				console.log("eventData = " + eventData);
+				console.log("JSON.stringify(eventData) = " + JSON.stringify(eventData));
+				var txt = "<table>";
+				txt += "<tr><td><strong>Event Type</strong></td><td><strong>Event Argument</strong></td>";	
+					var eventJsonObject = JSON.parse(JSON.stringify(eventData)); 
+					txt += "<tr><td>" + eventJsonObject.eventType + "</td>"; 
+					txt += "<td>" + eventJsonObject.arg + "</td></tr>";    
+				txt += "</table>"  
+				document.getElementById("eventTable").innerHTML = txt;	
+			</script>		
+		</section>
+	</body>
+</html>
+

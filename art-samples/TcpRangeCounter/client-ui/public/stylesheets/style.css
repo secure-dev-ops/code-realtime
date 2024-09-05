@@ -1,0 +1,40 @@
+body {
+  	padding: 50px;
+  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  	background-color: #F7F7F7;
+}
+
+#inputSection{
+	border-style:solid; 
+	border-color: lightgrey; 
+	background-color: #e6fff7; 
+	border-radius: 10px; 
+	height:auto;
+}
+
+#statusSection{
+	border-style:solid; 
+	border-color: lightgrey; 
+	background-color: #e6fff7; 
+	border-radius: 10px; 
+	height:auto;
+}
+
+table, th, td {
+  	border: 1px solid black;
+}
+
+a {
+  color: #00B7FF;
+}
+
+hr.lightgrey {
+  border: 3px solid lightgrey;
+}
+
+hr.lightgreen {
+  border: 3px solid #e6fff7;
+}
+
+
+

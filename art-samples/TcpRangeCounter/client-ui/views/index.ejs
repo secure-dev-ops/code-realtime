@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>TcpRangeCounter Client</title>
+<link rel="stylesheet" href="stylesheets/style.css"/>  
+</head>
+  <body>
+	<hr class="lightgrey"></hr>
+	<h1>TcpRangeCounter Client</h1>
+	<section id="inputSection">
+		<form method=post action=sendEvent>
+			<H3>Select the Event Type</H3>
+				<select id=selection name = "eventType">
+	  				<option value="max">max</option>
+	  				<option value="min">min</option>
+	  				<option value="delta">delta</option>
+	  				<option value="resume">resume</option>
+				</select>
+			<H3>Enter the Argument associated with the selected Event</H3>
+				<input id=arg type="number" name="arg" size="10" required/>	      	
+			   	<br><br>
+			   	<input type=submit value='submit' name=submit>
+		</form>			
+		<ul>
+			<li>This sample implements a counter that starts at a min value and increments until it reaches a max value.</li> 
+			<li>The application embeds a [TCP server](../TcpServer/) which allows it to be dynamically configured by means of sending TCP requests.</li>
+			<li>These requests corresponds to the events of the [Events](Events.art) protocol:</li>
+				<ul>
+			  		<li>setMin: Sets the min value of the range (default 0)</li>
+			  		<li>setMax: Sets the max value of the range (default 10)</li>
+			  		<li>setDelta: Sets the delta by which the counter increments in each step (default 1). 
+			  			<ul>
+			  				<li>Use a negative value to count down instead of up.</li>
+			  			</ul>
+			  		<li>resumeCounting: Resume the counter when it has stopped</li>
+				</ul>
+		</ul>
+		  	<script>
+      			document.getElementById('selection').addEventListener('change', function() {
+  					var arg = document.getElementById('arg');
+  					if (this.value === 'resume') {
+    					arg.disabled = true;
+  					} else {
+    					arg.disabled = false;
+  					}
+  				});
+    		</script>
+		</section>
+   	</body>
+</html>
