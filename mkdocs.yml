@@ -117,12 +117,13 @@ nav:
      - Building: 
         - Building: building/index.md        
         - Transformation Configurations: building/transformation-configurations.md
-        - C++ Source Files: building/build-cpp-files.md
-        - Launch Configurations: building/launch-configurations.md
+        - C++ Source Files: building/build-cpp-files.md      
         - Art Compiler: building/art-compiler.md   
         - Build Variants: building/build-variants.md  
-     - Debugging: 
-        - Debugging: debugging/index.md  
+     - Running and Debugging: 
+        - Running and Debugging: running-and-debugging/index.md 
+        - Launch Configurations: running-and-debugging/launch-configurations.md
+        - Debugging: running-and-debugging/debugging.md  
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md

@@ -33,7 +33,8 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8002 | [Building without rtperl](#building-without-rtperl) <br> [JSON parser](#json-parser) <br> [Script for creating TargetRTS patch files](#script-for-creating-targetrts-patch-files) <br> [Pointers in JSON encoding/decoding](#pointers-in-json-encodingdecoding) | 
 | 8003 | [Align terminology in comments](#align-terminology-in-comments) <br> [Configurable max TCP Connections](#configurable-max-tcp-connections) |
 | 8004 | [Improved implementation of JSON parser](#improved-implementation-of-json-parser) <br> [JSON encoding/decoding for RTByteBlock](#json-encodingdecoding-for-rtbyteblock) <br> [New target configuration for MacOS on AArch64](#new-target-configuration-for-macos-on-aarch64) |
-| 8005 | [New free list macros](#new-free-list-macros) <br> [Static analysis warning reductions](#static-analysis-warning-reductions) |
+| 8005 | [New free list macros](#new-free-list-macros) |
+| 8006 | [Static analysis warning reductions](#static-analysis-warning-reductions) <br> [New debugger API "getChildren"](#new-debugger-api-getchildren) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -79,3 +80,6 @@ Some static analysis tools previously reported a few warnings on the TargetRTS s
 - Changed type of the `need_lock` variable in [RTProtocol](../targetrts-api/class_r_t_protocol.html)::reply() from int to bool
 - Removed dead code
 - Improved initialization of a memory buffer in [RTToolSetObserver](../targetrts-api/class_r_t_toolset_observer.html)::sendTxBuffer()
+
+### New debugger API "getChildren"
+A new debugger API for getting a JSON representation of the runtime structure of a debugged application is now available. It includes information about the capsule instance tree and metadata about the debugged application which is available in the TargetRTS. It is used by the [Art Debugger](../running-and-debugging/debugging.md) for populating the Art Debug view when debugging an application in {$product.name$}.

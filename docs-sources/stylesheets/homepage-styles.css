@@ -286,6 +286,21 @@
     flex-grow: 0;
 }
 
+.feature-4{
+    width: 200px;
+    height: 200px;
+
+    background: url(../assets/art-debug.png);
+
+    background-size: 200px;
+    border-radius: 100px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
 /* Academy Section Styles */
 
 .section-academy {

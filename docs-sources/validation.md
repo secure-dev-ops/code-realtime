@@ -1683,10 +1683,32 @@ A Quick Fix is available that will fix the problem by setting the TC as active. 
 
 Note that the concept of an active TC is not applicable when you build an application with the Art Compiler, because then you always specify explicitly which TC that should be built. Therefore, this validation rule only runs in the IDE, and not in the Art Compiler.
 
+### TC_7017_prerequisitesCyclic
+| Severity | Reason | Quick Fix
+|----------|:-------------|:-------------
+| Warning | A TC has cyclic prerequisites, i.e. it has itself as a direct or indirect prerequisite | N/A
+
+The [prerequisites of a TC](building/transformation-configurations.md#transformation-configuration-prerequisites) specify library TCs that should be built before the TC, and they also correspond to link dependencies. Prerequisite TCs should therefore form a strict tree without any cycles. This problem is by default reported as a warning, since the build could still work despite prerequisite cycles. However, it's strongly recommended to analyze your TC prerequisites if this problem is reported and change them so there are no cycles.
+
+The TCs that form the cycle will be reported as related elements. Use this to decide how to break the prerequisite cycle.
+
+``` js
+// In an executable TC exe.tcjs:
+tc.prerequisites = ["lib1.tcjs"];
+
+// In the library TC lib1.tcjs:
+tc.prerequisites = ["lib2.tcjs"]; // TC_7017 (cycle lib1 -> lib2 -> lib1)
+
+// In the library TC lib2.tcjs:
+tc.prerequisites = ["lib1.tcjs"]; // TC_7017 (cycle lib2 -> lib1 -> lib2)
+```
+
+
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
 
 Since these rules run before semantic [validation rules](#validation-rules) they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.
+
 
 ### ART_9000_syntaxError
 | Severity | Reason | Quick Fix

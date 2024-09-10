@@ -61,7 +61,10 @@ This application has a user interface developed with [Qt](https://www.qt.io/) wh
 **TargetRTS:** [RTTiming](targetrts-api/class_timing_1_1_base.html)::cancelTimer()
 
 ## [TcpRangeCounter](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpRangeCounter)
-This sample uses the [TCPServer library](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer) which makes it possible to communicate with the application from the "outside" by means of making TCP requests. A sample [Node.js client](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpRangeCounter/client) for making such requests is included.
+This sample uses the [TCPServer library](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer) which makes it possible to communicate with the application from the "outside" by means of making TCP requests. Two sample client applications for making such requests are included:
+
+* [A command-line Node.js client](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpRangeCounter/client)
+* [A Node.js Express web application](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpRangeCounter/client-ui)
 
 The sample also shows how to run a capsule instance in its own [thread](target-rts/threads.md).
 

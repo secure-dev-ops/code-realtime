@@ -26,10 +26,10 @@ The context menu of a TC provides a few useful commands that automate some of th
 This command first generates C++ code and a make file for the TC, and then runs the make tool on the generated make file. Note, however, that this command does not set the TC as active. If you plan to change code snippets in generated code you must set the TC as active yourself.
 
 * **Run**
-First builds the TC, and then attempts to launch the executable that is produced. The executable is launched in a non-debug mode by specifying the launch argument `-URTS_DEBUG=quit`. If you instead want to launch the executable for debugging it you can go to the Terminal and manually launch it from there without any extra arguments. Note that if your TC creates a library rather than an executable, then this command will still build the TC, but will then give an error message since there is no executable to run. 
+First builds the TC, and then attempts to launch the executable that is produced. The executable is launched in a non-debug mode by specifying the launch argument `-URTS_DEBUG=quit`. If you want to launch the executable in a different way, for example with different command-line arguments, you can go to the Terminal and manually launch it from there. Note that if your TC creates a library rather than an executable, then this command will still build the TC, but will then give an error message since there is no executable to run. 
 
 !!! note
-    For a more flexible way of launching a built executable, consider using a [launch configuration](launch-configurations.md).
+    For a more flexible way of launching a built executable, either for running or debugging it, use a [launch configuration](../running-and-debugging/launch-configurations.md).
 
 * **Clean**
 Removes the target workspace folder produced when building a TC. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke `make clean` to clean using the make file.
@@ -41,7 +41,7 @@ If you build a TC and at least one error exists in the TC itself, in prerequisit
 Use the setting [`code-rt.build.cancelOnError`](../settings.md#cancel-on-error) to suppress this dialog.
 
 ## Building and Running without a TC
-In some cases of rapid prototyping and testing you may want to quickly build and run a capsule without first having to create a TC or a [launch configuration](launch-configurations.md). Then you can click the "Run" link that appears just before any capsule in the Art text editor.
+In some cases of rapid prototyping and testing you may want to quickly build and run a capsule without first having to create a TC or a [launch configuration](../running-and-debugging/launch-configurations.md). Then you can click the "Run" link that appears just before any capsule in the Art text editor.
 
 ![](images/running-without-tc.png)
 
