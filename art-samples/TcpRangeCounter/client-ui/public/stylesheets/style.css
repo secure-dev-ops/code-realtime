@@ -29,12 +29,11 @@ a {
 }
 
 hr.lightgrey {
-  border: 3px solid lightgrey;
+  border: 1px solid lightgrey;
 }
 
-hr.lightgreen {
-  border: 3px solid #e6fff7;
-}
+
+
 
 
 

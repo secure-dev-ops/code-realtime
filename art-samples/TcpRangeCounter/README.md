@@ -26,3 +26,5 @@ where <arg> is one of:
    -delta <int> : Set delta (positive to count up, negative to count down)
    -resume : Resume counting
 ```
+
+Alternatively, the sample includes a web application which also uses the [rt-test-probe] utility for making TCP requests. The link to the README for using this web application is [TcpRangeCounter_Client README](client-ui\README.md).

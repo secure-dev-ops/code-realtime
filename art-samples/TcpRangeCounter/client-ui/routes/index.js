@@ -1,16 +1,21 @@
 var express = require('express');
 var router = express.Router();
-const testProbe = require ('rt-test-probe')('localhost', 12345);
-	
+
 function sendEvent(data, fn) {
 	
 	console.log("Entered the sendEvent function");
 	
 	var eventType = data.eventType;
 	var arg = data.arg;
+	var hostname = data.hostname;
+	var port = data.port;
 	
 	console.log("Event Type = " + eventType);
 	console.log("Argument = " + arg);
+	console.log("Hostname = " + hostname);
+	console.log("Port = " + port);
+
+	const testProbe = require ('rt-test-probe')(hostname, port);
 		
 	let success = false;
 
@@ -49,8 +54,8 @@ router.post('/sendEvent', function(req, res) {
 	console.log("JSON.stringify(req.body) = " + JSON.stringify(req.body));
 	if (req.body != undefined) {		
 		sendEvent(req.body, function(err, data) 
-				{  res.render('status', { title: 'Range Counter Client', data: data }); });
-	}	
-});
+			{  res.render('status', { title: 'Range Counter Client', data: data }); });
+	}
+});	
 
 module.exports = router; 
