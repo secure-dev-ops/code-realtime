@@ -1,4 +1,4 @@
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'redefined_initial_transition_target';
 tc.topCapsule = "Top";

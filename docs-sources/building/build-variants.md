@@ -11,7 +11,7 @@ A variant of an application may often only use slightly different build settings
 A TC is defined using JavaScript which is interpreted when it is built. This opens up for dynamic TC properties where the value of a property is computed at build-time. For simple cases it may be enough to replace static values for TC properties with JavaScript expressions to be able to build several variants of an application. As an example, assume that you want to either build a release or a debug version of an application. The debug version is obtained by compiling the code with the `$(DEBUG_TAG)` flag. The TC can then for example look like this:
 
 ``` js
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 let system = Java.type('java.lang.System');
 let isDebug = system.getenv('DEBUG_BUILD');
@@ -138,7 +138,7 @@ Build variant scripts are implemented with JavaScript and run on a Java Virtual 
 In addition to standard JavaScript and Java functionality, a build variant script can also use an API provided by {$product.name$}. This API consists of a few JavaScript objects and functions. Note that there are three different contexts in which JavaScript executes in {$product.name$} and not all parts of the API are available or meaningful in all contexts.
 
 1. **Evaluation of a TC**:
-TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the [TCF object](#tcf-object). Typically on the first line in a TC it's used like this: `let tc = TCF.define(TCF.CPP_TRANSFORM);`.
+TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the [TCF object](#tcf-object). Typically on the first line in a TC it's used like this: `let tc = TCF.define(TCF.ART_TO_CPP);`.
 Since TCs are evaluated frequently all JavaScript it contains should only compute what it necessary for setting the values of TC properties. It should not have any side-effects, and should not print any messages.
 
 2. **Build Variants script**:
@@ -236,7 +236,7 @@ Creates a new TC object. This function is typically called in the beginning of a
 Returns the top TC, i.e. the TC that is built. You can use this from a prerequisite TC to access properties set on the top TC. For example, it allows a library TC to set some of its properties to have the same values as are used for the executable TC. This can ensure that a library is built with the same settings that are used for the executable that links with the library. Here is an example of how a library TC can be defined to ensure that it will use the same target configuration as the executable that links with it:
 
 ``` js
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 let topTC = TCF.getTopTC().eval; // eval returns an evaluated TC object, where all properties have ready-to-read values (even for properties with default values)
 tc.targetConfiguration = topTC.targetConfiguration;
 ```

@@ -1470,7 +1470,7 @@ tc.compilationMakeInsert = ''; // TC_7001
 Certain TC properties are only meaningful if used in a TC that builds a library. For example, setting [`linkCommand`](building/transformation-configurations.md#linkcommand) does not make sense on a library TC since a library is not linked.
 
 ``` js
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 // The "topCapsule" property is not set, which means this is a library TC
 tc.linkCommand = 'ld'; // TC_7002
 ```

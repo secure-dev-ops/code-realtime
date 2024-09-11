@@ -1,5 +1,5 @@
 //Transformation Configuration File
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'TokenRing_target'; 
 tc.prerequisites = ['../TcpServer/tcpServerLib.tcjs'];
 

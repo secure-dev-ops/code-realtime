@@ -139,7 +139,7 @@ Note that if the event parameter has a type with a custom decode function, then 
 
 If the entered data value cannot be correctly decoded by the decode function of the event parameter type, the message `BAD_MESSAGE` will be printed in the Debug Console (and the event is not sent).
 
-For some events it's optional to provide data. For example, the `timeout` event on a `Timing` port can contain data, but doesn't have to. In this case you can simply press (++"Enter"++) to close the popup and send the event without a data value.
+For some events it's optional to provide data. For example, the `timeout` event on a `Timing` port can contain data, but doesn't have to. In this case you can simply press ++"Enter"++ to close the popup and send the event without a data value.
 
 ### Ports with Multiplicity
 For ports with non-single multiplicity the Art Debug view shows the port multiplicity within square brackets:

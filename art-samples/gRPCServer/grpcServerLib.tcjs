@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.    
 */
 
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.compilationMakeArguments = '';
 tc.compileArguments = TCF.getTopTC().eval.compileArguments;
 tc.inclusionPaths = TCF.getTopTC().eval.inclusionPaths;

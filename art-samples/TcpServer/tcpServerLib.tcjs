@@ -1,4 +1,4 @@
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 // TCF.getTopTC() will return a top TC for which this TC must be a direct or indirect prerequisite
 
 tc.compileArguments = TCF.getTopTC().eval.compileArguments;

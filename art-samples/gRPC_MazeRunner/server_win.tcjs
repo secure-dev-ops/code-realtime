@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.    
 */
 
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 // Where gRPC sources are located
 let grpcSourceLocation = 'C:/github/grpc';
 // Where gRPC tools and libraries are installed

@@ -1,5 +1,5 @@
 //Transformation Configuration File
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'lib_target';
 tc.sources = ['lib.art'];
 // Test that we can access a property from the top TC

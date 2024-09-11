@@ -52,7 +52,7 @@ If needed you can create additional launch configurations either by copy/paste i
 
 ![](images/create-launch-config.png)
 
-Another way to create new launch configurations is by pressing (++ctrl+space++) in the `launch.json` file.
+Another way to create new launch configurations is by pressing ++ctrl+space++ in the `launch.json` file.
 
 ![](images/launch-config-content-assist.png)
 

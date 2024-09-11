@@ -1,4 +1,4 @@
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'tc_7014_target';
 tc.topCapsule = "Top";
 tc.sources = ['tc_7014.art'];

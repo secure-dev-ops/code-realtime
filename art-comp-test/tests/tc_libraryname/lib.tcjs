@@ -1,5 +1,5 @@
 //Transformation Configuration File
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'tc_libraryname_lib_target'; 
 tc.libraryName = 'mylib$(LIB_EXT)';
 tc.sources = ['lib.art'];

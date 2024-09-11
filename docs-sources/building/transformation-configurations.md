@@ -197,7 +197,7 @@ This is a special property that returns a copy of the TC where all properties wi
 As an example consider this TC file which builds an application where the copyright statement is placed in the unit header file:
 
 ``` js
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.commonPreface = `
 /** Copyright by me */
 `;

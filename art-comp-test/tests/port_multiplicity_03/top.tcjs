@@ -1,4 +1,4 @@
-let tc = TCF.define(TCF.CPP_TRANSFORM);
+let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 tc.targetProject = 'port_multiplicity_03_target';
 tc.prerequisites = [
