@@ -1,6 +1,4 @@
 
-## Installing
-
 {$product.name$} can be installed on top of Visual Studio Code or Eclipse Theia.
 
 The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
@@ -23,7 +21,7 @@ The screenshot above also shows that an extension for working with C/C++ has bee
 
 After you have installed {$product.name$} it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command `Developer: Reload Window` which is available in the Command Palette (++ctrl+shift+"P"++).
 
-### Install from VSIX
+## Install from VSIX
 Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
 
 1) If you already have a version of {$product.name$} installed, you can manually uninstall it first (see [Uninstalling](#uninstalling)). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.
@@ -42,18 +40,19 @@ If instead the installation fails, this message will tell you the reason. One co
 
 It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
 
-### Install from Docker Image
-Yet another way to install {$product.name$} is to use the Docker image that is available on [DockerHub](https://hub.docker.com/r/baravich/theia-code-realtime). This image contains Eclipse Theia with the latest version of {$product.name$} installed. Run the docker image using this command:
+## Install from Docker Image
+Yet another way to install {$product.name$} is to use one of the Docker images that are available on DockerHub:
 
-`docker run -p <host-port>:<container-port> -e isDocker=true baravich/theia-code-realtime:1.0`
+* **{$product.name$} on Visual Studio Code** [https://hub.docker.com/r/baravich/vscode-code-realtime](https://hub.docker.com/r/baravich/vscode-code-realtime)
+*  **{$product.name$} on Eclipse Theia** [https://hub.docker.com/r/baravich/theia-code-realtime](https://hub.docker.com/r/baravich/theia-code-realtime)
 
-Replace `<host-port>` with a port that is available on your computer, and `<container-port>` with the port you want the Docker container to use. For example, if you run this command
+Here is an example of a command to use for running one of these Docker images:
 
-`docker run -p 4000:3000 -e isDocker=true baravich/theia-code-realtime:1.0`
+`docker run -p 4000:3000 -e isDocker=true baravich/vscode-code-realtime`
 
-then after less than a minute you can access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
+The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
 
-### Viewing Installation Information
+## Viewing Installation Information
 If you are unsure about which version of {$product.name$} you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:
 
 ![](images/extension_tooltip.png)
@@ -62,13 +61,13 @@ You can also see the version and the exact date of the installed {$product.name$
 
 ![](images/extension_changelog.png)
 
-### Portable Mode Installation
+## Portable Mode Installation
 You can install multiple versions of {$product.name$} by using the portable mode of Visual Studio Code. See [Portable Mode](https://code.visualstudio.com/docs/editor/portable) for how to install Visual Studio Code in portable mode, which will allow you to install a version of {$product.name$} that won't affect other Visual Studio Code installations on the machine. Portable mode also allows to move or copy an installation from one machine to another, which makes it useful in scenarios where installs should be centralized in an organization.
 
-### Post-Installation Configuration
+## Post-Installation Configuration
 After a successful installation you need to perform a few configuration steps before you can start to use {$product.name$}.
 
-#### Setup Java
+### Setup Java
 {$product.name$} uses a Java language server and hence needs a Java Virtual Machine (JVM). It's required to use a JVM for Java 17 or newer. If an appropriate JVM cannot be found when the {$product.name$} extension is activated (which for example happens the first time you open an Art file), you will receive an error message.
 
 {$product.name$} follows the steps below in priority order when it looks for an appropriate JVM to use:
@@ -93,12 +92,12 @@ When the {$product.name$} extension is activated information about which Java th
 
 Here you will also see if the launching of the language server for some reason failed.
 
-#### Setup C++ Build Tools
+### Setup C++ Build Tools
 When {$product.name$} builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start Visual Studio Code or Eclipse Theia. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching Visual Studio Code or Eclipse Theia. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.
 
 You also need to install an extension for C/C++ development into Visual Studio Code or Eclipse Theia. Even if you can use any such extension, {$product.name$} provides the best integration with either [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) or [clangd](https://clangd.llvm.org/).
 
-## Uninstalling
+## Uninstall
 To uninstall {$product.name$} follow these steps:
 
 1) Click "Extensions" in the left side-bar.
