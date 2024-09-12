@@ -1,0 +1,7 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.sources = ['lib.art'];
+// The "topCapsule" property is not set, which means this is a library TC
+
+tc.prerequisites = [ 
+    "lib02.tcjs"
+];

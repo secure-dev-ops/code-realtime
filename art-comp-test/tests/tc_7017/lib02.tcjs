@@ -1,0 +1,6 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.sources = ['lib.art'];
+
+tc.prerequisites = [ 
+    "top.tcjs"
+];
