@@ -251,7 +251,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-tabs__link">
+    <a href="../samples/" class="md-tabs__link">
       Samples
     </a>
   </li>
@@ -357,6 +357,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
+        
+          
         
           
         
@@ -1115,6 +1117,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7017_prerequisitescyclic" class="md-nav__link">
+    TC_7017_prerequisitesCyclic
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1214,6 +1223,8 @@
           
         
           
+        
+          
             
           
         
@@ -1275,6 +1286,20 @@
     <li class="md-nav__item">
       <a href="../target-rts/message-communication/" class="md-nav__link">
         Message Communication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../target-rts/logging/" class="md-nav__link">
+        Logging
       </a>
     </li>
   
@@ -1413,8 +1438,6 @@
         
           
         
-          
-        
       
       
         
@@ -1459,20 +1482,6 @@
     <li class="md-nav__item">
       <a href="../building/build-cpp-files/" class="md-nav__link">
         C++ Source Files
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../building/launch-configurations/" class="md-nav__link">
-        Launch Configurations
       </a>
     </li>
   
@@ -1533,6 +1542,86 @@
             
           
         
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../running-and-debugging/">Running and Debugging</a>
+          
+            <label for="__nav_2_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Running and Debugging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running-and-debugging/launch-configurations/" class="md-nav__link">
+        Launch Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running-and-debugging/debugging/" class="md-nav__link">
+        Debugging
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
       
       
         
@@ -1542,8 +1631,8 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_8">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
           <span class="md-nav__icon md-icon"></span>
           Releases
         </label>
@@ -1614,7 +1703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-nav__link">
+      <a href="../samples/" class="md-nav__link">
         Samples
       </a>
     </li>
@@ -2153,6 +2242,13 @@
           <li class="md-nav__item">
   <a href="#tc_7016_prerequisiteswithoutactivetc" class="md-nav__link">
     TC_7016_prerequisitesWithoutActiveTC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tc_7017_prerequisitescyclic" class="md-nav__link">
+    TC_7017_prerequisitesCyclic
   </a>
   
 </li>
@@ -3235,6 +3331,11 @@ capsule Another {
     service behavior port p1 : PROTO;      
     part inner : Inner;
     connect p1 with inner.p;   
+
+    statemachine {
+        state State;
+        initial -&gt; State;
+    };
 };
 
 capsule Inner {
@@ -4024,7 +4125,7 @@ tc.sources = ''; // TC_7000 (expects a list of strings, and not a single string)
 </tbody>
 </table>
 <p>Certain TC properties are only meaningful if used in a TC that builds a library. For example, setting <a href="../building/transformation-configurations/#linkcommand"><code>linkCommand</code></a> does not make sense on a library TC since a library is not linked.</p>
-<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
+<pre><code class="language-js">let tc = TCF.define(TCF.ART_TO_CPP);
 // The &quot;topCapsule&quot; property is not set, which means this is a library TC
 tc.linkCommand = 'ld'; // TC_7002
 </code></pre>
@@ -4358,6 +4459,34 @@ tc.threads = [
 <p><a href="../building/transformation-configurations/#setting-a-transformation-configuration-as-active">Setting a TC as active</a> impacts on how references in an Art file are resolved. If your TC has one or many prerequisites, it's typical that the Art files built by the TC have at least some references to Art elements that are built by those prerequisite TCs. For those references to be possible to resolve, it's required to set the TC as active. This validation rule helps you remember to do so by printing a warning if it finds a TC with prerequisites that is located in a workspace folder without an active TC.</p>
 <p>A Quick Fix is available that will fix the problem by setting the TC as active. If your workspace folder contains more than one TC with prerequisites, the warning will be reported for all of them, and you then need to decide which of the TCs that should be made active.</p>
 <p>Note that the concept of an active TC is not applicable when you build an application with the Art Compiler, because then you always specify explicitly which TC that should be built. Therefore, this validation rule only runs in the IDE, and not in the Art Compiler.</p>
+<h3 id="tc_7017_prerequisitescyclic">TC_7017_prerequisitesCyclic</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">A TC has cyclic prerequisites, i.e. it has itself as a direct or indirect prerequisite</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../building/transformation-configurations/#transformation-configuration-prerequisites">prerequisites of a TC</a> specify library TCs that should be built before the TC, and they also correspond to link dependencies. Prerequisite TCs should therefore form a strict tree without any cycles. This problem is by default reported as a warning, since the build could still work despite prerequisite cycles. However, it's strongly recommended to analyze your TC prerequisites if this problem is reported and change them so there are no cycles.</p>
+<p>The TCs that form the cycle will be reported as related elements. Use this to decide how to break the prerequisite cycle.</p>
+<pre><code class="language-js">// In an executable TC exe.tcjs:
+tc.prerequisites = [&quot;lib1.tcjs&quot;];
+
+// In the library TC lib1.tcjs:
+tc.prerequisites = [&quot;lib2.tcjs&quot;]; // TC_7017 (cycle lib1 -&gt; lib2 -&gt; lib1)
+
+// In the library TC lib2.tcjs:
+tc.prerequisites = [&quot;lib1.tcjs&quot;]; // TC_7017 (cycle lib2 -&gt; lib1 -&gt; lib2)
+</code></pre>
 <h2 id="core-validation-rules">Core Validation Rules</h2>
 <p>There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.</p>
 <p>Since these rules run before semantic <a href="#validation-rules">validation rules</a> they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.</p>

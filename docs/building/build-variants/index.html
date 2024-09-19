@@ -17,7 +17,7 @@
         <link rel="prev" href="../art-compiler/">
       
       
-        <link rel="next" href="../../releases/">
+        <link rel="next" href="../../running-and-debugging/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
@@ -251,7 +251,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-tabs__link">
+    <a href="../../samples/" class="md-tabs__link">
       Samples
     </a>
   </li>
@@ -357,6 +357,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
+        
+          
         
           
         
@@ -650,6 +652,8 @@
           
         
           
+        
+          
             
           
         
@@ -711,6 +715,20 @@
     <li class="md-nav__item">
       <a href="../../target-rts/message-communication/" class="md-nav__link">
         Message Communication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/logging/" class="md-nav__link">
+        Logging
       </a>
     </li>
   
@@ -851,8 +869,6 @@
         
           
         
-          
-        
       
       
         
@@ -897,20 +913,6 @@
     <li class="md-nav__item">
       <a href="../build-cpp-files/" class="md-nav__link">
         C++ Source Files
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../launch-configurations/" class="md-nav__link">
-        Launch Configurations
       </a>
     </li>
   
@@ -1199,6 +1201,86 @@
             
           
         
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../running-and-debugging/">Running and Debugging</a>
+          
+            <label for="__nav_2_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Running and Debugging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/launch-configurations/" class="md-nav__link">
+        Launch Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/debugging/" class="md-nav__link">
+        Debugging
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
       
       
         
@@ -1208,8 +1290,8 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_8">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
           <span class="md-nav__icon md-icon"></span>
           Releases
         </label>
@@ -1280,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-nav__link">
+      <a href="../../samples/" class="md-nav__link">
         Samples
       </a>
     </li>
@@ -1569,7 +1651,7 @@
 <p>A variant of an application may often only use slightly different build settings (for example, setting a compiler flag to include debug symbols), but in some cases the application logic may also be somewhat different (for example, use of some code that is specific to a certain target platform). Code RealTime provides a powerful mechanism, based on scripting, that allows you to build several variants of an application with minimal effort.</p>
 <h2 id="dynamic-transformation-configurations">Dynamic Transformation Configurations</h2>
 <p>A TC is defined using JavaScript which is interpreted when it is built. This opens up for dynamic TC properties where the value of a property is computed at build-time. For simple cases it may be enough to replace static values for TC properties with JavaScript expressions to be able to build several variants of an application. As an example, assume that you want to either build a release or a debug version of an application. The debug version is obtained by compiling the code with the <code>$(DEBUG_TAG)</code> flag. The TC can then for example look like this:</p>
-<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
+<pre><code class="language-js">let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 let system = Java.type('java.lang.System');
 let isDebug = system.getenv('DEBUG_BUILD');
@@ -1677,7 +1759,7 @@ function initBuildVariants(tc) {
 <ol>
 <li>
 <p><strong>Evaluation of a TC</strong>:
-TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the <a href="#tcf-object">TCF object</a>. Typically on the first line in a TC it's used like this: <code>let tc = TCF.define(TCF.CPP_TRANSFORM);</code>.
+TCs are evaluated when they are built, but also in order to perform validation of TC properties, for example while editing the TC. JavaScript in a TC file has access to the <a href="#tcf-object">TCF object</a>. Typically on the first line in a TC it's used like this: <code>let tc = TCF.define(TCF.ART_TO_CPP);</code>.
 Since TCs are evaluated frequently all JavaScript it contains should only compute what it necessary for setting the values of TC properties. It should not have any side-effects, and should not print any messages.</p>
 </li>
 <li>
@@ -1744,7 +1826,7 @@ function initBuildVariants(tc) {
 <h4 id="gettoptc">getTopTC</h4>
 <p><code>getTopTC() -&gt; {TCObject}</code></p>
 <p>Returns the top TC, i.e. the TC that is built. You can use this from a prerequisite TC to access properties set on the top TC. For example, it allows a library TC to set some of its properties to have the same values as are used for the executable TC. This can ensure that a library is built with the same settings that are used for the executable that links with the library. Here is an example of how a library TC can be defined to ensure that it will use the same target configuration as the executable that links with it:</p>
-<pre><code class="language-js">let tc = TCF.define(TCF.CPP_TRANSFORM);
+<pre><code class="language-js">let tc = TCF.define(TCF.ART_TO_CPP);
 let topTC = TCF.getTopTC().eval; // eval returns an evaluated TC object, where all properties have ready-to-read values (even for properties with default values)
 tc.targetConfiguration = topTC.targetConfiguration;
 </code></pre>

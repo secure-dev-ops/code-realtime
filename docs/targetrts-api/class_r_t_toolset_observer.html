@@ -108,6 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a551924ad36bdc46c62232e5ae11a3cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5ce7a7f6a484cbd8e402a3dcd8eeb07"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_toolset_observer.html#af5ce7a7f6a484cbd8e402a3dcd8eeb07">evtVariable</a> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo) override</td></tr>
 <tr class="separator:af5ce7a7f6a484cbd8e402a3dcd8eeb07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9ac4bcc1138336f4b725b8ef72470cf"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_toolset_observer.html#ad9ac4bcc1138336f4b725b8ef72470cf">evtChildren</a> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo) override</td></tr>
+<tr class="separator:ad9ac4bcc1138336f4b725b8ef72470cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69dd74a47372eba8d3071ab291cc9d5b"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_toolset_observer.html#a69dd74a47372eba8d3071ab291cc9d5b">evtHistory</a> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo) override</td></tr>
 <tr class="separator:a69dd74a47372eba8d3071ab291cc9d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82e665b1f32eb5641ff64d5083e0bb82"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_toolset_observer.html#a82e665b1f32eb5641ff64d5083e0bb82">evtMessageQueue</a> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo) override</td></tr>
@@ -171,6 +173,9 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>evtRtsStatus</
 <tr class="memitem:a66181ddf93c5238ebd5b9e881b153843 inherit pub_methods_class_r_t_observer"><td class="memItemLeft" align="right" valign="top"><a id="a66181ddf93c5238ebd5b9e881b153843" name="a66181ddf93c5238ebd5b9e881b153843"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>evtVariable</b> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo)</td></tr>
 <tr class="separator:a66181ddf93c5238ebd5b9e881b153843 inherit pub_methods_class_r_t_observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7ae0ea2d685d051b17edcc5e697a234 inherit pub_methods_class_r_t_observer"><td class="memItemLeft" align="right" valign="top"><a id="ad7ae0ea2d685d051b17edcc5e697a234" name="ad7ae0ea2d685d051b17edcc5e697a234"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>evtChildren</b> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo)</td></tr>
+<tr class="separator:ad7ae0ea2d685d051b17edcc5e697a234 inherit pub_methods_class_r_t_observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9224e42f17ecea49ccd70154d94cc6a9 inherit pub_methods_class_r_t_observer"><td class="memItemLeft" align="right" valign="top"><a id="a9224e42f17ecea49ccd70154d94cc6a9" name="a9224e42f17ecea49ccd70154d94cc6a9"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>evtHistory</b> (int daemonId, const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;daemonInfo, const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;eventInfo)</td></tr>
 <tr class="separator:a9224e42f17ecea49ccd70154d94cc6a9 inherit pub_methods_class_r_t_observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,6 +253,50 @@ LastFlowCmd&#160;</td><td class="memItemRight" valign="bottom"><b>lastFlowCmd</b
       <table class="memname">
         <tr>
           <td class="memname">virtual int RTToolsetObserver::evtChain </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>daemonId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>daemonInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_r_t_event_info.html">RTEventInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>eventInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="class_r_t_observer.html">RTObserver</a>.</p>
+
+</div>
+</div>
+<a id="ad9ac4bcc1138336f4b725b8ef72470cf" name="ad9ac4bcc1138336f4b725b8ef72470cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ac4bcc1138336f4b725b8ef72470cf">&#9670;&#160;</a></span>evtChildren()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int RTToolsetObserver::evtChildren </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>daemonId</em>, </td>

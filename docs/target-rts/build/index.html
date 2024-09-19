@@ -251,7 +251,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-tabs__link">
+    <a href="../../samples/" class="md-tabs__link">
       Samples
     </a>
   </li>
@@ -357,6 +357,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
+        
+          
         
           
         
@@ -652,6 +654,8 @@
           
         
           
+        
+          
             
           
         
@@ -713,6 +717,20 @@
     <li class="md-nav__item">
       <a href="../message-communication/" class="md-nav__link">
         Message Communication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        Logging
       </a>
     </li>
   
@@ -979,6 +997,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#min_free_list_size" class="md-nav__link">
+    MIN_FREE_LIST_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_free_list_size" class="md-nav__link">
+    MAX_FREE_LIST_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtmessage_block_size" class="md-nav__link">
+    RTMESSAGE_BLOCK_SIZE
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1060,8 +1099,6 @@
         
           
         
-          
-        
       
       
         
@@ -1106,20 +1143,6 @@
     <li class="md-nav__item">
       <a href="../../building/build-cpp-files/" class="md-nav__link">
         C++ Source Files
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../building/launch-configurations/" class="md-nav__link">
-        Launch Configurations
       </a>
     </li>
   
@@ -1180,6 +1203,86 @@
             
           
         
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../running-and-debugging/">Running and Debugging</a>
+          
+            <label for="__nav_2_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Running and Debugging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/launch-configurations/" class="md-nav__link">
+        Launch Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/debugging/" class="md-nav__link">
+        Debugging
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
       
       
         
@@ -1189,8 +1292,8 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_8">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
           <span class="md-nav__icon md-icon"></span>
           Releases
         </label>
@@ -1261,7 +1364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-nav__link">
+      <a href="../../samples/" class="md-nav__link">
         Samples
       </a>
     </li>
@@ -1491,6 +1594,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#min_free_list_size" class="md-nav__link">
+    MIN_FREE_LIST_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_free_list_size" class="md-nav__link">
+    MAX_FREE_LIST_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtmessage_block_size" class="md-nav__link">
+    RTMESSAGE_BLOCK_SIZE
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1651,8 +1775,17 @@ All debugger features are disabled. The size of the executable will be reduced, 
 <p>Default value: <strong>100</strong> (byte size of the message data area)</p>
 <p>Increasing the value will make each message bigger, which makes the application consume more memory, but on the other hand it may become faster since fewer messages will require dynamic memory to be allocated for storing the message data. On the other hand, if your application mostly send very small data objects, you may benefit from decreasing the RTMESSAGE_PAYLOAD_SIZE. You need to fine-tune the value of this setting to find the optimal trade-off between speed and memory consumption for your application.</p>
 <h4 id="observable">OBSERVABLE</h4>
-<p>This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features.</p>
+<p>This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features (for example <a href="../../running-and-debugging/debugging/">the Art Debugger</a>).</p>
 <p>Default value: <strong>1</strong> (set to <strong>0</strong> to disable all target observability features)</p>
+<h4 id="min_free_list_size">MIN_FREE_LIST_SIZE</h4>
+<p>This setting is related to the <a href="../message-communication/#message-memory-management">free list</a>. It defines the lower limit of the free list size. The free list will always contain at least this number of message blocks.</p>
+<p>Default value: <strong>20</strong></p>
+<h4 id="max_free_list_size">MAX_FREE_LIST_SIZE</h4>
+<p>This setting is related to the <a href="../message-communication/#message-memory-management">free list</a>. It defines the upper limit of the free list size, i.e. the maximum number of message blocks that the free list will contain.</p>
+<p>Default value: <strong>100</strong></p>
+<h4 id="rtmessage_block_size">RTMESSAGE_BLOCK_SIZE</h4>
+<p>This setting is related to the <a href="../message-communication/#message-memory-management">free list</a>. It defines how many messages each message block contains.</p>
+<p>Default value: <strong>250</strong></p>
 
 
 

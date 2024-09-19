@@ -177,27 +177,31 @@ $(function() {
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp; daemonInfo,</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a>  &amp; eventInfo );</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      evtHistory(      <span class="keywordtype">int</span>                  daemonId,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      evtChildren(     <span class="keywordtype">int</span>                  daemonId,</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp; daemonInfo,</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a>  &amp; eventInfo );</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      evtMessageQueue( <span class="keywordtype">int</span> daemonId,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp; daemonInfo,</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a>  &amp; eventInfo );</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      receiveData ( <span class="keywordtype">void</span> );</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      transmitData( <span class="keywordtype">void</span> );</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">int</span>              readData( <span class="keywordtype">char</span> * buf, <span class="keywordtype">int</span> buflen );</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">int</span>              sendData( <span class="keyword">const</span> <span class="keywordtype">char</span> * buf, <span class="keywordtype">int</span> buflen = 0 );</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="comment">// unavailable methods</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a>( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a> &amp; );</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a> &amp; operator=( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a> &amp; );</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}; <span class="comment">//lint !e1712</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#endif </span><span class="comment">// __RTObserver_h__</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      evtHistory(      <span class="keywordtype">int</span>                  daemonId,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp; daemonInfo,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a>  &amp; eventInfo );</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      evtMessageQueue( <span class="keywordtype">int</span> daemonId,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_daemon_info.html">RTDaemonInfo</a> &amp; daemonInfo,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                                      <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_event_info.html">RTEventInfo</a>  &amp; eventInfo );</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      receiveData ( <span class="keywordtype">void</span> );</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span>      transmitData( <span class="keywordtype">void</span> );</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordtype">int</span>              readData( <span class="keywordtype">char</span> * buf, <span class="keywordtype">int</span> buflen );</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordtype">int</span>              sendData( <span class="keyword">const</span> <span class="keywordtype">char</span> * buf, <span class="keywordtype">int</span> buflen = 0 );</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment">// unavailable methods</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a>( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a> &amp; );</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a> &amp; operator=( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_observer.html">RTObserver</a> &amp; );</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}; <span class="comment">//lint !e1712</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif </span><span class="comment">// __RTObserver_h__</span></div>
 <div class="ttc" id="aclass_r_t_daemon_html"><div class="ttname"><a href="class_r_t_daemon.html">RTDaemon</a></div><div class="ttdef"><b>Definition:</b> RTDaemon.h:31</div></div>
 <div class="ttc" id="aclass_r_t_daemon_info_html"><div class="ttname"><a href="class_r_t_daemon_info.html">RTDaemonInfo</a></div><div class="ttdef"><b>Definition:</b> RTDaemonInfo.h:24</div></div>
 <div class="ttc" id="aclass_r_t_debugger_html"><div class="ttname"><a href="class_r_t_debugger.html">RTDebugger</a></div><div class="ttdef"><b>Definition:</b> RTDebugger.h:58</div></div>

@@ -1,0 +1,1660 @@
+<!-- Elements added to main will be displayed on all pages -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+      
+      
+      
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/launch-configurations/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../debugging/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+    
+    
+      
+        <title>Launch Configurations - DevOps Code RealTime</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/style.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/prism.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+<!--  OneTrust Cookies Consent Notice start  -->
+<!-- <script type="text/javascript" src="https://cdn.cookielaw.org/consent/99b8d579-c52a-43c9-ab7b-a35e60de7103/OtAutoBlock.js"></script> -->
+<!-- <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="99b8d579-c52a-43c9-ab7b-a35e60de7103"></script> -->
+<!--<script type="text/javascript"> -->
+<!--	function OptanonWrapper() { }  -->
+<!-- </script> -->
+<!--  OneTrust Cookies Consent Notice end  -->
+
+<!--  Global site tag (gtag.js) - Google Analytics start -->
+<!-- <script src="https://www.googletagmanager.com/gtag/js?id=UA-169645537-2" class="optanon-category-C0002-C0003-C0004-C0005"></script> -->
+<!-- <script type="text/plain" class="optanon-category-C0002-C0003-C0004-C0005"> -->
+<!--  window.dataLayer = window.dataLayer || []; -->
+<!--  function gtag(){dataLayer.push(arguments);} -->
+<!--  gtag('js', new Date()); -->
+
+<!--  gtag('config', 'UA-169645537-2'); -->
+<!--</script> -->
+ 
+<!--  Global site tag (gtag.js) - Google Analytics end -->
+
+    
+    
+    
+  <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-a-launch-configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+<p>Check out the commercial edition!</p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DevOps Code RealTime" class="md-header__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevOps Code RealTime
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Launch Configurations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    secure-dev-ops/code-realtime
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../overview/" class="md-tabs__link md-tabs__link--active">
+        Documentation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../samples/" class="md-tabs__link">
+      Samples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-tabs__link">
+      Forum
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh" class="md-tabs__link">
+      Videos
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevOps Code RealTime" class="md-nav__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    DevOps Code RealTime
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    secure-dev-ops/code-realtime
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../working-with-art/">Working with Art</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Working with Art
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-editor/" class="md-nav__link">
+        Text Editor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/diagrams/" class="md-nav__link">
+        Diagrams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/outline-view/" class="md-nav__link">
+        Outline View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/references/" class="md-nav__link">
+        References View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/" class="md-nav__link">
+        Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../target-rts/">Target RunTime System</a>
+          
+            <label for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Target RunTime System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/message-communication/" class="md-nav__link">
+        Message Communication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/logging/" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/integrate-with-external-code/" class="md-nav__link">
+        Integration with External Code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/encoding-decoding/" class="md-nav__link">
+        Encoding and Decoding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/versions/" class="md-nav__link">
+        Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../targetrts-api/" class="md-nav__link">
+        C++ API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../building/">Building</a>
+          
+            <label for="__nav_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Building
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/transformation-configurations/" class="md-nav__link">
+        Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/art-compiler/" class="md-nav__link">
+        Art Compiler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-variants/" class="md-nav__link">
+        Build Variants
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Running and Debugging</a>
+          
+            <label for="__nav_2_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Running and Debugging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Launch Configurations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Launch Configurations
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-launch-configuration" class="md-nav__link">
+    Creating a Launch Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-a-launch-configuration" class="md-nav__link">
+    Launching a Launch Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-configuration-attributes" class="md-nav__link">
+    Launch Configuration Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Launch Configuration Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request" class="md-nav__link">
+    request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tc" class="md-nav__link">
+    tc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#args" class="md-nav__link">
+    args
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cwd" class="md-nav__link">
+    cwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port" class="md-nav__link">
+    port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostname" class="md-nav__link">
+    hostname
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopatentry" class="md-nav__link">
+    stopAtEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecttimeout" class="md-nav__link">
+    connectTimeout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugging/" class="md-nav__link">
+        Debugging
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../releases/">Releases</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../settings/" class="md-nav__link">
+        Settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/" class="md-nav__link">
+        Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../samples/" class="md-nav__link">
+        Samples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-nav__link">
+        Forum
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh" class="md-nav__link">
+        Videos
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-launch-configuration" class="md-nav__link">
+    Creating a Launch Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-a-launch-configuration" class="md-nav__link">
+    Launching a Launch Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-configuration-attributes" class="md-nav__link">
+    Launch Configuration Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Launch Configuration Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request" class="md-nav__link">
+    request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tc" class="md-nav__link">
+    tc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#args" class="md-nav__link">
+    args
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cwd" class="md-nav__link">
+    cwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port" class="md-nav__link">
+    port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostname" class="md-nav__link">
+    hostname
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopatentry" class="md-nav__link">
+    stopAtEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecttimeout" class="md-nav__link">
+    connectTimeout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Launch Configurations</h1>
+
+<p>As described in <a href="../../building/">Building</a> you can launch a built executable using the <a href="../../building/#tc-context-menu-commands">Run command</a> in the TC context menu, of even without having a TC as described <a href="../../building/#building-and-running-without-a-tc">here</a>. These are quick and easy ways to run an executable, which may be sufficient for simple applications. However, the simplicity comes with several limitations:</p>
+<ul>
+<li>You cannot specify any custom command-line arguments for the launched executable. In fact, the executable is always launched with one hard-coded argument <code>-URTS_DEBUG=quit</code> which means it will run in non-debug mode.</li>
+<li>You cannot set any custom environment variables for the launched executable.</li>
+<li>You cannot set the current working directory for the launched executable.</li>
+</ul>
+<p>A more flexible way to launch an executable is to use a <strong>launch configuration</strong>. This is a JSON file that contains several attributes that control how to launch the executable. Using a launch configuration also gives additional benefits:</p>
+<ul>
+<li>Visual Studio Code and Eclipse Theia knows about launch configurations and provides a dedicated UI for working with them.</li>
+<li>You can easily manage multiple ways of launching the same application. Just create a launch configuration for each way of launching it.</li>
+<li>The output from the launched application is printed in the Debug Console rather than the Terminal view. The Debug Console colorizes printed output from the application (<span style="color: red;">red</span> for text printed to stderr and <span style="color: orange;">orange</span> for text printed to stdout).</li>
+<li>You can terminate and relaunch the application using a toolbar instead of using the Terminal view.</li>
+<li>With few or no changes a launch configuration can also be used for <a href="../debugging/">debugging the application with the Art Debugger</a>.</li>
+</ul>
+<h2 id="creating-a-launch-configuration">Creating a Launch Configuration</h2>
+<p>To create a launch configuration open the "Run and Debug" view from the activity bar and then click the <strong>create a launch.json file</strong> hyperlink.</p>
+<p><img alt="" src="../images/run-and-debug.png" /></p>
+<p>You can choose to store the launch configuration either in a workspace folder or in the workspace file. In most cases it makes sense to store it in the same workspace folder that contains the TC that will be used for building the application to launch. However, if you want to share the same launch configuration for multiple applications you can choose to store it in the workspace file instead.</p>
+<p>When you choose to store the launch configuration in a workspace folder it will be placed in the <code>.vscode</code> folder and get the name <code>launch.json</code>:</p>
+<p><img alt="" src="../images/launch-json-file.png" /></p>
+<p>After you have chosen where to store the launch configuration, you will be prompted for which type of launch configuration to create. Select <strong>Art Launch</strong>.</p>
+<p><img alt="" src="../images/type-of-launch-config.png" /></p>
+<p>This will create a <code>launch.json</code> file with two launch configurations, one for launching the executable and one for attaching a debugger to it:</p>
+<pre><code class="language-json">{
+   &quot;type&quot;: &quot;art&quot;,
+   &quot;request&quot;: &quot;launch&quot;,
+   &quot;name&quot;: &quot;launchTC&quot;,
+   &quot;tc&quot;: &quot;${workspaceFolder}/${command:AskForTC}&quot;
+},
+{
+   &quot;type&quot;: &quot;art&quot;,
+   &quot;request&quot;: &quot;attach&quot;,
+   &quot;name&quot;: &quot;attachTC&quot;,
+   &quot;port&quot;: 3650
+}
+</code></pre>
+<p>If you don't plan to <a href="../debugging/">debug</a> the executable you can delete the second launch configuration, but it could be useful to keep it in case you need to debug later.</p>
+<p>You should change the <code>name</code> attribute to give your launch configurations meaningful names.</p>
+<p>If needed you can create additional launch configurations either by copy/paste in the <code>launch.json</code> file, or by pressing the <strong>Add Configuration...</strong> button. You can also create new launch configurations using the drop down menu in the "Run and Debug" view:</p>
+<p><img alt="" src="../images/create-launch-config.png" /></p>
+<p>Another way to create new launch configurations is by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> in the <code>launch.json</code> file.</p>
+<p><img alt="" src="../images/launch-config-content-assist.png" /></p>
+<h2 id="launching-a-launch-configuration">Launching a Launch Configuration</h2>
+<p>The name of a launch configuration appears in the launch configuration drop down menu:</p>
+<p><img alt="" src="../images/launch-config-dropdown.png" /></p>
+<p>If you want to launch the launch configuration, and attach the Art Debugger to the launched application in order to <a href="../debugging/">debug</a> it, press the green arrow button that appears to the left of this drop down menu. This invokes the command <strong>Start Debugging</strong> (<span class="keys"><kbd>F5</kbd></span>). If you just want to launch the application without debugging, perform instead the command <strong>Run without Debugging</strong> (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>F5</kbd></span>). Both these commands can be found in the <code>Run</code> menu.</p>
+<h2 id="launch-configuration-attributes">Launch Configuration Attributes</h2>
+<p>Below is a table that lists all attributes that can be used in a launch configuration. Each attribute is described in a section of its own below the table.</p>
+<p id="launch_config_attributes"/>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th align="left">Description</th>
+<th align="left">Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#type">type</a></td>
+<td align="left">The type of launch configuration. Always "art".</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td><a href="#request">request</a></td>
+<td align="left">What the launch configuration will do. Either "launch" or "attach".</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td><a href="#name">name</a></td>
+<td align="left">The name of the launch configuration</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td><a href="#tc">tc</a></td>
+<td align="left">The TC file to use for building and launching the application</td>
+<td align="left">Yes (unless <a href="#request">request</a> is "attach")</td>
+</tr>
+<tr>
+<td><a href="#args">args</a></td>
+<td align="left">Command line arguments to pass to the launched application</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td><a href="#environment">environment</a></td>
+<td align="left">Environment variables to set for the launched application</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td><a href="#cwd">cwd</a></td>
+<td align="left">Current working directory for the launched application</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td><a href="#port">port</a></td>
+<td align="left">Which debug port to use when debugging the application</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td><a href="#hostname">hostname</a></td>
+<td align="left">The machine where the application runs to which the debugger should be attached</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td><a href="#stopatentry">stopAtEntry</a></td>
+<td align="left">Should the debugger pause execution of the launched application?</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td><a href="#connecttimeout">connectTimeout</a></td>
+<td align="left">Time limit for the debugger to establish a connection to the application</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<h3 id="type">type</h3>
+<p>This attribute specifies the type of launch configuration. It is mandatory and is always the string "art". </p>
+<h3 id="request">request</h3>
+<p>This attribute specifies what the launch configuration will do. It is mandatory and should be set to "launch" if you want the launch configuration to start your application. For a launch configuration that is used for <a href="../debugging/">debugging</a> you can also set this attribute to "attach" to specify that the Art Debugger should attach to an application that is already running.</p>
+<h3 id="name">name</h3>
+<p>Specifies the name of the launch configuration. You should give a meaningful and unique name to each launch configuration that describes what it does. The chosen name appears in the drop down menu in the "Run and Debug" view. When you first create a launch configuration it gets the name "launchTC". Make sure to change this default name.</p>
+<h3 id="tc">tc</h3>
+<p>This attribute specifies which TC file to use for building and launching. The specified TC must build an executable. You must use an absolute path to the TC file, but it can contain the <code>${workspaceFolder}</code> variable which expands to the location of the workspace folder. By default the <code>tc</code> attribute is set to <code>${workspaceFolder}/${command:AskForTC}</code> which means you will be prompted for choosing which TC to use when the launch configuration is launched.</p>
+<p><img alt="" src="../images/ask-for-tc.png" /></p>
+<p>For a list of other variables that can be used in this attribute see <a href="https://code.visualstudio.com/docs/editor/variables-reference#_settings-command-variables-and-input-variables">this page</a>.</p>
+<p>If the <a href="#request">request</a> attribute is set to "attach" then you should not set the <a href="#tc">tc</a> attribute, because in that case the launch configuration will not launch your application, and just attach the Art Debugger to an application that is already running.</p>
+<h3 id="args">args</h3>
+<p>Specifies the command-line arguments for the launched executable. This is a list of strings, and by default it is empty which means that no additional command-line arguments will be passed to the executable. You may add custom command-line arguments for your application as necessary. For example:</p>
+<pre><code class="language-json">{
+   &quot;type&quot;: &quot;art&quot;,
+   &quot;request&quot;: &quot;launch&quot;,
+   &quot;name&quot;: &quot;Let my exe listen to a port&quot;,
+   &quot;tc&quot;: &quot;${workspaceFolder}/app.tcjs&quot;,
+   &quot;args&quot;: [&quot;-port=12345&quot;]
+}
+</code></pre>
+<p>Note that the special command-line argument <code>-URTS_DEBUG</code>, which tells if the application should run in debug mode or not, is set automatically depending on how you launch the launch configuration (see <a href="#launching-a-launch-configuration">Launching a Launch Configuration</a>) so you should not include that argument in the <a href="#args">args</a> attribute.</p>
+<h3 id="environment">environment</h3>
+<p>Specifies environment variables to be set for the launched executable. This is a list of objects where each object has a property that specifies the name of an environment variable. The environment variable will be set to the value of that property. In the example below the environment variable <code>LD_LIBRARY_PATH</code> will be set to <code>/libs/mylibs</code> to tell a Linux system where to load shared libraries needed by the application.</p>
+<pre><code class="language-json">{
+   &quot;type&quot;: &quot;art&quot;,
+   &quot;request&quot;: &quot;launch&quot;,
+   &quot;name&quot;: &quot;Launch and load shared libraries&quot;,
+   &quot;tc&quot;: &quot;${workspaceFolder}/app.tcjs&quot;,
+   &quot;environment&quot;: [{&quot;LD_LIBRARY_PATH&quot; : &quot;/libs/mylibs&quot;}]
+}
+</code></pre>
+<h3 id="cwd">cwd</h3>
+<p>By default the launched application runs in the same folder as where the executable is located. By setting this attribute you can change the current working directory to something else. The value of this attribute must be an absolute path, but certain variables can be used. See <a href="https://code.visualstudio.com/docs/editor/variables-reference#_settings-command-variables-and-input-variables">this page</a> for more information.</p>
+<h3 id="port">port</h3>
+<p>This attribute applies only for launch configurations that are used for <a href="../debugging/">debugging</a>. You can use it for specifying which TCP port to use as the debug port. By default the debug port is 3650. If the specified debug port is not available (for example because another debug session is already using it) then the Art Debugger will automatically increment the port number by one until it finds a port that is available. Up to 100 such attempts to increase the port number are made. If the Art Debugger fails to find a debug port that it can use, the debug session cannot be started. If the default port range 3650-3750 is not available on your machine you can set this attribute, to let the Art Debugger look for a valid debug port in another port range. Once a debug session has been successfully started you can see the debug port that is used in the Art Debug view.</p>
+<p><img alt="" src="../images/art_debug_view_debug_port.png" /></p>
+<h3 id="hostname">hostname</h3>
+<p>This attribute applies only for launch configurations that are used for <a href="../debugging/">debugging</a> and only when the <a href="#request">request</a> attribute is set to "attach". In that case it specifies the IP address where the application is running, to which the Art Debugger should attach. It defaults to "localhost", i.e. by default the Art Debugger assumes that the application to debug runs on the same machine as where Code RealTime runs.</p>
+<h3 id="stopatentry">stopAtEntry</h3>
+<p>This attribute applies only for launch configurations that are used for <a href="../debugging/">debugging</a> and only when the <a href="#request">request</a> attribute is set to "launch". By default the application is paused as soon as it has been launched for debugging, and you have to manually perform the <strong>Continue</strong> command to resume its execution. You can set this attribute to <code>false</code> to prevent this from happening, and let the launched application start running immediately.</p>
+<h3 id="connecttimeout">connectTimeout</h3>
+<p>This attribute applies only for launch configurations that are used for <a href="../debugging/">debugging</a>. It specifies the maximum time (in milliseconds) the Art Debugger will wait when it tries to establish a socket connection to the debugged application. It defaults to 10000, i.e. by default the connection can take up to 10 seconds. If a connection has not been established within this time limit, the debug session will not start. This attribute is applicable regardless if the <a href="#request">request</a> attribute is "launch" or "attach" since in both cases the Art Debugger needs to connect to the application to be debugged.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+ 
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-hcl md-grid1">
+     <a href="https://www.hcltechsw.com/legal/disclaimer" class="nav-link footer-launch" target="_blank">Disclaimer</a>
+	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
+	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
+	 
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../../scripts/prism.js"></script>
+      
+    
+  </body>
+</html>

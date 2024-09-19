@@ -20,7 +20,7 @@
     
     
       
-        <title>1.0.5 (2024-08-06 13:21) - DevOps Code RealTime</title>
+        <title>2.0.0 (2024-09-17 11:33) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#105-2024-08-06-1321" class="md-skip">
+        <a href="#200-2024-09-17-1133" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1.0.5 (2024-08-06 13:21)
+              2.0.0 (2024-09-17 11:33)
             
           </span>
         </div>
@@ -245,7 +245,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-tabs__link">
+    <a href="../../samples/" class="md-tabs__link">
       Samples
     </a>
   </li>
@@ -349,6 +349,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
+        
+          
         
           
         
@@ -642,6 +644,8 @@
           
         
           
+        
+          
             
           
         
@@ -703,6 +707,20 @@
     <li class="md-nav__item">
       <a href="../../target-rts/message-communication/" class="md-nav__link">
         Message Communication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/logging/" class="md-nav__link">
+        Logging
       </a>
     </li>
   
@@ -841,8 +859,6 @@
         
           
         
-          
-        
       
       
         
@@ -887,20 +903,6 @@
     <li class="md-nav__item">
       <a href="../../building/build-cpp-files/" class="md-nav__link">
         C++ Source Files
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../building/launch-configurations/" class="md-nav__link">
-        Launch Configurations
       </a>
     </li>
   
@@ -961,6 +963,86 @@
             
           
         
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../running-and-debugging/">Running and Debugging</a>
+          
+            <label for="__nav_2_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Running and Debugging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/launch-configurations/" class="md-nav__link">
+        Launch Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/debugging/" class="md-nav__link">
+        Debugging
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
       
       
         
@@ -970,8 +1052,8 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_8">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
           <span class="md-nav__icon md-icon"></span>
           Releases
         </label>
@@ -1042,7 +1124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples" class="md-nav__link">
+      <a href="../../samples/" class="md-nav__link">
         Samples
       </a>
     </li>
@@ -1115,6 +1197,18 @@
   
 
 
+<h1 id="200-2024-09-17-1133">2.0.0 (2024-09-17 11:33)</h1>
+<ol>
+<li>A first version of an Art Debugger is now available. It lets you debug your realtime application at the Art abstraction level and is a good complement to using a C++ debugger. The Art Debugger can both launch the application to debug, or attach to an already running application (including remote debugging). In addition to assisting with troubleshooting, the Art Debugger allows you to interact with the application by sending events on ports. For more information, see <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/debugging/">the documentation</a>.</li>
+<li>The C++ code generator now supports trigger operations with parameters. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/trigger_operation_with_parameters">this sample</a>.</li>
+<li>Two new sample applications are provided for showing how distributed applications can be built using the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer">TCPServer library</a>: <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/DistributedPingPong">DistributedPingPong</a> and <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TokenRing">TokenRing</a>.</li>
+<li>The TargetRTS documentation has been extended with new chapters about <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/logging/">logging</a>, the <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/message-communication/#defer-queue">defer queue</a> and <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/message-communication/#unhandled-messages">unhandled messages</a>. There is also now a page that summarizes all available <a href="https://secure-dev-ops.github.io/code-realtime/samples/">samples</a> in a single place.</li>
+<li>The support for port multiplicity has been completed in the C++ code generator and in the validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0039_portpartmultiplicitymismatch">ART_0039_portPartMultiplicityMismatch</a>. Now the handling of sent and received messages on a specific port index is equivalent to what Model RealTime supports, but with improved static analysis for ensuring correct usage of ports with multiplicity.</li>
+<li>Content Assist (ctrl+space) now supports creating triggered transitions in class state machines with the correct trigger operation syntax. This works both from the Art file and from a state diagram.</li>
+<li>The sample application <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpRangeCounter">TcpRangeCounter</a> has a new sample client application that can be accessed from a web browser. It's implemented as a Node.js Express application.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#tc_7017_prerequisitescyclic">TC_7017_prerequisitesCyclic</a> now reports a warning if cyclic prerequisites are detected (i.e. a TC has itself as a direct or indirect prerequisite).</li>
+<li>It's now possible to use Art files created with Code RealTime when developing realtime applications with Model RealTime. A first EXPERIMENTAL version of this feature is available in Model RealTime starting with version 12.0.3. Note that as part of this feature, a new TC id <code>TCF.ART_TO_CPP</code> has been introduced. All samples and testcases now use this new TC id. For backwards compatibility the old TC id <code>TCF.CPP_TRANSFORM</code> still works in Code RealTime, but not for Art files that you want to access from Model RealTime. See the <a href="http://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Articles/Integrations/Code%20RealTime%20Integration.html">Model RealTime documentation</a> for more information about the new integration between Code RealTime and Model RealTime.</li>
+</ol>
 <h1 id="105-2024-08-06-1321">1.0.5 (2024-08-06 13:21)</h1>
 <ol>
 <li>Files from the Code RealTime installation are now by default treated as read-only and will appear with a padlock in the editor title when you open them. Examples of such files include <code>RTPredefined.art</code> and all files from the TargetRTS. Having these files read-only helps to avoid accidental modifications, but if you anyway want to edit them you can do so by updating the setting <code>files.readonlyInclude</code>.</li>
