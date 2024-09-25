@@ -59,7 +59,7 @@ capsule Top {
     part a1 : A;
     part a2 : A;
     part a3 : A;
-    part b : B;
+    part b [[rt::properties(color="#14951d")]]: B;
     connect b.p1 with a1.p1;
     connect b.p1 with a2.p1;
     connect b.p1 with a3.p1;
