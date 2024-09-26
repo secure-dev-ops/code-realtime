@@ -1,0 +1,65 @@
+capsule Top {
+    behavior port timer : Timing;
+    statemachine {
+        initial -> CompositeState.entryPoint
+        `
+            timer.informIn(RTTimespec(0, 100));
+            std::cout << "initial -> CompositeState" << std::endl;
+        `;
+        state CompositeState {
+            entry
+            `
+                std::cout << "Entered CompositeState" << std::endl;
+            `;
+            entrypoint entryPoint;
+            exitpoint toGood;
+            exitpoint toBad;
+            
+            choice alwaysTrue;
+            
+            entryPoint -> alwaysTrue
+            `
+                std::cout << "entryPoint -> alwaysTrue" << std::endl;
+            `;
+            never: alwaysTrue -> toBad when `false`
+            `
+                std::cout << "alwaysTrue -> toBad" << std::endl;
+            `;
+            always: alwaysTrue -> SubState when `else`
+            `
+                std::cout << "alwaysTrue -> SubState" << std::endl;
+            `;
+            state SubState {
+                entry
+                `
+                    std::cout << "Entered SubState" << std::endl;
+                `;
+            };
+            SubState -> toGood on timer.timeout
+            `
+                std::cout << "SubState -> toGood" << std::endl;
+            `;
+        };
+        CompositeState.toBad -> BadState
+        `
+            std::cout << "toBad -> BadState" << std::endl;
+        `;
+        state BadState {
+            entry
+            `
+                FAIL("Entered BadState");
+            `;
+        };
+        CompositeState.toGood -> GoodState
+        `
+            std::cout << "toGood -> GoodState" << std::endl;
+        `;
+        state GoodState {
+            entry
+            `
+                std::cout << "Entered GoodState" << std::endl;
+                PASS();
+            `;
+        };
+    };
+};

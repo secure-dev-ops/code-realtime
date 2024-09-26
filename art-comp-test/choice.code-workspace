@@ -1,0 +1,24 @@
+{ "folders": [
+        {
+            "path": "TestUtils"
+        },
+        {
+            "path": "tests/choice_and_junction"
+        },
+        {
+            "path": "tests/choice_guard_exclude"
+        },
+        {
+            "path": "tests/choice_guard_redefinition"
+        },
+        {
+            "path": "tests/choice_inheritance"
+        },
+        {
+            "path": "tests/choice_to_exitpoint"
+        },
+        {
+            "path": "tests/choice_transition_exclude"
+        }
+    ]
+}

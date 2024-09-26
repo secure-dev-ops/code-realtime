@@ -1,0 +1,13 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/choice_to_exitpoint/choice_to_exitpoint.emx#_TRO2kHZVEe-ltJuKXXDY4g',
+];
+tc.commonPreface = `
+#include <iostream>
+
+`;
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'choice_to_exitpoint_target';
+tc.topCapsule = 'platform:/resource/choice_to_exitpoint/choice_to_exitpoint.emx#_WSwt4HZVEe-ltJuKXXDY4g';

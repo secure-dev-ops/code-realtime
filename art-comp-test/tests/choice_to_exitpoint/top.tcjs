@@ -1,0 +1,8 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'choice_to_exitpoint_target';
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.commonPreface = `
+#include <iostream>
+#include "testlib.art.h"
+`;
