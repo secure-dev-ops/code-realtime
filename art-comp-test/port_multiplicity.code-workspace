@@ -18,6 +18,9 @@
             "path": "tests/port_multiplicity_03"
         },
         {
+            "path": "tests/port_multiplicity_04"
+        },
+        {
             "path": "tests/threads"
         }
     ]

@@ -1,0 +1,80 @@
+protocol Protocol{
+    in message();
+};
+
+capsule CapsuleA{
+
+    service behavior port bPort : Protocol;
+    service behavior port kPort : Protocol;
+    behavior port timing: Timing;
+    service behavior port dPort : Protocol[5];
+    service behavior port cPort: Protocol[2];
+
+    statemachine{
+        state S;
+        initial -> S;
+    };
+};
+
+capsule CapsuleB{
+
+    service behavior port aPort: Protocol;
+    service behavior port aPort1~: Protocol;
+
+    statemachine{
+        state S;
+        initial -> S;
+    };
+};
+
+capsule CapsuleC{
+
+    service behavior port aPort~: Protocol;
+    service behavior port aPort1~: Protocol;
+
+    statemachine{
+        state S;
+        initial -> S;
+    };
+};
+capsule CapsuleD{
+
+    service behavior port aPort1~: Protocol;
+
+    statemachine{
+        state S;
+        initial -> S;
+    };
+};
+
+capsule Top{
+
+    part b : CapsuleB;
+    part d : CapsuleD[5];
+    part c : CapsuleC[2];
+    part a : CapsuleA;
+
+    connect b.aPort1 with a.bPort;
+    connect c.aPort1 with a.cPort;
+    connect d.aPort1 with a.dPort;
+    connect b.aPort with c.aPort;
+    
+    statemachine{
+        state S;
+        initial -> S `
+            /** CapsuleA contains 4 non-predfied Ports*/
+            ASSERT(sizeof(rtg_interfaces_a) / sizeof(rtg_interfaces_a[0]) == 4 , "Expected the size of rtg_interfaces_a to be 4, matching the number of ports in CapsuleA");
+
+            ASSERT(rtg_interfaces_a[1].name == nullptr , "Expected unconnected kPort to have nullptr name");
+            ASSERT(rtg_interfaces_a[1].replication == 0 , "Expected unconnected kPort to have 0 replication");
+
+            ASSERT(RTMemoryUtil::strcmp(rtg_interfaces_a[0].name, "bPort") == 0 , "Expected connected aPort to have nullptr name");
+            ASSERT(rtg_interfaces_a[0].replication == 1 , "Expected connected aPort to have 1 replication");
+
+            ASSERT(RTMemoryUtil::strcmp(rtg_interfaces_a[2].name, "dPort") == 0 , "Expected connected dPort to have nullptr name");
+            ASSERT(rtg_interfaces_a[2].replication == 5 , "Expected connected dPort to have 5 replication");
+
+            PASS(); 
+        `;
+    };
+};
