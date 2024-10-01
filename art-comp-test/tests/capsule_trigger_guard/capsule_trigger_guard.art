@@ -1,0 +1,60 @@
+protocol P {
+    /* In Events */    
+    /* Out Events */
+    out outEvent1(`int`);
+    out outEvent2(`int`);    
+};
+
+capsule Top {
+    /* Ports */
+    behavior port p : P;
+    /* Parts */
+    part c : Cap;
+    /* Connectors */
+    connect p with c.p;
+    /* State Machine */
+    statemachine {
+        state S1;
+        initial -> S1 
+        `
+            p.outEvent2(2).send();
+            p.outEvent1(1).send();           
+        `;        
+    };
+};
+
+capsule Cap {
+    [[rt::impl_preface]]
+    `        
+        #include "testlib.art.h"
+    `
+     [[rt::decl]]
+    `
+        private: bool check = false;
+    `
+
+    /* Ports */
+    behavior service port p~ : P;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state S1, S2, Done, Error;
+        initial -> S1;
+         t1: S1 -> S2 on p.outEvent1[`*rtdata == 1`], p.outEvent2[`*rtdata == 2`] when `!check`
+        `
+            std::cout << "transition S1 --> S2" << std::endl;            
+            check = true;
+        `;
+        onError: S1 -> Error on p.outEvent1[`*rtdata == 3`]
+        `          
+            FAIL("onError should not be triggered");
+        `;
+        t2: S2 -> Done on p.* [`check`]      
+        `
+            std::cout << "transition S2->Done" << std::endl;             
+            ASSERT(RTMemoryUtil::strcmp(getMsg()->getSignalName(), "outEvent1") == 0, "Expected outEvent1");    
+            PASS();
+        `;        
+    };
+};

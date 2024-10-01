@@ -40,7 +40,10 @@
         },        
         {
             "path": "tests/capsule_with_purevirtualfunction"
-        },        
+        },  
+        {
+            "path": "tests/capsule_trigger_guard"
+        },      
         {
             "path": "tests/choice_and_junction"
         },
@@ -214,7 +217,7 @@
         },
         {
             "path": "tests/transition_inheritance"
-        },
+        },        
         {
             "path": "tests/type_descriptor_inheritance"
         },

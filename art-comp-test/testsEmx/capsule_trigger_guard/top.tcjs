@@ -1,0 +1,12 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/capsule_trigger_guard/CapsuleTriggerGuard.emx#_WZKo0XygEe-ybOKRD6Tr-A',
+];
+tc.prerequisites = [
+    'platform:/resource/TestRTSUtils/testRTSlib.tcjs',
+];
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'capsule_trigger_guard_target';
+tc.topCapsule = 'platform:/resource/capsule_trigger_guard/CapsuleTriggerGuard.emx#_WZLP4nygEe-ybOKRD6Tr-A';
