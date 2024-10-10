@@ -1,0 +1,10 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/delegation_connector/delegation_connector.emx#_Ar3QgEj7Ee-mV-UQTNJH8A',
+];
+tc.commonPreface = '#include <iostream>';
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'delegation_connector_target';
+tc.topCapsule = 'platform:/resource/delegation_connector/delegation_connector.emx#_O-Ex4Ej7Ee-mV-UQTNJH8A';

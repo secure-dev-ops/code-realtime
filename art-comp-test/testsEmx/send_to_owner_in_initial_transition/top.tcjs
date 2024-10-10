@@ -1,0 +1,9 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/send_to_owner_in_initial_transition/send_to_owner_in_initial_transition.emx#_8oe1EHwHEe-N4eJ8Q-2yUQ',
+];
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'send_to_owner_in_initial_transition_target';
+tc.topCapsule = 'platform:/resource/send_to_owner_in_initial_transition/send_to_owner_in_initial_transition.emx#__LztcHwHEe-N4eJ8Q-2yUQ';

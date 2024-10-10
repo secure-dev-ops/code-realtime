@@ -1,0 +1,15 @@
+{ "folders": [
+        {
+            "path": "TestUtils"
+        },
+        {
+            "path": "tests/delegation_connector"
+        },
+        {
+            "path": "tests/delegation_connector_nested"
+        },
+        {
+            "path": "tests/send_to_owner_in_initial_transition"
+        }
+    ]
+}
