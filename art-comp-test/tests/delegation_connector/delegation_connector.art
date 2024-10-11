@@ -10,11 +10,11 @@ capsule Top {
     connect p with thePart.p;
 
     statemachine {
-        state State1, State2;
+        state State1;
         initial -> State1
-        `   
+        `
             p.ping().send();
-        `;     
+        `;
     };
 };
 
@@ -28,12 +28,7 @@ capsule A {
     };
 };
 
-
 capsule B {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"     
-    `
     service behavior port p~ : Proto;
     statemachine {
         state State, Done;

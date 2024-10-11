@@ -2,6 +2,9 @@ let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'delegation_connector_target';
+tc.commonPreface = `
+#include "testlib.art.h"
+`;
 
 /*tc.compileArguments = '$(DEBUG_TAG)';
 tc.linkArguments = '/DEBUG';

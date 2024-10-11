@@ -1,0 +1,61 @@
+protocol Prot {
+    out m(`int`);
+};
+
+capsule PCAP {
+    /* Ports */
+    service behavior port p~ : Prot;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule A {
+    plugin part plu : PCAP[0..1];
+    behavior port pp : Prot;
+    connect pp with plu.p;
+    
+    service behavior port p2 : Prot;
+    service behavior port p : Prot;
+    service behavior port p3 : Prot;
+    statemachine {
+        state S1;
+        initial -> S1 
+        `
+            printf("[%s:A] starting\n", this->getName());
+            p.m(1).send();
+        `;
+    };
+};
+
+capsule Top {
+    [[rt::decl]]
+    `
+        unsigned int count = 0;
+        static constexpr int N = 5;
+    `
+
+    behavior port p~ : Prot[100];
+    behavior port frame : Frame;
+    optional part a : A[100];
+
+    connect a.p with p;
+    statemachine {
+        state State1 {
+            received: on p.m
+            `
+                count++;
+                printf("received %d\n", count);
+                if (count == N) {
+                    PASS();
+                }
+            `;
+        };
+        initial -> State1
+        `
+            for (int i = 0; i < N; i++)
+                frame.incarnate(a);
+        `;
+    };
+};
