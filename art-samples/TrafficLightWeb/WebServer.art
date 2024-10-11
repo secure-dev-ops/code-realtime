@@ -1,0 +1,41 @@
+// Interface to the web server
+capsule WebServer : TCPServer {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+    public:
+        WebServer(RTController* rtg_rts, RTActorRef* rtg_ref, unsigned int port, unsigned int remotePort, std::string& remoteHost);
+    `
+
+    [[rt::impl]]
+    `
+        WebServer::WebServer(RTController* rtg_rts, RTActorRef* rtg_ref, unsigned int port, unsigned int remotePort, std::string& remoteHost)
+            : SUPER(rtg_rts, rtg_ref) {
+            if (port != 0)
+                config.port = port; 
+            if (remotePort != 0)
+                config.remotePort = remotePort;
+            if (!remoteHost.empty()) {
+                config.remoteHost = remoteHost;                
+            }
+            
+            config.logToStdOut = false;       
+            std::cout << "Server started!" << std::endl;
+            std::cout << "port=" << config.port << " remotePort=" << config.remotePort << " remoteHost=" << config.remoteHost << "!" << std::endl;
+        }
+    `
+
+    service behavior port trafficLight~ : TrafficLightControl;
+    service behavior port pedLightControl: PedLightControl;
+ 
+    statemachine {
+        
+    };
+};

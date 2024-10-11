@@ -1,0 +1,10 @@
+// This protocol is used both for internal communication between the
+// traffic light and the pedestrian light, but also for the communication
+// between the pedestrian light and the web server.
+protocol PedLightControl {    
+    in stop();
+    in walk();   
+
+    // Notify about how many seconds remain until the light goes from Walk to Stop
+    in timeRemaining(`int`); 
+};

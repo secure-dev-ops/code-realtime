@@ -1,0 +1,150 @@
+// A traffic light that can show either red, green or yellow. It can accept a pedestrian request
+// and will then control a pedestrian light so the pedestrian can safely cross the street.
+capsule TrafficLight {
+[[rt::decl]]
+`
+    private: 
+        RTTimerId cycleTimer; 
+        int pedestrianWalkTime;
+`
+
+    behavior port log : Log;    
+    behavior port timer : Timing;
+    behavior port pedTimer : Timing;
+    
+    service behavior notify port server : TrafficLightControl;
+    service behavior port pedLightControl~ : PedLightControl;
+
+    statemachine {
+        state WaitUntilServerReady;
+        state CycleLight {
+            entrypoint ep, pedReady;
+            exitpoint pedRequest;
+
+            state Red[[rt::properties(color="#e60f0f")]] {
+                entry 
+                `
+                    server.red().send();
+                `;
+            }, 
+            Green[[rt::properties(color="#11d80e")]] {
+                entry 
+                `
+                    server.green().send();
+                `;
+            }, 
+            Yellow[[rt::properties(color="#edc707")]] {
+                entry 
+                `                    
+                    server.yellow().send();
+                `;
+            };
+
+            ep -> Red;
+            red_to_green: Red -> Green on timer.timeout
+            `
+                log.log("Red -> Green");
+                log.commit();
+            `
+            ;
+            green_to_yellow: Green -> Yellow on timer.timeout
+            `
+                log.log("Green -> Yellow");
+                log.commit();
+            `
+            ;
+            yellow_to_red: Yellow -> Red on timer.timeout
+            `
+                log.log("Yellow -> Red");
+                log.commit();
+            `
+            ;
+
+            pedReady -> Red;
+        };
+        initial -> WaitUntilServerReady;
+    
+        WaitUntilServerReady -> CycleLight.ep on server.rtBound
+        `
+            log.log("TrafficLight starts up");
+            log.commit();
+            cycleTimer = timer.informEvery(RTTimespec(2,0));
+        `;
+
+        state PedestrianCrossing {
+            entrypoint pedRequest;
+            exitpoint pedReady;
+
+            entry
+            `
+                int pedTimerData = -1; 
+                pedTimer.informIn(RTTimespec(2,0), &pedTimerData, &RTType_int);
+            `;
+
+            state Red [[rt::properties(color="#e60f0f")]] {
+                entry
+                `
+                    log.log("Enter Red");
+                    log.commit();
+                    server.red().send();
+                `;
+            };
+
+            pedRequest -> Red;
+
+            updatePedLight: on pedTimer.timeout
+            `
+                int pedTimerData = * static_cast<const int*>(rtdata);
+
+                if (pedTimerData == -1) {
+                    pedLightControl.walk().send();
+                    pedTimerData = pedestrianWalkTime; // Count down number of seconds until we switch from Walk to Stop
+                    pedLightControl.timeRemaining(pedTimerData).send();
+                    pedTimer.informIn(RTTimespec(1,0), &pedTimerData, &RTType_int);
+                    // Time for pedestrians to cross
+                }                
+                else if (pedTimerData == 0) {
+                    pedLightControl.stop().send();
+                    timer.informIn(RTTimespec(2,0));
+                }
+                else {
+                    pedTimerData--;
+                    pedLightControl.timeRemaining(pedTimerData).send();                    
+                    pedTimer.informIn(RTTimespec(1,0), &pedTimerData, &RTType_int);
+                }
+            `;
+
+            pedRequest_ignored: on server.pedestrian, server.pedestrianCustomTime
+            `
+                // Ignore additional requests from pedestrians since we already are in the PedestriansCrossing state.
+            `;
+        };
+
+        junction j;
+
+        pedRequest : CycleLight.pedRequest -> j on server.pedestrian
+        `
+            // Use a default walk time for the pedestrian of 4 seconds
+            pedestrianWalkTime = 4;
+        `;
+
+        pedRequestCustom : CycleLight.pedRequest -> j on server.pedestrianCustomTime
+        `
+            pedestrianWalkTime = * static_cast<const int*>(rtdata);
+        `;
+
+        j -> PedestrianCrossing.pedRequest
+        `
+            log.log("Pedestrian requests to cross");
+            log.commit();
+            timer.cancelTimer(cycleTimer);
+        `;
+
+        pedReady: PedestrianCrossing.pedReady -> CycleLight.pedReady on timer.timeout
+        `
+            log.log("Pedestrians ready");
+            log.commit();
+            cycleTimer = timer.informEvery(RTTimespec(2,0));
+        `;
+    };
+};

@@ -1,0 +1,65 @@
+// Top capsule representing a traffic light system that consists of a 3-color light
+// and a pedestrian button. The traffic light circles red->green->yellow->red->... until
+// the pedestrian button is pressed. Then the traffic light turns red for some time
+// so the pedestrian can cross the street. After that it resumes circling through the colors.
+// A user interface, implemented as a Node.js web application, shows the current color of the traffic light and provides
+// the pedestrian button to push.
+
+capsule TLSystem {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::decl]]
+    `
+        private: 
+            unsigned int port = 0; // TCP server port of realtime app
+            unsigned int remotePort = 0; // TCP server port of Node.js app
+            std::string remoteHost = ""; // TCP server host of Node.js app
+            void parseCommandLine();
+    `
+
+    [[rt::impl]]
+    `
+        void TLSystem::parseCommandLine() {
+            int ac = RTMain::argCount();
+            const char * const * av = RTMain::argStrings();
+            std::string arg_remotePort = "-remotePort=", arg_remoteHost = "-remoteHost=", arg_port = "-port=";
+        
+            while( --ac > 0 ) {
+                std::string arg = *++av; 
+                if (arg.compare(0, arg_remotePort.size(), arg_remotePort) == 0 )
+                    remotePort = RTMemoryUtil::atoi(*av + arg_remotePort.size());
+                else if (arg.compare(0, arg_remoteHost.size(), arg_remoteHost) == 0 ) {
+                    remoteHost = arg.substr(arg_remoteHost.size());
+                }
+                else if (arg.compare(0, arg_port.size(), arg_port) == 0 )
+                    port = RTMemoryUtil::atoi(*av + arg_port.size());
+            }            
+        }
+    `
+    
+    behavior port frame : Frame;
+
+    part trafficLight : TrafficLight;
+    optional part server [[rt::properties(rule_config="X0039")]] : WebServer; // Intentionally unconnected    
+    part pedLight : PedLight;
+
+    connect server.trafficLight with trafficLight.server;
+    connect pedLight.pedControl with trafficLight.pedLightControl;
+    connect pedLight.server with server.pedLightControl;
+ 
+    statemachine {
+        state State;
+        initial -> State
+        `
+            parseCommandLine();
+
+            RTActorId id = frame.incarnateCustom(server, 
+                RTActorFactory([this](RTController * c, RTActorRef * a, int index) {
+                    return new WebServer(ServerThread, a, port, remotePort, remoteHost);
+                }
+            ));
+        `;
+    };
+};

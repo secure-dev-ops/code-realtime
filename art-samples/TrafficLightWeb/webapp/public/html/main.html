@@ -1,0 +1,42 @@
+﻿<!doctype html>
+
+<!-------------------------------------------------------------------- 
+    (c) Copyright HCL Technologies Ltd. 2018.  MIT Licensed!
+------------------------------------------------------------------- -->
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Traffic Light</title>
+
+        <link type="text/css" rel="stylesheet" href="/css" />
+    </head>
+
+    <body>            
+              
+        <h3 id="light-label">Light: N/A</h3>        
+
+        <button type="button" id="ped_button">Pedestrian Wants to Cross</button>
+
+        <div id="traffic">
+            <svg>
+               <g stroke="black" fill="#333">
+                  <path d="m10 10 l 0 510 l 200 0 l 0 -510 z"></path>
+                  <path fill="#444" d="m20 20 l 0 490 l 180 0 l 0 -490 z"></path>
+                  <circle cx="110" cy="100" r="75" id="rl"></circle>
+                  <circle cx="110" cy="260" r="75" id="yl"></circle>
+                  <circle cx="110" cy="420" r="75" id="gl"></circle>
+               </g>
+            </svg>            
+         </div>
+         <img id="pedSignal" src="/images/stop"/>
+         <p id="pedCounter"></p>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/jquery"></script>        
+        <script src="/main"></script>
+
+    </body>
+</html>
+
+

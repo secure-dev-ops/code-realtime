@@ -1,0 +1,30 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'TrafficLightWeb_target'; 
+tc.prerequisites = ['../TcpServer/tcpServerLib.tcjs'];
+
+// Uncomment to debug
+/*
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.targetRTSLocation = "C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS";
+*/
+tc.topCapsule = "TLSystem";
+tc.threads = [
+    {
+        name: 'MainThread',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY'        
+    },
+    {
+        name: 'ServerThread',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'ServerThread'
+        ]
+    }
+];

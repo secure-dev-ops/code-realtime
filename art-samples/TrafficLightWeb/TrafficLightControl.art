@@ -1,0 +1,10 @@
+protocol TrafficLightControl {
+    // Events to notify that the traffic light color has changed
+    out green();
+    out red();
+    out yellow();
+
+    in pedestrian(); // Sent when a pedestrian pushes the button
+    
+    in pedestrianCustomTime(`int`); // Request pedestrian crossing with custom time
+};

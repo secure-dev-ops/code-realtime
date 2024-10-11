@@ -1,0 +1,36 @@
+/***********************************************************************
+* (c) Copyright HCL Technologies Ltd. 2018.  MIT Licensed!
+************************************************************************/
+
+svg{
+  background: #999;
+  color: white;
+  float: left;
+  margin: 5px;
+  height: 530px;
+  width: 220px;
+  border: 1px solid black;
+}
+.button{
+   background: #444;
+  padding: 20px;
+  text-align: center;
+   margin: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: 0.1s;
+}
+#contain{
+   float: left;
+  background-color: #999;
+  margin: 5px;
+  border: 1px solid black;
+}
+circle{
+  transition: all 0.5s cubic-bezier(.89,.27,.78,.59);
+}
+#pedCounter {
+  font-size: 36px;
+}

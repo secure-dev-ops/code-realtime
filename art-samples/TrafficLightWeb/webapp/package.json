@@ -1,0 +1,23 @@
+{
+  "name": "trafficlight-webapp",
+  "version": "0.0.1",
+  "private": true,
+  "description": "TrafficLight web app that uses rt-test-probe for communicating with the realtime app and websocket for communicating with the web page",
+  "keywords": [],
+  "author": "Mattias Mohlin",
+  "license": "MIT",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.12.3",    
+    "socket.io": "^2.1.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "jshintConfig": {
+    "esversion": 6,
+    "strict": true,
+    "-W097": true,
+    "node": true
+  }
+}
