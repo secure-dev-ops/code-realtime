@@ -1,0 +1,52 @@
+class MyClass {
+    [[rt::impl_preface]]
+    `        
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        public: int x = 0, y = 0;
+    `
+    /* Trigger Operations */
+   trigger foo(`bool` b);
+    /* State Machine */
+    statemachine {
+        state S1, S2, S3;
+        initial -> S1;
+        S1 -> S2 on foo(`bool`) [`x == 0 && b`] when `y == 0 && b`
+        `
+          x = 1;
+          y = 1;
+          ASSERT(b, "Value of b is not true");                    
+        `;
+         S1 -> S3 on foo(`bool`) [`x == 1`] when `y == 1`
+        `
+          x = 2;
+          y = 2;          
+        `;
+    };
+};
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include <MyClass.h>
+    `
+    [[rt::decl]]
+    `
+        MyClass p;
+    `
+    /* State Machine */
+    statemachine {
+       state State1;
+        initial -> State1        
+        `
+            bool b = true;
+            p.foo(b);
+            ASSERT(p.x == 1, "Unexpected value of x");
+            ASSERT(p.y == 1, "Unexpected value of y");
+            PASS();           
+        `;        
+    };
+};
