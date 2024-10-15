@@ -54,11 +54,18 @@ This sample shows how to use [dependency injection](https://en.wikipedia.org/wik
 **TargetRTS:** [RTInjector](targetrts-api/class_r_t_injector.html), [RTActorFactoryInterface](targetrts-api/class_r_t_actor_factory_interface.html)
 
 ## [QtTrafficLight](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/QtTrafficLight)
-This application has a user interface developed with [Qt](https://www.qt.io/) which controls a realtime application that implements the logic of a traffic light that works together with a pedestrian light.
+This application has a user interface developed with [Qt](https://www.qt.io/) which controls a realtime application that implements the logic of a traffic light that works together with a pedestrian light. Note that you need to have [Qt](https://www.qt.io/) installed to build and run this sample.
 
 **Art:** [composite state with entry- and exitpoint](art-lang/index.md#hierarchical-state-machine), [external port](target-rts/integrate-with-external-code.md#external-port), [notification port](art-lang/index.md#notification-port), [internal transition](art-lang/index.md#internal-transition)
 
 **TargetRTS:** [RTTiming](targetrts-api/class_timing_1_1_base.html)::cancelTimer()
+
+## [TrafficLightWeb](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TrafficLightWeb)
+This sample is similar to [QtTrafficLight](#qttrafficlight) but the user interface is instead implemented as a Node.js web application. The application uses the [TCPServer library](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer) and the Node.js application therefore can use the [rt-tcp-utils](https://www.npmjs.com/package/rt-tcp-utils) library for communicating with it. Communication between the Node.js application and the web page uses [socket.io](https://socket.io/).
+
+**Art:** [junction point](art-lang/index.md#choice-and-junction)
+
+**TargetRTS:** Extracting command-line arguments by means of [RTMain](targetrts-api/class_r_t_main.html)::argCount() and [RTMain](targetrts-api/class_r_t_main.html)::argStrings()
 
 ## [TcpRangeCounter](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpRangeCounter)
 This sample uses the [TCPServer library](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer) which makes it possible to communicate with the application from the "outside" by means of making TCP requests. Two sample client applications for making such requests are included:

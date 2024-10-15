@@ -3,7 +3,7 @@
 
 This sample implements a traffic light system consisting of two lights (one for traffic and one for pedestrians) and a push button (for pedestrians to push when they want to safely cross the street). The realtime application uses the [TCPServer library](../TcpServer/README.md) in order to communicate with a Node.js web application. Information about current states of the lights are updated on the web page in real time, and pushing the button on the web page will inject the request from the pedestrian to cross the street. 
 
-To be able to intercept the outgoing messages about light changes, the Node.js application embeds a simple TCP server. Hence, this sample implements bi-directional communication using two separate TCP servers (one in the Node.js application and one in the realtime C++ application).
+To be able to intercept the outgoing messages about light changes, the Node.js application embeds a simple TCP server (using the library [rt-tcp-utils](https://www.npmjs.com/package/rt-tcp-utils)). Hence, this sample implements bi-directional communication using two separate TCP servers (one in the Node.js application and one in the realtime C++ application).
 
 ## Starting the web server
 `cd webapp`

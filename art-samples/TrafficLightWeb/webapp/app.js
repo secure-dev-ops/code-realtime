@@ -71,7 +71,7 @@ function msgReceived(msg) {
     }
 }
 
-const tcpServer = require('./tcp-server')('localhost', 9911); // Send TCP requests to RT app on port 9911
+const tcpServer = require('rt-tcp-utils')('localhost', 9911); // Send TCP requests to RT app on port 9911
 
 tcpServer.setEventReceivedCallback(msgReceived);
 tcpServer.startListenForEvents(2234) // Receive TCP requests from RT app on port 2234

@@ -117,7 +117,7 @@ You can send an event by clicking the **Send Event** arrow that appears when you
 
 ![](images/send_event.png)
 
-A popup appears where you can select the event you want to send on that port. All ports defined in the protocol that types the port are shown, and if an event has a data parameter, the type of that parameter is also shown.
+A popup appears where you can select the event you want to send on that port. All events defined in the protocol that types the port are shown, and if an event has a data parameter, the type of that parameter is also shown. You can send events both in to the port, and out from the port. If the selected port is not conjugated the in-events of the port's protocol will be sent in to the port, and the out-events will be sent out from the port. If the port is conjugated it becomes the other way around. The popup that lists the events shows icons that tell if the event will be sent in to the port (→◼) or out from the port (◼→).
 
 ![](images/select_event.png)
 
