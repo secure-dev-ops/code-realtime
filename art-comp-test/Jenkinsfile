@@ -104,6 +104,27 @@ def prepareTests() {
 		echo -e '---\ngroup: sanity\nallow_stderr_printouts: true\n---\nSanity check with Art sample PiComputer' > testcase.md
 		cd $WORKSPACE
 
+		for ff in $(find ./art-samples -name '*.tcjs' -type f | xargs dirname)
+		do
+			folder=$(basename $ff)
+			[[ $folder == *_target ]] && continue
+			[ $folder == HelloWorld ] && continue
+			[ $folder == PiComputer ] && continue
+			[[ $folder == Qt* ]] && continue
+			[[ $folder == gRPC* ]] && continue
+			if [ $folder == TcpServer ]
+			then
+				cp -r $ff ./art-comp-test/tests/
+				continue
+			fi
+			cp -r $ff ./art-comp-test/tests/sample_$folder
+			cd ./art-comp-test/tests/sample_$folder
+			[ -f top.tcjs ] || mv *.tcjs top.tcjs
+			echo -e "\ntc.targetProject = 'sample_${folder}_target';" >> top.tcjs
+			echo -e "---\ngroup: samples\nsteps: generate-build\n---\nBuilding Art sample $folder" > testcase.md
+			cd $WORKSPACE
+		done
+
 		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
 		mkdir -p test-results
 		cd ./art-comp-test/runner
