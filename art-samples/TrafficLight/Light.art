@@ -34,7 +34,7 @@ class Light  {
         `
             theLogger->logMsg("Yellow");
         `;
-        goRed: Yellow -> Red when `true `
+        goRed: Yellow -> Red on switchLights()
         `
             theLogger->logMsg("Red");
         `;
