@@ -1,0 +1,141 @@
+capsule Guesser {
+    [[rt::impl_preface]]
+    `
+        #include <string.h>
+        #include <stdio.h>
+    `
+
+    [[rt::decl]]
+    `
+        private:
+            unsigned int guess;
+            Hint hint;
+            int myId;
+            char myName[10];
+            RTActorId numberId;
+
+        protected:
+            void log(const char*);
+    `
+
+    [[rt::impl]]
+    `
+        void Guesser::log(const char* msg) {
+            logP.show("[");
+            logP.show(myName);
+            logP.show("] ");
+            logP.log(msg);
+            logP.commit();
+        }
+    `
+
+    /* Ports */
+    behavior port logP : Log;
+    behavior port frameP : Frame;
+
+    behavior notify port numberP : NumberProt;
+    behavior service port guesserP : GuesserProt;
+
+    /* Parts */
+    plugin part number [[rt::properties(rule_config="X0039")]] : Number[0..1]; // Expected warning ART_0039 because Number::cmdP is not connected in this composite structure which is OK since we will not use it when the Number capsule is located in this part.
+    
+    /* Connectors */
+    connect numberP with number.numberP;
+
+    /* State Machine */
+    statemachine {
+        state Disconnected;
+        state Connecting {
+            entry
+            `
+                log("importing 'number'");
+
+                if (numberId.isValid()) {
+                    if (!frameP.import(numberId, number, 0)) {
+                        log("problem importing the number capsule");
+                    }
+                }
+            `;      
+        };
+        
+        initial -> Disconnected 
+        `
+          	// what's my pid, i.e., which number of guesser am I?
+            myId = this->getIndex();
+
+            // my name is <capsule part name>+<pid>
+            char buffer[10];
+            snprintf(buffer, 10, "%s%d", this->getName(), myId);
+            strcpy(myName, buffer);
+            log("starting up");
+
+            log("sending 'ready' to Top");
+            guesserP.ready().send();  
+        `;
+
+        beenToldToConnect: Disconnected -> Connecting on guesserP.doConnect
+        `
+            log("getting ready to connect");
+            numberId = *rtdata;
+        `;
+        numberImported: Connecting -> Connected.enp on numberP.rtBound
+        `
+            log("connected!");
+        `;
+
+        state Connected {
+            entrypoint enp;
+            exitpoint exp;
+            state AskForHint {
+                entry
+                `
+                    log("asking for hint");
+                    numberP.askHint().send();
+                `;  
+            };
+            state SendGuess {
+                entry
+                `
+                    if (hint.isLess) {
+                        guess = hint.current - (hint.current - hint.min) / 2;
+                    }
+                    else {
+                        guess = hint.current + (hint.max - hint.current) / 2;
+                    }
+                    log("guessing: ");
+                    logP.log(guess);
+
+                    numberP.guess(guess).send();
+                `;
+            };
+            state Disconnecting {
+                entry
+                `
+                    if (!frameP.deport(numberId, number)) {
+                        log("problem deporting 'number'");
+                    }                
+                `;
+            };
+            enp -> AskForHint;
+            AskForHint -> SendGuess on numberP.sendHint
+            `
+                hint = *rtdata;                
+            `;
+            choice checkAnswer;
+            SendGuess -> checkAnswer on numberP.sendAnswer;
+            found: checkAnswer -> Disconnecting when `*rtdata`
+            `
+                guesserP.found(guess).send();
+            `;
+            else: checkAnswer -> Disconnecting when `else`
+            `
+                guesserP.notFound().send();
+            `;
+            numberDeported: Disconnecting -> exp on numberP.rtUnbound
+            `
+                log("disconnected!");
+            `;
+        };
+        numberDeported: Connected.exp -> Disconnected;
+    };
+};

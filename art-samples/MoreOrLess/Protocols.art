@@ -1,0 +1,38 @@
+protocol CmdProt {
+    /* In Events */
+    in ready();
+    /* Out Events */
+};
+
+protocol GuesserProt {
+    /* In Events */
+    in doConnect(`RTActorId`);
+    /* Out Events */
+    out found(`unsigned int`);
+    out notFound();
+    out ready();
+};
+
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] Hint {
+        unsigned int current;
+        bool isLess;
+        unsigned int max;
+        unsigned int min;
+    };
+`
+
+protocol NumberProt {
+    [[rt::header_preface]]
+    `
+        #include "Protocols.art.h"
+    `
+    
+    /* In Events */
+    in sendAnswer(`bool` /* hasFound*/ );
+    in sendHint(`Hint`);
+    /* Out Events */
+    out askHint();
+    out guess(`unsigned int`);    
+};

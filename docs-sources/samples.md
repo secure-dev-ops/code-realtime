@@ -46,6 +46,13 @@ Version 2 of the sample uses optional parts which are incarnated dynamically, an
 
 **TargetRTS:** [RTActor](targetrts-api/class_r_t_actor.html)::getName(), [RTMessage](targetrts-api/class_r_t_message.html)::sap(), [Frame](targetrts-api/class_frame_1_1_base.html)::incarnate()
 
+## [MoreOrLess](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/MoreOrLess)
+A "guess-the-secret-number" game which illustrates the use of plugin capsule parts.
+
+**Art:** [plugin part](art-lang/index.md#plugin_part)
+
+**TargetRTS:** [Frame](targetrts-api/class_frame_1_1_base.html)::import(), [Frame](targetrts-api/class_frame_1_1_base.html)::deport()
+
 ## [DependencyInjection](https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/DependencyInjection)
 This sample shows how to use [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) to customize capsule incarnation. Build variants are used for configuring how to customize the dependency injection, which will influence on how the application behaves.
 

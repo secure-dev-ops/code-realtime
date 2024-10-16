@@ -668,9 +668,20 @@ If the instantiated capsule has a constructor you need to use a capsule factory 
 !!! example
     You can find a sample application that creates and destroys capsule instances in optional parts [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/optional_part).
 
+<p id="plugin_part"/>
+
 3) **Plugin part**
-   
-A plugin part is similar to an optional part in that it is populated by capsule instances programmatically. However, the capsule instances are not created in the plugin part but instead imported into the plugin part from another part. Typically such a capsule instance is first created into an optional part, and then at some later point in time imported into a plugin part. Later it can be deported (i.e. removed) from the plugin part and perhaps imported into another plugin part. This makes it possible to create very dynamic composite structures where the same capsule instance can play different roles in different parts over time. Moving a capsule instance by deporting it from one plugin part and then importing it in another plugin part is more efficient than destroying the capsule instance in one optional part and then creating another capsule instance in another optional part. Plugin parts are typically used together with [unwired ports](#unwired-port). In general it's possible to import a capsule instance into more than one plugin part at the same time, but it can only be imported if its ports are not already bound in its current location. Plugin parts by default have multiplicity 0..1.
+
+A plugin part is similar to an optional part in that it is populated by capsule instances programmatically. However, the capsule instances are not created in the plugin part but instead imported into the plugin part from another part. Typically such a capsule instance is first created into an optional part, and then at some later point in time imported into a plugin part. Later it can be deported (i.e. removed) from the plugin part and perhaps imported into another plugin part. This makes it possible to create very dynamic composite structures where the same capsule instance can play different roles in different parts over time. Moving a capsule instance by deporting it from one plugin part and then importing it in another plugin part is usually more efficient than destroying the capsule instance in one optional part and then creating another capsule instance in another optional part. 
+
+Plugin parts can be useful in applications when a capsule needs to use a shared resource for some time, and then return it so it can be used by other capsules. The shared resource is the capsule that is imported into a plugin part of the capsule that needs to use it, and when it's no longer needed it gets deported from the plugin part so that another capsule can use it.
+
+It's possible (but unusual) to import a capsule instance into more than one plugin part at the same time. The import will succeed as long as none of the ports of the capsule is already bound. That is a port can only be bound in one "import context" at a time. It's allowed to let some of the ports be unbound in contexts where they will not be used.
+
+Plugin parts by default have multiplicity 0..1.
+
+!!! example
+    You can find a sample application that uses a plugin part [here]({$vars.github.repo$}/tree/main/art-comp-test/art-samples/MoreOrLess).
 
 In the example below the capsule `C` contains a few parts of different kinds and multiplicities. Note that you may declare multiple parts on the same line if they are of the same kind (both `c` and `d` below are optional parts).
 

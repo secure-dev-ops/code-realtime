@@ -1,0 +1,113 @@
+capsule Number {
+    [[rt::header_preface]]
+    `
+        #include <stdlib.h>
+        #include <time.h>
+    `
+    [[rt::decl]]
+    `
+        private:
+            Hint hint;
+            unsigned int max = 100;
+            unsigned int min = 0;
+            unsigned int mostRecentGuess = 0;
+            unsigned int secretNumber = 0;
+        
+        protected:
+            void log(const char*);
+    `
+
+    [[rt::impl]]
+    `
+        void Number::log(const char* msg) {
+            logP.show("[number   ]");
+            logP.log(msg);
+            logP.commit();
+        }        
+    `
+
+    /* Ports */
+    behavior port logP : Log;
+
+    service behavior port cmdP~ : CmdProt;
+    service behavior port numberP~ : NumberProt;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state WaitForHintRequest;
+        state WaitForGuess;
+        state Done;
+
+        initial -> WaitForHintRequest
+        `
+            log("starting up");
+
+            // receive max, i.e., upper bound of range that secret number can be in
+            max = * static_cast<const unsigned int*>(rtdata);
+
+            /* initialize random seed: */
+            srand(time(NULL));
+            secretNumber = rand() % max;
+            mostRecentGuess = max;
+
+            log("secret number is ");
+            logP.log(secretNumber);
+
+            log("sending 'ready' to Top");
+            cmdP.ready().send();
+        `;
+        choice c;
+        junction j;
+        gotHintReq: WaitForHintRequest -> c on numberP.askHint
+        `
+            hint.current = mostRecentGuess;
+            hint.min = min;
+            hint.max = max;
+        `;
+        more: c -> j when `mostRecentGuess < secretNumber`
+        `
+            log("hint given: most recent guess is");
+            logP.log(mostRecentGuess);
+            log("secret number is MORE, but no more than ");
+            logP.log(max);
+            hint.isLess = false; 
+        `;
+        less: c -> j when `else`
+        `            
+	        log("hint given: most recent guess is");
+		    logP.log(mostRecentGuess);
+		    log("secret number is LESS, but no less than ");
+		    logP.log(min);
+            hint.isLess = true;
+        `;
+        sendHint: j -> WaitForGuess
+        `
+            numberP.sendHint(hint).send();
+        `;
+        choice checkGuess;
+        WaitForGuess -> checkGuess on numberP.guess
+        `
+            mostRecentGuess = *rtdata;
+        `;
+        guessCorrect: checkGuess -> Done when `mostRecentGuess == secretNumber`
+        `
+            log("guess correct! secret number is ");
+            logP.log(secretNumber);
+            numberP.sendAnswer(true).send();
+        `;
+        else: checkGuess -> WaitForHintRequest when `else`
+        `
+            logP.log("guess incorrect; keep going");
+            if (mostRecentGuess > secretNumber) {
+                // it is less
+                max = mostRecentGuess;
+            }
+            else {
+                // it is more
+                min = mostRecentGuess;
+            }
+            numberP.sendAnswer(false).send();
+        `;
+};
+};

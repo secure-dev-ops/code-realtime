@@ -1,0 +1,175 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include <chrono>
+        using namespace std::chrono_literals;
+    `
+    [[rt::decl]]
+    `
+        private:
+            unsigned int connectedCapsules = 0;
+            unsigned int currentGuesser = 0;
+            unsigned int max = 100;
+            unsigned int numGuessers = 10;
+            unsigned int round = 0;
+            RTActorId numberId;
+
+        protected:
+            void log(const char*);
+            void parseCommandLineArguments(std::vector<std::string>& arguments);
+    `
+
+    [[rt::impl]]
+    `
+        void Top::log(const char* msg) {
+            logP.show("[top   ]");
+            logP.log(msg);
+            logP.commit();
+        }
+
+        void Top::parseCommandLineArguments(std::vector<std::string>& arguments) {
+            int argc = RTMain::argCount();
+            const char* const * argv = RTMain::argStrings();
+            for (int i = 1; i < argc; ++i) { // Start from 1 to skip the program name
+                if (RTMemoryUtil::strcmp(argv[i], "-", 1) == 0)
+                    continue; // Skip standard args like -URTS_DEBUG or -obslisten
+                arguments.push_back(argv[i]);
+            }
+        }
+    `
+    /* Ports */
+    behavior port logP : Log;
+    behavior port timerP : Timing;
+    behavior port frameP : Frame;
+
+    behavior port cmdP : CmdProt;
+    behavior port guesserP~ : GuesserProt[100];
+
+    /* Parts */
+    optional part number [[rt::properties(rule_config="X0039")]] : Number; // Expected warning ART_0039 because Number::numberP is not connected in this composite structure which is OK since we will not use the Number capsule when its located in this part.
+    optional part guesser : Guesser[0..100];
+
+    /* Connectors */
+    connect cmdP with number.cmdP;
+    connect guesserP with guesser.guesserP;
+
+    /* State Machine */
+    statemachine {
+        state Connecting, Guessing, Found;
+
+        initial -> Connecting
+        `
+            log("starting up");            
+            std::vector<std::string> arguments;
+            parseCommandLineArguments(arguments);
+
+            size_t noArgs = arguments.size();
+            if (noArgs == 2) {
+                const char * arg1 = arguments[0].c_str();
+                numGuessers = atoi(arg1);
+                const char * arg2 = arguments[1].c_str();
+                max = atoi(arg2);
+                log("received 2 command line arguments");
+            }
+            else if (noArgs == 1) {
+                log("received 1 command line argument (number of guessers)");
+                log("using default for upper bound");
+                const char * arg1 = arguments[0].c_str();
+                numGuessers = atoi(arg1);
+            }
+            else if (noArgs == 0) {
+                log("received no command line arguments");
+                log("using defaults for number of guessers and for upper bound");
+                numGuessers = 10;
+                max = 100;
+            }
+            else {
+                log("too many command line arguments");
+                log("exiting");
+                exit(1);
+            }
+
+            log("starting game with ");
+            logP.show(numGuessers);
+            logP.show(" guessers and a secret number between 0 and ");
+            logP.log(max);
+
+            // incarnating guesser capsules
+            for (int i = 0; i < numGuessers; i++) {
+                RTActorId guesserId = frameP.incarnate(guesser);
+                if (!guesserId.isValid())
+                    context()->perror("[Top     ] incarnation failed!");
+            }
+
+            logP.log("[top     ] incarnating 'number'");
+            numberId = frameP.incarnate(number, EmptyActorClass, &max);
+            if (!numberId.isValid())
+                context()->perror("[top     ] incarnation failed");
+        `;
+
+        choice c;
+        guesserReady: Connecting -> c on guesserP.ready
+        `
+            connectedCapsules++;
+            log("connecting with guesser ");
+            logP.log(msg->sapIndex0());
+        `;
+        numberReady: Connecting -> c on cmdP.ready
+        `
+            connectedCapsules++;
+            log("connecting with 'number'");
+        `;
+        else: c -> Connecting when `else`;
+    state WaitingToStartRound {
+        entry
+        `
+            timerP.informIn(500ms);
+            logP.log("-----");
+            round++;
+            log("waiting for round ");
+            logP.show(round);
+            logP.show(" with guesser no ");
+            logP.log(currentGuesser);
+        `;
+    };
+    allConnected: c -> WaitingToStartRound when `connectedCapsules == (numGuessers+1)`
+    `
+        log("all connected!");
+    `;
+    timeout: WaitingToStartRound -> Guessing on timerP.timeout
+    `
+        log("telling guesser no ");
+        logP.show(currentGuesser);
+        logP.log(" to import 'number'");
+        guesserP.doConnect(numberId).sendAt(currentGuesser);
+    `;
+    notFound: Guessing -> WaitingToStartRound on guesserP.notFound
+    `
+        log("guesser no ");
+        logP.show(currentGuesser);
+        logP.log(" unsuccessful");
+        currentGuesser = (currentGuesser+1) % numGuessers;
+        log("next up: guesser no ");
+        logP.show(currentGuesser);
+    `;
+    found: Guessing -> Found on guesserP.found
+    `
+        log("out of ");
+        logP.show(numGuessers);
+        logP.show(" guessers, guesser no ");
+        logP.show(currentGuesser);
+        logP.show(" found secret number ");
+        logP.show(*rtdata);
+        logP.show(" after ");
+        logP.show(round);
+        logP.log(" rounds!");
+
+        log("exiting");
+        context()->abort();
+    `;
+};
+};
