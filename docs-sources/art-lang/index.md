@@ -681,7 +681,7 @@ It's possible (but unusual) to import a capsule instance into more than one plug
 Plugin parts by default have multiplicity 0..1.
 
 !!! example
-    You can find a sample application that uses a plugin part [here]({$vars.github.repo$}/tree/main/art-comp-test/art-samples/MoreOrLess).
+    You can find a sample application that uses a plugin part [here]({$vars.github.repo$}/tree/main/art-samples/MoreOrLess).
 
 In the example below the capsule `C` contains a few parts of different kinds and multiplicities. Note that you may declare multiple parts on the same line if they are of the same kind (both `c` and `d` below are optional parts).
 
