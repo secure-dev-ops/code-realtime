@@ -21,6 +21,9 @@
             "path": "HelloWorld"
         },
         {
+            "path": "MoreOrLess"
+        },
+        {
             "path": "PiComputer"
         },
         {
@@ -43,6 +46,9 @@
         },
         {
             "path": "TrafficLight"
+        },
+        {
+            "path": "TrafficLightWeb"
         }
     ]
 }
