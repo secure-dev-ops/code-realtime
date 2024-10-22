@@ -19,6 +19,11 @@ class MyClass {
           y = 1;
           ASSERT(b, "Value of b is not true");                    
         `;
+        S2 -> S3 on foo(`bool`)
+        `
+            x = 0;
+            y = 0;  
+        `;          
          S1 -> S3 on foo(`bool`) [`x == 1`] when `y == 1`
         `
           x = 2;
@@ -46,6 +51,9 @@ capsule Top {
             p.foo(b);
             ASSERT(p.x == 1, "Unexpected value of x");
             ASSERT(p.y == 1, "Unexpected value of y");
+            p.foo(false);
+            ASSERT(p.x == 0, "Unexpected value of x");
+            ASSERT(p.y == 0, "Unexpected value of y");
             PASS();           
         `;        
     };
