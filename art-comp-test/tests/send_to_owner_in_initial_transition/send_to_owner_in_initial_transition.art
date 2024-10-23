@@ -38,7 +38,7 @@ capsule Top {
 
     behavior port p~ : Prot[100];
     behavior port frame : Frame;
-    optional part a : A[100];
+    optional part a [[rt::properties(rule_config="X0039")]] : A[100];
 
     connect a.p with p;
     statemachine {
