@@ -63,7 +63,7 @@ This sample shows how to use [dependency injection](https://en.wikipedia.org/wik
 ## [QtTrafficLight]({$vars.github.repo$}/tree/main/art-samples/QtTrafficLight)
 This application has a user interface developed with [Qt](https://www.qt.io/) which controls a realtime application that implements the logic of a traffic light that works together with a pedestrian light. Note that you need to have [Qt](https://www.qt.io/) installed to build and run this sample.
 
-**Art:** [composite state with entry- and exitpoint](art-lang/index.md#hierarchical-state-machine), [external port](target-rts/integrate-with-external-code.md#external-port), [notification port](art-lang/index.md#notification-port), [internal transition](art-lang/index.md#internal-transition)
+**Art:** [composite state with entry- and exitpoint](art-lang/index.md#hierarchical-state-machine), [external port](target-rts/integrate-with-external-code.md#external-port), [notifying port](art-lang/index.md#notifying-port), [internal transition](art-lang/index.md#internal-transition)
 
 **TargetRTS:** [RTTiming](targetrts-api/class_timing_1_1_base.html)::cancelTimer()
 

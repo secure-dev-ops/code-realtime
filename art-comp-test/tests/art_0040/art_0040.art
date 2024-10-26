@@ -1,0 +1,18 @@
+protocol PROTO {
+    in in1();
+    out out1();
+};
+
+capsule Top {   
+    service behavior port port1 : PROTO;
+    unwired publish behavior port port2 : PROTO;
+
+    statemachine {
+        state State, State2;
+        initial -> State;
+        State -> State2 on port1.rtBound, port2.rtUnbound
+        `
+            // Dead code here
+        `;
+    };
+};

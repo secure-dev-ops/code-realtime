@@ -43,13 +43,13 @@ Too see all problems found in all Art files and all TC files in the workspace, o
 If there are many problems, it can help to filter the Problems View by typing some text in the filter box. For example, you can filter using a regular expression that matches only some of the files in the workspace, to reduce the number of problems shown.
 
 ## Quick Fix
-Some problems have one or several typical solutions that are possible to apply automatically by means of "code actions". If a problem has at least one such code action defined, a yellow light bulb icon will appear and a Quick Fix command will be available in the problem tooltip. 
+Some problems have one or several typical solutions that are possible to apply automatically by means of so called code actions. These are commands that update the file to correct the problem. If a problem has at least one such code action defined, a yellow light bulb icon will appear and a Quick Fix command will be available in the problem tooltip. 
 
 ![](images/quick_fix.png)
 
 ![](images/quick_fix_picker.png)
 
-Note that most semantic errors cannot be automatically resolved like this, but in some simple cases it's possible. 
+Note that most problems cannot be automatically resolved like this, but in some cases it's possible. 
 
 ## Configuring Validation
 Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
@@ -86,7 +86,7 @@ capsule customCapsule // no warning even if capsule name is not capitalized
 This chapter lists all validation rules which {$product.name$} checks your Art application against. These rules find problems in Art files and all problems found have the "ART_" prefix.
 
 ### ART_0001_invalidNameCpp
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An Art element has a name that is not a valid C++ name, or a name that will cause a name clash in the generated code. | Prepend Underscore
 
@@ -109,7 +109,7 @@ capsule Exception { // ART_0001 ("Exception" is a name reserved for use by the T
 ```
 
 ### ART_0002_duplicateNamesInScope
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | Two or more Art elements in the same scope have the same names or signatures.  | N/A
 
@@ -175,7 +175,7 @@ capsule C0002 : D0002 {
 
 
 ### ART_0003_nameShouldStartWithUpperCase
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | An Art element's name doesn't follow the naming convention to start with uppercase.  | Capitalize Name
 
@@ -200,7 +200,7 @@ capsule myCapsule { // ART_0003
 In this context an underscore (`_`) is considered a valid upper case character, so all names that start with underscore are accepted by this validation rule. 
 
 ### ART_0004_nameShouldStartWithLowerCase
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | An Art element's name doesn't follow the naming convention to start with lowercase.  | Decapitalize Name
 
@@ -225,7 +225,7 @@ protocol LowerCaseTestProtocol {
 In this context an underscore (`_`) is considered a valid lower case character, so all names that start with underscore are accepted by this validation rule. 
 
 ### ART_0005_choiceWithoutElseTransition
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A choice lacks an outgoing else-transition. | N/A
 
@@ -246,7 +246,7 @@ capsule ChoiceSample {
 Note that a transition without any guard condition is equivalent to a transition with a guard condition that is always fulfilled (i.e. a guard condition that returns true). An outgoing transition from a choice or junction without any guard is therefore also an else-transition.
 
 ### ART_0006_choiceWithoutOutgoingTransitions
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A choice has no outgoing transitions. | N/A
 
@@ -264,7 +264,7 @@ capsule ChoiceSample {
 ```
 
 ### ART_0007_choiceWithTooManyElseTransitions
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A choice has more than one outgoing else-transition. | N/A
 
@@ -284,7 +284,7 @@ capsule ChoiceSample {
 ```
 
 ### ART_0008_initialTransitionCount
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A state machine has too many initial transitions, or no initial transition at all. | N/A
 
@@ -341,7 +341,7 @@ capsule InitTransCap3 : InitTransCap2 {
 ```
 
 ### ART_0009_invalidProperty
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A non-existing property is set for an element. | Remove Property
 
@@ -368,7 +368,7 @@ capsule CN
 ```
 
 ### ART_0010_invalidPropertyValue
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A property is set to a value of incorrect type. | N/A
 
@@ -386,7 +386,7 @@ capsule IPV_Cap [[rt::properties(
 ```
 
 ### ART_0011_propertySetToDefaultValue
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A property is set to its default value. | Remove Property
 
@@ -406,7 +406,7 @@ capsule C_PropDefaultValue [[rt::properties(
 ```
 
 ### ART_0012_invalidCodeSnippet
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A code snippet is invalid in one way or the other. | Remove Code Snippet
 
@@ -445,7 +445,7 @@ capsule Name {
 
 
 ### ART_0013_partMultiplicityError
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The part's lower multiplicity must be less than its upper multiplicity. | N/A
 
@@ -463,7 +463,7 @@ capsule PME_Cap {
 ```
 
 ### ART_0014_partKindMultiplicityInconsistency
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | The part's kind is inconsistent with its multiplicity. | N/A
 
@@ -487,7 +487,7 @@ capsule PKMI_Cap {
 ```
 
 ### ART_0015_internalTransitionOutsideState
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An internal transition is defined outside a state, in the top state machine. | N/A
 
@@ -508,7 +508,7 @@ capsule IntTransOutsideState {
 ```
 
 ### ART_0016_circularInheritance
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A capsule, class or protocol inherits from itself directly or indirectly. | N/A
 
@@ -558,7 +558,7 @@ class C4 : C3 { // ART_0016
 ```
 
 ### ART_0017_circularComposition
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A capsule contains itself through a cycle in the composition hierarchy. | N/A
 
@@ -590,7 +590,7 @@ capsule CComp3 {
 ```
 
 ### ART_0018_circularTransitions
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A state machine has a cycle in the transitions that execute when leaving a junction or entry/exit point. | N/A
 
@@ -637,7 +637,7 @@ capsule Cap0018 {
 With state machine inheritance it's possible to introduce transition cycles when an inherited state machine is redefined or extended. This validation rule will also detect such cycles and report them on the inheriting state machine that contains the cycle.
 
 ### ART_0019_unwiredPortBothPublisherAndSubscriber
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An unwired port is declared as being both a subscriber and publisher at the same time. | Make Publisher, Make Subscriber
 
@@ -657,7 +657,7 @@ capsule UnwiredCapsule {
 ```
 
 ### ART_0020_wiredPortWithUnwiredProperties
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A property that only is applicable for an unwired port is specified for a wired port. | N/A
 
@@ -677,7 +677,7 @@ capsule UnwiredCapsule2 {
 ```
 
 ### ART_0021_unwiredPortRegNameSameAsPortName
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | An unwired port is set to use a registration name that equals the name of the port. | N/A
 
@@ -698,7 +698,7 @@ capsule UnwiredCapsule3 {
 ```
 
 ### ART_0022_ruleConfigProblem
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | The [rule_config](../art-lang#rule_config) property has a malformed value. | N/A
 
@@ -716,7 +716,7 @@ capsule RCP [[rt::properties(
 ```
 
 ### ART_0023_entryExitCodeCount
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A state has too many entry and/or exit actions. | N/A
 
@@ -741,7 +741,7 @@ capsule CX {
 ```
 
 ### ART_0024_unwiredPortNotBehavior
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An unwired port is not defined as a behavior port. | Make Behavior Port, Make Wired Port
 
@@ -761,7 +761,7 @@ capsule Pinger {
 Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.
 
 ### ART_0025_portConnectionError
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A wired port is not properly connected, or an unwired port is connected. | N/A
 
@@ -845,7 +845,7 @@ capsule Inner {
 
 
 ### ART_0026_connectedPortsWithIncompatibleConjugations
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible conjugations. | N/A
 
@@ -896,7 +896,7 @@ capsule Ponger {
 Here we see that both connectors are invalid. Port `p2` and port `p1` are at the same level in `Top`'s structure so their conjugations should be different, while port `p1` and port `p` are at different levels in `Top`'s structure so their conjugations should be the same.
 
 ### ART_0027_incompatibleProtocolsForConnectedPorts
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible protocols. | N/A
 
@@ -937,7 +937,7 @@ capsule Top {
 ```
 
 ### ART_0028_unwiredPortWithAutoRegNeitherPublisherNorSubscriber
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An unwired port is registered automatically but is neither specified as a publisher or subscriber. | Make Publisher, Make Subscriber
 
@@ -963,7 +963,7 @@ capsule CCXX {
 Two Quick Fixes are available for fixing this problem. Either the port can be declared as a publisher (keyword `publish`) or as a subscriber (keyword `subscribe`).
 
 ### ART_0029_transitionToCompositeStateNoEntry
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A composite state is entered without using an entry point. | N/A
 
@@ -983,7 +983,7 @@ capsule Cap {
 ```
 
 ### ART_0030_transitionToCompositeStateNoEntryNoInitialTrans
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A composite state is entered without using an entry point, and its state machine has no initial transition. | N/A
 
@@ -1002,7 +1002,7 @@ capsule Cap {
 ```
 
 ### ART_0031_portBothNonServiceAndNonBehavior
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A port is both a non-service and a non-behavior port at the same time. | Make Behavior Port, Make Service Port
 
@@ -1022,7 +1022,7 @@ capsule C31 {
 ```
 
 ### ART_0032_unrecognizedColor
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A color is specified for an element but the color was not recognized. | N/A
 
@@ -1041,7 +1041,7 @@ capsule C32 {
 ```
 
 ### ART_0033_connectedNonServicePortOnPart
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A connector connects a port on a part but the port is not a service port. | N/A
 
@@ -1076,11 +1076,11 @@ In a structure diagram this error means that a connector "crosses a capsule boun
 The solution here is to either make `bp2` a service port, or to create another service port in the `Other` capsule and then connect that port both to `bp` on the "outside" and to `bp2` on the "inside".
 
 ### ART_0034_servicePortWithoutEvents
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A service port is typed by a protocol that doesn't have any events. | N/A
 
-A service [port](../art-lang#port) is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a notification port which receives the `rtBound` and `rtUnbound` events when the port gets connected or disconnected to another port at runtime. This means that a notification port can be useful even if its protocol doesn't contain any events.
+A service [port](../art-lang#port) is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a [notifying port](art-lang/index.md#notifying-port) which receives the `rtBound` and `rtUnbound` events when the port gets connected or disconnected to another port at runtime. This means that a notifying port can be useful even if its protocol doesn't contain any events.
 
 ``` art
 protocol EmptyProtocol {
@@ -1097,7 +1097,7 @@ capsule C34 {
 ```
 
 ### ART_0035_timerServicePort
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A timer port is a declared to be a service port. | Make Non-Service Behavior Port
 
@@ -1117,7 +1117,7 @@ capsule C35 {
 ```
 
 ### ART_0036_unexpectedTriggers
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A transition that originates from a pseudo state must not have triggers, but still has at least one. | Remove Triggers
 
@@ -1177,7 +1177,7 @@ capsule D2 : B2 {
 ```
 
 ### ART_0037_missingTriggers
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A transition that originates from a state must have at least one trigger, but has none. | N/A
 
@@ -1234,7 +1234,7 @@ capsule DD2 : BB2 {
 ```
 
 ### ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A port with a predefined protocol is declared in a way that is only applicable for ports with a user-defined protocol. | N/A
 
@@ -1255,7 +1255,7 @@ capsule C38 {
 ```
 
 ### ART_0039_portPartMultiplicityMismatch
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | The multiplicities of two connected ports are inconsistent, or a port is missing an expected connector. | N/A
 
@@ -1355,6 +1355,33 @@ capsule Pinger {
 
 Note that the runtime capacity of port `p` is 8 (the port multiplicity times the part multiplicity; 2 * 4 = 8). This port is connected to two other ports (`px` and `px2`) with a total capacity of 4 + 3 = 7. Raising the multiplicity of `px` to 4 will remove the inconsistency.
 
+### ART_0040_boundUnboundTriggerForNonNotifyingPort
+| Severity | Reason | Quick Fixes
+|----------|:-------------|:-------------
+| Warning | A trigger for the `rtBound` or `rtUnbound` events should reference a notifying port | Make Notify Port, Remove Trigger
+
+A [notifying port](art-lang/index.md#notifying-port) will receive the `rtBound` event when it gets bound to another port and `rtUnbound` when it gets unbound from a port to which it was connected. But these events will not come for ports that are not notifying, so it's pointless for a trigger to reference these events for non-notifying ports.
+
+``` art
+capsule C_0040 {    
+    service behavior port p : MyProto;
+    
+    statemachine {
+        state State, State2;
+        initial -> State;
+        State -> State2 on p.rtBound, p.rtUnbound // ART_0040
+        `
+            // Dead code here
+        `;
+    };
+};
+```
+
+Two Quick Fixes are available for fixing the problem:
+
+* **Make Notify Port** The referenced port will be declared with the `notify` keyword to become a notifying port. Note that this Quick Fix is only available if the port is defined in the same file as where the trigger is, and no other ports are defined in the same ports declaration.
+* **Remove Trigger** Remove the trigger from the transition.
+
 ## Code Generation Validation Rules
 Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. 
 
@@ -1366,7 +1393,7 @@ Some problems in an Art file cannot be detected until it's translated to C++ cod
 Validation rules that are related to code generation can be enabled and disabled, and have their severity customized, in the same way as the Art validation rules. Code generation validation rules have the prefix "CPP" and ids in the range starting from 4000 and above. They are listed below.
 
 ### CPP_4000_eventTypeWithoutTypeDescriptor
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | An event type has a type for which no type descriptor could be found. | N/A
 
@@ -1383,7 +1410,7 @@ protocol PROT {
 ```
 
 ### CPP_4001_unreachableTransition
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | One or many transitions are unreachable due to ambiguous triggers. | N/A
 
@@ -1418,7 +1445,7 @@ case Timing::Base::rti_timeout:
 ```
 
 ### CPP_4002_guardedInitialTransition
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The initial transition leads to a junction where all outgoing transitions have guard conditions. | N/A
 
@@ -1439,7 +1466,7 @@ capsule N {
 TC files are validated to detect problems related to TC properties. The rules that perform this validation can be enabled and disabled, and have their severity customized, in the same way as the Art [validation rules](#validation-rules) (with the exception that it's only possible to configure these rules [globally](settings.md#rule-configuration)). They use the prefix "TC" and ids in the range starting from 7000 and above. These rules are listed below.
 
 ### TC_7000_wrongValueType
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A TC property has the wrong type of value. | N/A
 
@@ -1452,7 +1479,7 @@ tc.sources = ''; // TC_7000 (expects a list of strings, and not a single string)
 ```
 
 ### TC_7001_tcPropertyNotYetSupported
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A TC property is assigned a value, but {$product.name$} does not yet support this property. | N/A
 
@@ -1463,7 +1490,7 @@ tc.compilationMakeInsert = ''; // TC_7001
 ```
 
 ### TC_7002_propertyNotApplicableForLibraryTC
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A TC property that is only applicable for an executable TC is used in a library TC. | N/A
 
@@ -1476,7 +1503,7 @@ tc.linkCommand = 'ld'; // TC_7002
 ```
 
 ### TC_7003_prerequisitePathError
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A prerequisite TC cannot be resolved. | N/A
 
@@ -1487,7 +1514,7 @@ tc.prerequisites = ["../../TestUtils/testlibX.tcjs"]; // TC_7003 (referenced TC 
 ```
 
 ### TC_7004_invalidTopCapsule
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The specified top capsule cannot be found. | N/A
 
@@ -1498,7 +1525,7 @@ tc.topCapsule = 'NonExistentCapsule'; // TC_7004 (referenced top capsule does no
 ```
 
 ### TC_7005_invalidUnitName
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The `unitName` property contains characters that are illegal in a file name. | N/A
 
@@ -1509,7 +1536,7 @@ tc.unitName = 'UnitName:1'; // TC_7005 (colon is not a valid file name character
 ```
 
 ### TC_7006_invalidTargetRTSLocation
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The specified path to the TargetRTS does not exist or is invalid. | N/A
 
@@ -1520,7 +1547,7 @@ tc.targetRTSLocation = "C:\\MyTargets\\"; // TC_7006 (if that folder does not ex
 ```
 
 ### TC_7007_invalidTargetConfig
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The specified target configuration does not exist. | N/A
 
@@ -1531,7 +1558,7 @@ tc.targetConfiguration = "WinT.x64-MinGW-12.2.0"; // TC_7007 (misspelled "MinGw"
 ```
 
 ### TC_7008_invalidCodeStandard
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The specified C++ code standard does not exist. | N/A
 
@@ -1542,7 +1569,7 @@ tc.cppCodeStandard = "C++ 18"; // TC_7008 (there is no C++ language standard C++
 ```
 
 ### TC_7009_invalidTargetFolder
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | The specified target folder is invalid. | N/A
 
@@ -1553,7 +1580,7 @@ tc.targetFolder = 'capsule_cpp_inheritance_target:'; // TC_7009 (invalid charact
 ```
 
 ### TC_7010_physicalThreadWithoutLogicalThread
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A physical thread has no logical thread mapped to it. | N/A
 
@@ -1573,7 +1600,7 @@ tc.threads = [
 ```
 
 ### TC_7011_duplicatePhysicalThreadName
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | There are multiple physical threads with the same name. | N/A
 
@@ -1593,7 +1620,7 @@ tc.threads = [
 ```
 
 ### TC_7012_duplicateLogicalThreadName
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | There are multiple logical threads with the same name. | N/A
 
@@ -1614,7 +1641,7 @@ tc.threads = [
 A special situation is when an executable TC has several library TCs as prerequisites (direcly or indirectly). These library TCs may define logical threads with clashing names. You must make sure that names of logical threads in all prerequisite libraries are unique. One way to accomplish this could be to prefix a logical thread in a library with the name of the library.
 
 ### TC_7013_physicalThreadsInLibrary
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | Physical threads are defined in a library TC. | N/A
 
@@ -1633,7 +1660,7 @@ tc.threads = [ // TC_7013
 ```
 
 ### TC_7014_incorrectThreadProperty
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A thread property is incorrectly specified. | N/A
 
@@ -1652,7 +1679,7 @@ tc.threads = [
 ```
 
 ### TC_7015_libraryThreadNotMappedToPhysicalThread
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A logical thread in a library TC is not mapped to a physical thread. | N/A
 
@@ -1673,7 +1700,7 @@ tc.threads = [
 ```
 
 ### TC_7016_prerequisitesWithoutActiveTC
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A TC has prerequisites specified, but its workspace folder has no active TC. | Set TC as active
 
@@ -1684,7 +1711,7 @@ A Quick Fix is available that will fix the problem by setting the TC as active. 
 Note that the concept of an active TC is not applicable when you build an application with the Art Compiler, because then you always specify explicitly which TC that should be built. Therefore, this validation rule only runs in the IDE, and not in the Art Compiler.
 
 ### TC_7017_prerequisitesCyclic
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | A TC has cyclic prerequisites, i.e. it has itself as a direct or indirect prerequisite | N/A
 
@@ -1711,7 +1738,7 @@ Since these rules run before semantic [validation rules](#validation-rules) they
 
 
 ### ART_9000_syntaxError
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | Parsing of the Art file failed due to a syntax error. | Remove Extraneous Input
 
@@ -1734,7 +1761,7 @@ capsule B {
 ```
 
 ### ART_9001_unresolvedReference
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A referenced Art element cannot be found. | N/A
 
@@ -1755,7 +1782,7 @@ capsule C {
 A special validation rule is used for detecting and reporting so called internal errors. These are errors that should never occur, but if they still do they are caused by a defect in {$product.name$}. If you encounter an internal error please report it as described [here](../support).
 
 ### ART_9999_internalError
-| Severity | Reason | Quick Fix
+| Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An internal error has occurred. | N/A
 
