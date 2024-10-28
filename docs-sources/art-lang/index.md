@@ -492,8 +492,8 @@ capsule Server {
 };
 ```
 
-### Notification Port
-Every protocol contains two implicit events `rtBound` and `rtUnbound`. A port can choose to receive those events whenever a connection for the port is established (rtBound) or dropped (rtUnbound) at run-time. Declare a port as a notification port to receive these events. 
+### Notifying Port
+Every protocol contains two implicit events `rtBound` and `rtUnbound`. A port can receive those events whenever a connection for the port is established (rtBound) or dropped (rtUnbound) at run-time. Declare the port as notifying to receive these events. 
 
 ``` art
 capsule Server {
