@@ -1,0 +1,126 @@
+class DataObject {
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::impl_preface]]
+    `        
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        public:
+            DataObject();
+        public: 
+            RTString rtg_current_val, entry_point1, entry_point2;
+    `
+    [[rt::impl]]
+    `
+         DataObject::DataObject() {
+             rtg_init1();
+         }
+    `
+    trigger op1();
+    trigger op2(`bool` b);
+    trigger op3(`int` i);
+    trigger op4();
+    trigger op5(`bool` b);
+    statemachine {
+        state P;
+        state A {
+            entrypoint ep1;
+            ep1 -> B.ep2
+            `
+                entry_point1 = "ep1";
+            `;
+            state B {
+                entrypoint ep2;
+                ep2 -> C
+                `
+                entry_point2 = "ep2";
+            `;
+                state C {
+                    t1: on op5(`bool`) [`b == true`]
+                    ` 
+                    rtg_current_val = "op5";
+                `;
+                };
+            };
+        };
+        state R {
+            x: on op2(`bool`) [`b == true`]
+            `
+                rtg_current_val = "op2";
+            `;
+            y: on op3(`int`)[`i == 3`]
+            ` 
+                rtg_current_val = "op3";
+            `;
+        };
+        initial -> P
+        `
+        `;
+        P -> R on op1()
+        `
+            rtg_current_val = "op1";
+         `;
+        R -> A.ep1 on op4()
+        `
+            rtg_current_val = "op4";
+        `;
+    };
+
+};
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "DataObject.h"
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            DataObject _dataObject1;
+    `
+    behavior port t : Timing;
+    statemachine {
+        state State1, State2, State3, State4, State5, State6;
+        initial -> State1
+        `        
+            _dataObject1.op1();            
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "op1") == 0, "op1 failed");
+            t.informIn(RTTimespec(0,50000));
+
+        `;
+        onState1: State1 -> State2 on t.timeout
+        `
+            _dataObject1.op2(true);
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "op2") == 0, "op2 failed");        
+            t.informIn(RTTimespec(0,50000));
+
+        `;
+        onState2: State2 -> State3 on t.timeout
+        `
+            _dataObject1.op3(3);
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "op3") == 0, "op3 failed");        
+            t.informIn(RTTimespec(0,50000));
+
+        `;
+        onState3: State3 -> State4 on t.timeout
+        `
+            _dataObject1.op4();
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "op4") == 0, "op4 failed");
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.entry_point1, "ep1") == 0, "ep1 failed");        
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.entry_point2, "ep2") == 0, "ep2 failed");        
+            t.informIn(RTTimespec(0,50000));
+        `;
+        onState4: State4 -> State5 on t.timeout
+        `
+            _dataObject1.op5(true);
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "op5") == 0, "op5 failed");
+            PASS();
+        `;
+    };
+};

@@ -220,7 +220,16 @@
         },
         {
             "path": "tests/transition_inheritance"
-        },        
+        },
+        {
+            "path": "tests/trigger_operation_with_parameters"
+        }, 
+        {
+            "path": "tests/trigger_operation_internal"
+        },
+        {
+            "path": "tests/trigger_operation_internal_1"
+        },   
         {
             "path": "tests/type_descriptor_inheritance"
         },

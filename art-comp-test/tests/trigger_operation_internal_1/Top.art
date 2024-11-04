@@ -1,0 +1,109 @@
+class DataObject {
+    [[rt::header_preface]]
+    `
+        #include <iostream>   
+    `
+    [[rt::impl_preface]]
+    `        
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        public:
+            DataObject();
+        public: 
+            std::string rtg_current_val, entry_point1, entry_point2, entry_point3;
+    `
+    [[rt::impl]]
+    `
+         DataObject::DataObject() {
+             rtg_init1();
+         }
+    `
+    trigger op();
+    trigger op1();
+    trigger op2();
+    trigger op3();
+    statemachine {
+        state P;
+        state A {
+             t1: on op1()
+            ` 
+                rtg_current_val = "a_op1";
+            `;
+            t2: on op2()
+            ` 
+                rtg_current_val = "a_op2";
+            `;
+             t3: on op3()
+            ` 
+                rtg_current_val = "a_op3";
+            `;
+            entrypoint ep1;
+            
+            ep1 -> B.ep2 
+            `
+                entry_point1 = "ep1";
+            `;
+            state B {
+                t1: on op1() [`true`]
+                ` 
+                    rtg_current_val = "b_op1";
+                `;
+                t2: on op2() [`true`]
+                ` 
+                    rtg_current_val = "b_op2";
+                `;
+                entrypoint ep2;
+                ep2 -> C 
+                `
+                entry_point2 = "ep2";
+                `;
+
+                state C {
+                    t1: on op1()
+                    ` 
+                        rtg_current_val = "c_op1";
+                    `;
+                };
+
+            };
+        };
+       
+        initial ->  P;
+        P -> A.ep1 on op()
+        `
+            rtg_current_val = "init";
+        `;
+    };
+
+};
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "DataObject.h"
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            DataObject _dataObject1;
+    `
+    behavior port t : Timing;
+    statemachine {
+        state State1;
+        initial -> State1
+        `        
+            _dataObject1.op(); 
+            _dataObject1.op1(); 
+            ASSERT(_dataObject1.rtg_current_val == "c_op1", "Expected c_op1");
+            _dataObject1.op2();
+            ASSERT(_dataObject1.rtg_current_val == "b_op2", "Expected b_op2");
+            _dataObject1.op3();
+            ASSERT(_dataObject1.rtg_current_val == "a_op3", "Expected a_op3");
+            PASS();
+        `;
+    };
+};
