@@ -1,4 +1,4 @@
 let tc = TCF.define(TCF.CPP_TRANSFORM);
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
-tc.targetFolder = 'trigger_operation_internal_target_1';
+tc.targetFolder = 'trigger_operation_internal_1_target';
