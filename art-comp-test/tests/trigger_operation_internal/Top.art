@@ -1,8 +1,4 @@
 class DataObject {
-    [[rt::header_preface]]
-    `
-        #include <iostream>
-    `
     [[rt::impl_preface]]
     `        
         #include "testlib.art.h"
@@ -77,7 +73,6 @@ capsule Top {
     `
         #include "testlib.art.h"
         #include "DataObject.h"
-        #include <iostream>
     `
     [[rt::decl]]
     `

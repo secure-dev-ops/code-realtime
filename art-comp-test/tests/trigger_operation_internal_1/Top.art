@@ -1,8 +1,4 @@
 class DataObject {
-    [[rt::header_preface]]
-    `
-        #include <iostream>   
-    `
     [[rt::impl_preface]]
     `        
         #include "testlib.art.h"
@@ -12,7 +8,7 @@ class DataObject {
         public:
             DataObject();
         public: 
-            std::string rtg_current_val, entry_point1, entry_point2, entry_point3;
+            RTString rtg_current_val, entry_point1, entry_point2, entry_point3;
     `
     [[rt::impl]]
     `
@@ -84,7 +80,6 @@ capsule Top {
     `
         #include "testlib.art.h"
         #include "DataObject.h"
-        #include <iostream>
     `
     [[rt::decl]]
     `
@@ -98,11 +93,11 @@ capsule Top {
         `        
             _dataObject1.op(); 
             _dataObject1.op1(); 
-            ASSERT(_dataObject1.rtg_current_val == "c_op1", "Expected c_op1");
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "c_op1") == 0, "Expected c_op1");        
             _dataObject1.op2();
-            ASSERT(_dataObject1.rtg_current_val == "b_op2", "Expected b_op2");
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "b_op2") == 0, "Expected b_op2");        
             _dataObject1.op3();
-            ASSERT(_dataObject1.rtg_current_val == "a_op3", "Expected a_op3");
+            ASSERT(RTMemoryUtil::strcmp(_dataObject1.rtg_current_val, "a_op3") == 0, "Expected a_op3");        
             PASS();
         `;
     };
