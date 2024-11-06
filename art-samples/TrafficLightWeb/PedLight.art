@@ -19,7 +19,7 @@ capsule PedLight {
 
             countdown: on pedControl.timeRemaining
             `
-                int time = * static_cast<const int*>(rtdata);
+                int time = *rtdata;
                 server.timeRemaining(time).send();
             `;
         };

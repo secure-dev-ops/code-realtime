@@ -33,7 +33,7 @@ capsule Adder {
             increment_computed: WaitForIncrement -> ex1 on mul.returnIncrement;
         };
         choice more_increments;
-        request_received: Idle -> Computing on request_port.compute
+        request_received: [[rt::properties(rule_config="X0029")]] Idle -> Computing on request_port.compute
         `
             remainingIterations = *rtdata - 1;
             mul.getIncrement(remainingIterations).send();
@@ -51,7 +51,7 @@ capsule Adder {
             result = sqrt(12) * result;
             request_port.result(result).send();
         `;
-        compute_next_increment: more_increments -> Computing when `else`
+        compute_next_increment: [[rt::properties(rule_config="X0029")]] more_increments -> Computing when `else`
         `
             remainingIterations--;
             mul.getIncrement(remainingIterations).send();

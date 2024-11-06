@@ -130,7 +130,7 @@ capsule TrafficLight {
 
         pedRequestCustom : CycleLight.pedRequest -> j on server.pedestrianCustomTime
         `
-            pedestrianWalkTime = * static_cast<const int*>(rtdata);
+            pedestrianWalkTime = *rtdata;
         `;
 
         j -> PedestrianCrossing.pedRequest

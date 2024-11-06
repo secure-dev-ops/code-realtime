@@ -68,17 +68,17 @@ capsule RangeCounter {
 
             setMin: on server.setMin
             `
-                min = * static_cast<const unsigned int*>(rtdata);
+                min = *rtdata;
                 std::cout << "Min set to " << min << std::endl;
             `;
             setMax: on server.setMax
             `
-                max = * static_cast<const unsigned int*>(rtdata);
+                max = *rtdata;
                 std::cout << "Max set to " << max << std::endl;
             `;
             setDelta: on server.setDelta
             `
-                int newDelta = * static_cast<const int*>(rtdata);
+                int newDelta = *rtdata;
                 if (newDelta != 0) {
                     delta = newDelta;
                     std::cout << "Delta set to " << delta << std::endl;
