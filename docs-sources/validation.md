@@ -1730,6 +1730,12 @@ tc.prerequisites = ["lib2.tcjs"]; // TC_7017 (cycle lib1 -> lib2 -> lib1)
 tc.prerequisites = ["lib1.tcjs"]; // TC_7017 (cycle lib2 -> lib1 -> lib2)
 ```
 
+### TC_7018_withoutCodeStandard
+| Severity | Reason | Quick Fixes
+|----------|:-------------|:-------------
+| Warning | A TC does not specify which C++ code standard to use | N/A
+
+The [`cppCodeStandard`](building/transformation-configurations.md#cppcodestandard) property should be set to ensure that the C++ code generator, the C++ compiler and the C++ language server all agree on which code standard that should be used.
 
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
