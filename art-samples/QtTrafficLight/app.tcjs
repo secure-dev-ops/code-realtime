@@ -2,3 +2,4 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'TLSystem'; 
 tc.targetFolder = 'QtTrafficLight_target'; 
+tc.cppCodeStandard = "C++ 17";

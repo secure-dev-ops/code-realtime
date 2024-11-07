@@ -1,2 +1,3 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
+tc.cppCodeStandard = "C++ 17";

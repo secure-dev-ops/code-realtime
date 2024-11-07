@@ -12,6 +12,6 @@ tc.targetConfiguration = TCF.getTopTC().eval.targetConfiguration;
 
 tc.targetProject = 'LibTCPServer_target';
 tc.targetRTSLocation = TCF.getTopTC().eval.targetServicesLibrary;
-//tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+tc.cppCodeStandard = TCF.getTopTC().eval.cppCodeStandard;
 
 tc.unitName = 'UnitName_TCPLib';

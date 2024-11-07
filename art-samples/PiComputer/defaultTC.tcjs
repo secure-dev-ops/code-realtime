@@ -1,4 +1,5 @@
 //Transformation Configuration File
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'PiComputer'; 
-tc.targetFolder = 'Pi_target'; 
+tc.targetFolder = 'Pi_target';
+tc.cppCodeStandard = "C++ 17";

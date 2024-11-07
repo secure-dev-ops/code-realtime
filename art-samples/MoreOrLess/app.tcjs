@@ -2,3 +2,4 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'MoreOrLess_target'; 
 tc.topCapsule = "Top";
+tc.cppCodeStandard = "C++ 17";

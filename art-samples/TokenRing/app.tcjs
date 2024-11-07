@@ -21,3 +21,5 @@ tc.threads = [
         ]
     }
 ];
+
+tc.cppCodeStandard = "C++ 17";

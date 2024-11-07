@@ -27,7 +27,7 @@ capsule Maze {
             `;
             adjustStepCount: on server.adjustStepCount
             `
-                const int adjustment = *(static_cast<const int*>(rtdata));
+                const int adjustment = *rtdata;
                 stepCount += adjustment;
             `;
 

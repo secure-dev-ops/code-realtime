@@ -2,3 +2,4 @@ let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'TOP';
 tc.targetFolder = 'DistributedPingPong_target'; 
 tc.prerequisites = ['../TcpServer/tcpServerLib.tcjs'];
+tc.cppCodeStandard = "C++ 17";

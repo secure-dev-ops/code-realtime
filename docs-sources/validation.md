@@ -51,6 +51,13 @@ Some problems have one or several typical solutions that are possible to apply a
 
 Note that most problems cannot be automatically resolved like this, but in some cases it's possible. 
 
+You can choose to "fix" most kinds of reported problems by disabling the validation rule that reported it. A "Disable" code action for doing this is listed after other code actions, and is available for many kinds of problems. The validation rule will be disabled only for the specific element on which the problem was reported. See [Configuring Validation](#configuring-validation) for how you can disable certain validation rules globally.
+
+![](images/disable-check.png)
+
+!!! note 
+    In some (unusual) cases a validation rule may report a problem on multiple elements, for example [ART_0002](#art_0002_duplicatenamesinscope) can detect that names of two or more global elements are conflicting. If you perform the Quick Fix for disabling that validation rule, a `rule_config` property will be set on one of the elements, but since the problem relates to multiple elements this will not make the problem go away. You can only turn off such validation rules by disabling them globally.
+
 ## Configuring Validation
 Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
 

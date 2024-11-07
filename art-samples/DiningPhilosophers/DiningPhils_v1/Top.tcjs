@@ -2,3 +2,4 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 tc.targetFolder = 'DiningPhils_v1_target';
+tc.cppCodeStandard = "C++ 17";

@@ -5,3 +5,4 @@ tc.commonPreface = `
 #include <iostream>
 `;
 tc.capsuleFactory = '&CapsuleFactory::factory';
+tc.cppCodeStandard = "C++ 17";
