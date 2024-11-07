@@ -28,22 +28,22 @@
         },
         {
             "path": "tests/capsule_userdefined_constructor"
-        },        
+        },
         {
             "path": "tests/capsule_userdefined_destructor"
-        },        
+        },
         {
             "path": "tests/capsule_with_abstract_and_purevirtualfunction"
-        },        
+        },
         {
             "path": "tests/capsule_with_abstract_keyword"
-        },        
+        },
         {
             "path": "tests/capsule_with_purevirtualfunction"
-        },  
+        },
         {
             "path": "tests/capsule_trigger_guard"
-        },      
+        },
         {
             "path": "tests/choice_and_junction"
         },
@@ -64,7 +64,7 @@
         },
         {
             "path": "tests/class_with_template"
-        },        
+        },
         {
             "path": "tests/code_snippets"
         },
@@ -144,6 +144,12 @@
             "path": "tests/macro_callsuper_supermethod"
         },
         {
+            "path": "tests/message_count"
+        },
+        {
+            "path": "tests/move_function_2"
+        },
+        {
             "path": "tests/optional_part"
         },
         {
@@ -190,7 +196,7 @@
         },
         {
             "path": "tests/tc_include_paths"
-        },		
+        },
         {
             "path": "tests/tc_libraryname"
         },
@@ -223,18 +229,21 @@
         },
         {
             "path": "tests/trigger_operation_with_parameters"
-        }, 
+        },
         {
             "path": "tests/trigger_operation_internal"
         },
         {
             "path": "tests/trigger_operation_internal_1"
-        },   
+        },
         {
             "path": "tests/type_descriptor_inheritance"
         },
         {
             "path": "tests/typedef_type_descriptor"
+        },
+        {
+            "path": "tests/unwired_port"
         }
     ]
 }

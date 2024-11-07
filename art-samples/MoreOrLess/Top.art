@@ -2,6 +2,7 @@ capsule Top {
     [[rt::header_preface]]
     `
         #include <string>
+        #include <vector>
     `
     [[rt::impl_preface]]
     `

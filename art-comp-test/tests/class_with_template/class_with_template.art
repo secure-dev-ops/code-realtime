@@ -78,7 +78,7 @@ capsule Top {
             instance2.v = 3.14;
 
 
-            TemplateClassWithDefaultTemplateValues instance3;
+            TemplateClassWithDefaultTemplateValues<> instance3;
             ASSERT(instance3.x == 5, "Unexpected value of x");
             instance3.var = MyClass();
             instance3.v = 25;
