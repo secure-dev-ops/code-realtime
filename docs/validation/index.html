@@ -13,14 +13,8 @@
       
         <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/validation/">
       
-      
-        <link rel="prev" href="../working-with-art/references/">
-      
-      
-        <link rel="next" href="../target-rts/">
-      
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
@@ -28,10 +22,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
       
       
-
     
     
     
@@ -48,7 +45,7 @@
     
       <link rel="stylesheet" href="../stylesheets/prism.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 <!--  OneTrust Cookies Consent Notice start  -->
@@ -73,18 +70,20 @@
 
     
     
-    
   <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
   
 
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
   
     
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -102,17 +101,9 @@
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
             
-              <button class="md-banner__button md-icon" aria-label="Don't show this again">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
-              </button>
-            
-            
 <p>Check out the commercial edition!</p>
 
           </div>
-          
-            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
-          
         </aside>
       
     </div>
@@ -163,11 +154,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -181,7 +172,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -193,7 +184,7 @@
         <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -212,7 +203,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
+  <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
@@ -314,7 +305,7 @@
       <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -352,10 +343,9 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
-      
       
         
           
@@ -384,12 +374,12 @@
         
       
       
-        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2">
           Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Documentation
@@ -433,9 +423,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
       
       
         
@@ -458,7 +447,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="The Art Language" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           The Art Language
@@ -497,9 +486,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -528,7 +516,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Working with Art
@@ -609,7 +597,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
       
@@ -951,6 +939,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#art_0040_boundunboundtriggerfornonnotifyingport" class="md-nav__link">
+    ART_0040_boundUnboundTriggerForNonNotifyingPort
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1124,6 +1119,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7018_withoutcodestandard" class="md-nav__link">
+    TC_7018_withoutCodeStandard
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1194,9 +1196,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
       
       
         
@@ -1241,7 +1242,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_6">
           <span class="md-nav__icon md-icon"></span>
           Target RunTime System
@@ -1420,9 +1421,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -1451,7 +1451,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Building" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -1532,9 +1532,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
       
       
         
@@ -1559,7 +1558,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Running and Debugging" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Running and Debugging
@@ -1612,9 +1611,8 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
       
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
       
       
         
@@ -1631,7 +1629,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Releases" data-md-level="2">
         <label class="md-nav__title" for="__nav_2_9">
           <span class="md-nav__icon md-icon"></span>
           Releases
@@ -2080,6 +2078,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#art_0040_boundunboundtriggerfornonnotifyingport" class="md-nav__link">
+    ART_0040_boundUnboundTriggerForNonNotifyingPort
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2253,6 +2258,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7018_withoutcodestandard" class="md-nav__link">
+    TC_7018_withoutCodeStandard
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2313,14 +2325,14 @@
               </div>
             
           
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
                 
-                  
+  <a href="https://github.com/secure-dev-ops/code-realtime/edit/main/docs-sources/validation.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
 
-  
-  
 
 
   <h1>Validation</h1>
@@ -2359,10 +2371,16 @@
 <p><img alt="" src="../images/problems_view.png" /></p>
 <p>If there are many problems, it can help to filter the Problems View by typing some text in the filter box. For example, you can filter using a regular expression that matches only some of the files in the workspace, to reduce the number of problems shown.</p>
 <h2 id="quick-fix">Quick Fix</h2>
-<p>Some problems have one or several typical solutions that are possible to apply automatically by means of "code actions". If a problem has at least one such code action defined, a yellow light bulb icon will appear and a Quick Fix command will be available in the problem tooltip. </p>
+<p>Some problems have one or several typical solutions that are possible to apply automatically by means of so called code actions. These are commands that update the file to correct the problem. If a problem has at least one such code action defined, a yellow light bulb icon will appear and a Quick Fix command will be available in the problem tooltip. </p>
 <p><img alt="" src="../images/quick_fix.png" /></p>
 <p><img alt="" src="../images/quick_fix_picker.png" /></p>
-<p>Note that most semantic errors cannot be automatically resolved like this, but in some simple cases it's possible. </p>
+<p>Note that most problems cannot be automatically resolved like this, but in some cases it's possible. </p>
+<p>You can choose to "fix" most kinds of reported problems by disabling the validation rule that reported it. A "Disable" code action for doing this is listed after other code actions, and is available for many kinds of problems. The validation rule will be disabled only for the specific element on which the problem was reported. See <a href="#configuring-validation">Configuring Validation</a> for how you can disable certain validation rules globally.</p>
+<p><img alt="" src="../images/disable-check.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some (unusual) cases a validation rule may report a problem on multiple elements, for example <a href="#art_0002_duplicatenamesinscope">ART_0002</a> can detect that names of two or more global elements are conflicting. If you perform the Quick Fix for disabling that validation rule, a <code>rule_config</code> property will be set on one of the elements, but since the problem relates to multiple elements this will not make the problem go away. You can only turn off such validation rules by disabling them globally.</p>
+</div>
 <h2 id="configuring-validation">Configuring Validation</h2>
 <p>Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every <a href="#validation-rules">validation rule</a> is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property <a href="../art-lang#rule_config">rule_config</a>. In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration <code>X0003,I0004,W0009,E0005</code> means the following:</p>
 <ul>
@@ -2400,7 +2418,7 @@
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2429,7 +2447,7 @@ capsule Exception { // ART_0001 (&quot;Exception&quot; is a name reserved for us
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2500,7 +2518,7 @@ capsule C0002 : D0002 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2533,7 +2551,7 @@ capsule C0002 : D0002 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2566,7 +2584,7 @@ capsule C0002 : D0002 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2595,7 +2613,7 @@ capsule C0002 : D0002 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2622,7 +2640,7 @@ capsule C0002 : D0002 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2651,7 +2669,7 @@ capsule C0002 : D0002 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2713,7 +2731,7 @@ capsule InitTransCap3 : InitTransCap2 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2748,7 +2766,7 @@ capsule CN
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2775,7 +2793,7 @@ capsule CN
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2803,7 +2821,7 @@ capsule CN
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2849,7 +2867,7 @@ capsule Name {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2876,7 +2894,7 @@ capsule Name {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2909,7 +2927,7 @@ capsule Name {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2939,7 +2957,7 @@ capsule Name {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -2998,7 +3016,7 @@ class C4 : C3 { // ART_0016
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3039,7 +3057,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3089,7 +3107,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3117,7 +3135,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3146,7 +3164,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3176,7 +3194,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3203,7 +3221,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3237,7 +3255,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3265,7 +3283,7 @@ capsule CComp3 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3354,7 +3372,7 @@ capsule Inner {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3412,7 +3430,7 @@ capsule Ponger {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3463,7 +3481,7 @@ capsule Top {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3497,7 +3515,7 @@ capsule Top {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3526,7 +3544,7 @@ capsule Top {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3554,7 +3572,7 @@ capsule Top {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3582,7 +3600,7 @@ capsule Top {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3610,7 +3628,7 @@ capsule Top {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3651,7 +3669,7 @@ capsule Other {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3662,7 +3680,7 @@ capsule Other {
 </tr>
 </tbody>
 </table>
-<p>A service <a href="../art-lang#port">port</a> is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a notification port which receives the <code>rtBound</code> and <code>rtUnbound</code> events when the port gets connected or disconnected to another port at runtime. This means that a notification port can be useful even if its protocol doesn't contain any events.</p>
+<p>A service <a href="../art-lang#port">port</a> is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a <a href="../art-lang/#notifying-port">notifying port</a> which receives the <code>rtBound</code> and <code>rtUnbound</code> events when the port gets connected or disconnected to another port at runtime. This means that a notifying port can be useful even if its protocol doesn't contain any events.</p>
 <pre><code class="language-art">protocol EmptyProtocol {
 };
 
@@ -3681,7 +3699,7 @@ capsule C34 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3709,7 +3727,7 @@ capsule C34 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3773,7 +3791,7 @@ capsule D2 : B2 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3836,7 +3854,7 @@ capsule DD2 : BB2 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3865,7 +3883,7 @@ capsule DD2 : BB2 {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -3963,6 +3981,42 @@ capsule Pinger {
 </code></pre>
 <p><img alt="" src="../images/ART_0039_inconsistent_multiplicities.png" /></p>
 <p>Note that the runtime capacity of port <code>p</code> is 8 (the port multiplicity times the part multiplicity; 2 * 4 = 8). This port is connected to two other ports (<code>px</code> and <code>px2</code>) with a total capacity of 4 + 3 = 7. Raising the multiplicity of <code>px</code> to 4 will remove the inconsistency.</p>
+<h3 id="art_0040_boundunboundtriggerfornonnotifyingport">ART_0040_boundUnboundTriggerForNonNotifyingPort</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">A trigger for the <code>rtBound</code> or <code>rtUnbound</code> events should reference a notifying port</td>
+<td align="left">Make Notify Port, Remove Trigger</td>
+</tr>
+</tbody>
+</table>
+<p>A <a href="../art-lang/#notifying-port">notifying port</a> will receive the <code>rtBound</code> event when it gets bound to another port and <code>rtUnbound</code> when it gets unbound from a port to which it was connected. But these events will not come for ports that are not notifying, so it's pointless for a trigger to reference these events for non-notifying ports.</p>
+<pre><code class="language-art">capsule C_0040 {    
+    service behavior port p : MyProto;
+
+    statemachine {
+        state State, State2;
+        initial -&gt; State;
+        State -&gt; State2 on p.rtBound, p.rtUnbound // ART_0040
+        `
+            // Dead code here
+        `;
+    };
+};
+</code></pre>
+<p>Two Quick Fixes are available for fixing the problem:</p>
+<ul>
+<li><strong>Make Notify Port</strong> The referenced port will be declared with the <code>notify</code> keyword to become a notifying port. Note that this Quick Fix is only available if the port is defined in the same file as where the trigger is, and no other ports are defined in the same ports declaration.</li>
+<li><strong>Remove Trigger</strong> Remove the trigger from the transition.</li>
+</ul>
 <h2 id="code-generation-validation-rules">Code Generation Validation Rules</h2>
 <p>Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. </p>
 <div class="admonition note">
@@ -3977,7 +4031,7 @@ capsule Pinger {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4002,7 +4056,7 @@ capsule Pinger {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4042,7 +4096,7 @@ capsule Pinger {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4071,7 +4125,7 @@ capsule Pinger {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4093,7 +4147,7 @@ tc.sources = ''; // TC_7000 (expects a list of strings, and not a single string)
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4113,7 +4167,7 @@ tc.sources = ''; // TC_7000 (expects a list of strings, and not a single string)
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4135,7 +4189,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4155,7 +4209,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4175,7 +4229,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4195,7 +4249,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4215,7 +4269,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4235,7 +4289,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4255,7 +4309,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4275,7 +4329,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4302,7 +4356,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4331,7 +4385,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4361,7 +4415,7 @@ tc.linkCommand = 'ld'; // TC_7002
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4388,7 +4442,7 @@ tc.threads = [ // TC_7013
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4415,7 +4469,7 @@ tc.threads = [ // TC_7013
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4445,7 +4499,7 @@ tc.threads = [
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4465,7 +4519,7 @@ tc.threads = [
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4487,6 +4541,24 @@ tc.prerequisites = [&quot;lib2.tcjs&quot;]; // TC_7017 (cycle lib1 -&gt; lib2 -&
 // In the library TC lib2.tcjs:
 tc.prerequisites = [&quot;lib1.tcjs&quot;]; // TC_7017 (cycle lib2 -&gt; lib1 -&gt; lib2)
 </code></pre>
+<h3 id="tc_7018_withoutcodestandard">TC_7018_withoutCodeStandard</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">A TC does not specify which C++ code standard to use</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../building/transformation-configurations/#cppcodestandard"><code>cppCodeStandard</code></a> property should be set to ensure that the C++ code generator, the C++ compiler and the C++ language server all agree on which code standard that should be used.</p>
 <h2 id="core-validation-rules">Core Validation Rules</h2>
 <p>There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.</p>
 <p>Since these rules run before semantic <a href="#validation-rules">validation rules</a> they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.</p>
@@ -4496,7 +4568,7 @@ tc.prerequisites = [&quot;lib1.tcjs&quot;]; // TC_7017 (cycle lib2 -&gt; lib1 -&
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4527,7 +4599,7 @@ capsule B {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4556,7 +4628,7 @@ capsule B {
 <tr>
 <th>Severity</th>
 <th align="left">Reason</th>
-<th align="left">Quick Fix</th>
+<th align="left">Quick Fixes</th>
 </tr>
 </thead>
 <tbody>
@@ -4569,21 +4641,16 @@ capsule B {
 </table>
 <p>Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating Code RealTime. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of Code RealTime (see <a href="../releases">Releases</a>). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described <a href="../support">here</a>.</p>
 
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
+              
+            </article>
+            
+          </div>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </button>
+          </a>
         
       </main>
       
@@ -4603,11 +4670,10 @@ capsule B {
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
-    
-      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
         <script src="../scripts/prism.js"></script>
       
