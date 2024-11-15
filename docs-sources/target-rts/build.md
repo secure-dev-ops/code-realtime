@@ -21,6 +21,14 @@ The Perl script `Build.pl` drives the build process of the TargetRTS, but uses a
 
 The object files produced during the build will be placed in an output folder inside the `TargetRTS` folder. The name of this folder is `build-<target_configuration>` where `<target_configuration>` is the name of the target configuration used. When all object files have been built, library files will be created from them and placed in a `lib/<target_configuration>` sub folder. Any existing libraries in that folder, such as the precompiled versions of the TargetRTS, will be overwritten.
 
+### Build Settings
+When you build the TargetRTS its source files will be compiled with settings defined in a file `libset.mk`. This file is located in a subfolder under the [`libset`](index.md#libset) folder depending on what target configuration you are using. For example `TargetRTS/libset/x64-MinGw-12.2.0/libset.mk`. Compiler flags are defined in the variables `LIBSETCCFLAGS` and `LIBSETCCEXTRA`. Both these variables are used when compiling TargetRTS source files, while only the former is used when compiling generated code. Therefore, if you want to modify build settings only for the build of the TargetRTS, without affecting how the generated code is built, you should modify the variable `LIBSETCCEXTRA`.
+
+Note that the default compiler flags in `LIBSETCCEXTRA` do not explicitly set the C++ language standard. It's therefore assumed that the compiler that is used defaults to use an appropriate language standard. If the default language standard used by your compiler does not match the language standard used when compiling the generated code (see the TC property [`cppCodeStandard`](../building/transformation-configurations.md#cppcodestandard)) then it's recommended to add a compiler flag in `LIBSETCCEXTRA` to set it explicitly (for example `-std=c++17`).
+
+!!! note 
+    The TargetRTS can be compiled both with newer and older C++ compilers, but in order to use all its features the language standard must be C++ 11 or newer.
+
 ### Flat Builds
 The `Build.pl` script accepts an optional flag `-flat` which, if used, should be the first argument. This flag causes the script to concatenate all source files that belong to the same class into a single file (placed in the output folder), and then build those concatenated file. This significantly reduces the number of source files to compile and therefore often speeds up the build. But beware that when [debugging the TargetRTS](#debug), you will debug these concatenated files, rather than the original source code. Do not change the concatenated files as those changes will be lost the next time you build the TargetRTS with the `-flat` flag.
 

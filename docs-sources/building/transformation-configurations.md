@@ -189,13 +189,13 @@ All rights reserved!
 You can use a multi-line text with empty lines in the beginning and end as shown above, to make the TC more readable. Such empty lines will be ignored by the code generator.
 
 ### cppCodeStandard
-Defines the C++ language standard to which generated C++ code will conform. Valid values for this property are `C++ 98`, `C++ 11`, `C++ 14`, `C++ 17` and `C++ 20`. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to `Older than C++ 98`.
+Defines the C++ language standard to which generated C++ code will conform. Valid values for this property are `C++ 98`, `C++ 11`, `C++ 14`, `C++ 17`, `C++ 20` and `C++ 23`. If you need to compile generated code with a very old compiler that doesn't even support C++ 98 you can set this preference to `Older than C++ 98`.
 
-It's recommended to set this property to be explicit about what C++ code standard to use. Doing so ensures that the code generator generates C++ that complies with the selected code standard, and that the C++ compiler also will compile it with the same code standard. The C++ language server will also use the same code standard to ensure a correct behavior when editing C++ in the UI.
+It's recommended to set this property to be explicit about what C++ code standard to use. Doing so ensures that the code generator generates C++ that complies with the selected code standard, and that the C++ compiler also will compile it with the same code standard. The C++ language server will also use the same code standard to ensure a correct behavior when working with the generated C++ code in the UI.
 
 If you don't set the [cppCodeStandard](#cppcodestandard) property, generated code will comply with C++ 17. But in that case no code standard flag will be passed to the compiler, and instead the compiler's default code standard will be used. Refer to the documentation of your compiler to know which code standard it uses by default. The same is true for the language server; it will use a default code standard.
 
-Note that even if the TargetRTS can be compiled also with old C++ compilers, some features will not be available for code standards before C++ 11. 
+Note that even if the TargetRTS can be compiled also with old C++ compilers, some features will not be available for code standards older than C++ 11. 
 
 ### eval
 This is a special property that returns a copy of the TC where all properties with implicit default values have been expanded into real values. It's useful when you want to define a TC property value based on the value of another TC property which has a default value.

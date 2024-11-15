@@ -48,6 +48,8 @@ If you don't plan to [debug](debugging.md) the executable you can delete the sec
 
 You should change the `name` attribute to give your launch configurations meaningful names.
 
+You can also change the `tc` attribute. The default value (shown above) will prompt you for which TC to launch. If you always want to launch the same TC replace `${command:AskForTC}` with the file name of that TC.
+
 If needed you can create additional launch configurations either by copy/paste in the `launch.json` file, or by pressing the **Add Configuration...** button. You can also create new launch configurations using the drop down menu in the "Run and Debug" view:
 
 ![](images/create-launch-config.png)
@@ -81,6 +83,8 @@ Below is a table that lists all attributes that can be used in a launch configur
 | [hostname](#hostname) | The machine where the application runs to which the debugger should be attached | No
 | [stopAtEntry](#stopatentry) | Should the debugger pause execution of the launched application? | No
 | [connectTimeout](#connecttimeout) | Time limit for the debugger to establish a connection to the application | No
+| [preLaunchTask](#prelaunchtask) | Name of a task to run before launching the application | No
+| [buildBeforeLaunch](#buildbeforelaunch) | Should the TC be built (if necessary) before it's launched? | No
 
 ### type
 This attribute specifies the type of launch configuration. It is mandatory and is always the string "art". 
@@ -115,6 +119,8 @@ Specifies the command-line arguments for the launched executable. This is a list
 
 Note that the special command-line argument `-URTS_DEBUG`, which tells if the application should run in debug mode or not, is set automatically depending on how you launch the launch configuration (see [Launching a Launch Configuration](#launching-a-launch-configuration)) so you should not include that argument in the [args](#args) attribute.
 
+The [args](#args) attribute is only applicable if the [request](#request) attribute is set to "launch".
+
 ### environment
 Specifies environment variables to be set for the launched executable. This is a list of objects where each object has a property that specifies the name of an environment variable. The environment variable will be set to the value of that property. In the example below the environment variable `LD_LIBRARY_PATH` will be set to `/libs/mylibs` to tell a Linux system where to load shared libraries needed by the application.
 
@@ -128,11 +134,15 @@ Specifies environment variables to be set for the launched executable. This is a
 }
 ```
 
+The [environment](#environment) attribute is only applicable if the [request](#request) attribute is set to "launch".
+
 ### cwd
 By default the launched application runs in the same folder as where the executable is located. By setting this attribute you can change the current working directory to something else. The value of this attribute must be an absolute path, but certain variables can be used. See [this page](https://code.visualstudio.com/docs/editor/variables-reference#_settings-command-variables-and-input-variables) for more information.
 
+The [cwd](#cwd) attribute is only applicable if the [request](#request) attribute is set to "launch".
+
 ### port
-This attribute applies only for launch configurations that are used for [debugging](debugging.md). You can use it for specifying which TCP port to use as the debug port. By default the debug port is 3650. If the specified debug port is not available (for example because another debug session is already using it) then the Art Debugger will automatically increment the port number by one until it finds a port that is available. Up to 100 such attempts to increase the port number are made. If the Art Debugger fails to find a debug port that it can use, the debug session cannot be started. If the default port range 3650-3750 is not available on your machine you can set this attribute, to let the Art Debugger look for a valid debug port in another port range. Once a debug session has been successfully started you can see the debug port that is used in the Art Debug view.
+This attribute applies only for launch configurations that are used for [debugging](debugging.md). You can use it for specifying which TCP port to use as the debug port. By default the debug port is 3650. If the specified debug port is not available (for example because another debug session is already using it) then the Art Debugger will automatically increment the port number by one until it finds a port that is available. Up to 100 such attempts to increase the port number are made. If the Art Debugger fails to find a debug port that it can use, the debug session cannot be started. If the default port range 3650-3749 is not available on your machine you can set this attribute, to let the Art Debugger look for a valid debug port in another port range. Once a debug session has been successfully started you can see the debug port that is used in the Art Debug view.
 
 ![](images/art_debug_view_debug_port.png)
 
@@ -144,3 +154,28 @@ This attribute applies only for launch configurations that are used for [debuggi
 
 ### connectTimeout
 This attribute applies only for launch configurations that are used for [debugging](debugging.md). It specifies the maximum time (in milliseconds) the Art Debugger will wait when it tries to establish a socket connection to the debugged application. It defaults to 10000, i.e. by default the connection can take up to 10 seconds. If a connection has not been established within this time limit, the debug session will not start. This attribute is applicable regardless if the [request](#request) attribute is "launch" or "attach" since in both cases the Art Debugger needs to connect to the application to be debugged.
+
+### preLaunchTask
+This attribute can be set if you want to run a task before launching or attaching to the executable. 
+
+If the [request](#request) attribute is set to "launch" `preLaunchTask` typically specifies a [build task](../building/build-tasks.md) which will build the executable before it's launched. Note, however, that by default the executable will be built before launched (see [buildBeforeLaunch](#buildbeforelaunch)), so you only need to specify a `preLaunchTask` if it should be built in some special way or if more things should happen before the executable is launched. 
+
+If the [request](#request) attribute is set to "attach" `preLaunchTask` could specify a task which uploads the executable to a target machine and starts it with the `-obslisten` flag, so you can debug the executable remotely.
+
+Here is an example which uses the build task defined in [this sample](../building/build-tasks.md#build_task_sample):
+
+``` json
+{
+   "type": "art",
+   "request": "launch",
+   "name": "Build and launch",
+   "tc": "${workspaceFolder}/app.tcjs",
+   "buildBeforeLaunch": false,
+   "preLaunchTask": "Build my app"
+}
+```
+
+You can also reference a built-in [Art Compiler build task](../building/build-tasks.md#art-compiler-build-tasks) as `preLaunchTask`.
+
+### buildBeforeLaunch
+This attribute applies only for launch configurations where the [request](#request) attribute is set to "launch". By default the exeutable will be built before it's launched, but it will only happen if required, i.e. if any change is detected in the source TC or Art files. If a significant change is detected the executable is built in the same way as if you would have performed the **Build** command on the TC. You can set this attribute to `false` if you don't want this to happen. The main reason for doing so is that you want to instead build the executable in some special way, or do more than just building it, and that you therefore have specified the [preLaunchTask](#prelaunchtask) attribute in the launch configuration.
