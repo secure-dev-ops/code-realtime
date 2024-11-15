@@ -151,3 +151,31 @@ When you perform the **Send Event** command on such a port, you will be prompted
 ![](images/port-index.png)
 
 If you don't specify a port index, the event will be sent on all port indices. This is known as **broadcasting** the event.
+
+## Custom Debug Commands
+During a debug session you can use the command **Send to App** (available in the command palette) for sending a custom command to the debugged application. The command is received as a string by the application in the TargetRTS function [`RTToolsetObserver`](../targetrts-api/class_r_t_toolset_observer.html)`::handleSendToApp()`. This is a generic way of interacting with the debugged application during the debug session which can be tailored to your specific needs. Some examples when custom debug commands can be useful to implement:
+
+* Log current memory usage and other interesting run-time statistics about the application
+* Configure parts of the application which are not accessible by means of sending events to capsule ports
+* Log some data from the application
+
+The default implementation of [`RTToolsetObserver`](../targetrts-api/class_r_t_toolset_observer.html)`::handleSendToApp()` contains a few built-in commands (prefixed with `rt`) for logging certain internal data from the TargetRTS. They can serve as examples for how to create your own custom debug commands.
+
+Below is an example of how to implement a debug command `printStats` which prints statistics for one of the [controllers](../targetrts-api/class_r_t_controller.html) in the debugged application:
+
+```cpp
+if (RTMemoryUtil::strcmp(myLogInfo->msgSendToApp, "printStats") == 0)
+{
+    RTController* controller = debugger->getTask(0); // Made getTask() public
+    if (controller == nullptr) {
+        std::cout << "No controllers" << std::endl;
+        sendResultCode( RES_OTHER_ERROR );
+    }
+    else {
+        controller->printStats();
+        sendResultCode( RES_OK );
+    }
+}
+```
+
+![](images/send-to-app.png)
