@@ -5,7 +5,7 @@ There is often a need to build several variants of the same application. For exa
 * Build for multiple target platforms
 * Build a test executable for performing unit testing of a capsule.
 
-A variant of an application may often only use slightly different build settings (for example, setting a compiler flag to include debug symbols), but in some cases the application logic may also be somewhat different (for example, use of some code that is specific to a certain target platform). {$product.name$} provides a powerful mechanism, based on scripting, that allows you to build several variants of an application with minimal effort.
+A variant of an application may often only use slightly different build settings (for example, setting a compiler flag to include debug symbols), but in some cases the application logic may also be somewhat different (for example, use of some code that is specific to a certain target platform). {$product.name$} provides a powerful mechanism, based on scripting, that allows you to build several variants of an application from that same sources with minimal effort.
 
 ## Dynamic Transformation Configurations
 A TC is defined using JavaScript which is interpreted when it is built. This opens up for dynamic TC properties where the value of a property is computed at build-time. For simple cases it may be enough to replace static values for TC properties with JavaScript expressions to be able to build several variants of an application. As an example, assume that you want to either build a release or a debug version of an application. The debug version is obtained by compiling the code with the `$(DEBUG_TAG)` flag. The TC can then for example look like this:
@@ -18,7 +18,7 @@ let isDebug = system.getenv('DEBUG_BUILD');
 tc.compileArguments = isDebug ? '$(DEBUG_TAG)' : '';
 ```
 
-TCs are evaluated using Nashorn which is a JavaScript engine running on the Java Virtual Machine. This is why we can access a Java class such as `java.lang.System` to read the value of an environment variable. With this TC, and the use of an environment variable `DEBUG_BUILD`, we can now build either a release or a debug version of our application depending on if the environment variable is set or not.
+TCs are evaluated using [Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine)) which is a JavaScript engine running on the Java Virtual Machine. This is why we can access a Java class such as `java.lang.System` to read the value of an environment variable. With this TC, and the use of an environment variable `DEBUG_BUILD`, we can now build either a release or a debug version of our application depending on if the environment variable is set or not.
 
 However, defining variants of an application like this can become messy for more complex examples. Setting up several environment variables in a consistent fashion will require effort for everyone that needs to build the application, and perhaps you even need to write a script to manage it. But the biggest problem is that the JavaScript that defines the build variants is embedded into the TC file itself. This makes it impossible to reuse a build variant implementation for multiple TCs. 
 
@@ -120,13 +120,16 @@ function postProcess(topTC, allTCs, targetPlatform) {
 ```
 Also in this function we can use the [`TCF`](#tcf-object) and [`MSG`](#msg-object) objects to access global data and to print messages to the build log. But most importantly, we can directly write the properties of the `topTC` (the TC that is built) and/or `allTCs` (the TC that is built followed by all its prerequisite TCs). 
 
-By modifying the [compileArguments](transformation-configurations.md#compilearguments) TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize *how* the application is built, and also *what* it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.
+By modifying the [compileArguments](transformation-configurations.md#compilearguments) TC property the build variant setting script can set preprocessor macros in order to customize the code that gets compiled. Hence we can both customize *how* the application is built as well as *what* it will do at run-time. This makes Build Variants a very powerful feature for building variants of an application, controlled by a few well-defined high-level build variant settings.
 
 !!! example
-    You can find a sample application that uses build variants [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/build_variants).
+    You can find a sample application that uses a boolean build variant setting [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/build_variants). A bigger sample application with enumerated build variant settings is [here]({$vars.github.repo$}/tree/main/art-samples/DependencyInjection).
 
 ## Build Configuration
-When building a TC that uses build variants you need to provide values for all build variant settings, except those for which you want to use their default values. These values are referred to as a **build configuration**. You can only specify a build configuration when building with the [Art Compiler](art-compiler.md). When building from within the IDE, all build variant settings will get their default values.
+When building a TC that uses build variants you need to provide values for all build variant settings, except those for which you want to use their default values. These values are referred to as a **build configuration**. You can only specify a build configuration when building with the [Art Compiler](art-compiler.md). When you build a TC using the **Build** command in the IDE, all build variant settings will get their default values. However, you can create [build tasks](build-tasks.md) in order to specify a build configuration also when building from the IDE.
+
+!!! example
+    [This sample]({$vars.github.repo$}/tree/main/art-samples/DependencyInjection) has two [build tasks]({$vars.github.repo$}/tree/main/art-samples/DependencyInjection/.vscode/tasks.json) defined for building two variants of the sample application.
 
 Specify the build configuration by means of the [--buildConfig](art-compiler.md#buildconfig) option for the Art Compiler. A boolean build variant setting is set by simply mentioning the name of the setting in the build configuration. To set an enumerated build variant setting use the syntax `setting=value`. Separate different build variant settings by semicolons. For the sample build variants script above, with one boolean and one enumerated build variant setting, a build configuration can look like this:
 

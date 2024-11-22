@@ -40,8 +40,8 @@ These are functions with a certain prototype, each of which performs a specific 
 | copy | `void rtg_MyType_copy(const RTObject_class* type, MyType* target, const MyType* source)` | Copies one instance of the type (source) to another (target)|
 | move | `void rtg_MyType_move(const RTObject_class* type, MyType* target, MyType* source)` | Moves one instance of the type (source) to another (target)|
 | destroy | `void rtg_MyType_destroy(const RTObject_class* type, MyType* target)` | Destroys an instance of the type|
-| encode | `void rtg_MyType_encode(const RTObject_class* type, const MyType* source, RTEncoding* coding)` | Encodes an instance of the type|
-| decode | `void rtg_MyType_decode(const RTObject_class* type, MyType* target, RTDecoding* coding)` | Decodes an instance of the type|
+| encode | `int rtg_MyType_encode(const RTObject_class* type, const MyType* source, RTEncoding* coding)` | Encodes an instance of the type|
+| decode | `int rtg_MyType_decode(const RTObject_class* type, MyType* target, RTDecoding* coding)` | Decodes an instance of the type|
 
 The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes `RTEncoding` and `RTDecoding` from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_ENCODE` and `OBJECT_DECODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
 

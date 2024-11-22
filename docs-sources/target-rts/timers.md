@@ -1,7 +1,7 @@
 Capsules can use timers to get notified when some time has passed. A timer is implemented by means of a port typed by the predefined [`Timing`](../targetrts-api/struct_timing.html) protocol. 
 
 !!! note
-    A timer port should always be a non-service behavior port. This is checked by the validation rule [ART_0035](../../validation#art_0035_timerserviceport).
+    A timer port should always be a non-service behavior port. This is checked by the validation rule [ART_0035](../validation.md#art_0035_timerserviceport).
 
 !!! example
     You can find sample applications that use timers here:

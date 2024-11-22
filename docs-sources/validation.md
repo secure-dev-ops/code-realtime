@@ -59,7 +59,7 @@ You can choose to "fix" most kinds of reported problems by disabling the validat
     In some (unusual) cases a validation rule may report a problem on multiple elements, for example [ART_0002](#art_0002_duplicatenamesinscope) can detect that names of two or more global elements are conflicting. If you perform the Quick Fix for disabling that validation rule, a `rule_config` property will be set on one of the elements, but since the problem relates to multiple elements this will not make the problem go away. You can only turn off such validation rules by disabling them globally.
 
 ## Configuring Validation
-Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](../art-lang#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
+Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](art-lang/index.md#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
 
 * The rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) is disabled
 * The rule [ART_0004_nameShouldStartWithLowerCase](#art_0004_nameshouldstartwithlowercase) has its severity set to Information
@@ -68,7 +68,7 @@ Validation can be configured to change which rules that should run, and what sev
 
 To configure validation rules globally, use the [configuration setting](settings.md#rule-configuration) `code-rt.validation.ruleConfiguration`. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.
 
-To configure validation rules locally, set the property [rule_config](../art-lang#rule_config) on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.
+To configure validation rules locally, set the property [rule_config](art-lang/index.md#rule_config) on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.
 
 ``` art
 capsule customCapsule // no warning even if capsule name is not capitalized
@@ -123,12 +123,12 @@ capsule Exception { // ART_0001 ("Exception" is a name reserved for use by the T
 Names of Art elements must be unique within the same scope. The following is checked:
 
 * Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC or prerequisite TCs). The corresponding C++ elements will have names in the global namespace and must hence be unique.
-* Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see [Protocol and Event](../art-lang#protocol-and-event)).
-* [Parts](../art-lang#part) of a capsule.
-* [Ports](../art-lang#port) of a capsule.
-* [States](../art-lang#state) and pseudo states (collectively referred to as "vertices") of a state machine.
-* [Transitions](../art-lang#transition) of a state machine.
-* Trigger operations of a [class](../art-lang#class-with-state-machine). Note that several trigger operations may have the same name as long as their signatures are unique.
+* Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see [Protocol and Event](art-lang/index.md#protocol-and-event)).
+* [Parts](art-lang/index.md#part) of a capsule.
+* [Ports](art-lang/index.md#port) of a capsule.
+* [States](art-lang/index.md#state) and pseudo states (collectively referred to as "vertices") of a state machine.
+* [Transitions](art-lang/index.md#transition) of a state machine.
+* Trigger operations of a [class](art-lang/index.md#class-with-state-machine). Note that several trigger operations may have the same name as long as their signatures are unique.
 
 All elements with clashing names or signatures will be reported as related elements. Use this to find the element(s) that need to be renamed.
 
@@ -188,10 +188,10 @@ capsule C0002 : D0002 {
 
 Just like in most languages Art has certain conventions on how elements should be named. The following elements should have names that start with an uppercase letter:
 
-* [Capsule](../art-lang#capsule)
-* [Class](../art-lang#class-with-state-machine)
-* [Protocol](../art-lang#protocol-and-event)
-* [State](../art-lang#state)
+* [Capsule](art-lang/index.md#capsule)
+* [Class](art-lang/index.md#class-with-state-machine)
+* [Protocol](art-lang/index.md#protocol-and-event)
+* [State](art-lang/index.md#state)
 
 A Quick Fix is available that will fix the problem by capitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a rename refactoring (context menu command **Rename Symbol**).
 
@@ -213,13 +213,13 @@ In this context an underscore (`_`) is considered a valid upper case character, 
 
 Just like in most languages Art has certain conventions on how elements should be named. The following elements should have names that start with a lowercase letter:
 
-* [Event](../art-lang#protocol-and-event)
-* [Port](../art-lang#port)
-* [Part](../art-lang#part)
-* [Trigger operation](../art-lang#class-with-state-machine)
-* [Choice and junction points](../art-lang#choice-and-junction-points)
-* [Entry and exit points](../art-lang#hierarchical-state-machine)
-* [Transition](../art-lang#transition)
+* [Event](art-lang/index.md#protocol-and-event)
+* [Port](art-lang/index.md#port)
+* [Part](art-lang/index.md#part)
+* [Trigger operation](art-lang/index.md#class-with-state-machine)
+* [Choice and junction points](art-lang/index.md#choice-and-junction)
+* [Entry and exit points](art-lang/index.md#hierarchical-state-machine)
+* [Transition](art-lang/index.md#transition)
 
 A Quick Fix is available that will fix the problem by decapitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a rename refactoring (context menu command **Rename Symbol**).
 
@@ -352,7 +352,7 @@ capsule InitTransCap3 : InitTransCap2 {
 |----------|:-------------|:-------------
 | Error | A non-existing property is set for an element. | Remove Property
 
-Most Art elements have [properties](../art-lang#art_properties) that can be set to change their default values. Different elements have different properties and if you get this error it means you have referenced a non-existing property for an Art element. 
+Most Art elements have [properties](art-lang/index.md#art_properties) that can be set to change their default values. Different elements have different properties and if you get this error it means you have referenced a non-existing property for an Art element. 
 
 A Quick Fix is available for removing the setting of the invalid property. Use Content Assist (++ctrl+space++) to get a list of valid properties for an Art element.
 
@@ -379,7 +379,7 @@ capsule CN
 |----------|:-------------|:-------------
 | Error | A property is set to a value of incorrect type. | N/A
 
-Most Art elements have [properties](../art-lang#art_properties) and every property has a type that is either boolean, integer, string or an enumeration. The type of the value assigned to a property must match the property's type. For example, you cannot assign an integer value to a boolean property. 
+Most Art elements have [properties](art-lang/index.md#art_properties) and every property has a type that is either boolean, integer, string or an enumeration. The type of the value assigned to a property must match the property's type. For example, you cannot assign an integer value to a boolean property. 
 
 ``` art
 capsule IPV_Cap [[rt::properties(
@@ -397,7 +397,7 @@ capsule IPV_Cap [[rt::properties(
 |----------|:-------------|:-------------
 | Warning | A property is set to its default value. | Remove Property
 
-Most Art elements have [properties](../art-lang#art_properties) and every property has a default value. It's unnecessary to explicitly set a property to its default value. 
+Most Art elements have [properties](art-lang/index.md#art_properties) and every property has a default value. It's unnecessary to explicitly set a property to its default value. 
 
 A Quick Fix is available for removing the setting of the property. 
 
@@ -417,7 +417,7 @@ capsule C_PropDefaultValue [[rt::properties(
 |----------|:-------------|:-------------
 | Error | A code snippet is invalid in one way or the other. | Remove Code Snippet
 
-A [code snippet](../art-lang#embedded-c-code)'s kind is specified after the prefix `rt::`. Different Art elements may have different kinds of code snippets. Also, some Art elements may have multiple code snippets of a certain kind, while others only may have one code snippet of each kind. 
+A [code snippet](art-lang/index.md#embedded-c-code)'s kind is specified after the prefix `rt::`. Different Art elements may have different kinds of code snippets. Also, some Art elements may have multiple code snippets of a certain kind, while others only may have one code snippet of each kind. 
 
 A Quick Fix is available for removing the invalid code snippet. 
 
@@ -456,7 +456,7 @@ capsule Name {
 |----------|:-------------|:-------------
 | Error | The part's lower multiplicity must be less than its upper multiplicity. | N/A
 
-If a [part](../art-lang#part) has a multiplicity that specifies a range (i.e. both a lower and upper multiplicity), then the lower multiplicity must be less than the upper multiplicity.
+If a [part](art-lang/index.md#part) has a multiplicity that specifies a range (i.e. both a lower and upper multiplicity), then the lower multiplicity must be less than the upper multiplicity.
 
 ``` art
 capsule PME_Cap {
@@ -474,12 +474,12 @@ capsule PME_Cap {
 |----------|:-------------|:-------------
 | Warning | The part's kind is inconsistent with its multiplicity. | N/A
 
-The multiplicity of a capsule [part](../art-lang#part) must match the part's kind. The following is checked:
+The multiplicity of a capsule [part](art-lang/index.md#part) must match the part's kind. The following is checked:
 
 * A fixed part must have a multiplicity greater than zero. This is because when the container capsule is incarnated at least one capsule instance must be incarnated into the fixed part.
 * An optional part must have a lower multiplicity of zero. This means that when the container capsule is incarnated no capsule instances will be incarnated into the optional part. Hence, this is what makes the part optional.
 
-In case any of these inconsistencies is detected, the faulty multiplicity will be ignored and a default multiplicity (see [Part](../art-lang#part)) will be used instead.
+In case any of these inconsistencies is detected, the faulty multiplicity will be ignored and a default multiplicity (see [Part](art-lang/index.md#part)) will be used instead.
 
 ``` art
 capsule PKMI_Cap { 
@@ -498,7 +498,7 @@ capsule PKMI_Cap {
 |----------|:-------------|:-------------
 | Error | An internal transition is defined outside a state, in the top state machine. | N/A
 
-An [internal transition](../art-lang#internal-transition) specifies events that can be handled while a state machine is in a certain state without leaving that state. Hence it's only possible to define an internal transition inside a state. It does not make sense to define an internal transition directly in the top state machine.
+An [internal transition](art-lang/index.md#internal-transition) specifies events that can be handled while a state machine is in a certain state without leaving that state. Hence it's only possible to define an internal transition inside a state. It does not make sense to define an internal transition directly in the top state machine.
 
 ``` art
 capsule IntTransOutsideState {
@@ -569,10 +569,10 @@ class C4 : C3 { // ART_0016
 |----------|:-------------|:-------------
 | Error | A capsule contains itself through a cycle in the composition hierarchy. | N/A
 
-[Parts](../art-lang#part) of a capsule must form a strict composition hierarchy. At run-time the root of this hierarchy is the top capsule instance, and all other capsule instances in the application must be directly or indirectly owned by that capsule instance. For a fixed part the creation of contained capsule instances happen automatically when the container capsule is incarnated. It's therefore possible to statically analyze the fixed parts and check for cycles in the composition hierarchy.
+[Parts](art-lang/index.md#part) of a capsule must form a strict composition hierarchy. At run-time the root of this hierarchy is the top capsule instance, and all other capsule instances in the application must be directly or indirectly owned by that capsule instance. For a fixed part the creation of contained capsule instances happen automatically when the container capsule is incarnated. It's therefore possible to statically analyze the fixed parts and check for cycles in the composition hierarchy.
 
 !!! note 
-    Only the static type of fixed capsule parts are used when looking for composition cycles. If a part has a [capsule factory](../art-lang#part-with-capsule-factory) that specifies a create function using C++ code, then a different dynamic type may be specified for the created capsule instances for that part. This opens up for more possibilities of introducing cycles in the composition hierarchy that will not be detected by this validation rule.
+    Only the static type of fixed capsule parts are used when looking for composition cycles. If a part has a [capsule factory](art-lang/index.md#part-with-capsule-factory) that specifies a create function using C++ code, then a different dynamic type may be specified for the created capsule instances for that part. This opens up for more possibilities of introducing cycles in the composition hierarchy that will not be detected by this validation rule.
 
 The fixed parts that form the composition cycle will be reported as related elements. Use this to decide how to break the composition cycle.
 
@@ -648,7 +648,7 @@ With state machine inheritance it's possible to introduce transition cycles when
 |----------|:-------------|:-------------
 | Error | An unwired port is declared as being both a subscriber and publisher at the same time. | Make Publisher, Make Subscriber
 
-An [unwired port](../art-lang#unwired-port) can at runtime be connected to another unwired port. One of the connected ports will be a publisher port (a.k.a SPP port) while the other will be a subscriber port (a.k.a SAP port). An unwired port can either be statically declared as being a publisher or subscriber port, or it can be dynamically decided at port registration time if the port should be a publisher or subscriber. The same port can not be both a subscriber and a publisher port at the same time.
+An [unwired port](art-lang/index.md#unwired-port) can at runtime be connected to another unwired port. One of the connected ports will be a publisher port (a.k.a SPP port) while the other will be a subscriber port (a.k.a SAP port). An unwired port can either be statically declared as being a publisher or subscriber port, or it can be dynamically decided at port registration time if the port should be a publisher or subscriber. The same port can not be both a subscriber and a publisher port at the same time.
 
 Two Quick Fixes are available for making the port a publisher or a subscriber port by removing either the `subscribe` or `publish` keyword. 
 
@@ -668,7 +668,7 @@ capsule UnwiredCapsule {
 |----------|:-------------|:-------------
 | Warning | A property that only is applicable for an unwired port is specified for a wired port. | N/A
 
-An [unwired port](../art-lang#unwired-port) may have properties that control how it will be registered at runtime (see [registration](../art-lang#registration) and [registration_name](../art-lang#registration_name)). These properties have no meaning and will be ignored for wired ports. 
+An [unwired port](art-lang/index.md#unwired-port) may have properties that control how it will be registered at runtime (see [registration](art-lang/index.md#registration) and [registration_name](art-lang/index.md#registration_name)). These properties have no meaning and will be ignored for wired ports. 
 
 ``` art
 capsule UnwiredCapsule2 {
@@ -688,7 +688,7 @@ capsule UnwiredCapsule2 {
 |----------|:-------------|:-------------
 | Warning | An unwired port is set to use a registration name that equals the name of the port. | N/A
 
-When an [unwired port](../art-lang#unwired-port) is registered a name is used that by default is the name of the port. The property [registration_name](../art-lang#registration_name) can be used for specifying another name. It's hence unnecessary to use that property for specifying the name of the port, since it is the default name that anyway would be used. 
+When an [unwired port](art-lang/index.md#unwired-port) is registered a name is used that by default is the name of the port. The property [registration_name](art-lang/index.md#registration_name) can be used for specifying another name. It's hence unnecessary to use that property for specifying the name of the port, since it is the default name that anyway would be used. 
 
 ``` art
 capsule UnwiredCapsule3 {
@@ -707,9 +707,9 @@ capsule UnwiredCapsule3 {
 ### ART_0022_ruleConfigProblem
 | Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
-| Warning | The [rule_config](../art-lang#rule_config) property has a malformed value. | N/A
+| Warning | The [rule_config](art-lang/index.md#rule_config) property has a malformed value. | N/A
 
-The [rule_config](../art-lang#rule_config) property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the [rule_config](../art-lang#rule_config) property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See [Configuring Validation](#configuring-validation) for more information and examples.
+The [rule_config](art-lang/index.md#rule_config) property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the [rule_config](art-lang/index.md#rule_config) property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See [Configuring Validation](#configuring-validation) for more information and examples.
 
 ``` art
 capsule RCP [[rt::properties(
@@ -752,7 +752,7 @@ capsule CX {
 |----------|:-------------|:-------------
 | Error | An unwired port is not defined as a behavior port. | Make Behavior Port, Make Wired Port
 
-An [unwired port](../art-lang#unwired-port) cannot be connected to another port by means of a [connector](../art-lang#connector). Hence, it's required that an unwired port is defined to be a behavior port. Otherwise it would not be possible for the owner capsule to send and receive events on an unwired port.
+An [unwired port](art-lang/index.md#unwired-port) cannot be connected to another port by means of a [connector](art-lang/index.md#connector). Hence, it's required that an unwired port is defined to be a behavior port. Otherwise it would not be possible for the owner capsule to send and receive events on an unwired port.
 
 ``` art
 capsule Pinger {
@@ -772,7 +772,7 @@ Two Quick Fixes are available for fixing this problem. Either the port can be tu
 |----------|:-------------|:-------------
 | Error | A wired port is not properly connected, or an unwired port is connected. | N/A
 
-An [unwired port](../art-lang#unwired-port) must not be connected to another port by means of a [connector](../art-lang#connector). Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.
+An [unwired port](art-lang/index.md#unwired-port) must not be connected to another port by means of a [connector](art-lang/index.md#connector). Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.
 
 A wired port, however, should be connected. A service port that is not a behavior port should be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".
 
@@ -856,7 +856,7 @@ capsule Inner {
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible conjugations. | N/A
 
-Ports connected by a [connector](../art-lang#connector) must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have opposite conjugations. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
+Ports connected by a [connector](art-lang/index.md#connector) must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have opposite conjugations. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.
 
 ``` art
 capsule Top {    
@@ -907,7 +907,7 @@ Here we see that both connectors are invalid. Port `p2` and port `p1` are at the
 |----------|:-------------|:-------------
 | Error | A connector connects two ports with incompatible protocols. | N/A
 
-Ports connected by a [connector](../art-lang#connector) must have compatible protocols. For {$product.name$} this means that the protocols must be the same.
+Ports connected by a [connector](art-lang/index.md#connector) must have compatible protocols. For {$product.name$} this means that the protocols must be the same.
 
 !!! note 
     {$rtist.name$} uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in {$rtist.name$} the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended to use, and hence not supported by {$product.name$}.
@@ -948,7 +948,7 @@ capsule Top {
 |----------|:-------------|:-------------
 | Error | An unwired port is registered automatically but is neither specified as a publisher or subscriber. | Make Publisher, Make Subscriber
 
-An [unwired port](../art-lang#unwired-port) is either a publisher (SPP) or subscriber (SAP) at run-time. Unless the port has the [registration](../art-lang#registration) property set to `application` it will be registered automatically when the container capsule instance gets created. Hence it's necessary in this case to declare the port either as a publisher or subscriber.
+An [unwired port](art-lang/index.md#unwired-port) is either a publisher (SPP) or subscriber (SAP) at run-time. Unless the port has the [registration](art-lang/index.md#registration) property set to `application` it will be registered automatically when the container capsule instance gets created. Hence it's necessary in this case to declare the port either as a publisher or subscriber.
 
 ``` art
 capsule CCXX {
@@ -974,7 +974,7 @@ Two Quick Fixes are available for fixing this problem. Either the port can be de
 |----------|:-------------|:-------------
 | Warning | A composite state is entered without using an entry point. | N/A
 
-If a composite state is entered without using an entry point, the behavior may be different the first time the state is entered compared to subsequent times it's entered. The first time the initial transition of the composite state will execute, while after that it will be entered using [deep history](../art-lang#deep-history) (i.e. directly activate the substate that was previously active in the composite state). This difference in behavior is not evident just by looking at the state diagram, and can therefore be surprising and cause bugs. It's therefore recommended to always enter a composite state using an entry point. See [Hierarchical Statemachines](../art-lang#hierarchical-state-machine) for more information.
+If a composite state is entered without using an entry point, the behavior may be different the first time the state is entered compared to subsequent times it's entered. The first time the initial transition of the composite state will execute, while after that it will be entered using [deep history](art-lang/index.md#deep-history) (i.e. directly activate the substate that was previously active in the composite state). This difference in behavior is not evident just by looking at the state diagram, and can therefore be surprising and cause bugs. It's therefore recommended to always enter a composite state using an entry point. See [Hierarchical Statemachines](art-lang/index.md#hierarchical-state-machine) for more information.
 
 ``` art
 capsule Cap {
@@ -1013,7 +1013,7 @@ capsule Cap {
 |----------|:-------------|:-------------
 | Error | A port is both a non-service and a non-behavior port at the same time. | Make Behavior Port, Make Service Port
 
-A [port](../art-lang#port) that is not a service port is internal to a capsule. For such a port to be useful it must be a behavior port; otherwise the capsule cannot send and receive events on the port. Hence, a non-service port cannot at the same time be a non-behavior port.
+A [port](art-lang/index.md#port) that is not a service port is internal to a capsule. For such a port to be useful it must be a behavior port; otherwise the capsule cannot send and receive events on the port. Hence, a non-service port cannot at the same time be a non-behavior port.
 
 Quick Fixes are available for either declaring the port as a behavior or service port.
 
@@ -1033,7 +1033,7 @@ capsule C31 {
 |----------|:-------------|:-------------
 | Warning | A color is specified for an element but the color was not recognized. | N/A
 
-A [color](../art-lang#color) can be assigned to most elements and will be used when showing the element on a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. In case the color value is on another format it will not be recognized and will be ignored when rendering the diagram.
+A [color](art-lang/index.md#color) can be assigned to most elements and will be used when showing the element on a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. In case the color value is on another format it will not be recognized and will be ignored when rendering the diagram.
 
 ``` art
 capsule C32 {
@@ -1052,7 +1052,7 @@ capsule C32 {
 |----------|:-------------|:-------------
 | Error | A connector connects a port on a part but the port is not a service port. | N/A
 
-A [port](../art-lang#port) is only visible from the outside of a capsule if it is a service port. Hence, a connector cannot connect a port on a part unless the port is a service port.
+A [port](art-lang/index.md#port) is only visible from the outside of a capsule if it is a service port. Hence, a connector cannot connect a port on a part unless the port is a service port.
 
 ``` art
 capsule C33 {
@@ -1087,7 +1087,7 @@ The solution here is to either make `bp2` a service port, or to create another s
 |----------|:-------------|:-------------
 | Warning | A service port is typed by a protocol that doesn't have any events. | N/A
 
-A service [port](../art-lang#port) is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a [notifying port](art-lang/index.md#notifying-port) which receives the `rtBound` and `rtUnbound` events when the port gets connected or disconnected to another port at runtime. This means that a notifying port can be useful even if its protocol doesn't contain any events.
+A service [port](art-lang/index.md#port) is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a [notifying port](art-lang/index.md#notifying-port) which receives the `rtBound` and `rtUnbound` events when the port gets connected or disconnected to another port at runtime. This means that a notifying port can be useful even if its protocol doesn't contain any events.
 
 ``` art
 protocol EmptyProtocol {
@@ -1108,7 +1108,7 @@ capsule C34 {
 |----------|:-------------|:-------------
 | Warning | A timer port is a declared to be a service port. | Make Non-Service Behavior Port
 
-A timer [port](../art-lang#port) is typed by the predefined [Timing](targetrts-api/struct_timing.html) protocol. It has one event `timeout` which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the `timeout` event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.
+A timer [port](art-lang/index.md#port) is typed by the predefined [Timing](targetrts-api/struct_timing.html) protocol. It has one event `timeout` which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the `timeout` event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.
 
 A Quick Fix is available that will remove the `service` keyword for the port and if necessary also add the `behavior` keyword.
 
@@ -1128,9 +1128,9 @@ capsule C35 {
 |----------|:-------------|:-------------
 | Error | A transition that originates from a pseudo state must not have triggers, but still has at least one. | Remove Triggers
 
-A [transition](../art-lang#transition) can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a [choice or junction](../art-lang#choice-and-junction)) must therefore not have any triggers. 
+A [transition](art-lang/index.md#transition) can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a [choice or junction](art-lang/index.md#choice-and-junction)) must therefore not have any triggers. 
 
-Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this [here](../art-lang#entry-and-exit-point-without-incoming-transition).
+Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this [here](art-lang/index.md#entry-and-exit-point-without-incoming-transition).
 
 A Quick Fix is available that will remove the triggers of the transition (hence converting it from a triggered to a non-triggered transition).
 
@@ -1188,7 +1188,7 @@ capsule D2 : B2 {
 |----------|:-------------|:-------------
 | Error | A transition that originates from a state must have at least one trigger, but has none. | N/A
 
-A [transition](../art-lang#transition) that originates from a [state](../art-lang#state) is only meaningful if it specifies as least one trigger. Otherwise the transition cannot be triggered and would be useless. As mentioned in [this chapter](../art-lang#entry-and-exit-point-without-incoming-transition) an entry or exit point without incoming transition represents the state that owns the entry or exit point. A transition that originates from such an entry or exit point must therefore have a trigger.
+A [transition](art-lang/index.md#transition) that originates from a [state](art-lang/index.md#state) is only meaningful if it specifies as least one trigger. Otherwise the transition cannot be triggered and would be useless. As mentioned in [this chapter](art-lang/index.md#entry-and-exit-point-without-incoming-transition) an entry or exit point without incoming transition represents the state that owns the entry or exit point. A transition that originates from such an entry or exit point must therefore have a trigger.
 
 ``` art
 capsule C37 {
@@ -1477,7 +1477,7 @@ TC files are validated to detect problems related to TC properties. The rules th
 |----------|:-------------|:-------------
 | Error | A TC property has the wrong type of value. | N/A
 
-Each TC property has a type as shown in [this table](../building/transformation-configurations/#properties). The value provided for a TC property must have the expected type. Here are some examples where TC property values have types that don't match the types of these TC properties:
+Each TC property has a type as shown in [this table](building/transformation-configurations.md#properties). The value provided for a TC property must have the expected type. Here are some examples where TC property values have types that don't match the types of these TC properties:
 
 ``` js
 tc.copyrightText = true; // TC_7000 (expects a string, and not a boolean)
@@ -1690,7 +1690,7 @@ tc.threads = [
 |----------|:-------------|:-------------
 | Error | A logical thread in a library TC is not mapped to a physical thread. | N/A
 
-A library TC uses the [`threads`](building/transformation-configurations.md#threads) property for specifying logical threads. When an executable TC uses a library TC as its prerequisite, all logical threads of the library must be mapped to physical threads. Read more about library threads [here](../target-rts/threads/#library-threads).
+A library TC uses the [`threads`](building/transformation-configurations.md#threads) property for specifying logical threads. When an executable TC uses a library TC as its prerequisite, all logical threads of the library must be mapped to physical threads. Read more about library threads [here](target-rts/threads.md#library-threads).
 
 ``` js
 // In a library TC lic.tcjs:
@@ -1792,12 +1792,12 @@ capsule C {
 ```
 
 ## Internal Errors
-A special validation rule is used for detecting and reporting so called internal errors. These are errors that should never occur, but if they still do they are caused by a defect in {$product.name$}. If you encounter an internal error please report it as described [here](../support).
+A special validation rule is used for detecting and reporting so called internal errors. These are errors that should never occur, but if they still do they are caused by a defect in {$product.name$}. If you encounter an internal error please report it as described [here](support.md).
 
 ### ART_9999_internalError
 | Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | An internal error has occurred. | N/A
 
-Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating {$product.name$}. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of {$product.name$} (see [Releases](../releases)). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described [here](../support).
+Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating {$product.name$}. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of {$product.name$} (see [Releases](releases/index.md)). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described [here](support.md).
 

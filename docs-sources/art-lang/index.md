@@ -1,12 +1,12 @@
 Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another when received. 
 
-The Art language provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
+The Art language provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts/index.md)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
 
 ![](images/TargetRTS.png)
 
 Art is well suited for describing both the behavior and structure of a realtime application, but it uses C++ as expression and action language. C++ is also used for declaring types, variables, functions etc. As a rule of thumb, Art uses C++ for everything where C++ is a good fit, and only provides new language concepts where no appropriate constructs exist in C++. This means that if you already know C++, you can quickly learn Art too, and existing C++ code you have already written can be used in your Art application.
 
-Note that the translation of Art to C++ also involves analysis of the C++ code that is present in the Art files. The code generator supports certain [C++ extensions](../art-lang/cpp-extensions/) in such embedded C++ code and will "expand" them to C++ code as part of code generation for an Art file.
+Note that the translation of Art to C++ also involves analysis of the C++ code that is present in the Art files. The code generator supports certain [C++ extensions](../art-lang/cpp-extensions.md) in such embedded C++ code and will "expand" them to C++ code as part of code generation for an Art file.
 
 ## Concepts and Terminology
 In Art the concept of a **capsule** is central. A capsule is like a C++ class, but with a few differences and extensions. A C++ class is **passive** in the sense that a caller can access its public member functions and variables at any time. Hence a C++ object always executes in the context of the caller, and when a member function is called, the caller is blocked until the function call returns. A capsule, however, is **active** and has its own execution context. This means that we never call a capsule member function or access a capsule member variable from outside the capsule itself. Instead we communicate with the capsule by sending **events** to it. Each capsule instance has a queue of events it has received and those events will be dispatched to the capsule instance one by one. The sender of the event is not blocked, as the event will be handled by the capsule instance asynchronously when it is later dispatched.
@@ -191,7 +191,7 @@ Folders with Art files should be added as workspace folders, either using the co
 !!! note 
     Art files must be on the top level in a workspace folder. Do not place them in subfolders. 
 
-When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder. If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active [transformation configuration](../building/transformation-configurations/) (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched. The search continues recursively if the prerequisite TC itself has prerequisites.
+When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder. If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active [transformation configuration](../building/transformation-configurations.md) (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched. The search continues recursively if the prerequisite TC itself has prerequisites.
 
 If a matching Art element cannot be found in any of these locations the reference will be unresolved and an error will be reported. For example:
 
@@ -199,7 +199,7 @@ If a matching Art element cannot be found in any of these locations the referenc
 Couldn't resolve reference to Protocol 'UnknownPort'. (ART_9001_unresolvedReference)
 ```
 
-For more information about unresolved references, see [this validation rule](../validation/#art_9001_unresolvedreference).
+For more information about unresolved references, see [this validation rule](../validation.md#art_9001_unresolvedreference).
 
 ## Textual and Graphical Notations
 The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.
@@ -1325,7 +1325,7 @@ The rule that a capsule state machine must have exactly one initial transition a
     * [Redefining a transition guard]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_guard_redefinition)
     * [Excluding a transition]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_guard_exclude)
 
-Capsule inheritance also has a third dimension, which relates to its structure. [Parts](#part) and [ports](#port) defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. [protocol](#protocol-and-event)), [multiplicity](#port-multiplicity) and the [notification property](#notification-port) of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. 
+Capsule inheritance also has a third dimension, which relates to its structure. [Parts](#part) and [ports](#port) defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. [protocol](#protocol-and-event)), [multiplicity](#port-multiplicity) and the [notification property](#notifying-port) of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. 
 
 Below is an example of a capsule `DPPI` that inherits from another capsule `BPPI`. The port `port1` and the part `part1` is redefined, while the port `port2` and part `part2` are excluded.
 
@@ -1604,7 +1604,7 @@ By default a [capsule](#capsule) is translated to one header file (`.h`) and one
 By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
 
 ### rule_config
-This property is used for configuring validation rules for an Art element. Read more about this [here](../validation#configuring-validation).
+This property is used for configuring validation rules for an Art element. Read more about this [here](../validation.md#configuring-validation).
 
 ### version
 Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).

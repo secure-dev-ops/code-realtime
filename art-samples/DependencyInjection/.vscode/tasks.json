@@ -1,0 +1,43 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+        {
+            "label": "Buildvariant: Pinger = Fast; Logger = With timestamps",
+            "command": "java",
+            "type": "shell",
+            "options": {},
+            "args": [
+                "-jar",
+                "${command:code-rt.getCodeRTHome}/bin/artcompiler.jar",
+                "--buildVariants",
+                "build_variants.js",
+                "--buildConfig=\"\"Pinger = Fast; Logger = With timestamps\"\"",
+                "--tc",
+                "top.tcjs"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Buildvariant: Pinger = Slow; Logger = Without timestamps",
+            "command": "java",
+            "type": "shell",
+            "options": {},
+            "args": [
+                "-jar",
+                "${command:code-rt.getCodeRTHome}/bin/artcompiler.jar",
+                "--buildVariants",
+                "build_variants.js",
+                "--buildConfig=\"\"Pinger = Slow; Logger = Without timestamps\"\"",
+                "--tc",
+                "top.tcjs"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "tcBuild",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "art: Build top.tcjs"
+        }
+    ]
+}

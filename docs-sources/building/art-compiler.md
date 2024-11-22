@@ -76,7 +76,7 @@ Use this option to print information about the [version](#version) and all avail
 Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built [TC](#tc). It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as [targetFolder](transformation-configurations.md#targetfolder) in TCs will be resolved against the specified `--out` folder.
 
 ### ruleConfig
-Specifies which validation rules that should be enabled, and what severity the problems they find should have. Rules are configured using the same syntax as is used for the [`rule_config`](../../art-lang#rule_config) property in an Art file. For example:
+Specifies which validation rules that should be enabled, and what severity the problems they find should have. Rules are configured using the same syntax as is used for the [`rule_config`](../art-lang/index.md#rule_config) property in an Art file. For example:
 
 ```
 --ruleConfig "W0009,X7001"
