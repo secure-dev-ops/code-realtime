@@ -1,0 +1,44 @@
+
+class MyClass {
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        public:
+            MyClass();
+        public:
+            int S2_entry_count = 0;
+            int Inner_entry_count = 0;
+    `
+    [[rt::impl]]
+    `
+        MyClass::MyClass() {
+            rtg_init1();
+        }
+    `
+
+    /* Trigger Operations */
+    trigger op();
+    /* State Machine */
+    statemachine {
+        state S1;
+        state S2 {
+             entry
+            `
+                S2_entry_count++;
+            `;
+             state Inner {
+                entry
+                `   
+                    Inner_entry_count++;
+                `;
+            };
+            s2_initial_inner: initial -> Inner;
+            s2_a_inner_history: Inner -> history on op();
+        };        
+        _init_s1: initial -> S1;
+        _s1_s2:[[rt::properties(rule_config="X0029")]] S1 -> S2 on op();
+    };
+};

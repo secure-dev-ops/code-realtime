@@ -1,0 +1,57 @@
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "MyClass.h"
+        #include "MyClass2.h"
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            MyClass _myClass;
+    `
+    behavior port t : Timing;
+    statemachine {
+        state State1;
+        initial -> State1
+        `   
+            ASSERT(_myClass.S2_entry_count == 0, "Expected S2_entry_count as 0");
+            ASSERT(_myClass.Inner_entry_count == 0, "Expected Inner_entry_count as 0");
+            ASSERT(_myClass.State_A_entry_count == 0, "Expected State_A_entry_count as 0");
+            ASSERT(_myClass.State_B_entry_count == 0, "Expected State_B_entry_count as 0");
+            _myClass.op();
+            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
+            ASSERT(_myClass.Inner_entry_count == 1, "Expected Inner_entry_count as 1");
+            ASSERT(_myClass.State_A_entry_count == 0, "Expected State_A_entry_count as 0");
+            ASSERT(_myClass.State_B_entry_count == 0, "Expected State_B_entry_count as 0");
+            _myClass.opS2Entry();
+            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
+            ASSERT(_myClass.Inner_entry_count == 2, "Expected Inner_entry_count as 2");
+            ASSERT(_myClass.State_A_entry_count == 0, "Expected State_A_entry_count as 0");
+            ASSERT(_myClass.State_B_entry_count == 0, "Expected State_B_entry_count as 0");
+            _myClass.opInternal(1);
+            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
+            ASSERT(_myClass.Inner_entry_count == 2, "Expected Inner_entry_count as 2");
+            ASSERT(_myClass.State_A_entry_count == 1, "Expected State_A_entry_count as 1");
+            ASSERT(_myClass.State_B_entry_count == 0, "Expected State_B_entry_count as 0");
+            _myClass.opS2Entry();
+            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
+            ASSERT(_myClass.Inner_entry_count == 2, "Expected Inner_entry_count as 2");
+            ASSERT(_myClass.State_A_entry_count == 2, "Expected State_A_entry_count as 2");
+            ASSERT(_myClass.State_B_entry_count == 0, "Expected State_B_entry_count as 0");
+            _myClass.opInternal(2);
+            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
+            ASSERT(_myClass.Inner_entry_count == 2, "Expected Inner_entry_count as 2");
+            ASSERT(_myClass.State_A_entry_count == 2, "Expected State_A_entry_count as 2");
+            ASSERT(_myClass.State_B_entry_count == 1, "Expected State_B_entry_count as 1");
+            _myClass.opS2Entry();
+            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
+            ASSERT(_myClass.Inner_entry_count == 2, "Expected Inner_entry_count as 2");
+            ASSERT(_myClass.State_A_entry_count == 2, "Expected State_A_entry_count as 2");
+            ASSERT(_myClass.State_B_entry_count == 2, "Expected State_B_entry_count as 2");
+            PASS();
+        `;
+    };
+};
