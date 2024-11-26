@@ -1,9 +1,5 @@
 
 class MyClass {
-    [[rt::header_preface]]
-    `
-        #include <iostream>
-    `
     [[rt::decl]]
     `
         public:
@@ -31,37 +27,28 @@ class MyClass {
             entry
             `
                 S2_entry_count++;
-                std::cout << "S2 entry " << S2_entry_count << std::endl;
             `;
             state TopInner {
                 entrypoint enp;
-                entry
-                `                      
-                    std::cout << "TopInner entry " << Inner_entry_count << std::endl;
-                `;
                 state Inner {
                     entry
                     `                      
                     Inner_entry_count++;
-                    std::cout << "Inner entry " << Inner_entry_count << std::endl;
                 `;
                 };
                 state A {
                     entry
                     `   
                     State_A_entry_count++;
-                    std::cout << "A entry " << State_A_entry_count << std::endl;
                 `;
                 }, B {
                     entry
                     `   
                     State_B_entry_count++;
-                    std::cout << "B entry " << State_B_entry_count << std::endl;
                 `;
                 }, C {
                     entry
                     `   
-                    std::cout << "C entry"  << std::endl;
                 `;
                 };
                 initial -> Inner;
@@ -74,10 +61,7 @@ class MyClass {
                 rule_config = "X0029"
             )]]
             initial -> TopInner;
-            opS2Entry: TopInner -> TopInner.enp on opS2Entry()
-            `
-                std::cout << "S2 self transition" << std::endl;
-            `;
+            opS2Entry: TopInner -> TopInner.enp on opS2Entry();
         };
         initial -> S1;
         op:

@@ -4,7 +4,6 @@ capsule Top {
     `
         #include "testlib.art.h"
         #include "MyClass.h"
-        #include "MyClass2.h"
         #include <iostream>
     `
     [[rt::decl]]
