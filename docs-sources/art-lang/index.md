@@ -569,7 +569,7 @@ registration_name = "myService")
 Note that the keyword `unwired` can be implicit when you declare a port as either a `subscribe` or `publish` port.
 
 !!! example
-    You can find a sample application that uses an unwired port [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/unwired_port).
+    You can find sample applications that use unwired ports [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/unwired_port) and [here]({$vars.github.repo$}/tree/main/art-samples/MatMult).
 
 
 ## Connector
@@ -1239,6 +1239,9 @@ class MyClass {
 };
 ```
 ![](images/shallow_history.png)
+
+!!! example
+    You can find a sample application that uses shallow history [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_shallow_history_1).
 
 ## Inheritance
 By using inheritance you can reuse and customize generic (**base**) Art elements into more specific (**derived**) Art elements. An Art element can inherit either from one or several other Art elements, and/or it can inherit from one or several C++ classes. The derived Art element can **redefine** elements of the base element. The redefining element (located in the derived element) can change one or several properties of the redefined element (located in the base element). This is very similar to how inheritance works in C++, with the difference that in C++ a redefining element has more restrictions on what properties that can be changed in the redefined element. For example, a redefining member function (known as an overridden member function in C++ terminology) must keep the same signature as the redefined member function (known as a virtual base member function in C++ terminology), and can only (in fact, must) change its implementation.

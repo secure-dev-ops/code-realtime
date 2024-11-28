@@ -112,6 +112,15 @@ Note that capsule instances can reside at any index that is valid according to t
 
 Also note that the capsule that is shown within square brackets for a capsule instance is its runtime type, which can be different from the part's type, but must be compatible with it. In the example above the capsule instance at index 4 has the type `Csub` while other instances have the type `C`. This can for example mean that the part `c2` is typed by the capsule `C` and that `Csub` is a capsule that inherits from `C`.
 
+### Active State
+For each capsule instance shown in the Art Debug view you can see which state of its state machine that is currently active. This information appears in highlighted text as shown in the image below:
+
+![](images/active_state.png)
+
+By default the simple (i.e. unqualified) name of the active state is shown. If you have hierarchical state machines, where different sub states have the same name, you can click the **Active State** toolbar button and select **Show active state qualified name**. From there you can also turn off the display of active states.
+
+![](images/show_active_state_menu.png)
+
 ## Send Event
 You can send an event by clicking the **Send Event** arrow that appears when you hover the mouse over a port in the Art Debug view.
 

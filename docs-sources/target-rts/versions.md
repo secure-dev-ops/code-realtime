@@ -36,6 +36,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8005 | [New free list macros](#new-free-list-macros) |
 | 8006 | [Static analysis warning reductions](#static-analysis-warning-reductions) <br> [New debugger API "getChildren"](#new-debugger-api-getchildren) |
 | 8007 | [Handle type names containing spaces in encoding/decoding](#handle-type-names-containing-spaces-in-encodingdecoding) |
+| 8008 | [Extend debugger API "getChildren" to obtain active state](#extend-debugger-api-getchildren-to-obtain-active-state) <br> [Long double](#long-double) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -87,3 +88,9 @@ A new debugger API for getting a JSON representation of the runtime structure of
 
 ### Handle type names containing spaces in encoding/decoding
 Type descriptor names for primitive types that contain spaces have been changed to use an underscore (`_`) instead of a space. This affects how values of such types are encoded/decoded. For example the value `4` of type `unsigned long` will now be encoded as `unsigned_long 4`. This change was done since during decoding a space is used for separating the type name from the value. Previously it was therefore not possible, while debugging, to send events with a data parameter typed by such types, but after this change it now works. Note that if your application somehow relies on the specific encoded format for values of types with a space in their names, it must be updated to accomodate for this change. 
+
+### Extend debugger API "getChildren" to obtain active state
+The debugger API "getChildren" now includes information about the state that is initially active for each capsule instance. 
+
+### Long double
+The TargetRTS now supports `long double` as other predefined C++ types. The Log port API was extended to allow logging long double data, and it is also supported in encoding/decoding.

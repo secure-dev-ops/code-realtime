@@ -57,10 +57,25 @@ myPort.myEvent().recallAll(); // Recall all deferred messages and put them at th
 
 `recall()` will recall the first message from the defer queue, i.e. the one that has been deferred the longest. However, only messages that match the port and event (`myPort` and `myEvent` in the above sample) can be recalled. Other messages remain in the defer queue. This is true even when calling `recallAll()`. You can be even more specific about which message(s) to recall by specifying a port index using the function `recallAt()` or `recallAllAt()`. In that case it's required that a recalled message was originally received on the specified port index for it to be recalled.
 
-Sometimes you may have deferred a message that you later decide to ignore. For example, the capsule may have received another message which makes it unnecessary to handle a deferred message. In that case you can remove a deferred message from the defer queue without recalling it. Call the function [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`purge()` to remove all deferred messages that match the port and event, or [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`purgeAt()` to also require that the port index matches.
+If you want to recall any deferred message received on a port, regardless of its event, you can call similar functions on the port. For example:
+
+```cpp
+myPort.recall(); // Recall one deferred message and put it at the back of the normal message queue
+
+myPort.recallFront(); // As above but put the recalled message at the front of the message queue instead
+
+myPort.recallAll(); // Recall all deferred messages and put them at the back of the normal message queue
+
+myPort.recallAllFront(); // As above but put all recalled messages at the front of the message queue instead
+```
+
+Sometimes you may have deferred a message that you later decide to ignore. For example, the capsule may have received another message which makes it unnecessary to handle a deferred message. In that case you can remove a deferred message from the defer queue without recalling it. Call the function [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`purge()` to remove all deferred messages that match the port and event, or [RTInSignal](../targetrts-api/struct_r_t_in_signal.html)::`purgeAt()` to also require that the port index matches. To remove deferred messages that match the port only (regardless of event), call instead [RTProtocol](../targetrts-api/class_r_t_protocol.html)::`purge()` or [RTProtocol](../targetrts-api/class_r_t_protocol.html)::`purgeAt()`.
 
 !!! note
     It's recommended to use the defer queue sparingly, and only when really needed. Deferring and recalling messages can make it harder to follow the application logic. Also make sure not to forget any messages in the defer queue. All messages that are deferred should sooner or later be recalled or purged.
+
+!!! example
+    You can find a sample application that uses the defer queue [here]({$vars.github.repo$}/tree/main/art-samples/MatMult).
 
 #### sendCopyToMe()
 A simpler and more light-weight alternative to using the defer queue, especially for messages without data, is to defer the handling of a received message by letting a capsule instance send a copy of the received message to itself. This allows a capsule to break down the handling of a message into several transitions, each triggered by another copy of the message. The function to call is [RTActor](../targetrts-api/class_r_t_actor.html)::`sendCopyToMe()`. Here is an example where this technique is used for deferring the reply message of an invoked event:

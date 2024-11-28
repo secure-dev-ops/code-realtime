@@ -53,6 +53,13 @@ A "guess-the-secret-number" game which illustrates the use of plugin capsule par
 
 **TargetRTS:** [Frame](targetrts-api/class_frame_1_1_base.html)::import(), [Frame](targetrts-api/class_frame_1_1_base.html)::deport()
 
+## [MatMult]({$vars.github.repo$}/tree/main/art-samples/MatMult)
+An application for multiplying matrices using [Cannon's algorithm](https://en.wikipedia.org/wiki/Cannon%27s_algorithm). It uses unwired ports and [message deferral](target-rts/message-communication.md#defer-queue).
+
+**Art:** [unwired port](art-lang/index.md#unwired-port)
+
+**TargetRTS:** [RTMessage](targetrts-api/class_r_t_message.html)::defer(), [RTProtocol](targetrts-api/class_r_t_protocol.html)::recallFront()
+
 ## [DependencyInjection]({$vars.github.repo$}/tree/main/art-samples/DependencyInjection)
 This sample shows how to use [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) to customize capsule incarnation. Build variants are used for configuring how to customize the dependency injection, which will influence on how the application behaves.
 
