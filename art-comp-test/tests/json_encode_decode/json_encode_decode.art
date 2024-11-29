@@ -19,6 +19,7 @@
         double c;
         float d;
         signed long e;
+        long double f;
         Nested nested;
         Col en = Green;
         RTString str;        
@@ -61,6 +62,7 @@ capsule Top {
             data.c = 14141414;
             data.d = 2.78;
             data.e = -14;
+            data.f = 3.14159265358979323846;
 
             data.address = &data;
 
@@ -118,6 +120,7 @@ capsule Top {
             ASSERT(decodedData2->c == data.c, "Data.c has wrong value");
             ASSERT(decodedData2->d == data.d, "Data.d has wrong value");
             ASSERT(decodedData2->e == data.e, "Data.e has wrong value");
+            ASSERT(decodedData2->f == data.f, "Data.f has wrong value");
 
             ASSERT(decodedData2->nested.n1 == data.nested.n1, "Data.nested.n1 has wrong value");
             
