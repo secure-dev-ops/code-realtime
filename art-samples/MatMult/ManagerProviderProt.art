@@ -1,0 +1,11 @@
+protocol ManagerProviderProt {
+    [[rt::header_preface]]
+    `
+        #include "Dims.art.h"
+    `
+    /* In Events */
+    /* Out Events */
+    out matrixValue(`int`);
+    out dimensions(`Dims`);
+};
+

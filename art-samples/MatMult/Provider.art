@@ -1,0 +1,157 @@
+capsule Provider {
+    [[rt::impl_preface]]
+    `
+        #include<string.h>
+        #include<iostream>
+    `
+    [[rt::decl]]
+    `
+        int Pid2PortIndex[64] = {-1};
+        int procCount = 0;
+        int pidCount = 0;
+        int numRowsOfA = -1;
+        int numColsOfA = 0;
+        bool providesB = false;
+        const char* myName;
+        int valCount = 0;
+    `
+    /* Ports */
+    behavior service unwired port procP [[rt::properties(
+        registration=application
+    )]]: ProcessorProt[64]; 
+
+    behavior port logP: Log;
+    behavior port timingP: Timing;
+
+    behavior port tickInP~: TickProt;
+    behavior port tickOutP: TickProt;
+    behavior service port managerP~: ManagerProviderProt;
+
+    /* Parts */
+    /* Connectors */
+    connect tickInP with tickOutP;
+    
+    /* State Machine */
+    statemachine {
+        state WaitForDimensions {
+            entry
+            `
+                std::cout << "[" << myName << "] wait for dimensions" << std::endl;
+            `;
+        }, 
+        ConnectWithProcessors {
+            entry
+            `
+                /* Setup dynamic connections between 'procP' port of providers and either 'left' or 'up' port on processors.
+                * - Provider of matrix A (i.e., the first matrix) will be connected to the 'left' port of the left boundary processors,
+                *   i.e., the left most column of processors (e.g., for numRowsOfA=numColsOfA=3, to processors with pids 0, 3, and 6).
+                * - Provider of matrix B (i.e., the second matrix) will be connected to the 'up' port of the top boundary processors,
+                *   i.e., the top most row of processors (e.g., for numRowsOfA=numColsOfA=3, to processors with pids 0, 1, and 2).
+                * Allows both providers to exchange the messages in the protocol 'ManagerProcessorProt' with the processors.
+                */
+                if (!providesB) {
+                    // This provider needs to provide the matrix A to the left boundary processors.
+                    // Topic 'ProviderForA_Processor' is used for that.
+                    procP.registerSPP("ProviderForA_Processor");
+                    std::cout << "[" << myName << "] connecting with left boundary processors " << std::endl;
+                }
+                else {
+                    // This provider needs to provide matrix B to the top boundary processors.
+                    // Topic 'ProviderForB_Processor' is used for that.
+                    procP.registerSPP("ProviderForB_Processor");
+                    std::cout << "[" << myName << "] connecting with top boundary processors " << std::endl;
+                }
+            `;
+        }, 
+        SendMatrixVals,
+        Done {
+            entry
+            `
+                std::cout << "[" << myName << "] Done" << std::endl;
+            `;
+        };
+
+        _initial: initial -> WaitForDimensions
+        `
+            myName = this->getName();
+            std::cout << "[" << myName << "] starting up" << std::endl;
+
+            // am I providing matrix A or B?
+            providesB = (strcmp(myName, "providerForA"));
+        `;
+
+        gotDims: WaitForDimensions -> ConnectWithProcessors on managerP.dimensions
+        `
+            /* Receive dimensions
+            * Note:
+            * - number of rows and columns of processor grid is equal to number of rows of A
+            * - i.e., number of processors is the square of the number of rows of A
+            */
+            const Dims* ds = rtdata;
+            numRowsOfA = ds->getM();
+            numColsOfA = ds->getN();
+
+            // prepare to iterate over all processors
+            procCount = 0;
+            std::cout << "[" << myName << "] : wait for connection requests from processors" << std::endl;
+
+            
+        `;
+
+        choice c1, c2;
+        gotConnectionRequest:ConnectWithProcessors -> c1 on procP.pReg
+        `
+            // from which processor did this request come?
+            int pid = *rtdata;
+            // which port did the request come in from?
+            int port = msg->sapIndex0();
+
+            // need to remember how to reach this processor
+            int index;
+            if (providesB) { // processor is in top boundary, i.e., 0 <= pid <= numColsOfA-1
+                index = pid;
+            }
+            else { // processor is in left boundary, i.e., (0 <= pid <= numColsOfA-1) and (pid%numRowsOfA == 0)
+                index = pid/numRowsOfA;
+            }
+            Pid2PortIndex[index] = port;
+            std::cout << "[" << myName << "] setting Pid2PortIndex["<< index << "] = " << port << std::endl;
+
+            procCount++;
+        `;
+
+        gotAll: c1 -> SendMatrixVals 
+        when `procCount==numRowsOfA`
+        `
+            // prepare to count the number of matrix values transmitted (0 <= valCount <= numRowsA*numColsA)
+            valCount = 0;
+            // used to keep track of the pid of the processor the received value needs to go to (0 <= pidCount < numRowsOfA)
+            pidCount = 0;
+            std::cout << "[" << myName << "] waiting for values" << std::endl;
+        `;
+
+        notGotAll: c1 -> ConnectWithProcessors
+        when `else`;
+
+        sendMatrixVal: SendMatrixVals -> c2 on managerP.matrixValue
+        `
+            // passing on value to boundary processor using pidCount with 0 <= pidCount < numRowsOfA
+            std::cout << "[" << myName << "] sending " << *rtdata << " at Pid2PortIndex[" << pidCount << "] = " << Pid2PortIndex[pidCount] << std::endl;
+            procP.matrixValue(*rtdata).sendAt(Pid2PortIndex[pidCount]);
+
+            valCount++;
+
+            if (pidCount == numRowsOfA-1) // reached bottom/right boundary, need to reset
+                pidCount = 0;
+            else
+                pidCount++;
+        `;
+
+        gotAllValues: c2 -> Done
+        when `valCount==numRowsOfA*numColsOfA`;
+
+        notGotAllValues: c2 -> SendMatrixVals
+        when `else`;
+
+    };
+};

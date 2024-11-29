@@ -1,0 +1,100 @@
+capsule OutputCollector {
+
+    [[rt::impl_preface]]
+    `
+        #include<stdlib.h>
+        #include<iostream>
+        #include "Result.art.h"
+    `
+
+    [[rt::decl]]
+    `
+        int numRowsOfA = -1;
+        int outputCount = 0;
+        int numProcs = -1;
+        int C[4096] = {0};
+        const char* myName;
+
+        void printMatrix( const char *, int, int, int[4096] );
+    `
+
+    [[rt::impl]]
+    `
+        void OutputCollector::printMatrix( const char * myName, int numRows, int numCols, int matrix[ 4096 ] ) {
+            std::cout << "[" << myName << "]" << std::endl;
+            for (int i=0; i<numRows; i++) {
+                for (int j=0; j<numCols; j++) {
+                    std::cout << matrix[i,j] << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+    `
+    
+    /* Ports */
+    behavior port logP: Log;
+    behavior port frameP: Frame;
+    behavior port timingP: Timing;
+    behavior service unwired port outputP~[[rt::properties(
+        registration=application
+    )]]: ProcessorOutputCollectorProt[4096];
+    behavior service port managerP~: ManagerOutputCollectorProt;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state WaitForDimensions, WaitForOutput, 
+        Done {
+            entry 
+            `
+                std::cout << "[" << myName << "] Done" << std::endl;
+                std::cout << "[" << myName << "] Exiting..." << std::endl;
+                exit(1);
+            `;
+        };
+
+        _initial: initial -> WaitForDimensions
+        `
+            myName = this->getName();
+            std::cout << "[" << myName << "] starting up" << std::endl;
+            std::cout << "[" << myName << "] waiting for dimensions" << std::endl;
+
+            // prepare for connecting with processors
+            outputP.registerSPP("OutputCollector_Processor");
+        `;
+        gotDims: WaitForDimensions -> WaitForOutput on managerP.dimensions
+        `
+            // receive and set dimensions
+            const Dims* ds= rtdata;
+            numRowsOfA = ds->getM();
+            // numColsOfA not needed
+            numProcs = numRowsOfA*numRowsOfA;
+            outputCount = 0;
+
+            std::cout << "[" << myName << "] waiting for output" << std::endl;
+        `;
+        choice c1;
+        gotOutput: WaitForOutput -> c1 on outputP.result
+        `
+            // receive result from processor with id pid
+            const Result* r = rtdata;
+            int pid = r->getPid();
+            int finalValue = r->getFinalValue();
+
+            std::cout << "[" << myName << "] got " << finalValue << " from proc" << pid << std::endl;
+            C[pid] = finalValue;
+            outputCount++;
+        `;
+
+        allOutputReceived: c1 -> Done 
+        when `outputCount==numProcs`
+        `
+            std::cout << "[" << myName << "] result matrix" << std::endl;
+            printMatrix(myName, numRowsOfA, numRowsOfA, C);
+        `;
+
+        notAllOutputReceived: c1 -> WaitForOutput
+        when `else`;
+
+    };
+};

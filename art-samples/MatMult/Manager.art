@@ -1,0 +1,220 @@
+capsule Manager {
+    [[rt::impl_preface]]
+    `
+        #include<iostream>
+    `
+    [[rt::decl]]
+    `
+        int numRowsOfA = -1;
+        int numColsOfA = -1;
+        int numProcs = -1;
+        int procCount = 0;
+        const char* myName;
+        int valCount = 0; 
+    `
+
+    /* Ports */
+    behavior port logP: Log;
+    behavior port timingP: Timing;
+    behavior port frameP: Frame;
+    behavior port tickInP~: TickProt;
+    behavior port tickOutP: TickProt;
+    behavior service port aProviderP: ManagerProviderProt;
+    behavior service port bProviderP: ManagerProviderProt;
+    behavior service port outputCollector: ManagerOutputCollectorProt;
+    service behavior unwired port controlP[[rt::properties(
+        registration=application
+    )]]: ManagerProcessorProt[4096];
+    service behavior port topP~: TopManagerProt;
+
+    /* Parts */
+    /* Connectors */
+    connect tickOutP with tickInP;
+    /* State Machine */
+    statemachine {
+        state WaitingForDimensions,
+        SendDimensionsToOutputCollector {
+            entry
+            `
+                std::cout << "[" << getName() << "] sending dimensions to OutputCollector" << std::endl;
+
+                Dims ds;
+                ds.setM(numRowsOfA);
+                ds.setN(numColsOfA);
+                outputCollector.dimensions(ds).send();
+
+                // send 'tick' to trigger next transition
+                tickOutP.tick().send();
+            `;
+        },
+        SendDimensionsToProviders {
+            entry
+            `
+                std::cout << "[" << myName << "] sending dimensions to providers" << std::endl;
+                Dims ds;
+                ds.setM(numRowsOfA);
+                ds.setN(numColsOfA);
+                aProviderP.dimensions(ds).send();
+                bProviderP.dimensions(ds).send();
+
+                // send 'tick' to trigger next transition
+                tickOutP.tick().send();
+            `;
+        },
+        SetupConnectionToProcessors {
+            entry
+            `
+                // std::cout << "registering SPP 'Manager_Processor'" << std::endl;
+                std::cout << "[" << myName << "] registering SPP 'Manager_Processor'" << std::endl;
+                controlP.registerSPP("Manager_Processor");
+
+                // send 'tick' to trigger next transition
+                tickOutP.tick().send();
+            `;
+        },
+        ConfirmReadyForIncarnation {
+            entry
+            `
+                std::cout << "[" << myName << "] waiting for providers to be ready for processor incarnation" << std::endl;
+                topP.readyForProcessorIncarnation().send();
+                // send 'tick' to trigger next transition
+                tickOutP.tick().send();
+            `;
+        },
+        WaitForProcessorsToRequestDimensions,
+        WaitForProcessorsToConfirmReady,
+        SendStartToProcessors {
+            entry
+            `
+                for (int i=0; i<numProcs; i++) {
+                    controlP.start().sendAt(i);
+                }
+
+                // trigger next transition
+                tickOutP.tick().send();
+            `;
+        },
+        WaitForValueInB,
+        WaitForValueInA,
+        Done {
+            entry
+            `
+                std::cout << "[" << myName << "] Done" << std::endl;
+            `;
+        };
+
+    _initial: initial -> WaitingForDimensions
+    `
+        myName = getName();
+        std::cout << "[" << getName() << "] starting up" << std::endl; 
+        std::cout << "[" << getName() << "] waiting for dimensions" << std::endl; 
+    `;
+
+    gotDims: WaitingForDimensions -> SendDimensionsToOutputCollector on topP.dimensions 
+    `
+        std::cout << "[" << getName() << "] gotDimensions" << std::endl;
+        // receive dimensions of matrix A
+        // processors will be arranged in a numRowsOfA * numRowsOfA square grid
+        const Dims* ds = rtdata;
+        numRowsOfA = ds->getM();
+        numColsOfA = ds->getN();
+        numProcs = numRowsOfA*numRowsOfA;
+        std::cout << "[" << getName() << "] setting numRowsOfA= " << numRowsOfA << std::endl;
+        std::cout << "[" << getName() << "] setting numColsOfA= " << numColsOfA << std::endl;
+    `;
+
+    tick1: SendDimensionsToOutputCollector -> SendDimensionsToProviders on tickInP.tick
+    `
+        std::cout << "[tick1] WaitingForDimensions -> SendDimensionsToOutputCollector" << std::endl;
+    `;
+
+    tick2: SendDimensionsToProviders -> SetupConnectionToProcessors on tickInP.tick
+    `
+        std::cout << "[Manager] SendDimensionsToProviders -> SetupConnectionToProcessors" << std::endl;
+    `;
+
+    tick3: SetupConnectionToProcessors -> ConfirmReadyForIncarnation on tickInP.tick
+    `
+        std::cout << "[Manager] SetupConnectionToProcessors -> ConfirmReadyForIncarnation" << std::endl;
+    `;
+
+    tick4: ConfirmReadyForIncarnation -> WaitForProcessorsToRequestDimensions on tickInP.tick
+    `
+        std::cout << "[tick4] ConfirmReadyForIncarnation -> WaitForProcessorsToRequestDimensions" << std::endl;
+        // prep iteration over processors
+        procCount = 0;
+    `;
+
+    choice c1;
+    request: WaitForProcessorsToRequestDimensions -> c1 on controlP.askForDimensions 
+    `
+        // processor asked for dimensions
+        int port = msg->sapIndex0();
+
+        std::cout << "[" << myName << "] PORT(msg->sapIndex0()) = " << port << std::endl;
+
+        Dims ds;
+        ds.setM(numRowsOfA);
+        ds.setN(numColsOfA);
+        controlP.dimensions(ds).sendAt(port);
+
+        procCount++;
+    `;
+
+    allReceivedc1: c1 -> WaitForProcessorsToConfirmReady
+    when `procCount==numProcs`
+    `
+        // prep next iteration over processors
+        procCount = 0;
+    `;
+
+    notAllReceivedc1: c1 -> WaitForProcessorsToRequestDimensions 
+    when `else`;
+
+    choice c2;
+    confirmation: WaitForProcessorsToConfirmReady -> c2 on controlP.doneConnecting
+    `
+        procCount++;
+    `;
+
+    allReceivedc2: c2 -> SendStartToProcessors
+    when `procCount==numProcs`;
+
+    notAllReceivedc2: c2 -> WaitForProcessorsToConfirmReady
+    when `else`;
+
+
+    tick5: SendStartToProcessors -> WaitForValueInB on tickInP.tick, timingP.timeout
+    `
+        // preparing to count number of pairs of matrix values received
+        valCount = 0;
+
+        // let Top know that all is set for the transmission of matrix values
+        topP.readyForMatrixValues().send();
+
+    `;
+
+    gotBVal: WaitForValueInB -> WaitForValueInA on topP.matrixValue
+    `
+        std::cout << "[Manager] gotBVal = " << *rtdata << std::endl;
+        bProviderP.matrixValue(*rtdata).send();
+    `;
+
+    choice c3;
+    gotAVal: WaitForValueInA -> c3 on topP.matrixValue
+    `
+        std::cout << "[Manager] gotAVal = " << *rtdata << std::endl;
+        aProviderP.matrixValue(*rtdata).send();
+
+        // transmitted a value from B and then a value from A; increment value count
+        valCount++;
+    `;
+
+    gotAllValues: c3 -> Done
+    when `valCount==numRowsOfA*numColsOfA`;
+
+    notGotAllValues: c3 -> WaitForValueInB
+    when `else`;
+        
+    };
+};

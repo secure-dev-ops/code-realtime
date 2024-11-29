@@ -1,0 +1,6 @@
+protocol ProcessorProt {
+    /* In Events */
+    in pReg(`int`);
+    /* Out Events */
+    out matrixValue(`int`);
+};

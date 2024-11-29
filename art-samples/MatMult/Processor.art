@@ -1,0 +1,264 @@
+capsule Processor {
+    [[rt::impl_preface]]
+    `
+        #include <iostream>  
+        #include <string.h>
+        #include <stdlib.h>
+        #include <stdio.h>
+        #include <vector>
+        #include <string>
+        #include <sstream>
+        #include "Result.art.h"
+    `
+
+    [[rt::decl]]
+    `
+        int numRowsOfA = -1;
+        int total = 0;
+        int a = -1;
+        int b = -1;
+        char myName[100];
+        int myPid;
+        int myRow;
+        int myCol;
+        bool inBottomBoundary;
+        bool inRightBoundary;
+        int numColsOfA = 0;
+        int valCount = 0;
+    `
+    /* Ports */
+    behavior port logP: Log;
+    behavior port frameP: Frame;
+    behavior port timingP: Timing;
+
+    service unwired behavior port controlP~[[rt::properties(
+        registration=application
+    )]]: ManagerProcessorProt;
+    service unwired behavior port outputP
+    [[rt::properties(
+        registration=application
+    )]]
+    : ProcessorOutputCollectorProt;
+    service unwired behavior port leftP~[[rt::properties(
+        registration=application
+    )]]: ProcessorProt;
+    service unwired behavior port upP~[[rt::properties(
+        registration=application
+    )]]: ProcessorProt;
+    service unwired behavior port rightP[[rt::properties(
+        registration=application
+    )]]: ProcessorProt;
+    service unwired behavior port downP[[rt::properties(
+        registration=application
+    )]]: ProcessorProt;
+
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state WaitForDimensions, WaitToStart, HaveBneedA, WaitForABorDone, HaveAneedB, 
+        Done{
+            entry
+            `
+                std::cout << "[" << myName << "] Done" << std::endl; 
+            `;
+        };
+        _initial: initial -> WaitForDimensions 
+        `
+            // what's my pid, i.e., which number of processor am I?
+            myPid = this->getIndex();
+
+            // my name is <capsule name>+<pid>
+            char buffer[100];
+            snprintf(buffer, 100, "%s%d", this->getName(), myPid);
+            strcpy(myName, buffer);
+            std::cout << "[" << myName << "] starting up" << std::endl;
+
+            // connecting with outputCollector
+            outputP.registerSAP("OutputCollector_Processor");
+            // connecting with manager
+            controlP.registerSAP("Manager_Processor");
+
+            std::cout << "[" << myName << "] waiting for matrix dimensions" << std::endl;
+            
+            controlP.askForDimensions().send();
+        `;
+
+        _connect: WaitForDimensions -> WaitToStart on controlP.dimensions
+        `
+            // receive and set dimensions
+            const Dims* ds = rtdata;
+            numRowsOfA = ds->getM();
+            numColsOfA = ds->getN();
+            std::cout << "[" << myName << "] setting numRowsOfA = " << numRowsOfA << std::endl;
+            std::cout << "[" << myName << "] setting numColsOfA = " << numColsOfA << std::endl;
+
+            // which row in the processor grid am I in?
+            myRow = myPid/numRowsOfA;
+            // which column in the processor grid am I in?
+            myCol = myPid%numRowsOfA;
+
+            // am I in the bottom boundary of grid?
+            inBottomBoundary = (myRow == numRowsOfA-1);
+            // am I in the right boundary of grid
+            inRightBoundary = (myCol == numRowsOfA-1);
+
+            std::cout << "[" << myName << "] myPID = " << myPid << " myRow = " << myRow << " myCol = " << myCol << std::endl;
+
+            /* Now, we need to connect the processor dynamically to all of its neighbours reachable via ports 'left', 'up', 'right', or 'down'.
+            * Let 'p' be any of these 4 ports. The neighbour of the processor that is reachable via 'p' can be:
+            * 1) capsule 'ProviderForA': in this case, 'p=leftP' and 'myCol=0', i.e., proc is in the left boundary of the processor grid
+            * 	  (e.g., myPid=0,3,6 for m=n=3). Topic 'ProviderForA_Processor' is used for connection
+            * 2) capsule 'ProviderForB': in this case, 'p=up' and 'myRow=0', i.e., processor in the top boundary of the grid)
+            *    (e.g., myPid=0,1,2 for m=n=3). Topic 'ProviderForB_Processor' is used for connection
+            * 3) nothing: in this case,
+            * 	  a) either 'p=right' and 'myCol=n-1', i.e., processor is in right boundary (e.g, myPid=2,5,8 for m=n=3). Port remains unbound.
+            * 	  b) or 'p=down' and 'myRow=n-1', i.e., processor is in bottom boundary (e.g., myPid=6,7,8 for m=n=3). Topic 'output' is used
+            * 4) another processor: in this case, 'p' can be
+            * 		. 'left': in this case, 'myCol>0' (e.g., myPid=1,2,4,5,7,8); topic 'right'+<myPid-1> is used,
+            * 		. 'up': in this case, 'myRow>0' (e.g., myPid=3,4,5,6,7,8); topic 'down'+<myPid-n> is used,
+            * 		. 'right': in this case, 'myCol<n-1' (e.g., myPid=0,1,3,4,6,7); topic 'right'+<myPid> is used, or
+            * 		. 'down': in this case, 'myRow<n-1' (e.g., myPid=0,1,2,3,4,5); topic 'down'+<myPid> is used
+            */
+            char buffer[100];
+
+            // connecting 'left'
+            if (myCol == 0) { // proc is on the left boundary of the grid
+                leftP.registerSAP("ProviderForA_Processor");
+                leftP.pReg(myPid).send();
+            } else { // proc is not on the left boundary
+                snprintf(buffer, 100, "right%d", myPid-1);
+                leftP.registerSAP(buffer);
+                std::cout << "[" << myName << "] registering left to " << buffer << std::endl;
+            }
+
+            // connecting 'up'
+            if (myRow == 0) { // proc is on the top boundary
+                upP.registerSAP("ProviderForB_Processor");
+                upP.pReg(myPid).send();
+            }
+            else { // proc is not on the top boundary
+                snprintf(buffer, 100, "down%d", myPid-numRowsOfA);
+                upP.registerSAP(buffer);
+                std::cout << "[" << myName << "] registering up to " << buffer << std::endl;
+            }
+
+            // connecting 'right'
+            if (myCol == numRowsOfA-1) { // proc is on the right boundary
+                std::cout << "[" << myName << "] myCol = " << myCol << " numRowsOfA-1 = " << numRowsOfA-1 << std::endl;
+            }
+            else { // proc is not on the right boundary
+                snprintf(buffer, 100, "right%d", myPid);
+                rightP.registerSPP(buffer);
+                std::cout << "[" << myName << "] registering right to " << buffer << std::endl;
+            }
+
+            // connecting 'down'
+            if (myRow == numRowsOfA-1) { // proc is on the bottom boundary
+                downP.registerSAP("output");
+            }
+            else { // proc is not on the bottom boundary
+                snprintf(buffer, 100, "down%d", myPid);
+                downP.registerSPP(buffer);
+                std::cout << "[" << myName << "] registering down to " << buffer << std::endl;
+            }
+
+            controlP.doneConnecting().send();
+
+            std::cout << "[" << myName << "] waiting for values" << std::endl;
+
+        `;
+        start: WaitToStart -> WaitForABorDone on controlP.start
+        `
+            std::cout << "[" << myName << "] received start signal" << std::endl;
+            // prepare for counting number of values received
+            valCount = 0;
+        `;
+
+        a: WaitForABorDone -> HaveAneedB on leftP.matrixValue
+        `
+            // received value from matrix A
+            a =  *rtdata;
+
+            // pass on value right away
+            if (!inRightBoundary){
+                rightP.matrixValue(a).send();
+            }
+        `;
+
+        b: WaitForABorDone -> HaveBneedA on upP.matrixValue
+        `
+            // received value from matrix B
+            b = *rtdata;
+
+            // pass on value right away
+            if (!inBottomBoundary) {
+                downP.matrixValue(b).send();
+            }
+        `;
+
+        _a: HaveAneedB -> HaveAneedB on leftP.matrixValue
+        `
+            // received another value from A; can't receive it now
+            msg->defer();
+        `;
+
+        _b: HaveBneedA -> HaveBneedA on upP.matrixValue
+        `
+            // received another value from B; can't receive it now
+            msg->defer();
+        `;
+
+        junction j1;
+
+        ab: HaveAneedB -> j1 on upP.matrixValue
+        `
+            // received value from matrix B
+            b = *rtdata;
+
+            // pass on value right away
+            if (!inBottomBoundary) {
+                downP.matrixValue(b).send();
+            }
+
+            // handle matrix A values received while waiting for value from matrix B
+            leftP.recallFront();
+        `;
+
+        ba: HaveBneedA -> j1 on leftP.matrixValue
+        `
+            // received value from matrix A
+            a = *rtdata;
+
+            // pass on value right away
+            if (!inRightBoundary){
+                rightP.matrixValue(a).send();
+            }
+
+            // handle matrix B values received while waiting for value from matrix A
+            upP.recallFront();
+        `;
+
+        choice c1;
+        compute: j1 -> c1
+        `
+            // have both values now, can multiply and add to running total
+            total =  total + (a*b);
+            // increment value counter
+            valCount++;
+        `;
+        gotAllValues: c1 -> Done
+        when `valCount==numColsOfA`
+        `
+            // send result to outputCollector
+            Result r;
+            r.setPid(myPid);
+            r.setFinalValue(total);
+            outputP.result(r).send();
+        `;
+
+        notGotAllValues: c1 -> WaitForABorDone
+        when `else`;
+
+    };
+};

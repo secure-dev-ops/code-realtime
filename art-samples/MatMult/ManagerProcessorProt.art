@@ -1,0 +1,12 @@
+protocol ManagerProcessorProt {
+    [[rt::header_preface]]
+    `
+        #include "Dims.art.h"
+    `
+    /* In Events */
+    in askForDimensions();
+    in doneConnecting();
+    /* Out Events */
+    out dimensions(`Dims`);
+    out start();
+};

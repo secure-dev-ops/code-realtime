@@ -1,0 +1,24 @@
+[[rt::decl]]
+`
+    class [[rt::auto_descriptor]] Dims {
+        public:
+            static const RTFieldDescriptor rtg_Dims_fields[];
+    
+        private:
+            int m, n;
+    
+        public:
+            void setM(int m){
+                this->m = m;
+            }
+            void setN(int n){
+                this->n = n;
+            }
+            int getM() const {
+                return m;
+            }
+            int getN() const {
+                return n;
+            }
+    };
+`

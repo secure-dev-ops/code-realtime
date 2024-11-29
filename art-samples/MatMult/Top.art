@@ -1,0 +1,206 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include<iostream>
+    `
+
+    [[rt::decl]]
+    `
+        int numRowsOfA = -1;
+        int numColsOfA = -1;
+        int numProcs = -1;
+        int A[4096] = {0};
+        int B[4096] = {0};
+
+        void printMatrix( const char *, int, int, int[4096] );
+    `
+
+    [[rt::impl]]
+    `
+        void Top::printMatrix( const char * myName, int numRows, int numCols, int matrix[ 4096 ] ) {
+            std::cout << "[" << myName << "]" << std::endl;
+            for (int i=0; i<numRows; i++) {
+                for (int j=0; j<numCols; j++) {
+                    std::cout << matrix[i,j] << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+    `
+
+    /* Ports */
+    behavior port logP: Log;
+    behavior port timing: Timing;
+    behavior port frameP: Frame;
+    behavior port tickOutP: TickProt;
+    behavior port tickInP~: TickProt;
+    behavior port managerP: TopManagerProt;
+
+    /* Parts */
+    fixed part manager: Manager;
+    fixed part providerForA: Provider;
+    fixed part providerForB: Provider;
+    fixed part outputCollector: OutputCollector;
+    optional part proc: Processor[4096];
+
+    /* Connectors */
+    connect managerP with manager.topP;
+    connect tickOutP with tickInP;
+    connect manager.bProviderP with providerForA.managerP;
+    connect manager.aProviderP with providerForB.managerP;
+    connect manager.outputCollector with outputCollector.managerP;
+
+    /* State Machine */
+    statemachine {
+        state WaitForInit;
+        _initial: initial -> WaitForInit 
+        `
+            std::cout << "[Top] starting up ..." << std::endl;
+            int argc = RTMain::argCount();
+            std::cout << "[Top] ArgCount = " << argc << std::endl;
+
+            if(argc < 7) {
+                std::cout << "[Top] needs 7 arguments: <#rows matrix A, #columns matrix A, matrix A, matrix B>" << std::endl;
+                std::cout << "[Top] e.g., ./Top.EXE -URTS_DEBUG=quit -UARGS 2 2 '[2,2,2,2]' '[3,3,3,3]'" << std::endl;
+                exit(0);
+            } else if(argc > 7) {
+                std::cout << "[Top] needs 7 arguments: <#rows matrix A, #columns matrix A, matrix A, matrix B>" << std::endl;
+                std::cout << "[Top] e.g., ./Top.EXE -URTS_DEBUG=quit -UARGS 2 2 '[2,2,2,2]' '[3,3,3,3]'" << std::endl;
+                exit(0);
+            } else {
+                std::cout << "[Top] 7 arguments detected" << std::endl;
+                const char * const *args = RTMain::argStrings();
+                const char * arg1 = args[3];
+                numRowsOfA = atoi(arg1);
+                std::cout << "[Top] setting numRowsOfA = " << numRowsOfA << std::endl;
+                const char * arg2 = args[4];
+                numColsOfA = atoi(arg2);
+                std::cout << "[Top] setting numColsOfA = " << numColsOfA << std::endl;
+                const char * arg3 = args[5];
+                std::cout << "[Top] arg[3] = " << arg3 << std::endl;
+
+                int i = 0;
+                int jA = 0;
+                while (arg3[i] != '\0') {
+                    if (arg3[i] != ',' & arg3[i] != '[' & arg3[i] != ' ' & arg3[i] != ']'){
+                        A[jA] = (int) (arg3[i]-'0');
+                        jA++;
+                    }
+                    i++;
+                }
+                const char * arg4 = args[6];
+                std::cout << "[Top] arg[4] = " << arg4 << std::endl;
+
+                i = 0;
+                int jB = 0;
+                while (arg4[i] != '\0'){
+                    if (arg4[i] != ',' & arg4[i] != '[' & arg4[i] != ' ' & arg4[i] != ']'){
+                        B[jB] = (int) (arg4[i]-'0');
+                        jB++;
+                    }
+                    i++;
+                }
+
+                if ((jA!=numRowsOfA*numColsOfA | jB!=numRowsOfA*numColsOfA)) {
+                    std::cout << "[Top] input inconsistent: at least one matrix does not match the dimensions given" << std::endl;
+                    std::cout << "[Top] exiting" << std::endl;
+                    exit(0);
+                }
+
+                std::cout << "[Top] Matrix A = " << std::endl;
+                printMatrix("Top", numRowsOfA, numColsOfA, A);
+                std::cout << "[Top] Matrix B = " << std::endl;
+                printMatrix("Top", numColsOfA, numRowsOfA, B);
+
+                numProcs = numRowsOfA*numRowsOfA; // processors will arranged in a square grid
+                std::cout << "[Top] computing A*B now" << std::endl;
+                tickOutP.tick().send();
+
+	        }
+        `;
+
+        tick1: WaitForInit -> SendDimensions on tickInP.tick ``;
+
+        state SendDimensions {
+            entry 
+            `
+                std::cout << "[Top] sending dimensions" << std::endl;
+                Dims d;
+                d.setM(numRowsOfA);
+                d.setN(numColsOfA);
+                managerP.dimensions(d).send();
+                std::cout << "[Top] waiting for providers to be ready for processor incarnation" << std::endl;
+            `;
+        };
+
+        readyForIncarnation: SendDimensions -> IncarnateProcessors on managerP.readyForProcessorIncarnation ``;
+
+        state IncarnateProcessors {
+            entry
+            `
+                std::cout << "[Top] incarnation" << std::endl;
+                std::cout << "[Top] " << numRowsOfA << " * " << numRowsOfA << " = " << numProcs << " processors" << std::endl;
+                for (int i=0; i<numProcs; i++){
+                    RTActorId p = frameP.incarnate(proc);
+                    if (!p.isValid()){
+                        context()->perror("[Top] incarnation failed!");
+                    }
+                }
+                std::cout << "[Top] waiting for processors to be ready for values" << std::endl;
+            `;
+        };
+
+        state SendMatrixValues {
+            entry
+            `
+                std::cout << "[Top] sending values" << std::endl;
+                int aIndex;		// index into matrix A, 0 <= aIndex <= numRowsOfA*numColsOfA-1
+                int bIndex;		// index into matrix B, 0 <= bIndex <= numRowsOfA*numColsOfA-1
+
+                /* 'aIndex' will traverse 'A' column-wise starting from the top right corner A[0,numColsOfA] and ending at the bottom left corner A[numRowsOfA,0]
+                * E.g., for numRowsOfA=numColsOfA=3, 'aIndex' will range over 2,5,8,1,4,7,0,3,6
+                * The line
+                *    aIndex = [n-(i/m)] + [(i%m)*n - 1] // send A column-wise, top-to-bottom, starting w/ right-most row
+                * accomplishes this.
+                * 'bIndex' will traverse 'B' row-wise starting starting from the bottom left corner B[numColsOfA,0]
+                * E.g., for numRowsOfA=numColsOfA=3, 'bIndex' will range over 6,7,8,3,4,5,0,1,2
+                * The line 
+                *    bIndex = [n-(i/m)]*m - [m-(i%m)]   // send B row-wise, left-to-right, starting w/ bottom row
+                * accomplishes this.
+                * The sending of 'A[aIndex]' and 'B[bIndex]' alternates with 'B[bIndex]' sent first.
+                * E.g., for numRowsOfA=numColsOfA=3, the following sequence of matrix values will be sent to the manager:
+                *    B[6] A[2] B[7] A[5] B[8] A[8] B[3] A[1] B[4] A[4] B[5] A[7] B[0] A[0] B[1] A[3] B[2] A[6]
+                */
+
+                int m = numRowsOfA;
+                int n = numColsOfA;
+                int i = 0;
+                while (i < m*n) {
+                    bIndex = ((n-(i/m))*m) - (m-(i%m));
+                    std::cout << "[Top] sending B[" << bIndex << "] = " << B[bIndex] << std::endl;
+                    managerP.matrixValue(B[bIndex]).send();
+                    aIndex = (n-(i/m)) + ((i%m)*n) - 1;
+                    std::cout << "[Top] sending A[" << aIndex << "] = " << A[aIndex] << std::endl;
+                    managerP.matrixValue(A[aIndex]).send();
+                    i++;
+                }
+
+                // enable next transition
+                tickOutP.tick().send();
+
+            `;
+        };
+
+        processorsReady: IncarnateProcessors -> SendMatrixValues on managerP.readyForMatrixValues ``;
+
+        state Done {
+           entry
+           `
+               std::cout << "[Top] Done" << std::endl;
+           `; 
+        };
+
+        tick2: SendMatrixValues -> Done on tickInP.tick ``;
+
+    };
+};

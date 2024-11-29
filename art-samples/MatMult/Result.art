@@ -1,0 +1,24 @@
+[[rt::decl]]
+`
+    class [[rt::auto_descriptor]] Result {
+        public:
+            static const RTFieldDescriptor rtg_Result_fields[];
+    
+        private:
+            int finalValue, pid;
+    
+        public:
+            int getFinalValue() const {
+                return finalValue;
+            }
+            int getPid() const {
+                return pid;
+            }
+            void setFinalValue(int x){
+                this->finalValue = x;
+            }
+            void setPid(int x){
+                this->pid = x;
+            }
+    };
+`

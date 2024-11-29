@@ -1,0 +1,13 @@
+protocol TopManagerProt {
+    [[rt::header_preface]]
+    `
+        #include "Dims.art.h"
+    `
+    /* In Events */
+    in readyForMatrixValues();
+    in readyForProcessorIncarnation();
+    /* Out Events */
+    out matrixValue(`int`);
+    out dimensions(`Dims`);
+};
+

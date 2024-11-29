@@ -1,0 +1,10 @@
+protocol ProcessorOutputCollectorProt {
+    [[rt::header_preface]]
+    `
+        #include "Result.art.h"
+    `
+    /* In Events */
+    /* Out Events */
+    out result(`Result`);
+
+};

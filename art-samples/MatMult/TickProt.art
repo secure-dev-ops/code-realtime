@@ -1,0 +1,5 @@
+protocol TickProt {
+    /* In Events */
+    /* Out Events */
+    out tick();
+};

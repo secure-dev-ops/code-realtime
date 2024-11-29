@@ -1,0 +1,9 @@
+protocol ManagerOutputCollectorProt {
+    [[rt::header_preface]]
+    `
+        #include "Dims.art.h"
+    `
+    /* In Events */
+    /* Out Events */
+    out dimensions(`Dims`);
+};
