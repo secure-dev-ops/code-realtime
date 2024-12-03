@@ -16,26 +16,34 @@ capsule Top {
         state State1;
         initial -> State1
         `   
-            ASSERT(_myClass.S2_entry_count == 0, "Expected S2_entry_count as 0");
-            ASSERT(_myClass.Inner_entry_count == 0, "Expected Inner_entry_count as 0");
+            ASSERT(_myClass.A_entry_count == 1, "Expected A_entry_count as 1");
+            ASSERT(_myClass.B_entry_count == 0, "Expected B_entry_count as 0");
+
+            /* On true transition will go to history*/
+            _myClass.triggerHistoryOrB(true);
+            ASSERT(_myClass.A_entry_count == 2, "Expected A_entry_count as 2");
+            ASSERT(_myClass.B_entry_count == 0, "Expected B_entry_count as 0");
+
+            /* On false transition will go to State B*/
+            _myClass.triggerHistoryOrB(false);
+            ASSERT(_myClass.A_entry_count == 2, "Expected A_entry_count as 2");
+            ASSERT(_myClass.B_entry_count == 1, "Expected B_entry_count as 1");
+
+            /* From state B to history*/
             _myClass.op();
+            ASSERT(_myClass.A_entry_count == 2, "Expected A_entry_count as 2");
+            ASSERT(_myClass.B_entry_count == 2, "Expected B_entry_count as 2");
 
 
-            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
-            ASSERT(_myClass.Inner_entry_count == 1, "Expected Inner_entry_count as 0");
+            /* From state B to history*/
             _myClass.op();
+            ASSERT(_myClass.A_entry_count == 2, "Expected A_entry_count as 2");
+            ASSERT(_myClass.B_entry_count == 3, "Expected B_entry_count as 3");
 
-
-            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
-            ASSERT(_myClass.Inner_entry_count == 2, "Expected Inner_entry_count as 2");
+            /* Expected */
             _myClass.op();
-
-            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
-            ASSERT(_myClass.Inner_entry_count == 3, "Expected Inner_entry_count as 3");
-            _myClass.op();
-
-            ASSERT(_myClass.S2_entry_count == 1, "Expected S2_entry_count as 1");
-            ASSERT(_myClass.Inner_entry_count == 4, "Expected Inner_entry_count as 4");
+            ASSERT(_myClass.A_entry_count == 2, "Expected A_entry_count as 2");
+            ASSERT(_myClass.B_entry_count == 3, "Transition from state B to history is guarded. It allows re-entering state B from history only if B is not entered more than 3 times");
 
             PASS();
         `;

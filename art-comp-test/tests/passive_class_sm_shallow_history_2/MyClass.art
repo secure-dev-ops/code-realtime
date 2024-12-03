@@ -1,0 +1,62 @@
+
+class MyClass {
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        public:
+            MyClass();
+        public:
+            int Inner1_entry_count = 0;
+            int Transition_t1_count = 0;
+            int Transition_t2_count = 0;
+            int Transition_t3_count = 0;
+            int Inner2_entry_count = 0;
+    `
+    [[rt::impl]]
+    `
+        MyClass::MyClass() {
+            rtg_init1();
+        }
+    `
+    /* Trigger Operations */
+    trigger op();
+    /* State Machine */
+    statemachine {
+        _i1: initial -> S2.ep;
+        state S2 {
+            entrypoint ep, ep2;
+            state Inner1 {
+                entry
+                `
+                    Inner1_entry_count ++;
+                    std::cout << "Inner1 entry count "<< Inner1_entry_count << std::endl;
+                `;
+            };
+            t1: ep -> Inner1
+            `
+                Transition_t1_count ++;
+                std::cout << "transition t1 count " << Transition_t1_count<< std::endl;
+            `;
+            t2: Inner1 -> Inner2 on op()
+            `
+                Transition_t2_count ++;
+                std::cout << "transition t2 count " << Transition_t2_count<< std::endl;
+            `;
+            state Inner2 {
+                entry
+                `
+                    Inner2_entry_count ++;
+                    std::cout << "Inner2 count "<< Inner2_entry_count << std::endl;
+                `;
+            };
+            t3: ep2 -> history on op()
+            `
+                Transition_t3_count ++;
+                std::cout << "transition t3 count " << Transition_t3_count<< std::endl;
+            `;
+        };
+    };
+};

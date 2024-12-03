@@ -1,0 +1,60 @@
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "MyClass.h"
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            MyClass _myClass;
+    `
+    behavior port t : Timing;
+    statemachine {
+        state State1;
+        initial -> State1
+        `   
+            ASSERT(_myClass.Transition_t1_count == 1, "expected Initial transition t1 count to 1");
+            ASSERT(_myClass.Inner1_entry_count == 1, "expected Inner1_entry_count to 1");
+            ASSERT(_myClass.Inner2_entry_count == 0, "expected Inner2_entry_count init to 0");
+            ASSERT(_myClass.Transition_t2_count == 0, "expected Transition_t2_count init to 0");
+            ASSERT(_myClass.Transition_t3_count == 0, "expected Transition_t3_count init to 0");
+
+            _myClass.op();
+
+            ASSERT(_myClass.Transition_t1_count == 1, "expected Initial transition t1 count to 1");
+            ASSERT(_myClass.Inner1_entry_count == 1, "expected Inner1_entry_count to 1");
+            ASSERT(_myClass.Transition_t2_count == 1, "expected Transition_t2_count to 1");
+            ASSERT(_myClass.Transition_t3_count == 0, "expected Transition_t3_count init to 0");
+            ASSERT(_myClass.Inner2_entry_count == 1, "expected Inner2_entry_count init to 1");
+
+            _myClass.op();
+
+            ASSERT(_myClass.Transition_t1_count == 1, "expected Initial transition t1 count to 1");
+            ASSERT(_myClass.Inner1_entry_count == 1, "expected Inner1_entry_count to 1");
+            ASSERT(_myClass.Transition_t2_count == 1, "expected Transition_t2_count to 1");
+            ASSERT(_myClass.Transition_t3_count == 1, "expected Transition_t3_count init to 1");
+            ASSERT(_myClass.Inner2_entry_count == 2, "expected Inner2_entry_count init to 2");
+
+            _myClass.op();
+
+            ASSERT(_myClass.Transition_t1_count == 1, "expected Initial transition t1 count to 1");
+            ASSERT(_myClass.Inner1_entry_count == 1, "expected Inner1_entry_count to 1");
+            ASSERT(_myClass.Transition_t2_count == 1, "expected Transition_t2_count to 1");
+            ASSERT(_myClass.Transition_t3_count == 2, "expected Transition_t3_count init to 2");
+            ASSERT(_myClass.Inner2_entry_count == 3, "expected Inner2_entry_count init to 3");
+
+            _myClass.op();
+
+            ASSERT(_myClass.Transition_t1_count == 1, "expected Initial transition t1 count to 1");
+            ASSERT(_myClass.Inner1_entry_count == 1, "expected Inner1_entry_count to 1");
+            ASSERT(_myClass.Transition_t2_count == 1, "expected Transition_t2_count to 1");
+            ASSERT(_myClass.Transition_t3_count == 3, "expected Transition_t3_count init to 3");
+            ASSERT(_myClass.Inner2_entry_count == 4, "expected Inner2_entry_count init to 4");
+
+            PASS();
+        `;
+    };
+};

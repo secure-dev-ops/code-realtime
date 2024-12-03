@@ -156,6 +156,15 @@
             "path": "tests/part_inheritance"
         },
         {
+            "path": "tests/passive_class_sm_shallow_history"
+        },
+        {
+            "path": "tests/passive_class_sm_shallow_history_1"
+        },
+        {
+            "path": "tests/passive_class_sm_shallow_history_2"
+        },
+        {
             "path": "tests/port_with_predefined_protocol_no_relay"
         },
         {

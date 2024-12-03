@@ -10,7 +10,8 @@ class MyClass {
             MyClass();
         public:
             int S2_entry_count = 0;
-            int Inner_entry_count = 0;
+            int A_entry_count = 0;
+            int B_entry_count = 0;
     `
     [[rt::impl]]
     `
@@ -19,26 +20,38 @@ class MyClass {
         }
     `
 
-    /* Trigger Operations */
+    /* Trigger Operation triggerHistoryOrB */
+    trigger triggerHistoryOrB(`bool` value);
     trigger op();
     /* State Machine */
     statemachine {
-        state S1;
-        state S2 {
+        state S1 {
+            entrypoint ep;
              entry
             `
                 S2_entry_count++;
             `;
-             state Inner {
+             state A {
                 entry
                 `   
-                    Inner_entry_count++;
+                    A_entry_count++;
+                    std::cout << "A_entry_count " << A_entry_count << std::endl;
                 `;
             };
-            s2_initial_inner: initial -> Inner;
-            s2_a_inner_history: Inner -> history on op();
-        };        
-        _init_s1: initial -> S1;
-        _s1_s2:[[rt::properties(rule_config="X0029")]] S1 -> S2 on op();
+            state B {
+                entry
+                `   
+                    B_entry_count++;
+                    std::cout << "B_entry_count " << B_entry_count << std::endl;
+                `;
+            };
+            t_Initial_inner: ep -> A;
+            t_A_history: A -> history on triggerHistoryOrB(`bool`)[`value`] ;
+            t_B: A -> B on triggerHistoryOrB(`bool`)[`!value`];
+            t_B_history: B -> history  on op() when `B_entry_count < 3`;
+
+        };    
+        initial -> S1.ep;    
+        
     };
 };
