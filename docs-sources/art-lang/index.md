@@ -1228,17 +1228,23 @@ Here is an example:
 
 ``` art
 class MyClass {
+    trigger op();
     
     statemachine {
-        state First {
-            entrypoint ep1;
-            ep1 -> history;
+        _i1: initial -> S2.ep;
+        state S2 {
+            entrypoint ep, ep2;
+            state Inner1, Inner2;
+            t1: ep -> Inner1;
+            t2: Inner1 -> Inner2 on op();
+            t3: ep2 -> history on op();
         };
-        initial -> First.ep1;
     };
 };
 ```
 ![](images/shallow_history.png)
+
+When transition `t3` is triggered, the state machine will return to either the `Inner1` or `Inner2` substate, whichever was active previously.
 
 !!! example
     You can find a sample application that uses shallow history [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_shallow_history_1).

@@ -197,3 +197,8 @@ Default value: **100**
 This setting is related to the [free list](message-communication.md#message-memory-management). It defines how many messages each message block contains.
 
 Default value: **250**
+
+#### RTCONFIG_INFO
+If set, an array `config_info` will be included in the file `src/RTMain/mainLine.cc`. This array contains a textual representation of the configuration macros that were set when compiling the TargetRTS and can for example be printed to the console at application startup to make it more visible how the TargetRTS has been configured.
+
+Default value: **0** (set to **1** if you want to use the `config_info` array)
