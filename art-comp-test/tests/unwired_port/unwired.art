@@ -37,7 +37,7 @@ capsule Server {
     `
         #include "testlib.art.h"        
     `
-    publish service unwired notify behavior port p~ : PROT;
+    publish service unwired behavior port p~ : PROT;
     statemachine {
         state S;
         t1: S -> S on p.requestData
