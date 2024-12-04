@@ -243,6 +243,7 @@ capsule Processor {
         compute: j1 -> c1
         `
             // have both values now, can multiply and add to running total
+            std::cout << "[" << myName << "] computing... total + (a*b) = " << total << " + (" << a << " * " << b << ") = " << total + (a*b) << std::endl;
             total =  total + (a*b);
             // increment value counter
             valCount++;
@@ -254,6 +255,7 @@ capsule Processor {
             Result r;
             r.setPid(myPid);
             r.setFinalValue(total);
+            std::cout << "[" << myName << "] finalValue = " << total << " from proc " << myPid << std::endl;
             outputP.result(r).send();
         `;
 

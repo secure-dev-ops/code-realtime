@@ -22,12 +22,12 @@ capsule OutputCollector {
     `
         void OutputCollector::printMatrix( const char * myName, int numRows, int numCols, int matrix[ 4096 ] ) {
             std::cout << "[" << myName << "]" << std::endl;
-            for (int i=0; i<numRows; i++) {
-                for (int j=0; j<numCols; j++) {
-                    std::cout << matrix[i,j] << " ";
-                }
-                std::cout << std::endl;
+            for (int i=0; i<numRows*numCols; i++) {
+                if((i % numCols) == 0 )
+                    std::cout << std::endl;
+                std::cout << matrix[i] << " \t";
             }
+            std::cout << std::endl;
         }
     `
     
@@ -81,7 +81,8 @@ capsule OutputCollector {
             int pid = r->getPid();
             int finalValue = r->getFinalValue();
 
-            std::cout << "[" << myName << "] got " << finalValue << " from proc" << pid << std::endl;
+            std::cout << "[" << myName << "] got " << finalValue << " from proc " << pid << std::endl;
+
             C[pid] = finalValue;
             outputCount++;
         `;
