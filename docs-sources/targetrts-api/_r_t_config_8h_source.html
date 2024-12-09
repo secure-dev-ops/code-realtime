@@ -422,9 +422,11 @@ $(function() {
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="comment">// If this setting is enabled an array config_info will be included in mainLine.cc file,</span></div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="comment">// containing a textual encoding of all configuration settings used when compiling the TargetRTS.</span></div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="preprocessor">#define RTCONFIG_INFO 0</span></div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="preprocessor">#endif </span><span class="comment">// __RTConfig_h__</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="preprocessor">#ifndef RTCONFIG_INFO</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="preprocessor">#define RTCONFIG_INFO 0</span></div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="preprocessor">#endif </span><span class="comment">// __RTConfig_h__</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
