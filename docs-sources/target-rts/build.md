@@ -27,7 +27,11 @@ When you build the TargetRTS its source files will be compiled with settings def
 Note that the default compiler flags in `LIBSETCCEXTRA` do not explicitly set the C++ language standard. It's therefore assumed that the compiler that is used defaults to use an appropriate language standard. If the default language standard used by your compiler does not match the language standard used when compiling the generated code (see the TC property [`cppCodeStandard`](../building/transformation-configurations.md#cppcodestandard)) then it's recommended to add a compiler flag in `LIBSETCCEXTRA` to set it explicitly (for example `-std=c++17`).
 
 !!! note 
-    The TargetRTS can be compiled both with newer and older C++ compilers, but in order to use all its features the language standard must be C++ 11 or newer.
+    The TargetRTS can be compiled both with newer and older C++ compilers, but in order to use all its features the language standard must be C++ 11 or newer. The following features require at least C++ 11:<br>
+        - [Dependency injection](dependency-injection.md)<br> 
+        - [Move functions for type descriptors](../art-lang/cpp-extensions.md#c-implementation)<br> 
+        - [Capsule factories](capsule-factory.md)<br>
+        - [Chrono API for timers](timers.md#set-a-timer)<br>
 
 ### Flat Builds
 The `Build.pl` script accepts an optional flag `-flat` which, if used, should be the first argument. This flag causes the script to concatenate all source files that belong to the same class into a single file (placed in the output folder), and then build those concatenated file. This significantly reduces the number of source files to compile and therefore often speeds up the build. But beware that when [debugging the TargetRTS](#debug), you will debug these concatenated files, rather than the original source code. Do not change the concatenated files as those changes will be lost the next time you build the TargetRTS with the `-flat` flag.

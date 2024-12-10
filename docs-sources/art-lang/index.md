@@ -1022,7 +1022,9 @@ statemachine {
 
 Note that a dot (`.`) is used as scope resolution operator, to make it possible to reference an entry or exit point from the enclosing state machine. Inside the nested state machine the entry and exit points are directly accessible without use of the scope resolution operator (using it there would be an error).
 
-It is possible to only connect an entry point on the "outside". Entering the state via such an entry point will behave in the same way as entering the composite state without using an entry point (see above). It's therefore not recommended. In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
+It is possible to only connect an entry point on the "outside". Entering the state via such an entry point will behave in the same way as if the entry point was connected to the [deep history](#deep-history) pseudo state. For clarity it's best to avoid this and instead use an explicit reference to [deep history](#deep-history) if that is the intended behavior. 
+
+In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
 
 !!! example
     You can find a sample application that contains a composite state with an entry and exit point [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/compound_transition_rtdata).
@@ -1229,6 +1231,7 @@ Here is an example:
 ``` art
 class MyClass {
     trigger op();
+    trigger op2();
     
     statemachine {
         _i1: initial -> S2.ep;
@@ -1237,7 +1240,7 @@ class MyClass {
             state Inner1, Inner2;
             t1: ep -> Inner1;
             t2: Inner1 -> Inner2 on op();
-            t3: ep2 -> history on op();
+            t3: ep2 -> history on op2();
         };
     };
 };
