@@ -10,5 +10,9 @@ Credit to [Queen's University](https://research.cs.queensu.ca/home/dingel/cisc84
 
 `./Top.EXE -URTS_DEBUG=quit -UARGS 2 3 "[2,2,2,4,4,4]" "[5,5,5,5,5,5]"`
 
+`./Top.EXE -URTS_DEBUG=quit -UARGS 2 3 "[1,2,3,4,5,6]" "[1,2,3,4,5,6]"`
+
 `./Top.EXE -URTS_DEBUG=quit -UARGS 3 3 "[2,2,2,2,2,2,2,2,2]" "[3,3,3,3,3,3,3,3,3]"`
+
+`./Top.EXE -URTS_DEBUG=quit -UARGS 3 3 "[1,2,3,4,5,6,7,8,9]" "[1,2,3,4,5,6,7,8,9]"`
 

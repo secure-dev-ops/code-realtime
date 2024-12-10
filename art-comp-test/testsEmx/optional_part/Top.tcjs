@@ -1,0 +1,12 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/optional_part/Top.emx#_7qjrILE3Ee-3NaZnqNWhuw',
+];
+tc.prerequisites = [
+    'platform:/resource/TestRTSUtils/testRTSlib.tcjs',
+];
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'optional_part_target';
+tc.topCapsule = 'platform:/resource/optional_part/Top.emx#_7rNycLE3Ee-3NaZnqNWhuw';
