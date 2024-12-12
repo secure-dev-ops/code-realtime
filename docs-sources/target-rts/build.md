@@ -13,9 +13,17 @@ Follow these steps to build the TargetRTS from its sources:
 2. Make sure the unzipped folder, and everything it contains, is writable.
 3. From a command-line prompt with Perl in the PATH go into the `src` subfolder of the unzipped folder and invoke a command similar to the below:
 
-``` shell
-perl Build.pl WinT.x64-MinGw-12.2.0 make all
+```shell
+make PERL=perl CONFIG=MacT.AArch64-Clang-15.x
 ```
+(this will build the TargetRTS for the MacOS ARM configuration that comes with {$product.name$})
+
+If you have `rtperl` in the path, you can instead use this command:
+
+``` shell
+rtperl Build.pl WinT.x64-MinGw-12.2.0 make all
+```
+(this will build the TargetRTS for the MinGW 64 configuration that comes with {$product.name$})
 
 The Perl script `Build.pl` drives the build process of the TargetRTS, but uses a make tool for the bulk of the work. The first argument to the script is the name of the [target configuration](index.md#target-configurations) to use. This is the same name as is specified with the TC property [`targetConfiguration`](../building/transformation-configurations.md#targetconfiguration). The second argument to the script is the make tool to use. It corresponds to the TC property [`makeCommand`](../building/transformation-configurations.md#makecommand). The final argument is a make target defined in the file `main.mk`. To build everything use the target `all`.
 
@@ -35,6 +43,16 @@ Note that the default compiler flags in `LIBSETCCEXTRA` do not explicitly set th
 
 ### Flat Builds
 The `Build.pl` script accepts an optional flag `-flat` which, if used, should be the first argument. This flag causes the script to concatenate all source files that belong to the same class into a single file (placed in the output folder), and then build those concatenated file. This significantly reduces the number of source files to compile and therefore often speeds up the build. But beware that when [debugging the TargetRTS](#debug), you will debug these concatenated files, rather than the original source code. Do not change the concatenated files as those changes will be lost the next time you build the TargetRTS with the `-flat` flag.
+
+Below are the commands to use for doing flat builds, depending on if you use perl or rtperl:
+
+```shell
+make PERL=perl BUILDOPTS=-flat CONFIG=MacT.AArch64-Clang-15.x
+```
+
+```shell
+rtperl Build.pl -flat WinT.x64-MinGw-12.2.0 make all
+```
 
 ## Debug
 To be able to debug the TargetRTS, you need to build it with debug symbols included. Follow these steps (either in an existing target configuration, or in a new one you have created):
