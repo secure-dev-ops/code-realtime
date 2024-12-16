@@ -13,8 +13,14 @@
       
         <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/validation/">
       
+      
+        <link rel="prev" href="../working-with-art/references/">
+      
+      
+        <link rel="next" href="../target-rts/">
+      
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
@@ -22,13 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
       
+
     
     
     
@@ -45,7 +48,7 @@
     
       <link rel="stylesheet" href="../stylesheets/prism.css">
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 <!--  OneTrust Cookies Consent Notice start  -->
@@ -70,20 +73,18 @@
 
     
     
+    
   <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
   
 
   </head>
   
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    <body dir="ltr">
   
     
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -97,14 +98,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-<p>Check out the commercial edition!</p>
-
-          </div>
-        </aside>
       
     </div>
     
@@ -154,11 +147,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -172,7 +165,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -184,7 +177,7 @@
         <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -203,7 +196,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -305,7 +298,7 @@
       <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     secure-dev-ops/code-realtime
@@ -343,43 +336,44 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
-        <label class="md-nav__link" for="__nav_2">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Documentation
@@ -423,8 +417,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
       
       
         
@@ -447,7 +442,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="The Art Language" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           The Art Language
@@ -486,8 +481,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
       
       
         
@@ -516,7 +512,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Working with Art" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           Working with Art
@@ -597,7 +593,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
       
@@ -1196,8 +1192,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
       
       
         
@@ -1242,7 +1239,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Target RunTime System" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_6">
           <span class="md-nav__icon md-icon"></span>
           Target RunTime System
@@ -1421,13 +1418,16 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
           
             
+          
+        
           
         
           
@@ -1451,7 +1451,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Building" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -1482,6 +1482,20 @@
     <li class="md-nav__item">
       <a href="../building/build-cpp-files/" class="md-nav__link">
         C++ Source Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/build-tasks/" class="md-nav__link">
+        Build Tasks
       </a>
     </li>
   
@@ -1532,8 +1546,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
       
       
         
@@ -1558,7 +1573,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Running and Debugging" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Running and Debugging
@@ -1611,8 +1626,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
       
       
         
@@ -1629,7 +1645,7 @@
           
         </div>
       
-      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_9">
           <span class="md-nav__icon md-icon"></span>
           Releases
@@ -2325,14 +2341,14 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/secure-dev-ops/code-realtime/edit/main/docs-sources/validation.md" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
   <h1>Validation</h1>
@@ -2382,7 +2398,7 @@
 <p>In some (unusual) cases a validation rule may report a problem on multiple elements, for example <a href="#art_0002_duplicatenamesinscope">ART_0002</a> can detect that names of two or more global elements are conflicting. If you perform the Quick Fix for disabling that validation rule, a <code>rule_config</code> property will be set on one of the elements, but since the problem relates to multiple elements this will not make the problem go away. You can only turn off such validation rules by disabling them globally.</p>
 </div>
 <h2 id="configuring-validation">Configuring Validation</h2>
-<p>Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every <a href="#validation-rules">validation rule</a> is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property <a href="../art-lang#rule_config">rule_config</a>. In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration <code>X0003,I0004,W0009,E0005</code> means the following:</p>
+<p>Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every <a href="#validation-rules">validation rule</a> is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property <a href="../art-lang/#rule_config">rule_config</a>. In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration <code>X0003,I0004,W0009,E0005</code> means the following:</p>
 <ul>
 <li>The rule <a href="#art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</a> is disabled</li>
 <li>The rule <a href="#art_0004_nameshouldstartwithlowercase">ART_0004_nameShouldStartWithLowerCase</a> has its severity set to Information</li>
@@ -2390,7 +2406,7 @@
 <li>The rule <a href="#art_0005_choicewithoutelsetransition">ART_0005_choiceWithoutElseTransition</a> has its severity set to Error</li>
 </ul>
 <p>To configure validation rules globally, use the <a href="../settings/#rule-configuration">configuration setting</a> <code>code-rt.validation.ruleConfiguration</code>. A global configuration will apply for all Art files in the workspace, and all Art elements within those files, unless a local rule configuration has been set on an element.</p>
-<p>To configure validation rules locally, set the property <a href="../art-lang#rule_config">rule_config</a> on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule <a href="#art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</a> on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.</p>
+<p>To configure validation rules locally, set the property <a href="../art-lang/#rule_config">rule_config</a> on an Art element. It will affect the validation of that Art element itself, as well as all elements contained within that Art element. Here is an example of how to disable the validation rule <a href="#art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</a> on a capsule. Note that it also will disable this rule for elements contained within the capsule, such as states.</p>
 <pre><code class="language-art">capsule customCapsule // no warning even if capsule name is not capitalized
 [[rt::properties(
     rule_config=&quot;X0003&quot;
@@ -2461,12 +2477,12 @@ capsule Exception { // ART_0001 (&quot;Exception&quot; is a name reserved for us
 <p>Names of Art elements must be unique within the same scope. The following is checked:</p>
 <ul>
 <li>Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC or prerequisite TCs). The corresponding C++ elements will have names in the global namespace and must hence be unique.</li>
-<li>Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see <a href="../art-lang#protocol-and-event">Protocol and Event</a>).</li>
-<li><a href="../art-lang#part">Parts</a> of a capsule.</li>
-<li><a href="../art-lang#port">Ports</a> of a capsule.</li>
-<li><a href="../art-lang#state">States</a> and pseudo states (collectively referred to as "vertices") of a state machine.</li>
-<li><a href="../art-lang#transition">Transitions</a> of a state machine.</li>
-<li>Trigger operations of a <a href="../art-lang#class-with-state-machine">class</a>. Note that several trigger operations may have the same name as long as their signatures are unique.</li>
+<li>Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see <a href="../art-lang/#protocol-and-event">Protocol and Event</a>).</li>
+<li><a href="../art-lang/#part">Parts</a> of a capsule.</li>
+<li><a href="../art-lang/#port">Ports</a> of a capsule.</li>
+<li><a href="../art-lang/#state">States</a> and pseudo states (collectively referred to as "vertices") of a state machine.</li>
+<li><a href="../art-lang/#transition">Transitions</a> of a state machine.</li>
+<li>Trigger operations of a <a href="../art-lang/#class-with-state-machine">class</a>. Note that several trigger operations may have the same name as long as their signatures are unique.</li>
 </ul>
 <p>All elements with clashing names or signatures will be reported as related elements. Use this to find the element(s) that need to be renamed.</p>
 <pre><code class="language-art">protocol DupProto { // ART_0002 (name clash for inEvent1)
@@ -2531,10 +2547,10 @@ capsule C0002 : D0002 {
 </table>
 <p>Just like in most languages Art has certain conventions on how elements should be named. The following elements should have names that start with an uppercase letter:</p>
 <ul>
-<li><a href="../art-lang#capsule">Capsule</a></li>
-<li><a href="../art-lang#class-with-state-machine">Class</a></li>
-<li><a href="../art-lang#protocol-and-event">Protocol</a></li>
-<li><a href="../art-lang#state">State</a></li>
+<li><a href="../art-lang/#capsule">Capsule</a></li>
+<li><a href="../art-lang/#class-with-state-machine">Class</a></li>
+<li><a href="../art-lang/#protocol-and-event">Protocol</a></li>
+<li><a href="../art-lang/#state">State</a></li>
 </ul>
 <p>A Quick Fix is available that will fix the problem by capitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a rename refactoring (context menu command <strong>Rename Symbol</strong>).</p>
 <pre><code class="language-art">capsule myCapsule { // ART_0003
@@ -2564,13 +2580,13 @@ capsule C0002 : D0002 {
 </table>
 <p>Just like in most languages Art has certain conventions on how elements should be named. The following elements should have names that start with a lowercase letter:</p>
 <ul>
-<li><a href="../art-lang#protocol-and-event">Event</a></li>
-<li><a href="../art-lang#port">Port</a></li>
-<li><a href="../art-lang#part">Part</a></li>
-<li><a href="../art-lang#class-with-state-machine">Trigger operation</a></li>
-<li><a href="../art-lang#choice-and-junction-points">Choice and junction points</a></li>
-<li><a href="../art-lang#hierarchical-state-machine">Entry and exit points</a></li>
-<li><a href="../art-lang#transition">Transition</a></li>
+<li><a href="../art-lang/#protocol-and-event">Event</a></li>
+<li><a href="../art-lang/#port">Port</a></li>
+<li><a href="../art-lang/#part">Part</a></li>
+<li><a href="../art-lang/#class-with-state-machine">Trigger operation</a></li>
+<li><a href="../art-lang/#choice-and-junction">Choice and junction points</a></li>
+<li><a href="../art-lang/#hierarchical-state-machine">Entry and exit points</a></li>
+<li><a href="../art-lang/#transition">Transition</a></li>
 </ul>
 <p>A Quick Fix is available that will fix the problem by decapitalizing the name. Note, however, that it will only update the element's name, and not all references. If you have references to the element you may instead want to fix the problem by performing a rename refactoring (context menu command <strong>Rename Symbol</strong>).</p>
 <pre><code class="language-art">protocol LowerCaseTestProtocol {
@@ -2742,7 +2758,7 @@ capsule InitTransCap3 : InitTransCap2 {
 </tr>
 </tbody>
 </table>
-<p>Most Art elements have <a href="../art-lang#art_properties">properties</a> that can be set to change their default values. Different elements have different properties and if you get this error it means you have referenced a non-existing property for an Art element. </p>
+<p>Most Art elements have <a href="../art-lang/#art_properties">properties</a> that can be set to change their default values. Different elements have different properties and if you get this error it means you have referenced a non-existing property for an Art element. </p>
 <p>A Quick Fix is available for removing the setting of the invalid property. Use Content Assist (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>) to get a list of valid properties for an Art element.</p>
 <pre><code class="language-art">protocol IP_PROTO [[rt::properties(
     no_property = 4 // ART_0009 (a protocol has no property called &quot;no_property&quot;)
@@ -2777,7 +2793,7 @@ capsule CN
 </tr>
 </tbody>
 </table>
-<p>Most Art elements have <a href="../art-lang#art_properties">properties</a> and every property has a type that is either boolean, integer, string or an enumeration. The type of the value assigned to a property must match the property's type. For example, you cannot assign an integer value to a boolean property. </p>
+<p>Most Art elements have <a href="../art-lang/#art_properties">properties</a> and every property has a type that is either boolean, integer, string or an enumeration. The type of the value assigned to a property must match the property's type. For example, you cannot assign an integer value to a boolean property. </p>
 <pre><code class="language-art">capsule IPV_Cap [[rt::properties(
     generate_file_header=4 // ART_0010 (&quot;generate_file_header&quot; is a boolean property)
 )]]{
@@ -2804,7 +2820,7 @@ capsule CN
 </tr>
 </tbody>
 </table>
-<p>Most Art elements have <a href="../art-lang#art_properties">properties</a> and every property has a default value. It's unnecessary to explicitly set a property to its default value. </p>
+<p>Most Art elements have <a href="../art-lang/#art_properties">properties</a> and every property has a default value. It's unnecessary to explicitly set a property to its default value. </p>
 <p>A Quick Fix is available for removing the setting of the property. </p>
 <pre><code class="language-art">capsule C_PropDefaultValue [[rt::properties(
     generate_file_header=true // ART_0011
@@ -2832,7 +2848,7 @@ capsule CN
 </tr>
 </tbody>
 </table>
-<p>A <a href="../art-lang#embedded-c-code">code snippet</a>'s kind is specified after the prefix <code>rt::</code>. Different Art elements may have different kinds of code snippets. Also, some Art elements may have multiple code snippets of a certain kind, while others only may have one code snippet of each kind. </p>
+<p>A <a href="../art-lang/#embedded-c-code">code snippet</a>'s kind is specified after the prefix <code>rt::</code>. Different Art elements may have different kinds of code snippets. Also, some Art elements may have multiple code snippets of a certain kind, while others only may have one code snippet of each kind. </p>
 <p>A Quick Fix is available for removing the invalid code snippet. </p>
 <pre><code class="language-art">[[rt::header_preface]] // ART_0012 (code snippet for capsule/class placed at file level)
 `
@@ -2878,7 +2894,7 @@ capsule Name {
 </tr>
 </tbody>
 </table>
-<p>If a <a href="../art-lang#part">part</a> has a multiplicity that specifies a range (i.e. both a lower and upper multiplicity), then the lower multiplicity must be less than the upper multiplicity.</p>
+<p>If a <a href="../art-lang/#part">part</a> has a multiplicity that specifies a range (i.e. both a lower and upper multiplicity), then the lower multiplicity must be less than the upper multiplicity.</p>
 <pre><code class="language-art">capsule PME_Cap {
     part myPart : OtherCap [2..2]; // ART_0013
 
@@ -2905,12 +2921,12 @@ capsule Name {
 </tr>
 </tbody>
 </table>
-<p>The multiplicity of a capsule <a href="../art-lang#part">part</a> must match the part's kind. The following is checked:</p>
+<p>The multiplicity of a capsule <a href="../art-lang/#part">part</a> must match the part's kind. The following is checked:</p>
 <ul>
 <li>A fixed part must have a multiplicity greater than zero. This is because when the container capsule is incarnated at least one capsule instance must be incarnated into the fixed part.</li>
 <li>An optional part must have a lower multiplicity of zero. This means that when the container capsule is incarnated no capsule instances will be incarnated into the optional part. Hence, this is what makes the part optional.</li>
 </ul>
-<p>In case any of these inconsistencies is detected, the faulty multiplicity will be ignored and a default multiplicity (see <a href="../art-lang#part">Part</a>) will be used instead.</p>
+<p>In case any of these inconsistencies is detected, the faulty multiplicity will be ignored and a default multiplicity (see <a href="../art-lang/#part">Part</a>) will be used instead.</p>
 <pre><code class="language-art">capsule PKMI_Cap { 
     fixed part myPart : OtherCap [0..2]; // ART_0014 (Fixed part should not have lower multiplicity 0)
     optional part myPart2 : OtherCap [1..5]; // ART_0014 (Optional part should not have lower multiplicity &gt; 0)
@@ -2938,7 +2954,7 @@ capsule Name {
 </tr>
 </tbody>
 </table>
-<p>An <a href="../art-lang#internal-transition">internal transition</a> specifies events that can be handled while a state machine is in a certain state without leaving that state. Hence it's only possible to define an internal transition inside a state. It does not make sense to define an internal transition directly in the top state machine.</p>
+<p>An <a href="../art-lang/#internal-transition">internal transition</a> specifies events that can be handled while a state machine is in a certain state without leaving that state. Hence it's only possible to define an internal transition inside a state. It does not make sense to define an internal transition directly in the top state machine.</p>
 <pre><code class="language-art">capsule IntTransOutsideState {
     behavior port timer : Timing;
 
@@ -3027,10 +3043,10 @@ class C4 : C3 { // ART_0016
 </tr>
 </tbody>
 </table>
-<p><a href="../art-lang#part">Parts</a> of a capsule must form a strict composition hierarchy. At run-time the root of this hierarchy is the top capsule instance, and all other capsule instances in the application must be directly or indirectly owned by that capsule instance. For a fixed part the creation of contained capsule instances happen automatically when the container capsule is incarnated. It's therefore possible to statically analyze the fixed parts and check for cycles in the composition hierarchy.</p>
+<p><a href="../art-lang/#part">Parts</a> of a capsule must form a strict composition hierarchy. At run-time the root of this hierarchy is the top capsule instance, and all other capsule instances in the application must be directly or indirectly owned by that capsule instance. For a fixed part the creation of contained capsule instances happen automatically when the container capsule is incarnated. It's therefore possible to statically analyze the fixed parts and check for cycles in the composition hierarchy.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only the static type of fixed capsule parts are used when looking for composition cycles. If a part has a <a href="../art-lang#part-with-capsule-factory">capsule factory</a> that specifies a create function using C++ code, then a different dynamic type may be specified for the created capsule instances for that part. This opens up for more possibilities of introducing cycles in the composition hierarchy that will not be detected by this validation rule.</p>
+<p>Only the static type of fixed capsule parts are used when looking for composition cycles. If a part has a <a href="../art-lang/#part-with-capsule-factory">capsule factory</a> that specifies a create function using C++ code, then a different dynamic type may be specified for the created capsule instances for that part. This opens up for more possibilities of introducing cycles in the composition hierarchy that will not be detected by this validation rule.</p>
 </div>
 <p>The fixed parts that form the composition cycle will be reported as related elements. Use this to decide how to break the composition cycle.</p>
 <pre><code class="language-art">capsule CComp2 {    
@@ -3118,7 +3134,7 @@ capsule CComp3 {
 </tr>
 </tbody>
 </table>
-<p>An <a href="../art-lang#unwired-port">unwired port</a> can at runtime be connected to another unwired port. One of the connected ports will be a publisher port (a.k.a SPP port) while the other will be a subscriber port (a.k.a SAP port). An unwired port can either be statically declared as being a publisher or subscriber port, or it can be dynamically decided at port registration time if the port should be a publisher or subscriber. The same port can not be both a subscriber and a publisher port at the same time.</p>
+<p>An <a href="../art-lang/#unwired-port">unwired port</a> can at runtime be connected to another unwired port. One of the connected ports will be a publisher port (a.k.a SPP port) while the other will be a subscriber port (a.k.a SAP port). An unwired port can either be statically declared as being a publisher or subscriber port, or it can be dynamically decided at port registration time if the port should be a publisher or subscriber. The same port can not be both a subscriber and a publisher port at the same time.</p>
 <p>Two Quick Fixes are available for making the port a publisher or a subscriber port by removing either the <code>subscribe</code> or <code>publish</code> keyword. </p>
 <pre><code class="language-art">capsule UnwiredCapsule {  
     subscribe publish behavior port p1 : UnwiredProtocol; // ART_0019
@@ -3146,7 +3162,7 @@ capsule CComp3 {
 </tr>
 </tbody>
 </table>
-<p>An <a href="../art-lang#unwired-port">unwired port</a> may have properties that control how it will be registered at runtime (see <a href="../art-lang#registration">registration</a> and <a href="../art-lang#registration_name">registration_name</a>). These properties have no meaning and will be ignored for wired ports. </p>
+<p>An <a href="../art-lang/#unwired-port">unwired port</a> may have properties that control how it will be registered at runtime (see <a href="../art-lang/#registration">registration</a> and <a href="../art-lang/#registration_name">registration_name</a>). These properties have no meaning and will be ignored for wired ports. </p>
 <pre><code class="language-art">capsule UnwiredCapsule2 {
     behavior port p1 [[rt::properties(
         registration_name=&quot;hi&quot;
@@ -3175,7 +3191,7 @@ capsule CComp3 {
 </tr>
 </tbody>
 </table>
-<p>When an <a href="../art-lang#unwired-port">unwired port</a> is registered a name is used that by default is the name of the port. The property <a href="../art-lang#registration_name">registration_name</a> can be used for specifying another name. It's hence unnecessary to use that property for specifying the name of the port, since it is the default name that anyway would be used. </p>
+<p>When an <a href="../art-lang/#unwired-port">unwired port</a> is registered a name is used that by default is the name of the port. The property <a href="../art-lang/#registration_name">registration_name</a> can be used for specifying another name. It's hence unnecessary to use that property for specifying the name of the port, since it is the default name that anyway would be used. </p>
 <pre><code class="language-art">capsule UnwiredCapsule3 {
     unwired publish behavior port p1~ [[rt::properties(
         registration_name = &quot;p1&quot;
@@ -3200,12 +3216,12 @@ capsule CComp3 {
 <tbody>
 <tr>
 <td>Warning</td>
-<td align="left">The <a href="../art-lang#rule_config">rule_config</a> property has a malformed value.</td>
+<td align="left">The <a href="../art-lang/#rule_config">rule_config</a> property has a malformed value.</td>
 <td align="left">N/A</td>
 </tr>
 </tbody>
 </table>
-<p>The <a href="../art-lang#rule_config">rule_config</a> property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the <a href="../art-lang#rule_config">rule_config</a> property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See <a href="#configuring-validation">Configuring Validation</a> for more information and examples.</p>
+<p>The <a href="../art-lang/#rule_config">rule_config</a> property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the <a href="../art-lang/#rule_config">rule_config</a> property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See <a href="#configuring-validation">Configuring Validation</a> for more information and examples.</p>
 <pre><code class="language-art">capsule RCP [[rt::properties(
     rule_config=&quot;X0000&quot; // ART_0022 (a validation rule with id 0000 does not exist)
 )]]{
@@ -3266,7 +3282,7 @@ capsule CComp3 {
 </tr>
 </tbody>
 </table>
-<p>An <a href="../art-lang#unwired-port">unwired port</a> cannot be connected to another port by means of a <a href="../art-lang#connector">connector</a>. Hence, it's required that an unwired port is defined to be a behavior port. Otherwise it would not be possible for the owner capsule to send and receive events on an unwired port.</p>
+<p>An <a href="../art-lang/#unwired-port">unwired port</a> cannot be connected to another port by means of a <a href="../art-lang/#connector">connector</a>. Hence, it's required that an unwired port is defined to be a behavior port. Otherwise it would not be possible for the owner capsule to send and receive events on an unwired port.</p>
 <pre><code class="language-art">capsule Pinger {
     service publish unwired port p1 : PROTO; // ART_0024
 
@@ -3294,7 +3310,7 @@ capsule CComp3 {
 </tr>
 </tbody>
 </table>
-<p>An <a href="../art-lang#unwired-port">unwired port</a> must not be connected to another port by means of a <a href="../art-lang#connector">connector</a>. Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.</p>
+<p>An <a href="../art-lang/#unwired-port">unwired port</a> must not be connected to another port by means of a <a href="../art-lang/#connector">connector</a>. Instead you should register such a port dynamically so that it can be connected at runtime with another matching port.</p>
 <p>A wired port, however, should be connected. A service port that is not a behavior port should be connected both on the "inside" and on the "outside" by two connectors. That is because the purpose of such a relay port is to simply relay communication from one port to another. By "inside" we mean the composite structure of the capsule that owns the port, and by "outside" we mean the composite structure to which the part that is typed by the capsule belongs. If the service port is instead a behavior port, it should only be connected on the "outside".</p>
 <p>The sample below contains several unwired ports that are connected (although they should not be). The validation rule also detects the problem that the service behavior port <code>p1</code> is connected on the "inside". (The fact that it's also not connected on the "outside" is reported by <a href="#art_0039_portpartmultiplicitymismatch">ART_0039_portPartMultiplicityMismatch</a>).</p>
 <pre><code class="language-art">protocol PROTO {
@@ -3383,7 +3399,7 @@ capsule Inner {
 </tr>
 </tbody>
 </table>
-<p>Ports connected by a <a href="../art-lang#connector">connector</a> must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have opposite conjugations. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.</p>
+<p>Ports connected by a <a href="../art-lang/#connector">connector</a> must have compatible conjugations. If the ports are at the same level in the capsule's structure (e.g. both ports belong to capsules typing capsule parts owned by the same capsule), then the connected ports must have opposite conjugations. This is because events that are sent out from one of the ports must be able to be received by the other port. However, if the ports are at different levels in the capsule's structure (e.g. one of them belongs to a capsule typing a capsule part owned by the capsule and the other belongs to the capsule itself), then the ports must have the same conjugation. This is because in this case events are simply delegated from one capsule to another.</p>
 <pre><code class="language-art">capsule Top {    
     part ping : Pinger, pong : Ponger; 
     connect ping.p1 with pong.p2; // ART_0026 (same port conjugations but should be different)
@@ -3441,7 +3457,7 @@ capsule Ponger {
 </tr>
 </tbody>
 </table>
-<p>Ports connected by a <a href="../art-lang#connector">connector</a> must have compatible protocols. For Code RealTime this means that the protocols must be the same.</p>
+<p>Ports connected by a <a href="../art-lang/#connector">connector</a> must have compatible protocols. For Code RealTime this means that the protocols must be the same.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Model RealTime uses a different criteria for protocol compatibility. There two protocols are compatible if all events that can be sent by a port typed by the source protocol can be received by the other port typed by the target protocol. Also in Model RealTime the most common case is that the source and target protocols are the same, but they can also be different as long as all their events (both in-events and out-events) match both by name and parameter data type. This is a legacy behavior which is not recommended to use, and hence not supported by Code RealTime.</p>
@@ -3492,7 +3508,7 @@ capsule Top {
 </tr>
 </tbody>
 </table>
-<p>An <a href="../art-lang#unwired-port">unwired port</a> is either a publisher (SPP) or subscriber (SAP) at run-time. Unless the port has the <a href="../art-lang#registration">registration</a> property set to <code>application</code> it will be registered automatically when the container capsule instance gets created. Hence it's necessary in this case to declare the port either as a publisher or subscriber.</p>
+<p>An <a href="../art-lang/#unwired-port">unwired port</a> is either a publisher (SPP) or subscriber (SAP) at run-time. Unless the port has the <a href="../art-lang/#registration">registration</a> property set to <code>application</code> it will be registered automatically when the container capsule instance gets created. Hence it's necessary in this case to declare the port either as a publisher or subscriber.</p>
 <pre><code class="language-art">capsule CCXX {
     unwired behavior port pu // ART_0028
     [[rt::properties(
@@ -3526,7 +3542,7 @@ capsule Top {
 </tr>
 </tbody>
 </table>
-<p>If a composite state is entered without using an entry point, the behavior may be different the first time the state is entered compared to subsequent times it's entered. The first time the initial transition of the composite state will execute, while after that it will be entered using <a href="../art-lang#deep-history">deep history</a> (i.e. directly activate the substate that was previously active in the composite state). This difference in behavior is not evident just by looking at the state diagram, and can therefore be surprising and cause bugs. It's therefore recommended to always enter a composite state using an entry point. See <a href="../art-lang#hierarchical-state-machine">Hierarchical Statemachines</a> for more information.</p>
+<p>If a composite state is entered without using an entry point, the behavior may be different the first time the state is entered compared to subsequent times it's entered. The first time the initial transition of the composite state will execute, while after that it will be entered using <a href="../art-lang/#deep-history">deep history</a> (i.e. directly activate the substate that was previously active in the composite state). This difference in behavior is not evident just by looking at the state diagram, and can therefore be surprising and cause bugs. It's therefore recommended to always enter a composite state using an entry point. See <a href="../art-lang/#hierarchical-state-machine">Hierarchical Statemachines</a> for more information.</p>
 <pre><code class="language-art">capsule Cap {
     statemachine {
         state BS {
@@ -3583,7 +3599,7 @@ capsule Top {
 </tr>
 </tbody>
 </table>
-<p>A <a href="../art-lang#port">port</a> that is not a service port is internal to a capsule. For such a port to be useful it must be a behavior port; otherwise the capsule cannot send and receive events on the port. Hence, a non-service port cannot at the same time be a non-behavior port.</p>
+<p>A <a href="../art-lang/#port">port</a> that is not a service port is internal to a capsule. For such a port to be useful it must be a behavior port; otherwise the capsule cannot send and receive events on the port. Hence, a non-service port cannot at the same time be a non-behavior port.</p>
 <p>Quick Fixes are available for either declaring the port as a behavior or service port.</p>
 <pre><code class="language-art">capsule C31 {
     port fp : Proto; // ART_0031
@@ -3611,7 +3627,7 @@ capsule Top {
 </tr>
 </tbody>
 </table>
-<p>A <a href="../art-lang#color">color</a> can be assigned to most elements and will be used when showing the element on a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. In case the color value is on another format it will not be recognized and will be ignored when rendering the diagram.</p>
+<p>A <a href="../art-lang/#color">color</a> can be assigned to most elements and will be used when showing the element on a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. In case the color value is on another format it will not be recognized and will be ignored when rendering the diagram.</p>
 <pre><code class="language-art">capsule C32 {
     behavior port frame [[rt::properties(color=&quot;#gd1d1d&quot;)]]: Frame; // ART_0032 (invalid hex digit 'g')
     behavior port p [[rt::properties(color=&quot;#cc&quot;)]] : Proto; // ART_0032 (too few digits)
@@ -3639,7 +3655,7 @@ capsule Top {
 </tr>
 </tbody>
 </table>
-<p>A <a href="../art-lang#port">port</a> is only visible from the outside of a capsule if it is a service port. Hence, a connector cannot connect a port on a part unless the port is a service port.</p>
+<p>A <a href="../art-lang/#port">port</a> is only visible from the outside of a capsule if it is a service port. Hence, a connector cannot connect a port on a part unless the port is a service port.</p>
 <pre><code class="language-art">capsule C33 {
     optional part thePart : Other;
     behavior port bp~ : Proto; 
@@ -3680,7 +3696,7 @@ capsule Other {
 </tr>
 </tbody>
 </table>
-<p>A service <a href="../art-lang#port">port</a> is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a <a href="../art-lang/#notifying-port">notifying port</a> which receives the <code>rtBound</code> and <code>rtUnbound</code> events when the port gets connected or disconnected to another port at runtime. This means that a notifying port can be useful even if its protocol doesn't contain any events.</p>
+<p>A service <a href="../art-lang/#port">port</a> is part of the externally visible communication interface for a capsule. Hence the protocol that types a service port should have at least one event, otherwise the service port doesn't add any value. The only exception is a <a href="../art-lang/#notifying-port">notifying port</a> which receives the <code>rtBound</code> and <code>rtUnbound</code> events when the port gets connected or disconnected to another port at runtime. This means that a notifying port can be useful even if its protocol doesn't contain any events.</p>
 <pre><code class="language-art">protocol EmptyProtocol {
 };
 
@@ -3710,7 +3726,7 @@ capsule C34 {
 </tr>
 </tbody>
 </table>
-<p>A timer <a href="../art-lang#port">port</a> is typed by the predefined <a href="../targetrts-api/struct_timing.html">Timing</a> protocol. It has one event <code>timeout</code> which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the <code>timeout</code> event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.</p>
+<p>A timer <a href="../art-lang/#port">port</a> is typed by the predefined <a href="../targetrts-api/struct_timing.html">Timing</a> protocol. It has one event <code>timeout</code> which is sent to the port after a certain timeout period (either once or periodically). Other capsules cannot send the <code>timeout</code> event to the capsule that owns the timer port. Hence a timer port should always be a non-service behavior port.</p>
 <p>A Quick Fix is available that will remove the <code>service</code> keyword for the port and if necessary also add the <code>behavior</code> keyword.</p>
 <pre><code class="language-art">capsule C35 {
     service port t : Timing; // ART_0035
@@ -3738,8 +3754,8 @@ capsule C34 {
 </tr>
 </tbody>
 </table>
-<p>A <a href="../art-lang#transition">transition</a> can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a <a href="../art-lang#choice-and-junction">choice or junction</a>) must therefore not have any triggers. </p>
-<p>Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this <a href="../art-lang#entry-and-exit-point-without-incoming-transition">here</a>.</p>
+<p>A <a href="../art-lang/#transition">transition</a> can only have triggers if it originates from a state, because it's only when the state machine is in a state that a received and dispatched message can trigger a new transition to execute. A transition that originates from a pseudo state (such as a <a href="../art-lang/#choice-and-junction">choice or junction</a>) must therefore not have any triggers. </p>
+<p>Note that even if entry and exit points are pseudo states, the rule mentioned above does not apply for them unless they are connected with an incoming transition. If there is no incoming transition, an entry/exit point represents the enclosing state and the transition that leaves it can (in fact, should) have triggers. Read more about this <a href="../art-lang/#entry-and-exit-point-without-incoming-transition">here</a>.</p>
 <p>A Quick Fix is available that will remove the triggers of the transition (hence converting it from a triggered to a non-triggered transition).</p>
 <pre><code class="language-art">capsule C36 {
     behavior port t : Timing;
@@ -3802,7 +3818,7 @@ capsule D2 : B2 {
 </tr>
 </tbody>
 </table>
-<p>A <a href="../art-lang#transition">transition</a> that originates from a <a href="../art-lang#state">state</a> is only meaningful if it specifies as least one trigger. Otherwise the transition cannot be triggered and would be useless. As mentioned in <a href="../art-lang#entry-and-exit-point-without-incoming-transition">this chapter</a> an entry or exit point without incoming transition represents the state that owns the entry or exit point. A transition that originates from such an entry or exit point must therefore have a trigger.</p>
+<p>A <a href="../art-lang/#transition">transition</a> that originates from a <a href="../art-lang/#state">state</a> is only meaningful if it specifies as least one trigger. Otherwise the transition cannot be triggered and would be useless. As mentioned in <a href="../art-lang/#entry-and-exit-point-without-incoming-transition">this chapter</a> an entry or exit point without incoming transition represents the state that owns the entry or exit point. A transition that originates from such an entry or exit point must therefore have a trigger.</p>
 <pre><code class="language-art">capsule C37 {
     behavior port t : Timing;    
     statemachine { 
@@ -4621,7 +4637,7 @@ capsule B {
 };
 </code></pre>
 <h2 id="internal-errors">Internal Errors</h2>
-<p>A special validation rule is used for detecting and reporting so called internal errors. These are errors that should never occur, but if they still do they are caused by a defect in Code RealTime. If you encounter an internal error please report it as described <a href="../support">here</a>.</p>
+<p>A special validation rule is used for detecting and reporting so called internal errors. These are errors that should never occur, but if they still do they are caused by a defect in Code RealTime. If you encounter an internal error please report it as described <a href="../support/">here</a>.</p>
 <h3 id="art_9999_internalerror">ART_9999_internalError</h3>
 <table>
 <thead>
@@ -4639,18 +4655,23 @@ capsule B {
 </tr>
 </tbody>
 </table>
-<p>Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating Code RealTime. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of Code RealTime (see <a href="../releases">Releases</a>). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described <a href="../support">here</a>.</p>
+<p>Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating Code RealTime. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of Code RealTime (see <a href="../releases/">Releases</a>). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described <a href="../support/">here</a>.</p>
 
-              
-            </article>
-            
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
@@ -4664,16 +4685,18 @@ capsule B {
 	 
     </div>
   </div>
+  <script>Prism.highlightAll();</script>
 </footer>
       
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../scripts/prism.js"></script>
       
