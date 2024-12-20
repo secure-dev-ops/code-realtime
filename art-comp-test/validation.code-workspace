@@ -5,6 +5,9 @@
         {
             "path": "tests/art_0002"
         },
+		{
+            "path": "tests/art_0002_inheritance"
+        },
         {
             "path": "tests/art_0003"
         },
@@ -118,6 +121,12 @@
         },
         {
             "path": "tests/art_0040"
+        },
+		{
+            "path": "tests/art_0041"
+        },
+		{
+            "path": "tests/art_0041_inheritance"
         },
         {
             "path": "tests/cpp_4000"

@@ -1,0 +1,96 @@
+protocol Events {
+    out outEvent1(`int`);
+    out outEvent2(`int`);
+    out outEvent3();
+    out unhandled();    
+};
+
+capsule Top {
+    part c1 : C1;
+    part c2 : C2;
+    connect c1.p with c2.p;
+    connect c1.p2 with c2.p2;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule C2 {
+    service behavior notify port p : Events;
+    service behavior notify port p2 : Events;
+    statemachine {
+        state State {
+            bound: on p.rtBound
+            `
+                p.outEvent1(0).send();
+                p.outEvent1(-1).send();
+                p.outEvent1(1).send();
+                p.outEvent2(100).send();
+                p.outEvent3().send();                
+                p2.unhandled().send();
+            `;
+        };
+        initial -> State;
+    };
+};
+
+capsule C1 {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"        
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private: std::string str;
+
+        virtual void unexpectedMessage() override;
+    `
+
+    [[rt::impl]]
+    `
+        void C1::unexpectedMessage() {
+            ASSERT(str == " N2_t1 N2_t2 N1_t1 N2_t2 S_t1", "Triggers were not correctly matched");
+            PASS();
+        }
+    `
+
+    service behavior port p~ : Events;
+    service behavior port p2~ : Events;
+
+    statemachine {
+        state S {
+            state N1 {
+                t1: on p.outEvent1
+                `
+                    str += " N1_t1";
+                `;
+                state N2 { 
+                    t1: on p.outEvent1 when `*rtdata == 0`
+                    `
+                        str += " N2_t1";
+                    `;
+                    t2: on p.outEvent1 [`*rtdata < 0`] , p.outEvent2 
+                    `
+                        str += " N2_t2";
+                    `;
+                };
+                entrypoint ep1;
+                ep1 -> N2;
+            };
+            entrypoint ep1;
+            ep1 -> N1.ep1;
+            t1: on p.*            
+            `
+                str += " S_t1";
+            `;
+        };
+        initial -> S.ep1;
+    };
+};

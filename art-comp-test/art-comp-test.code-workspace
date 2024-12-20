@@ -236,6 +236,9 @@
         {
             "path": "tests/transition_inheritance"
         },
+		{
+            "path": "tests/trigger_matching"
+        },
         {
             "path": "tests/trigger_operation_with_parameters"
         },

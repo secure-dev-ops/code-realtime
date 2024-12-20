@@ -1,0 +1,85 @@
+protocol P {
+    out e();
+    out done();
+};
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include <string>        
+    `
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+    `
+    [[rt::decl]]
+    `
+        std::string result;
+    `
+    behavior port p1 : P;
+    behavior port p2~ : P;
+    connect p1 with p2;
+    behavior port timer : Timing;
+    statemachine {
+        initial -> CompositeState.ep1
+        `
+            timer.informIn(RTTimespec(1,0));
+        `;
+        state CompositeState {
+            entry `result += "-->CompositeState ";`;
+            exit  `result += "CompositeState--> ";`;
+            state Nested {
+                entrypoint ep1;
+                entry `result += "-->Nested ";`;
+                exit  `result += "Nested--> ";`;
+                state Nested2 {
+                    entrypoint ep1;
+                    entry `result += "-->Nested2 ";`;
+                    exit  `result += "Nested2--> ";`;
+                    state Nested3 {
+                        entry `result += "-->Nested3 ";`;
+                        exit  `result += "Nested3--> ";`;
+                    };
+                    ep1 -> Nested3;
+                };
+                ep1 -> Nested2.ep1;
+            };
+            entrypoint ep1;
+            entrypoint ep2; // ART_0041
+            exitpoint ex1;
+            exitpoint ex2; // ART_0041
+            ep1 -> Nested.ep1;
+            timeout: Nested -> ex1 on timer.timeout
+            `
+                timer.informIn(RTTimespec(1, 0));
+            `;
+            to_deep_history: Nested -> ex2 on p2.e
+            `
+                std::cout << result << std::endl;
+                ASSERT(result == "-->CompositeState -->Nested -->Nested2 -->Nested3 Nested3--> Nested2--> Nested--> ",
+                "First deep history entry: States should be entered top-down and exited bottom-up");
+                result.clear();
+                // Exiting to deep history
+                p1.done().send();
+            `;
+        
+        };
+        state Other;
+        exit1: CompositeState.ex1 -> Other
+        `
+            ASSERT(result == "-->CompositeState -->Nested -->Nested2 -->Nested3 Nested3--> Nested2--> Nested--> CompositeState--> ",
+                "First normal entry: States should be entered top-down and exited bottom-up");
+            result.clear();
+        `;
+        back: Other -> CompositeState.ep2 on timer.timeout
+        `
+            p1.e().send();
+        `;
+        state Done;
+        done: CompositeState -> Done on p2.done
+        `            
+            ASSERT(result == "-->Nested -->Nested2 -->Nested3 Nested3--> Nested2--> Nested--> CompositeState--> ",
+                "Second deep history entry: States should be entered top-down and exited bottom-up");
+            PASS();
+        `;
+    };
+};

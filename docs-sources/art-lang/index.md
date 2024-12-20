@@ -823,7 +823,13 @@ capsule MyCap {
 
 ![](images/triggered_transitions.png)
 
-Triggers are specified as `PORT.EVENT` after the keyword `on`. You may specify multiple triggers separated by comma (`,`).
+Transition triggers are specified as `PORT.EVENT` after the keyword `on`. You may specify multiple triggers separated by comma (`,`). You can use an asterisk (`*`) instead of an event to trigger on any event that is received on the port (a so called "receive-any" trigger). Here are some examples of triggers:
+
+```art
+t1: S1 -> S2 on port1.event1; // Trigger t1 when receiving event1 on port1
+t2: S1 -> S3 on port1.event2, port2.event2; // Trigger t2 when receiving event2 on port1 or event2 on port2
+t3: S1 -> S4 on port3.*; // Trigger t3 when receiving any event on port3
+```
 
 It's only valid to specify triggers for transitions that originate from a state. Transitions that originate from a pseudo-state (e.g. a choice or junction) cannot have triggers, i.e. they must be non-triggered transitions. Note, however, that transitions originating from [entry and exit points without incoming transitions](#entry-and-exit-point-without-incoming-transition) represent the container state and hence need a trigger.
 
@@ -1022,14 +1028,22 @@ statemachine {
 
 Note that a dot (`.`) is used as scope resolution operator, to make it possible to reference an entry or exit point from the enclosing state machine. Inside the nested state machine the entry and exit points are directly accessible without use of the scope resolution operator (using it there would be an error).
 
-It is possible to only connect an entry point on the "outside". Entering the state via such an entry point will behave in the same way as if the entry point was connected to the [deep history](#deep-history) pseudo state. For clarity it's best to avoid this and instead use an explicit reference to [deep history](#deep-history) if that is the intended behavior. 
-
-In the same way it's possible to exit a composite state using an exit point that only is connected on the "inside". In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
-
 !!! example
     You can find a sample application that contains a composite state with an entry and exit point [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/compound_transition_rtdata).
 
 Just like a [junction](#choice-and-junction), an entry or exit point can have multiple outgoing transitions. Guards on those transitions decide which of them to execute, and are evaluated *before* leaving the current state. Therefore, the same recommendations as for guard conditions of [junctions](#choice-and-junction) apply for entry and exit points.
+
+#### Trigger Matching Rules
+When a capsule with a hierarchical state machine receives a message for event `E` on one of its ports `P` the below rules decide which transition that will be triggered:
+
+1. Starting at the innermost active state, outgoing transitions are traversed. If one of these transitions has a trigger that matches event `E` and port `P`, and that trigger is enabled, then that transition is triggered. A trigger is enabled if it has a guard condition that evaluates to true (or no guard at all) and its transition also has a guard condition that evaluates to true (or no guard at all). If more than one such outgoing transition exists, any of them can be triggered. In practise it's the first found enabled trigger which will decide which transition to trigger, but you should not make assumptions that the outgoing transitions and its triggers will be traversed in a certain order. It's therefore good practise to write outgoing triggered transitions so that at most one of them will be enabled at the same time.
+2. If no enabled transition was found in the innermost active state, the search repeats at the next enclosing composite state. If that state also did not have an outgoing transition that was enabled then the search proceeds outwards in the state hierarchy until the top-most active state is reached.
+3. If no enabled transition was found in the outermost active state, then the received message is considered unexpected and will be lost. This is handled as described in [Unhandled Messages](../target-rts/message-communication.md#unhandled-messages).
+
+To avoid unhandled messages it's common to have one or many transitions (often [internal transitions](#internal-transition)) on the outermost composite state with "receive-any" triggers (i.e. triggers that use an asterisk (`*`) for matching any received event on a port). Such transitions can handle errors and other unexpected situations. One situation that is common is that someone adds a new event in one of the protocols that type the service ports of the capsule, but forgets to ensure that the new event is handled by the capsule's state machine. A "receive-any" trigger for that port can "catch" this and avoid that a message for the new event is lost.
+
+!!! example
+    You can find a sample application that illustrates the trigger matching rules [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/trigger_matching).
 
 #### Entry and Exit Point without Incoming Transition
 You can choose to not connect an entry or exit point with an incoming transition. In this case the entry or exit point represents the owning state, and a transition that originates from such an entry or exit point behaves the same as if it would originate from the state itself. Contrary to other transitions that originate from an entry or exit point, such a transition is therefore triggered and should have at least one trigger.
@@ -1068,8 +1082,10 @@ In the [example above](#hierarchical_sm_sample) we can see that the transition f
 !!! example
     You can find a sample application that uses the deep history pseudo state [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/deep_history).
 
+If a state is entered via an entry point that has no outgoing transition in the nested state machine, then it behaves in the same way as if the entry point was connected to the [deep history](#deep-history) pseudo state. For clarity it's best to avoid this and instead use an explicit reference to [deep history](#deep-history) if that is the intended behavior. In the same way it's possible to exit a composite state using an exit point that has no outgoing transition in the enclosing state machine. In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
+
 #### Local Transition
-A transition in a nested state machine that connects an entry point and exit point on the same state, and these entry/exit points only are connected on the "inside", is a **local transition**. A local transition is a self-transition that behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the substates, run the effect code, and then enter the substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. 
+A transition in a nested state machine that connects an entry point and exit point on the same state is a **local transition**. A local transition is a self-transition that behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the substates, run the effect code, and then enter the substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. 
 
 Both for local and external self-transitions exiting of states happens bottom-up which means that the deepest nested substate will first be exited, then its parent state, and so on. Entering happens in the opposite order, i.e. in a top-down fashion.
 

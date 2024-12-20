@@ -1389,6 +1389,15 @@ Two Quick Fixes are available for fixing the problem:
 * **Make Notify Port** The referenced port will be declared with the `notify` keyword to become a notifying port. Note that this Quick Fix is only available if the port is defined in the same file as where the trigger is, and no other ports are defined in the same ports declaration.
 * **Remove Trigger** Remove the trigger from the transition.
 
+### ART_0041_implicitUseOfDeepHistory
+| Severity | Reason | Quick Fixes
+|----------|:-------------|:-------------
+| Warning | An entry or exit point in a capsule state machine behaves as a deep history pseudostate | N/A
+
+As explained in [deep history](art-lang/index.md#deep-history), an entry or exit point without an outgoing transition behaves the same as a deep history pseudo state (`history*`). However, such implicit use of deep history is not recommended, and it's better to explicitly use the deep history pseudo state to make it clear that this is your intention. 
+
+If this problem is reported on an entry point, connect it to the deep history pseudo state on the inside. If this problem is reported on an exit point, change the incoming transition so it instead targets the deep history pseudo state.
+
 ## Code Generation Validation Rules
 Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. 
 
