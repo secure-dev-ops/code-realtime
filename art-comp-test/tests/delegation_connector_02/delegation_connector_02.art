@@ -1,0 +1,27 @@
+protocol Proto {
+    in ping();
+};
+
+capsule Top {
+    service port sp_top : Proto;
+    connect sp_top with a.sp_a; // Delegation connector
+
+    part a : A;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule A {
+    service behavior port sp_a : Proto;
+
+    statemachine {
+        state State;
+        initial -> State
+        `
+            PASS();
+        `;
+    };
+};

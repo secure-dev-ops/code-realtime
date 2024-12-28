@@ -6,6 +6,9 @@
             "path": "tests/delegation_connector"
         },
         {
+            "path": "tests/delegation_connector_02"
+        },
+        {
             "path": "tests/delegation_connector_nested"
         },
         {

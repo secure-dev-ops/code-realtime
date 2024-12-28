@@ -1,0 +1,8 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'delegation_connector_02_target';
+tc.commonPreface = `
+#include "testlib.art.h"
+#include <stdio.h>
+`;
