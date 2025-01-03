@@ -1,3 +1,6 @@
+# 2.0.3 Fix Pack (2024-12-28 23:20)
+1. Fixed several bugs related to code generation for transitions with multiple triggers, sending events in debugger to ports with multiplitities and through delegating connectors.
+
 # 2.0.2 (2024-12-12 08:09)
 1. The C++ 23 language standard is now supported. However, C++ 17 is still the default language standard for the code generator.
 2. Built-in [build tasks]({$vars.doc.server$}/building/build-tasks/) are now available for building any TC that is present in the workspace. These build tasks will build TCs using the Art Compiler in the integrated terminal. A convenient way to run these build tasks is through the **Terminal - Run Build Task** command.
