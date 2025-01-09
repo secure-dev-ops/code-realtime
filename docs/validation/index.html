@@ -942,6 +942,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#art_0041_implicituseofdeephistory" class="md-nav__link">
+    ART_0041_implicitUseOfDeepHistory
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2097,6 +2104,13 @@
           <li class="md-nav__item">
   <a href="#art_0040_boundunboundtriggerfornonnotifyingport" class="md-nav__link">
     ART_0040_boundUnboundTriggerForNonNotifyingPort
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#art_0041_implicituseofdeephistory" class="md-nav__link">
+    ART_0041_implicitUseOfDeepHistory
   </a>
   
 </li>
@@ -4033,6 +4047,25 @@ capsule Pinger {
 <li><strong>Make Notify Port</strong> The referenced port will be declared with the <code>notify</code> keyword to become a notifying port. Note that this Quick Fix is only available if the port is defined in the same file as where the trigger is, and no other ports are defined in the same ports declaration.</li>
 <li><strong>Remove Trigger</strong> Remove the trigger from the transition.</li>
 </ul>
+<h3 id="art_0041_implicituseofdeephistory">ART_0041_implicitUseOfDeepHistory</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">An entry or exit point in a capsule state machine behaves as a deep history pseudostate</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>As explained in <a href="../art-lang/#deep-history">deep history</a>, an entry or exit point without an outgoing transition behaves the same as a deep history pseudo state (<code>history*</code>). However, such implicit use of deep history is not recommended, and it's better to explicitly use the deep history pseudo state to make it clear that this is your intention. </p>
+<p>If this problem is reported on an entry point, connect it to the deep history pseudo state on the inside. If this problem is reported on an exit point, change the incoming transition so it instead targets the deep history pseudo state.</p>
 <h2 id="code-generation-validation-rules">Code Generation Validation Rules</h2>
 <p>Some problems in an Art file cannot be detected until it's translated to C++ code. The code generator implements validation rules for detecting and reporting such problems. </p>
 <div class="admonition note">
