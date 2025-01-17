@@ -8,9 +8,9 @@ capsule Top {
     `
     service behavior port external : External;
     service behavior port exception : Exception;
-    service behavior port timing : Timing;
-    service behavior port log : Log;
-    service behavior port frame : Frame;
+    behavior port timing : Timing;
+    behavior port log : Log;
+    behavior port frame : Frame;
 
     statemachine {
         state State1, State2;

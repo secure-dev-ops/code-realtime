@@ -29,7 +29,7 @@ capsule Top
             `;
             state NestedCompState1 {
                 entrypoint ep_ini2;
-                exitpoint ex2;
+                exitpoint ex2 [[rt::properties(rule_config="X0041")]];
                 ep_ini2 -> State1
                 `
                     std::cout << "transition initial nested" << std::endl;
@@ -50,7 +50,7 @@ capsule Top
             p_send.ev3().send();
         `;
         state CompState2 {
-            entrypoint ep1, ep2;
+            entrypoint ep1 [[rt::properties(rule_config="X0041")]], ep2;
             ep2_ep3: ep2 -> NestedCompState2.ep3 on p_rec.ev3
             `
                 std::cout << "transition CompState2.ep2 --> NestedCompState2.ep3" << std::endl;
@@ -77,7 +77,7 @@ capsule Top
         };
     };
 };
-capsule Derived : Top {
+capsule Derived [[rt::properties(rule_config="X0041")]] : Top {
     statemachine {
         state redefine CompState1 {
             state Nested;

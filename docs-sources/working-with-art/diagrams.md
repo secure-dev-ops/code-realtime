@@ -165,3 +165,16 @@ Both parts and ports have several properties that can be edited using the Proper
 You can delete an Art element shown in a diagram by selecting the symbol or line that represents the element and then press the ++"Delete"++ key. Alternatively use the command **Delete** in the ++ctrl+space++ pop-up menu. Multiple symbols or lines can be selected in order to delete many Art elements in one go. 
 
 Note that elements are deleted by removing them from the Art file, which in turn will update the diagram. All content within the deleted element will be lost, including any comments. However, you can of course undo the deletion by pressing ++ctrl+"z"++ (**Undo**) in the Art text editor.
+
+## Exporting Diagrams as SVG
+Diagrams can be exported as SVG files. This makes it possible to include diagrams in documents such as reports and presentations. SVG (Scalable Vector Graphics) is a scalable vector format which lets exported diagrams be zoomed and resized without losing image quality. Exporting a diagram as SVG is therefore much better than taking a screenshot of it.
+
+To export a diagram as SVG follow these steps:
+
+1. Open the diagram
+2. Set-up the diagram to display the information you want to include in the exported SVG file. For example, apply [diagram filters](#diagram-filters) and [collapse or expand symbols](#collapsing-and-expanding-symbols).
+3. Click the "Export as SVG" button in the Properties view toolbar. You will be prompted for where to save the SVG file.
+
+![](images/export-svg.png)
+
+Alternatively, the command `Code RT: Export as SVG` (available in the Command Palette) can be used. It will export the diagram that is open in the currently active editor.

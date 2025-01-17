@@ -59,7 +59,7 @@ You can choose to "fix" most kinds of reported problems by disabling the validat
     In some (unusual) cases a validation rule may report a problem on multiple elements, for example [ART_0002](#art_0002_duplicatenamesinscope) can detect that names of two or more global elements are conflicting. If you perform the Quick Fix for disabling that validation rule, a `rule_config` property will be set on one of the elements, but since the problem relates to multiple elements this will not make the problem go away. You can only turn off such validation rules by disabling them globally.
 
 ## Configuring Validation
-Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](art-lang/index.md#rule_config). In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
+Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every [validation rule](#validation-rules) is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property [rule_config](art-lang/index.md#rule_config). In both cases the rule configuration consists of a comma-separated list of strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id (or asterisk, to let the [configuration apply for all rules](#configuring-all-rules)). For example, the rule configuration `X0003,I0004,W0009,E0005` means the following:
 
 * The rule [ART_0003_nameShouldStartWithUpperCase](#art_0003_nameshouldstartwithuppercase) is disabled
 * The rule [ART_0004_nameShouldStartWithLowerCase](#art_0004_nameshouldstartwithlowercase) has its severity set to Information
@@ -88,6 +88,18 @@ capsule customCapsule // no warning even if capsule name is not capitalized
 
 !!! note 
     Local configuration of validation rules is only supported for Art files. For TC validation you cannot provide a local rule configuration in the TC file.
+
+It's allowed to configure a validation rule multiple times, but the last configuration will then take precedence and override any previous configurations for that rule. For example, the rule configuration `I0041,E0041` will set the severity of [ART_0041_implicitUseOfDeepHistory](#art_0041_implicituseofdeephistory) to Error.
+
+### Configuring All Rules
+When you configure validation rules you can replace the rule id with an asterisk (`*`) to let the configuration apply to all rules. Here are some example when this can be useful:
+
+* `E*`: Report all problems with Error severity 
+* `X*`: Disable all validation rules
+
+You can combine such asterisk rule configurations with configurations of individual rules. For example:
+
+* `W*, E0005`: Report all problems with Warning severity, except [ART_0005_choiceWithoutElseTransition](#art_0005_choicewithoutelsetransition) which should be reported with Error severity.
 
 ## Validation Rules
 This chapter lists all validation rules which {$product.name$} checks your Art application against. These rules find problems in Art files and all problems found have the "ART_" prefix.
@@ -709,7 +721,7 @@ capsule UnwiredCapsule3 {
 |----------|:-------------|:-------------
 | Warning | The [rule_config](art-lang/index.md#rule_config) property has a malformed value. | N/A
 
-The [rule_config](art-lang/index.md#rule_config) property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the [rule_config](art-lang/index.md#rule_config) property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See [Configuring Validation](#configuring-validation) for more information and examples.
+The [rule_config](art-lang/index.md#rule_config) property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the [rule_config](art-lang/index.md#rule_config) property should be a comma-separated list of 5 or 2 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and the remaining letters specify the rule id (or asterisk, to let the configuration apply for all rules). See [Configuring Validation](#configuring-validation) for more information and examples.
 
 ``` art
 capsule RCP [[rt::properties(
