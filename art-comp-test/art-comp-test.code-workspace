@@ -156,6 +156,9 @@
             "path": "tests/part_inheritance"
         },
         {
+            "path": "tests/passive_class_sm_entry_exit"
+        },
+        {
             "path": "tests/passive_class_sm_shallow_history"
         },
         {
