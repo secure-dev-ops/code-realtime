@@ -1,0 +1,127 @@
+protocol Proto {
+    in init();
+    out init_done();
+};
+
+protocol HEvents {
+    in init();
+    out init_done();
+    in h();
+    out h_done();
+};
+
+protocol SEvents {
+    in init();
+    out init_done();
+    in s();
+    out s_done();
+};
+
+capsule S {
+    service behavior port p_s : SEvents;
+    service behavior port r_s~ : SEvents;
+    statemachine {
+        state State, Initialized;
+        initial -> State;
+        State -> Initialized on p_s.init
+        `
+            r_s.init().send();
+        `;
+    };
+};
+
+capsule H {
+    part x : S;
+    part y : S;
+
+    service port r_xs~ : SEvents, r_ys~ : SEvents;
+    connect x.r_s with r_xs; // delegation connector
+    connect y.r_s with r_ys; // delegation connector
+
+    behavior port xs~ : SEvents, ys~ : SEvents;
+    connect xs with x.p_s;
+    connect ys with y.p_s;
+
+    service behavior port p_h : HEvents;
+    service behavior port r_h~ : HEvents;
+
+    statemachine {
+        state State, Initialized;
+        initial -> State;
+        State -> Initialized on p_h.init
+        `
+            xs.init().send();
+            ys.init().send();
+            r_h.init().send();
+        `;
+    };
+};
+
+capsule Main {
+    part h : H;
+
+    service port r_h~ : HEvents, r_xs~ : SEvents, r_ys~ : SEvents;
+    connect h.r_h with r_h;   // delegation connector
+    connect h.r_xs with r_xs; // delegation connector
+    connect h.r_ys with r_ys; // delegation connector
+
+    behavior port p_h~ : HEvents;
+    connect p_h with h.p_h;
+
+    service behavior port p_main : Proto;
+    service behavior port r_main~ : Proto;
+    
+    statemachine {
+        state State, Initialized;
+        initial -> State;
+        State -> Initialized on p_main.init
+        `
+            p_h.init().send();
+            r_main.init().send();
+        `;
+    };
+};
+
+capsule Tester {
+    [[rt::decl]]
+    `
+        bool xi = false, yi = false, hi = false, mi = false;
+    `
+    service behavior port p~ : Proto;
+    service behavior port r : Proto;
+    service behavior port h : HEvents, xs : SEvents, ys : SEvents;
+    behavior port timer : Timing;
+    statemachine {
+        state Initialized;
+        initial -> State `
+            p.init().send();
+            timer.informEvery(RTTimespec(0, 100));
+        `;
+        state State {
+            on xs.init `xi = true;`;
+            on ys.init `yi = true;`;
+            on h.init  `hi = true;`;
+            on r.init  `mi = true;`;
+        };
+        State -> Initialized on timer.timeout when `xi && yi && hi && mi`
+        `
+            PASS();
+        `;
+    };
+};
+
+capsule Top [[rt::properties(color="#100f0f")]] {
+    part tester : Tester;
+    part main : Main;
+
+    connect tester.p with main.p_main;
+    connect tester.r with main.r_main;
+    connect tester.h with main.r_h;
+    connect tester.xs with main.r_xs;
+    connect tester.ys with main.r_ys;
+    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
