@@ -70,7 +70,7 @@ capsule Timers {
 If you set a timer with an absolute time that has already passed, or a relative time of 0, the timeout will happen almost immediately. Note the word "almost", because in practise it always takes a little time for the timeout event to be placed in the controller's event queue, and from there be dispatched to the capsule. 
 
 ## Timer Priority
-If you want a timeout event to be processed as quickly as possible you can use a higher than default priority when setting the timer. The last parameter of `informIn()`, `informAt()` and `informEvery()` specifies the priority of the timeout event (by default it's `General` which is the normal priority of an event). In the same way you can lower the priority, if you want the timeout event to be handled at a lower priority.
+If you want a timeout event to be processed as quickly as possible you can use a higher than default priority when setting the timer. The last parameter of `informIn()`, `informAt()` and `informEvery()` specifies the priority of the timeout event (by default it's `General` which is the normal priority of an event). In the same way you can lower the priority, if you want the timeout event to be handled at a lower priority. See [Message Priority](message-communication.md#message-priority) for available priority levels.
 
 The timer set in the example below will timeout immediately and the timeout event will be processed with a higher than normal priority.
 

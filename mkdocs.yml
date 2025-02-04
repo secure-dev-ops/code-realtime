@@ -22,7 +22,7 @@ theme:
     - search.highlight
     - search.share
     - search.suggest
-    - announce.dismiss
+    - announce.dismiss    
   custom_dir: theme_overrides/
   icon:
     repo: fontawesome/brands/github
@@ -42,6 +42,7 @@ markdown_extensions:
 #  - pymdownx.superfences
   - pymdownx.keys
   - attr_list
+  - footnotes
 
 extra:
 #  analytics: 

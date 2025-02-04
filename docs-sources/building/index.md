@@ -40,6 +40,17 @@ If you build a TC and at least one error exists in the TC itself, in prerequisit
 
 Use the setting [`code-rt.build.cancelOnError`](../settings.md#cancel-on-error) to suppress this dialog.
 
+## Cancelling an Ongoing Build
+While a build is in progress you will see a "progress spinner" in the status bar.
+
+![](images/build_progress_spinner.png)
+
+You can cancel the ongoing build by clicking on this progress spinner, and then click the **Cancel** button in the popup that appears:
+
+![](images/cancel_ongoing_build.png)
+
+The build will be terminated immediately with a printout in the **Art Build** output channel: "Build terminated by user." You should expect that the target folder in this case will contain a partial build result. For example, some but not all object files may be present if the build was cancelled while compiling generated code.
+
 ## Building and Running without a TC
 In some cases of rapid prototyping and testing you may want to quickly build and run a capsule without first having to create a TC or a [launch configuration](../running-and-debugging/launch-configurations.md). Then you can click the "Run" link that appears just before any capsule in the Art text editor.
 
