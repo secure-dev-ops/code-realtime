@@ -1,0 +1,44 @@
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include "MyClass.h"
+        #include <iostream>
+    `
+    [[rt::decl]]
+    `
+        private:
+            MyClass _myClass;
+    `
+    behavior port t : Timing;
+    statemachine {
+        state State2;
+        initial -> State2
+        `   
+
+            ASSERT(_myClass.entryStack == "init_State1--> entry#State1", "Expected to call init_State");
+
+            _myClass.entryStack = "";
+
+            _myClass.op();
+            ASSERT(_myClass.entryStack == " exit#State1 State1_State2--> entry#State2 -->state_s1_on_false--> entry#S1 -->s1_s2_on_false--> entry#S2 -->s2_s3_on_false--> entry#S3", "Stack not called as expected");  
+            _myClass.entryStack = "";
+            
+            
+             _myClass.op();
+            ASSERT(_myClass.entryStack == " exit#S3  exit#S2  exit#S1  exit#State2 -->State2_State3--> entry#State3 ", "Stack not called as expected");  
+            _myClass.entryStack = "";
+
+            _myClass.op();
+            ASSERT(_myClass.entryStack == " exit#State3 -->State3_State1--> entry#State1", "Stack not called as expected");  
+            _myClass.entryStack = "";
+
+            _myClass.route_to_s4 = true;
+            _myClass.op();
+            ASSERT(_myClass.entryStack == " exit#State1 State1_State2--> entry#State2 -->state_s1_on_true--> entry#S1 -->s1_s2_on_true--> entry#S2 -->s2_s4_on_true--> entry#S4", "Stack not called as expected");  
+
+            PASS();
+        `;
+    };
+};

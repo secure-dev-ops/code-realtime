@@ -1,0 +1,4 @@
+const tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'passive_class_sm_entry_exit_target';

@@ -1,0 +1,147 @@
+
+class MyClass {
+    [[rt::header_preface]]
+    `
+        #include <iostream>
+        #include <string>        
+    `
+    [[rt::decl]]
+    `
+        public:
+            MyClass();
+        public:
+            std::string entryStack = "";
+            bool route_to_s4 = false;
+    `
+    [[rt::impl]]
+    `
+        MyClass::MyClass() {
+            rtg_init1();
+        }
+    `
+    /* Trigger Operations */
+    trigger op();
+    /* State Machine */
+    statemachine {
+        state State1 {
+            entry
+            `
+                entryStack += " entry#State1";
+            `;
+            exit
+            `
+                entryStack += " exit#State1 ";
+            `;
+        }, State3 {
+            entry
+            `
+                entryStack += " entry#State3 ";
+            `;
+            exit
+            `
+                entryStack += " exit#State3 ";
+            `;
+        }, State2 {
+            entry
+            `
+                entryStack += " entry#State2 ";
+            `;
+            exit
+            `
+                entryStack += " exit#State2 ";
+            `;
+            entrypoint ep;
+            _state_s1_on_true: ep -> S1.ep when
+            `route_to_s4`
+            `
+                entryStack += "-->state_s1_on_true-->";
+            `;
+            _state_s1_on_false: ep -> S1.ep2 when
+            `!route_to_s4`
+            `
+                entryStack += "-->state_s1_on_false-->";
+            `;
+            state S1 {
+                entry
+                `
+                    entryStack += " entry#S1 ";
+                    
+                `;
+                exit
+                `
+                    entryStack += " exit#S1 ";
+                `;
+                entrypoint ep, ep2;
+                _s1_s2_on_true: ep -> S2.ep when
+                `route_to_s4`
+                ` 
+                    entryStack += "-->s1_s2_on_true-->";   
+                `;
+                _s1_s2_on_false: ep2 -> S2.ep2 when
+                `!route_to_s4`
+                ` 
+                    entryStack += "-->s1_s2_on_false-->";   
+                `;
+                state S2 {
+                    entrypoint ep, ep2;
+                    entry
+                    `
+                        entryStack += " entry#S2 ";
+                        
+                    `;
+                    exit
+                    `
+                        entryStack += " exit#S2 ";
+                    `;
+                    _s2_s4_on_true: ep -> S4 when
+                    `route_to_s4`
+                    `
+                        entryStack += "-->s2_s4_on_true-->";   
+                    `;
+                    _s2_s3_on_false: ep2 -> S3 when
+                    `!route_to_s4`
+                    `
+                        entryStack += "-->s2_s3_on_false-->";   
+                    `;
+                    state S3 {
+                        entry
+                        `
+                            entryStack += " entry#S3";                            
+                        `;
+                        exit
+                        `
+                            entryStack += " exit#S3 ";
+                        `;
+                    };
+                    state S4 {
+                        entry
+                        `
+                            entryStack += " entry#S4";
+                        `;
+                        exit
+                        `
+                            entryStack += " exit#S4 ";
+                        `;
+                    };
+                };
+            };
+        };
+        _init_State: initial -> State1
+        `
+            entryStack += "init_State1-->";
+        `;
+        _State_State2: State1 -> State2.ep on op()
+        `
+            entryStack += "State1_State2-->";
+        `;
+        _State2_State3: State2 -> State3 on op()
+        `
+            entryStack += "-->State2_State3-->";
+        `;
+        _State3_State2: State3 -> State1 on op()
+        `
+            entryStack += "-->State3_State1-->";
+        `;
+    };
+};
+

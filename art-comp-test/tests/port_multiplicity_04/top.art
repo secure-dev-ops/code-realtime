@@ -18,7 +18,7 @@ capsule CapsuleA{
 
 capsule CapsuleB{
 
-    service behavior port aPort: Protocol;
+    service behavior port aPort: Protocol[2];
     service behavior port aPort1~: Protocol;
 
     statemachine{
@@ -52,7 +52,8 @@ capsule Top{
     part b : CapsuleB;
     part d : CapsuleD[5];
     part c : CapsuleC[2];
-    part a : CapsuleA;
+    // a.kPort is not connected on purpose for testing nullptr generation to rtg_interfaces_a
+    part a [[rt::properties(rule_config="X0039")]] : CapsuleA;
 
     connect b.aPort1 with a.bPort;
     connect c.aPort1 with a.cPort;
@@ -62,7 +63,7 @@ capsule Top{
     statemachine{
         state S;
         initial -> S `
-            /** CapsuleA contains 4 non-predfied Ports*/
+            /** CapsuleA contains 4 non-predefined Ports */
             ASSERT(sizeof(rtg_interfaces_a) / sizeof(rtg_interfaces_a[0]) == 4 , "Expected the size of rtg_interfaces_a to be 4, matching the number of ports in CapsuleA");
 
             ASSERT(rtg_interfaces_a[1].name == nullptr , "Expected unconnected kPort to have nullptr name");
