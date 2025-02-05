@@ -87,6 +87,8 @@ def prepareTests() {
 
 	sh '''
 		pwd
+		rm -rf ./art-comp-test/tests/sanity_* ./art-comp-test/tests/sample_* ./art-comp-test/tests/TcpServer ./art-samples/*_target ./art-samples/*/*_target
+
 		cp -r ./art-samples/HelloWorld/ ./art-comp-test/tests/sanity_HelloWorld
 		cd ./art-comp-test/tests/sanity_HelloWorld
 		mv *.tcjs top.tcjs
@@ -107,21 +109,31 @@ def prepareTests() {
 		for ff in $(find ./art-samples -name '*.tcjs' -type f | xargs dirname)
 		do
 			folder=$(basename $ff)
-			[[ $folder == *_target ]] && continue
 			[ $folder == HelloWorld ] && continue
 			[ $folder == PiComputer ] && continue
 			[[ $folder == Qt* ]] && continue
 			[[ $folder == gRPC* ]] && continue
-			if [ $folder == TcpServer ]
-			then
-				cp -r $ff ./art-comp-test/tests/
-				continue
-			fi
+			[ $folder == TcpServer ] && cp -r $ff ./art-comp-test/tests/ && continue
+
 			cp -r $ff ./art-comp-test/tests/sample_$folder
 			cd ./art-comp-test/tests/sample_$folder
 			[ -f top.tcjs ] || mv *.tcjs top.tcjs
+			[ $folder == TrafficLight ] && sed -i 's/TrafficLight/Top/' *.tcjs *.art
+			[ $folder == TrafficLightWeb ] && sed -i 's/TLSystem/Top/' *.tcjs *.art
 			echo -e "\ntc.targetProject = 'sample_${folder}_target';" >> top.tcjs
-			echo -e "---\ngroup: samples\nsteps: generate-build\n---\nBuilding Art sample $folder" > testcase.md
+			echo "---" > testcase.md
+			echo "group: samples" >> testcase.md
+			echo "steps: generate-build, execute" >> testcase.md
+			timeout=10
+			[ $folder == DiningPhils_v1 ] && timeout=25
+			[ $folder == DiningPhils_v2 ] && timeout=5
+			echo "timeout: $timeout"  >> testcase.md
+			echo "allow_stderr_printouts: true" >> testcase.md
+			[ $folder == MatMult ] && echo "test_exe_args: -URTS_DEBUG=quit -UARGS 2 3 [2,2,2,4,4,4] [5,5,5,5,5,5]" >> testcase.md
+			[ $folder == TcpRangeCounter ] && echo "test_exe_args: -URTS_DEBUG=quit -port=12345" >> testcase.md
+			[ $folder == PingPongTimeDeltaTracker ] && echo "test_exe_args: -URTS_DEBUG=quit <5" >> testcase.md
+			echo "---" >> testcase.md
+			echo "Building and executing Art sample $folder" >> testcase.md
 			cd $WORKSPACE
 		done
 
