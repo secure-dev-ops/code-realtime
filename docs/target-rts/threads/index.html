@@ -1388,7 +1388,7 @@
 </code></pre>
 <p>If you anyway define physical threads for a library TC they will be ignored by the C++ code generator, and only the logical threads will be considered.</p>
 <h2 id="running-a-capsule-instance-in-a-custom-thread">Running a Capsule Instance in a Custom Thread</h2>
-<p>Capsule instances are connected in a tree structure where the top capsule instance is the root. A capsule instance always lives inside a part of another (container) capsule. The top capsule instance is always run by the main thread, but for all other capsule instances you can choose which thread that should run it.</p>
+<p>Capsule instances are connected in a tree structure where the top capsule instance is the root. A capsule instance always lives inside a part of another (container) capsule. The top capsule instance is always run by the main thread<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, but for all other capsule instances you can choose which thread that should run it. </p>
 <p>When a new capsule instance is created it will by default be run by the same thread that runs the container capsule instance. This means that by default all capsule instances in the application will be run by the main thread.</p>
 <p>The picture below outlines the capsule instances of an Art application. <code>C1</code> is the top capsule. For simplicity we have assumed that all capsule parts are fixed with multiplicity 1 so they only can contain one capsule instance.</p>
 <p><img alt="" src="../images/thread_mappings.png" /></p>
@@ -1440,6 +1440,14 @@
 <h2 id="generated-code-for-threads">Generated Code for Threads</h2>
 <p>Thread information specified in the TC is generated into the unit files (by default called <code>UnitName.h</code> and <code>UnitName.cpp</code>). You will find there functions <code>_rtg_createThreads()</code> and <code>rtg_deleteThreads()</code> which contain the code for creating and deleting the physical threads that you have added in addition to the default MainThread and TimerThread. There is also a function <code>_rtg_mapLogicalThreads()</code> where the logical threads are mapped to physical threads.</p>
 <p>Some target environments only support one thread. In this case the macro <code>USE_THREADS</code> will be unset when compiling generated C++ code and the TargetRTS, and it will remove all code related to threads. </p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>It's possible to run the top capsule instance in a custom thread if you <a href="../integrate-with-external-code/#main-function">write a custom main function</a>.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 

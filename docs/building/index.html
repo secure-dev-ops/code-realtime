@@ -1203,6 +1203,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cancelling-an-ongoing-build" class="md-nav__link">
+    Cancelling an Ongoing Build
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#building-and-running-without-a-tc" class="md-nav__link">
     Building and Running without a TC
   </a>
@@ -1300,6 +1307,12 @@ Removes the target workspace folder produced when building a TC. This means that
 <p>If you build a TC and at least one error exists in the TC itself, in prerequisites TCs or in any of the Art files that will be built, then a dialog will ask if you want to cancel the build (recommended) or proceed anyway (only do this if you are confident the errors are safe to ignore).</p>
 <p><img alt="" src="images/cancel-build.png" /></p>
 <p>Use the setting <a href="../settings/#cancel-on-error"><code>code-rt.build.cancelOnError</code></a> to suppress this dialog.</p>
+<h2 id="cancelling-an-ongoing-build">Cancelling an Ongoing Build</h2>
+<p>While a build is in progress you will see a "progress spinner" in the status bar.</p>
+<p><img alt="" src="images/build_progress_spinner.png" /></p>
+<p>You can cancel the ongoing build by clicking on this progress spinner, and then click the <strong>Cancel</strong> button in the popup that appears:</p>
+<p><img alt="" src="images/cancel_ongoing_build.png" /></p>
+<p>The build will be terminated immediately with a printout in the <strong>Art Build</strong> output channel: "Build terminated by user." You should expect that the target folder in this case will contain a partial build result. For example, some but not all object files may be present if the build was cancelled while compiling generated code.</p>
 <h2 id="building-and-running-without-a-tc">Building and Running without a TC</h2>
 <p>In some cases of rapid prototyping and testing you may want to quickly build and run a capsule without first having to create a TC or a <a href="../running-and-debugging/launch-configurations/">launch configuration</a>. Then you can click the "Run" link that appears just before any capsule in the Art text editor.</p>
 <p><img alt="" src="images/running-without-tc.png" /></p>
