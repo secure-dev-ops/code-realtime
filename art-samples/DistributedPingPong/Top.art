@@ -1,6 +1,6 @@
 
 
-capsule TOP {
+capsule Top {
 
     [[rt::impl]]
     `

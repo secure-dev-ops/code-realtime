@@ -1,3 +1,14 @@
+# 2.0.4 (2025-02-05 11:47)
+1. It's now possible to export diagrams as SVG. This allows to use diagrams in reports, presentations or other documents where SVG files can be embedded. To export a diagram to SVG you first need to open it and adjust it the way you want it to appear (e.g. expanding or collapsing symbols). Then click the new toolbar button `Export as SVG` in the Properties view or use the new command `Export as SVG` from the Command Palette.
+2. A new validation rule [ART_0041_implicitUseOfDeepHistory]({$vars.doc.server$}/validation/#art_0041_implicituseofdeephistory) will now report a warning if an entry or exit point is missing an outgoing transition, and therefore will behave as an implicit use of the deep history pseudo state (`history*`).
+3. Some of the colors used in diagrams were adjusted to improve their appearance for light color themes. This was mainly accomplished by deriving more diagram colors from theme colors, which means that diagram colors now to a larger extent automatically update if you customize the color theme.
+4. The C++ code generated for capsules is now more readable. Comments with port names are now present in `rtg_bindings` arrays after each port index.
+5. It's now possible to use an asterisk (`*`) to configure all validation rules at once. This works both in the UI (setting `code-rt.validation.ruleConfiguration`) and in the Art Compiler (option `--ruleConfig`). It can also be used in the `rule_config` property on an Art element. For example, the rule configuration `E*` means that all problems will be reported with Error severity. Read more about this feature [here]({$vars.doc.server$}/validation/#configuring-all-rules).
+6. The C++ code generator now supports entry and exit actions for states in class state machines.
+7. You can now use the `[[rt::auto_descriptor]]` attribute also on abstract C++ classes, i.e. classes that contain one or more pure virtual functions. The code generator will then adjust the generated type descriptor to exclude the init, copy and move functions.
+8. It's now possible to cancel an ongoing build by clicking on the "building..." progress spinner in the status bar. Read more about this feature [here]({$vars.doc.server$}/building/#cancelling-an-ongoing-build).
+9. Version 1.0.1 of the Art Exporter is now available. It provides a number of improvements in how Model RealTime data types are exported to Art files. See [this page](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html) for the full list of improvements.
+
 # 2.0.3 Fix Pack (2024-12-28 23:20)
 1. Fixed several bugs related to code generation for transitions with multiple triggers, sending events in debugger to ports with multiplitities and through delegating connectors.
 

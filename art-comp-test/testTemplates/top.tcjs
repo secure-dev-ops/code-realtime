@@ -1,0 +1,13 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/ReplaceTextProjectName/CPPModel.emx#_2eYU4Ne9Ee-KmLyh1KmmoQ',
+];
+tc.prerequisites = [
+    'platform:/resource/ReplaceTextArtProjectName/top.tcjs',
+];
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'ReplaceTextProjectName_target';
+tc.topCapsule = 'platform:/resource/ReplaceTextProjectName/CPPModel.emx#_lH7xANe-Ee-KmLyh1KmmoQ';
+tc.unitName = 'ArtIntegrationTestingUnitName';

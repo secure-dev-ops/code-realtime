@@ -75,6 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_log_1_1_base-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Log::Base Class Reference</div></div>
@@ -97,6 +98,9 @@ Inheritance diagram for Log::Base:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a7911e4ddde0ba3b2a01f3a5248892569"><td class="memItemLeft" align="right" valign="top"><a id="a7911e4ddde0ba3b2a01f3a5248892569" name="a7911e4ddde0ba3b2a01f3a5248892569"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Base</b> (std::ostream &amp;stream)</td></tr>
+<tr class="separator:a7911e4ddde0ba3b2a01f3a5248892569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a947bccafcc26063a7b0cccd48715bcba"><td class="memItemLeft" align="right" valign="top"><a id="a947bccafcc26063a7b0cccd48715bcba" name="a947bccafcc26063a7b0cccd48715bcba"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>cr</b> (void)</td></tr>
 <tr class="memdesc:a947bccafcc26063a7b0cccd48715bcba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a carriage return to the log. <br /></td></tr>
@@ -215,6 +219,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> (void)</td>
 <tr class="memitem:a8d6ae542d48d6f5f5a464d8c1a1e5822"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_log_1_1_base.html#a8d6ae542d48d6f5f5a464d8c1a1e5822">commit</a> (void)</td></tr>
 <tr class="memdesc:a8d6ae542d48d6f5f5a464d8c1a1e5822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush all buffered characters to the log.  <br /></td></tr>
 <tr class="separator:a8d6ae542d48d6f5f5a464d8c1a1e5822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7635bcef5e40f634ac740251f7e533c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_log_1_1_base.html">Base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_log_1_1_base.html#ad7635bcef5e40f634ac740251f7e533c">operator&lt;&lt;</a> (const <a class="el" href="class_r_t_data_object.html">RTDataObject</a> &amp;obj)</td></tr>
+<tr class="memdesc:ad7635bcef5e40f634ac740251f7e533c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print an object to the log.  <br /></td></tr>
+<tr class="separator:ad7635bcef5e40f634ac740251f7e533c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a103e1e6cecb2b7a67488351f08e5b3f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_log_1_1_base.html">Base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_log_1_1_base.html#a103e1e6cecb2b7a67488351f08e5b3f7">operator&lt;&lt;</a> (const <a class="el" href="struct_r_t_typed_value.html">RTTypedValue</a> &amp;info)</td></tr>
+<tr class="memdesc:a103e1e6cecb2b7a67488351f08e5b3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print an object to the log.  <br /></td></tr>
+<tr class="separator:a103e1e6cecb2b7a67488351f08e5b3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da6d034e35cb42e573e7753b7228e22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_log_1_1_base.html">Base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_log_1_1_base.html#a3da6d034e35cb42e573e7753b7228e22">operator&lt;&lt;</a> (std::ostream &amp;(*manip)(std::ostream &amp;))</td></tr>
+<tr class="memdesc:a3da6d034e35cb42e573e7753b7228e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to call endl.  <br /></td></tr>
+<tr class="separator:a3da6d034e35cb42e573e7753b7228e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeddfcf91368043959669a337870a307b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aeddfcf91368043959669a337870a307b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_log_1_1_base.html">Base</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_log_1_1_base.html#aeddfcf91368043959669a337870a307b">operator&lt;&lt;</a> (const T &amp;value)</td></tr>
+<tr class="memdesc:aeddfcf91368043959669a337870a307b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template function to print the value of variable to the log.  <br /></td></tr>
+<tr class="separator:aeddfcf91368043959669a337870a307b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_r_t_protocol"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_r_t_protocol')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_r_t_protocol.html">RTProtocol</a></td></tr>
 <tr class="memitem:a02358053723895c6423f73ec97d5fe24 inherit pub_methods_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_r_t_controller.html">RTController</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_protocol.html#a02358053723895c6423f73ec97d5fe24">context</a> (void) const</td></tr>
 <tr class="memdesc:a02358053723895c6423f73ec97d5fe24 inherit pub_methods_class_r_t_protocol"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the context of the capsule that owns this port.  <br /></td></tr>
@@ -336,6 +353,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> (void)</td>
 <tr class="memitem:a77d071f7137ca82a8ffd7c8e589c3114 inherit pub_methods_class_r_t_protocol"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_protocol.html#a77d071f7137ca82a8ffd7c8e589c3114">sendAt</a> (int index, int signal, const void *data, const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *type, int priority, bool moveData=false)</td></tr>
 <tr class="memdesc:a77d071f7137ca82a8ffd7c8e589c3114 inherit pub_methods_class_r_t_protocol"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send an event on a replicated port at a specified index.  <br /></td></tr>
 <tr class="separator:a77d071f7137ca82a8ffd7c8e589c3114 inherit pub_methods_class_r_t_protocol"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af7d4893677bab59cd71dac48b72eb473"><td class="memItemLeft" align="right" valign="top"><a id="af7d4893677bab59cd71dac48b72eb473" name="af7d4893677bab59cd71dac48b72eb473"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>lock</b> ()</td></tr>
+<tr class="memdesc:af7d4893677bab59cd71dac48b72eb473"><td class="mdescLeft">&#160;</td><td class="mdescRight">lock the stream to the log. <br /></td></tr>
+<tr class="separator:af7d4893677bab59cd71dac48b72eb473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a369e6f35268ffdef8c6d9cd26b10e496"><td class="memItemLeft" align="right" valign="top"><a id="a369e6f35268ffdef8c6d9cd26b10e496" name="a369e6f35268ffdef8c6d9cd26b10e496"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>unlock</b> ()</td></tr>
+<tr class="memdesc:a369e6f35268ffdef8c6d9cd26b10e496"><td class="mdescLeft">&#160;</td><td class="mdescRight">unlock the stream to the log. <br /></td></tr>
+<tr class="separator:a369e6f35268ffdef8c6d9cd26b10e496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -521,6 +549,120 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyBoundAt</b> (in
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Data object to encode to a string that will be printed to the log </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Type descriptor for the data object. Must provide an encode function. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad7635bcef5e40f634ac740251f7e533c" name="ad7635bcef5e40f634ac740251f7e533c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7635bcef5e40f634ac740251f7e533c">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_log_1_1_base.html">Base</a> &amp; Log::Base::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_r_t_data_object.html">RTDataObject</a> &amp;&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print an object to the log. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>Data object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a103e1e6cecb2b7a67488351f08e5b3f7" name="a103e1e6cecb2b7a67488351f08e5b3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a103e1e6cecb2b7a67488351f08e5b3f7">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_log_1_1_base.html">Base</a> &amp; Log::Base::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_r_t_typed_value.html">RTTypedValue</a> &amp;&#160;</td>
+          <td class="paramname"><em>info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print an object to the log. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">info</td><td>An <a class="el" href="struct_r_t_typed_value.html" title="Encapsulates a data object and its type descriptor.">RTTypedValue</a> object which encapsules the data object to print and its type descriptor. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeddfcf91368043959669a337870a307b" name="aeddfcf91368043959669a337870a307b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeddfcf91368043959669a337870a307b">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_log_1_1_base.html">Base</a> &amp; Log::Base::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Template function to print the value of variable to the log. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>Variable value to print to the log </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3da6d034e35cb42e573e7753b7228e22" name="a3da6d034e35cb42e573e7753b7228e22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da6d034e35cb42e573e7753b7228e22">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_log_1_1_base.html">Base</a> &amp; Log::Base::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;(*)(std::ostream &amp;)&#160;</td>
+          <td class="paramname"><em>manip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Used to call endl. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">manip</td><td>Manipulator callback to the log. </td></tr>
   </table>
   </dd>
 </dl>

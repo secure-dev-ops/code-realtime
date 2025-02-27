@@ -20,7 +20,7 @@
     
     
       
-        <title>2.0.3 Fix Pack (2024-12-28 23:20) - DevOps Code RealTime</title>
+        <title>2.0.4 (2025-02-05 11:47) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#203-fix-pack-2024-12-28-2320" class="md-skip">
+        <a href="#204-2025-02-05-1147" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.0.3 Fix Pack (2024-12-28 23:20)
+              2.0.4 (2025-02-05 11:47)
             
           </span>
         </div>
@@ -1197,6 +1197,18 @@
   
 
 
+<h1 id="204-2025-02-05-1147">2.0.4 (2025-02-05 11:47)</h1>
+<ol>
+<li>It's now possible to export diagrams as SVG. This allows to use diagrams in reports, presentations or other documents where SVG files can be embedded. To export a diagram to SVG you first need to open it and adjust it the way you want it to appear (e.g. expanding or collapsing symbols). Then click the new toolbar button <code>Export as SVG</code> in the Properties view or use the new command <code>Export as SVG</code> from the Command Palette.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0041_implicituseofdeephistory">ART_0041_implicitUseOfDeepHistory</a> will now report a warning if an entry or exit point is missing an outgoing transition, and therefore will behave as an implicit use of the deep history pseudo state (<code>history*</code>).</li>
+<li>Some of the colors used in diagrams were adjusted to improve their appearance for light color themes. This was mainly accomplished by deriving more diagram colors from theme colors, which means that diagram colors now to a larger extent automatically update if you customize the color theme.</li>
+<li>The C++ code generated for capsules is now more readable. Comments with port names are now present in <code>rtg_bindings</code> arrays after each port index.</li>
+<li>It's now possible to use an asterisk (<code>*</code>) to configure all validation rules at once. This works both in the UI (setting <code>code-rt.validation.ruleConfiguration</code>) and in the Art Compiler (option <code>--ruleConfig</code>). It can also be used in the <code>rule_config</code> property on an Art element. For example, the rule configuration <code>E*</code> means that all problems will be reported with Error severity. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/validation/#configuring-all-rules">here</a>.</li>
+<li>The C++ code generator now supports entry and exit actions for states in class state machines.</li>
+<li>You can now use the <code>[[rt::auto_descriptor]]</code> attribute also on abstract C++ classes, i.e. classes that contain one or more pure virtual functions. The code generator will then adjust the generated type descriptor to exclude the init, copy and move functions.</li>
+<li>It's now possible to cancel an ongoing build by clicking on the "building..." progress spinner in the status bar. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/building/#cancelling-an-ongoing-build">here</a>.</li>
+<li>Version 1.0.1 of the Art Exporter is now available. It provides a number of improvements in how Model RealTime data types are exported to Art files. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for the full list of improvements.</li>
+</ol>
 <h1 id="203-fix-pack-2024-12-28-2320">2.0.3 Fix Pack (2024-12-28 23:20)</h1>
 <ol>
 <li>Fixed several bugs related to code generation for transitions with multiple triggers, sending events in debugger to ports with multiplitities and through delegating connectors.</li>

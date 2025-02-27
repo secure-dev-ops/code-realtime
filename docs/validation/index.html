@@ -652,6 +652,19 @@
     Configuring Validation
   </a>
   
+    <nav class="md-nav" aria-label="Configuring Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-all-rules" class="md-nav__link">
+    Configuring All Rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1818,6 +1831,19 @@
     Configuring Validation
   </a>
   
+    <nav class="md-nav" aria-label="Configuring Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-all-rules" class="md-nav__link">
+    Configuring All Rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2412,7 +2438,7 @@
 <p>In some (unusual) cases a validation rule may report a problem on multiple elements, for example <a href="#art_0002_duplicatenamesinscope">ART_0002</a> can detect that names of two or more global elements are conflicting. If you perform the Quick Fix for disabling that validation rule, a <code>rule_config</code> property will be set on one of the elements, but since the problem relates to multiple elements this will not make the problem go away. You can only turn off such validation rules by disabling them globally.</p>
 </div>
 <h2 id="configuring-validation">Configuring Validation</h2>
-<p>Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every <a href="#validation-rules">validation rule</a> is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property <a href="../art-lang/#rule_config">rule_config</a>. In both cases the rule configuration consists of a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id. For example, the rule configuration <code>X0003,I0004,W0009,E0005</code> means the following:</p>
+<p>Validation can be configured to change which rules that should run, and what severity they should report found problems with. By default every <a href="#validation-rules">validation rule</a> is enabled and uses a predefined severity level. Validation rules can be configured either globally by means of a setting, or locally by means of a property <a href="../art-lang/#rule_config">rule_config</a>. In both cases the rule configuration consists of a comma-separated list of strings where the first letter specifies if the rule is disabled or it's severity (X,I,W,E) and remaining letters specify the rule id (or asterisk, to let the <a href="#configuring-all-rules">configuration apply for all rules</a>). For example, the rule configuration <code>X0003,I0004,W0009,E0005</code> means the following:</p>
 <ul>
 <li>The rule <a href="#art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</a> is disabled</li>
 <li>The rule <a href="#art_0004_nameshouldstartwithlowercase">ART_0004_nameShouldStartWithLowerCase</a> has its severity set to Information</li>
@@ -2440,6 +2466,17 @@
 <p class="admonition-title">Note</p>
 <p>Local configuration of validation rules is only supported for Art files. For TC validation you cannot provide a local rule configuration in the TC file.</p>
 </div>
+<p>It's allowed to configure a validation rule multiple times, but the last configuration will then take precedence and override any previous configurations for that rule. For example, the rule configuration <code>I0041,E0041</code> will set the severity of <a href="#art_0041_implicituseofdeephistory">ART_0041_implicitUseOfDeepHistory</a> to Error.</p>
+<h3 id="configuring-all-rules">Configuring All Rules</h3>
+<p>When you configure validation rules you can replace the rule id with an asterisk (<code>*</code>) to let the configuration apply to all rules. Here are some example when this can be useful:</p>
+<ul>
+<li><code>E*</code>: Report all problems with Error severity </li>
+<li><code>X*</code>: Disable all validation rules</li>
+</ul>
+<p>You can combine such asterisk rule configurations with configurations of individual rules. For example:</p>
+<ul>
+<li><code>W*, E0005</code>: Report all problems with Warning severity, except <a href="#art_0005_choicewithoutelsetransition">ART_0005_choiceWithoutElseTransition</a> which should be reported with Error severity.</li>
+</ul>
 <h2 id="validation-rules">Validation Rules</h2>
 <p>This chapter lists all validation rules which Code RealTime checks your Art application against. These rules find problems in Art files and all problems found have the "ART_" prefix.</p>
 <h3 id="art_0001_invalidnamecpp">ART_0001_invalidNameCpp</h3>
@@ -3235,7 +3272,7 @@ capsule CComp3 {
 </tr>
 </tbody>
 </table>
-<p>The <a href="../art-lang/#rule_config">rule_config</a> property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the <a href="../art-lang/#rule_config">rule_config</a> property should be a comma-separated list of 5 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and remaining letters specify the rule id. See <a href="#configuring-validation">Configuring Validation</a> for more information and examples.</p>
+<p>The <a href="../art-lang/#rule_config">rule_config</a> property can be set on Art elements to configure which validation rules to run for that element (and for all elements it contains). It can also be used for setting a custom severity for those rules. The value of the <a href="../art-lang/#rule_config">rule_config</a> property should be a comma-separated list of 5 or 2 letter strings where the first letter specifies if the rule is disabled and it's severity (X,I,W,E) and the remaining letters specify the rule id (or asterisk, to let the configuration apply for all rules). See <a href="#configuring-validation">Configuring Validation</a> for more information and examples.</p>
 <pre><code class="language-art">capsule RCP [[rt::properties(
     rule_config=&quot;X0000&quot; // ART_0022 (a validation rule with id 0000 does not exist)
 )]]{

@@ -967,6 +967,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#simplified-qualified-names-of-nested-states" class="md-nav__link">
+    Simplified qualified names of nested states
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1512,6 +1519,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#simplified-qualified-names-of-nested-states" class="md-nav__link">
+    Simplified qualified names of nested states
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1600,6 +1614,10 @@
 <td>8008</td>
 <td align="left"><a href="#extend-debugger-api-getchildren-to-obtain-active-state">Extend debugger API "getChildren" to obtain active state</a> <br> <a href="#long-double">Long double</a> <br> <a href="#rtconfig_info">RTCONFIG_INFO</a> <br> <a href="#protocol-constructor-initilizer-ordering">Protocol constructor initializer order</a></td>
 </tr>
+<tr>
+<td>8009</td>
+<td align="left"><a href="#simplified-qualified-names-of-nested-states">Simplified qualified names of nested states</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -1648,6 +1666,8 @@
 <p>A <a href="../build/#rtconfig_info">new configuration macro</a> has been added for controlling if the <code>config_info</code> array should be included in <code>src/RTMain/mainLine.cc</code>. Previously this array was always included, but not used, which could cause compiler warnings.</p>
 <h3 id="protocol-constructor-initilizer-ordering">Protocol constructor initilizer ordering</h3>
 <p>The order of initializers in the <a href="../../targetrts-api/class_r_t_protocol.html">Protocol</a> constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.</p>
+<h3 id="simplified-qualified-names-of-nested-states">Simplified qualified names of nested states</h3>
+<p>The function <code>getStateStr()</code> in <code>eventMatches.cc</code> now returns a simplified representation of nested states that consists of the names of active states separated by a single colon (<code>:</code>). Previously, each state name was fully qualified with double colons (<code>::</code>) which led to unnecessary complexity when parsing these strings during a debug session.</p>
 
 
 
