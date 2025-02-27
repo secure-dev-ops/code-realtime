@@ -1,4 +1,4 @@
-capsule SpecialChars {
+capsule Top{
     [[rt::header_preface]]
     `
         #include <string>

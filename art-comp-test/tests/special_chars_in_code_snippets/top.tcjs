@@ -1,5 +1,5 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
-tc.topCapsule = 'SpecialChars'; 
+tc.topCapsule = 'Top'; 
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'special_chars_in_code_snippets_target';
 tc.executableName = 'Top$(EXEC_EXT)'
