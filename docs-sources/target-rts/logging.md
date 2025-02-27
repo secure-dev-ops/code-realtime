@@ -1,10 +1,10 @@
-It's often useful to print log messages in an application, either as a quick way of trouble shooting a problem without having to use a debugger, or as a more permanent means of reporting errors or other interesting information at runtime. In the latter case it's recommended to use one of the many logging frameworks for C++ that are available. Examples of such frameworks include, but are certainly not limited to:
+It's often useful to print log messages in an application, either as a quick way of troubleshooting a problem without having to use a debugger, or as a more permanent means of reporting errors or other interesting information at runtime. In the latter case you can use one of the many logging frameworks for C++ that are available. Examples of such frameworks include, but are certainly not limited to:
 
 * [Boost.Log](https://github.com/boostorg/log)
 * [Apache Log4cxx](https://github.com/apache/logging-log4cxx)
 * [spdlog](https://github.com/gabime/spdlog)
 
-However, for quick and temporary logging needs the TargetRTS includes a simple logging service which you can directly use without the need for a special logging library. This logging service provides a thread-safe way of logging messages and data objects to `stderr`, but not much more than that. 
+However, the TargetRTS also includes a simple logging service which you can directly use without the need for a special logging library. This logging service provides a thread-safe way of logging messages and data objects to `stderr` and `stdout`, but not much more than that. 
 
 ## Log Port
 A capsule can access the logging service by means of a log port, which is a port typed by the predefined [`Log`](../targetrts-api/struct_log.html) protocol. Log ports should be non-service behavior ports, and don't accept any events, but rather provide a [set of functions](../targetrts-api/class_log_1_1_base.html) which the capsule can call for logging messages. Here is an example of a capsule which uses a log port for writing an error message if the initial transition does not receive an expected data object:
@@ -27,14 +27,22 @@ capsule C {
 ```
 
 Note the following:
-
+  
 * To flush the log and make sure the logged message becomes visible you must call `commit()`.
-* Use `show()` instead of `log()` to avoid printing a carriage return after the message. Note, however, that all logging functions eventually use the class [RTDiagStream](../targetrts-api/class_r_t_diag_stream.html) for writing in a thread-safe way to `stderr`. To avoid interleaving printouts in a multi-threaded application it can therefore be better to fully create the string to log (for example using `std::stringstream`) and then print it with a single call to `log()`.
+* Use `show()` instead of `log()` to avoid printing a carriage return after the message. 
 * You can print an indented message to the log by calling `crtab()`.
-* In addition to strings you can also [log data](#logging-data).
+ 
+Using a log port comes with certain limitations:
 
-### Logging Data
-A log port provides several overloaded versions of `log()` (and `show()`) which lets you log the values of variables. There are overloads for most primitive C++ types, and for some types from the TargetRTS such as `RTString`. You can also log objects of user-defined types, provided that they have a [type descriptor](../art-lang/cpp-extensions.md#type-descriptor). Here is an example of logging a few values of different types:
+* Since ports only can be added to capsules, you can only use log ports in code that is located in a capsule.
+* Log ports only let you log messages to `stderr`.
+* Logging with log ports is thread-safe but if you want to log bigger messages by making several calls to `show()` or `log()` from different threads, the log messages could be interleaved on `stderr`. This is because all logging functions eventually use the class [RTDiagStream](../targetrts-api/class_r_t_diag_stream.html) for writing in a thread-safe way to `stderr`. You can avoid interleaving printouts in a multi-threaded application by first creating the string to log (for example using `std::stringstream`) and then print it with a single call to `log()` or `show()`. 
+* While you can log not only strings but also [log data](#logging-data-with-a-log-port) by calling different overloads of `show()` and `log()`, the type of the data will be printed before the value. This may or may not be desirable.
+
+If any of these limitations is a concern, you can use a [log stream](#log-stream) instead of a log port.
+
+### Logging Data with a Log Port
+A log port provides several overloaded versions of `log()` (and `show()`) which lets you log the values of variables. There are overloads for most primitive C++ types, and for some types from the TargetRTS such as `RTString`. You can also log objects of user-defined types, provided that they have a [type descriptor](../art-lang/cpp-extensions.md#type-descriptor). Here is an example of using a log port called `log` for logging a few values of different types:
 
 ```cpp
 struct [[rt::auto_descriptor]] MyType {
@@ -53,9 +61,9 @@ log.log(s); // Calls Log::Base::log(const RTString&)
 log.log(&mt, &RTType_MyType); // Calls Log::Base::log(const void*, RTObject_class*)
 ```
 
-Note that when logging an object of a user-defined type, you must provide the type descriptor as a second argument.
+Note that when logging an object of a user-defined type, you must provide the type descriptor as a second argument to `log()` or `show()`.
 
-When data is logged like this, the standard [`RTAsciiEncoding`](../targetrts-api/class_r_t_ascii_encoding.html) is often used, which creates a string that often contains both the type of the data, and the value. For the above example, the output will look like this:
+When data is logged like this, the standard [`RTAsciiEncoding`](../targetrts-api/class_r_t_ascii_encoding.html) is used, which creates a string that typically contains both the type of the data, and the value. For the above example, the output will look like this:
 
 ```
 int 14
@@ -86,9 +94,97 @@ With this implementation, the data will instead be logged like this:
 14 Hello! [0,0]
 ```
 
+See also [Logging Data with a Log Stream](#logging-data-with-a-log-stream).
+
 !!! example
     You can find a sample application that uses a log port for logging data [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/logging). 
     It shows both how data is string encoded by default, and how you can implement a custom encoding by means of `std::stringstream`.
+
+
+## Log Stream
+An alternative to logging with a log port is to use a log stream. The [`Log`](../targetrts-api/struct_log.html) struct has two members `out` and `err` which lets you stream log messages either to `stdout` or `stderr` using the C++ insertion operator (`<<`). Here is an example:
+
+```cpp
+Log::out << "info" << Log::endl;
+Log::err << "error" << std::endl;
+```
+
+`Log::endl` will print a newline and flush the log stream. It's also possible to use the standard `std::endl` with the same result. 
+
+### Logging Data with a Log Stream
+With a log stream data can be logged in the same way as when using standard C++ stream objects. In fact, the log stream internally uses an `std::ostream`. This means that you can use all the standard manipulators to control how to format the data. Here are some examples:
+
+```cpp
+Log::out << "int: " << 5 << Log::endl; 
+bool b = true;
+Log::out << b << Log::endl;
+Log::out << std::boolalpha << b << Log::endl; 
+double pi = 3.14159;
+Log::out << std::setprecision(2) << pi << Log::endl; 
+Log::out << std::setprecision(3) << std::scientific << pi << Log::endl; 
+std::string world = "world";
+Log::out << "hello" << std::setw(10) << world << Log::endl;
+```
+
+The output will look like this:
+
+```
+int: 5
+1
+true
+3.1
+3.142e+00
+hello     world
+```
+
+To log data of a user-defined type you need to provide the data object and its type descriptor by means of an [`RTTypedValue`](../targetrts-api/struct_r_t_typed_value.html) object. For example:
+
+```cpp
+struct [[rt::auto_descriptor]] MyType {
+    int x = 1;
+    int y = 2;
+};
+
+// ...
+MyType mt;
+Log::out << "MyType value: " << RTTypedValue(&mt, &RTType_MyType) << Log::endl;
+```
+
+Just like when [logging data with a log port](#logging-data-with-a-log-port) the value of the user-defined type will be encoded using the standard [`RTAsciiEncoding`](../targetrts-api/class_r_t_ascii_encoding.html), so the output will look like this:
+
+```
+MyType value: MyType{x 1,y 2}
+```
+
+### Locking and Unlocking the Log Streams
+If you use a log stream from multiple threads, log messages could become interleaved when printed. To prevent this you can lock the log streams before logging a message, and then unlock them afterwards. While the log streams are locked by a thread, other threads that attempt to use them will be blocked until the log streams are unlocked again. This is hence a simple way to give a certain thread exclusive access to the log streams so it can fully print a certain log message, without risk that other threads write something to the log streams at the same time.
+
+As an example, assume a message is logged to `stderr` by printing three separate strings:
+
+```cpp
+Log::err << "This is a compound log message, " << "printed by thread " << context()->name() << Log::endl; 
+```
+
+If this piece of code runs at the same time from multiple threads, the messages could be interleaved, because there can be a thread context switch after the printing of each substring. For example, the logged messages could look like this:
+
+```
+This is a compound log message, printed by thread Thread4
+This is a compound log message, This is a compound log message, printed by thread Thread2
+printed by thread Thread1
+This is a compound log message, printed by thread Thread3
+```
+
+To avoid this you can use `Log::lock` before we start to log the message, and `Log::unlock` after it has been logged:
+
+```cpp
+Log::err << Log::lock << "This is a compound log message, " << "printed from thread " << context()->name() << Log::unlock << Log::endl; 
+```
+
+Note the following:
+
+* Locking/unlocking applies to both log streams at the same time. That is, if you lock/unlock `Log::err`, then `Log::out` is also locked/unlocked and vice versa. 
+* Calls to `Log::lock` and `Log::unlock` should always be balanced.
+* To avoid performance problems you should not print too many log messages while the log streams are locked. Printing a single sentence followed by `Log::endl` can be a good compromise between performance and log readability.
 
 ## TargetRTS Error Logging
 The TargetRTS itself uses logging to `stderr` to report run-time errors that may happen when your application runs. In a correctly implemented application there of course should not be any such error messages reported, but while the application is developed and still contains bugs, it's useful to be informed about run-time problems when they do occur.
