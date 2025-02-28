@@ -1,0 +1,29 @@
+[[ rt::decl ]]
+` 
+    #include "ZTestAbstractClass.art.h"
+
+    class [[rt::auto_descriptor]] Test1Level1 : public TestAbstractClass {
+        public:  
+            void Method1();
+    };
+
+    class [[rt::auto_descriptor]] Test1Level2: public Test1Level1 {
+        public:  
+            void Method2();
+    };
+
+    class [[rt::auto_descriptor]] Test1Level3: public Test1Level1 {
+        public:  
+            void Method2();
+    };
+
+
+    class [[rt::auto_descriptor]] Test1MyClass1 : public Test1Level2 , public Test1Level3{
+    };
+
+    class [[rt::auto_descriptor]] Test1MyClass2 : public Test1Level2 , public Test1Level3{
+        public:  
+            void Operation1() override {}; 
+    };
+
+`

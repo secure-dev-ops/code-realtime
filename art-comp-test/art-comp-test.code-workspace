@@ -259,6 +259,9 @@
         },
         {
             "path": "tests/unwired_port"
+        },
+        {
+            "path": "tests/virtual_class_abstract"
         }
     ]
 }

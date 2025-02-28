@@ -1,0 +1,7 @@
+[[rt::decl]]
+`
+    #include "ZTestAbstractClass.art.h"
+    class [[rt::auto_descriptor]] Test4MyClass : public TestAbstractClass {
+    };
+     
+`

@@ -1,0 +1,7 @@
+[[rt::decl]]
+`
+    #include "TestCase6.art.h"
+    class [[rt::auto_descriptor]] Test7MyClass : public Test6MyClass {
+    };
+     
+`
