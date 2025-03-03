@@ -1,0 +1,18 @@
+
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "testlib.art.h"
+        #include <iostream>
+    `
+   
+    behavior port t : Timing;
+    statemachine {
+        state State2;
+        initial -> State2
+        `   
+            PASS();
+        `;
+    };
+};

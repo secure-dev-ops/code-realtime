@@ -267,38 +267,7 @@
             "path": "tests/unwired_port"
         },
         {
-            "name": "testLib_target",
-            "path": "testLib_target"
-        },
-        {
-            "name": "library_threads_lib_target",
-            "path": "tests/library_threads_lib_target"
-        },
-        {
-            "name": "threads_target",
-            "path": "tests/threads_target"
-        },
-        {
-            "path": "tests/logging"
-        },
-        {
-            "name": "logging_target",
-            "path": "tests/logging_target"
-        },
-        {
-            "name": "move_function_2_target",
-            "path": "tests/move_function_2_target"
-        },
-        {
-            "name": "trigger_matching_target",
-            "path": "tests/trigger_matching_target"
-        },
-        {
-            "path": "tests/log_stream"
-        },
-        {
-            "name": "log_stream_target",
-            "path": "tests/log_stream_target"
+            "path": "tests/virtual_class_abstract"
         }
     ],
     "settings": {

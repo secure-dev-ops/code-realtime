@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'virtual_class_abstract_target';
+tc.cppCodeStandard = "C++ 17"

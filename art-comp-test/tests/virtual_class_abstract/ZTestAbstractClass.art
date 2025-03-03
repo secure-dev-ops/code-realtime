@@ -1,0 +1,7 @@
+[[rt::decl]]
+`
+    class [[rt::auto_descriptor]] TestAbstractClass {
+        public: 
+            virtual void Operation1() = 0;
+    };
+`
