@@ -1,0 +1,71 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'log_stream_target';
+
+tc.threads = [
+    {
+        name: 'MainThread',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY'
+    },
+    {
+        name: 'TimerThread',
+        implClass: 'RTTimerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_TIMER_PRIORITY'
+    },
+    {
+        name: 'Thread1',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'Thread1'
+        ]
+    },
+    {
+        name: 'Thread2',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'Thread2'
+        ]
+    },
+    {
+        name: 'Thread3',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'Thread3'
+        ]
+    },
+    {
+        name: 'Thread4',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'Thread4'
+        ]
+    },
+    {
+        name: 'Thread5',
+        implClass: 'RTPeerController',
+        stackSize: '20000',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        logical: [
+            'Thread5'
+        ]
+    }
+];
+
+/*
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+*/

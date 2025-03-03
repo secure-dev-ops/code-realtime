@@ -1,0 +1,40 @@
+capsule PartInThread {
+    [[rt::decl]]
+    `
+        RTTimerId tid;
+        unsigned int timeouts = 0;
+    `
+    [[rt::impl_preface]]
+    `    
+        #include "testlib.art.h"
+    ` 
+
+    /* Ports */
+    behavior port timer : Timing;
+    behavior port initTimer : Timing;
+    service behavior port p~ : Events;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state Initial, Logging {
+            t: on timer.timeout
+            `                
+                timeouts++;
+                Log::err << Log::lock << "Compound log message #" << timeouts << ", " << "printed by thread " << context()->name() << Log::endl << Log::unlock;                                 
+                // Without locking (as below) messages would typically be interleaving...
+                //Log::err << "Compound log message #" << timeouts << ", " << "printed by thread " << context()->name() << Log::endl;
+
+                if (timeouts >= 5) {
+                    timer.cancelTimer(tid);                
+                    p.timedout().send();
+                }
+            `;
+        };
+        Initial -> Logging on p.startTest
+        `
+            tid = timer.informEvery(RTTimespec(0, 100000000 /* 0.1 s */));
+        `;
+        initial -> Initial;
+    };
+};

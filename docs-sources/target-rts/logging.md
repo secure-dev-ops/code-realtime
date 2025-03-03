@@ -157,7 +157,7 @@ MyType value: MyType{x 1,y 2}
 ```
 
 ### Locking and Unlocking the Log Streams
-If you use a log stream from multiple threads, log messages could become interleaved when printed. To prevent this you can lock the log streams before logging a message, and then unlock them afterwards. While the log streams are locked by a thread, other threads that attempt to use them will be blocked until the log streams are unlocked again. This is hence a simple way to give a certain thread exclusive access to the log streams so it can fully print a certain log message, without risk that other threads write something to the log streams at the same time.
+If you use a log stream from multiple threads, log messages could become interleaved when printed. To prevent this you can lock the log streams before logging a message, and then unlock them afterwards. While the log streams are locked by a thread, other threads that attempt to lock them will be blocked until the log streams are unlocked again. This is hence a simple way to give a certain thread exclusive thread-safe access to the log streams so it can fully print a certain log message, without risk that other threads write something to the log streams at the same time.
 
 As an example, assume a message is logged to `stderr` by printing three separate strings:
 
@@ -177,7 +177,7 @@ This is a compound log message, printed by thread Thread3
 To avoid this you can use `Log::lock` before we start to log the message, and `Log::unlock` after it has been logged:
 
 ```cpp
-Log::err << Log::lock << "This is a compound log message, " << "printed from thread " << context()->name() << Log::unlock << Log::endl; 
+Log::err << Log::lock << "This is a compound log message, " << "printed from thread " << context()->name() << Log::endl << Log::unlock; 
 ```
 
 Note the following:

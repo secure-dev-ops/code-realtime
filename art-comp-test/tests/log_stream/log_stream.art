@@ -1,0 +1,81 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] MyType {
+        int x = 1;
+        int y = 2;
+    }; 
+`
+
+capsule Top {    
+    [[rt::decl]]
+    `
+        unsigned int count = 0;
+    `
+    [[rt::impl_preface]]
+    `
+        #include <sstream>
+        #include <iomanip>
+        #include "testlib.art.h"
+        #include "log_stream.art.h"
+    `     
+    behavior port frame : Frame;
+    behavior port p : Events[5];
+
+    /* Parts */
+    optional part c : PartInThread[5];
+    /* Connectors */
+    connect c.p with p;
+
+    /* State Machine */
+    statemachine {
+        state Testing {
+            entry
+            `
+                p.startTest().send();
+            `;
+
+            timedout: on p.timedout
+            `
+                count++;
+                //Log::err << Log::lock << "count = " << count << std::endl << Log::unlock;
+                if (count == 5) {
+                    PASS(); // All 5 threads done printing
+                }
+            `;
+        };
+        initial -> Testing
+        `
+            // Logging text to stdout
+            Log::out << "info" << Log::endl;
+                        
+            Log::err << "this is an " << "error" << Log::endl;
+
+            // Logging data to stdout
+            Log::out << "int: " << 5 << Log::endl; // int: 5
+            bool b = true;
+            Log::out << b << Log::endl; // 1
+            Log::out << std::boolalpha << b << Log::endl; // true
+            double pi = 3.14159;
+            Log::out << std::setprecision(2) << pi << std::flush << Log::endl; // 3.1
+            Log::out << std::setprecision(3) << std::scientific << pi << Log::endl; // 3.142e+00
+            std::string world = "world";
+            RTString excl = "!";
+            Log::out << "hello" << std::setw(10) << world << excl << Log::endl; // hello     world!
+
+            MyType m;
+            Log::out << "MyType: " << RTTypedValue(&m, &RTType_MyType) << Log::endl;
+
+            // Incarnate capsule instances in separate threads
+            RTActorId ai1 = frame.incarnate(c, nullptr, nullptr, Thread1, -1);
+            ASSERT (ai1.isValid(), "Failed to incarnate into thread 1");
+            RTActorId ai2 = frame.incarnate(c, nullptr, nullptr, Thread2, -1);
+            ASSERT (ai2.isValid(), "Failed to incarnate into thread 2");
+            RTActorId ai3 = frame.incarnate(c, nullptr, nullptr, Thread3, -1);
+            ASSERT (ai3.isValid(), "Failed to incarnate into thread 3");
+            RTActorId ai4 = frame.incarnate(c, nullptr, nullptr, Thread4, -1);
+            ASSERT (ai4.isValid(), "Failed to incarnate into thread 4");
+            RTActorId ai5 = frame.incarnate(c, nullptr, nullptr, Thread5, -1);
+            ASSERT (ai5.isValid(), "Failed to incarnate into thread 5");
+        `;        
+    };
+};

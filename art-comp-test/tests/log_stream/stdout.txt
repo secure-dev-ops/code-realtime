@@ -1,0 +1,8 @@
+info
+int: 5
+1
+true
+3.1
+3.142e+00
+hello     world!
+MyType: MyType{x 1,y 2}

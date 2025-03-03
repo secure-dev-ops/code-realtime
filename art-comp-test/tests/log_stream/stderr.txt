@@ -1,0 +1,26 @@
+this is an error
+Compound log message #1, printed by thread Thread1
+Compound log message #1, printed by thread Thread2
+Compound log message #1, printed by thread Thread3
+Compound log message #1, printed by thread Thread4
+Compound log message #1, printed by thread Thread5
+Compound log message #2, printed by thread Thread1
+Compound log message #2, printed by thread Thread2
+Compound log message #2, printed by thread Thread3
+Compound log message #2, printed by thread Thread4
+Compound log message #2, printed by thread Thread5
+Compound log message #3, printed by thread Thread1
+Compound log message #3, printed by thread Thread2
+Compound log message #3, printed by thread Thread3
+Compound log message #3, printed by thread Thread4
+Compound log message #3, printed by thread Thread5
+Compound log message #4, printed by thread Thread1
+Compound log message #4, printed by thread Thread2
+Compound log message #4, printed by thread Thread3
+Compound log message #4, printed by thread Thread4
+Compound log message #4, printed by thread Thread5
+Compound log message #5, printed by thread Thread1
+Compound log message #5, printed by thread Thread2
+Compound log message #5, printed by thread Thread3
+Compound log message #5, printed by thread Thread4
+Compound log message #5, printed by thread Thread5
