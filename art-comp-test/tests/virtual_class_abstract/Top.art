@@ -5,6 +5,16 @@ capsule Top {
     `
         #include "testlib.art.h"
         #include <iostream>
+        #include "TestCase1.art.h"
+        #include "TestCase2.art.h"
+        #include "TestCase3.art.h"
+        #include "TestCase4.art.h"
+        #include "TestCase5.art.h"
+        #include "TestCase6.art.h"
+        #include "TestCase7.art.h"
+        #include "TestCase8.art.h"
+        #include "TestCase9.art.h"
+        #include "TestCase10.art.h"
     `
    
     behavior port t : Timing;
@@ -12,6 +22,20 @@ capsule Top {
         state State2;
         initial -> State2
         `   
+            ASSERT(&RTType_Test1Level1 != nullptr, "RTType_Test1Level1 is NOT generated");
+            ASSERT(&RTType_Test1Level2 != nullptr, "RTType_Test1Level2 is NOT generated");
+            ASSERT(&RTType_Test1Level3 != nullptr, "RTType_Test1Level3 is NOT generated");
+            ASSERT(&RTType_Test1MyClass1 != nullptr, "RTType_Test1MyClass1 is NOT generated");
+            ASSERT(&RTType_Test1MyClass2 != nullptr, "RTType_Test1MyClass2 is NOT generated");
+            ASSERT(&RTType_Test2MyClass != nullptr, "RTType_Test2MyClass is NOT generated");
+            ASSERT(&RTType_Test3MyClass != nullptr, "RTType_Test3MyClass is NOT generated");
+            ASSERT(&RTType_Test4MyClass != nullptr, "RTType_Test4MyClass is NOT generated");
+            ASSERT(&RTType_Test5MyClass != nullptr, "RTType_Test5MyClass is NOT generated");
+            ASSERT(&RTType_Test6MyClass != nullptr, "RTType_Test6MyClass is NOT generated");
+            ASSERT(&RTType_Test7MyClass != nullptr, "RTType_Test7MyClass is NOT generated");
+            ASSERT(&RTType_Test8MyClass != nullptr, "RTType_Test8MyClass is NOT generated");
+            ASSERT(&RTType_Test9MyClass != nullptr, "RTType_Test9MyClass is NOT generated");
+            ASSERT(&RTType_Test10MyClass != nullptr, "RTType_Test10MyClass is NOT generated");
             PASS();
         `;
     };
