@@ -38,6 +38,28 @@ If you already have a diagram open, you can open another diagram that is related
 
 For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command **Open Inherited State Diagram**. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.
 
+## Automatic vs Manual Layout
+By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:
+
+* A good layout of a diagram can help to understand it better. For example, you may want to group elements that are logically related close to each other.
+* Small changes in an Art file can lead to rather big graphical changes when automatic layout is used. For example, adding a transition between two states can cause the states themselves to move to a different position to achieve a compact overall diagram layout. While editing an Art file this can give a "jumpy" feeling to diagrams where symbols move around a lot while typing.
+* Auto-layouted diagrams may sometimes not be as aesthetically nice as ones that you layout manually.
+
+If you want to use manual layout for a diagram, click in the diagram background, expand the **Layout** section in the Properties view, and mark the **Manual** checkbox. 
+
+![](images/manual-layout.png)
+
+!!! note 
+    Manual layout is currently an experimental feature. You are welcome to try it out but the feature is still under development and may not fully work in all situations.
+
+Once you have turned on manual layout for a diagram you can start to move symbols around as you like. When you save the diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.
+
+If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the layout information for the diagram will be deleted. This operation is not undoable!
+
+![](images/deleting-layout-settings.png)
+
+Alternatively you can delete the JSON file from the Explorer view. In this case, the operation is undoable.
+
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:
 
@@ -178,3 +200,9 @@ To export a diagram as SVG follow these steps:
 ![](images/export-svg.png)
 
 Alternatively, the command `Code RT: Export as SVG` (available in the Command Palette) can be used. It will export the diagram that is open in the currently active editor.
+
+You can export all diagrams for an Art element, or even all diagrams for all Art elements defined in a certain Art file, by means of another command `Code RT: Export Diagrams as SVG`. For the latter scenario you can also do it by means of a context menu command that is available for Art files in the Explorer view:
+
+![](images/export-all-svg.png)
+
+When you export multiple diagrams the SVG files will be saved in a sub folder `DiagramsAsSVG` within the workspace folder.

@@ -186,6 +186,10 @@ Note the following:
 * Calls to `Log::lock` and `Log::unlock` should always be balanced.
 * To avoid performance problems you should not print too many log messages while the log streams are locked. Printing a single sentence followed by `Log::endl` can be a good compromise between performance and log readability.
 
+!!! example
+    You can find a sample application that uses a log stream and locks/unlocks it for thread-safe logging of compound log messages [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/log_stream).
+
+
 ## TargetRTS Error Logging
 The TargetRTS itself uses logging to `stderr` to report run-time errors that may happen when your application runs. In a correctly implemented application there of course should not be any such error messages reported, but while the application is developed and still contains bugs, it's useful to be informed about run-time problems when they do occur.
 

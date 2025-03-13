@@ -1,5 +1,5 @@
 ---
-group: cpp_code_generation
+group: rt_services_library
 allow_stderr_printouts: true
 stderr_comparison: contains
 ---

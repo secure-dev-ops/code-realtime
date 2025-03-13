@@ -208,7 +208,9 @@ Below are examples of these three kinds of diagrams:
 
 ![](images/diagrams.png)
 
-Diagrams are automatically updated when the corresponding Art file is modified. They use automatic layout to avoid the need for manual tidy-up of diagrams when something changes. This also significantly reduces the need for storing diagram specific properties in the Art files, such as coordinates or symbol dimensions. However, there are some properties used when rendering diagrams that are stored in the Art file. For example, if you assign a custom [color](#color) to a state symbol it will be stored as a [property](#property) on the state.
+Diagrams are automatically updated when the corresponding Art file is modified. By default diagrams are rendered using automatic layout to avoid the need for manual tidy-up of diagrams when something changes. However, it's also possible to use manual diagram layout. See [Automatic vs Manual Layout](../working-with-art/diagrams.md#automatic-vs-manual-layout) for more information.
+
+To avoid cluttering an Art file with too much non-semantic information, most properties related to diagrams are stored in separate JSON files. The main exception is the [color](#color) property which allows to specify a custom color for Art elements, which will be used when showing the element in a diagram. For example, to colorize a state specify a custom color for it like this:
 
 ``` art
 capsule Cap {    

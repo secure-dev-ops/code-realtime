@@ -38,7 +38,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8007 | [Handle type names containing spaces in encoding/decoding](#handle-type-names-containing-spaces-in-encodingdecoding) |
 | 8008 | [Extend debugger API "getChildren" to obtain active state](#extend-debugger-api-getchildren-to-obtain-active-state) <br> [Long double](#long-double) <br> [RTCONFIG_INFO](#rtconfig_info) <br> [Protocol constructor initializer order](#protocol-constructor-initilizer-ordering) |
 | 8009 | [Simplified qualified names of nested states](#simplified-qualified-names-of-nested-states) |
-| 8010 | [Log streams](#log-streams) |
+| 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -101,10 +101,16 @@ The TargetRTS now supports `long double` as other predefined C++ types. The Log 
 A [new configuration macro](build.md#rtconfig_info) has been added for controlling if the `config_info` array should be included in `src/RTMain/mainLine.cc`. Previously this array was always included, but not used, which could cause compiler warnings.
 
 ### Protocol constructor initilizer ordering
-The order of initializers in the [Protocol](../targetrts-api/class_r_t_protocol.html) constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.
+The order of initializers in the [RTProtocol](../targetrts-api/class_r_t_protocol.html) constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.
 
 ### Simplified qualified names of nested states
 The function `getStateStr()` in `eventMatches.cc` now returns a simplified representation of nested states that consists of the names of active states separated by a single colon (`:`). Previously, each state name was fully qualified with double colons (`::`) which led to unnecessary complexity when parsing these strings during a debug session.
 
 ### Log streams
 The logging service was extended to support log streams. They remove a number of limitations that apply when you log messages by means of log ports. For example, log streams can be used from any code, not just from code in capsules, they can be locked and unlocked to avoid interleaved log messages in a multi-threaded application, and you can use standard C++ stream manipulators for formatting text and data to obtain a more readable log. See [this chapter](logging.md#log-stream) for more information about log streams.
+
+### Corrected deletion in RTProtocolAdapter destructor
+The destructor of [RTProtocolAdapter](../targetrts-api/class_r_t_protocol_adapter.html) deleted an array using the standard `delete` operator. This has now been corrected to instead use the `delete[]` operator.
+
+### JSON construction in debugger API "getChildren"
+A bug was fixed in the "getChildren" debugger API implementation related to how JSON is constructed for a capsule that lacks parts and/or ports.
