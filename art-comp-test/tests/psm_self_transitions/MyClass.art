@@ -1,4 +1,4 @@
-class MyClass {
+class MyClass [[rt::properties(rule_config="X0018")]] {
     /* Trigger Operations */
     trigger foo();
     /* State Machine */
