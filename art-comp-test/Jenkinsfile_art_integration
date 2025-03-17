@@ -19,15 +19,18 @@ def checkoutRunner() {
 def codertBranchList
 def modelrtBranchList
 node {
-	env.MODEL_RT_BRANCH = params.MODEL_RT_BRANCH
-	env.MODEL_RT_ZIP = params.MODEL_RT_ZIP
-	env.CODE_RT_BRANCH = params.CODE_RT_BRANCH
-	env.CODE_RT_VSIX = params.CODE_RT_VSIX
+	sh(script: 'env')
 	checkoutAutomation()
 	modelrtBranchList = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getModelRTBranches', returnStdout: true).trim()
 	println modelrtBranchList
+	if (env.MODEL_RT_BRANCH == null) {
+		env.MODEL_RT_BRANCH = modelrtBranchList.split('\n')[0]
+	}
 	codertBranchList = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getCodeRTBranches', returnStdout: true).trim()
 	println codertBranchList
+	if (env.CODE_RT_BRANCH == null) {
+		env.CODE_RT_BRANCH = codertBranchList.split('\n')[0]
+	}
 	env.MODEL_RT_ZIP = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getProductZip', returnStdout: true).trim()
 	env.CODE_RT_VSIX = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getProductVsix', returnStdout: true).trim()
 	currentBuild.displayName = env.MODEL_RT_ZIP + " " + env.CODE_RT_VSIX
