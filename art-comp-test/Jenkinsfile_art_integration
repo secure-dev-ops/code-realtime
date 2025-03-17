@@ -1,0 +1,131 @@
+def checkoutAutomation() {
+	return checkout([
+		$class: 'GitSCM',
+		branches: [[name: 'master']],
+		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'git/rsarte-automation']],
+		userRemoteConfigs: [[credentialsId: '69478c25-fe9e-431f-8bf8-83d3591711ad', url: 'git@github01.hclpnp.com:Modeling/rsarte-automation.git']]
+	])
+}
+
+def checkoutRunner() {
+	return checkout([
+		$class: 'GitSCM',
+		branches: [[name: 'master']],
+		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'git/rsarte-tests-mc-exe']],
+		userRemoteConfigs: [[credentialsId: '69478c25-fe9e-431f-8bf8-83d3591711ad', url: 'git@github01.hclpnp.com:Modeling/rsarte-tests-mc-exe.git']]
+	])
+}
+
+def codertBranchList
+def modelrtBranchList
+node {
+	sh(script: 'env')
+	checkoutAutomation()
+	modelrtBranchList = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getModelRTBranches', returnStdout: true).trim()
+	println modelrtBranchList
+	if (env.MODEL_RT_BRANCH == null) {
+		env.MODEL_RT_BRANCH = modelrtBranchList.split('\n')[0]
+	}
+	codertBranchList = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getCodeRTBranches', returnStdout: true).trim()
+	println codertBranchList
+	if (env.CODE_RT_BRANCH == null) {
+		env.CODE_RT_BRANCH = codertBranchList.split('\n')[0]
+	}
+	env.MODEL_RT_ZIP = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getProductZip', returnStdout: true).trim()
+	env.CODE_RT_VSIX = sh(script: 'source git/rsarte-automation/jenkins/RT_TEST_utils.sh; getProductVsix', returnStdout: true).trim()
+	currentBuild.displayName = env.MODEL_RT_ZIP + " " + env.CODE_RT_VSIX
+}
+
+def prepareTests() {
+	checkoutAutomation()
+	checkoutRunner()
+
+	sh '''
+		source git/rsarte-automation/jenkins/RT_TEST_utils.sh
+		configureTestarea
+		installProductZip
+		extractProductVsix
+
+		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
+		mkdir -p test-results
+		cd ./art-comp-test/runner
+		npm install
+		cd ../..
+
+		checkEnv
+	'''
+}
+
+pipeline {
+	agent any
+	options {
+		ansiColor('xterm')
+		buildDiscarder(logRotator(daysToKeepStr: '30', numToKeepStr: '50'))
+		//disableConcurrentBuilds()
+	}
+	parameters {
+		choice(name: 'MODEL_RT_BRANCH', choices: "${modelrtBranchList}")
+		string(name: 'MODEL_RT_ZIP', defaultValue: '', description: '')
+		choice(name: 'CODE_RT_BRANCH', choices: "${codertBranchList}")
+		string(name: 'CODE_RT_VSIX', defaultValue: '', description: 'File name of the product .vsix to test, if empty, search for latest build')
+		booleanParam(name: 'ONLY_JOB_UPDATE', defaultValue: false, description: 'Only update jenkins job parameters without starting any tests')
+	}
+	stages {
+		stage('Test') {
+			when { expression { return !params.ONLY_JOB_UPDATE } }
+			parallel {
+				stage('MinGw-12.2.0') {
+					agent { label 'rttest_win' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							bat '''
+								set WS=%CD:\\=/%
+								set TS_NAME=Windows-MinGw-12.2
+								gcc --version
+								cd art-comp-test
+								call node runner/app.js --artIntegration --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --modelCompilerJar=%WS%/modelrt/rsa_rt/tools/modelcompiler.jar --targetRTSDir=%WS%/modelrt/rsa_rt/C++/TargetRTS --artCompilerJar=%WS%/codert/extension/bin/artcompiler.jar  --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+				stage('VisualC++-17.0 x64') {
+					agent { label 'rttest_win' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							bat '''
+								set WS=%CD:\\=/%
+								set TS_NAME=Windows-VisualC++-17-x64
+								call C:\\MSVS_2022\\VC\\Auxiliary\\Build\\vcvars64.bat
+								cl.exe
+								cd art-comp-test
+								call node runner/app.js --artIntegration --targetConfig=WinT.x64-VisualC++-17.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --modelCompilerJar=%WS%/modelrt/rsa_rt/tools/modelcompiler.jar --targetRTSDir=%WS%/modelrt/rsa_rt/C++/TargetRTS --artCompilerJar=%WS%/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+				stage('gcc-12.x') {
+					agent { label 'rt_linux && redhat8' }
+					steps {
+						script { prepareTests() }
+						catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+							sh '''
+								WS=$(pwd)
+								TS_NAME=Linux-gcc-12.x
+								! [ -f /opt/rh/gcc-toolset-12/enable ] && echo "ERROR: GCC 12 is not available" && exit 1
+								source /opt/rh/gcc-toolset-12/enable # enable GCC 12
+								gcc --version
+								cd art-comp-test
+								node runner/app.js --artIntegration --targetConfig=LinuxT.x64-gcc-12.x --testDir=tests --javaVM=$WS/../install/JAVA_21/bin/java --modelCompilerJar=$WS/modelrt/rsa_rt/tools/modelcompiler.jar --targetRTSDir=$WS/modelrt/rsa_rt/C++/TargetRTS --artCompilerJar=$WS/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=$TS_NAME --genXML=$WS/test-results/$TS_NAME.xml
+							'''
+						}
+					}
+					post { always { junit 'test-results/**/*.xml' } }
+				}
+			}//parallel
+		}//stage Test
+	}//stages
+}

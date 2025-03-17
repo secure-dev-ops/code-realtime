@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.targetFolder = 'psm_self_transitions_target';
+tc.cppCodeStandard = "C++ 17"
