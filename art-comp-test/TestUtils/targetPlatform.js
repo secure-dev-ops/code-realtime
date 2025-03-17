@@ -35,6 +35,11 @@ function postProcess(topTC, allTCs, targetPlatform) {
 		let tc = allTCs[i];
 		tc.targetConfiguration = targetPlatform;
 
+		if (tc.compilationMakeType) {
+			// update make type only if it was explicitly set in the TC (relevant only for ModelRT TCs)
+			tc.compilationMakeType = TCF.globals().visualStudio ? MakeType.MS_nmake : MakeType.GNU_make;
+		}
+
 		if (tc.targetServicesLibraryAutoUpdate !== false && env.TARGET_RTS_DIR && env.TARGET_RTS_DIR != '') {
 			tc.targetServicesLibrary = env.TARGET_RTS_DIR;
 		}
