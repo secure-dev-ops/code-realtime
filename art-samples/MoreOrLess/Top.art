@@ -27,9 +27,7 @@ capsule Top {
     [[rt::impl]]
     `
         void Top::log(const char* msg) {
-            logP.show("[top   ]");
-            logP.log(msg);
-            logP.commit();
+            Log::out << "[top] " << msg << std::endl;
         }
 
         void Top::parseCommandLineArguments(std::vector<std::string>& arguments) {
@@ -43,7 +41,6 @@ capsule Top {
         }
     `
     /* Ports */
-    behavior port logP : Log;
     behavior port timerP : Timing;
     behavior port frameP : Frame;
 
@@ -94,30 +91,26 @@ capsule Top {
                 exit(1);
             }
 
-            log("starting game with ");
-            logP.show(numGuessers);
-            logP.show(" guessers and a secret number between 0 and ");
-            logP.log(max);
+            Log::out << "starting game with " << numGuessers << " guessers and a secret number between 0 and " << max << std::endl;
 
             // incarnating guesser capsules
             for (int i = 0; i < numGuessers; i++) {
                 RTActorId guesserId = frameP.incarnate(guesser);
                 if (!guesserId.isValid())
-                    context()->perror("[Top     ] incarnation failed!");
+                    context()->perror("[top] incarnation failed!");
             }
 
-            logP.log("[top     ] incarnating 'number'");
+            log("incarnating 'number'");
             numberId = frameP.incarnate(number, EmptyActorClass, &max);
             if (!numberId.isValid())
-                context()->perror("[top     ] incarnation failed");
+                context()->perror("[top] incarnation failed");
         `;
 
         choice c;
         guesserReady: Connecting -> c on guesserP.ready
         `
             connectedCapsules++;
-            log("connecting with guesser ");
-            logP.log(msg->sapIndex0());
+            Log::out << "connecting with guesser " << msg->sapIndex0() << std::endl;
         `;
         numberReady: Connecting -> c on cmdP.ready
         `
@@ -129,12 +122,9 @@ capsule Top {
         entry
         `
             timerP.informIn(500ms);
-            logP.log("-----");
+            Log::out << "-----" << std::endl;
             round++;
-            log("waiting for round ");
-            logP.show(round);
-            logP.show(" with guesser no ");
-            logP.log(currentGuesser);
+            Log::out << "waiting for round " << round << " with guesser no " << currentGuesser << std::endl;
         `;
     };
     allConnected: c -> WaitingToStartRound when `connectedCapsules == (numGuessers+1)`
@@ -143,31 +133,18 @@ capsule Top {
     `;
     timeout: WaitingToStartRound -> Guessing on timerP.timeout
     `
-        log("telling guesser no ");
-        logP.show(currentGuesser);
-        logP.log(" to import 'number'");
+        Log::out << "telling guesser no " << currentGuesser << " to import 'number'" << std::endl;
         guesserP.doConnect(numberId).sendAt(currentGuesser);
     `;
     notFound: Guessing -> WaitingToStartRound on guesserP.notFound
     `
-        log("guesser no ");
-        logP.show(currentGuesser);
-        logP.log(" unsuccessful");
-        currentGuesser = (currentGuesser+1) % numGuessers;
-        log("next up: guesser no ");
-        logP.show(currentGuesser);
+        Log::out << "guesser no " << currentGuesser << " unsuccessful" << std::endl;
+        Log::out << "next up: guesser no " << currentGuesser << std::endl;
     `;
     found: Guessing -> Found on guesserP.found
     `
-        log("out of ");
-        logP.show(numGuessers);
-        logP.show(" guessers, guesser no ");
-        logP.show(currentGuesser);
-        logP.show(" found secret number ");
-        logP.show(*rtdata);
-        logP.show(" after ");
-        logP.show(round);
-        logP.log(" rounds!");
+        Log::out << "out of " << numGuessers << " guessers, guesser no " << currentGuesser 
+            << " found secret number " << *rtdata << " after " << round << " rounds!" << std::endl;        
 
         log("exiting");
         context()->abort();

@@ -1,0 +1,61 @@
+[
+  {
+    "context": "::Maze",
+    "diagramType": "state",
+    "layouts": [
+      {
+        "element": "Walking::A1",
+        "x": 20.0,
+        "y": 60.0
+      },
+      {
+        "element": "Walking::B1",
+        "x": 20.0,
+        "y": 200.0
+      },
+      {
+        "element": "Walking::entry1",
+        "borderPosition": "W32"
+      },
+      {
+        "element": "Walking",
+        "x": 80.0,
+        "y": 0.0
+      },
+      {
+        "element": "initial-state",
+        "x": -30.0,
+        "y": 90.0
+      },
+      {
+        "element": "Walking::B3",
+        "x": 190.0,
+        "y": 200.0
+      },
+      {
+        "element": "Walking::B2",
+        "x": 110.0,
+        "y": 200.0
+      },
+      {
+        "element": "Walking::C2",
+        "x": 110.0,
+        "y": 270.0
+      },
+      {
+        "element": "Walking::exit1",
+        "borderPosition": "E66"
+      },
+      {
+        "element": "Walking::A2",
+        "x": 110.0,
+        "y": 60.0
+      },
+      {
+        "element": "ReachedGoal",
+        "x": 410.0,
+        "y": 190.0
+      }
+    ]
+  }
+]

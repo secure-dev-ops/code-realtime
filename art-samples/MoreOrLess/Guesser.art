@@ -21,18 +21,12 @@ capsule Guesser {
     [[rt::impl]]
     `
         void Guesser::log(const char* msg) {
-            logP.show("[");
-            logP.show(myName);
-            logP.show("] ");
-            logP.log(msg);
-            logP.commit();
+            Log::out << "[" << myName << "] " << msg << std::endl;
         }
     `
 
     /* Ports */
-    behavior port logP : Log;
     behavior port frameP : Frame;
-
     behavior notify port numberP : NumberProt;
     behavior service port guesserP : GuesserProt;
 
@@ -102,8 +96,8 @@ capsule Guesser {
                     else {
                         guess = hint.current + (hint.max - hint.current) / 2;
                     }
-                    log("guessing: ");
-                    logP.log(guess);
+
+                    Log::out << "[" << myName << "] guessing: " << guess << std::endl;
 
                     numberP.guess(guess).send();
                 `;
