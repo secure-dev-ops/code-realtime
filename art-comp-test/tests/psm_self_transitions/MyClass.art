@@ -1,0 +1,18 @@
+class MyClass {
+    /* Trigger Operations */
+    trigger foo();
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+        State -> j on foo();
+        junction j;
+        j -> j;
+        State -> State on foo();
+        choice c;
+        State -> c on foo();
+        c -> c;
+
+    };
+};
+
