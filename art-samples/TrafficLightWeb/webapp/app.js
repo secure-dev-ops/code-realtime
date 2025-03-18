@@ -13,8 +13,9 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-const port = 4000;
+const port = 3004;
 const env = process.env.NODE_ENV || 'development';
+
 
 // Static middleware for serving static files 
 app.get('/', function(req, res) {
@@ -71,10 +72,10 @@ function msgReceived(msg) {
     }
 }
 
-const tcpServer = require('rt-tcp-utils')('localhost', 9911); // Send TCP requests to RT app on port 9911
+const tcpServer = require('rt-tcp-utils')('localhost', 3003); // Send TCP requests to RT app on port 3003
 
 tcpServer.setEventReceivedCallback(msgReceived);
-tcpServer.startListenForEvents(2234) // Receive TCP requests from RT app on port 2234
+tcpServer.startListenForEvents(3002) // Receive TCP requests from RT app on port 3002
 .then((data) => {
     console.log("Ready to receive TCP requests");    
 });

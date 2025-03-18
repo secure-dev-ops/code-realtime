@@ -8,8 +8,30 @@
  */
 
 $(function () {
-    var socket = io();    
 
+    var socket = undefined;
+    var isBrowser = false;
+    if (typeof window !== 'undefined') {
+        console.log("Running in Browser");
+        isBrowser = true;
+    } else {
+        console.log("Running locally");
+        isBrowser = false;
+    }
+    if (isBrowser) {
+        const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
+        const socketPath = `${window.location.pathname}socket.io`;
+        console.log("baseUrl: " + baseUrl);
+        console.log("socketPath: " + socketPath);
+        socket = io(baseUrl,{
+            path: socketPath
+          });
+    
+    } else {
+        socket = io();
+    }
+
+   
     socket.on('light', function(msg) {
         $('#light-label').text("Light: " + msg.light);
         $('#rl').css('fill', 'black');
@@ -27,7 +49,13 @@ $(function () {
     });
     
     socket.on('pedlight', function(msg) {
-        $('#pedSignal').attr('src', '/images/' + msg.light);
+
+        if(isBrowser){
+            $('#pedSignal').attr('src', './images/' + msg.light);
+        }else{
+            $('#pedSignal').attr('src', '/images/' + msg.light);
+        }
+        
     });
 
     socket.on('pedcount', function(msg) {
@@ -38,8 +66,16 @@ $(function () {
     });
 
     $('#ped_button').click(function() {
-        $.get('/ped_button', function () {
+        if(isBrowser){
+            $.get('./ped_button', function () {
 
-        });
+            });
+        }
+        else{
+            $.get('/ped_button', function () {
+
+            });
+        }
+        
     });
 });
