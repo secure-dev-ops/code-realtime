@@ -195,7 +195,7 @@ To export a diagram as SVG follow these steps:
 
 1. Open the diagram
 2. Set-up the diagram to display the information you want to include in the exported SVG file. For example, apply [diagram filters](#diagram-filters) and [collapse or expand symbols](#collapsing-and-expanding-symbols).
-3. Click the "Export as SVG" button in the Properties view toolbar. You will be prompted for where to save the SVG file.
+3. Click the "Export as SVG" button in the Properties view toolbar. The exported SVG file will be saved in a subfolder `DiagramsAsSVG` in the workspace folder.
 
 ![](images/export-svg.png)
 
@@ -204,5 +204,3 @@ Alternatively, the command `Code RT: Export as SVG` (available in the Command Pa
 You can export all diagrams for an Art element, or even all diagrams for all Art elements defined in a certain Art file, by means of another command `Code RT: Export Diagrams as SVG`. For the latter scenario you can also do it by means of a context menu command that is available for Art files in the Explorer view:
 
 ![](images/export-all-svg.png)
-
-When you export multiple diagrams the SVG files will be saved in a sub folder `DiagramsAsSVG` within the workspace folder.
