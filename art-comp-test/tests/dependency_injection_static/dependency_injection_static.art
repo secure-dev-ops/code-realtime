@@ -3,6 +3,10 @@ protocol PROTO {
 };
 
 capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "CapsuleFactory.h"
+    `
     part pinger : Pinger;
     part logger : AbstractLogger;
 

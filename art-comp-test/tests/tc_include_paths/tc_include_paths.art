@@ -1,7 +1,7 @@
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
+        #include "testLib.h"
         #include "inclFile.h"
     `
     statemachine {

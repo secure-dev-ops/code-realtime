@@ -4,7 +4,6 @@ tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'dependency_injection_static_target';
 tc.commonPreface = `
 #include <iostream>
-#include "testlib.art.h"
-#include "CapsuleFactory.h"
+#include "testLib.h"
 `;
 tc.capsuleFactory = '&CapsuleFactory::factory';

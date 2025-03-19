@@ -1,7 +1,7 @@
-//Transformation Configuration File
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'testLib_target';
 tc.unitName = 'TestLibUnit';
+tc.cppCodeStandard = 'C++ 17';
 
 // Uncomment to debug with Visual Studio
 /*

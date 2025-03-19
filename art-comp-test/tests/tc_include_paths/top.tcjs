@@ -2,4 +2,3 @@ let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
 tc.targetFolder = 'tc_include_paths_target';
-tc.inclusionPaths = ["../../../tc_include_paths/includes"];

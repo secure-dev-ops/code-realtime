@@ -5,11 +5,12 @@ capsule Top {
     `  
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"    
+        #include "testLib.h"
         #include <string>
         #include <chrono>
         #include <iostream>
-        
+        using namespace std::chrono_literals;
+
         std::string result;
     `
 
