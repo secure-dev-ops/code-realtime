@@ -751,8 +751,35 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#logging-data" class="md-nav__link">
-    Logging Data
+  <a href="#logging-data-with-a-log-port" class="md-nav__link">
+    Logging Data with a Log Port
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-stream" class="md-nav__link">
+    Log Stream
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logging-data-with-a-log-stream" class="md-nav__link">
+    Logging Data with a Log Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locking-and-unlocking-the-log-streams" class="md-nav__link">
+    Locking and Unlocking the Log Streams
   </a>
   
 </li>
@@ -1274,8 +1301,35 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#logging-data" class="md-nav__link">
-    Logging Data
+  <a href="#logging-data-with-a-log-port" class="md-nav__link">
+    Logging Data with a Log Port
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-stream" class="md-nav__link">
+    Log Stream
+  </a>
+  
+    <nav class="md-nav" aria-label="Log Stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logging-data-with-a-log-stream" class="md-nav__link">
+    Logging Data with a Log Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locking-and-unlocking-the-log-streams" class="md-nav__link">
+    Locking and Unlocking the Log Streams
   </a>
   
 </li>
@@ -1325,13 +1379,13 @@
 
   <h1>Logging</h1>
 
-<p>It's often useful to print log messages in an application, either as a quick way of trouble shooting a problem without having to use a debugger, or as a more permanent means of reporting errors or other interesting information at runtime. In the latter case it's recommended to use one of the many logging frameworks for C++ that are available. Examples of such frameworks include, but are certainly not limited to:</p>
+<p>It's often useful to print log messages in an application, either as a quick way of troubleshooting a problem without having to use a debugger, or as a more permanent means of reporting errors or other interesting information at runtime. In the latter case you can use one of the many logging frameworks for C++ that are available. Examples of such frameworks include, but are certainly not limited to:</p>
 <ul>
 <li><a href="https://github.com/boostorg/log">Boost.Log</a></li>
 <li><a href="https://github.com/apache/logging-log4cxx">Apache Log4cxx</a></li>
 <li><a href="https://github.com/gabime/spdlog">spdlog</a></li>
 </ul>
-<p>However, for quick and temporary logging needs the TargetRTS includes a simple logging service which you can directly use without the need for a special logging library. This logging service provides a thread-safe way of logging messages and data objects to <code>stderr</code>, but not much more than that. </p>
+<p>However, the TargetRTS also includes a simple logging service which you can directly use without the need for a special logging library. This logging service provides a thread-safe way of logging messages and data objects to <code>stderr</code> and <code>stdout</code>, but not much more than that. </p>
 <h2 id="log-port">Log Port</h2>
 <p>A capsule can access the logging service by means of a log port, which is a port typed by the predefined <a href="../../targetrts-api/struct_log.html"><code>Log</code></a> protocol. Log ports should be non-service behavior ports, and don't accept any events, but rather provide a <a href="../../targetrts-api/class_log_1_1_base.html">set of functions</a> which the capsule can call for logging messages. Here is an example of a capsule which uses a log port for writing an error message if the initial transition does not receive an expected data object:</p>
 <pre><code class="language-art">capsule C {
@@ -1352,12 +1406,19 @@
 <p>Note the following:</p>
 <ul>
 <li>To flush the log and make sure the logged message becomes visible you must call <code>commit()</code>.</li>
-<li>Use <code>show()</code> instead of <code>log()</code> to avoid printing a carriage return after the message. Note, however, that all logging functions eventually use the class <a href="../../targetrts-api/class_r_t_diag_stream.html">RTDiagStream</a> for writing in a thread-safe way to <code>stderr</code>. To avoid interleaving printouts in a multi-threaded application it can therefore be better to fully create the string to log (for example using <code>std::stringstream</code>) and then print it with a single call to <code>log()</code>.</li>
+<li>Use <code>show()</code> instead of <code>log()</code> to avoid printing a carriage return after the message. </li>
 <li>You can print an indented message to the log by calling <code>crtab()</code>.</li>
-<li>In addition to strings you can also <a href="#logging-data">log data</a>.</li>
 </ul>
-<h3 id="logging-data">Logging Data</h3>
-<p>A log port provides several overloaded versions of <code>log()</code> (and <code>show()</code>) which lets you log the values of variables. There are overloads for most primitive C++ types, and for some types from the TargetRTS such as <code>RTString</code>. You can also log objects of user-defined types, provided that they have a <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>. Here is an example of logging a few values of different types:</p>
+<p>Using a log port comes with certain limitations:</p>
+<ul>
+<li>Since ports only can be added to capsules, you can only use log ports in code that is located in a capsule.</li>
+<li>Log ports only let you log messages to <code>stderr</code>.</li>
+<li>Logging with log ports is thread-safe but if you want to log bigger messages by making several calls to <code>show()</code> or <code>log()</code> from different threads, the log messages could be interleaved on <code>stderr</code>. This is because all logging functions eventually use the class <a href="../../targetrts-api/class_r_t_diag_stream.html">RTDiagStream</a> for writing in a thread-safe way to <code>stderr</code>. You can avoid interleaving printouts in a multi-threaded application by first creating the string to log (for example using <code>std::stringstream</code>) and then print it with a single call to <code>log()</code> or <code>show()</code>. </li>
+<li>While you can log not only strings but also <a href="#logging-data-with-a-log-port">log data</a> by calling different overloads of <code>show()</code> and <code>log()</code>, the type of the data will be printed before the value. This may or may not be desirable.</li>
+</ul>
+<p>If any of these limitations is a concern, you can use a <a href="#log-stream">log stream</a> instead of a log port.</p>
+<h3 id="logging-data-with-a-log-port">Logging Data with a Log Port</h3>
+<p>A log port provides several overloaded versions of <code>log()</code> (and <code>show()</code>) which lets you log the values of variables. There are overloads for most primitive C++ types, and for some types from the TargetRTS such as <code>RTString</code>. You can also log objects of user-defined types, provided that they have a <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>. Here is an example of using a log port called <code>log</code> for logging a few values of different types:</p>
 <pre><code class="language-cpp">struct [[rt::auto_descriptor]] MyType {
     int x = 0;
     int y = 0;
@@ -1373,8 +1434,8 @@ log.log(x); // Calls Log::Base::log(int)
 log.log(s); // Calls Log::Base::log(const RTString&amp;)
 log.log(&amp;mt, &amp;RTType_MyType); // Calls Log::Base::log(const void*, RTObject_class*)
 </code></pre>
-<p>Note that when logging an object of a user-defined type, you must provide the type descriptor as a second argument.</p>
-<p>When data is logged like this, the standard <a href="../../targetrts-api/class_r_t_ascii_encoding.html"><code>RTAsciiEncoding</code></a> is often used, which creates a string that often contains both the type of the data, and the value. For the above example, the output will look like this:</p>
+<p>Note that when logging an object of a user-defined type, you must provide the type descriptor as a second argument to <code>log()</code> or <code>show()</code>.</p>
+<p>When data is logged like this, the standard <a href="../../targetrts-api/class_r_t_ascii_encoding.html"><code>RTAsciiEncoding</code></a> is used, which creates a string that typically contains both the type of the data, and the value. For the above example, the output will look like this:</p>
 <pre><code>int 14
 Hello!
 MyType{x 0,y 0}
@@ -1393,10 +1454,74 @@ log.log(ss.str().c_str());
 <p>With this implementation, the data will instead be logged like this:</p>
 <pre><code>14 Hello! [0,0]
 </code></pre>
+<p>See also <a href="#logging-data-with-a-log-stream">Logging Data with a Log Stream</a>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that uses a log port for logging data <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/logging">here</a>. 
 It shows both how data is string encoded by default, and how you can implement a custom encoding by means of <code>std::stringstream</code>.</p>
+</div>
+<h2 id="log-stream">Log Stream</h2>
+<p>An alternative to logging with a log port is to use a log stream. The <a href="../../targetrts-api/struct_log.html"><code>Log</code></a> struct has two members <code>out</code> and <code>err</code> which lets you stream log messages either to <code>stdout</code> or <code>stderr</code> using the C++ insertion operator (<code>&lt;&lt;</code>). Here is an example:</p>
+<pre><code class="language-cpp">Log::out &lt;&lt; &quot;info&quot; &lt;&lt; Log::endl;
+Log::err &lt;&lt; &quot;error&quot; &lt;&lt; std::endl;
+</code></pre>
+<p><code>Log::endl</code> will print a newline and flush the log stream. It's also possible to use the standard <code>std::endl</code> with the same result. </p>
+<h3 id="logging-data-with-a-log-stream">Logging Data with a Log Stream</h3>
+<p>With a log stream data can be logged in the same way as when using standard C++ stream objects. In fact, the log stream internally uses an <code>std::ostream</code>. This means that you can use all the standard manipulators to control how to format the data. Here are some examples:</p>
+<pre><code class="language-cpp">Log::out &lt;&lt; &quot;int: &quot; &lt;&lt; 5 &lt;&lt; Log::endl; 
+bool b = true;
+Log::out &lt;&lt; b &lt;&lt; Log::endl;
+Log::out &lt;&lt; std::boolalpha &lt;&lt; b &lt;&lt; Log::endl; 
+double pi = 3.14159;
+Log::out &lt;&lt; std::setprecision(2) &lt;&lt; pi &lt;&lt; Log::endl; 
+Log::out &lt;&lt; std::setprecision(3) &lt;&lt; std::scientific &lt;&lt; pi &lt;&lt; Log::endl; 
+std::string world = &quot;world&quot;;
+Log::out &lt;&lt; &quot;hello&quot; &lt;&lt; std::setw(10) &lt;&lt; world &lt;&lt; Log::endl;
+</code></pre>
+<p>The output will look like this:</p>
+<pre><code>int: 5
+1
+true
+3.1
+3.142e+00
+hello     world
+</code></pre>
+<p>To log data of a user-defined type you need to provide the data object and its type descriptor by means of an <a href="../../targetrts-api/struct_r_t_typed_value.html"><code>RTTypedValue</code></a> object. For example:</p>
+<pre><code class="language-cpp">struct [[rt::auto_descriptor]] MyType {
+    int x = 1;
+    int y = 2;
+};
+
+// ...
+MyType mt;
+Log::out &lt;&lt; &quot;MyType value: &quot; &lt;&lt; RTTypedValue(&amp;mt, &amp;RTType_MyType) &lt;&lt; Log::endl;
+</code></pre>
+<p>Just like when <a href="#logging-data-with-a-log-port">logging data with a log port</a> the value of the user-defined type will be encoded using the standard <a href="../../targetrts-api/class_r_t_ascii_encoding.html"><code>RTAsciiEncoding</code></a>, so the output will look like this:</p>
+<pre><code>MyType value: MyType{x 1,y 2}
+</code></pre>
+<h3 id="locking-and-unlocking-the-log-streams">Locking and Unlocking the Log Streams</h3>
+<p>If you use a log stream from multiple threads, log messages could become interleaved when printed. To prevent this you can lock the log streams before logging a message, and then unlock them afterwards. While the log streams are locked by a thread, other threads that attempt to lock them will be blocked until the log streams are unlocked again. This is hence a simple way to give a certain thread exclusive thread-safe access to the log streams so it can fully print a certain log message, without risk that other threads write something to the log streams at the same time.</p>
+<p>As an example, assume a message is logged to <code>stderr</code> by printing three separate strings:</p>
+<pre><code class="language-cpp">Log::err &lt;&lt; &quot;This is a compound log message, &quot; &lt;&lt; &quot;printed by thread &quot; &lt;&lt; context()-&gt;name() &lt;&lt; Log::endl; 
+</code></pre>
+<p>If this piece of code runs at the same time from multiple threads, the messages could be interleaved, because there can be a thread context switch after the printing of each substring. For example, the logged messages could look like this:</p>
+<pre><code>This is a compound log message, printed by thread Thread4
+This is a compound log message, This is a compound log message, printed by thread Thread2
+printed by thread Thread1
+This is a compound log message, printed by thread Thread3
+</code></pre>
+<p>To avoid this you can use <code>Log::lock</code> before we start to log the message, and <code>Log::unlock</code> after it has been logged:</p>
+<pre><code class="language-cpp">Log::err &lt;&lt; Log::lock &lt;&lt; &quot;This is a compound log message, &quot; &lt;&lt; &quot;printed from thread &quot; &lt;&lt; context()-&gt;name() &lt;&lt; Log::endl &lt;&lt; Log::unlock; 
+</code></pre>
+<p>Note the following:</p>
+<ul>
+<li>Locking/unlocking applies to both log streams at the same time. That is, if you lock/unlock <code>Log::err</code>, then <code>Log::out</code> is also locked/unlocked and vice versa. </li>
+<li>Calls to <code>Log::lock</code> and <code>Log::unlock</code> should always be balanced.</li>
+<li>To avoid performance problems you should not print too many log messages while the log streams are locked. Printing a single sentence followed by <code>Log::endl</code> can be a good compromise between performance and log readability.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses a log stream and locks/unlocks it for thread-safe logging of compound log messages <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/log_stream">here</a>.</p>
 </div>
 <h2 id="targetrts-error-logging">TargetRTS Error Logging</h2>
 <p>The TargetRTS itself uses logging to <code>stderr</code> to report run-time errors that may happen when your application runs. In a correctly implemented application there of course should not be any such error messages reported, but while the application is developed and still contains bugs, it's useful to be informed about run-time problems when they do occur.</p>

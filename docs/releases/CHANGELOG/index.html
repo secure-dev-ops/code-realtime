@@ -20,7 +20,7 @@
     
     
       
-        <title>2.0.4 (2025-02-05 11:47) - DevOps Code RealTime</title>
+        <title>2.0.6 (2025-03-18 09:38) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#204-2025-02-05-1147" class="md-skip">
+        <a href="#206-2025-03-18-0938" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.0.4 (2025-02-05 11:47)
+              2.0.6 (2025-03-18 09:38)
             
           </span>
         </div>
@@ -1197,6 +1197,20 @@
   
 
 
+<h1 id="206-2025-03-18-0938">2.0.6 (2025-03-18 09:38)</h1>
+<ol>
+<li>Manual layout of diagrams is now supported. This means you can move symbols around to manually decide their positions on a diagram. This is currently an EXPERIMENTAL feature. To try it out, mark the checkbox "Manual" under "Layout" in the properties view of any diagram. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/diagrams/#automatic-vs-manual-layout">here</a>.</li>
+<li>It's now possible to use log streams for logging messages from your application. They have a number of benefits compared to using log ports. For example, you can use them from anywhere (not just from a capsule), standard C++ stream manipulators can be used (for formatting etc) and you can use them either for logging to <code>stdout</code> or <code>stderr</code>. Compound log messages can be printed in a thread-safe way by locking the log streams to avoid interleaved log messages from other threads. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/logging/#log-stream">here</a>.</li>
+<li>The generated make file now gets include paths for all folders of prerequisites that contain at least one header file. Previously this only worked for local folders. This means you can now use such header files without having to include them with their full paths.</li>
+<li>The C++ code generator now implements a more accurate analysis of C++ code snippets in order to conclude if C++ classes declared in code snippets are abstract or not. For example, it now correctly handles situations of class inheritance across different Art files.</li>
+<li>A new context menu command <code>Export as SVG</code> is provided for Art files in the Explorer view. It exports multiple diagrams to SVG in one go. This feature is also available as a command <code>Export Diagrams as SVG</code> in the palette, and can also be used for exporting all diagrams of an element that has focus in an open Art editor.</li>
+<li>Code RealTime can now be run as a web application within <a href="https://www.ibm.com/devops-automation">DevOps Automation</a> - a Kubernetes based tool suite that also comprises many other tools used during the development lifecycle of software applications. The part of DevOps Automation that contains Code RealTime is called <strong>DevOps Code</strong> and works by launching a dev container that provides everything necessary for using Code RealTime from a web browser.</li>
+<li>Version 1.0.2 of the Art Exporter is now available. It provides a number of improvements in how Model RealTime data types are exported to Art files. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for the full list of improvements.</li>
+</ol>
+<h1 id="205-fix-pack-2025-02-10-1736">2.0.5 Fix Pack (2025-02-10 17:36)</h1>
+<ol>
+<li>Bug fixes</li>
+</ol>
 <h1 id="204-2025-02-05-1147">2.0.4 (2025-02-05 11:47)</h1>
 <ol>
 <li>It's now possible to export diagrams as SVG. This allows to use diagrams in reports, presentations or other documents where SVG files can be embedded. To export a diagram to SVG you first need to open it and adjust it the way you want it to appear (e.g. expanding or collapsing symbols). Then click the new toolbar button <code>Export as SVG</code> in the Properties view or use the new command <code>Export as SVG</code> from the Command Palette.</li>

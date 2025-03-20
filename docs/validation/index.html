@@ -4567,7 +4567,7 @@ tc.threads = [ // TC_7013
 </tbody>
 </table>
 <p>A library TC uses the <a href="../building/transformation-configurations/#threads"><code>threads</code></a> property for specifying logical threads. When an executable TC uses a library TC as its prerequisite, all logical threads of the library must be mapped to physical threads. Read more about library threads <a href="../target-rts/threads/#library-threads">here</a>.</p>
-<pre><code class="language-js">// In a library TC lic.tcjs:
+<pre><code class="language-js">// In a library TC lib.tcjs:
 tc.threads = [ 'LibThread1', 'LibThread2' ];
 
 // In an executable TC exe.tcjs:

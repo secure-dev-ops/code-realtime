@@ -974,6 +974,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#log-streams" class="md-nav__link">
+    Log streams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corrected-deletion-in-rtprotocoladapter-destructor" class="md-nav__link">
+    Corrected deletion in RTProtocolAdapter destructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-construction-in-debugger-api-getchildren" class="md-nav__link">
+    JSON construction in debugger API "getChildren"
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1526,6 +1547,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#log-streams" class="md-nav__link">
+    Log streams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corrected-deletion-in-rtprotocoladapter-destructor" class="md-nav__link">
+    Corrected deletion in RTProtocolAdapter destructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-construction-in-debugger-api-getchildren" class="md-nav__link">
+    JSON construction in debugger API "getChildren"
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1618,6 +1660,10 @@
 <td>8009</td>
 <td align="left"><a href="#simplified-qualified-names-of-nested-states">Simplified qualified names of nested states</a></td>
 </tr>
+<tr>
+<td>8010</td>
+<td align="left"><a href="#log-streams">Log streams</a> <br> <a href="#corrected-deletion-in-rtprotocoladapter-destructor">Corrected deletion in RTProtocolAdapter destructor</a> <br> <a href="#json-construction-in-debugger-api-getchildren">JSON construction in debugger API "getChildren"</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -1665,9 +1711,15 @@
 <h3 id="rtconfig_info">RTCONFIG_INFO</h3>
 <p>A <a href="../build/#rtconfig_info">new configuration macro</a> has been added for controlling if the <code>config_info</code> array should be included in <code>src/RTMain/mainLine.cc</code>. Previously this array was always included, but not used, which could cause compiler warnings.</p>
 <h3 id="protocol-constructor-initilizer-ordering">Protocol constructor initilizer ordering</h3>
-<p>The order of initializers in the <a href="../../targetrts-api/class_r_t_protocol.html">Protocol</a> constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.</p>
+<p>The order of initializers in the <a href="../../targetrts-api/class_r_t_protocol.html">RTProtocol</a> constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.</p>
 <h3 id="simplified-qualified-names-of-nested-states">Simplified qualified names of nested states</h3>
 <p>The function <code>getStateStr()</code> in <code>eventMatches.cc</code> now returns a simplified representation of nested states that consists of the names of active states separated by a single colon (<code>:</code>). Previously, each state name was fully qualified with double colons (<code>::</code>) which led to unnecessary complexity when parsing these strings during a debug session.</p>
+<h3 id="log-streams">Log streams</h3>
+<p>The logging service was extended to support log streams. They remove a number of limitations that apply when you log messages by means of log ports. For example, log streams can be used from any code, not just from code in capsules, they can be locked and unlocked to avoid interleaved log messages in a multi-threaded application, and you can use standard C++ stream manipulators for formatting text and data to obtain a more readable log. See <a href="../logging/#log-stream">this chapter</a> for more information about log streams.</p>
+<h3 id="corrected-deletion-in-rtprotocoladapter-destructor">Corrected deletion in RTProtocolAdapter destructor</h3>
+<p>The destructor of <a href="../../targetrts-api/class_r_t_protocol_adapter.html">RTProtocolAdapter</a> deleted an array using the standard <code>delete</code> operator. This has now been corrected to instead use the <code>delete[]</code> operator.</p>
+<h3 id="json-construction-in-debugger-api-getchildren">JSON construction in debugger API "getChildren"</h3>
+<p>A bug was fixed in the "getChildren" debugger API implementation related to how JSON is constructed for a capsule that lacks parts and/or ports.</p>
 
 
 
