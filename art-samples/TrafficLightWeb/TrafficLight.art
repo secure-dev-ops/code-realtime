@@ -6,9 +6,7 @@ capsule TrafficLight {
     private: 
         RTTimerId cycleTimer; 
         int pedestrianWalkTime;
-`
-
-    behavior port log : Log;    
+`  
     behavior port timer : Timing;
     behavior port pedTimer : Timing;
     
@@ -43,20 +41,17 @@ capsule TrafficLight {
             ep -> Red;
             red_to_green: Red -> Green on timer.timeout
             `
-                log.log("Red -> Green");
-                log.commit();
+                Log::out << "Red -> Green" << std::endl;
             `
             ;
             green_to_yellow: Green -> Yellow on timer.timeout
             `
-                log.log("Green -> Yellow");
-                log.commit();
+                Log::out << "Green -> Yellow" << std::endl;
             `
             ;
             yellow_to_red: Yellow -> Red on timer.timeout
             `
-                log.log("Yellow -> Red");
-                log.commit();
+                Log::out << "Yellow -> Red" << std::endl;
             `
             ;
 
@@ -65,9 +60,8 @@ capsule TrafficLight {
         initial -> WaitUntilServerReady;
     
         WaitUntilServerReady -> CycleLight.ep on server.rtBound
-        `
-            log.log("TrafficLight starts up");
-            log.commit();
+        `            
+            Log::out << "TrafficLight starts up" << std::endl;
             cycleTimer = timer.informEvery(RTTimespec(2,0));
         `;
 
@@ -84,8 +78,7 @@ capsule TrafficLight {
             state Red [[rt::properties(color="#e60f0f")]] {
                 entry
                 `
-                    log.log("Enter Red");
-                    log.commit();
+                    Log::out << "Enter Red" << std::endl;
                     server.red().send();
                 `;
             };
@@ -98,10 +91,10 @@ capsule TrafficLight {
 
                 if (pedTimerData == -1) {
                     pedLightControl.walk().send();
-                    pedTimerData = pedestrianWalkTime; // Count down number of seconds until we switch from Walk to Stop
+                    pedTimerData = pedestrianWalkTime; // Count down number of seconds until we switch from Walk to Stop                    
                     pedLightControl.timeRemaining(pedTimerData).send();
                     pedTimer.informIn(RTTimespec(1,0), &pedTimerData, &RTType_int);
-                    // Time for pedestrians to cross
+                    Log::out << "Time for pedestrians to cross: " << pedestrianWalkTime << " seconds" << std::endl;
                 }                
                 else if (pedTimerData == 0) {
                     pedLightControl.stop().send();
@@ -134,16 +127,14 @@ capsule TrafficLight {
         `;
 
         j -> PedestrianCrossing.pedRequest
-        `
-            log.log("Pedestrian requests to cross");
-            log.commit();
+        `            
+            Log::out << "Pedestrian requests to cross" << std::endl;
             timer.cancelTimer(cycleTimer);
         `;
 
         pedReady: PedestrianCrossing.pedReady -> CycleLight.pedReady on timer.timeout
-        `
-            log.log("Pedestrians ready");
-            log.commit();
+        `            
+            Log::out << "Pedestrians ready" << std::endl;
             cycleTimer = timer.informEvery(RTTimespec(2,0));
         `;
     };
