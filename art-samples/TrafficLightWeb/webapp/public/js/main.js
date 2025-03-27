@@ -10,14 +10,8 @@
 $(function () {
 
     var socket = undefined;
-    var isBrowser = false;
-    if (typeof window !== 'undefined') {
-        console.log("Running in Browser");
-        isBrowser = true;
-    } else {
-        console.log("Running locally");
-        isBrowser = false;
-    }
+    var isBrowser = true;
+    
     if (isBrowser) {
         const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
         const socketPath = `${window.location.pathname}socket.io`;

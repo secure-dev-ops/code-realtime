@@ -13,7 +13,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-const port = 3004;
+const port = 7004;
 const env = process.env.NODE_ENV || 'development';
 
 
@@ -72,10 +72,10 @@ function msgReceived(msg) {
     }
 }
 
-const tcpServer = require('rt-tcp-utils')('localhost', 3003); // Send TCP requests to RT app on port 3003
+const tcpServer = require('rt-tcp-utils')('localhost', 7001); // Send TCP requests to RT app on port 7001
 
 tcpServer.setEventReceivedCallback(msgReceived);
-tcpServer.startListenForEvents(3002) // Receive TCP requests from RT app on port 3002
+tcpServer.startListenForEvents(7002) // Receive TCP requests from RT app on port 7002
 .then((data) => {
     console.log("Ready to receive TCP requests");    
 });
