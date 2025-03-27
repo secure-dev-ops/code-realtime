@@ -21,11 +21,11 @@ capsule WebServer : TCPServer {
             if (port != 0)
                 config.port = port; 
             else
-                config.port = 3003; // Overridden default
+                config.port = 7001; // Overridden default
             if (remotePort != 0)
                 config.remotePort = remotePort;
             else
-                config.remotePort = 3002; // Overridden default
+                config.remotePort = 7002; // Overridden default
             if (!remoteHost.empty()) {
                 config.remoteHost = remoteHost;                
             }

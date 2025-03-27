@@ -12,14 +12,14 @@ To be able to intercept the outgoing messages about light changes, the Node.js a
 
 `node app.js`
 
-Open [http://localhost:4000/](http://localhost:4000/) in a web browser
+Open [http://localhost:7004/](http://localhost:7004/) in a web browser
 
 ## Launch the realtime application
 `TLSystem.exe -URTS_DEBUG=quit -port=<P> -remotePort=<RP> -remoteHost="<RH>"` 
 
 All arguments are optional and have default values:
-* port: 9911 (TCP port used by realtime app)
-* remotePort: 2234 (TCP port used by web app)
+* port: 7001 (TCP port used by realtime app)
+* remotePort: 7002 (TCP port used by web app)
 * remoteHost: `127.0.0.1` (IP address or hostname where the web app runs)
 
 ## How the application works
