@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using std::cout;
 using std::cerr;
@@ -24,6 +25,9 @@ namespace TestUtils {
 	#define PASS()            TestUtils::pass();    context()->abort()
 	#define FAIL(msg)         TestUtils::fail(msg);
 	#define ASSERT(cond, msg) TestUtils::assert(cond, msg)
+
+	// Determines if a file is present at the path, and if so reads its lines into the vector
+	bool readFileContents(const std::string& path, std::vector<std::string>& contents);
 }
 
 #endif

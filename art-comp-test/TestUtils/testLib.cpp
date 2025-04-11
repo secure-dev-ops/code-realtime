@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <fstream>
 #include "testLib.h"
 
 void TestUtils::fail(const std::string& msg) {
@@ -19,4 +20,19 @@ void TestUtils::assert_(bool cond, const char* expr, const char * file, int line
 	}
 
 	std::cerr << "ASSERTION FAILED (" << msg << ")" << std::endl << std::flush;
+}
+
+bool TestUtils::readFileContents(const std::string& path, std::vector<std::string>& contents) {
+
+	std::ifstream f(path.c_str());
+
+    if (!f || !f.good())
+		return false;
+
+	std::string line;
+	while (getline(f, line)) {
+		contents.push_back(line);
+	}
+
+	return true;
 }
