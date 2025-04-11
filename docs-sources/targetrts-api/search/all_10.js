@@ -13,7 +13,7 @@ var searchData=
   ['sendtypecheckenable_10',['sendTypeCheckEnable',['../class_r_t_protocol.html#a2d444f5ca3150bf91f56cf1637623307',1,'RTProtocol']]],
   ['sendtypecheckenabled_11',['sendTypeCheckEnabled',['../class_r_t_protocol.html#a880d97d0e3b87ac9ea00bb2f6eaf0d56',1,'RTProtocol']]],
   ['setcurrentstate_12',['setCurrentState',['../class_r_t_actor.html#a3532176e1f60deabb83fec7ce76bcefd',1,'RTActor']]],
-  ['setdata_13',['setData',['../class_r_t_message.html#adabb7b3660ff0fbba86fcb110b342a06',1,'RTMessage::setData(const RTDataObject &amp;data)'],['../class_r_t_message.html#a98d28d4503826c3da83bada234510b28',1,'RTMessage::setData(const void *data, const RTObject_class *type)']]],
+  ['setdata_13',['setData',['../class_r_t_message.html#a98d28d4503826c3da83bada234510b28',1,'RTMessage::setData(const void *data, const RTObject_class *type)'],['../class_r_t_message.html#adabb7b3660ff0fbba86fcb110b342a06',1,'RTMessage::setData(const RTDataObject &amp;data)']]],
   ['setdeferred_14',['setDeferred',['../class_r_t_message.html#a6dc1236845d8b2c1c4a2b1e2449d9e9f',1,'RTMessage']]],
   ['setdestination_15',['setDestination',['../class_r_t_message.html#afb3c484b68acc16f69da308615ca62c8',1,'RTMessage']]],
   ['seterror_16',['setError',['../class_r_t_controller.html#a2124f3ef88c1aa4c7099f4ccdf960ffa',1,'RTController']]],
@@ -22,8 +22,9 @@ var searchData=
   ['show_19',['show',['../class_log_1_1_base.html#ae0960f40b594ea96d64e44c9d4ae29a2',1,'Log::Base::show(const char *str)'],['../class_log_1_1_base.html#aa650b98f76a2672bfb1328b8cb2c290f',1,'Log::Base::show(const RTString &amp;str)'],['../class_log_1_1_base.html#adfe7f3af30c4f2dc32cb705f81159ca4',1,'Log::Base::show(const void *data, const RTObject_class *type)'],['../class_log_1_1_base.html#a4fc1a930288e1b824d58c8f5358bff08',1,'Log::Base::show(const RTTypedValue &amp;)']]],
   ['size_20',['size',['../class_r_t_actor_ref.html#a2d36c2f1936cd6f065890eb9da613ffc',1,'RTActorRef::size()'],['../class_r_t_protocol.html#a1bf5a22f8232f12cd60a969523946889',1,'RTProtocol::size()']]],
   ['sppnode_21',['SppNode',['../class_r_t_local_connector_1_1_spp_node.html',1,'RTLocalConnector']]],
-  ['strerror_22',['strerror',['../class_r_t_controller.html#ac00c42fd279db49b45352cd5debc85de',1,'RTController']]],
-  ['substitutable_23',['substitutable',['../struct_r_t_component_descriptor.html#ab9be99001760875acf3cc7a28a98dc3f',1,'RTComponentDescriptor']]],
-  ['substitutablefor_24',['substitutableFor',['../struct_r_t_actor_class.html#a3eaf229a30aa0512df6d2f8d1cd5fa1c',1,'RTActorClass']]],
-  ['super_25',['super',['../struct_r_t_actor_class.html#a80ea3d682e410b018dfe486ddcda11b8',1,'RTActorClass::super()'],['../struct_r_t_object__class.html#a6db504dac422677aa07d0995f9949f68',1,'RTObject_class::super()']]]
+  ['stream_22',['Stream',['../class_log_1_1_stream.html',1,'Log::Stream'],['../class_log_1_1_stream.html#ad1e416cc14c8b1e2a8f4d3fec408d5fb',1,'Log::Stream::Stream(const char *filename, bool overwrite=true)'],['../class_log_1_1_stream.html#ab0f490d8a7b989f142653e5b51db8723',1,'Log::Stream::Stream(std::ostream *stdStreamPtr)'],['../class_log_1_1_stream.html#a73c59e278dda64cdacdad71461cdfbf8',1,'Log::Stream::Stream(Base *baseStreamPtr)']]],
+  ['strerror_23',['strerror',['../class_r_t_controller.html#ac00c42fd279db49b45352cd5debc85de',1,'RTController']]],
+  ['substitutable_24',['substitutable',['../struct_r_t_component_descriptor.html#ab9be99001760875acf3cc7a28a98dc3f',1,'RTComponentDescriptor']]],
+  ['substitutablefor_25',['substitutableFor',['../struct_r_t_actor_class.html#a3eaf229a30aa0512df6d2f8d1cd5fa1c',1,'RTActorClass']]],
+  ['super_26',['super',['../struct_r_t_actor_class.html#a80ea3d682e410b018dfe486ddcda11b8',1,'RTActorClass::super()'],['../struct_r_t_object__class.html#a6db504dac422677aa07d0995f9949f68',1,'RTObject_class::super()']]]
 ];

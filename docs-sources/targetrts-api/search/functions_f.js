@@ -20,7 +20,8 @@ var searchData=
   ['setsignal_17',['setSignal',['../class_r_t_message.html#a05bac589370e4cbd0a733740f3f23419',1,'RTMessage']]],
   ['show_18',['show',['../class_log_1_1_base.html#ae0960f40b594ea96d64e44c9d4ae29a2',1,'Log::Base::show(const char *str)'],['../class_log_1_1_base.html#aa650b98f76a2672bfb1328b8cb2c290f',1,'Log::Base::show(const RTString &amp;str)'],['../class_log_1_1_base.html#adfe7f3af30c4f2dc32cb705f81159ca4',1,'Log::Base::show(const void *data, const RTObject_class *type)'],['../class_log_1_1_base.html#a4fc1a930288e1b824d58c8f5358bff08',1,'Log::Base::show(const RTTypedValue &amp;)']]],
   ['size_19',['size',['../class_r_t_actor_ref.html#a2d36c2f1936cd6f065890eb9da613ffc',1,'RTActorRef::size()'],['../class_r_t_protocol.html#a1bf5a22f8232f12cd60a969523946889',1,'RTProtocol::size()']]],
-  ['strerror_20',['strerror',['../class_r_t_controller.html#ac00c42fd279db49b45352cd5debc85de',1,'RTController']]],
-  ['substitutablefor_21',['substitutableFor',['../struct_r_t_actor_class.html#a3eaf229a30aa0512df6d2f8d1cd5fa1c',1,'RTActorClass']]],
-  ['super_22',['super',['../struct_r_t_object__class.html#a6db504dac422677aa07d0995f9949f68',1,'RTObject_class']]]
+  ['stream_20',['Stream',['../class_log_1_1_stream.html#ad1e416cc14c8b1e2a8f4d3fec408d5fb',1,'Log::Stream::Stream(const char *filename, bool overwrite=true)'],['../class_log_1_1_stream.html#ab0f490d8a7b989f142653e5b51db8723',1,'Log::Stream::Stream(std::ostream *stdStreamPtr)'],['../class_log_1_1_stream.html#a73c59e278dda64cdacdad71461cdfbf8',1,'Log::Stream::Stream(Base *baseStreamPtr)']]],
+  ['strerror_21',['strerror',['../class_r_t_controller.html#ac00c42fd279db49b45352cd5debc85de',1,'RTController']]],
+  ['substitutablefor_22',['substitutableFor',['../struct_r_t_actor_class.html#a3eaf229a30aa0512df6d2f8d1cd5fa1c',1,'RTActorClass']]],
+  ['super_23',['super',['../struct_r_t_object__class.html#a6db504dac422677aa07d0995f9949f68',1,'RTObject_class']]]
 ];
