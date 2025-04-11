@@ -4,7 +4,7 @@ It's often useful to print log messages in an application, either as a quick way
 * [Apache Log4cxx](https://github.com/apache/logging-log4cxx)
 * [spdlog](https://github.com/gabime/spdlog)
 
-However, the TargetRTS also includes a simple logging service which you can directly use without the need for a special logging library. This logging service provides a thread-safe way of logging messages and data objects to `stderr` and `stdout`, but not much more than that. 
+However, the TargetRTS also includes a simple logging service which you can directly use without the need for a special logging library. This logging service provides the basics for logging messages and data objects in a thread-safe way to `stderr`, `stdout` or a log file.
 
 ## Log Port
 A capsule can access the logging service by means of a log port, which is a port typed by the predefined [`Log`](../targetrts-api/struct_log.html) protocol. Log ports should be non-service behavior ports, and don't accept any events, but rather provide a [set of functions](../targetrts-api/class_log_1_1_base.html) which the capsule can call for logging messages. Here is an example of a capsule which uses a log port for writing an error message if the initial transition does not receive an expected data object:
@@ -102,14 +102,28 @@ See also [Logging Data with a Log Stream](#logging-data-with-a-log-stream).
 
 
 ## Log Stream
-An alternative to logging with a log port is to use a log stream. The [`Log`](../targetrts-api/struct_log.html) struct has two members `out` and `err` which lets you stream log messages either to `stdout` or `stderr` using the C++ insertion operator (`<<`). Here is an example:
+An alternative to logging with a log port is to use a log stream. The [`Log`](../targetrts-api/struct_log.html) struct has a nested class `Log::Stream` which lets you write log messages either to a text file or an `ostream` such as `std::cout` and `std::cerr`. You can write text or data to a log stream using the C++ insertion operator (`<<`).
+
+For simplicity `Log` also has two members `out` and `err` which can be directly used for streaming log messages to `stdout` or `stderr`. Here are some examples of using log streams:
 
 ```cpp
-Log::out << "info" << Log::endl;
-Log::err << "error" << std::endl;
+Log::Stream out(&Log::out); // Log stream connected to stdout
+out << "Some data to stdout" << Log::endl; 
+Log::Stream err(&std::cerr); // Log stream connected to stderr
+out << "Some data to stderr" << Log::endl;
+
+Log::out << "info" << Log::endl; // Alternative to write to stdout
+Log::err << "error" << std::endl; // Alternative to write to stderr
+
+Log::Stream logfile("log1.txt"); // Log stream connected to a text file (overwrites if it already exists)
+logfile << "log text" << Log::endl;
+Log::Stream logfile2("log2.txt", false); // Log stream connected to a text file (appends if it already exists)
+logfile2 << "another log text" << std::endl;
 ```
 
 `Log::endl` will print a newline and flush the log stream. It's also possible to use the standard `std::endl` with the same result. 
+
+When you connect a log stream to a file you can either use an absolute or a relative path. A relative path will be interpreted against the current working directory (by default the location of the built executable). If the specified log file already exists you can choose if you want to append to or overwrite its contents (by default it will overwrite).
 
 ### Logging Data with a Log Stream
 With a log stream data can be logged in the same way as when using standard C++ stream objects. In fact, the log stream internally uses an `std::ostream`. This means that you can use all the standard manipulators to control how to format the data. Here are some examples:
@@ -156,7 +170,7 @@ Just like when [logging data with a log port](#logging-data-with-a-log-port) the
 MyType value: MyType{x 1,y 2}
 ```
 
-### Locking and Unlocking the Log Streams
+### Locking and Unlocking Log Streams
 If you use a log stream from multiple threads, log messages could become interleaved when printed. To prevent this you can lock the log streams before logging a message, and then unlock them afterwards. While the log streams are locked by a thread, other threads that attempt to lock them will be blocked until the log streams are unlocked again. This is hence a simple way to give a certain thread exclusive thread-safe access to the log streams so it can fully print a certain log message, without risk that other threads write something to the log streams at the same time.
 
 As an example, assume a message is logged to `stderr` by printing three separate strings:
@@ -182,12 +196,13 @@ Log::err << Log::lock << "This is a compound log message, " << "printed from thr
 
 Note the following:
 
-* Locking/unlocking applies to both log streams at the same time. That is, if you lock/unlock `Log::err`, then `Log::out` is also locked/unlocked and vice versa. 
+* Locking/unlocking applies to *all* log streams at the same time. That is, if you lock/unlock `Log::err`, then `Log::out` is also locked/unlocked and vice versa. And the same happens if you lock/unlock a `Log::Stream` object.
 * Calls to `Log::lock` and `Log::unlock` should always be balanced.
 * To avoid performance problems you should not print too many log messages while the log streams are locked. Printing a single sentence followed by `Log::endl` can be a good compromise between performance and log readability.
 
 !!! example
-    You can find a sample application that uses a log stream and locks/unlocks it for thread-safe logging of compound log messages [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/log_stream).
+    You can find a sample application that uses a log stream and locks/unlocks it for thread-safe logging of compound log messages to `stdout` and `stderr` [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/log_stream).
+    A sample application that uses log streams for logging to files can be found [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/log_file_stream).
 
 
 ## TargetRTS Error Logging

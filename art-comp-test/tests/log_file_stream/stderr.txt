@@ -1,0 +1,2 @@
+Some float data 2.3 to stderr
+ERROR: A Log stream for file . could not be created.

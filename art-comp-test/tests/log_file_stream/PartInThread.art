@@ -1,0 +1,49 @@
+capsule PartInThread {
+    [[rt::decl]]
+    `
+        RTTimerId tid;
+        unsigned int timeouts = 0;
+        Log::Stream& log; 
+        unsigned int delay = 100000000; // 0.1 s 
+
+        public:
+        PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log);
+    `
+    [[rt::impl]]
+    `
+        PartInThread::PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log)
+            : SUPER(rtg_rts, rtg_ref), log(log) {}
+    `
+    [[rt::impl_preface]]
+    `    
+        #include "testlib.art.h"
+    ` 
+
+    /* Ports */
+    behavior port timer : Timing;
+    behavior port initTimer : Timing;
+    service behavior port p~ : Events;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state Initial, Logging {
+            t: on timer.timeout
+            `                
+                timeouts++;
+                log << Log::lock << "Compound log message" << ", " << "printed by thread after " << delay << " nanoseconds" << Log::endl << Log::unlock;                                 
+                // Without locking messages would typically be interleaving...
+
+                if (timeouts >= 5) {
+                    timer.cancelTimer(tid);                
+                    p.timedout().send();
+                }
+            `;
+        };
+        Initial -> Logging on p.startTest
+        `
+            tid = timer.informEvery(RTTimespec(0, delay));
+        `;
+        initial -> Initial;
+    };
+};

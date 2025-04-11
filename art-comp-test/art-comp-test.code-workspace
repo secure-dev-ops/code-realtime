@@ -140,10 +140,13 @@
         {
             "path": "tests/local_transition"
         },
-		{
+        {
             "path": "tests/logging"
         },
-		{
+        {
+            "path": "tests/log_file_stream"
+        },
+        {
             "path": "tests/log_stream"
         },
         {
@@ -268,12 +271,38 @@
         },
         {
             "path": "tests/virtual_class_abstract"
+        },
+        {
+            "name": "logging_target",
+            "path": "tests/logging_target"
+        },
+        {
+            "name": "move_function_2_target",
+            "path": "tests/move_function_2_target"
+        },
+        {
+            "name": "trigger_matching_target",
+            "path": "tests/trigger_matching_target"
+        },
+        {
+            "name": "log_stream_target",
+            "path": "tests/log_stream_target"
+        },
+        {
+            "name": "testLib_target",
+            "path": "testLib_target"
+        },
+        {
+            "name": "log_file_stream_target",
+            "path": "tests/log_file_stream_target"
         }
     ],
     "settings": {
         "files.readonlyInclude": {
             "C:/Users/MATTIAS.MOHLIN/testarea/install/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.5/**/*": true,
-            "C:/Users/MATTIAS.MOHLIN/testarea/install/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.6/**/*": true
+            "C:/Users/MATTIAS.MOHLIN/testarea/install/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.6/**/*": true,
+            "C:/codert/build/vscode-codert-206/data/extensions/secure-dev-ops.code-realtime-ce-2.0.6/**/*": true,
+            "C:/Users/MATTIAS.MOHLIN/testarea/install/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.7/**/*": true
         }
     }
 }

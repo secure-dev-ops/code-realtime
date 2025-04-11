@@ -1,0 +1,2 @@
+Some data to stdout
+More text to stdout

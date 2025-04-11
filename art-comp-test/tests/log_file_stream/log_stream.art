@@ -1,0 +1,145 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] MyType {
+        int x = 1;
+        int y = 2;
+    }; 
+`
+
+capsule Top {    
+    [[rt::decl]]
+    `
+        unsigned int count = 0;
+        Log::Stream log2{"../default/log2.txt"}; // Relative to CWD
+    `
+    [[rt::impl_preface]]
+    `
+        #include <sstream>
+        #include <vector>
+        #include <iomanip>
+        #include <filesystem>
+        #include "testlib.art.h"
+        #include "log_stream.art.h"
+        #include "RTActorFactory.h"
+        #include "PartInThread.h"
+    `     
+    behavior port frame : Frame;
+    behavior port p : Events[5];
+
+    /* Parts */
+    optional part c : PartInThread[5];
+    /* Connectors */
+    connect c.p with p;
+
+    /* State Machine */
+    statemachine {
+        state Testing {
+            entry
+            `
+                p.startTest().send();
+            `;
+
+            timedout: on p.timedout
+            `
+                count++;                
+                if (count == 5) {
+                    std::filesystem::path filepath = std::filesystem::current_path() / "log2.txt";            
+                    std::vector<std::string> contents;
+                    ASSERT (TestUtils::readFileContents(filepath.string(), contents), "File does not exist");
+                    
+                    ASSERT(contents.size() == 25, "Expected 25 log messages in log2.txt");
+                    for(const std::string& s : contents) {
+                        ASSERT (s == "Compound log message, printed by thread after 100000000 nanoseconds", "Unexpected content in log2.txt at line 1");
+                    }                               
+
+                    PASS(); // All 5 threads done printing
+                }
+            `;
+        };
+        initial -> Testing
+        `
+            // Logging text to a log file. Path is relative to CWD.
+            Log::Stream log("log1.txt");
+            log << "log text" << Log::endl;                        
+            log << "new line " << "2" << Log::endl;
+
+            // Logging data to the log file
+            log << "int: " << 5 << Log::endl; // int: 5
+            bool b = true;
+            log << b << Log::endl; // 1
+            log << std::boolalpha << b << Log::endl; // true
+            double pi = 3.14159;
+            log << std::setprecision(2) << pi << std::flush << Log::endl; // 3.1
+            log << std::setprecision(3) << std::scientific << pi << Log::endl; // 3.142e+00
+            std::string world = "world";
+            RTString excl = "!";
+            log << "hello" << std::setw(10) << world << excl << Log::endl; // hello     world!
+
+            MyType m;
+            log << "MyType: " << RTTypedValue(&m, &RTType_MyType) << Log::endl;
+            
+            std::filesystem::path filepath = std::filesystem::current_path() / "log1.txt";            
+            std::vector<std::string> contents;
+            ASSERT (TestUtils::readFileContents(filepath.string(), contents), "File log1.txt does not exist");
+
+            ASSERT (contents[0] == "log text", "Unexpected content in log1.txt at line 1");
+
+            filepath = std::filesystem::current_path() / "log3.txt";
+            Log::out << "Writing to " << filepath.string() << Log::endl;
+            Log::Stream log3(filepath.string().c_str()); // Absolute path
+            log3 << "Data: " << 'x' << "." << std::endl;
+
+            contents.clear();
+
+            ASSERT (TestUtils::readFileContents(filepath.string(), contents), "File log3.txt does not exist");
+            ASSERT(contents[0] == "Data: x.", "Unexpected content in log3.txt at line 1");
+
+            // Incarnate capsule instances in separate threads that write to same log file            
+            RTActorId ai1 = frame.incarnateCustom(c, 
+                RTActorFactory([this](RTController * c, RTActorRef * a, int index) {		
+                    return new PartInThread(Thread1, a, log2); // User-defined constructor
+	            })
+            );
+            ASSERT (ai1.isValid(), "Failed to incarnate into thread 1");
+            RTActorId ai2 = frame.incarnateCustom(c, 
+                RTActorFactory([this](RTController * c, RTActorRef * a, int index) {		
+                    return new PartInThread(Thread2, a, log2); // User-defined constructor
+	            })
+            );
+            ASSERT (ai2.isValid(), "Failed to incarnate into thread 2");
+            RTActorId ai3 = frame.incarnateCustom(c, 
+                RTActorFactory([this](RTController * c, RTActorRef * a, int index) {		
+                    return new PartInThread(Thread3, a, log2); // User-defined constructor
+	            })
+            );
+            ASSERT (ai3.isValid(), "Failed to incarnate into thread 3");
+            RTActorId ai4 = frame.incarnateCustom(c, 
+                RTActorFactory([this](RTController * c, RTActorRef * a, int index) {		
+                    return new PartInThread(Thread4, a, log2); // User-defined constructor
+	            })
+            );
+            ASSERT (ai4.isValid(), "Failed to incarnate into thread 4");
+            RTActorId ai5 = frame.incarnateCustom(c, 
+                RTActorFactory([this](RTController * c, RTActorRef * a, int index) {		
+                    return new PartInThread(Thread5, a, log2); // User-defined constructor
+	            })
+            );
+            ASSERT (ai5.isValid(), "Failed to incarnate into thread 5");
+
+            // Also possible to connect a log stream to stdout or stderr
+            Log::Stream out(&Log::out);
+            out << "Some data to " << "stdout" << Log::endl;
+            Log::Stream err(&Log::err);
+            float f = 2.3;
+            err << "Some float data " << f << " to " << "stderr" << Log::endl;
+
+            // Logging to an existing ostream
+            Log::Stream out2(&std::cout);
+            out << "More text to stdout" << Log::endl;
+
+            // Specified file path must be valid
+            Log::Stream error("."); // Invalid character in path
+            error << "Error";
+        `;        
+    };
+};

@@ -1,0 +1,4 @@
+protocol Events {
+    in timedout();
+    out startTest();
+};

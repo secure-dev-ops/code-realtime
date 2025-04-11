@@ -39,6 +39,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8008 | [Extend debugger API "getChildren" to obtain active state](#extend-debugger-api-getchildren-to-obtain-active-state) <br> [Long double](#long-double) <br> [RTCONFIG_INFO](#rtconfig_info) <br> [Protocol constructor initializer order](#protocol-constructor-initilizer-ordering) |
 | 8009 | [Simplified qualified names of nested states](#simplified-qualified-names-of-nested-states) |
 | 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
+| 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -114,3 +115,6 @@ The destructor of [RTProtocolAdapter](../targetrts-api/class_r_t_protocol_adapte
 
 ### JSON construction in debugger API "getChildren"
 A bug was fixed in the "getChildren" debugger API implementation related to how JSON is constructed for a capsule that lacks parts and/or ports.
+
+### Log streams connected to files
+Log streams can now be connected to any `std::ostream`, and you can for example let them write log message to a file.
