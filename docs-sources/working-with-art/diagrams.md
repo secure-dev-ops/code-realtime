@@ -39,7 +39,7 @@ If you already have a diagram open, you can open another diagram that is related
 For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command **Open Inherited State Diagram**. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.
 
 ## Automatic vs Manual Layout
-By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:
+By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). Text labels of symbols and lines are also automatically positioned. The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:
 
 * A good layout of a diagram can help to understand it better. For example, you may want to group elements that are logically related close to each other.
 * Small changes in an Art file can lead to rather big graphical changes when automatic layout is used. For example, adding a transition between two states can cause the states themselves to move to a different position to achieve a compact overall diagram layout. While editing an Art file this can give a "jumpy" feeling to diagrams where symbols move around a lot while typing.
@@ -52,13 +52,42 @@ If you want to use manual layout for a diagram, click in the diagram background,
 !!! note 
     Manual layout is currently an experimental feature. You are welcome to try it out but the feature is still under development and may not fully work in all situations.
 
-Once you have turned on manual layout for a diagram you can start to move symbols around as you like. When you save the diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.
+Once you have turned on manual layout for a diagram you can start to move symbols around as you like to achieve a nice-looking layout. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram.
 
-If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the layout information for the diagram will be deleted. This operation is not undoable!
+When you save the diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.
+
+If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!
 
 ![](images/deleting-layout-settings.png)
 
 Alternatively you can delete the JSON file from the Explorer view. In this case, the operation is undoable.
+
+### Maintaining Layout Information
+The JSON file that holds layout information for a diagram contains references to Art elements. Consider the example below:
+
+```json
+[
+  {
+    "context": "::MyCapsule",
+    "diagramType": "state",
+    "layouts": [
+      {
+        "element": "MyState",
+        "x": 80.0,
+        "y": -100.0
+      }
+    ]
+  }
+]
+```
+
+`MyCapsule` references a capsule, and `MyState` references a state in the state machine of that capsule. When you make changes to the Art file, these references are usually updated automatically, to ensure that the layout information remains valid. However, note the following:
+
+* References will be updated when you rename an element, regardless if you rename it by direct typing in the Art file, or if you use the [Rename command](art-editor.md#renaming-elements). However, it's recommended to use the [Rename command](art-editor.md#renaming-elements) since there are some situations where rename by direct typing will be unable to update all references.
+* If you rename the context element, i.e. the element that owns a diagram (like `MyCapsule` in the example above), and that diagram is currently open, then it will be automatically closed and reopened so the new element name is shown in the diagram editor tab. {$product.name$} tries to reopen the diagram into the same editor tab group, but sometimes this is not possible and the diagram will then appear elsewhere.
+* If you delete an element, references to it from layout files are not automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.
+* There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.
+
 
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:

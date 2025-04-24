@@ -46,6 +46,7 @@ You can edit a TC directly as a JavaScript file in the text editor. Features suc
 
 ![](images/tc-editor-validation.png)
 
+### Form-based TC Editor
 As an alternative to editing a TC as a JavaScript file {$product.name$} also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.
 
 To open the form-based TC editor, right-click on a TC file and invoke the context menu command **Edit Properties (UI)**. 
@@ -69,6 +70,23 @@ You can tell which TC properties that have a custom (i.e. non-default) value set
 ![](images/tc-with-value.png)
 
 You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. 
+
+### Custom TC Properties
+You can add your own custom properties to a TC by simply assigning a value to them. This allows you to persist your own custom data in TC files. Here is an example:
+
+``` js
+tc.customBuild = true;
+```
+
+Custom properties are ignored when building the TC, but can be seen and used by [Build Variant scripts](build-variants.md) when implementing a custom way of building your application.
+
+In the TC text editor custom properties can be recognized by a tooltip that says "any":
+
+![](images/custom_property.png)
+
+In the form-based TC editor custom properties are not shown, but a hyperlink **More Properties** appears under the title text if the TC has one or many custom properties. You can click this link to navigate to the custom properties in the TC text editor.
+
+![](images/more_properties.png)
 
 ## Transformation Configuration Prerequisites
 A TC can either build a library or an executable. This is controlled by the [topCapsule](#topcapsule) property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the [prerequisites](#prerequisites) property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).
@@ -113,7 +131,7 @@ There are also a few useful commands in the Art Build view toolbar:
 * **Deactivate All** Makes all TCs non-active. This makes it easier to switch from building one set of active TCs to another.
 
 ## Properties
-Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.
+Below is a table that lists all properties that can be used in a TC (in addition to [custom properties](#custom-tc-properties)). Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.
 
 <p id="tc_properties"/>
 
