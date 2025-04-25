@@ -1,6 +1,6 @@
 A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application or a library. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for [dynamic properties](build-variants.md#dynamic-transformation-configurations) where the value is not a static value but computed dynamically by JavaScript code when the TC is built.
 
-{$product.name$} provides a dedicated language server for TCs to make them just as easy to work with as Art files. A [form-based editor](#editing-transformation-configurations) is also provided as an alternative.
+{$product.name$} provides a dedicated language server for TCs to make them just as easy to work with as Art files. A [form-based editor](#form-based-tc-editor) is also provided as an alternative.
 
 ## Creating Transformation Configurations
 To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command **File - New File - Transformation Configuration**. In the popup that appears specify the name of the TC or keep the suggested default name.
@@ -53,6 +53,14 @@ To open the form-based TC editor, right-click on a TC file and invoke the contex
 
 ![](images/tc-editor.png)
 
+The editor groups the TC properties into three sections:
+
+* **General**: Properties which define the scope of the TC (which elements to transform to C++ and where to place generated files)
+
+* **Code Generation**: Properties that control how Art elements are transformed into C++ code, and other properties that affect the generated code
+
+* **Build**: Properties that control how generated C++ code is built into a library or an executable
+
 Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.
 
 ![](images/tc-editor-cpp-code-standard.png)
@@ -87,6 +95,9 @@ In the TC text editor custom properties can be recognized by a tooltip that says
 In the form-based TC editor custom properties are not shown, but a hyperlink **More Properties** appears under the title text if the TC has one or many custom properties. You can click this link to navigate to the custom properties in the TC text editor.
 
 ![](images/more_properties.png)
+
+!!! note
+    The **More Properties** hyperlink is also useful for navigating to TC properties which the form-based TC editor doesn't (yet) support, for example the [threads](#threads) property.
 
 ## Transformation Configuration Prerequisites
 A TC can either build a library or an executable. This is controlled by the [topCapsule](#topcapsule) property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the [prerequisites](#prerequisites) property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).

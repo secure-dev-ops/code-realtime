@@ -8,6 +8,8 @@ The picture below shows an example of what these diagrams may look like:
 
 ![](../art-lang/images/diagrams.png)
 
+In addition it's also possible to open [class diagrams to visualize C++ code](#class-diagrams-for-c-code).
+
 ## Opening Diagrams
 To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: **Open State Diagram**, **Open Structure Diagram** or **Open Class Diagram**. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.
 
@@ -233,3 +235,14 @@ Alternatively, the command `Code RT: Export as SVG` (available in the Command Pa
 You can export all diagrams for an Art element, or even all diagrams for all Art elements defined in a certain Art file, by means of another command `Code RT: Export Diagrams as SVG`. For the latter scenario you can also do it by means of a context menu command that is available for Art files in the Explorer view:
 
 ![](images/export-all-svg.png)
+
+## Class Diagrams for C++ Code
+If you have C++ types in [[rt::decl]] code snippets in an Art file, you can visualize their inheritance hierarchy using a class diagram. Right-click in the Art text editor and perform the command **Open Class Diagram**. 
+
+![](images/cpp_open_class_diagram.png)
+
+Select which class (or struct) you want to generate the diagram for. The diagram will show all base classes for the selected class (even if they are defined in another Art file).
+
+![](images/cpp_class_diagram.png)
+
+Diagrams that visualize C++ code are read-only. They also don't update automatically if you change the C++ code.
