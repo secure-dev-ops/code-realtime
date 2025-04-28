@@ -102,6 +102,7 @@ capsule Tester {
             on ys.init `yi = true;`;
             on h.init  `hi = true;`;
             on r.init  `mi = true;`;
+            ignored: on timer.timeout; // Ignore timeouts until the guard is fulfilled (and we are ready to go to Initialized)
         };
         State -> Initialized on timer.timeout when `xi && yi && hi && mi`
         `
