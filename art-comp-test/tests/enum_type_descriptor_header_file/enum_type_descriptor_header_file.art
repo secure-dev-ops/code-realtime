@@ -1,0 +1,69 @@
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_Colors.h"
+    `
+    out e1(`Colors`);
+    out e2(`int`);
+    out e3();
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "Colors.h"
+
+        #include <iostream>
+        
+        std::ostream& operator<< (std::ostream& os, Colors color) {
+            switch (color) {
+            case red:
+                std::cout << "red" << std::endl;  break;
+            case green:
+                std::cout << "green" << std::endl;  break;
+            case yellow:
+                std::cout << "yellow" << std::endl;  break;
+            }
+            return os;
+        }
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the color: " << *rtdata << std::endl;
+            ASSERT(*rtdata == green, "Expect to receive Color green");
+            // Encode into string representation
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Colors, "msg type should point to Colors type descriptor");
+            char buf[1000];
+            RTMemoryOutBuffer buffer( buf, 1000 );
+            RTAsciiEncoding coding( &buffer );
+            mt->_encode_func(mt, msg->getData(), &coding);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
+            ASSERT(RTMemoryUtil::strcmp("1", buf) == 0, "Expect ASCII encoding to be 1");
+            PASS();
+        `;
+    };
+};
+capsule Top {        
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Colors color = green;
+                pOut.e1(color).send();
+            `;
+        };
+        state State2;
+        initial -> State1;
+    };
+};

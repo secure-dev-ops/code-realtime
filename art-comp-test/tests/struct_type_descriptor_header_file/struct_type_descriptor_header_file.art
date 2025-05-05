@@ -1,0 +1,57 @@
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_Point.h"
+    `
+    out e1(`Point`);
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "testlib.art.h"
+        #include "Point.h"
+        #include <iostream>         
+        
+        std::ostream& operator<< (std::ostream& os, const Point point) {
+            std::cout << "Point(" << point.x << "," << point.y << ")" << std::endl;
+            return os;
+        }
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the point: " << *rtdata << std::endl; 
+            // Encode into string representation
+            const RTObject_class* mt = msg->getType();
+            char buf[1000];
+            RTMemoryOutBuffer buffer( buf, 1000 );
+            RTAsciiEncoding coding( &buffer );
+            mt->_encode_func(mt, msg->getData(), &coding);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
+            ASSERT(RTMemoryUtil::strcmp("{x 10,y 20}", buf) == 0, "Expect ASCII encoding to be {x 10,y 20}");
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Point point = {10,20};
+                pOut.e1(point).send();
+            `;
+        };        
+        initial -> State1;        
+    };
+};

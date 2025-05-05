@@ -1,0 +1,30 @@
+{ "folders": [
+        {
+            "path": "TestUtils"
+        },
+        {
+            "path": "tests/cpp_4000"
+        },
+        {
+            "path": "tests/enum_type_descriptor"
+        },
+        {
+            "path": "tests/enum_type_descriptor_header_file"
+        },
+        {
+            "path": "tests/struct_type_descriptor"
+        },
+        {
+            "path": "tests/struct_type_descriptor_header_file"
+        },
+        {
+            "path": "tests/type_descriptor_inheritance"
+        },
+        {
+            "path": "tests/typedef_type_descriptor"
+        },
+        {
+            "path": "tests/typedef_type_descriptor_header_file"
+        }
+    ]
+}
