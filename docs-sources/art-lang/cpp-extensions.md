@@ -1,4 +1,8 @@
-An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C+, certain snippets containing declarations (specifically, those marked as `rt::decl` and `rt::impl`) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, such as attributes applied to the declarations in these snippets, translating them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. This chapter provides details on the applicable C++ extensions and the corresponding generated code for each.
+An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C++, certain snippets containing declarations (specifically, those marked as `rt::decl` and `rt::impl`) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, such as attributes applied to the declarations in these snippets, translating them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. 
+
+An alternative to using `rt::decl` and `rt::impl` code snippets in an Art file is to directly [include C++ source files](../building/build-cpp-files.md) in your workspace folder. Code in such C++ files are also analyzed by the code generator, and extra code will be generated from attributes present in them. The main difference in this case is that the extra code will be placed in separate generated files, since there is no Art file that will be translated to C++ where it could be placed. See [Generated Files](#generated-files) for more information.
+
+This chapter provides details on the applicable C++ extensions and the corresponding generated code for each.
 
 ## Type Descriptor
 A type descriptor is meta data about a C++ type. The [TargetRTS](../target-rts/index.md) uses the type descriptor to know how to initialize, copy, move, destroy, encode and decode an instance of the type. Type descriptors for all primitive C++ types are included in the TargetRTS, but for other types you need to ensure type descriptors are available if you plan to use them in a way where the TargetRTS needs it.
@@ -166,6 +170,46 @@ Here is an example of how to override the default implementation of a type descr
 
 Note that the default implementation of a type descriptor for a typedef or type alias makes the assumption that the typedefed or aliased type is a structured type which has both a parameterless constructor, a copy constructor and a move constructor. If this assumption is not correct, you need to write your own type descriptor functions, or even [implement the whole type descriptor manually](#manually-implemented).
 
+If your `[[rt::auto_descriptor]]` marked type is defined in a C++ header file (see [C++ Source Files](../building/build-cpp-files.md)), and you want to customize its type descriptor, you need to declare the custom type descriptor functions in the header file, and then implement them in a C++ implementation file. Here is the above example again, but now using C++ source files `MyTypes.h` and `MyTypes.cpp` instead of an Art file.
+
+*MyTypes.h*
+``` cpp
+    #ifndef MyTypes_h
+    #define MyTypes_h
+
+    #include "RTStructures.h"
+    #include <string>
+
+    enum class [[rt::auto_descriptor]] Colors { 
+        Red, Green, Yellow 
+    }; 
+
+    void rtg_Colors_init(const RTObject_class * type, Colors * target);
+
+    typedef std::string [[rt::auto_descriptor]] MyString;
+
+    int rtg_MyString_encode(const RTObject_class* type, const MyString* source, RTEncoding* coding);
+
+    #endif // MyTypes_h
+```
+
+*MyTypes.cpp*
+``` cpp
+    #include "MyTypes.h"
+
+    void rtg_Colors_init(const RTObject_class * type, Colors * target)
+    {
+        *target = Colors::Green; // Make Green the default color instead of Red
+    }
+
+    #if OBJECT_ENCODE
+    int rtg_MyString_encode(const RTObject_class* type, const MyString* source, RTEncoding* coding)
+    {
+        return coding->put_string(source->c_str()); // Encode as string literal
+    }
+    #endif
+```
+
 !!! example
     You can find sample applications that use automatically generated type descriptors here:
     
@@ -173,7 +217,10 @@ Note that the default implementation of a type descriptor for a typedef or type 
     * [Automatically generated type descriptor for an enum class with a custom encode function]({$vars.github.repo$}/tree/main/art-comp-test/tests/enum_type_descriptor_custom_encode)
     * [Automatically generated type descriptor for a struct]({$vars.github.repo$}/tree/main/art-comp-test/tests/struct_type_descriptor)
     * [Automatically generated type descriptor for a struct that contains another struct]({$vars.github.repo$}/tree/main/art-comp-test/tests/struct_type_descriptor_nested)
-    * [Automatically generated type descriptor for a typedef and type alias]({$vars.github.repo$}/tree/main/art-comp-test/tests/typedef_type_descriptor)
+    * [Automatically generated type descriptor for a typedef and type alias (with customized type descriptors)]({$vars.github.repo$}/tree/main/art-comp-test/tests/typedef_type_descriptor)
+    * [Automatically generated type descriptor for a struct defined in a C++ header file]({$vars.github.repo$}/tree/main/art-comp-test/tests/struct_type_descriptor_header_file)
+    * [Automatically generated type descriptor for an enum defined in a C++ header file]({$vars.github.repo$}/tree/main/art-comp-test/tests/enum_type_descriptor_header_file)
+    * [Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)]({$vars.github.repo$}/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file)
 
 ### Manually Implemented
 If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the **rt::manual_descriptor** attribute. The code generator will then skip generation of the following parts of the type descriptor:
@@ -270,3 +317,9 @@ If a class or struct inherits from another class or struct, as in the example ab
 
 !!! example
     You can find a sample application that uses an automatically implemented type descriptor for a class that inherits from another class [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/type_descriptor_inheritance).
+
+### Generated Files
+The code mentioned above related to type descriptors, which the code generator generates for the `[[rt::auto_descriptor]]` and `[[rt::manual_descriptor]]` attributes, will be placed in generated header and implementation files:
+
+1. If the type with the attribute is located in an `[[rt::decl]]` code snippet in an Art file, the generated files get the same name as the Art file, but with the extensions `.h` or `.cpp` appended. For example, if the Art file is called `MyTypes.art` the type descriptor code for a type contained in an `[[rt::decl]]` code snippet in that file will be placed in files `MyTypes.art.h` and `MyTypes.art.cpp`. To use the type you include the file `MyTypes.art.h`.
+2. If the type with the attribute is located in a C++ header file that is present in the workspace folder (see [C++ Source Files](../building/build-cpp-files.md)), the generated files get the same name as the C++ header file but prefixed with `RTType_`. For example, if your workspace folder contains a file `MyType.h` with a type that has a type descriptor attribute applied, two files `RTType_MyType.h` and `RTType_MyType.cpp` will be generated. Note that `RTType_MyType.h` will include the original header file `MyType.h` which means that if you need to use the type in a way that requires its type descriptor, you should include `RTType_MyType.h` rather than `MyType.h`.

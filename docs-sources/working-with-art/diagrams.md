@@ -237,12 +237,15 @@ You can export all diagrams for an Art element, or even all diagrams for all Art
 ![](images/export-all-svg.png)
 
 ## Class Diagrams for C++ Code
-If you have C++ types in [[rt::decl]] code snippets in an Art file, you can visualize their inheritance hierarchy using a class diagram. Right-click in the Art text editor and perform the command **Open Class Diagram**. 
+If you have C++ types in `[[rt::decl]]` code snippets in an Art file, you can visualize their inheritance hierarchy using a class diagram. Right-click in the Art text editor and perform the command **Open Class Diagram**. Select which class (or struct) you want to generate the diagram for.
 
 ![](images/cpp_open_class_diagram.png)
 
-Select which class (or struct) you want to generate the diagram for. The diagram will show all base classes for the selected class (even if they are defined in another Art file).
+The diagram will show all base classes for the selected class (even if they are defined in another Art file).
 
 ![](images/cpp_class_diagram.png)
 
 Diagrams that visualize C++ code are read-only. They also don't update automatically if you change the C++ code.
+
+!!! note 
+    Class diagrams for C++ code require that generated C++ files are present. The best way to ensure this is to ensure you always have a TC set as active.
