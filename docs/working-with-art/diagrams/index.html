@@ -597,6 +597,19 @@
     Automatic vs Manual Layout
   </a>
   
+    <nav class="md-nav" aria-label="Automatic vs Manual Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maintaining-layout-information" class="md-nav__link">
+    Maintaining Layout Information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -705,6 +718,13 @@
         <li class="md-nav__item">
   <a href="#exporting-diagrams-as-svg" class="md-nav__link">
     Exporting Diagrams as SVG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-diagrams-for-c-code" class="md-nav__link">
+    Class Diagrams for C++ Code
   </a>
   
 </li>
@@ -1387,6 +1407,19 @@
     Automatic vs Manual Layout
   </a>
   
+    <nav class="md-nav" aria-label="Automatic vs Manual Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maintaining-layout-information" class="md-nav__link">
+    Maintaining Layout Information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1499,6 +1532,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#class-diagrams-for-c-code" class="md-nav__link">
+    Class Diagrams for C++ Code
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1527,6 +1567,7 @@
 </ul>
 <p>The picture below shows an example of what these diagrams may look like:</p>
 <p><img alt="" src="../../art-lang/images/diagrams.png" /></p>
+<p>In addition it's also possible to open <a href="#class-diagrams-for-c-code">class diagrams to visualize C++ code</a>.</p>
 <h2 id="opening-diagrams">Opening Diagrams</h2>
 <p>To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: <strong>Open State Diagram</strong>, <strong>Open Structure Diagram</strong> or <strong>Open Class Diagram</strong>. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.</p>
 <p>If the cursor is placed on an Art element that has a graphic representation in the form of a symbol or line in the diagram, for example a state in a state diagram, the symbol or line will be highlighted in the opened diagram by selecting it. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. If the diagram is already open, it will be made visible and the selection will be updated.</p>
@@ -1557,7 +1598,7 @@
 </ul>
 <p>For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command <strong>Open Inherited State Diagram</strong>. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.</p>
 <h2 id="automatic-vs-manual-layout">Automatic vs Manual Layout</h2>
-<p>By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:</p>
+<p>By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). Text labels of symbols and lines are also automatically positioned. The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:</p>
 <ul>
 <li>A good layout of a diagram can help to understand it better. For example, you may want to group elements that are logically related close to each other.</li>
 <li>Small changes in an Art file can lead to rather big graphical changes when automatic layout is used. For example, adding a transition between two states can cause the states themselves to move to a different position to achieve a compact overall diagram layout. While editing an Art file this can give a "jumpy" feeling to diagrams where symbols move around a lot while typing.</li>
@@ -1569,10 +1610,34 @@
 <p class="admonition-title">Note</p>
 <p>Manual layout is currently an experimental feature. You are welcome to try it out but the feature is still under development and may not fully work in all situations.</p>
 </div>
-<p>Once you have turned on manual layout for a diagram you can start to move symbols around as you like. When you save the diagram the layout information is stored in a JSON file under a <code>layouts</code> subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.</p>
-<p>If you want to go back from manual to automatic layout, just uncheck the <strong>Manual</strong> checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the layout information for the diagram will be deleted. This operation is not undoable!</p>
+<p>Once you have turned on manual layout for a diagram you can start to move symbols around as you like to achieve a nice-looking layout. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram.</p>
+<p>When you save the diagram the layout information is stored in a JSON file under a <code>layouts</code> subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.</p>
+<p>If you want to go back from manual to automatic layout, just uncheck the <strong>Manual</strong> checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!</p>
 <p><img alt="" src="../images/deleting-layout-settings.png" /></p>
 <p>Alternatively you can delete the JSON file from the Explorer view. In this case, the operation is undoable.</p>
+<h3 id="maintaining-layout-information">Maintaining Layout Information</h3>
+<p>The JSON file that holds layout information for a diagram contains references to Art elements. Consider the example below:</p>
+<pre><code class="language-json">[
+  {
+    &quot;context&quot;: &quot;::MyCapsule&quot;,
+    &quot;diagramType&quot;: &quot;state&quot;,
+    &quot;layouts&quot;: [
+      {
+        &quot;element&quot;: &quot;MyState&quot;,
+        &quot;x&quot;: 80.0,
+        &quot;y&quot;: -100.0
+      }
+    ]
+  }
+]
+</code></pre>
+<p><code>MyCapsule</code> references a capsule, and <code>MyState</code> references a state in the state machine of that capsule. When you make changes to the Art file, these references are usually updated automatically, to ensure that the layout information remains valid. However, note the following:</p>
+<ul>
+<li>References will be updated when you rename an element, regardless if you rename it by direct typing in the Art file, or if you use the <a href="../art-editor/#renaming-elements">Rename command</a>. However, it's recommended to use the <a href="../art-editor/#renaming-elements">Rename command</a> since there are some situations where rename by direct typing will be unable to update all references.</li>
+<li>If you rename the context element, i.e. the element that owns a diagram (like <code>MyCapsule</code> in the example above), and that diagram is currently open, then it will be automatically closed and reopened so the new element name is shown in the diagram editor tab. Code RealTime tries to reopen the diagram into the same editor tab group, but sometimes this is not possible and the diagram will then appear elsewhere.</li>
+<li>If you delete an element, references to it from layout files are not automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.</li>
+<li>There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.</li>
+</ul>
 <h2 id="navigating-from-diagram-to-art-file">Navigating from Diagram to Art File</h2>
 <p>If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:</p>
 <p><img alt="" src="../images/ctrlclick-text-label.png" /></p>
@@ -1660,6 +1725,16 @@
 <p>Alternatively, the command <code>Code RT: Export as SVG</code> (available in the Command Palette) can be used. It will export the diagram that is open in the currently active editor.</p>
 <p>You can export all diagrams for an Art element, or even all diagrams for all Art elements defined in a certain Art file, by means of another command <code>Code RT: Export Diagrams as SVG</code>. For the latter scenario you can also do it by means of a context menu command that is available for Art files in the Explorer view:</p>
 <p><img alt="" src="../images/export-all-svg.png" /></p>
+<h2 id="class-diagrams-for-c-code">Class Diagrams for C++ Code</h2>
+<p>If you have C++ types in <code>[[rt::decl]]</code> code snippets in an Art file, you can visualize their inheritance hierarchy using a class diagram. Right-click in the Art text editor and perform the command <strong>Open Class Diagram</strong>. Select which class (or struct) you want to generate the diagram for.</p>
+<p><img alt="" src="../images/cpp_open_class_diagram.png" /></p>
+<p>The diagram will show all base classes for the selected class (even if they are defined in another Art file).</p>
+<p><img alt="" src="../images/cpp_class_diagram.png" /></p>
+<p>Diagrams that visualize C++ code are read-only. They also don't update automatically if you change the C++ code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Class diagrams for C++ code require that generated C++ files are present. The best way to ensure this is to ensure you always have a TC set as active.</p>
+</div>
 
 
 

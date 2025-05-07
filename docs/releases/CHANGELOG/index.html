@@ -20,7 +20,7 @@
     
     
       
-        <title>2.0.6 (2025-03-18 09:38) - DevOps Code RealTime</title>
+        <title>2.0.7 (2025-05-06 11:34) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#206-2025-03-18-0938" class="md-skip">
+        <a href="#207-2025-05-06-1134" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.0.6 (2025-03-18 09:38)
+              2.0.7 (2025-05-06 11:34)
             
           </span>
         </div>
@@ -1197,6 +1197,21 @@
   
 
 
+<h1 id="207-2025-05-06-1134">2.0.7 (2025-05-06 11:34)</h1>
+<ol>
+<li>Java 21 is now required for running the Art language server. Using Java 21 instead of Java 17 gives some performance improvements and enables use of more modern Java.</li>
+<li>In diagrams that use manual layout it's now possible to move some of the text labels. For example, it's possible to move the name label of a transition which can make a state diagram more readable by avoiding that the label overlaps with other contents of the diagram.</li>
+<li>Layout files for manual layout are now created, updated and deleted when diagrams are saved, instead of immediately when the manual layout setting is modified. This makes the manual layout setting work consistently with other diagram settings.</li>
+<li>Layout files for manual layout are now updated when referenced Art elements are renamed. This ensures that layout information in most cases stays valid when an Art file is changed. If an element with diagrams, such as a capsule, is renamed, the diagram is automatically reopened to reflect the new name.</li>
+<li>Automatic updates of references to Art elements in layout and diagram setting files now also happen when the elements are renamed by means of the Rename command (i.e. when performing a "refactor rename"). Undo/Redo now also works for this scenario.</li>
+<li>If a diagram is "dirty" (i.e. has unsaved changes in diagram and/or layout settings), and an element shown in the diagram is renamed, then references to the element in the diagram and layout settings will now be merged with the unsaved changes, so that all changes will be persisted when you save the diagram. For the special case when the element that "owns" the diagram is renamed, you will be prompted to save the changes as part of automatically reopening the diagram.</li>
+<li>The form-based TC editor (which you open by the <strong>Edit Properties (UI)</strong> command) now shows in its header if the TC has any custom properties defined. If there is at least one custom property a link <strong>More Properties</strong> appears. If you click this link, a "quick pick" popup will appear and let you navigate to the custom properties in the TC text editor. In addition to custom properties this feature is also useful for navigating to properties which the form-based TC editor doesn't (yet) support, such as <code>threads</code>.</li>
+<li>The form-based TC editor now groups TC properties into three separate tabs <strong>General</strong>, <strong>Code Generation</strong> and <strong>Build</strong>. This makes it easier to find and edit a certain property and avoids excessive vertical scrolling through all properties.</li>
+<li>It's now possible to visualize the inheritance of C++ types in class diagrams. The types must be defined in <code>[[rt::decl]]</code> code snippets in one or many Art files. Right-click in the <code>[[rt::decl]]</code> code snippet and select the class (or struct) that you want to generate a class diagram for. All base classes for the selected class will be shown in the diagram. Read more about this feature in <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/diagrams/#class-diagrams-for-c-code">the documentation</a>.</li>
+<li>Log streams have been extended so they now can write log messages to text files. A new TargetRTS class <code>RTLog::Stream</code> provides a uniform interface for writing log messages to any <code>std::ostream</code>.</li>
+<li>The C++ code generator now supports generation of type descriptors for C++ types that are defined in C++ source files and there marked with the <code>[[rt::auto_descriptor]]</code> or <code>[[rt::manual_descriptor]]</code> attributes. This means that it's no longer necessary to place such types in Art files (inside <code>[[rt::decl]]</code> code snippets). This simplifies the use of already existing C++ types in a realtime application when type descriptors for those types are required. Read more about this feature in <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/cpp-extensions/#type-descriptor">the documentation</a>.</li>
+<li>Version 2.0.0 of the Art Exporter is now available. It has been redesigned and is now provided as part of the Model Compiler. This makes it possible to run it from the command-line, and also ensures that generated C++ code is identical to what was produced with Model RealTime. The new Art Exporter implements initial support for transformation configurations, capsules, ports and protocols, which means that complete executable applications now can be migrated from Model RealTime to Code RealTime. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for the full list of improvements.</li>
+</ol>
 <h1 id="206-2025-03-18-0938">2.0.6 (2025-03-18 09:38)</h1>
 <ol>
 <li>Manual layout of diagrams is now supported. This means you can move symbols around to manually decide their positions on a diagram. This is currently an EXPERIMENTAL feature. To try it out, mark the checkbox "Manual" under "Layout" in the properties view of any diagram. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/diagrams/#automatic-vs-manual-layout">here</a>.</li>

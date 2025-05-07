@@ -995,6 +995,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#log-streams-connected-to-files" class="md-nav__link">
+    Log streams connected to files
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1568,6 +1575,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#log-streams-connected-to-files" class="md-nav__link">
+    Log streams connected to files
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1664,6 +1678,10 @@
 <td>8010</td>
 <td align="left"><a href="#log-streams">Log streams</a> <br> <a href="#corrected-deletion-in-rtprotocoladapter-destructor">Corrected deletion in RTProtocolAdapter destructor</a> <br> <a href="#json-construction-in-debugger-api-getchildren">JSON construction in debugger API "getChildren"</a></td>
 </tr>
+<tr>
+<td>8011</td>
+<td align="left"><a href="#log-streams-connected-to-files">Log streams connected to files</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -1720,6 +1738,8 @@
 <p>The destructor of <a href="../../targetrts-api/class_r_t_protocol_adapter.html">RTProtocolAdapter</a> deleted an array using the standard <code>delete</code> operator. This has now been corrected to instead use the <code>delete[]</code> operator.</p>
 <h3 id="json-construction-in-debugger-api-getchildren">JSON construction in debugger API "getChildren"</h3>
 <p>A bug was fixed in the "getChildren" debugger API implementation related to how JSON is constructed for a capsule that lacks parts and/or ports.</p>
+<h3 id="log-streams-connected-to-files">Log streams connected to files</h3>
+<p>Log streams can now be connected to any <code>std::ostream</code>, and you can for example let them write log message to a file.</p>
 
 
 

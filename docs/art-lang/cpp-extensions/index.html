@@ -544,6 +544,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#generated-files" class="md-nav__link">
+    Generated Files
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1342,6 +1349,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#generated-files" class="md-nav__link">
+    Generated Files
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1367,7 +1381,9 @@
 
   <h1>C++ Extensions</h1>
 
-<p>An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C+, certain snippets containing declarations (specifically, those marked as <code>rt::decl</code> and <code>rt::impl</code>) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, such as attributes applied to the declarations in these snippets, translating them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. This chapter provides details on the applicable C++ extensions and the corresponding generated code for each.</p>
+<p>An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C++, certain snippets containing declarations (specifically, those marked as <code>rt::decl</code> and <code>rt::impl</code>) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, such as attributes applied to the declarations in these snippets, translating them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. </p>
+<p>An alternative to using <code>rt::decl</code> and <code>rt::impl</code> code snippets in an Art file is to directly <a href="../../building/build-cpp-files/">include C++ source files</a> in your workspace folder. Code in such C++ files are also analyzed by the code generator, and extra code will be generated from attributes present in them. The main difference in this case is that the extra code will be placed in separate generated files, since there is no Art file that will be translated to C++ where it could be placed. See <a href="#generated-files">Generated Files</a> for more information.</p>
+<p>This chapter provides details on the applicable C++ extensions and the corresponding generated code for each.</p>
 <h2 id="type-descriptor">Type Descriptor</h2>
 <p>A type descriptor is meta data about a C++ type. The <a href="../../target-rts/">TargetRTS</a> uses the type descriptor to know how to initialize, copy, move, destroy, encode and decode an instance of the type. Type descriptors for all primitive C++ types are included in the TargetRTS, but for other types you need to ensure type descriptors are available if you plan to use them in a way where the TargetRTS needs it.</p>
 <div class="admonition note">
@@ -1537,6 +1553,41 @@ using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;;
 `
 </code></pre>
 <p>Note that the default implementation of a type descriptor for a typedef or type alias makes the assumption that the typedefed or aliased type is a structured type which has both a parameterless constructor, a copy constructor and a move constructor. If this assumption is not correct, you need to write your own type descriptor functions, or even <a href="#manually-implemented">implement the whole type descriptor manually</a>.</p>
+<p>If your <code>[[rt::auto_descriptor]]</code> marked type is defined in a C++ header file (see <a href="../../building/build-cpp-files/">C++ Source Files</a>), and you want to customize its type descriptor, you need to declare the custom type descriptor functions in the header file, and then implement them in a C++ implementation file. Here is the above example again, but now using C++ source files <code>MyTypes.h</code> and <code>MyTypes.cpp</code> instead of an Art file.</p>
+<p><em>MyTypes.h</em></p>
+<pre><code class="language-cpp">    #ifndef MyTypes_h
+    #define MyTypes_h
+
+    #include &quot;RTStructures.h&quot;
+    #include &lt;string&gt;
+
+    enum class [[rt::auto_descriptor]] Colors { 
+        Red, Green, Yellow 
+    }; 
+
+    void rtg_Colors_init(const RTObject_class * type, Colors * target);
+
+    typedef std::string [[rt::auto_descriptor]] MyString;
+
+    int rtg_MyString_encode(const RTObject_class* type, const MyString* source, RTEncoding* coding);
+
+    #endif // MyTypes_h
+</code></pre>
+<p><em>MyTypes.cpp</em></p>
+<pre><code class="language-cpp">    #include &quot;MyTypes.h&quot;
+
+    void rtg_Colors_init(const RTObject_class * type, Colors * target)
+    {
+        *target = Colors::Green; // Make Green the default color instead of Red
+    }
+
+    #if OBJECT_ENCODE
+    int rtg_MyString_encode(const RTObject_class* type, const MyString* source, RTEncoding* coding)
+    {
+        return coding-&gt;put_string(source-&gt;c_str()); // Encode as string literal
+    }
+    #endif
+</code></pre>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find sample applications that use automatically generated type descriptors here:</p>
@@ -1545,7 +1596,10 @@ using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;;
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/enum_type_descriptor_custom_encode">Automatically generated type descriptor for an enum class with a custom encode function</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/struct_type_descriptor">Automatically generated type descriptor for a struct</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/struct_type_descriptor_nested">Automatically generated type descriptor for a struct that contains another struct</a></li>
-<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/typedef_type_descriptor">Automatically generated type descriptor for a typedef and type alias</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/typedef_type_descriptor">Automatically generated type descriptor for a typedef and type alias (with customized type descriptors)</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/struct_type_descriptor_header_file">Automatically generated type descriptor for a struct defined in a C++ header file</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/enum_type_descriptor_header_file">Automatically generated type descriptor for an enum defined in a C++ header file</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file">Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)</a></li>
 </ul>
 </div>
 <h3 id="manually-implemented">Manually Implemented</h3>
@@ -1633,6 +1687,12 @@ const RTObject_class RTType_MyColors =
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that uses an automatically implemented type descriptor for a class that inherits from another class <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/type_descriptor_inheritance">here</a>.</p>
 </div>
+<h3 id="generated-files">Generated Files</h3>
+<p>The code mentioned above related to type descriptors, which the code generator generates for the <code>[[rt::auto_descriptor]]</code> and <code>[[rt::manual_descriptor]]</code> attributes, will be placed in generated header and implementation files:</p>
+<ol>
+<li>If the type with the attribute is located in an <code>[[rt::decl]]</code> code snippet in an Art file, the generated files get the same name as the Art file, but with the extensions <code>.h</code> or <code>.cpp</code> appended. For example, if the Art file is called <code>MyTypes.art</code> the type descriptor code for a type contained in an <code>[[rt::decl]]</code> code snippet in that file will be placed in files <code>MyTypes.art.h</code> and <code>MyTypes.art.cpp</code>. To use the type you include the file <code>MyTypes.art.h</code>.</li>
+<li>If the type with the attribute is located in a C++ header file that is present in the workspace folder (see <a href="../../building/build-cpp-files/">C++ Source Files</a>), the generated files get the same name as the C++ header file but prefixed with <code>RTType_</code>. For example, if your workspace folder contains a file <code>MyType.h</code> with a type that has a type descriptor attribute applied, two files <code>RTType_MyType.h</code> and <code>RTType_MyType.cpp</code> will be generated. Note that <code>RTType_MyType.h</code> will include the original header file <code>MyType.h</code> which means that if you need to use the type in a way that requires its type descriptor, you should include <code>RTType_MyType.h</code> rather than <code>MyType.h</code>.</li>
+</ol>
 
 
 

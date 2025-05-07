@@ -931,6 +931,26 @@
     Editing Transformation Configurations
   </a>
   
+    <nav class="md-nav" aria-label="Editing Transformation Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#form-based-tc-editor" class="md-nav__link">
+    Form-based TC Editor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-tc-properties" class="md-nav__link">
+    Custom TC Properties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1480,6 +1500,26 @@
     Editing Transformation Configurations
   </a>
   
+    <nav class="md-nav" aria-label="Editing Transformation Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#form-based-tc-editor" class="md-nav__link">
+    Form-based TC Editor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-tc-properties" class="md-nav__link">
+    Custom TC Properties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1718,7 +1758,7 @@
   <h1>Transformation Configurations</h1>
 
 <p>A transformation configuration (or TC for short) contains all properties needed for transforming Art files into C++ code and for building the generated code into an application or a library. It is a text file in JavaScript format with the file extension .tcjs. Using JavaScript for defining build properties has many advantages. For example, it allows for <a href="../build-variants/#dynamic-transformation-configurations">dynamic properties</a> where the value is not a static value but computed dynamically by JavaScript code when the TC is built.</p>
-<p>Code RealTime provides a dedicated language server for TCs to make them just as easy to work with as Art files. A <a href="#editing-transformation-configurations">form-based editor</a> is also provided as an alternative.</p>
+<p>Code RealTime provides a dedicated language server for TCs to make them just as easy to work with as Art files. A <a href="#form-based-tc-editor">form-based editor</a> is also provided as an alternative.</p>
 <h2 id="creating-transformation-configurations">Creating Transformation Configurations</h2>
 <p>To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command <strong>File - New File - Transformation Configuration</strong>. In the popup that appears specify the name of the TC or keep the suggested default name.</p>
 <p><img alt="" src="../images/default-tc-name.png" /></p>
@@ -1756,9 +1796,22 @@
 <li>TC properties are validated when edited and found problems will be reported. Click the "More information" hyperlink for a more detailed description of a problem, including suggestions for how to fix it.</li>
 </ul>
 <p><img alt="" src="../images/tc-editor-validation.png" /></p>
+<h3 id="form-based-tc-editor">Form-based TC Editor</h3>
 <p>As an alternative to editing a TC as a JavaScript file Code RealTime also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.</p>
 <p>To open the form-based TC editor, right-click on a TC file and invoke the context menu command <strong>Edit Properties (UI)</strong>. </p>
 <p><img alt="" src="../images/tc-editor.png" /></p>
+<p>The editor groups the TC properties into three sections:</p>
+<ul>
+<li>
+<p><strong>General</strong>: Properties which define the scope of the TC (which elements to transform to C++ and where to place generated files)</p>
+</li>
+<li>
+<p><strong>Code Generation</strong>: Properties that control how Art elements are transformed into C++ code, and other properties that affect the generated code</p>
+</li>
+<li>
+<p><strong>Build</strong>: Properties that control how generated C++ code is built into a library or an executable</p>
+</li>
+</ul>
 <p>Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.</p>
 <p><img alt="" src="../images/tc-editor-cpp-code-standard.png" /></p>
 <p>Click the info button to view documentation about a certain TC property. Click the button again to hide the documentation.</p>
@@ -1768,6 +1821,19 @@
 <p>You can tell which TC properties that have a custom (i.e. non-default) value set by looking at the color of the property name. Properties with custom values set have names shown in blue which are hyperlinks that will navigate to the value in the TC file. Such properties also have a "Delete" button which can be used for deleting the property value (i.e. to restore the property to use its default value).</p>
 <p><img alt="" src="../images/tc-with-value.png" /></p>
 <p>You can freely choose if you want to edit TC files as text files or using the form-based TC editor, and you can even use both at the same time. The form-based TC editor is automatically updated as soon as you edit the TC file, and the TC file is automatically updated when a widget with a modified value loses focus. </p>
+<h3 id="custom-tc-properties">Custom TC Properties</h3>
+<p>You can add your own custom properties to a TC by simply assigning a value to them. This allows you to persist your own custom data in TC files. Here is an example:</p>
+<pre><code class="language-js">tc.customBuild = true;
+</code></pre>
+<p>Custom properties are ignored when building the TC, but can be seen and used by <a href="../build-variants/">Build Variant scripts</a> when implementing a custom way of building your application.</p>
+<p>In the TC text editor custom properties can be recognized by a tooltip that says "any":</p>
+<p><img alt="" src="../images/custom_property.png" /></p>
+<p>In the form-based TC editor custom properties are not shown, but a hyperlink <strong>More Properties</strong> appears under the title text if the TC has one or many custom properties. You can click this link to navigate to the custom properties in the TC text editor.</p>
+<p><img alt="" src="../images/more_properties.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>More Properties</strong> hyperlink is also useful for navigating to TC properties which the form-based TC editor doesn't (yet) support, for example the <a href="#threads">threads</a> property.</p>
+</div>
 <h2 id="transformation-configuration-prerequisites">Transformation Configuration Prerequisites</h2>
 <p>A TC can either build a library or an executable. This is controlled by the <a href="#topcapsule">topCapsule</a> property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the <a href="#prerequisites">prerequisites</a> property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).</p>
 <p>If you change the prerequisites of a TC you should again <a href="#setting-a-transformation-configuration-as-active">set it as active</a> so that the prerequisite TCs also become active.</p>
@@ -1804,7 +1870,7 @@
 </li>
 </ul>
 <h2 id="properties">Properties</h2>
-<p>Below is a table that lists all properties that can be used in a TC. Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.</p>
+<p>Below is a table that lists all properties that can be used in a TC (in addition to <a href="#custom-tc-properties">custom properties</a>). Note that many TC properties have default values and you only need to specify a value for a TC property if its different from the default value. Each property is described in a section of its own below the table.</p>
 <p id="tc_properties"/>
 
 <table>
