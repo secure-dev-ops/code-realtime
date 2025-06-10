@@ -1,0 +1,126 @@
+/***********************************************************************
+* (c) Copyright HCL Technologies Ltd. 2020.  
+************************************************************************/
+
+.button{
+   background: #444;
+  padding: 20px;
+  text-align: center;
+   margin: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: 0.1s;
+}
+
+#testsuite-name {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#test-timer {
+  text-align: right;
+}
+
+.divTable{
+	display: table;
+	width: 100%;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableCell {	
+	display: table-cell;
+	padding: 3px 10px;
+}
+.divTableBody {
+	display: table-row-group;
+}
+
+#filters {
+  float: right;
+}
+
+#testcase_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#testcase_table tr.testcase-status {
+  border: 2px solid black;
+}
+
+tr.testcase-status td {
+  border: 1px solid black;
+}
+
+
+tr.testcase-status td.testcase-button-group {
+  width: 7%;
+  text-align:center;
+}
+
+#summary_table {
+  border: none;  
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.testcase-name {
+  font-weight: bold;
+  width: 400px;
+  overflow:hidden;
+}
+
+.testcase-missing-description {
+  font-weight: bold;
+  background-color: rgb(231, 79, 79);
+  color: white;
+  text-align:center;
+}
+
+.testcase-description > p {
+  display: inline; /* Remove linebreak for HTML descriptions generated from markdown */
+}
+
+.testcase-failure {
+  background-color: rgb(231, 79, 79) !important;
+  color: white !important;
+}
+
+.testcase-success {
+  background-color: rgba(111, 223, 126, 0.884) !important;
+  color: white;
+}
+
+.testcase-status-Pending {
+  background-color: white;
+}
+
+.testcase-status-Building {
+  background-color: lightblue;
+  animation: buildingAnim 2s infinite;
+}
+
+@keyframes buildingAnim {
+  0% {background-color: lightblue;}
+  50% {background-color: beige;}
+  100% {background-color: lightblue;}
+}
+
+.testcase-status-Built {
+  background-color: blue;
+}
+
+.testcase-status-Running {
+  background-color: rosybrown;
+  animation: runningAnim 2s infinite;
+}
+
+@keyframes runningAnim {
+  0% {background-color: rgb(250, 224, 137);}
+  50% {background-color: rgb(243, 152, 251);}
+  100% {background-color: rgb(250, 224, 137);}
+}

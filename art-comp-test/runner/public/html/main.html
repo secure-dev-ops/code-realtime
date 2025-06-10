@@ -1,0 +1,53 @@
+﻿<!doctype html>
+
+<!-------------------------------------------------------------------- 
+    (c) Copyright HCL Technologies Ltd. 2020. 
+------------------------------------------------------------------- -->
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>New Tests Runner</title>
+
+        <link type="text/css" rel="stylesheet" href="/css" />
+    </head>
+
+    <body>            
+        <div class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div id="testsuite-name" class="divTableCell">testsuite</div>
+                    <div id="test-timer" class="divTableCell">
+                        <span id="timer-label">Finished test execution in </span>
+                        <span id="timer-clock"></span>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <hr>
+        <button type="button" id="terminate_button">Terminate Server</button>
+        <button type="button" id="run_all_button" disabled>Run All</button>
+        <button type="button" id="run_all_failed_button" disabled>Run All Failed</button>
+        <button type="button" id="clean_all_button" disabled>Clean All</button>
+        <div id="filters">
+            <input type="checkbox" id="filter_failed" name="filter_failed">
+            <label for="filter_failed">Hide Passed</label>
+        </div>
+
+        <table id="summary_table">
+            <tr><td id="executive_summary">Executive Summary:</td><td id="total_count"></td><td id="passed_count"></td><td id="failed_count"></td></tr>
+        </table>
+        <hr>
+        <div id="testcases">   
+            <table id="testcase_table"></table>         
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/jquery"></script>        
+        <script src="/main"></script>
+
+    </body>
+</html>
+
+
