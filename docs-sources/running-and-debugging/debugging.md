@@ -7,13 +7,15 @@ Using a C++ debugger is a much more powerful and efficient way of finding the ro
 - Certain more complex tasks, such as sending events on ports for the purpose of debugging, can not be directly done from a C++ debugger and would require custom code to be written (which just like logging requires the application to be rebuilt).
 - Remote debugging of an application that runs on another machine may require special tools (such as [gdbserver](https://en.wikipedia.org/wiki/Gdbserver)).
 
-{$product.name$} provides an Art Debugger which adresses these challenges. It allows you to debug your application, locally or remotely, at a higher abstraction level than what a C++ debugger can do. It does not replace the need and usefulness of a C++ debugger, but works as a complement to it. If you want, you can debug your application at the same time both with the Art Debugger and the C++ debugger.
+{$product.name$} provides an **Art Debugger** which adresses these challenges. It allows you to debug your application, locally or remotely, at a higher abstraction level than what a C++ debugger can do. It does not replace the need and usefulness of a C++ debugger, but works as a complement to it. If you want, you can debug your application at the same time both with the Art Debugger and the C++ debugger.
 
 The Art Debugger uses a feature of the TargetRTS known as **target observability**. It includes code which lets the Art Debugger attach to your application at a TCP port (known as the **debug port**). Through this port the Art Debugger can both **control** and **observe** your application.
 
 ![](images/debug_port.png)
 
 Target observability can be turned off by means of the [OBSERVABLE](../target-rts/build.md#observable) configuration setting. You can choose to do this when deploying the release version of your application if you don't need to debug it with the Art Debugger.
+
+If target observability is not available, for example because your environment lacks support for TCP, you can instead use a command-line debugger known as the [RTS Debugger](rts-debugger.md).
 
 ## Start to Debug
 There are two ways how you can start a new debug session.

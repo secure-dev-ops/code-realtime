@@ -1105,12 +1105,12 @@ statemachine {
         `;
         entrypoint e1;
         exitpoint e2;
-        local: e1 -> e2 
+        local: e1 -> e2 on port1.event2
         `
             // Local transition
         `;
     };
-    external: SelfTransitionExample -> SelfTransitionExample on port2.e2
+    external: SelfTransitionExample -> SelfTransitionExample on port1.event3
     `
         // External transition
     `;

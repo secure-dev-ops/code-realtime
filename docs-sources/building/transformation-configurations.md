@@ -334,7 +334,7 @@ You can specify an absolute path to a target folder if you prefer generated file
 
 Use forward slashes as path separator in this property. 
 
-If this property is not specified it defaults to the name of the TC, with `_target` appended. For example, if the TC is called `app.tcjs`, the target folder will default to `app_default`.
+If this property is not specified it defaults to the name of the TC, with `_target` appended. For example, if the TC is called `app.tcjs`, the target folder will default to `app_target`.
 
 ### targetRTSLocation
 Specifies the location of the TargetRTS to use. If no value is set for this property the TargetRTS from the {$product.name$} installation will be used. If you want to use another TargetRTS specify the full path to the `TargetRTS` folder (including that folder itself). Use forward slashes as path separator. For example:
