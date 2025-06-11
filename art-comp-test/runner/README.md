@@ -18,6 +18,12 @@ npm install
 ```
 
 ## Running Tests
+To run the script:
+
+```shell
+node app.js <arguments>
+```
+
 The script accepts a number of command-line arguments, which you can see if you invoke it with `--help`. However, many of these arguments are optional and/or reserved for internal use only. Only those arguments that you need to use are described below. At a minimum you need to provide the following arguments:
 
 * `--testDir` Specifies the location of the tests to run. If you are in the `runner` folder and want to use the tests in `tests` pass it as `--testDir=../tests`.
