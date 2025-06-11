@@ -9,9 +9,10 @@ There are two main usecases for when this script can help you:
 
 ## Preparation
 Before you can use the script perform these steps:
-1. Make sure you have a recent version of [Node.js](https://nodejs.org/en/download) installed.
-2. Make sure you have required C++ build tools available in the path. If you are unsure, test by building a TC in Code RealTime or Model RealTime for your desired target configuration. If it works, you should be good to go.
-3. Open this `runner` folder in a terminal, and install the dependencies of the script
+1. Make sure you have [Code RealTime](https://secure-dev-ops.github.io/code-realtime) installed.
+2. Make sure you have a recent version of [Node.js](https://nodejs.org/en/download) installed.
+3. Make sure you have required C++ build tools available in the path. If you are unsure, test by building a TC in Code RealTime or Model RealTime for your desired target configuration. If it works, you should be good to go.
+4. Open this `runner` folder in a terminal, and install the dependencies of the script
 
 ```shell
 npm install
