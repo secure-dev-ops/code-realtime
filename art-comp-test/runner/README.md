@@ -9,15 +9,22 @@ There are two main usecases for when this script can help you:
 
 ## Preparation
 Before you can use the script perform these steps:
-1. Make sure you have a recent version of [Node.js](https://nodejs.org/en/download) installed.
-2. Make sure you have required C++ build tools available in the path. If you are unsure, test by building a TC in Code RealTime or Model RealTime for your desired target configuration. If it works, you should be good to go.
-3. Open this `runner` folder in a terminal, and install the dependencies of the script
+1. Make sure you have [Code RealTime](https://secure-dev-ops.github.io/code-realtime) installed.
+2. Make sure you have a recent version of [Node.js](https://nodejs.org/en/download) installed.
+3. Make sure you have required C++ build tools available in the path. If you are unsure, test by building a TC in Code RealTime or Model RealTime for your desired target configuration. If it works, you should be good to go.
+4. Open this `runner` folder in a terminal, and install the dependencies of the script
 
 ```shell
 npm install
 ```
 
 ## Running Tests
+To run the script:
+
+```shell
+node app.js <arguments>
+```
+
 The script accepts a number of command-line arguments, which you can see if you invoke it with `--help`. However, many of these arguments are optional and/or reserved for internal use only. Only those arguments that you need to use are described below. At a minimum you need to provide the following arguments:
 
 * `--testDir` Specifies the location of the tests to run. If you are in the `runner` folder and want to use the tests in `tests` pass it as `--testDir=../tests`.
