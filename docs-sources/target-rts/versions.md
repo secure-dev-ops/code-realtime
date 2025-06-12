@@ -40,6 +40,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8009 | [Simplified qualified names of nested states](#simplified-qualified-names-of-nested-states) |
 | 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
+| 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -118,3 +119,6 @@ A bug was fixed in the "getChildren" debugger API implementation related to how 
 
 ### Log streams connected to files
 Log streams can now be connected to any `std::ostream`, and you can for example let them write log message to a file.
+
+### New tracing feature for sequence diagram visualization of message communication
+It's now possible to turn on a new kind of tracing in applications where messages that are sent between capsule instances can be visualized graphically in a sequence diagram. See [this chapter](../running-and-debugging/tracing.md) for more information about this feature.

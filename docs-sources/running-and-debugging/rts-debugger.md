@@ -45,6 +45,7 @@ Below is a list of all commands supported by the RTS Debugger. Each command is d
 | [step](#step) | `<n>` (number) | Deliver (up to) `<n>` messages (by default 1 message)
 | [system](#system) | `<capsuleInstance>` (string) `<depth>` (number) | Print information about all or a subset of the capsule instances that exist in the application.
 | [tasks](#tasks) | N/A | List information about all threads in the application.
+| [trace](#trace) | `on|off` | Turn tracing on or off and flush the current trace file, if any.
 
 ### attach
 Argument: `<threadId>` (number)
@@ -154,7 +155,7 @@ This command prints information about the thread with the specified id. You obta
 
 The printed information includes the following:
 
-* The name of the thread. For user-defined threads the name comes from the [Threads](../building/transformation-configurations.md#threads) TC property. The main thread is identified by the name "main" and the timer thread (responsible for implementing [threads](../target-rts/threads.md)) is identified by the name "time".
+* The name of the thread. For user-defined threads the name comes from the [Threads](../building/transformation-configurations.md#threads) TC property. The main thread is identified by the name "main" and the timer thread (responsible for implementing [timers](../target-rts/timers.md)) is identified by the name "time".
 * The most recent error that has occurred in the thread. For more information see [Retrieving the Most Recent Error](../target-rts/logging.md#retrieving-the-most-recent-error).
 * The number of messages that are currently waiting in the Controller's queues (both the internal queue and the incoming queue) to be dispatched to capsule instances that are run by the thread. For more information see [Controllers and Message Queues](../target-rts/message-communication.md#controllers-and-message-queues). Messages are grouped in the printout according to their [priority](../target-rts/message-communication.md#message-priority).
 
@@ -220,3 +221,15 @@ RTS debug: ->tasks
   1: stopped  ServerThread
   2: detached time
 ```
+
+### trace
+Arguments: `on|off` (string)
+
+This command is used for [tracing](tracing.md) the exchange of messages in an application with the purpose of visualizing them in a sequence diagram. If the argument is omitted (or an invalid argument is passed), the command will just print whether tracing is currently on or off. For example:
+
+```shell
+RTS debug: ->trace
+  Tracing is on
+```
+
+If a trace is already active when the command is performed, the current trace file will be flushed to ensure that all trace events that have been captured so far will be present in the trace file.

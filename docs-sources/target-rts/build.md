@@ -205,6 +205,11 @@ This setting controls if the application will be "observable" at run-time. Targe
 
 Default value: **1** (set to **0** to disable all target observability features)
 
+#### RTS_TRACE
+Controls if the [Tracing](../running-and-debugging/tracing.md) feature should be included or not. If you don't plan to capture traces for sequence diagram visualization of message communication in the application, you can disable this feature.
+
+Default value: **1**
+
 #### MIN_FREE_LIST_SIZE
 This setting is related to the [free list](message-communication.md#message-memory-management). It defines the lower limit of the free list size. The free list will always contain at least this number of message blocks.
 

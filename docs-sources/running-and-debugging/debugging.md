@@ -170,7 +170,7 @@ During a debug session you can use the command **Send to App** (available in the
 * Configure parts of the application which are not accessible by means of sending events to capsule ports
 * Log some data from the application
 
-The default implementation of [`RTToolsetObserver`](../targetrts-api/class_r_t_toolset_observer.html)`::handleSendToApp()` contains a few built-in commands (prefixed with `rt`) for logging certain internal data from the TargetRTS. They can serve as examples for how to create your own custom debug commands.
+The default implementation of [`RTToolsetObserver`](../targetrts-api/class_r_t_toolset_observer.html)`::handleSendToApp()` contains a few built-in commands (prefixed with `rt`) for logging certain internal data from the TargetRTS. The [`trace`](rts-debugger.md#trace) command from the [RTS Debugger](rts-debugger.md) is also implemented in this function, to allow tracing to be turned on or off from the Art Debugger. These commands can serve as examples for how to create your own custom debug commands. 
 
 Below is an example of how to implement a debug command `printStats` which prints statistics for one of the [controllers](../targetrts-api/class_r_t_controller.html) in the debugged application:
 

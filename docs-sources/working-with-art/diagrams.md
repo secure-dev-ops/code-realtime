@@ -54,15 +54,22 @@ If you want to use manual layout for a diagram, click in the diagram background,
 !!! note 
     Manual layout is currently an experimental feature. You are welcome to try it out but the feature is still under development and may not fully work in all situations.
 
-Once you have turned on manual layout for a diagram you can start to move symbols around as you like to achieve a nice-looking layout. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram.
+Once you have turned on manual layout for a diagram you can start to move symbols around, as you like to achieve a nice-looking layout. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram.
+
+With manual layout it's also possible to resize some kinds of symbols. Yellow "resize" handles at symbol corners will appear for a selected symbol that can be resized:
+
+![](images/resizable_symbol.png)
 
 When you save the diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.
 
+### Discarding Layout Information
 If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!
 
 ![](images/deleting-layout-settings.png)
 
 Alternatively you can delete the JSON file from the Explorer view. In this case, the operation is undoable.
+
+If you only want to discard layout information for some of the symbols or labels on a diagram, select them and press ++ctrl+space++ and then perform the command **Discard Manual Layout**. Layout information for the selected symbols or labels will then be deleted and they will go back to their default positions and sizes. This operation is undoable.
 
 ### Maintaining Layout Information
 The JSON file that holds layout information for a diagram contains references to Art elements. Consider the example below:
