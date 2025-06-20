@@ -11,3 +11,4 @@ art-comp-test/testLib_target/*
 art-comp-test/tests/*/logs/application.log
 art-samples/TcpRangeCounter/*/node_modules
 RIC-*
+art-comp-test/artIntegrationTests
