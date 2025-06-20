@@ -977,6 +977,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -1168,7 +1172,35 @@
   
     <li class="md-nav__item">
       <a href="../debugging/" class="md-nav__link">
-        Debugging
+        Art Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rts-debugger/" class="md-nav__link">
+        RTS Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing/" class="md-nav__link">
+        Tracing
       </a>
     </li>
   
@@ -1483,7 +1515,7 @@
 
 <p>As described in <a href="../../building/">Building</a> you can launch a built executable using the <a href="../../building/#tc-context-menu-commands">Run command</a> in the TC context menu, of even without having a TC as described <a href="../../building/#building-and-running-without-a-tc">here</a>. These are quick and easy ways to run an executable, which may be sufficient for simple applications. However, the simplicity comes with several limitations:</p>
 <ul>
-<li>You cannot specify any custom command-line arguments for the launched executable. In fact, the executable is always launched with one hard-coded argument <code>-URTS_DEBUG=quit</code> which means it will run in non-debug mode.</li>
+<li>You cannot specify any custom command-line arguments for the launched executable. In fact, the executable is always launched with one hard-coded argument <code>-URTS_DEBUG=quit</code> which means it will run in non-debug mode (see <a href="../rts-debugger/">RTS Debugger</a> for more information about the <code>-URTS_DEBUG</code> argument).</li>
 <li>You cannot set any custom environment variables for the launched executable.</li>
 <li>You cannot set the current working directory for the launched executable.</li>
 </ul>

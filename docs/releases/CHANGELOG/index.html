@@ -20,7 +20,7 @@
     
     
       
-        <title>2.0.7 (2025-05-06 11:34) - DevOps Code RealTime</title>
+        <title>2.0.8 (2025-06-19 11:57) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#207-2025-05-06-1134" class="md-skip">
+        <a href="#208-2025-06-19-1157" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.0.7 (2025-05-06 11:34)
+              2.0.8 (2025-06-19 11:57)
             
           </span>
         </div>
@@ -967,6 +967,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -1010,7 +1014,35 @@
   
     <li class="md-nav__item">
       <a href="../../running-and-debugging/debugging/" class="md-nav__link">
-        Debugging
+        Art Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/rts-debugger/" class="md-nav__link">
+        RTS Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/tracing/" class="md-nav__link">
+        Tracing
       </a>
     </li>
   
@@ -1197,6 +1229,19 @@
   
 
 
+<h1 id="208-2025-06-19-1157">2.0.8 (2025-06-19 11:57)</h1>
+<ol>
+<li>Resizing symbols is now possible in diagrams that use manual layout. Those symbols that are resizable will show yellow handles in their corners when selected. Drag these handles to resize the symbol.</li>
+<li>You can now select multiple symbols and move them all in one go.</li>
+<li>It's now possible to move symbols to the desired position without them snapping to a grid. This gives more precise control over symbol placement and makes it easier to align symbols to ensure connecting lines can become straight.</li>
+<li>In diagrams that use manual layout you can now restore the default layout for an individual symbol or label that has been moved or resized. Previously it was only possible to do this for the diagram as a whole. Select the symbol or label which you want to delete layout information for, press <code>ctrl+space</code> and perform the context menu command <strong>Discard Manual Layout</strong>. The command also supports multiple selected symbols and labels.</li>
+<li>The default line routing for external self-transitions has improved in state diagrams. Previously such transitions were routed from the right to the left edge of a state symbol, which made them take quite a lot of space on the diagram. Now they are instead drawn as small transitions on the right edge of the state symbol. This makes diagrams look better when states have a large number of external self-transitions.</li>
+<li>The form-based TC editor (which you open by the <strong>Edit Properties (UI)</strong> command) now supports viewing and editing thread information in a new Threads tab.</li>
+<li>A Test Runner script is now available in the <a href="https://github.com/secure-dev-ops/code-realtime/blob/main/art-comp-test/runner">GitHub repo</a>. This script can help you to ensure that the changes you make in a custom version of the TargetRTS work correctly. It can also be used for implementing automated regression testing for Art applications and libraries developed with Code RealTime.</li>
+<li>A <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/rts-debugger">new chapter in the documentation</a> describes the Run Time System Debugger, which is a command-line debugger that is included by default in applications built with Code RealTime.</li>
+<li>A new feature in the TargetRTS allows you to capture traces which show how capsule instances in the application communicate by exchanging messages. The traces are saved in a format which allows them to be visualized as sequence diagrams using <a href="https://bramp.github.io/js-sequence-diagrams/">js-sequence-diagrams</a>. You can enable or disable tracing from the command-line, from the RTS Debugger, programmatically through TargetRTS APIs, from a C++ debugger or from the Art Debugger user interface. Tracing and sequence diagram visualization of traces can be a powerful tool when troubleshooting problems in an application, or in general to improve your understanding of what happens inside a running application. For more information on this feature, see <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/tracing/">the documentation</a>.</li>
+<li>Version 2.0.1 of the Art Exporter is now available. Several improvements and bug fixes have been done to facilitate migration of applications from Model RealTime to Code RealTime. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for the full list of improvements.</li>
+</ol>
 <h1 id="207-2025-05-06-1134">2.0.7 (2025-05-06 11:34)</h1>
 <ol>
 <li>Java 21 is now required for running the Art language server. Using Java 21 instead of Java 17 gives some performance improvements and enables use of more modern Java.</li>

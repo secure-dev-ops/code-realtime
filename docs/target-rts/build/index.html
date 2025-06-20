@@ -989,6 +989,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rts_trace" class="md-nav__link">
+    RTS_TRACE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#min_free_list_size" class="md-nav__link">
     MIN_FREE_LIST_SIZE
   </a>
@@ -1221,6 +1228,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -1264,7 +1275,35 @@
   
     <li class="md-nav__item">
       <a href="../../running-and-debugging/debugging/" class="md-nav__link">
-        Debugging
+        Art Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/rts-debugger/" class="md-nav__link">
+        RTS Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/tracing/" class="md-nav__link">
+        Tracing
       </a>
     </li>
   
@@ -1616,6 +1655,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rts_trace" class="md-nav__link">
+    RTS_TRACE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#min_free_list_size" class="md-nav__link">
     MIN_FREE_LIST_SIZE
   </a>
@@ -1826,6 +1872,9 @@ All debugger features are disabled. The size of the executable will be reduced, 
 <h4 id="observable">OBSERVABLE</h4>
 <p>This setting controls if the application will be "observable" at run-time. Target observability includes different kinds of features such as debugging, tracing etc. Disabling this setting will improve application performance and decrease memory consumption, but you will then not be able to use any of the target observability features (for example <a href="../../running-and-debugging/debugging/">the Art Debugger</a>).</p>
 <p>Default value: <strong>1</strong> (set to <strong>0</strong> to disable all target observability features)</p>
+<h4 id="rts_trace">RTS_TRACE</h4>
+<p>Controls if the <a href="../../running-and-debugging/tracing/">Tracing</a> feature should be included or not. If you don't plan to capture traces for sequence diagram visualization of message communication in the application, you can disable this feature.</p>
+<p>Default value: <strong>1</strong></p>
 <h4 id="min_free_list_size">MIN_FREE_LIST_SIZE</h4>
 <p>This setting is related to the <a href="../message-communication/#message-memory-management">free list</a>. It defines the lower limit of the free list size. The free list will always contain at least this number of message blocks.</p>
 <p>Default value: <strong>20</strong></p>
