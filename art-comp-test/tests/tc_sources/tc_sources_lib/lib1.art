@@ -11,10 +11,6 @@
 `
 
 capsule LibCapsule {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"          
-    `
     /* Ports */
     /* Parts */
     /* Connectors */
