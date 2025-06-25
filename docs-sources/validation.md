@@ -914,6 +914,9 @@ capsule Ponger {
 
 Here we see that both connectors are invalid. Port `p2` and port `p1` are at the same level in `Top`'s structure so their conjugations should be different, while port `p1` and port `p` are at different levels in `Top`'s structure so their conjugations should be the same.
 
+!!! note 
+    If a connector connects two ports that are typed by a protocol that only contains [symmetric events](art-lang/index.md#symmetric-event), then this validation rule does not apply. This is because a symmetric event is both an in-event and an out-event at the same time, and can therefore both be sent and received on the connected ports regardless of their conjugation.
+
 ### ART_0027_incompatibleProtocolsForConnectedPorts
 | Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------

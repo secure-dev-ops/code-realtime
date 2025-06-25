@@ -1,0 +1,55 @@
+protocol ProtoWithOnlySymmetricEvents {
+    in ev(); out ev();
+    in ev2(); out ev2();    
+};
+
+capsule Top 
+{
+    [[rt::impl_preface]]
+    `        
+        #include "testlib.art.h"        
+    `
+    
+    behavior port p : ProtoWithOnlySymmetricEvents;
+    part c: Cap;
+    connect p with c._p; // Would normally report ART_0026 but not here since the protocol only contains symmetric events
+
+    statemachine {
+        state S1 {
+            ev: on p.ev
+            `
+                Log::out << "ev received by Top!" << Log::endl;
+                p.ev2().send();
+            `;
+            ev2: on p.ev2
+            `
+                Log::out << "ev2 received by Top!" << Log::endl;
+                PASS();
+            `;
+        };
+        initial -> S1
+        `
+            p.ev().send();
+        `;
+    };
+};
+
+capsule Cap {
+    
+    service behavior port _p: ProtoWithOnlySymmetricEvents;
+    statemachine {
+        state S1 {
+            ev: on _p.ev
+                `
+                    Log::out << "ev received by Cap!" << Log::endl;
+                    _p.ev().send();
+                `;
+            ev2: on _p.ev2
+                `
+                    Log::out << "ev2 received by Cap!" << Log::endl;
+                    _p.ev2().send();
+                `;        
+        };
+        initial -> S1;
+    };
+};

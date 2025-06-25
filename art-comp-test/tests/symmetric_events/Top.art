@@ -1,6 +1,6 @@
 
 /**
-Exoected RTOutSignal void, RTInSignal void in Base and Conjugate
+Expected RTOutSignal void, RTInSignal void in Base and Conjugate
 */
 protocol Proto1{
     in  sayHello();
@@ -8,7 +8,7 @@ protocol Proto1{
 };
 
 /**
-Exoected RTSymmetricSignal in Base and Conjugate
+Expected RTSymmetricSignal in Base and Conjugate
 */
 protocol Proto2{
     in  sayHello();

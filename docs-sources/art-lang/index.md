@@ -29,7 +29,7 @@ The picture below shows the structure of a capsule `Top` which consists of two c
 
 ![](images/composite_structure.png)
 
-Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may be sent between two connected ports using a single protocol, one of the ports can be declared as **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
+Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may be sent between two connected ports using a single protocol, one of the ports can be declared as **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. A conjugated port is denoted with a `~` character. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
 
 Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity > 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity > 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time. The picture below shows a capsule with a part and a port that both have multiplicity > 1. In structure diagrams such parts and ports are shown as "stacked boxes".
 
@@ -417,13 +417,16 @@ protocol MachineEvents {
     out success();
     out error(`std::string` /* error message */);
 
-    in relayEvent(); out relayEvent();
+    in relayEvent(); out relayEvent(); // symmetric event
 };
 ```
 
-The event `relayEvent` above is both an in-event and an out-event. Such **symmetric events** are useful in protocols typing ports that may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.
-
 At run-time we often talk about a **message** rather than an event. A message is an instance of an event, similar to how a capsule instance is an instance of a capsule. In other words, a message is a run-time concept while an event is a design-time concept. 
+
+### Symmetric Event
+The event `relayEvent` in the above example is both an in-event and an out-event. Such a **symmetric event** is useful in protocols typing ports that may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.
+
+If a protocol only contains symmetric events, then ports typed by that protocol can be connected regardless of their conjugation.
 
 ## Port
 A port defines a named point of communication for a capsule. A port is typed by a [protocol](#protocol-and-event) which defines the events that may be sent in to (in-events) and out from (out-events) the port. A port may be conjugated in order to swap the meaning of in-events and out-events. That is, a capsule may send out-events on its non-conjugated ports, but in-events on its conjugated ports. A port becomes conjugated if you add a tilde (~) after its name.
