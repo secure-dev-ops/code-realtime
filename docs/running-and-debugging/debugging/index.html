@@ -17,14 +17,14 @@
         <link rel="prev" href="../launch-configurations/">
       
       
-        <link rel="next" href="../../releases/">
+        <link rel="next" href="../rts-debugger/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Debugging - DevOps Code RealTime</title>
+        <title>Art Debugger - DevOps Code RealTime</title>
       
     
     
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Debugging
+              Art Debugger
             
           </span>
         </div>
@@ -977,6 +977,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -1027,12 +1031,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Debugging
+          Art Debugger
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Debugging
+        Art Debugger
       </a>
       
         
@@ -1133,6 +1137,34 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rts-debugger/" class="md-nav__link">
+        RTS Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing/" class="md-nav__link">
+        Tracing
+      </a>
     </li>
   
 
@@ -1405,7 +1437,7 @@
   
 
 
-  <h1>Debugging</h1>
+  <h1>Art Debugger</h1>
 
 <p>When something in your application doesn't behave as expected you need to troubleshoot it. For simple problems it may be enough to use <a href="../../target-rts/logging/">logging</a> as the way to find out what is wrong. However, the main drawback with troubleshooting by logging is that it requires you to change and rebuild the application each time new log messages have been added. This takes time and can be tedious.</p>
 <p>Using a C++ debugger is a much more powerful and efficient way of finding the root cause of problems in your application. By compiling both the TargetRTS and the generated code with debug symbols, as described <a href="../../target-rts/build/#debug">here</a>, you can debug your application with all  features provided by the C++ debugger (breakpoints, variable inspection etc). But while powerful, there can still be challenges:</p>
@@ -1415,10 +1447,11 @@
 <li>Certain more complex tasks, such as sending events on ports for the purpose of debugging, can not be directly done from a C++ debugger and would require custom code to be written (which just like logging requires the application to be rebuilt).</li>
 <li>Remote debugging of an application that runs on another machine may require special tools (such as <a href="https://en.wikipedia.org/wiki/Gdbserver">gdbserver</a>).</li>
 </ul>
-<p>Code RealTime provides an Art Debugger which adresses these challenges. It allows you to debug your application, locally or remotely, at a higher abstraction level than what a C++ debugger can do. It does not replace the need and usefulness of a C++ debugger, but works as a complement to it. If you want, you can debug your application at the same time both with the Art Debugger and the C++ debugger.</p>
+<p>Code RealTime provides an <strong>Art Debugger</strong> which adresses these challenges. It allows you to debug your application, locally or remotely, at a higher abstraction level than what a C++ debugger can do. It does not replace the need and usefulness of a C++ debugger, but works as a complement to it. If you want, you can debug your application at the same time both with the Art Debugger and the C++ debugger.</p>
 <p>The Art Debugger uses a feature of the TargetRTS known as <strong>target observability</strong>. It includes code which lets the Art Debugger attach to your application at a TCP port (known as the <strong>debug port</strong>). Through this port the Art Debugger can both <strong>control</strong> and <strong>observe</strong> your application.</p>
 <p><img alt="" src="../images/debug_port.png" /></p>
 <p>Target observability can be turned off by means of the <a href="../../target-rts/build/#observable">OBSERVABLE</a> configuration setting. You can choose to do this when deploying the release version of your application if you don't need to debug it with the Art Debugger.</p>
+<p>If target observability is not available, for example because your environment lacks support for TCP, you can instead use a command-line debugger known as the <a href="../rts-debugger/">RTS Debugger</a>.</p>
 <h2 id="start-to-debug">Start to Debug</h2>
 <p>There are two ways how you can start a new debug session.</p>
 <ol>
@@ -1524,7 +1557,7 @@
 <li>Configure parts of the application which are not accessible by means of sending events to capsule ports</li>
 <li>Log some data from the application</li>
 </ul>
-<p>The default implementation of <a href="../../targetrts-api/class_r_t_toolset_observer.html"><code>RTToolsetObserver</code></a><code>::handleSendToApp()</code> contains a few built-in commands (prefixed with <code>rt</code>) for logging certain internal data from the TargetRTS. They can serve as examples for how to create your own custom debug commands.</p>
+<p>The default implementation of <a href="../../targetrts-api/class_r_t_toolset_observer.html"><code>RTToolsetObserver</code></a><code>::handleSendToApp()</code> contains a few built-in commands (prefixed with <code>rt</code>) for logging certain internal data from the TargetRTS. The <a href="../rts-debugger/#trace"><code>trace</code></a> command from the <a href="../rts-debugger/">RTS Debugger</a> is also implemented in this function, to allow tracing to be turned on or off from the Art Debugger. These commands can serve as examples for how to create your own custom debug commands. </p>
 <p>Below is an example of how to implement a debug command <code>printStats</code> which prints statistics for one of the <a href="../../targetrts-api/class_r_t_controller.html">controllers</a> in the debugged application:</p>
 <pre><code class="language-cpp">if (RTMemoryUtil::strcmp(myLogInfo-&gt;msgSendToApp, &quot;printStats&quot;) == 0)
 {

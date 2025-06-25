@@ -51,7 +51,7 @@
         </contents>
       </eAnnotations>
       <ownedAttribute xmi:id="_sfaU4Ne-Ee-KmLyh1KmmoQ" name="topPart" visibility="protected" aggregation="composite">
-        <type xmi:type="uml:Class" href="platform:/resource/ReplaceTextElementURI"/>
+        <type xmi:type="uml:Class" href="platform:/resource/ReplaceTextProjectName/ReplaceTextProjectName.art#::Top#artReplaceTextProjectName_mrt#art"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_lH9mMNe-Ee-KmLyh1KmmoQ" name="State Machine">
         <eAnnotations xmi:id="_lIACcNe-Ee-KmLyh1KmmoQ" source="uml2.diagrams" references="_lIACcde-Ee-KmLyh1KmmoQ">

@@ -1,0 +1,1807 @@
+<!-- Elements added to main will be displayed on all pages -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+      
+      
+      
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/rts-debugger/">
+      
+      
+        <link rel="prev" href="../debugging/">
+      
+      
+        <link rel="next" href="../tracing/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
+    
+    
+      
+        <title>RTS Debugger - DevOps Code RealTime</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/style.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/prism.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+<!--  OneTrust Cookies Consent Notice start  -->
+<!-- <script type="text/javascript" src="https://cdn.cookielaw.org/consent/99b8d579-c52a-43c9-ab7b-a35e60de7103/OtAutoBlock.js"></script> -->
+<!-- <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="99b8d579-c52a-43c9-ab7b-a35e60de7103"></script> -->
+<!--<script type="text/javascript"> -->
+<!--	function OptanonWrapper() { }  -->
+<!-- </script> -->
+<!--  OneTrust Cookies Consent Notice end  -->
+
+<!--  Global site tag (gtag.js) - Google Analytics start -->
+<!-- <script src="https://www.googletagmanager.com/gtag/js?id=UA-169645537-2" class="optanon-category-C0002-C0003-C0004-C0005"></script> -->
+<!-- <script type="text/plain" class="optanon-category-C0002-C0003-C0004-C0005"> -->
+<!--  window.dataLayer = window.dataLayer || []; -->
+<!--  function gtag(){dataLayer.push(arguments);} -->
+<!--  gtag('js', new Date()); -->
+
+<!--  gtag('config', 'UA-169645537-2'); -->
+<!--</script> -->
+ 
+<!--  Global site tag (gtag.js) - Google Analytics end -->
+
+    
+    
+    
+  <meta property="og:image" content="https://opensource.hcltechsw.com/rtist-in-code/site-thumbnail.png" />
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#thread-considerations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DevOps Code RealTime" class="md-header__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevOps Code RealTime
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RTS Debugger
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    secure-dev-ops/code-realtime
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../overview/" class="md-tabs__link md-tabs__link--active">
+        Documentation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../samples/" class="md-tabs__link">
+      Samples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-tabs__link">
+      Forum
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh" class="md-tabs__link">
+      Videos
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevOps Code RealTime" class="md-nav__button md-logo" aria-label="DevOps Code RealTime" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    DevOps Code RealTime
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/secure-dev-ops/code-realtime" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    secure-dev-ops/code-realtime
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installing/" class="md-nav__link">
+        Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../art-lang/">The Art Language</a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          The Art Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../art-lang/cpp-extensions/" class="md-nav__link">
+        C++ Extensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../working-with-art/">Working with Art</a>
+          
+            <label for="__nav_2_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Working with Art
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-editor/" class="md-nav__link">
+        Text Editor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/diagrams/" class="md-nav__link">
+        Diagrams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/outline-view/" class="md-nav__link">
+        Outline View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/references/" class="md-nav__link">
+        References View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/" class="md-nav__link">
+        Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../target-rts/">Target RunTime System</a>
+          
+            <label for="__nav_2_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Target RunTime System
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/timers/" class="md-nav__link">
+        Timers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/threads/" class="md-nav__link">
+        Threads
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/message-communication/" class="md-nav__link">
+        Message Communication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/logging/" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/integrate-with-external-code/" class="md-nav__link">
+        Integration with External Code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/capsule-factory/" class="md-nav__link">
+        Capsule Factory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/dependency-injection/" class="md-nav__link">
+        Dependency Injection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/encoding-decoding/" class="md-nav__link">
+        Encoding and Decoding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/build/" class="md-nav__link">
+        Building, Debugging and Customizing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target-rts/versions/" class="md-nav__link">
+        Versions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../targetrts-api/" class="md-nav__link">
+        C++ API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../building/">Building</a>
+          
+            <label for="__nav_2_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Building
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/transformation-configurations/" class="md-nav__link">
+        Transformation Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
+        C++ Source Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-tasks/" class="md-nav__link">
+        Build Tasks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/art-compiler/" class="md-nav__link">
+        Art Compiler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/build-variants/" class="md-nav__link">
+        Build Variants
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Running and Debugging</a>
+          
+            <label for="__nav_2_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Running and Debugging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../launch-configurations/" class="md-nav__link">
+        Launch Configurations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugging/" class="md-nav__link">
+        Art Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          RTS Debugger
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        RTS Debugger
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#thread-considerations" class="md-nav__link">
+    Thread Considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach" class="md-nav__link">
+    attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    continue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detach" class="md-nav__link">
+    detach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    go
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info" class="md-nav__link">
+    info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    log
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#printstats" class="md-nav__link">
+    printstats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quit" class="md-nav__link">
+    quit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saps" class="md-nav__link">
+    saps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step" class="md-nav__link">
+    step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace" class="md-nav__link">
+    trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing/" class="md-nav__link">
+        Tracing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../releases/">Releases</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../settings/" class="md-nav__link">
+        Settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/" class="md-nav__link">
+        Support Procedures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../samples/" class="md-nav__link">
+        Samples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/secure-dev-ops/code-realtime/discussions" class="md-nav__link">
+        Forum
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.youtube.com/playlist?list=PLErYHbqUeWuB4lExh9K64uS1wxgvv9dmh" class="md-nav__link">
+        Videos
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#thread-considerations" class="md-nav__link">
+    Thread Considerations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach" class="md-nav__link">
+    attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    continue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detach" class="md-nav__link">
+    detach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    go
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info" class="md-nav__link">
+    info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    log
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#printstats" class="md-nav__link">
+    printstats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quit" class="md-nav__link">
+    quit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saps" class="md-nav__link">
+    saps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step" class="md-nav__link">
+    step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace" class="md-nav__link">
+    trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>RTS Debugger</h1>
+
+<p>By default, any application that you build with Code RealTime will include a small command-line module known as the <strong>Run Time System Debugger</strong> (RTS Debugger). If you run your application without any command-line arguments, the RTS Debugger will start. For example:</p>
+<pre><code class="language-shell">&gt; .\Top.EXE            
+RT C++ Target Run Time System - Release 8.0.12
+
+targetRTS: observability listening not enabled
+
+RTS debug: -&gt;
+</code></pre>
+<p>If you started the RTS debugger by mistake, and instead intended to run the application without use of a debugger, just type the <code>quit</code> command. This will detach the debugger and let the application run by itself at full speed.</p>
+<p>You can provide commands to the RTS Debugger already when launching your application by means of the command-line argument <code>-URTS_DEBUG</code>. This special command-line argument must come before any application-specific arguments and the TargetRTS uses it for extracting one or many initial commands for the RTS Debugger. For example, <code>-URTS_DEBUG=quit</code> means that the <code>quit</code> command will be passed to the RTS Debugger. If you want to pass more than one command to the RTS Debugger, separate them with semicolons (<code>;</code>). Enclose the command string in double quotes (<code>"</code>) in case it contains spaces.</p>
+<p>The RTS Debugger reads commands on <code>stdin</code> and prints results on <code>stderr</code>. This means that if your application also prints to <code>stderr</code> there can be interleaved printouts. Consider using <a href="../../target-rts/logging/#log-stream">log streams</a> to let your application print error messages to log files instead if this becomes a problem.</p>
+<p>See <a href="#commands">Commands</a> for a list of all commands supported by the RTS Debugger.</p>
+<p>If you do not want to debug your application you can remove the RTS Debugger by means of the <a href="../../target-rts/build/#otrtsdebug"><code>OTRTSDEBUG</code></a> configuration setting. This will make the executable somewhat smaller.</p>
+<h2 id="thread-considerations">Thread Considerations</h2>
+<p>If the TargetRTS is built as multi-threaded (i.e. <a href="../../target-rts/build/#use_threads"><code>USE_THREADS</code></a> is set), the RTS Debugger runs in its own thread. This is the recommended way to use the RTS Debugger, because in a single-threaded application the RTS Debugger can only accept command input when the application is in a suspended state (before the top capsule has been incarnated, and when there are no more messages to dispatch in the application). Any blocking call in a user code snippet will block the RTS Debugger too if the application is single-threaded.</p>
+<p>When using the RTS Debugger, each individual thread in your application can be either <strong>attached</strong> or <strong>detached</strong>. Threads that are detached run freely without intervention by the RTS Debugger, while threads that are attached run under the control of the RTS Debugger. This for example means that messages dispatched by an attached thread will only be processed by receiver capsule instances when the <a href="#go"><code>go</code></a> or <a href="#step"><code>step</code></a> commands are performed. It also means that you can inspect the capsule instances that are run by the thread using the <code>info</code> command.</p>
+<p>By default the <code>time</code> thread (responsible for implementing <a href="../../target-rts/timers/">timers</a>) is detached, while other threads are attached. It's recommended to keep the <code>time</code> thread detached, while other threads can be attached or detached as desired during the debug session.</p>
+<h2 id="commands">Commands</h2>
+<p>Below is a list of all commands supported by the RTS Debugger. Each command is described in a section of its own below the table.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th align="left">Argument</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#attach">attach</a></td>
+<td align="left"><code>&lt;threadId&gt;</code> (number)</td>
+<td align="left">Make a thread attached so the RTS Debugger can control it.</td>
+</tr>
+<tr>
+<td><a href="#continue">continue</a></td>
+<td align="left">N/A</td>
+<td align="left">Let the application run, and let the Art Debugger attach to it at any time.</td>
+</tr>
+<tr>
+<td><a href="#detach">detach</a></td>
+<td align="left"><code>&lt;threadId&gt;</code> (number)</td>
+<td align="left">Make a thread detached so it can run freely without intervention by the RTS Debugger.</td>
+</tr>
+<tr>
+<td><a href="#exit">exit</a></td>
+<td align="left">N/A</td>
+<td align="left">Terminate the debugged application.</td>
+</tr>
+<tr>
+<td><a href="#go">go</a></td>
+<td align="left"><code>&lt;n&gt;</code> (number)</td>
+<td align="left">Deliver (up to) <code>&lt;n&gt;</code> messages (by default 10 messages)</td>
+</tr>
+<tr>
+<td><a href="#help">help</a></td>
+<td align="left">N/A</td>
+<td align="left">Print information about all RTS Debugger commands to <code>stderr</code>.</td>
+</tr>
+<tr>
+<td><a href="#info">info</a></td>
+<td align="left"><code>&lt;capsuleInstance&gt;</code> (string)</td>
+<td align="left">Print information about a specific capsule instance in the application.</td>
+</tr>
+<tr>
+<td><a href="#log">log</a></td>
+<td align="left"><code>&lt;category&gt;</code> (string) <code>&lt;detailLevel&gt;</code> (string)</td>
+<td align="left">Configure logging for different categories of services in the TargetRTS.</td>
+</tr>
+<tr>
+<td><a href="#printstats">printstats</a></td>
+<td align="left"><code>&lt;threadId&gt;</code> (number)</td>
+<td align="left">Print information about a specific thread in the application.</td>
+</tr>
+<tr>
+<td><a href="#quit">quit</a></td>
+<td align="left">N/A</td>
+<td align="left">Disconnect the RTS Debugger and let the application run by itself at full speed.</td>
+</tr>
+<tr>
+<td><a href="#saps">saps</a></td>
+<td align="left">N/A</td>
+<td align="left">Print information about all unwired ports in the application that are currently registered.</td>
+</tr>
+<tr>
+<td><a href="#step">step</a></td>
+<td align="left"><code>&lt;n&gt;</code> (number)</td>
+<td align="left">Deliver (up to) <code>&lt;n&gt;</code> messages (by default 1 message)</td>
+</tr>
+<tr>
+<td><a href="#system">system</a></td>
+<td align="left"><code>&lt;capsuleInstance&gt;</code> (string) <code>&lt;depth&gt;</code> (number)</td>
+<td align="left">Print information about all or a subset of the capsule instances that exist in the application.</td>
+</tr>
+<tr>
+<td><a href="#tasks">tasks</a></td>
+<td align="left">N/A</td>
+<td align="left">List information about all threads in the application.</td>
+</tr>
+<tr>
+<td><a href="#trace">trace</a></td>
+<td align="left"><code>on|off</code></td>
+<td align="left">Turn tracing on or off and flush the current trace file, if any.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="attach">attach</h3>
+<p>Argument: <code>&lt;threadId&gt;</code> (number)</p>
+<p>Make the thread with the specified thread id attached so the RTS Debugger can control it. See <a href="#thread-considerations">Thread Considerations</a> for more information. You obtain the thread id by using the <a href="#tasks"><code>tasks</code></a> command.</p>
+<h3 id="continue">continue</h3>
+<p>This command is used together with the <code>-obslisten</code> command-line argument. As described in <a href="../debugging/#attach">the Art Debugger documentation</a> the <code>-obslisten=&lt;port&gt;</code> command-line argument specifies the port on which the Art Debugger can attach to the running application. Without also specifying <code>-URTS_DEBUG=continue</code> the application will become initially suspended while waiting for the Art Debugger to attach to it on the specified port. </p>
+<p>You can also perform the <code>continue</code> command from the RTS Debugger command prompt. This will detach all threads and let the application run freely. But contrary to the <a href="#quit">quit</a> command the RTS Debugger will still be attached to the application and you can later attach the Art Debugger to the debug port to start debugging the application if the need arises.</p>
+<h3 id="detach">detach</h3>
+<p>Argument: <code>&lt;threadId&gt;</code> (number)</p>
+<p>Make the thread with the specified thread id detached so it can run freely without intervention by the RTS Debugger. See <a href="#thread-considerations">Thread Considerations</a> for more information. You obtain the thread id by using the <a href="#tasks"><code>tasks</code></a> command.</p>
+<h3 id="go">go</h3>
+<p>Argument: <code>&lt;n&gt;</code> (number; default 10)</p>
+<p>This command lets the application proceed its execution by delivering (up to) the specified number of messages in threads that are attached. This command works the same as <a href="#step"><code>step</code></a> except that the default number of messages that will be delivered is 10 instead of 1. Hence, the <a href="#go"><code>go</code></a> command is a "faster" way to execute the application than using <a href="#step"><code>step</code></a>.</p>
+<h3 id="help">help</h3>
+<p>This command prints information about all RTS Debugger commands to <code>stderr</code>.</p>
+<h3 id="info">info</h3>
+<p>Argument: <code>&lt;capsuleInstance&gt;</code> (string)</p>
+<p>This command prints detailed information about a specific capsule instance in the application. The capsule instance is identified by a string which consists of numbers separated by slashes (<code>/</code>) and dots (<code>.</code>). This string specifies the location of the capsule instance in the tree of capsule instances that is rooted in the top capsule instance. Examples:</p>
+<p><code>1</code> : The top capsule instance</p>
+<p><code>1/4</code> : The capsule instance contained in the part with id 4 in the top capsule instance</p>
+<p><code>1/3/2</code> : The capsule instance contained in the part with id 2 in the capsule instance contained in the part with id 3 contained in the top capsule instance</p>
+<p><code>1/5.2</code> : The capsule instance at index 2 (1-based) in the part with id 5 contained in the top capsule instance</p>
+<p>Note that since most parts have multiplicity 1, the dot notation is only used for capsule instances contained at an index that is greater than 1 in a part with multiplicity that is greater than 1.</p>
+<p>You obtain these strings by means of the <a href="#system"><code>system</code></a> command.</p>
+<p>The following information is printed for the capsule instance:</p>
+<ul>
+<li><strong>ClassName</strong> This is the name of the capsule from which the capsule instance was created (i.e. the dynamic type of the capsule instance).</li>
+<li><strong>ReferenceName</strong> This is the name of the part in which the capsule instance is located. For the top capsule instance the special name <code>application</code> is used.</li>
+<li><strong>CurrentState</strong> This is the state that is currently active in the capsule state machine. For a nested state this will be a qualified string that shows the path to the active state in the hierarchical state machine. If the state machine has not reached its initial state yet (for example if it is still running the initial transition), the special name <code>&lt;machine&gt;</code> is used.</li>
+<li><strong>Address</strong> The C++ class that implements the capsule and the memory address of the capsule instance. Note that the C++ class name will be printed with the suffix "_Actor". This is printed since in Model RealTime capsule classes have that suffix in their names. However, in Code RealTime they do not have this suffix.</li>
+<li>Information about actor probes. When the Art Debugger is attached to the application, there could be an actor probe, but not otherwise.</li>
+<li>Information about ports. This includes what ports exist on the capsule, and their current state (e.g. if they are wired, i.e. bound, to another port). You can also see which ports that are public (i.e. server ports). Each port is identified by an id (a number starting with 0).</li>
+<li>Information about parts (in this context referred to as "components"). Each part is identified by a number (starting with 1).</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-shell">RTS debug: -&gt;info 1/2
+ClassName    : RangeCounter
+ReferenceName: counter
+CurrentState : Active::Counting
+Address      : (RangeCounter_Actor*)0x1c09b5e35a0
+No Actor Probe attached.
+
+Relay ports:
+    0: server
+
+Public end ports:
+    0: server (wired)
+</code></pre>
+<h3 id="log">log</h3>
+<p>Arguments: <code>&lt;category&gt;</code> (string) <code>&lt;detailLevel&gt;</code> (string)</p>
+<p>This command configures logging for services of the TargetRTS. The <code>&lt;category&gt;</code> specifies the service to configure logging for and is one of the following:</p>
+<ul>
+<li><strong>communication</strong> Sending and receiving of messages (both asynchronous and synchronous communication). Also includes use of the <a href="../../target-rts/message-communication/#defer-queue">defer queue</a>.</li>
+<li><strong>exception</strong> Raising of exceptions on ports.</li>
+<li><strong>frame</strong> Use of <a href="https://secure-dev-ops.github.io/code-realtime/targetrts-api/struct_frame.html">Frame</a> ports, for example to incarnate an optional capsule part.</li>
+<li><strong>layer</strong> Use of <a href="../../art-lang/#unwired-port">unwired ports</a>, for example registering or deregistering them.</li>
+<li><strong>timer</strong> Use of <a href="../../target-rts/timers/">timers</a>, for example setting or cancelling a timer.</li>
+<li><strong>system</strong> Includes various error situations inside the TargetRTS, such as out of memory or other unexpected run-time problems.</li>
+<li><strong>all</strong> All of the above.</li>
+</ul>
+<p>The <code>&lt;detailLevel&gt;</code> is either</p>
+<ul>
+<li><strong>none</strong> Turn off logging for the specified category.</li>
+<li><strong>errors</strong> Turn on logging for the specified category, but only for events that indicate that an error occurred.</li>
+<li><strong>all</strong> Turn on logging for the specified category.</li>
+</ul>
+<p>Exactly what gets logged depends on the category, but in many cases the logged information follows the format described in <a href="../../target-rts/logging/#targetrts-error-logging">TargetRTS Error Logging</a>.</p>
+<p>Example:</p>
+<pre><code class="language-shell">RTS debug: -&gt;log comm all
+
+RTS debug: -&gt;go 
+  go 10
+
+RTS debug: 9&gt;message
+  to   counter(RangeCounter)&lt;Active::Counting&gt;.timer[0]:timeout
+  data (void *)0x0
+</code></pre>
+<h3 id="printstats">printstats</h3>
+<p>Argument: <code>&lt;threadId&gt;</code> (number)</p>
+<p>This command prints information about the thread with the specified id. You obtain the thread id by using the <a href="#tasks"><code>tasks</code></a> command.</p>
+<p>The printed information includes the following:</p>
+<ul>
+<li>The name of the thread. For user-defined threads the name comes from the <a href="../../building/transformation-configurations/#threads">Threads</a> TC property. The main thread is identified by the name "main" and the timer thread (responsible for implementing <a href="../../target-rts/timers/">timers</a>) is identified by the name "time".</li>
+<li>The most recent error that has occurred in the thread. For more information see <a href="../../target-rts/logging/#retrieving-the-most-recent-error">Retrieving the Most Recent Error</a>.</li>
+<li>The number of messages that are currently waiting in the Controller's queues (both the internal queue and the incoming queue) to be dispatched to capsule instances that are run by the thread. For more information see <a href="../../target-rts/message-communication/#controllers-and-message-queues">Controllers and Message Queues</a>. Messages are grouped in the printout according to their <a href="../../target-rts/message-communication/#message-priority">priority</a>.</li>
+</ul>
+<h3 id="quit">quit</h3>
+<p>This command detaches all threads and disconnects the RTS Debugger from the application so it can run freely at full speed. It's not possible to later attach the RTS Debugger to the running application.</p>
+<h3 id="saps">saps</h3>
+<p>This command can be useful in applications that use <a href="../../art-lang/#unwired-port">unwired ports</a>. It prints all unwired ports that are currently registered, what name they are registered with (by default the port name), and the number of SAP and SPP port instances.</p>
+<p>Example:</p>
+<pre><code class="language-shell">RTS debug: -&gt;saps
+Service: ':'
+  Name (SAPs,SPPs)
+    p ( 1, 1 )
+</code></pre>
+<h3 id="step">step</h3>
+<p>Argument: <code>&lt;n&gt;</code> (number; default 1)</p>
+<p>This command lets the application proceed its execution by delivering (up to) the specified number of messages in threads that are attached. This command works the same as <a href="#go"><code>go</code></a> except that the default number of messages that will be delivered is 1 instead of 10. Hence, the <a href="#step"><code>step</code></a> command is a "slower" way to execute the application than using <a href="#go"><code>go</code></a>.</p>
+<h3 id="system">system</h3>
+<p>Arguments: <code>&lt;capsuleInstance&gt;</code> (string) <code>&lt;depth&gt;</code> (number; default 0)</p>
+<p>This command prints information about capsule instances that exist in the application at the current point in time. Both arguments are optional and if they are omitted all capsule instances in the application will be printed. If you specify a specific capsule instance (see the <a href="#info"><code>info</code></a> command for the format of the capsule instance string) then only that capsule instance and the capsule instances it contains (directly or indirectly) will be printed. If you specify <code>&lt;depth&gt;</code> it limits how deeply nested capsule instances that will be printed. For example, 2 means that only the specified capsule instance and its directly contained capsule instances will be printed. </p>
+<p>For each part the following information is printed:</p>
+<ul>
+<li>The containment nesting. For each level in the composite structure hierarchy a dot (<code>.</code>) is printed.</li>
+<li>The part name. The implicit part that holds the top capsule instance is denoted with the special name "application".</li>
+<li>The name of the capsule that types the part.</li>
+<li>The kind of part (fixed, optional or plugin).</li>
+<li>The current state of the capsule's state machine. For hierarchical state machines this information can be hard to read and it's better to use the <a href="#info"><code>info</code></a> command to retrieve that information.</li>
+<li>The string that identifies the capsule instance (see the <a href="#info"><code>info</code></a> command for the format of this string).</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-shell">RTS debug: 1&gt;system 
+application : Top(optional) &lt;:&lt;machine&gt;:ManageCommandPrompt&gt; 1
+. server : Server(optional) &lt;:&lt;machine&gt;:WaitForRequest&gt; 1/1
+. counter : RangeCounter(optional) &lt;:&lt;machine&gt;:Active:Active::Counting&gt; 1/2
+. counter : RangeCounter(optional) &lt;:&lt;machine&gt;&gt; 1/2.2
+</code></pre>
+<h3 id="tasks">tasks</h3>
+<p>In this context a task is synonymous with a thread. The command prints a list of all threads in the application. For each thread the following information is provided:</p>
+<ul>
+<li>The thread id (a.k.a. the task id). You need this id when using the <a href="#attach"><code>attach</code></a> or the <a href="#detach"><code>detach</code></a> commands.</li>
+<li>The current state of the thread. Possible states are:</li>
+<li><strong>detached</strong> : The thread is detached. See <a href="#thread-considerations">Thread Considerations</a> for more information. All other thread states apply only for attached threads.</li>
+<li><strong>stopped</strong> : The thread is currently stopped and does not do anything. (Internally it actually may be running some code, but in that case it's TargetRTS code that is not originating from a user code snippet.)</li>
+<li><strong>stepping</strong> : The thread is executing code (originating from a user code snippet, such as a transition code snippet).</li>
+<li>The name of the thread. For user-defined threads the name comes from the <a href="../../building/transformation-configurations/#threads">Threads</a> TC property. The main thread is identified by the name "main" and the timer thread (responsible for implementing <a href="../../target-rts/threads/">threads</a>) is identified by the name "time".</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-shell">RTS debug: -&gt;tasks
+  0: stopped  main
+  1: stopped  ServerThread
+  2: detached time
+</code></pre>
+<h3 id="trace">trace</h3>
+<p>Arguments: <code>on|off</code> (string)</p>
+<p>This command is used for <a href="../tracing/">tracing</a> the exchange of messages in an application with the purpose of visualizing them in a sequence diagram. If the argument is omitted (or an invalid argument is passed), the command will just print whether tracing is currently on or off. For example:</p>
+<pre><code class="language-shell">RTS debug: -&gt;trace
+  Tracing is on
+</code></pre>
+<p>If a trace is already active when the command is performed, the current trace file will be flushed to ensure that all trace events that have been captured so far will be present in the trace file.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+ 
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-hcl md-grid1">
+     <a href="https://www.hcltechsw.com/legal/disclaimer" class="nav-link footer-launch" target="_blank">Disclaimer</a>
+	 <a href="https://www.hcltechsw.com/legal/privacy" class="nav-link footer-launch" target="_blank">Privacy</a>
+	 <a href="https://www.hcltechsw.com/legal/terms-use" class="nav-link footer-launch" target="_blank">Terms of use</a>
+	 
+    </div>
+  </div>
+  <script>Prism.highlightAll();</script>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.instant", "search.highlight", "search.share", "search.suggest", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../../scripts/prism.js"></script>
+      
+    
+  </body>
+</html>

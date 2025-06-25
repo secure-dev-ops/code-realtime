@@ -1074,6 +1074,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -1117,7 +1121,35 @@
   
     <li class="md-nav__item">
       <a href="../../running-and-debugging/debugging/" class="md-nav__link">
-        Debugging
+        Art Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/rts-debugger/" class="md-nav__link">
+        RTS Debugger
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-and-debugging/tracing/" class="md-nav__link">
+        Tracing
       </a>
     </li>
   
@@ -1556,7 +1588,7 @@ A sample application that uses log streams for logging to files can be found <a 
 </code></pre>
 <p>This text means that a message for the event <code>alarm</code> was received on the port <code>wheel</code> at index 2. The message carried a string parameter with the value <code>FATAL</code>. When the message was dispatched to the capsule instance, its state machine was in the state <code>Waiting</code> (which is a substate of <code>TOP</code>). The capsule instance is located in a part <code>engine</code> at index 1. All indices here are 1-based.</p>
 <h3 id="retrieving-the-most-recent-error">Retrieving the Most Recent Error</h3>
-<p>In addition to logging run-time errors, the TargetRTS also stores the most recently occurred error in the <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>. This means that for every thread in the application, you can find out the most recent error that occurred in one of the capsule instances that are run by that thread. Errors are identified by literals from the <a href="../../targetrts-api/class_r_t_controller.html">RTController</a><code>::Error</code> enumeration. If no error has occurred, the <code>ok</code> literal (with value 0) is used.</p>
+<p>In addition to logging run-time errors, the TargetRTS also stores the most recently occurred error in the <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>. This means that for every thread in the application, you can find out the most recent error that occurred in one of the capsule instances that are run by that thread. Errors are identified by literals from the <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::<code>Error</code> enumeration. If no error has occurred, the <code>ok</code> literal (with value 0) is used.</p>
 <p>You can access the most recent error either by calling <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::<code>getError()</code>, or directly from capsule context by calling <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>getError()</code>.</p>
 <p>The typical use case when retrieving the most recent error is useful, is when you call a TargetRTS function that fails, but not because of a problem in the application itself, but perhaps because of a problem in the environment, such as an out-of-memory situation. Most TargetRTS functions indicate failure by returning 0 (and success by returning 1). In some cases the function may return an object on which you can call a function such as <code>isValid()</code> to check for success.</p>
 <p>If you detect that a function failed, you can find out more information by retrieving the most recent error. Note that you have to do this immediately after the failing function returns, since only the last occurred error is stored. If you return from your code snippet, the TargetRTS will invoke a transition of another capsule managed by the same controller, which would overwrite the stored error if another error occurs (since that then would be the most recent error).</p>

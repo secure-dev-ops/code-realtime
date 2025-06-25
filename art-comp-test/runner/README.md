@@ -30,12 +30,18 @@ The script accepts a number of command-line arguments, which you can see if you 
 * `--testDir` Specifies the location of the tests to run. If you are in the `runner` folder and want to use the tests in `tests` pass it as `--testDir=../tests`.
 * `--javaVM` Specifies the location of the Java VM to use for running the Art Compiler. For example `--javaVM=C:/openjdk/jdk-21.0.4.7-hotspot/bin/java`.
 * `--artCompilerJar` Specifies the location of the Art Compiler JAR file. For example `C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.8/bin/artcompiler.jar`.
-* `--targetRTSDir` Specifies the location of the TargetRTS to use. Here you can either point at your custom version of the TargetRTS or the one that is in the Code RealTime or Model RealTime installation (depending on your usecase). For example: `--targetRTSDir=C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.7/TargetRTS`.
+* `--targetRTSDir` Specifies the location of the TargetRTS to use. Here you can either point at your custom version of the TargetRTS or the one that is in the Code RealTime or Model RealTime installation (depending on your usecase). For example: `--targetRTSDir=C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.8/TargetRTS`.
 * `--targetConfig` Specifies the target configuration (must be available in the specified TargetRTS) to use. For example `--targetConfig=WinT.x64-MinGw-12.2.0`.
 
 With the above arguments the script will run all tests and print the results in the console.
 
 If you pass the argument `--port` the script will start a web server which you can access from a web browser on the specified port. For example, passing `--port=4444` makes the web server available at `http://localhost:4444/`.
 By default the web server is only running while the tests execute, but you can pass `--terminateWebServer==never` if you want it to keep running also after test execution is completed. `--terminateWebServer==ifNoFailures` is another alternative in case the web server only should keep running in case one or more tests failed.
+
+Here is an example of a complete command-line that runs the script in interactive mode by starting a web server:
+
+```shell
+node app.js --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=../tests --javaVM=C:/openjdk/jdk-21.0.4.7-hotspot/bin/java --artCompilerJar=C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.8/bin/artcompiler.jar --targetRTSDir=C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.8/TargetRTS --port=4444
+```
 
 By default all tests in the specified test folder will execute, and they will execute in parallel groups to speed up the overall execution. You can limit execution to only some tests by means of the `--testCases` argument. Specify the names of tests to run (i.e. the folder names) separated by comma. If you have a powerful machine with lots of cores you can raise the `--maxParallel` option from the default 5 to a higher number. This controls how many tests are placed in each group that executes in parallel. Setting it to 1 disables parallel execution and all tests will then execute serially one after the other.
