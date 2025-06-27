@@ -18,10 +18,6 @@ capsule Top
 };
 
 capsule Sender {     
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `      
     service behavior port p : DerivedProtocol;
     service behavior port p_base : BaseProtocol;
 
@@ -38,11 +34,6 @@ capsule Sender {
 };
 
 capsule Receiver {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `   
-
     service behavior port p~ : DerivedProtocol; 
     service behavior port p_base~ : BaseProtocol;
 

@@ -13,13 +13,6 @@ protocol Protocol {
 };
 
 capsule Server {
-    [[rt::header_preface]]
-    `
-        #include <iostream>
-        #include "testlib.art.h"
-
-    `
-    
     publish service unwired notify behavior port spp~
     [[rt::properties(
         registration_name = "messageService"
@@ -45,11 +38,6 @@ capsule Server {
     };
 };
 capsule Client {
-    [[rt::header_preface]]
-    `
-        #include <iostream>
-        #include "testlib.art.h"
-    `
     subscribe service unwired notify behavior port sap
     [[rt::properties(
         registration_name = "messageService"

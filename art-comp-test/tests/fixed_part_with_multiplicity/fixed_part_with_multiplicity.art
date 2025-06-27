@@ -11,7 +11,6 @@
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "fixed_part_with_multiplicity.art.h"
     `
     behavior port timer : Timing;

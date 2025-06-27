@@ -5,10 +5,8 @@
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"      
-        #include "C.h"  
-        #include "D.h"  
-        #include <iostream>
+        #include "C.h"
+        #include "D.h"
     `
     behavior port timer : Timing;
     behavior port frame : Frame;
@@ -42,7 +40,6 @@ capsule Top {
 capsule Container {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "optional_part.art.h"
         #include "C.h"  
         #include "D.h"

@@ -14,10 +14,6 @@ capsule PartInThread {
         PartInThread::PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log)
             : SUPER(rtg_rts, rtg_ref), log(log) {}
     `
-    [[rt::impl_preface]]
-    `    
-        #include "testlib.art.h"
-    ` 
 
     /* Ports */
     behavior port timer : Timing;

@@ -1,11 +1,7 @@
-
 class DataObject {
-
     [[rt::header_preface]]
     `
-        #include "testlib.art.h"
         #include <CustomData.h>
-        #include <iostream>
     `
     /* Trigger Operations */
     trigger initialize();
@@ -50,14 +46,10 @@ class DataObject {
 };
 
 capsule Top{
-
-
     [[rt::header_preface]]
     `
-        #include "testlib.art.h"
         #include "DataObject.h"
         #include <CustomData.h>
-
     `
     behavior port t : Timing;
     statemachine {
@@ -107,5 +99,4 @@ capsule Top{
             PASS();
         `;
     };
-
 };

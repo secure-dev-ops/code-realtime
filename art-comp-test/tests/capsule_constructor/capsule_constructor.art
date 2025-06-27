@@ -1,12 +1,11 @@
-protocol Proto {    
-    in ack(`int`);    
+protocol Proto {
+    in ack(`int`);
 };
 
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"        
-        #include "CapsuleWithConstructor.h"        
+        #include "CapsuleWithConstructor.h"
     `
     behavior port frame : Frame;
     behavior port p : Proto;

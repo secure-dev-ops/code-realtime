@@ -5,11 +5,6 @@ protocol ProtoWithOnlySymmetricEvents {
 
 capsule Top 
 {
-    [[rt::impl_preface]]
-    `        
-        #include "testlib.art.h"        
-    `
-    
     behavior port p : ProtoWithOnlySymmetricEvents;
     part c: Cap;
     connect p with c._p; // Would normally report ART_0026 but not here since the protocol only contains symmetric events
@@ -35,7 +30,6 @@ capsule Top
 };
 
 capsule Cap {
-    
     service behavior port _p: ProtoWithOnlySymmetricEvents;
     statemachine {
         state S1 {

@@ -1,8 +1,4 @@
 capsule Top {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `  
     [[rt::decl]]
     `
         #ifdef CUSTOM_VALUE
@@ -19,5 +15,4 @@ capsule Top {
         PASS();
         `;
     };
-      
 };

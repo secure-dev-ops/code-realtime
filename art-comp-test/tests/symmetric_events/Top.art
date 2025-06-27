@@ -1,4 +1,3 @@
-
 /**
 Expected RTOutSignal void, RTInSignal void in Base and Conjugate
 */
@@ -44,12 +43,6 @@ protocol Proto5{
 };
 
 capsule Top {
-    [[rt::impl_preface]]
-    `
-        #include <iostream>
-        #include "testlib.art.h"        
-    `
-    
     behavior port timer : Timing;
     part pingger: Ping, pongger: Pong;
     connect pingger._porto1 with pongger._porto1;
@@ -65,12 +58,6 @@ capsule Top {
 };
 
 capsule Ping {
-    [[rt::impl_preface]]
-    `
-        #include <iostream>
-        #include "testlib.art.h"        
-    `
-
     service behavior port _porto1: Proto1, _porto2: Proto2, _porto3: Proto3, _porto4: Proto4, _porto5: Proto5;
     statemachine {
         state S1 {
@@ -109,12 +96,6 @@ capsule Ping {
 };
 
 capsule Pong {
-    [[rt::impl_preface]]
-    `
-        #include <iostream>
-        #include "testlib.art.h"        
-    `
-
     service behavior port _porto1~: Proto1, _porto2~: Proto2, _porto3~: Proto3, _porto4~: Proto4, _porto5~: Proto5;
     statemachine {
         state S1{

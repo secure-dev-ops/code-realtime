@@ -1,9 +1,5 @@
 capsule Top 
 {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     [[rt::decl]]
     `
         private: unsigned int entryCalled = 0, exitCalled = 0;
@@ -34,6 +30,5 @@ capsule Top
             ASSERT(exitCalled == 1, "Exit action was not called exactly once");
             PASS();
         `;
-    
-};
+    };
 };

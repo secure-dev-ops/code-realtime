@@ -44,10 +44,8 @@ protocol TheProtocol {
 capsule Cap {    
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "enum_type_descriptor_custom_encode.art.h"
-        #include <iostream>
-        
+
         std::ostream& operator<< (std::ostream& os, Colors color) {
             switch (color) {
             case Colors::red:
@@ -82,6 +80,7 @@ capsule Cap {
         `;
     };
 };
+
 capsule Top {
     part cap : Cap;
     behavior port pOut : TheProtocol;    

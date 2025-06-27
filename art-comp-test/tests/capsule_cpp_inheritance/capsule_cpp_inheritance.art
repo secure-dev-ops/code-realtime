@@ -3,10 +3,6 @@ capsule BaseTop
     rule_config="I0008" 
 )]]
 {
-    /* Ports */
-    /* Parts */
-    /* Connectors */
-    /* State Machine */
     statemachine {
         state State;
         // This capsule doesn't need an initial transition since it's only used as base for Top
@@ -30,10 +26,6 @@ capsule Top : BaseTop, `cppBase1`, `cppBase2`
     [[rt::header_preface]]
     `
         #include "capsule_cpp_inheritance.art.h"
-    `
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
     `
     [[rt::decl]]
     `

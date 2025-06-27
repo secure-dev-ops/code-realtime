@@ -5,8 +5,7 @@ protocol Proto {
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"        
-        #include "CapsuleWithDestructor.h"        
+        #include "CapsuleWithDestructor.h"
     `
     behavior port frame : Frame;
     behavior port p : Proto;

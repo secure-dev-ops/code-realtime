@@ -37,15 +37,6 @@ capsule C2 {
 };
 
 capsule C1 {
-    [[rt::header_preface]]
-    `
-        #include <string>
-    `
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-        #include <iostream>
-    `
     [[rt::decl]]
     `
         private: std::string str;

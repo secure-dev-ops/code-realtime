@@ -1,8 +1,4 @@
 class MyClass {
-    [[rt::impl_preface]]
-    `        
-        #include "testlib.art.h"
-    `
     [[rt::decl]]
     `
         public: int x = 0, y = 0;
@@ -35,7 +31,6 @@ class MyClass {
 capsule Top {
     [[rt::header_preface]]
     `
-        #include "testlib.art.h"
         #include <MyClass.h>
     `
     [[rt::decl]]

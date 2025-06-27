@@ -8,10 +8,6 @@ capsule BCap {
     `
         #include <string>        
     `
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     [[rt::decl]]
     `
         std::string result;

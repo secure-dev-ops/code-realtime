@@ -23,10 +23,8 @@ protocol AlphaSorted {
 };
 capsule Top{
 
-
     [[rt::header_preface]]
     `
-        #include "testlib.art.h"
         #include "AlphaSorted.h"
 
     `
@@ -64,5 +62,4 @@ capsule Top{
 
         `;
     };
-
 };

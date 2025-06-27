@@ -1,9 +1,4 @@
 capsule A {
-    [[rt::header_preface]]
-    `
-        #include "testlib.art.h"  
-        #include <iostream>
-    `
     [[rt::decl]]
     `
         private:

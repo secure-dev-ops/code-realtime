@@ -1,7 +1,6 @@
 capsule Top : BaseCap {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "c.art.h"
     `
     behavior port timer : Timing;

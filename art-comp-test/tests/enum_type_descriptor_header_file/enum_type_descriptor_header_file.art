@@ -11,11 +11,8 @@ protocol TheProtocol {
 capsule Cap {    
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "Colors.h"
 
-        #include <iostream>
-        
         std::ostream& operator<< (std::ostream& os, Colors color) {
             switch (color) {
             case red:
@@ -50,9 +47,10 @@ capsule Cap {
         `;
     };
 };
-capsule Top {        
+
+capsule Top {
     part cap : Cap;
-    behavior port pOut : TheProtocol;    
+    behavior port pOut : TheProtocol;
     connect pOut with cap.pIn;
 
     statemachine {

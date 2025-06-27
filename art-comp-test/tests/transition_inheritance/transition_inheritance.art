@@ -40,10 +40,6 @@ capsule Sender : SenderBase {
 
 
 capsule Receiver : ReceiverBase { 
-    [[rt::impl_preface]]
-    `
-        #include "testLib.h"
-    `
     [[rt::decl]]
     `
         virtual void unhandledMessage() override;

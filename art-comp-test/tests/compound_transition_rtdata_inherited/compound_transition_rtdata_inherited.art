@@ -30,11 +30,6 @@ capsule Sender {
 };
 
 capsule Receiver {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `   
-
     service behavior port p~ : PROT;
 
     statemachine {
@@ -60,15 +55,6 @@ capsule Receiver {
 };
 
 capsule ReceiverInter : Receiver {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `   
-    
-    /* Ports */
-    /* Parts */
-    /* Connectors */
-    /* State Machine */
     statemachine {
         state redefine State {
             redefine t2: Inner -> ex1 on p.msg_inter
@@ -86,15 +72,6 @@ capsule ReceiverInter : Receiver {
 };
 
 capsule ReceiverSub : ReceiverInter {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `   
-    
-    /* Ports */
-    /* Parts */
-    /* Connectors */
-    /* State Machine */
     statemachine {
         state redefine State {
             redefine t2: Inner -> ex1 on p.msg_redefined

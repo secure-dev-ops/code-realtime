@@ -1,10 +1,6 @@
-
-
 capsule Top {
     [[rt::header_preface]]
     `
-        #include "testlib.art.h"
-        #include <iostream>
         #include "TestCase1.art.h"
         #include "TestCase2.art.h"
         #include "TestCase3.art.h"

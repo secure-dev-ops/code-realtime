@@ -18,7 +18,6 @@ capsule Top {
         #include <vector>
         #include <iomanip>
         #include <filesystem>
-        #include "testlib.art.h"
         #include "log_stream.art.h"
         #include "RTActorFactory.h"
         #include "PartInThread.h"

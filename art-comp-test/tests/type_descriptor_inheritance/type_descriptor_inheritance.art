@@ -47,9 +47,7 @@ protocol TheProtocol {
 capsule Cap {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "type_descriptor_inheritance.art.h"
-        #include <iostream>    
         #include "RTDynamicStringOutBuffer.h"             
     `
     service behavior port pIn~ : TheProtocol;
@@ -73,7 +71,6 @@ capsule Cap {
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "type_descriptor_inheritance.art.h"        
     `
     part cap : Cap;

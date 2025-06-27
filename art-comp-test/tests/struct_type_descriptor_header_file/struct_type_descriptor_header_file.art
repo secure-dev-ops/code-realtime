@@ -9,10 +9,8 @@ protocol TheProtocol {
 capsule Cap {    
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "Point.h"
-        #include <iostream>         
-        
+
         std::ostream& operator<< (std::ostream& os, const Point point) {
             std::cout << "Point(" << point.x << "," << point.y << ")" << std::endl;
             return os;

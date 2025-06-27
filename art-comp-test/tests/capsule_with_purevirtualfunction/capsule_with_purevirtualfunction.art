@@ -1,9 +1,4 @@
 capsule BaseCapsule {
-   
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `
     [[rt::decl]]
     ` 
         public:
@@ -16,10 +11,6 @@ capsule BaseCapsule {
 };
 
 capsule Top : BaseCapsule {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `
     [[rt::decl]]
     `
     public:
@@ -34,7 +25,6 @@ capsule Top : BaseCapsule {
         
         redefine base_initial : initial -> State
         `
-            
             ASSERT(1 == base_show(), "Failed to call base_show()");
             PASS();
         `;

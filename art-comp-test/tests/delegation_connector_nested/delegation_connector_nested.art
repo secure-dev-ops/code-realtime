@@ -48,10 +48,6 @@ capsule C {
 };
 
 capsule D {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"     
-    `
     service behavior port p~ : Proto;
     statemachine {
         state State, Done;

@@ -68,7 +68,6 @@ protocol Proto {
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "move_function_2.art.h"
     `
     [[rt::decl]]

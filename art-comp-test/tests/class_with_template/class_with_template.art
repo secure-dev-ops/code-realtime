@@ -58,10 +58,9 @@ class MyClass {
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"      
-        #include "TemplateClass.h"    
-        #include "TemplateClassWithDefaultTemplateValues.h"    
-        #include "MyClass.h"   
+        #include "TemplateClass.h"
+        #include "TemplateClassWithDefaultTemplateValues.h"
+        #include "MyClass.h"
     `
     statemachine {
         state State1;
@@ -87,4 +86,3 @@ capsule Top {
         `;
     };
 };
-
