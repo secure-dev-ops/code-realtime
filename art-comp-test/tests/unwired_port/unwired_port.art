@@ -12,10 +12,6 @@ capsule Top {
     };
 };
 capsule Client {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `
     subscribe service unwired notify behavior port p : PROT;
     statemachine {
         state WaitForConnection, Connected;
@@ -33,10 +29,6 @@ capsule Client {
     };
 };
 capsule Server {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `
     publish service unwired behavior port p~ : PROT;
     statemachine {
         state S;

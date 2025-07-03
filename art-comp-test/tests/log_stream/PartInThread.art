@@ -4,10 +4,6 @@ capsule PartInThread {
         RTTimerId tid;
         unsigned int timeouts = 0;
     `
-    [[rt::impl_preface]]
-    `    
-        #include "testlib.art.h"
-    ` 
 
     /* Ports */
     behavior port timer : Timing;

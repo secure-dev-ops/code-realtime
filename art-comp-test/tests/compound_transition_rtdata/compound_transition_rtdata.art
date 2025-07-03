@@ -28,11 +28,6 @@ capsule Sender {
 };
 
 capsule Receiver {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `   
-
     service behavior port p~ : PROT;
 
     statemachine {

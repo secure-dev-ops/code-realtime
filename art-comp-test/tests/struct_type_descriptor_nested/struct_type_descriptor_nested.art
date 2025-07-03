@@ -23,7 +23,6 @@ protocol TheProtocol {
 capsule Top {
     [[rt::impl_preface]]
     `        
-        #include "testlib.art.h"
         #include "RTDynamicStringOutBuffer.h"     
         #include "RTJsonEncoding.h"  
     `

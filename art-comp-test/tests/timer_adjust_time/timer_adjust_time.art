@@ -1,5 +1,5 @@
 capsule Top {  
-    
+
     [[rt::decl]]
     `
         RTTimerId tid1;
@@ -10,10 +10,7 @@ capsule Top {
 
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"        
-        #include <string>
         #include <chrono>
-        #include <iostream>
         #include <windows.h>
         #include <time.h>
         
@@ -21,7 +18,7 @@ capsule Top {
     `
 
     [[rt::impl]]
-    `        
+    `
         void TimetToFileTime(time_t t, LPFILETIME pft){
             ULARGE_INTEGER time_value;
             time_value.QuadPart = (t * 10000000LL) + 116444736000000000LL;
@@ -29,12 +26,12 @@ capsule Top {
             pft->dwHighDateTime = time_value.HighPart;
         }     
         
-        void Top_Actor::setClock(const RTTimespec & new_time) {        
+        void Top_Actor::setClock(const RTTimespec & new_time) {
             RTTimespec old_time, delta;
             
             timer1.adjustTimeBegin();
         
-            RTTimespec::getclock(old_time); // Read system clock            
+            RTTimespec::getclock(old_time); // Read system clock
 
             // Set clock (Windows specific)            
             SYSTEMTIME st, st_old, the_st, lt, lt_old;

@@ -44,11 +44,9 @@
 capsule Top {
 [[rt::header_preface]]
 `
-    #include <iostream>
     #include <RTJsonEncoding.h>
     #include <RTJsonDecoding.h>
     #include <RTDynamicStringOutBuffer.h>
-    #include "testlib.art.h"
     #include "json_encode_decode.art.h"
 `    
     behavior port t : Timing;

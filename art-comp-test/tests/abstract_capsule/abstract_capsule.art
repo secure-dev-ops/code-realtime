@@ -5,11 +5,8 @@ abstract capsule AbstractCapsule {
     // capsule is abstract.
     };
 };
+
 capsule Top : AbstractCapsule {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     statemachine {
         state AnotherState;
         initial -> AbstractState
@@ -18,6 +15,7 @@ capsule Top : AbstractCapsule {
         `;
     };
 };
+
 abstract class AClass {
     [[rt::decl]]
     `

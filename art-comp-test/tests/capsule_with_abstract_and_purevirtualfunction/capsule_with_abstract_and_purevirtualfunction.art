@@ -9,11 +9,8 @@ abstract capsule AbstarctCapsule {
         abstract_initial : initial -> S;
     };    
 };
+
 capsule CapsuleExtendsAbstract : AbstarctCapsule {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `
     [[rt::decl]]
     `
     public:
@@ -31,10 +28,6 @@ capsule CapsuleExtendsAbstract : AbstarctCapsule {
 };
 
 capsule Top : CapsuleExtendsAbstract {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `
     [[rt::decl]]
     `
     public:
@@ -54,5 +47,4 @@ capsule Top : CapsuleExtendsAbstract {
         `
         ;
     };
-   
 };

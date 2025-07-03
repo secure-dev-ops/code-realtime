@@ -15,7 +15,6 @@ capsule Top {
     `
         #include <sstream>
         #include <iomanip>
-        #include "testlib.art.h"
         #include "log_stream.art.h"
     `     
     behavior port frame : Frame;

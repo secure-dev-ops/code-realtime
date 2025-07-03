@@ -2,10 +2,6 @@
    Ports typed by a predefined protocol (Timing, Log, External, Exception or Frame) are not considered as relay ports
 */
 capsule Top {   
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     service behavior port external : External;
     service behavior port exception : Exception;
     behavior port timing : Timing;

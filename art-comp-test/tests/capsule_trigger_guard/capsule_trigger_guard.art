@@ -24,10 +24,6 @@ capsule Top {
 };
 
 capsule Cap {
-    [[rt::impl_preface]]
-    `        
-        #include "testlib.art.h"
-    `
      [[rt::decl]]
     `
         private: bool check = false;

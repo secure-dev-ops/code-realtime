@@ -4,10 +4,6 @@ capsule Top
     `
         #include <string>
     `
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     [[rt::decl]]
     `
         private: std::string result;

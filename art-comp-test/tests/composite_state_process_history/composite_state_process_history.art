@@ -6,11 +6,6 @@ protocol PROTO {
 
 capsule Top
 {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
-
     behavior port p_send : PROTO;
     behavior port p_rec~ : PROTO;
     connect p_send with p_rec;
@@ -77,6 +72,7 @@ capsule Top
         };
     };
 };
+
 capsule Derived [[rt::properties(rule_config="X0041")]] : Top {
     statemachine {
         state redefine CompState1 {

@@ -1,10 +1,5 @@
 capsule Top
 {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
-
     behavior port timer : Timing;
 
     statemachine {

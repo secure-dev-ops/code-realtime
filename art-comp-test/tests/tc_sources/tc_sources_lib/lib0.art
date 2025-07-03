@@ -11,14 +11,6 @@
 `
 
 capsule LibCapsule {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"          
-    `
-    /* Ports */
-    /* Parts */
-    /* Connectors */
-    /* State Machine */
     statemachine {
         state State;
         initial -> State

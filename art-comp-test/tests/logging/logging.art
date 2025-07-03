@@ -26,7 +26,6 @@ capsule Top {
     [[rt::impl_preface]]
     `
         #include <sstream>
-        #include "testlib.art.h"
     `
     [[rt::decl]]
     `

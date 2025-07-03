@@ -5,10 +5,6 @@ protocol Events {
 };
 
 capsule Top {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     [[rt::decl]]
     `
         private: bool t1 = false, t2 = false;

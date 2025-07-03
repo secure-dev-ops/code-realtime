@@ -1,10 +1,9 @@
 capsule Top {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"        
-        #include "Base.h"        
+        #include "Base.h"
     `
-        
+
     part derivedPart : Derived;
 
     statemachine {
@@ -15,11 +14,6 @@ capsule Top {
 
 capsule Base 
 {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `      
-
     statemachine {
         state A, B;
         choice c;
@@ -33,15 +27,10 @@ capsule Base
         `
             FAIL("Unexpected choice branch executed in Base");
         `;
-}   ;
+    };
 };
 
 capsule Derived : Base {    
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"        
-    `  
-    
     statemachine {
         exclude aTrans;
         redefine bTrans: c -> B 

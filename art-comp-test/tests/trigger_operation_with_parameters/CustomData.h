@@ -1,7 +1,7 @@
 #ifndef CUSTOMDATA_H
 #define CUSTOMDATA_H
 
-#include <iostream>
+#include <string>
 
 class CustomData {
 private:

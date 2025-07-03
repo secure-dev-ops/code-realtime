@@ -1,10 +1,7 @@
 capsule Top {
 [[rt::header_preface]]
 `
-    #include <iostream>
-    #include <string>
     #include <RTJsonParser.h>    
-    #include "testlib.art.h"    
 `    
     statemachine {
         state State1;

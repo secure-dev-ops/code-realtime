@@ -1,10 +1,7 @@
-
 capsule Top {
     [[rt::header_preface]]
     `
-        #include "testlib.art.h"
         #include "MyClass.h"
-        #include <iostream>
     `
     [[rt::decl]]
     `

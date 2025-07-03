@@ -11,7 +11,6 @@ protocol TheProtocol {
 capsule Cap {
     [[rt::impl_preface]]
     `
-        #include "testlib.art.h"
         #include "Types.h"
         #include "RTDynamicStringOutBuffer.h"
     `

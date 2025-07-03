@@ -4,10 +4,6 @@ protocol MyProto {
 };
 
 capsule Base {
-    [[rt::impl_preface]]
-    `
-        #include <iostream>
-    `
     /* Ports */
     service behavior port myPort : MyProto;
     service behavior port p~ : MyProto;
@@ -47,14 +43,6 @@ capsule Base {
 };
 
 capsule Top : Base {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    ` 
-    /* Ports */
-    /* Parts */
-    /* Connectors */
-    /* State Machine */
     statemachine {
         state redefine X {
             state Inner;
@@ -74,6 +62,5 @@ capsule Top : Base {
             bool data = *rtdata;
             PASS();
         `;
-
     };
 };

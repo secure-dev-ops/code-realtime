@@ -1,10 +1,4 @@
-
 class MyClass {
-    [[rt::header_preface]]
-    `
-        #include <iostream>
-        #include <string>        
-    `
     [[rt::decl]]
     `
         public:

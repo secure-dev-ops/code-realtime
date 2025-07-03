@@ -9,11 +9,6 @@ capsule Top {
 
 capsule Base
 {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
-
     statemachine {
         state A, B;
         choice c;
@@ -31,11 +26,6 @@ capsule Base
 };
 
 capsule Derived1 : Base {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
-
     statemachine {
         exclude aTrans;
         redefine bTrans: c -> B
@@ -46,10 +36,6 @@ capsule Derived1 : Base {
 };
 
 capsule Derived2 : Derived1 {
-    [[rt::impl_preface]]
-    `
-        #include "testlib.art.h"
-    `
     statemachine {
         exclude bTrans;
         redefine aTrans: c -> A

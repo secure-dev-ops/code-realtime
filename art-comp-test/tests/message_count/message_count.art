@@ -7,7 +7,6 @@ capsule Top
 {             
     [[rt::impl_preface]]
     `
-        #include <iostream>
         using namespace std::chrono_literals;
     `
     optional part caps : Cap[0..1];
@@ -47,7 +46,6 @@ capsule Cap {
     [[rt::impl_preface]]
     `
         #include <thread>
-        #include <iostream>
         using namespace std::chrono_literals;
     `
     service behavior port p : PROT;
