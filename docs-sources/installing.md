@@ -52,6 +52,9 @@ Here is an example of a command to use for running one of these Docker images:
 
 The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
 
+!!! note 
+    The Docker images are only intended for trials and evaluations as a quick way to get started with {$product.name$}. The images may not always contain all the latest security fixes and should therefore not be used for production installations.
+
 ## Viewing Installation Information
 If you are unsure about which version of {$product.name$} you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:
 

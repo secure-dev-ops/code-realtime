@@ -155,4 +155,38 @@ As explained [above](#controllers-and-message-queues) the function [RTActor](../
 
 Both [RTActor](../targetrts-api/class_r_t_actor.html)::`messageReceivedBeforeInitialized()` and [RTActor](../targetrts-api/class_r_t_actor.html)::`unexpectedMessage()` are virtual functions that you can override in your capsule, in case you want to treat unhandled messages in a different way. For example, you can override [RTActor](../targetrts-api/class_r_t_actor.html)::`unexpectedMessage()` if some of the received messages should not be handled by the capsule state machine, but by some other C++ code.
 
+## Waiting for Multiple Messages
+Sometimes a capsule state machine may have the need to wait for multiple messages to arrive before transitioning from one state ("source") to another state ("target"). The TargetRTS provides a utility class [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) which makes this easy to implement. The steps below outline how this utility should be used:
 
+1. Declare a member variable in your capsule, typed by [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html). Note that this utility class is not included by default so you also need to add `#include <RTMultiReceive.h>` in the `rt::header_preface` code snippet of the capsule.
+2. Initialize the member variable, for example by means of a [capsule constructor](../art-lang/index.md#capsule-constructor). The only mandatory constructor argument is a pointer to the capsule instance itself (i.e `this`), but optionally you can pass a boolean for the `orderMatters` constructor parameter. This flag decides if the order in which the messages arrive should be significant or not. By default the order doesn't matter, and as soon as all messages have arrived, the capsule will transition to the target state.
+3. When entering the source state (e.g. in the entry action of that state), set up the expectations for which messages that must be received, by calling the `expectEvent()` function. The argument to this function is an [RTEventReception](../targetrts-api/class_r_t_event_reception.html) object which specifies properties of a message that must be received. Call the function once for each message that must be received. If you have configured the utility so that the order of received messages matter, then the expected order is defined by the order of your function calls. The following can be specified using the [RTEventReception](../targetrts-api/class_r_t_event_reception.html) constructor parameters (some are optional and can be omitted):
+    * The port ([RTProtocol](../targetrts-api/class_r_t_protocol.html)) where the message should be received. If omitted it can arrive on any of the capsule's ports.
+    * The event of the message that should be received. You can specify the event either by message id (i.e. signal), or by its name. If you do it by id then you also must provide the port, since message ids are not globally unique. If you don't specify the event, then a message for any event can be received.
+    * The data of the message that should be received, specified by its ASCII [encoding](encoding-decoding.md). If omitted the received message can have any data (including no data).
+
+    See some examples below for how to call `expectEvent()`.
+
+4. Create an internal transition in the source state with triggers that match all events that should be received. In its effect code snippet call the function `eventReceived()`. You don't need to pass the received message in this call; the function will automatically get it from the capsule.
+5. Create the transition from the source state to the target state with triggers that match all events that should be received. In its guard code snippet call the function `isAllEventsReceived()`. It's a boolean function that returns true only when all the expected events have been received. This means that the state machine only can transition from the source state to the target state when it has received messages that match all the "expectations" that were set-up when entering the source state.
+
+Note the following:
+
+* You can reuse the same [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) member variable multiple times for the same capsule. When the transitioning to the target state happens, the utility automatically resets itself so it becomes ready to be used again later.
+* If you for some reason need to cancel the waiting for the messages to arrive (e.g. because you receive another message with a higher priority) you can do so by calling the `reset()` function. This will restore the utility to its initial state.
+* If you configure the utility so that the order of the received messages should matter, then the transition from the source to the target state only needs a trigger that matches the last received message.
+
+Here are a few examples on how to set-up the expectations on what messages that must be received before the capsule can move from the source to the target state:
+
+```cpp
+// Expect 2 messages (order doesn't matter)
+multiReceive.expectEvent(RTEventReception()); // any event on any port with any data
+multiReceive.expectEvent(RTEventReception()); // any event on any port with any data
+
+// Expect 4 messages (order matters)
+multiReceive.setOrderMatters(true); // or set this flag using the constructor parameter
+multiReceive.expectEvent(RTEventReception(&p)); // any event on port "p" with any data
+multiReceive.expectEvent(RTEventReception(&p, MyProtocol::Base::rti_inE1)); // event "inE1" on port "p" with any data
+multiReceive.expectEvent(RTEventReception(&q, MyProtocol::Conjugate::rti_outE1, "int 5")); // event "outE1" on port "q" (conjugated) with data that is an integer with value 5
+multiReceive.expectEvent(RTEventReception(nullptr, "anotherEvent")); // event named "anotherEvent" on any port with any data 
+```
