@@ -222,10 +222,10 @@
             "path": "tests/tc_libraryname"
         },
         {
-            "path": "tests/tc_sources"
+            "path": "tests/tc_sources/tc_sources"
         },
         {
-            "path": "tests/tc_sources_lib"
+            "path": "tests/tc_sources/tc_sources_lib"
         },
         {
             "path": "tests/tc_user_libraries"

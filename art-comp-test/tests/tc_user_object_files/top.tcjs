@@ -1,7 +1,7 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.sources = ['!*.cpp'];
 tc.topCapsule = 'Top';
-tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
 tc.targetFolder = 'tc_user_object_files_target';
 tc.userObjectFiles = [
     '../../../tc_user_object_files/UserObjectFile.o'

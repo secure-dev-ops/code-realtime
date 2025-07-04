@@ -3,5 +3,5 @@ let tc = TCF.define(TCF.ART_TO_CPP);
 tc.targetFolder = 'tc_getTopTC_target'; 
 tc.topCapsule = "Top";
 tc.sources = ['tc_getTopTC.art'];
-tc.prerequisites = ["../../TestUtils/testlib.tcjs", "lib.tcjs"];
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' , "lib.tcjs"];
 tc.copyrightText = '#define RESULT true';

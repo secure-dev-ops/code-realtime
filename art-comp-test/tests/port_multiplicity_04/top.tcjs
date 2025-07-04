@@ -2,7 +2,7 @@ let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 tc.targetProject = 'port_multiplicity_04_target';
 tc.prerequisites = [
-    '../../TestUtils/testlib.tcjs'
+    '${ws:TestUtils}/testlib.tcjs'
 ];
 tc.commonPreface = `
 #include <stdio.h>

@@ -1,6 +1,6 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
-tc.prerequisites = ["../../TestUtils/testlib.tcjs"];
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
 tc.targetFolder = 'timer_adjust_time_target';
 
 /*
