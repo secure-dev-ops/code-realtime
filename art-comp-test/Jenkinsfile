@@ -138,6 +138,7 @@ def prepareTests() {
 		done
 
 		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
+		cp -r ./git/rsarte-tests-mc-exe/utils/  ./art-comp-test/
 		mkdir -p test-results
 		cd ./art-comp-test/runner
 		npm install

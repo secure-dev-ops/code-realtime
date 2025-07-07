@@ -1,6 +1,6 @@
 { "folders": [
         {
-            "path": "TestUtils"
+            "path": "utils/TestUtils"
         },
         {
             "path": "tests/choice_and_junction"

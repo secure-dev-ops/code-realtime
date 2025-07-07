@@ -7,6 +7,7 @@ art-samples/**/art_diagram_settings.json
 art-comp-test/tests/*/.vscode/*.json
 art-comp-test/tests/**/*_target/*
 art-comp-test/**/.vscode/art_build_settings.json
+art-comp-test/**/logs/
 art-comp-test/testLib_target/*
 art-comp-test/tests/*/logs/application.log
 art-samples/TcpRangeCounter/*/node_modules

@@ -47,6 +47,7 @@ def prepareTests() {
 		extractProductVsix
 
 		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
+		cp -r ./git/rsarte-tests-mc-exe/utils/  ./art-comp-test/
 		mkdir -p test-results
 		cd ./art-comp-test/runner
 		npm install
@@ -84,7 +85,7 @@ pipeline {
 								set TS_NAME=Windows-MinGw-12.2
 								gcc --version
 								cd art-comp-test
-								call node runner/app.js --artIntegration --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --modelCompilerJar=%WS%/modelrt/rsa_rt/tools/modelcompiler.jar --targetRTSDir=%WS%/modelrt/rsa_rt/C++/TargetRTS --artCompilerJar=%WS%/codert/extension/bin/artcompiler.jar  --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml
+								call node runner/app.js --artIntegration --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --installDir=%WS%/modelrt --artCompilerJar=%WS%/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml
 							'''
 						}
 					}
@@ -101,7 +102,7 @@ pipeline {
 								call C:\\MSVS_2022\\VC\\Auxiliary\\Build\\vcvars64.bat
 								cl.exe
 								cd art-comp-test
-								call node runner/app.js --artIntegration --targetConfig=WinT.x64-VisualC++-17.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --modelCompilerJar=%WS%/modelrt/rsa_rt/tools/modelcompiler.jar --targetRTSDir=%WS%/modelrt/rsa_rt/C++/TargetRTS --artCompilerJar=%WS%/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml
+								call node runner/app.js --artIntegration --targetConfig=WinT.x64-VisualC++-17.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --installDir=%WS%/modelrt --artCompilerJar=%WS%/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml
 							'''
 						}
 					}
@@ -119,7 +120,7 @@ pipeline {
 								source /opt/rh/gcc-toolset-12/enable # enable GCC 12
 								gcc --version
 								cd art-comp-test
-								node runner/app.js --artIntegration --targetConfig=LinuxT.x64-gcc-12.x --testDir=tests --javaVM=$WS/../install/JAVA_21/bin/java --modelCompilerJar=$WS/modelrt/rsa_rt/tools/modelcompiler.jar --targetRTSDir=$WS/modelrt/rsa_rt/C++/TargetRTS --artCompilerJar=$WS/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=$TS_NAME --genXML=$WS/test-results/$TS_NAME.xml
+								node runner/app.js --artIntegration --targetConfig=LinuxT.x64-gcc-12.x --testDir=tests --javaVM=$WS/../install/JAVA_21/bin/java --installDir=$WS/modelrt --artCompilerJar=$WS/codert/extension/bin/artcompiler.jar --terminateWebServer=always --testSuiteName=$TS_NAME --genXML=$WS/test-results/$TS_NAME.xml
 							'''
 						}
 					}

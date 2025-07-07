@@ -1,6 +1,6 @@
 { "folders": [
         {
-            "path": "TestUtils"
+            "path": "utils/TestUtils"
         },
         {
             "path": "tests/tc_include_paths"
