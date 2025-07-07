@@ -28,7 +28,7 @@ node app.js <arguments>
 The script accepts a number of command-line arguments, which you can see if you invoke it with `--help`. However, many of these arguments are optional and/or reserved for internal use only. Only those arguments that you need to use are described below. At a minimum you need to provide the following arguments:
 
 * `--testDir` Specifies the location of the tests to run. If you are in the `runner` folder and want to use the tests in `tests` pass it as `--testDir=../tests`.
-* `--javaVM` Specifies the location of the Java VM to use for running the Art Compiler. For example `--javaVM=C:/openjdk/jdk-21.0.4.7-hotspot/bin/java`.
+* `--javaVM` Specifies the location of the Java VM to use for running the Art Compiler. For example: `--javaVM=C:/openjdk/jdk-21.0.4.7-hotspot/bin/java`. When this argument is omitted, scripts will try to get `java` from `JAVA_HOME` env variable, or from the `PATH`.
 * `--artCompilerJar` Specifies the location of the Art Compiler JAR file. For example `C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.8/bin/artcompiler.jar`.
 * `--targetRTSDir` Specifies the location of the TargetRTS to use. Here you can either point at your custom version of the TargetRTS or the one that is in the Code RealTime or Model RealTime installation (depending on your usecase). For example: `--targetRTSDir=C:/VSCode/data/extensions/secure-dev-ops.code-realtime-ce-2.0.8/TargetRTS`.
 * `--targetConfig` Specifies the target configuration (must be available in the specified TargetRTS) to use. For example `--targetConfig=WinT.x64-MinGw-12.2.0`.

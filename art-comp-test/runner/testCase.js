@@ -22,28 +22,35 @@ module.exports = function(webServer) {
     showdown.setFlavor('github');
 
     let TestCase = function(argv, name, testCaseFile, projectsDir, topProject, withNestedFolders, registry) {
+        this.registry = registry;
         this.projectsDir = projectsDir;
         this.topProject = topProject;
         this.topProjectPath = projectsDir + '/' + topProject;
         this.withNestedFolders = withNestedFolders;
-        this.registry = registry;
+        if (withNestedFolders)
+            this.outDir = this.projectsDir;
+        else
+            this.outDir = this.topProjectPath;
+
+        // Check for test case variants
+        this.postfix = '';
+        this.tcjsFile = 'top.tcjs';
         let matches = testCaseFile.match(/testcase(.+)\.md/);
         if (matches) {
             this.postfix = matches[1];
-            this.outDir = this.projectsDir + '/' + this.postfix;
-        } else {
-            this.postfix = '';
-            this.outDir = this.projectsDir;            
+            this.outDir += '/' + this.postfix;
+            if (fs.existsSync(this.topProjectPath + '/top' + this.postfix + '.tcjs'))
+                this.tcjsFile = 'top' + this.postfix + '.tcjs';
         }
-        this.name = name + this.postfix;
-        if (argv.artCompilerJar) {
-            // For Art Compiler we want to generate into each test folder
-            if (!this.withNestedFolders) {
-                this.outDir += '/' + this.name;
-            }
-        }
-		this.group = 'undefined';
+        this.exeTarget = this.outDir + '/' + this.tcjsFile.slice(0, -5) + '_target';
 
+        this.name = name + this.postfix;
+        this.namePrefix4Log = this.name.padEnd(52, ' ') + ' : ';
+
+        if (argv.artExport)
+            this.outDir = argv.artExportDir + '/' + this.name;
+
+        this.group = 'undefined';
         this.description = '<missing description>';
         this.isHTMLDescription = false;
 
@@ -56,17 +63,21 @@ module.exports = function(webServer) {
         this.timeout = argv.testTimeout;
         this.executable = argv.modelCompilerJar ? '/default/executable' : '/default/Top';
         this.isBigTest = false;
-        this.allow_stderr_printouts = argv.artCompilerJar && !argv.artIntegration ? false : true;
+        // Art Compiler test cases should not print anything to stderr
+        // Model Compiler test cases can print to stderr (Art export and Art integration are based on MC tests)
+        this.allow_stderr_printouts = argv.isModelCompiler || argv.artExport;
         this.testExeArgs = [];
         this.testExeArgs2 = [];
         this.testExeExpectPASSstdout = false;
         this.debugCommands = [];
         this.debugCommands2 = [];
-        testCaseSteps = defaultSteps;
         this.compareInfo = [];
-        let curCompareInfo;
 
-        this.readTestDescription = function() {
+        let testCaseSteps = defaultSteps;
+        let curCompareInfo;
+        let specifics = '';
+
+        this.readTestDescription = function () {
             let filePath = this.topProjectPath + '/' + testCaseFile;
             if (filePath.endsWith('txt'))
                 this.description = fs.readFileSync(filePath, 'utf8');
@@ -146,33 +157,38 @@ module.exports = function(webServer) {
                     // Additional test case execution parameters
                     if (key == 'steps') {
                         testCaseSteps = value;
-                        logger.log(this.name + ' : steps = ' + value);
+                        specifics += '\n' + this.namePrefix4Log + 'steps = ' + value;
                         continue;
                     }
                     if (key == 'env') {
                         this.env.push(...value.split(/\s+/));
-                        logger.log(this.name + ' : env : ' + value);
+                        specifics += '\n' + this.namePrefix4Log + 'env : ' + value;
                         continue;
                     }
                     if (key == 'mc_jvm_args' || key == 'ac_jvm_args') {
                         for (var arg of value.split(/\s+/))
                             this.compilerJVMArgs.push(arg.replace(/_dollar_/g, '$').replace(/_space_/g, ' '));
                         //this.compilerJVMArgs.push(...value.split(/\s+/));
-                        logger.log(this.name + ' : ' + key + ' = ' + this.compilerJVMArgs);
+                        specifics += '\n' + this.namePrefix4Log + key + ' = ' + this.compilerJVMArgs;
                         continue;
                     }
                     if (key == 'mc_cmd_args' || key == 'ac_cmd_args') {
-                        for (var arg of value.split(/\s+/))
+                        for (var arg of value.split(/\s+/)) {
+                            if (argv.artIntegration && arg.startsWith('--buildVariants')) {
+                                this.skipExecution = 'test case uses --buildVariants with relative path';
+                            }
                             this.compilerCmdArgs.push(arg.replace(/_dollar_/g, '$'));
+                        }
                         //this.compilerCmdArgs.push(...value.split(/\s+/));
-                        logger.log(this.name + ' : ' + key + ' = ' + value);
+                        specifics += '\n' + this.namePrefix4Log + key + ' = ' + value;
                         continue;
                     }
                     if (key == 'mc_cmd_full' || key == 'ac_cmd_full') {
                         this.isFullCommandLine = true;
-                        logger.log(this.name + ' : ' + key + ' = yes');
-                        if (argv.oldCpp)
+                        specifics += '\n' + this.namePrefix4Log + key + ' = yes';
+                        if (argv.oldCpp) {
                             this.skipExecution = 'skip for oldCpp, command line is full and can not be updated';
+                        }
                         continue;
                     }
                     if (key.startsWith('mc_output') || key.startsWith('ac_output')) {
@@ -197,30 +213,30 @@ module.exports = function(webServer) {
                             let subValue = value.substring(sep);
                             debugCommands.push(...subValue.split(/;\s*/));
                             if (subValue != '<continue; wait 4; <exit')
-                                logger.log(this.name + ' : debugger commands = ' + subValue);
+                                specifics += '\n' + this.namePrefix4Log + 'debugger commands = ' + subValue;
                         }
                         if (sep != 0) {
                             if (sep > 0)
                                 value = value.substring(0, sep).trim();
                             testExeArgs.push(...value.split(/\s+/));
                             if (value != '-URTS_DEBUG=quit')
-                                logger.log(this.name + ' : executable arguments = ' + value);
+                                specifics += '\n' + this.namePrefix4Log + 'executable arguments = ' + value;
                         }
                         continue;
                     }
                     if (key == 'timeout') {
                         this.timeout = value;
-                        logger.log(this.name + ' : timeout = ' + value);
+                        specifics += '\n' + this.namePrefix4Log + key + ' = ' + value;
                         continue;
                     }
                     if (key == 'executable') {
                         this.executable = value;
-                        logger.log(this.name + ' : executable = ' + value);
+                        specifics += '\n' + this.namePrefix4Log + key + ' = ' + value;
                         continue;
                     }
                     if (key == 'big_test') {
                         this.isBigTest = true;
-                        logger.log(this.name + ' : big_test = yes');
+                        specifics += '\n' + this.namePrefix4Log + key + ' = yes';
                         continue;
                     }
                     if (key == 'max_duration_transform' || key == 'max_duration_generate_source' || key == 'max_duration_generate_makefile') {
@@ -252,33 +268,66 @@ module.exports = function(webServer) {
                         curCompareInfo.filePath = filePath;
                         curCompareInfo.lines = {};
                         this.compareInfo.push(curCompareInfo);
-                        logger.log(this.name + ' : compare generated file : ' + genFileName);
+                        specifics += '\n' + this.namePrefix4Log + 'compare generated file : ' + genFileName;
                     }
                     curCompareInfo.lines[filePos] = value.replace(/_:_/g, ' : ').replace(/_dollar_/g, '$').replace(/:_/g, ': ').replace(/&amp;/g, '&').replace(/&quot;/g, '"');
                 }//for (var key in metadata)
-    
+
+                if (this.skipExecution)
+                    return;
+
                 let numOutputLines = Object.keys(this.compilerOutput).length;
                 if (numOutputLines == 1) {
-                    logger.log(this.name + ' : compare ' + argv.compilerName + ' output : ' + this.compilerOutput[Object.keys(this.compilerOutput)[0]]);
+                    specifics += '\n' + this.namePrefix4Log + 'compare ' + argv.compilerName + ' output : ' + this.compilerOutput[Object.keys(this.compilerOutput)[0]];
                 } else if (numOutputLines > 1) {
-                    logger.log(this.name + ' : compare ' + numOutputLines + ' lines in ' + argv.compilerName + ' output');
+                    specifics += '\n' + this.namePrefix4Log + 'compare ' + numOutputLines + ' lines in ' + argv.compilerName + ' output';
                 }
                 if (this.compilerErrorExpected)
-                    logger.log(this.name + ' : ' + argv.compilerName + ' ERROR is expected');
+                    specifics += '\n' + this.namePrefix4Log + argv.compilerName + ' ERROR is expected';
             }
         }
 
         this.readTestDescription();
 
-		if (!testCaseSteps.startsWith('clean'))
-			testCaseSteps = 'clean, ' + testCaseSteps;
+        if (!testCaseSteps.startsWith('clean'))
+            testCaseSteps = 'clean, ' + testCaseSteps;
+        if (argv.artExport) {
+            testCaseSteps = testCaseSteps.replace('clean,', 'exportArt,');
+        } else if (argv.artIntegration) {
+            testCaseSteps = testCaseSteps.replace('clean,', 'clean, prepareArtIntegration,');
+        }
         this.steps = testCaseSteps.split(/,\s*/);
 
-		if (this.steps.includes('execute') || this.steps.includes('execute-pass')) {
-			this.doExecute = true;
-			if (this.debugCommands.length == 0 && this.testExeArgs.length == 0)
-				this.testExeArgs.push('-URTS_DEBUG=quit');
-		}
+        if (this.steps.includes('execute') || this.steps.includes('execute-pass')) {
+            this.doExecute = true;
+            if (this.debugCommands.length == 0 && this.testExeArgs.length == 0)
+                this.testExeArgs.push('-URTS_DEBUG=quit');
+
+            let tcjsContent = fs.readFileSync(this.topProjectPath + '/' + this.tcjsFile, 'utf8');
+            if (this.steps.includes('execute-pass') || this.steps.includes('execute') && tcjsContent.includes('TestRTSUtils')) {
+                this.testExeExpectPASSstdout = true;
+                specifics += '\n' + this.namePrefix4Log + 'expecting ***PASS*** in stdout';
+            }
+            if (argv.artIntegration) {
+                if (tcjsContent.includes('tc.userObjectFiles'))
+                    this.skipExecution = this.tcjsFile + ' defines tc.userObjectFiles';
+                else if (tcjsContent.includes('tc.threads'))
+                    this.skipExecution = this.tcjsFile + ' defines tc.threads';
+                else if (tcjsContent.includes('tc.capsuleFactory'))
+                    this.skipExecution = this.tcjsFile + ' defines tc.capsuleFactory';
+            }
+        } else if (argv.artExport || argv.artIntegration) {
+            this.skipExecution = 'keep only executable test cases';
+        }
+
+        if (this.skipExecution) {
+            logger.log(this.namePrefix4Log + 'SKIP execution, reason : ' + this.skipExecution);
+            return;
+        }
+        if (specifics.length !== 0)
+            logger.log(specifics.slice(1));
+        else
+            logger.log(this.namePrefix4Log + 'run');
 
 		this.checkDuration = function(m, stepName, limit) {
 			let msg;
@@ -381,29 +430,6 @@ module.exports = function(webServer) {
 			}
 
             return verdict;
-        }
-
-        if (fs.existsSync(this.topProjectPath + '/top' + this.postfix + '.tcjs')) {
-            this.tcjsFile = 'top' + this.postfix + '.tcjs';
-            if (argv.modelCompilerJar && !argv.artIntegration) {                
-                this.exeTarget = this.outDir + '/top' + this.postfix + '_target';
-            }
-            else {
-                // For the Art Compiler we require always a single top.tcjs in test folder
-                // (or several variant TCs on the form top_<postfix>.tcjs)
-                this.exeTarget = this.outDir + '/' + this.name + this.postfix + '_target';
-                if (this.withNestedFolders) {
-                    // When there are nested folders append the target of the top project where we expect the test executable to be located
-                    this.exeTarget += '/' + this.topProject + '_target';
-                }
-            }
-        } else {
-            this.tcjsFile = 'top.tcjs';
-            this.exeTarget  = this.outDir + '/top_target';
-        }
-        if (this.steps.includes('execute-pass') || this.steps.includes('execute') && fs.readFileSync(this.topProjectPath + '/' + this.tcjsFile, 'utf8').includes('TestRTSUtils')) {
-            this.testExeExpectPASSstdout = true;
-            logger.log(this.name + ' : expecting ***PASS*** in stdout');
         }
 
         this.getLogContent = function (fileContents) {

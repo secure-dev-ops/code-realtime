@@ -40,27 +40,21 @@ timer.start((elapsed_time) => {
     webServer.notifyClients('timer_tick', {'elapsed_time' : elapsed_time});
 })
 
-// Return a promise for building the TestRTSUtils model (the test library used by all test cases)
-function buildTestLib() {
-    return new Promise((resolve, reject) => {
-        testBuilder.buildTestLib( testCaseRegistry.allCasesWithNestedFolders, (code) => {
-            if (code == 0) {
-                resolve();
-            }
-            else {
-                reject('Failed to build test library');
-            }
-        });
-    });
-}
-
 // Returns a promise for executing a testing step.
 // It's resolved with true if step finished successfully, false if step failed.
 function stepExecution(stepName, testCase) {
     if (stepName == 'clean') {
         return cleanTest(testCase);
     }
-    if (stepName.startsWith('generate')) {
+    if (stepName == 'prepareArtIntegration') {
+        return new Promise((resolve) => {
+            let verdict = testBuilder.prepareArtIntegration(testCase);
+            if (!verdict)
+                testCase.errorType = stepName + ' Error';
+            resolve(verdict);
+        });
+    }
+    if (stepName.startsWith('generate') || stepName == 'exportArt') {
         return new Promise((resolve, reject) => {
             testBuilder.buildTest(testCase, stepName, (verdict) => {
 				if (!verdict)
@@ -135,6 +129,13 @@ function cleanTest(testCase) {
             // Clean completed. If it was successful run the test.        
             resolve(msg);
         });
+    });
+}
+
+function commonInfo() {
+    return new Promise((resolve, reject) => {
+        testBuilder.printCommonArgs();
+        resolve();
     });
 }
 
@@ -317,19 +318,18 @@ if (argv.port) {
 
 }
 
-testBuilder.getCompilerVersion();
+testBuilder.getCompilerVersions();
 
 // Read tests
 testCaseRegistry.registerTestCases();
 testCaseRegistry.onAllTestsFinished( () => {
-
 });
 
 webServer.notifyClients('test_execution_started');    
 
-buildTestLib()
+commonInfo()
 .then(() => {
-    return buildAndRunAllTests(); 
+    return buildAndRunAllTests();
 })
 .catch((err) => {
     logger.log('Error when building or running tests: ' + err);

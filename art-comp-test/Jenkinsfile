@@ -13,15 +13,6 @@ def checkEnv() {
 	'''
 }
 
-def checkoutRunner() {
-	return checkout([
-		$class: 'GitSCM',
-		branches: [[name: 'master']],
-		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'git/rsarte-tests-mc-exe']],
-		userRemoteConfigs: [[credentialsId: '69478c25-fe9e-431f-8bf8-83d3591711ad', url: 'git@github01.hclpnp.com:Modeling/rsarte-tests-mc-exe.git']]
-	])
-}
-
 def getBuildsServerPath() {
 	env.BUILDS_SERVER_PATH = sh(script: '''
 		for buildsServerLocation in /mnt/file_server_builds /mnt/file_server /y /cygdrive/y
@@ -79,7 +70,6 @@ def installProduct() {
 }
 
 def prepareTests() {
-	checkoutRunner()
 	getBuildsServerPath()
 	getProductVsix()
 	installProduct()
@@ -137,8 +127,6 @@ def prepareTests() {
 			cd $WORKSPACE
 		done
 
-		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
-		cp -r ./git/rsarte-tests-mc-exe/utils/  ./art-comp-test/
 		mkdir -p test-results
 		cd ./art-comp-test/runner
 		npm install
@@ -205,7 +193,7 @@ pipeline {
 								set TS_NAME=Windows-MinGw-12.2
 								gcc --version
 								cd art-comp-test
-								call node runner/app.js --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=tests --javaVM=C:/rt_setup/java17/bin/java --installDir=%WS%/rtistic/extension --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml %TIMEOUT_ARG% %TEST_CASES_ARG%
+								call node runner/app.js --targetConfig=WinT.x64-MinGw-12.2.0 --testDir=tests --javaVM=C:/rt_setup/java21/bin/java --installDir=%WS%/rtistic/extension --terminateWebServer=always --testSuiteName=%TS_NAME% --genXML=%WS%/test-results/%TS_NAME%.xml %TIMEOUT_ARG% %TEST_CASES_ARG%
 							'''
 						}
 					}

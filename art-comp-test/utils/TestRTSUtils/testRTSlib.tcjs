@@ -1,0 +1,21 @@
+let tc = TCF.define(TCF.CPP_TRANSFORM);
+tc.sources = [
+    'platform:/resource/TestRTSUtils/CPPModel.emx#_57HTcBRnEeuMep6o3b6wQQ',
+];
+tc._TestUtils = java.nio.file.Paths.get(TCF.resolveURI(tc.getId())).resolve('../../TestUtils').normalize().toString().replaceAll('\\\\', '/');
+tc.commonPreface = '#include "testLib.h"';
+tc.compilationMakeArguments = ''; // without -s (non silent)
+
+tc.compilationMakeInsert = `
+TestRTSUtilsUnit$(OBJ_EXT) : ../testLib.h ../testLib.cpp
+../testLib.h :
+	cp ` + tc._TestUtils + `/testLib.h ..
+../testLib.cpp :
+	cp ` + tc._TestUtils + `/testLib.cpp ..
+`;
+tc.compilationMakeType = MakeType.GNU_make;
+tc.createTargetProject = true;
+tc.targetConfiguration = 'WinT.x64-MinGw-12.2.0';
+tc.targetProject = 'TestRTSUtils_target';
+tc.type = CppTransformType.Library;
+tc.unitName = 'TestRTSUtilsUnit';

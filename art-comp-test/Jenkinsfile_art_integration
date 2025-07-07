@@ -7,15 +7,6 @@ def checkoutAutomation() {
 	])
 }
 
-def checkoutRunner() {
-	return checkout([
-		$class: 'GitSCM',
-		branches: [[name: 'master']],
-		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'git/rsarte-tests-mc-exe']],
-		userRemoteConfigs: [[credentialsId: '69478c25-fe9e-431f-8bf8-83d3591711ad', url: 'git@github01.hclpnp.com:Modeling/rsarte-tests-mc-exe.git']]
-	])
-}
-
 def codertBranchList
 def modelrtBranchList
 node {
@@ -38,7 +29,6 @@ node {
 
 def prepareTests() {
 	checkoutAutomation()
-	checkoutRunner()
 
 	sh '''
 		source git/rsarte-automation/jenkins/RT_TEST_utils.sh
@@ -46,8 +36,6 @@ def prepareTests() {
 		installProductZip
 		extractProductVsix
 
-		cp -r ./git/rsarte-tests-mc-exe/runner/ ./art-comp-test/
-		cp -r ./git/rsarte-tests-mc-exe/utils/  ./art-comp-test/
 		mkdir -p test-results
 		cd ./art-comp-test/runner
 		npm install
