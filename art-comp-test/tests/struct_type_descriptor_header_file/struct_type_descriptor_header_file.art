@@ -7,31 +7,14 @@ protocol TheProtocol {
 };
 
 capsule Cap {    
-    [[rt::impl_preface]]
-    `
-        #include "Point.h"
-
-        std::ostream& operator<< (std::ostream& os, const Point point) {
-            std::cout << "Point(" << point.x << "," << point.y << ")" << std::endl;
-            return os;
-        }
-    `
     service behavior port pIn~ : TheProtocol;
     statemachine {
         state State1, State2;
         initial -> State1;
         State1 -> State2 on pIn.e1
         `
-            std::cout << "Got the point: " << *rtdata << std::endl; 
-            // Encode into string representation
-            const RTObject_class* mt = msg->getType();
-            char buf[1000];
-            RTMemoryOutBuffer buffer( buf, 1000 );
-            RTAsciiEncoding coding( &buffer );
-            mt->_encode_func(mt, msg->getData(), &coding);
-            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
-            std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
-            ASSERT(RTMemoryUtil::strcmp("{x 10,y 20}", buf) == 0, "Expect ASCII encoding to be {x 10,y 20}");
+            ASSERT(rtdata->x == 10 && rtdata->y == 20, "Point(10,20) is expected");
+            TestUtils::checkMessageASCII(msg, "Point{x 10,y 20}");
             PASS();
         `;
     };

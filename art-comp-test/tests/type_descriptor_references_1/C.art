@@ -1,0 +1,7 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] C {
+        RTString str = "my_string";
+        RTInteger i3 = 15;
+    };
+`

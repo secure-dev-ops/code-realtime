@@ -10,7 +10,7 @@ capsule Top {
     [[rt::decl]]
     `
         unsigned int count = 0;
-        Log::Stream log2{"../default/log2.txt"}; // Relative to CWD
+        Log::Stream log2{"log2.txt"}; // Relative to CWD
     `
     [[rt::impl_preface]]
     `
@@ -42,7 +42,8 @@ capsule Top {
             `
                 count++;                
                 if (count == 5) {
-                    std::filesystem::path filepath = std::filesystem::current_path() / "log2.txt";            
+                    std::cout << "Current path = " << std::filesystem::current_path() << std::endl;
+                    std::filesystem::path filepath = std::filesystem::current_path() / "log2.txt";
                     std::vector<std::string> contents;
                     ASSERT (TestUtils::readFileContents(filepath.string(), contents), "File does not exist");
                     

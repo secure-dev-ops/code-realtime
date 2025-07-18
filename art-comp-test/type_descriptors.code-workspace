@@ -12,6 +12,9 @@
             "path": "tests/enum_type_descriptor_header_file"
         },
         {
+            "path": "tests/enum_type_descriptor_custom_encode"
+        },
+        {
             "path": "tests/struct_type_descriptor"
         },
         {
@@ -19,6 +22,9 @@
         },
         {
             "path": "tests/type_descriptor_inheritance"
+        },
+        {
+            "path": "tests/type_descriptor_references_1"
         },
         {
             "path": "tests/typedef_type_descriptor"

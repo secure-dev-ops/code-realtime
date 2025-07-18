@@ -1,0 +1,57 @@
+[[rt::decl]]
+`
+    #include "C.art.h"
+    struct [[rt::auto_descriptor]] A {
+        int x = -11;
+    };
+
+    class [[rt::auto_descriptor]] B {
+        A a;
+        C c;
+    public:
+        static const RTFieldDescriptor rtg_B_fields[];
+    };
+`
+
+protocol Proto {
+    [[rt::header_preface]]
+    `
+        #include "RTType_MyClass.h"
+        #include "type_descriptor_references_1.art.h"
+    `
+    out e1(`MyClass`);
+    in e2(`B`);
+};
+
+capsule Cap {
+    service behavior port pIn~ : Proto;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            TestUtils::checkMessageASCII(msg, "MyClass{a1 false,a2 3.14,a3 0,a4\"default\",strategy 2}");
+            B b;
+            pIn.e2(b).send();
+        `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : Proto;
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1 `
+            MyClass obj;
+            pOut.e1(obj).send();
+        `;
+        State1 -> State2 on pOut.e2
+        `
+            TestUtils::checkMessageASCII(msg, "B{a{x -11},c{str\"my_string\",i3 15}}");
+            PASS();
+        `;
+    };
+};

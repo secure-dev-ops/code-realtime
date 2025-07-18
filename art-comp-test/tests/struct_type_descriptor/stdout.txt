@@ -1,2 +1,0 @@
-Got the point: Point(10,20)
-ASCII encoding: {x 10,y 20}

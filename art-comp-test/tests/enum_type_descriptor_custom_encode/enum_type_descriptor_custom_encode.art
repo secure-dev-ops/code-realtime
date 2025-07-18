@@ -10,23 +10,22 @@
 #if OBJECT_ENCODE
     static int rtg_Colors_encode(const RTObject_class* type, const Colors* source, RTEncoding* coding )
     {
-        int sum = 0;
-        sum += coding->write_string(type->name());
-        sum += coding->write_string(":");
+        std::string encoding = type->name();
+        encoding += ":";
         switch (*source) {
             case Colors::red:
-                sum += coding->write_string("red");
+                encoding += "red";
                 break;
             case Colors::green:
-                sum += coding->write_string("green");
+                encoding += "green";
                 break;
             case Colors::yellow:
-                sum += coding->write_string("yellow");
+                encoding += "yellow";
                 break;
             default:
-                sum += coding->write_string("ERROR");
+                return 0;
         }
-        return sum;
+        return coding->put_string(encoding.c_str());
     }
 #endif
 `
@@ -66,16 +65,10 @@ capsule Cap {
         `
             std::cout << "Got the color: " << *rtdata << std::endl;
             ASSERT(*rtdata == Colors::green, "Expect to receive Color green");
-            // Encode into string representation
             const RTObject_class* mt = msg->getType();
             ASSERT(mt == &RTType_Colors, "msg type should point to Colors type descriptor");
-            char buf[1000];
-            RTMemoryOutBuffer buffer( buf, 1000 );
-            RTAsciiEncoding coding( &buffer );
-            mt->_encode_func(mt, msg->getData(), &coding);
-            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
-            std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
-            ASSERT(RTMemoryUtil::strcmp("Colors:green", buf) == 0, "Expect ASCII encoding to be Colors:green");
+            std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), mt);
+            ASSERT(encoding == "Colors\"Colors:green\"", encoding.c_str());
             PASS();
         `;
     };

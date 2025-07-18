@@ -264,6 +264,9 @@
             "path": "tests/type_descriptor_inheritance"
         },
         {
+            "path": "tests/type_descriptor_references_1"
+        },
+        {
             "path": "tests/typedef_type_descriptor"
         },
         {

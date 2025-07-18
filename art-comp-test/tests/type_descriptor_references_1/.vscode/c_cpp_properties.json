@@ -1,0 +1,17 @@
+{
+    "env": {
+        "targetrts_home": "${env:RT_INSTALL_BASE}/VSCode/data/extensions/secure-dev-ops.code-realtime-*/TargetRTS"
+    },
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${targetrts_home}/include",
+                "${targetrts_home}/target/WinT"
+            ],
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}

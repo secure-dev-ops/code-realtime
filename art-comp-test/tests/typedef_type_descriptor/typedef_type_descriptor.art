@@ -43,35 +43,20 @@ protocol TheProtocol {
 };
 
 capsule Cap {    
-    [[rt::impl_preface]]
-    `
-        #include "typedef_type_descriptor.art.h"
-        #include "RTDynamicStringOutBuffer.h"
-    `
     service behavior port pIn~ : TheProtocol;
     statemachine {        
         initial -> State1;
         state State1 {
             str_received: on pIn.e1
             `
-                // Encode into string representation
-                const RTObject_class* mt = msg->getType();
-                RTDynamicStringOutBuffer buffer;                
-                RTAsciiEncoding coding( &buffer );
-                mt->_encode_func(mt, msg->getData(), &coding);                
-                std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
-                ASSERT(RTMemoryUtil::strcmp("\"Hello World!\"", buffer.getString()) == 0, "Expect ASCII encoding to be \"Hello World\"");
+                std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+                ASSERT(encoding == "MyString\"Hello World!\"", encoding.c_str());
             `;
 
             vec_received: on pIn.e2
             `
-                // Encode into string representation
-                const RTObject_class* mt = msg->getType();
-                RTDynamicStringOutBuffer buffer;                
-                RTAsciiEncoding coding( &buffer );
-                mt->_encode_func(mt, msg->getData(), &coding);                
-                std::cout << "ASCII encoding: " << buffer.getString() << std::endl << std::flush;
-                ASSERT(RTMemoryUtil::strcmp("[1,2,3,4]", buffer.getString()) == 0, "Expect ASCII encoding to be [1,2,3,4]");
+                std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+                ASSERT(encoding == "MyVector[1,2,3,4]", encoding.c_str());
 
                 PASS();
             `;
