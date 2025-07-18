@@ -251,7 +251,9 @@ module.exports = function(webServer) {
                         this[key] = value;
                         continue;
                     }
-    
+                    if (argv.artExport) {
+                        continue;
+                    }
                     // else the key must be a filename with comparison specification
                     let [first, ...rest] = key.split(':');
                     if (rest.length > 0) {
