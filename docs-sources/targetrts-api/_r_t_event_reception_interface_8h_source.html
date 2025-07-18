@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ TargetRTS: RTVersion.h Source File</title>
+<title>C++ TargetRTS: RTEventReceptionInterface.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,27 +73,40 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">RTVersion.h</div></div>
+  <div class="headertitle"><div class="title">RTEventReceptionInterface.h</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * Licensed Materials - Property of HCL and/or IBM</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright HCL Technologies Ltd. 2016, 2021. All Rights Reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright HCL Technologies Ltd. 2016, 2025. All Rights Reserved.</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * Copyright IBM Corporation 1999, 2016. All Rights Reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * U.S. Government Users Restricted Rights -  Use, duplication or </span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * disclosure restricted by GSA ADP Schedule.</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef __RTVersion_h__</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define __RTVersion_h__ included</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef __RTEventReceptionInterface_h__</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define __RTEventReceptionInterface_h__ included</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define RT_VERSION_NUMBER 8013</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define RT_VERSION_STRING &quot;Release 8.0.13&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#ifdef PRAGMA</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#pragma interface</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#endif </span><span class="comment">// __RTVersion_h__</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span><a class="code hl_class" href="class_r_t_message.html">RTMessage</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_r_t_event_reception_interface.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="class_r_t_event_reception_interface.html">RTEventReceptionInterface</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_r_t_event_reception_interface.html#ad6ac0129416cac06fd5726f067169128">   31</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_r_t_event_reception_interface.html#ad6ac0129416cac06fd5726f067169128">match</a>( <span class="keyword">const</span> <a class="code hl_class" href="class_r_t_message.html">RTMessage</a> * ) = 0;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="class_r_t_event_reception_interface.html">~RTEventReceptionInterface</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#endif </span><span class="comment">//__RTEventReceptionInterface_h__</span></div>
+<div class="ttc" id="aclass_r_t_event_reception_interface_html"><div class="ttname"><a href="class_r_t_event_reception_interface.html">RTEventReceptionInterface</a></div><div class="ttdoc">Abstract description of an event that is expected to be received by a capsule that uses the RTMultiRe...</div><div class="ttdef"><b>Definition:</b> RTEventReceptionInterface.h:24</div></div>
+<div class="ttc" id="aclass_r_t_event_reception_interface_html_ad6ac0129416cac06fd5726f067169128"><div class="ttname"><a href="class_r_t_event_reception_interface.html#ad6ac0129416cac06fd5726f067169128">RTEventReceptionInterface::match</a></div><div class="ttdeci">virtual bool match(const RTMessage *)=0</div><div class="ttdoc">Check if a received message matches the expectations on a received event as described in the concrete...</div></div>
+<div class="ttc" id="aclass_r_t_message_html"><div class="ttname"><a href="class_r_t_message.html">RTMessage</a></div><div class="ttdoc">Represents a message used for communication between capsule instances.</div><div class="ttdef"><b>Definition:</b> RTMessage.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
