@@ -1,0 +1,5 @@
+---
+group: rt_services_library
+---
+It is possible to declare an event parameter type as `void*`. This makes it possible to send a pointer to any data object with the event (and also to omit passing any data - an implicit `nullptr` is then passed).
+Note: While it can be efficient to send pointers to objects with events it can also be dangerous since it will only work correctly if the sender and receiver run in the same memory space and have an agreement about memory management, for example that the sender is responsible for creating the object and the receiver is responsible for deleting it. Also note that if there is a possibility that the sender and receiver runs in different threads you also need to ensure the data is accessed in a thread-safe way if both the sender and receiver can access it simultaneously. If the sender "forgets" about the object as soon as it has been sent, and the receiver takes ownership of the object when it receives it and deletes the object when it no longer needs it, this pattern is safe to use.

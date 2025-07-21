@@ -201,6 +201,9 @@
             "path": "tests/redefined_initial_transition"
         },
         {
+            "path": "tests/send_pointer"
+        },
+        {
             "path": "tests/special_chars_in_code_snippets"
         },
         {
@@ -274,6 +277,9 @@
         },
         {
             "path": "tests/virtual_class_abstract"
+        },
+        {
+            "path": "tests/wait_for_multiple_events"
         }
     ]
 }

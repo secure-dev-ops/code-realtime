@@ -1,0 +1,33 @@
+capsule OtherCap {
+    [[rt::header_preface]]
+    `          
+        #include "MyData.h"
+    `
+    
+    service behavior port p~ : ProtoX;
+    service behavior port p2 : ProtoX;
+
+    statemachine {
+        state SO1, SO2, SO3;
+        initial -> SO1;
+        SO1 -> SO2 on p.outE1
+        `
+            const MyData* md = static_cast<const MyData*>(rtdata);
+            Log::out << "Received data with value " << md->x << Log::endl;
+            ASSERT(md == sentObject, "Did not receive the same object that was sent");
+            ASSERT(md->x == 5, "Received data had wrong value");
+            // Receiver is responsible for deleting the data
+            delete md;            
+        `;
+        [[rt::properties(
+            const_rtdata=false
+        )]]
+        SO2 -> SO3 on p2.inE2 
+        `
+            MyData* md = static_cast<MyData*>(rtdata);            
+            ASSERT(md == nullptr, "Expected to receive a nullptr if sender did not provide any data");            
+
+            PASS();
+        `;
+    };
+};

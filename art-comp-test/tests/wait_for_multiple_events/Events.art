@@ -1,0 +1,9 @@
+protocol ProtoX {
+    /* In Events */
+    in inE1();
+    in inE2();
+    in inE3(`char`);
+    /* Out Events */
+    out outE1();
+    out outE2();
+};

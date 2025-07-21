@@ -1,0 +1,44 @@
+capsule OtherCap {
+    
+    
+    service behavior port p~ : ProtoX;
+    service behavior port q~ : ProtoX;
+
+    statemachine {
+        state SO1, SO2, SO3, SO4, SO5, Done;
+        initial -> SO1
+        `
+            p.inE1().send();
+            q.inE1().send();
+            Log::out << "2 events sent on different ports" << Log::endl;
+        `;
+        SO1 -> SO2 on p.outE1
+        `
+            p.inE1().send();            
+            p.inE1().send();
+            q.inE1().send();        
+            Log::out << "2 events sent on port p, 1 event sent on port q" << Log::endl;
+        `;
+        SO2 -> SO3 on p.outE1
+        `            
+            p.inE3('1').send();
+            p.inE3('2').send();
+            Log::out << "2 events with char data '1' and '2' sent on port p" << Log::endl;
+        `;
+        SO3 -> SO4 on p.outE1
+        `            
+            p.inE3('L').send(Low);
+            p.inE3('H').send(High);
+            Log::out << "2 events with low and high priority sent on port p" << Log::endl;
+        `;
+        SO4 -> SO5 on p.outE1
+        `            
+            p.inE3('Y').send();
+            Log::out << "Sent inE('?') on port p" << Log::endl;
+        `;
+        SO5 -> Done on p.outE1
+        ` 
+            PASS();           
+        `;
+    };
+};

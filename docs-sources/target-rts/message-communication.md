@@ -105,7 +105,7 @@ As explained [above](#controllers-and-message-queues), each priority level has i
 A message is an instance of a protocol event and is represented by an object of the [RTMessage](../targetrts-api/class_r_t_message.html) class. It stores the following information:
 
 * A message id (`signal`). This is a numerical id that uniquely identifies the event for which the message was created within its protocol. 
-* A data object. It is stored as an untyped pointer (`void*`) but can safely be casted to a pointer typed by the parameter of the protocol event. In most cases such casts happen automatically in generated code, so that you can access correctly typed data in a transition function. However, if you get the data from the message object by calling `RTMessage::getData()` you need to cast it yourself. See [Message Data Area](#message-data-area) for more information about how the message data is stored.
+* A data object. It is stored as an untyped pointer (`void*`) but can safely be casted to a pointer typed by the parameter of the protocol event. In most cases such casts happen automatically in generated code, so that you can access correctly typed data in a transition function. However, if you get the data from the message object by calling `RTMessage::getData()`, or if the event parameter type is `void*`, you need to cast it yourself. See [Message Data Area](#message-data-area) for more information about how the message data is stored, and [Transfer of Message Data from Sender to Receiver](#message-data-transfer-from-sender-to-receiver) for different ways how message data can be managed.
 * The [type descriptor](../art-lang/cpp-extensions.md#type-descriptor) of the data object (an [RTObject_class](../targetrts-api/struct_r_t_object__class.html)). Access it by calling `RTMessage::getType()`.
 * The [priority](#message-priority) at which the message was sent. Access it by calling `RTMessage::getPriority()`.
 * The port on which the message was received. Access it by calling `RTMessage::sap()`.
@@ -115,6 +115,39 @@ As mentioned [above](#controllers-and-message-queues) you should treat a message
 
 !!! important
     When you develop an application don't make assumptions about how many times the data object will be copied. In many cases it will only be copied once, but there are situations when multiple copies will need to be created. It is therefore important that any event parameter has a type descriptor where the copy function (e.g. a copy constructor) is able to copy the data object multiple times. Note that copying of the message object may happen even after it has been dispatched. The receiver must therefore not change it in a way that will prevent it from later being copied correctly by the TargetRTS.
+
+### Message Data Transfer from Sender to Receiver
+By default the data which the sender sends with a message is copied by the TargetRTS (by calling the copy function of the data's [type descriptor](../art-lang/cpp-extensions.md#type-descriptor)). This is done to ensure that the sender and the receiver cannot access the data simultaneously which could lead to problems if they run in different threads. In many cases message data is small and then this copying doesn't lead to any performance problems. However, if the data is big and/or the message with the data is sent frequently, then it may be too costly to copy it.
+
+#### Sending a Pointer to the Message Data
+One way to avoid copying message data is to send a pointer to it. You can do this by typing the protocol event parameter as `void*`. This will allow the sender to pass any pointer when sending the event. It also allows the sender to not provide any data at all, in which case the data will be set to `nullptr`. Even if this approach can be efficient, it could be risky and lead to bugs. You need to think about the following:
+
+* If the sender and receiver runs in different memory spaces, you can obviously not do this as the same memory address will not be valid for both the sender and the receiver.
+* There has to be an agreement between the sender and the receiver about how to manage the memory of the data.
+* If the sender and receiver runs in different threads, and they both have access to the data object at the same time, it has to be protected so it can be accessed in a thread-safe way, for example by a mutex.
+
+A common approach is to let the sender allocate the object, and let the receiver be responsible for deleting it. Also, as soon as the sender as sent the object it will "forget" about it and never access it again. When the receiver has received the object it will use it for as long as it needs, and then delete it.
+
+!!! example
+    You can find a sample application that sends a pointer to an object [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/send_pointer).
+
+#### Moving the Message Data
+Another solution to avoid message data to be copied is to move it instead. This requires that the data is movable, which means that its type must have a [type descriptor](../art-lang/cpp-extensions.md#type-descriptor) with a move function. For an automatically generated type descriptor the move function will use the move constructor of the type.
+
+The sender can decide at the time an event is sent if the message data should be copied or moved, based on if an lvalue or rvalue reference to the data is used:
+
+```cpp
+myPort.myEvent(data).send(); // Send by copy (lvalue ref to data)
+myPort.myEvent(std::move(data)).send(); // Send by move (rvalue ref to data)
+```
+
+If you attempt to send the data by move, but it is not movable, the data will anyway be copied. Also note that if you send an event on a replicated port (i.e. a port with multiplicity > 1) the data can only be moved once. In this case the data will be moved for the last port instance send, and copied for all the others.
+
+Note that if the receiver needs to store the message data for later use, it can also avoid a data copy by moving the received data to for example a capsule member variable:
+
+```cpp
+capsuleMemberVar = std::move(*rtdata); // Avoid copying the received message data
+```
 
 ### Message Data Area
 Messages that carry data can either store that data inside the [RTMessage](../targetrts-api/class_r_t_message.html) object, in the `_data_area` member variable, or on the system heap. A TargetRTS configuration macro [`RTMESSAGE_PAYLOAD_SIZE`](build.md#rtmessage_payload_size) defines the byte limit which decides where a data object will be stored. Data that is smaller than this limit is stored inside the [RTMessage](../targetrts-api/class_r_t_message.html) object, while bigger data is stored on the system heap. The picture below shows two message objects, one where the data object is small enough to fit in the `_data_area` and another where it's too big to fit there and therefore is instead allocated on the system heap.
@@ -159,16 +192,10 @@ Both [RTActor](../targetrts-api/class_r_t_actor.html)::`messageReceivedBeforeIni
 Sometimes a capsule state machine may have the need to wait for multiple messages to arrive before transitioning from one state ("source") to another state ("target"). The TargetRTS provides a utility class [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) which makes this easy to implement. The steps below outline how this utility should be used:
 
 1. Declare a member variable in your capsule, typed by [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html). Note that this utility class is not included by default so you also need to add `#include <RTMultiReceive.h>` in the `rt::header_preface` code snippet of the capsule.
-2. Initialize the member variable, for example by means of a [capsule constructor](../art-lang/index.md#capsule-constructor). The only mandatory constructor argument is a pointer to the capsule instance itself (i.e `this`), but optionally you can pass a boolean for the `orderMatters` constructor parameter. This flag decides if the order in which the messages arrive should be significant or not. By default the order doesn't matter, and as soon as all messages have arrived, the capsule will transition to the target state.
-3. When entering the source state (e.g. in the entry action of that state), set up the expectations for which messages that must be received, by calling the `expectEvent()` function. The argument to this function is an [RTEventReception](../targetrts-api/class_r_t_event_reception.html) object which specifies properties of a message that must be received. Call the function once for each message that must be received. If you have configured the utility so that the order of received messages matter, then the expected order is defined by the order of your function calls. The following can be specified using the [RTEventReception](../targetrts-api/class_r_t_event_reception.html) constructor parameters (some are optional and can be omitted):
-    * The port ([RTProtocol](../targetrts-api/class_r_t_protocol.html)) where the message should be received. If omitted it can arrive on any of the capsule's ports.
-    * The event of the message that should be received. You can specify the event either by message id (i.e. signal), or by its name. If you do it by id then you also must provide the port, since message ids are not globally unique. If you don't specify the event, then a message for any event can be received.
-    * The data of the message that should be received, specified by its ASCII [encoding](encoding-decoding.md). If omitted the received message can have any data (including no data).
-
-    See some examples below for how to call `expectEvent()`.
-
+2. Initialize the member variable, for example by means of a [capsule constructor](../art-lang/index.md#capsule-constructor). The only mandatory constructor argument is a pointer to the capsule instance itself (i.e `this`), but optionally you can pass a boolean for the `orderMatters` constructor parameter. This flag decides if the order in which the messages arrive should be significant or not. By default the order doesn't matter, and as soon as all messages have arrived (in any order), the capsule will transition to the target state.
+3. When entering the source state (e.g. in the entry action of that state), set up the expectations for which messages that must be received, by calling the `expectEvent()` function. For more details on how to do this, see [below](#setting-expectations-on-received-messages).
 4. Create an internal transition in the source state with triggers that match all events that should be received. In its effect code snippet call the function `eventReceived()`. You don't need to pass the received message in this call; the function will automatically get it from the capsule.
-5. Create the transition from the source state to the target state with triggers that match all events that should be received. In its guard code snippet call the function `isAllEventsReceived()`. It's a boolean function that returns true only when all the expected events have been received. This means that the state machine only can transition from the source state to the target state when it has received messages that match all the "expectations" that were set-up when entering the source state.
+5. Create the transition from the source state to the target state with triggers that match all events that should be received. In its guard code snippet call the function `isAllEventsReceived()`. It's a boolean function that returns true only when all the expected events have been received. This means that the state machine only can transition from the source state to the target state when it has received messages that match all the expectations that were set-up when entering the source state.
 
 Note the following:
 
@@ -176,17 +203,37 @@ Note the following:
 * If you for some reason need to cancel the waiting for the messages to arrive (e.g. because you receive another message with a higher priority) you can do so by calling the `reset()` function. This will restore the utility to its initial state.
 * If you configure the utility so that the order of the received messages should matter, then the transition from the source to the target state only needs a trigger that matches the last received message.
 
+!!! example
+    You can find a sample application that uses the [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) utility [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/wait_for_multiple_events).
+
+### Setting Expectations on Received Messages
+Expectations on which messages that must be received, before the transition to the target state can trigger, are expressed by calling [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html)::`expectEvent()`. The argument to this function is an [RTAbstractEventReception](../targetrts-api/class_r_t_abstract_event_reception.html) object. Two subclasses are provided for this abstract class:
+
+* [RTEventReception](../targetrts-api/class_r_t_event_reception.html). This class lets you set up the expectation on the received event statically by checking certain properties of a received message. The following can be checked by passing appropriate arguments to the constructor (some are optional and can be omitted):
+    * The port ([RTProtocol](../targetrts-api/class_r_t_protocol.html)) where the message should be received. If omitted it can arrive on any of the capsule's ports.
+    * The event of the message that should be received. You can specify the event either by message id (i.e. signal), or by its name. If you do it by id then you also must provide the port, since message ids are not globally unique. If you don't specify the event, then a message for any event can be received.
+    * The data of the message that should be received, specified by its ASCII [encoding](encoding-decoding.md). If omitted the received message can have any data (including no data).
+
+* [RTEventReceptionMsg](../targetrts-api/class_r_t_event_reception_msg.html). This class lets you set up the expectation on the received event by means of a predicate function that you can provide as a lambda. The predicate function gets the received message as argument and can dynamically check if it fulfills the expectation. Note that this class requires a compiler that supports C++ 11 or newer.
+
+Call the `expectEvent()` function once for each message that must be received. If you have configured the [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) object so that the order of received messages matter, then the expected order is defined by the order of your function calls.
+
 Here are a few examples on how to set-up the expectations on what messages that must be received before the capsule can move from the source to the target state:
 
 ```cpp
 // Expect 2 messages (order doesn't matter)
-multiReceive.expectEvent(RTEventReception()); // any event on any port with any data
-multiReceive.expectEvent(RTEventReception()); // any event on any port with any data
+multiReceive.expectEvent(new RTEventReception()); // any event on any port with any data
+multiReceive.expectEvent(new RTEventReception()); // any event on any port with any data
 
 // Expect 4 messages (order matters)
 multiReceive.setOrderMatters(true); // or set this flag using the constructor parameter
-multiReceive.expectEvent(RTEventReception(&p)); // any event on port "p" with any data
-multiReceive.expectEvent(RTEventReception(&p, MyProtocol::Base::rti_inE1)); // event "inE1" on port "p" with any data
-multiReceive.expectEvent(RTEventReception(&q, MyProtocol::Conjugate::rti_outE1, "int 5")); // event "outE1" on port "q" (conjugated) with data that is an integer with value 5
-multiReceive.expectEvent(RTEventReception(nullptr, "anotherEvent")); // event named "anotherEvent" on any port with any data 
+multiReceive.expectEvent(new RTEventReception(&p)); // any event on port "p" with any data
+multiReceive.expectEvent(new RTEventReception(&p, MyProtocol::Base::rti_inE1)); // event "inE1" on port "p" with any data
+multiReceive.expectEvent(new RTEventReception(&q, MyProtocol::Conjugate::rti_outE1, "int 5")); // event "outE1" on port "q" (conjugated) with data that is an integer with value 5
+multiReceive.expectEvent(new RTEventReception(nullptr, "anotherEvent")); // event named "anotherEvent" on any port with any data 
+
+// Expect a message that has a higher priority than General
+multiReceive.expectEvent(new RTEventReceptionMsg([](const RTMessage* m){return m->getPriority() > General;}));
 ```
+
+Note that the objects you create as argument in the calls of `expectEvent()` will be automatically deleted by the [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) utility.

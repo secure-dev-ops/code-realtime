@@ -1,0 +1,33 @@
+
+
+capsule Top {
+    [[rt::header_preface]]
+    `        
+        #include "MyData.h"        
+    `
+
+    part other : OtherCap;
+
+    behavior port p : ProtoX;
+    behavior port p2~ : ProtoX;
+    connect p with other.p;    
+    connect p2 with other.p2;    
+    
+    statemachine {
+        state S1 {
+            entry
+            `
+                MyData* md = new MyData(); // sender allocates data
+                sentObject = md;
+                p.outE1(md).send();
+                // After it has been sent, the sender "forgets" about the data and will not access it.
+                // It's now the responsibility of the receiver to use it, and eventually delete it.
+
+                // Omitting to pass any data implicitly passes nullptr
+                p2.inE2().send();
+            `;
+        };
+        initial -> S1;
+              
+    };
+};

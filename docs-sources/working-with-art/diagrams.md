@@ -168,7 +168,7 @@ Showing such elements in the diagram itself would risk making it cluttered, espe
 You can double-click the Art elements in the Properties view to highlight them in the Art file. For internal transitions the same blue and yellow dots are shown as for regular transitions in diagrams. Double-click the blue dot to navigate to the transition effect code and the yellow dot for navigating to the transition guard code.
 
 ### Renaming Elements
-You can rename an Art element shown in a diagram by double-clicking on the text label that shows its name. Alternatively select the symbol or line to which the text label belongs and press ++"F2"++.
+You can rename an Art element shown in a diagram by selecting the symbol or line to which the text label belongs and then press ++"F2"++.
 
 ![](images/diagram-rename.png)
 

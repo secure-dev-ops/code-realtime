@@ -1,0 +1,150 @@
+
+
+capsule Top {
+    [[rt::header_preface]]
+    `                
+        #include <RTMultiReceive.h>
+        #include <RTEventReception.h>
+        #include <RTEventReceptionMsg.h>        
+    `
+   
+[[rt::decl]]
+`
+    RTMultiReceive multiReceive;
+    public:
+    Top(RTController* rtg_rts, RTActorRef* rtg_ref);
+`
+
+[[rt::impl]]
+`
+    Top::Top(RTController* rtg_rts, RTActorRef* rtg_ref)
+        : SUPER(rtg_rts, rtg_ref), multiReceive(this) {
+    }
+`
+
+    part other : OtherCap;
+    behavior port timer : Timing;
+
+    behavior port p : ProtoX;
+    connect p with other.p;
+
+    behavior port q : ProtoX;
+    connect q with other.q;
+    
+    statemachine {
+        initial -> S1
+        `              
+            // Expect 2 events (any event on any port with any data)            
+            multiReceive.expectEvent(new RTEventReception());
+            multiReceive.expectEvent(new RTEventReception());
+        `;
+        state S1 {
+            intermediate: on p.inE1, q.inE1 
+            `
+                multiReceive.eventReceived();
+                Log::out << "event received in S1" << Log::endl;
+            `;
+        };
+
+        S1 -> S2 on p.inE1, q.inE1 when `multiReceive.isAllEventsReceived()` 
+        `
+            ASSERT(multiReceive.remainingExpectedEventsCount() == 0, "Expect 0 events remaining to be expected");
+            Log::out << "going to S2" << Log::endl;
+            p.outE1().send();
+        `;        
+        state S2 {
+            entry
+            `
+                // Expect twice the "inE1" event on port "p", followed by any event port "q" - order matters
+                multiReceive.setOrderMatters(true);
+                multiReceive.expectEvent(new RTEventReception(ProtoX::Base::rti_inE1, &p)); // If specifying event by signal id, then port must also be given (because signal ids are not globally unique)
+                multiReceive.expectEvent(new RTEventReception("inE1")); // Specifying event by name will match any event with that name regardless of port
+                // Expect 1 event on port q (any event with any data)
+                multiReceive.expectEvent(new RTEventReception(&q));
+                ASSERT(multiReceive.remainingExpectedEventsCount() == 3, "Expect 3 events to be expected");
+            `;
+            intermediate: on p.inE1, q.inE1 
+            `
+                multiReceive.eventReceived();
+                Log::out << "event received in S2" << Log::endl;
+            `;
+        };
+
+        S2 -> S3 on p.inE1, q.inE1 when `multiReceive.isAllEventsReceived()` 
+        `
+            Log::out << "going to S3" << Log::endl;
+            p.outE1().send();
+        `;    
+        state S3 {
+            entry
+            `
+                // Expect the "inE3" event on port "p" twice (1st time with data "char 1", 2nd time with data "char 2") - order does not matter
+                multiReceive.setOrderMatters(true);
+                multiReceive.expectEvent(new RTEventReception(ProtoX::Base::rti_inE3, &p, "char'1'")); 
+                multiReceive.expectEvent(new RTEventReception("inE3", &p, "char'2'"));
+            `;
+            intermediate: on p.inE3
+            `
+                multiReceive.eventReceived();
+                Log::out << "event received in S3" << Log::endl;
+            `;
+        };
+        
+        S3 -> S4 on p.inE3 when `multiReceive.isAllEventsReceived()` 
+        `
+            Log::out << "going to S4" << Log::endl;
+            p.outE1().send();
+        `;        
+        state S4 {
+            entry
+            `
+                // For full flexibility, use a lambda for matching   
+                multiReceive.setOrderMatters(false);             
+                // Wait until we have received one message with a higher than default priority and another with a lower than default priority
+                multiReceive.expectEvent(new RTEventReceptionMsg([](const RTMessage* m){return m->getPriority() > General;}));
+                multiReceive.expectEvent(new RTEventReceptionMsg([](const RTMessage* m){return m->getPriority() < General;}));
+            `;
+            intermediate: on p.inE3
+            `
+                multiReceive.eventReceived();
+                Log::out << "event received in S4" << Log::endl;
+            `;
+        };
+ 
+        state S5 {
+            entry
+            `
+                // We can cancel the waiting if something more important happens, and then reset the utility
+                multiReceive.expectEvent(new RTEventReceptionMsg([](const RTMessage* m) {
+                    char x = * static_cast<char*>(m->getData());
+                    return x == '!';
+                }));    
+                timer.informIn(RTTimespec(1,0));
+            `;
+            intermediate: on p.inE3
+            `
+                ASSERT(!multiReceive.eventReceived(), "Received event should not have matched");
+                Log::out << "event received in " << getCurrentStateString() << Log::endl;
+            `;
+        };
+        S4 -> S5 on p.inE3 when `multiReceive.isAllEventsReceived()` 
+        `
+            Log::out << "going to S5" << Log::endl;
+            p.outE1().send();
+        `;
+
+        state S6;
+        S5 -> S6 on p.inE3 when `multiReceive.isAllEventsReceived()` 
+        `
+            FAIL("Expected the timeout transition to trigger instead since we didn't receive the expected events");
+        `;
+        timeout: S5 -> S6 on timer.timeout
+        `
+            Log::out << "timeout" << Log::endl;
+            multiReceive.reset(); // Make the multiReceive utility ready to be used again
+            ASSERT(multiReceive.remainingExpectedEventsCount() == 0, "After reset 0 events should remain to be expected");                
+            p.outE1().send();
+        `;
+
+    };
+};

@@ -1,0 +1,7 @@
+protocol ProtoX {
+    // void* => allow any data to be sent (including no data)
+
+    out outE1(`void*`); 
+    
+    in inE2(`void*`);
+};

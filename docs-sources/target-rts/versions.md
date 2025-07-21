@@ -41,6 +41,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
+| 8013 | [Waiting for multiple events](#waiting-for-multiple-events) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -122,3 +123,6 @@ Log streams can now be connected to any `std::ostream`, and you can for example 
 
 ### New tracing feature for sequence diagram visualization of message communication
 It's now possible to turn on a new kind of tracing in applications where messages that are sent between capsule instances can be visualized graphically in a sequence diagram. See [this chapter](../running-and-debugging/tracing.md) for more information about this feature.
+
+### Waiting for multiple events
+A new utility class [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) now makes it easier to wait in a state until multiple events have been received, before transitioning to another state. See [this chapter](message-communication.md#waiting-for-multiple-messages) for more information.
