@@ -7,7 +7,7 @@
 
 using namespace std;
 class RTMessage;
-class RTObject_class;
+struct RTObject_class;
 
 namespace TestUtils {
 
