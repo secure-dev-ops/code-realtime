@@ -1,0 +1,10 @@
+capsule Top {
+    optional part top : Top [0..1];
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            PASS();
+        `;
+    };
+};
