@@ -105,9 +105,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a20a21158ffc3d6872879f604b81f314c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_external_1_1_base.html#a20a21158ffc3d6872879f604b81f314c">enable</a> (void)</td></tr>
-<tr class="memdesc:a20a21158ffc3d6872879f604b81f314c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the owner capsule to receive an event on the external port.  <br /></td></tr>
-<tr class="separator:a20a21158ffc3d6872879f604b81f314c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01f025879efba1d130931abccc22d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_external_1_1_base.html#ad01f025879efba1d130931abccc22d3f">enable</a> (int prio=System)</td></tr>
+<tr class="memdesc:ad01f025879efba1d130931abccc22d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the owner capsule to receive an event on the external port.  <br /></td></tr>
+<tr class="separator:ad01f025879efba1d130931abccc22d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab7c1cdd74f5395d44c420ff5833b378"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_external_1_1_base.html#aab7c1cdd74f5395d44c420ff5833b378">disable</a> (void)</td></tr>
 <tr class="memdesc:aab7c1cdd74f5395d44c420ff5833b378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the owner capsule from receiving an event on the external port.  <br /></td></tr>
 <tr class="separator:aab7c1cdd74f5395d44c420ff5833b378"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -439,8 +439,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyBoundAt</b> (in
 
 </div>
 </div>
-<a id="a20a21158ffc3d6872879f604b81f314c" name="a20a21158ffc3d6872879f604b81f314c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20a21158ffc3d6872879f604b81f314c">&#9670;&#160;</a></span>enable()</h2>
+<a id="ad01f025879efba1d130931abccc22d3f" name="ad01f025879efba1d130931abccc22d3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01f025879efba1d130931abccc22d3f">&#9670;&#160;</a></span>enable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -448,15 +448,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyBoundAt</b> (in
         <tr>
           <td class="memname">void External::Base::enable </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prio</em> = <code>System</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Enable the owner capsule to receive an event on the external port. </p>
-<p>This function may only be called from the thread on which the owner capsule executes. </p>
+<p>This function may only be called from the thread on which the owner capsule executes. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">prio</td><td>The priority of the event which gets sent to the owner capsule when an external thread calls the <a class="el" href="class_external_1_1_base.html#a16f48420dea3566e5b292e16bf7a8a6f" title="Send an event on the external port.">raise()</a> function on the external port. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -487,7 +492,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyBoundAt</b> (in
 </div><div class="memdoc">
 
 <p>Send an event on the external port. </p>
-<p>Data can optionally be included in the event. This function may be used only on external threads (i.e. another thread than the one on which the owner capsule executes). Sending of the event will only be successful if the external port is currently enabled for event reception. After this function has been called, the port is automatically disabled from receiving another event until <a class="el" href="class_external_1_1_base.html#a20a21158ffc3d6872879f604b81f314c" title="Enable the owner capsule to receive an event on the external port.">enable()</a> has been called again. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Data can optionally be included in the event. This function may be used only on external threads (i.e. another thread than the one on which the owner capsule executes). Sending of the event will only be successful if the external port is currently enabled for event reception. After this function has been called, the port is automatically disabled from receiving another event until <a class="el" href="class_external_1_1_base.html#ad01f025879efba1d130931abccc22d3f" title="Enable the owner capsule to receive an event on the external port.">enable()</a> has been called again. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Data object to put in the sent event. The data is copied by the TargetRTS using the copy function of the type descriptor. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Type descriptor for the data object. </td></tr>
