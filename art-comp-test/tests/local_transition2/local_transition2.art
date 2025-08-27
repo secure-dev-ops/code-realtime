@@ -1,0 +1,69 @@
+capsule Top 
+{
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    [[rt::decl]]
+    `
+        private: std::string result;
+        int tCount = 0;
+    `
+
+    behavior port timer : Timing;
+
+    statemachine {
+        state Composite {
+            entrypoint ep1, ep2;
+            
+            entry
+            `
+                result += "Enter:Composite ";
+            `;
+            exit
+            `
+                result += "Exit:Composite ";
+            `;
+            state Nested {
+                entry
+                `
+                    result += "Enter:Nested ";
+                `;
+                exit
+                `
+                    result += "Exit:Nested ";
+                `;
+            };
+            state Nested2 {
+                entry
+                `
+                    result += "Enter:Nested2 ";
+                `;
+                exit
+                `
+                    result += "Exit:Nested2 ";
+                `;
+            };
+            ep1 -> Nested;
+            local: ep2 -> Nested2 on timer.timeout when `tCount == 1`
+            `
+                result += "Effect:local ";
+                timer.informIn(RTTimespec(1,0));
+                tCount++;
+            `;
+        };
+        initial -> Composite.ep1
+        `
+            timer.informIn(RTTimespec(1,0));
+            tCount++;
+        `
+        ;
+        state Done;
+        done: Composite -> Done on timer.timeout
+        `
+            //Log::out << result << std::endl;
+            ASSERT(result == "Enter:Composite Enter:Nested Exit:Nested Effect:local Enter:Nested2 Exit:Nested2 Exit:Composite ", "Unexpected result");
+            PASS();
+        `;
+    };
+};

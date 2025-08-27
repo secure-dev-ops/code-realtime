@@ -681,7 +681,7 @@ A plugin part is similar to an optional part in that it is populated by capsule 
 
 Plugin parts can be useful in applications when a capsule needs to use a shared resource for some time, and then return it so it can be used by other capsules. The shared resource is the capsule that is imported into a plugin part of the capsule that needs to use it, and when it's no longer needed it gets deported from the plugin part so that another capsule can use it.
 
-It's possible (but unusual) to import a capsule instance into more than one plugin part at the same time. The import will succeed as long as none of the ports of the capsule is already bound. That is a port can only be bound in one "import context" at a time. It's allowed to let some of the ports be unbound in contexts where they will not be used.
+It's possible (but unusual) to import a capsule instance into more than one plugin part at the same time. The import will succeed as long as none of the ports of the capsule is already bound. That is, a port can only be bound in one "import context" at a time. It's allowed to let some of the ports be unbound in contexts where they will not be used.
 
 Plugin parts by default have multiplicity 0..1.
 
@@ -1090,7 +1090,7 @@ In the [example above](#hierarchical_sm_sample) we can see that the transition f
 If a state is entered via an entry point that has no outgoing transition in the nested state machine, then it behaves in the same way as if the entry point was connected to the [deep history](#deep-history) pseudo state. For clarity it's best to avoid this and instead use an explicit reference to [deep history](#deep-history) if that is the intended behavior. In the same way it's possible to exit a composite state using an exit point that has no outgoing transition in the enclosing state machine. In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for [deep history](#deep-history)). This is also not recommended, unless the transition is a [local transition](#local-transition).
 
 #### Local Transition
-A transition in a nested state machine that connects an entry point and exit point on the same state is a **local transition**. A local transition is a self-transition that behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the substates, run the effect code, and then enter the substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. 
+A transition in a nested state machine where the source is an entry point of the container state is a **local transition**. The target of such a transition is either a substate in the nested state machine, or an exit point on the same container state. In the latter case the transition is a **local self-transition**. A local self-transition behaves something in between an [internal transition](#internal-transition) and a regular (a.k.a. external) self-transition. An [internal transition](#internal-transition) defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local self-transition will exit the substates, run the effect code, and then enter the same substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. 
 
 Both for local and external self-transitions exiting of states happens bottom-up which means that the deepest nested substate will first be exited, then its parent state, and so on. Entering happens in the opposite order, i.e. in a top-down fashion.
 
@@ -1127,7 +1127,7 @@ Assume the currently active state configuration is {`SelfTransitionExample`, `Ne
 
 No state is exited and the active state configuration remains unchanged.
 
-* **Local transition** (`local`)
+* **Local self-transition** (`local`)
   
 1) `Nested2` is exited. 
    
@@ -1139,7 +1139,7 @@ No state is exited and the active state configuration remains unchanged.
    
 5) `Nested2` is entered.
    
-* **External transition** (`external`)
+* **External self-transition** (`external`)
 
 1) `Nested2` is exited. 
    
@@ -1156,7 +1156,14 @@ No state is exited and the active state configuration remains unchanged.
 7) `Nested2` is entered.
 
 !!! example
-    You can find a sample application that has a local transition [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/local_transition).
+    You can find a sample application that has a local self-transition [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/local_transition).
+
+If the local transition is not a self-transition it must target a substate within the same state machine that contains the local transition. The only difference in behavior for such a local transition, compared to a local self-transition, is that the target state (and its substates, if any) are entered after the effect code of the transition has executed.
+
+!!! example
+    You can find a sample application that has a local transition that targets a substate [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/local_transition2).
+
+Local transitions are for example useful for implementing error handling in a state machine. Regardless of which substate that is active a local transition can trigger on an error message and handle it in a uniform way. If the error can be recovered from, a local self-transition brings back the state machine to same active state configuration as before the error occurred. If it's not possible to recover from the error, you may instead let the local transition target a substate that represents the error that occurred.
 
 ## Class with State Machine
 Art allows you to create passive classes with state machines. This can be an alternative to using a [capsule](#capsule) in case you only need a passive stateful data object, and don't need the ability to send events to it, or to let it execute in its own context. A class with a state machine is more lightweight than a capsule at runtime. 
