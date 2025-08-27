@@ -62,6 +62,17 @@ With manual layout it's also possible to resize some kinds of symbols. Yellow "r
 
 When you save the diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.
 
+### Graphical Ambiguities
+With manual layout it's possible that a symbol in a state diagram shows up inside the symbol of a composite state, even if the corresponding Art element is not nested within that state. The diagram editor will detect such graphical ambiguities and show a warning to avoid that the diagram is misinterpreted. The warning is placed both on the composite state symbol and the symbol that appears inside it. Here is an example:
+
+![](images/ambiguity.png)
+
+Here `Nested` and `Nested2` are substates of `Composite` while `XXX` just happens to appear inside it (either because it was moved or that `Composite` was resized). 
+
+Note that if the element of the ambiguous symbol comes before the state in the Art file, the ambiguous symbol will not be visible since it then will be hidden behind the state symbol. In this case only the warning on the state symbol can be seen.
+
+If you observe warnings about graphical ambiguities you should update the manual layout of the diagram to get rid of them.
+
 ### Discarding Layout Information
 If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!
 
@@ -94,7 +105,7 @@ The JSON file that holds layout information for a diagram contains references to
 
 * References will be updated when you rename an element, regardless if you rename it by direct typing in the Art file, or if you use the [Rename command](art-editor.md#renaming-elements). However, it's recommended to use the [Rename command](art-editor.md#renaming-elements) since there are some situations where rename by direct typing will be unable to update all references.
 * If you rename the context element, i.e. the element that owns a diagram (like `MyCapsule` in the example above), and that diagram is currently open, then it will be automatically closed and reopened so the new element name is shown in the diagram editor tab. {$product.name$} tries to reopen the diagram into the same editor tab group, but sometimes this is not possible and the diagram will then appear elsewhere.
-* If you delete an element, references to it from layout files are not automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.
+* If you delete an element, references to it from layout files are not always automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.
 * There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.
 
 
