@@ -1,6 +1,6 @@
 {$product.name$} lets you create stateful, event-driven realtime applications in C++.
 
-It runs as an extension of Visual Studio Code or Eclipse Theia. Follow the [installation instructions](installing.md) for installing it.
+It runs as an extension of Visual Studio Code and other IDEs that support Visual Studio Code extensions such as Eclipse Theia. Follow the [installation instructions](installing.md) for installing it.
 
 {$product.name$} supports the [Art language](art-lang/index.md) which extends the C++ language with high-level concepts useful when designing stateful, event-driven realtime applications. Examples of such concepts include capsules, state machines and protocols. Art is a textual language, but also provides a graphical notation that includes class, state and structure diagrams.
 

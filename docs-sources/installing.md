@@ -1,7 +1,7 @@
 
-{$product.name$} can be installed on top of Visual Studio Code or Eclipse Theia.
+{$product.name$} can be installed in IDEs that support Visual Studio Code extensions. This obviously includes [Visual Studio Code](https://code.visualstudio.com/) itself, but also many other IDEs such as [Eclipse Theia](https://theia-ide.org/), [Cursor](https://cursor.com/), [DevOps Code](https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code) and others.
 
-The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). To install that version into Visual Studio Code or Eclipse Theia follow these steps:
+The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). To install that version into your IDE follow these steps:
 
 1) Click "Extensions" in the activity bar to open the Extensions view.
 
@@ -19,14 +19,14 @@ Once the installation is finished you will see {$product.name$} appear in the "I
 
 The screenshot above also shows that an extension for working with C/C++ has been installed. See [Setup C++ Build Tools](#setup-c-build-tools) for more information.
 
-After you have installed {$product.name$} it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command `Developer: Reload Window` which is available in the Command Palette (++ctrl+shift+"P"++).
+After you have installed {$product.name$} it's recommended to restart the IDE, or at least to perform the command **Developer: Reload Window** which is available in the Command Palette (++ctrl+shift+"P"++).
 
 ## Install from VSIX
 Another way to install {$product.name$} is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of {$product.name$} from both the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce) (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:
 
 1) If you already have a version of {$product.name$} installed, you can manually uninstall it first (see [Uninstall](#uninstall)). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.
 
-2) Open the menu of the Extensions view and select the command "Install from VSIX". 
+2) Open the menu of the Extensions view and select the command **Install from VSIX**. 
 
 ![](images/vsix_install.png)
 
@@ -36,7 +36,7 @@ If the installation completes successfully you should see the following message:
 
 ![](images/vsix_installation_completed.png)
 
-If instead the installation fails, this message will tell you the reason. One common reason for failure is that your version of Visual Studio Code or Eclipse Theia is not compatible (i.e. too old) for {$product.name$}.
+If instead the installation fails, this message will tell you the reason. One common reason for failure is that your IDE version is not compatible (i.e. too old) for {$product.name$}.
 
 It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
 
@@ -96,9 +96,9 @@ When the {$product.name$} extension is activated information about which Java th
 Here you will also see if the launching of the language server for some reason failed.
 
 ### Setup C++ Build Tools
-When {$product.name$} builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start Visual Studio Code or Eclipse Theia. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching Visual Studio Code or Eclipse Theia. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.
+When {$product.name$} builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start your IDE. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching your IDE. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.
 
-You also need to install an extension for C/C++ development into Visual Studio Code or Eclipse Theia. Even if you can use any such extension, {$product.name$} provides the best integration with either [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) or [clangd](https://clangd.llvm.org/).
+You also need to install an extension for C/C++ development into your IDE. Even if you can use any such extension, {$product.name$} provides the best integration with either [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) or [clangd](https://clangd.llvm.org/).
 
 ## Uninstall
 To uninstall {$product.name$} follow these steps:

@@ -4,7 +4,7 @@ Once you have successfully [built an application](../building/index.md) the next
 2. from the [Run link](../building/index.md#building-and-running-without-a-tc) in the Art editor (in case you didn't yet create a TC)
 3. by means of a [launch configuration](launch-configurations.md)
 
-Options 1 and 2 are convenients way to quickly run an application, but for full control over how to launch the application you should go for the 3rd option. In the [launch configuration](launch-configurations.md) you can for example specify custom command-line arguments and set environment variables for the launched application.
+Options 1 and 2 are convenient ways to quickly run an application, but for full control over how to launch the application you should go for the 3rd option. In the [launch configuration](launch-configurations.md) you can for example specify custom command-line arguments and set environment variables for the launched application.
 
 A [launch configuration](launch-configurations.md) is also needed in case you want to [debug](debugging.md) the application with the Art Debugger. Doing so can help in troubleshooting problems (often combined with traditional C++ debugging), but can also be useful as a means to interact with an unfinished application that is still under development. For example, the Art Debugger lets you manually [send events](debugging.md#send-event) to the debugged application on ports that may not yet be connected (because you didn't yet implement the sending capsule).
 

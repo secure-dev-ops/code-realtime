@@ -6,7 +6,7 @@ As described in [Building](../building/index.md) you can launch a built executab
 
 A more flexible way to launch an executable is to use a **launch configuration**. This is a JSON file that contains several attributes that control how to launch the executable. Using a launch configuration also gives additional benefits:
 
-* Visual Studio Code and Eclipse Theia knows about launch configurations and provides a dedicated UI for working with them.
+* Visual Studio Code, Eclipse Theia and similar IDEs know about launch configurations and provides a dedicated UI for working with them.
 * You can easily manage multiple ways of launching the same application. Just create a launch configuration for each way of launching it.
 * The output from the launched application is printed in the Debug Console rather than the Terminal view. The Debug Console colorizes printed output from the application (<span style="color: red;">red</span> for text printed to stderr and <span style="color: orange;">orange</span> for text printed to stdout).
 * You can terminate and relaunch the application using a toolbar instead of using the Terminal view.

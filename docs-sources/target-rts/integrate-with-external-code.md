@@ -67,6 +67,8 @@ capsule PushButton {
 };
 ```
 
+By default an event raised on an external port uses the [message priority](../target-rts/message-communication.md#message-priority) `General`. The capsule that owns the external port can choose to use a different priority when it calls `enable()`. This function accepts the desired message priority as an optional parameter.
+
 ### Passing Data
 The external code can choose to pass a data argument with the event that it raises on an external port. The same rules apply for such data as for all other event data, except that it will always be copied (i.e. it's not possible to move it). Just like when data is associated with a timeout event, it's necessary to provide both the data and its type descriptor when raising an event with data. Here is an example where the raised event carries a string as data:
 

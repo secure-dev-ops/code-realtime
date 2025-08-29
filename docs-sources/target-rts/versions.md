@@ -41,7 +41,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
-| 8013 | [Waiting for multiple events](#waiting-for-multiple-events) |
+| 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -126,3 +126,12 @@ It's now possible to turn on a new kind of tracing in applications where message
 
 ### Waiting for multiple events
 A new utility class [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) now makes it easier to wait in a state until multiple events have been received, before transitioning to another state. See [this chapter](message-communication.md#waiting-for-multiple-messages) for more information.
+
+### Application exit code API
+The [RTMain](../targetrts-api/targetrts-api/class_r_t_main.html) class has two new functions for getting and setting the exit code of the application (`getExitCode()` and `setExitCode()`). The default exit code is 0 (as before).
+
+### Public function "getTask" in RTDebugger
+The function [RTDebugger](../targetrts-api/class_r_t_debugger.html)::getTask() is now public which makes it possible to programmatically access the current debugger tasks. See the [`tasks`](../running-and-debugging/rts-debugger.md#tasks) command of the RTS Debugger for more information about tasks.
+
+### Priority for event raised on external port
+A capsule that has an [external port](../target-rts/integrate-with-external-code.md#external-port) can now specify the priority at which an event that an external thread raises on the port should be sent. The function `enable()` now accepts the desired message priority as an optional parameter (the default message priority is still `General`).

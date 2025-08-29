@@ -132,6 +132,9 @@ nav:
         - Releases: releases/index.md  
      - Settings: settings.md
      - Support Procedures: support.md
+     - Learning: 
+        - Learning: learning/index.md
+        - Art Tutorial: learning/art-tutorial.md
      - Contributing: contributing.md
   - Samples: samples.md   
   - Forum: https://github.com/secure-dev-ops/code-realtime/discussions
