@@ -194,6 +194,8 @@ tc.commonPreface = `
 `;
 ```
 
+Note that if you specify some common preface code for a library TCs, then all code that gets generated from TCs which have that library TC as a prerequisite will include that code. This makes it easy to create a library which provides an API in the form of one or many header files. Just write include directives for all those header files in the `commonPreface` property of the library TC. An executable TC that has the library TC as a prerequisite can then directly use the API provided by the library header files.
+
 ### compileArguments
 Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. 
 
@@ -291,7 +293,7 @@ tc.prerequisites = ["../MyLibrary/lib.tcjs"];
 
 Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.
 
-You can also use the predefined variable `${workspaceFolder}` in prerequisite paths. This is often useful as it makes it possible to reference a prerequisite TC based on another workspace folder, regardless of where in the file system it's located. For example:
+You can also use the predefined variable `${workspaceFolder}` (may be abbreviated as `${ws}`) in prerequisite paths. This is often useful as it makes it possible to reference a prerequisite TC based on another workspace folder, regardless of where in the file system it's located. For example:
 
 ``` js
 tc.prerequisites = ["${workspaceFolder:MyLibrary}/lib.tcjs"]; 
