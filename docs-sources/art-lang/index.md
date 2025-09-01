@@ -1355,6 +1355,9 @@ We can also see an example of a state machine redefinition. The initial transiti
 
 Note that to be able to redefine the initial transition of `B` it is necessary to give it a name (so that it can be referenced as redefined from `D`). This is yet another reason why it's good practise to give names to transitions, even if it's not mandated. But, of course, if you want to prevent anyone from creating a derived capsule with a state machine that redefines a certain transition, you can accomplish that by not giving a name to that transition. In effect, an unnamed transition is **final**, i.e. cannot be overridden or excluded.
 
+!!! note
+    If the source and/or target state of a transition is excluded in an inherited capsule state machine, then that transition is implicitly excluded too. It's not necessary to exclude such a transition explicitly using the `exclude` keyword, even if it's of course allowed to do so.
+
 The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.
 
 !!! example
@@ -1364,6 +1367,7 @@ The rule that a capsule state machine must have exactly one initial transition a
     * [Redefining a transition trigger]({$vars.github.repo$}/tree/main/art-comp-test/tests/compound_transition_rtdata_inherited)
     * [Redefining a transition guard]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_guard_redefinition)
     * [Excluding a transition]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_guard_exclude)
+    * [Implicitly excluded transition]({$vars.github.repo$}/tree/main/art-comp-test/tests/choice_transition_implicit_exclude)
 
 Capsule inheritance also has a third dimension, which relates to its structure. [Parts](#part) and [ports](#port) defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. [protocol](#protocol-and-event)), [multiplicity](#port-multiplicity) and the [notification property](#notifying-port) of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. 
 
