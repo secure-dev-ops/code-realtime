@@ -1616,11 +1616,11 @@ class MC [[rt::properties(
 A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the [Content Assist](../working-with-art/art-editor.md#content-assist) feature in the Art file editor. Place the cursor after the equal sign, and press ++ctrl+space++. Here is an example of defining a property of enumeration type:
 
 ``` art
-class MC [[rt::properties(
-    kind=struct
-)]]{
-    // ...
-};
+publish service unwired behavior port p~ 
+    [[rt::properties(
+        registration=automatic_locked
+    )]]
+    : PROT;
 ```
 
 Note that in some cases the name of an enumeration literal starts with underscore (`_`) to prevent it from clashing with the set of Art [keywords](#names-and-keywords).
@@ -1629,35 +1629,26 @@ Below is a table that lists all properties that can be used on different kinds o
 
 <p id="art_properties"/>
 
-| Art Elements | Property | Type | Default | 
+| Property | Art Elements | Type | Default | 
 |----------|:-------------|:-------------|:-------------|
-| [Capsule](#capsule) | [generate_file_header](#generate_file_header) | Boolean | true 
-| [Capsule](#capsule) | [generate_file_impl](#generate_file_impl) | Boolean | true
-| [Capsule](#capsule), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition) [Trigger](#transition) | [rule_config](#rule_config) | String | ""
-| [Protocol](#protocol-and-event) | [version](#version) | Integer | 0
-| [Port](#port) | [registration](#registration) | Enumeration (automatic, automatic_locked, application) | automatic
-| [Port](#port) | [registration_name](#registration_name) | String | ""
-| [Initial transition](#initial-transition), [Triggered transition](#transition) | [const_rtdata](#const_rtdata) | Boolean | true
-| [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine), [Port](#port), [Part](#part), [Capsule](#capsule), [Class](#class-with-state-machine) | [color](#color) | String | ""
+| [color](#color) | [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine), [Port](#port), [Part](#part), [Capsule](#capsule), [Class](#class-with-state-machine) | String | ""
+| [const_rtdata](#const_rtdata) | [Initial transition](#initial-transition), [Triggered transition](#transition) | Boolean | true
+| [generate_file_header](#generate_file_header) | [Capsule](#capsule) | Boolean | true 
+| [generate_file_impl](#generate_file_impl) | [Capsule](#capsule) | Boolean | true
+| [generate_statemachine](#generate_statemachine) | [Class](#class-with-state-machine) | Boolean | true
+| [registration](#registration) | [Port](#port) | Enumeration (automatic, automatic_locked, application) | automatic
+| [registration_name](#registration_name) | [Port](#port) | String | ""
+| [rule_config](#rule_config) | [Capsule](#capsule), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition) [Trigger](#transition) | String | ""
+| [version](#version) | [Protocol](#protocol-and-event) | Integer | 0
 
+### color
+Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.
 
-### generate_file_header
-By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the header file, for example if you prefer to write it manually.
+![](images/color_picker.png)
 
-### generate_file_impl
-By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
+Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").
 
-### rule_config
-This property is used for configuring validation rules for an Art element. Read more about this [here](../validation.md#configuring-validation).
-
-### version
-Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).
-
-### registration
-This property specifies how to register an unwired port at runtime. The default is `automatic` which means the port will be registered automatically when the container capsule instance is initialized. The value `automatic_locked` has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to `application` to programmatically register the port using the functions `registerSPP()` and `registerSAP()` respectively.
-
-### registration_name
-This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.
+![](images/color_picker_diagram.png)
 
 ### const_rtdata
 This property can be set on transitions where you need to modify the data it receives when it's triggered. If the property is set to `false` the `rtdata` parameter in the transition function will be non-const. It can then be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.
@@ -1676,11 +1667,26 @@ MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -> NextState
 
 Note that the `const_rtdata` property appears in the Art syntax right after the transition name. If the transition has no name, it appears in the beginning of the transition declaration.
 
-### color
-Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.
+### generate_file_header
+By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the header file, for example if you prefer to write it manually.
 
-![](images/color_picker.png)
+### generate_file_impl
+By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
 
-Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").
+### generate_statemachine
+This property can be set to `false` to prevent code generation for a class state machine. You may for example want to do this if you prefer to implement the state machine manually but still have a state diagram that serves as documentation for it. A class state machine with this property set to `false` is considered informal, and will not be validated (i.e it does not need to be semantically correct).
 
-![](images/color_picker_diagram.png)
+### registration
+This property specifies how to register an unwired port at runtime. The default is `automatic` which means the port will be registered automatically when the container capsule instance is initialized. The value `automatic_locked` has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to `application` to programmatically register the port using the functions `registerSPP()` and `registerSAP()` respectively.
+
+### registration_name
+This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.
+
+### rule_config
+This property is used for configuring validation rules for an Art element. Read more about this [here](../validation.md#configuring-validation).
+
+### version
+Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).
+
+
+
