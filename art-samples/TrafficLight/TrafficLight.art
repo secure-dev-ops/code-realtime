@@ -6,7 +6,7 @@ capsule TrafficLight : `ILogger` {
         #include "Light.h"
     `
     [[rt::decl]]
-    `
+    `    
     public:
         // Log a message
         virtual void logMsg(RTString str) override;

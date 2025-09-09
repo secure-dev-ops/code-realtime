@@ -51,9 +51,6 @@ If you want to use manual layout for a diagram, click in the diagram background,
 
 ![](images/manual-layout.png)
 
-!!! note 
-    Manual layout is currently an experimental feature. You are welcome to try it out but the feature is still under development and may not fully work in all situations.
-
 Once you have turned on manual layout for a diagram you can start to move symbols around, as you like to achieve a nice-looking layout. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram.
 
 With manual layout it's also possible to resize some kinds of symbols. Yellow "resize" handles at symbol corners will appear for a selected symbol that can be resized:
