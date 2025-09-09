@@ -1,0 +1,48 @@
+class Informal 
+[[rt::properties(
+    generate_statemachine=false,
+    rule_config="E*" // All validation rules as errors (we expect none for an informal state machine)
+)]]
+{
+    [[rt::decl]]
+    `
+        public:
+        int foo();
+    `
+    [[rt::impl]]
+    `
+        int Informal::foo() { return 42; }
+    `
+    /* Trigger Operations */
+    trigger trop();
+    /* State Machine */
+    statemachine { // ART_0008 should not be reported for an informal state machine
+        state State;
+        initial -> State;
+        initial -> Comp; // ART_0029 and ART_0030 should not be reported for an informal state machine
+        choice c; // ART_0005 or ART_0006 should not be reported for an informal state machine
+        state Comp {
+            entrypoint enp;
+        };
+        State -> Comp.enp; // ART_0037 should not be reported for an informal state machine
+        junction j;
+        j -> State on trop(); // ART_0036 should not be reported for an informal state machine        
+    };
+};
+
+capsule Top {    
+    [[rt::impl_preface]]
+    `
+        #include "Informal.h"
+    `
+
+    statemachine {
+        state State;
+        initial -> State
+        `
+            Informal i;
+            ASSERT(i.foo() == 42, "Informal::foo() did not return 42");
+            PASS();
+        `;
+    };
+};

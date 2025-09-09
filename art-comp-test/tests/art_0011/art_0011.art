@@ -1,8 +1,7 @@
 class C_PropDefaultValue [[rt::properties(
     const_target_param_for_decode=false,
     kind=_class,
-    version=0,
-    default_constructor_visibility=public
+    version=0
 )]] {
     statemachine {
         state State;
