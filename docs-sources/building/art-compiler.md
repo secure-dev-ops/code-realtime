@@ -19,10 +19,10 @@ Often you don't need to use any JVM option, but if the application is huge you m
 To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:
 
 ```
-C:\openjdk-17\bin\java -jar c:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\secure-dev-ops.code-realtime-ce-1.0.0\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 1.0.0-20231212_1212
-10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
-10:24:54 : INFO : Arguments:
+C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\secure-dev-ops.code-realtime-ce-3.0.0\bin> java -jar artcompiler.jar
+15:08:40 : INFO : Art Compiler 3.0.0-20250909_1223
+15:08:40 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2025.
+15:08:40 : INFO : Arguments: 
 Usage: java -jar artcompiler.jar <options>
 Options:
   LIST OF OPTIONS
@@ -31,7 +31,7 @@ All options with argument can be used in format <option> <argument> or <option>=
 ```
 
 ## Art Compiler Options
-The Art Compiler accepts options in the form of command-line arguments to `artcompiler.jar` that start with single or double dash (`-` or `--`). Many options can take an argument which then needs to be of the correct type (Boolean, Path etc). You can specify the argument for an option either like this
+The Art Compiler accepts options in the form of command-line arguments to `artcompiler.jar` that start with single or double dash (`-` or `--`). Many options can take an argument which then needs to be of the correct type (String, Path etc). You can specify the argument for an option either like this
 ```
 <option> <argument>
 ```
@@ -48,6 +48,7 @@ Below is a table that lists all options that are available for the Art Compiler.
 |----------|:-------------|
 | [buildConfig](#buildconfig) | String
 | [buildVariants](#buildvariants) | Path
+| [clean](#clean) | N/A 
 | [cwd](#cwd) | Path 
 | [generate](#generate) | N/A 
 | [help](#help) | N/A 
@@ -63,6 +64,12 @@ A build configuration is useful when you want to build a TC that uses [build var
 ### buildVariants
 Specifies a Build Variants script to use for the build. Read more about build variants [here](build-variants.md). 
 
+### clean
+If this option is set, the Art Compiler will perform a clean build by first removing the output folder if it already exists (as a result of a previous build). Clean builds take longer to perform since all C++ files have to be regenerated and recompiled. Normally you don't need to do a clean build, but in some cases it may be necessary. For example, if you are using [Build Variants](build-variants.md) and have changed the [build configuration](build-variants.md#build-configuration), then a clean build is recommended to ensure that all changes are picked up by the build. If you do a clean build, but the output folder for some reason cannot be deleted, then the build will fail. A typical situation when this happens is when the built executable is running because you forgot to terminate it. If the executable is running it cannot be deleted, and hence the output folder also cannot be deleted.
+
+!!! note
+    If you only want to remove binaries produced by make, and not the generated source files, you can instead run `make clean`. This makes the subsequent build slightly faster since not all C++ files need to be regenerated.
+
 ### cwd
 Set the current working directory. By default this is the location from which you launch the Art Compiler. If you use a relative path in options that take a path as argument, such as [--out](#out) or [--tc](#tc), the path will be resolved against the current working directory. 
 
@@ -74,6 +81,10 @@ Use this option to print information about the [version](#version) and all avail
 
 ### out
 Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built [TC](#tc). It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as [targetFolder](transformation-configurations.md#targetfolder) in TCs will be resolved against the specified `--out` folder.
+
+```
+--out C:\temp\artcompiler_output
+```
 
 ### ruleConfig
 Specifies which validation rules that should be enabled, and what severity the problems they find should have. Rules are configured using the same syntax as is used for the [`rule_config`](../art-lang/index.md#rule_config) property in an Art file. For example:
