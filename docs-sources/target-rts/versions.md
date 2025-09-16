@@ -41,7 +41,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
-| 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) |
+| 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) <br> [Improved error handling in REGISTER_LAYER](#improved-error-handling-in-register_layer) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -135,3 +135,6 @@ The function [RTDebugger](../targetrts-api/class_r_t_debugger.html)::getTask() i
 
 ### Priority for event raised on external port
 A capsule that has an [external port](../target-rts/integrate-with-external-code.md#external-port) can now specify the priority at which an event that an external thread raises on the port should be sent. The function `enable()` now accepts the desired message priority as an optional parameter (the default message priority is still `General`).
+
+### Improved error handling in REGISTER_LAYER
+A new virtual function [RTController](../targetrts-api/class_r_t_controller.html)::registerLayer() was added. The default implementation of this function just reports a run-time error (and is hence not expected to be called), but the overridden function in [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) provides a useful implementation (which is the same as before). This change has made it possible to remove the cast to [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) in the `REGISTER_LAYER` macro, which would previously cause a crash if called with another type of controller. Now that error scenario instead leads to the run-time error `badOperation`.
