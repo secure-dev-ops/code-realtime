@@ -1,0 +1,5 @@
+protocol PROTO {
+    /* In Events */
+    in event1();
+    /* Out Events */
+};

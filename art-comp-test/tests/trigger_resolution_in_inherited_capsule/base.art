@@ -1,0 +1,10 @@
+capsule Base {
+    /* Ports */
+    service port port1 : PROTO;
+    statemachine {
+        state State;
+        state State1;
+        init: initial -> State;
+       
+    };
+};

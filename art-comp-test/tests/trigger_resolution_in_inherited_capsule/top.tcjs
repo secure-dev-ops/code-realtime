@@ -1,0 +1,6 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'trigger_resolution_in_inherited_capsule_target'; 
+tc.cppCodeStandard = "C++ 17"; 
+tc.prerequisites =   [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.topCapsule="Top";
