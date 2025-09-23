@@ -95,7 +95,7 @@ Inheritance diagram for RTController:</div>
 <area href="class_r_t_peer_controller.html" title="A controller that acts as an interface to a physical thread which runs a group of capsule instances i..." alt="RTPeerController" shape="rect" coords="134,112,258,136"/>
 <area href="class_r_t_sole_controller.html" title="A controller that acts as an interface to a physical thread which runs a group of capsule instances i..." alt="RTSoleController" shape="rect" coords="268,112,392,136"/>
 <area href="class_r_t_abort_controller.html" alt="RTAbortController" shape="rect" coords="0,168,124,192"/>
-<area href="class_r_t_custom_controller.html" alt="RTCustomController" shape="rect" coords="134,168,258,192"/>
+<area href="class_r_t_custom_controller.html" title="A controller that allows a custom actor object to control the execution of a physical thread in a mul..." alt="RTCustomController" shape="rect" coords="134,168,258,192"/>
 <area href="class_r_t_timer_controller.html" alt="RTTimerController" shape="rect" coords="268,168,392,192"/>
   </map>
 </div></div>
@@ -129,9 +129,11 @@ Public Types</h2></td></tr>
 , <b>LayerResizeSAP</b>
 , <br />
 &#160;&#160;<b>LayerResizeSPP</b>
+, <b>RegisterLayer</b>
 , <b>TimerCancel</b>
 , <b>TimerInform</b>
-, <b>SystemService</b>
+, <br />
+&#160;&#160;<b>SystemService</b>
 <br />
  }</td></tr>
 <tr class="separator:a825bd5114497622324706bdb7cdfefab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -274,6 +276,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>freeTimerNode</b> (<a
 <tr class="memitem:a41ee94df7d78ab95d12521fca552f53f"><td class="memItemLeft" align="right" valign="top"><a id="a41ee94df7d78ab95d12521fca552f53f" name="a41ee94df7d78ab95d12521fca552f53f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>restoreReplyBuffer</b> (<a class="el" href="class_r_t_message.html">RTMessage</a> *)</td></tr>
 <tr class="separator:a41ee94df7d78ab95d12521fca552f53f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93ec6acf580bd672411245b24a1c207e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_controller.html#a93ec6acf580bd672411245b24a1c207e">registerLayer</a> (<a class="el" href="class_r_t_actor.html">RTActor</a> *, RTActorFunction, RTActorFunction, RTActorFunction)</td></tr>
+<tr class="memdesc:a93ec6acf580bd672411245b24a1c207e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a custom actor object (i.e.  <br /></td></tr>
+<tr class="separator:a93ec6acf580bd672411245b24a1c207e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91e88acd71823eafd3d82289e772334c"><td class="memItemLeft" align="right" valign="top"><a id="a91e88acd71823eafd3d82289e772334c" name="a91e88acd71823eafd3d82289e772334c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>countActorDestroy</b> (void)</td></tr>
 <tr class="separator:a91e88acd71823eafd3d82289e772334c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -542,6 +547,59 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTDebugger</b></td><
 <p>the number of incarnated capsules, the number of dispatched messages etc.). </p>
 
 <p>Reimplemented in <a class="el" href="class_r_t_sole_controller.html#a6577c691f8fc850f2437c08d5cb33265">RTSoleController</a>, and <a class="el" href="class_r_t_timer_controller.html#a6656504d8669346288915c459ca3f99a">RTTimerController</a>.</p>
+
+</div>
+</div>
+<a id="a93ec6acf580bd672411245b24a1c207e" name="a93ec6acf580bd672411245b24a1c207e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93ec6acf580bd672411245b24a1c207e">&#9670;&#160;</a></span>registerLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void RTController::registerLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_r_t_actor.html">RTActor</a> *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RTActorFunction&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RTActorFunction&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RTActorFunction&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Register a custom actor object (i.e. </p>
+<p>capsule instance) with the controller to let it customize how the controller behaves. Note: This function has no implementation in this class and a runtime error will be reported if calling it. The function may be overridden in derived classes that implement specialized controllers. </p>
+
+<p>Reimplemented in <a class="el" href="class_r_t_custom_controller.html#a30e71393e0473f2a51566b6a7d26e798">RTCustomController</a>.</p>
 
 </div>
 </div>

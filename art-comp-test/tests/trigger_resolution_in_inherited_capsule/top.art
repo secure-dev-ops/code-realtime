@@ -1,0 +1,10 @@
+capsule Top: Base {  
+    statemachine {
+       state redefine State;
+       redefine init: initial -> State
+       `
+            PASS();
+        `;
+       t1: State->State1 on port1.event1;
+    };
+};
