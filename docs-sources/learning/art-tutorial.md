@@ -1,4 +1,4 @@
-The Art Tutorial is an extension which you can install in your IDE together with {$product.name$}. It's available on the Visual Studio Code and the OpenVSX marketplaces, so you can easily install it from the Extensions view.
+The Art Tutorial is an extension which you can install in your IDE together with {$product.name$}. It's available on the [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.art-tutorial) and the [OpenVSX](https://open-vsx.org/extension/secure-dev-ops/art-tutorial) marketplaces, so you can easily install it from the Extensions view.
 
 ![](images/art-tutorial.png)
 
