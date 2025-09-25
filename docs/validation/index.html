@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1736,6 +1738,70 @@
       <a href="../support/" class="md-nav__link">
         Support Procedures
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -3523,6 +3589,10 @@ capsule Ponger {
 </code></pre>
 <p><img alt="" src="../images/ART_0026_illegalConnection.png" /></p>
 <p>Here we see that both connectors are invalid. Port <code>p2</code> and port <code>p1</code> are at the same level in <code>Top</code>'s structure so their conjugations should be different, while port <code>p1</code> and port <code>p</code> are at different levels in <code>Top</code>'s structure so their conjugations should be the same.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a connector connects two ports that are typed by a protocol that only contains <a href="../art-lang/#symmetric-event">symmetric events</a>, then this validation rule does not apply. This is because a symmetric event is both an in-event and an out-event at the same time, and can therefore both be sent and received on the connected ports regardless of their conjugation.</p>
+</div>
 <h3 id="art_0027_incompatibleprotocolsforconnectedports">ART_0027_incompatibleProtocolsForConnectedPorts</h3>
 <table>
 <thead>

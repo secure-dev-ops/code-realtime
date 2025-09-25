@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1429,6 +1431,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         Contributing
@@ -2053,6 +2119,7 @@
 #include &lt;iostream&gt;
 `;
 </code></pre>
+<p>Note that if you specify some common preface code for a library TCs, then all code that gets generated from TCs which have that library TC as a prerequisite will include that code. This makes it easy to create a library which provides an API in the form of one or many header files. Just write include directives for all those header files in the <code>commonPreface</code> property of the library TC. An executable TC that has the library TC as a prerequisite can then directly use the API provided by the library header files.</p>
 <h3 id="compilearguments">compileArguments</h3>
 <p>Specifies the arguments for the C++ compiler used for compiling generated C++ code. Note that some compiler arguments may already be specified in the TargetRTS configuration that is used, and the value of this property will be appended to those standard compiler arguments. </p>
 <pre><code class="language-js">tc.compileArguments = '$(DEBUG_TAG)'; // Compile code for debugging
@@ -2112,7 +2179,7 @@ tc.copyrightText = &quot;See copyright in &quot; + tc.eval.unitName + &quot;.h&q
 <pre><code class="language-js">tc.prerequisites = [&quot;../MyLibrary/lib.tcjs&quot;]; 
 </code></pre>
 <p>Prerequisite TCs can either be specified using absolute or relative paths. Relative paths are resolved against the location of the TC that has the property set.</p>
-<p>You can also use the predefined variable <code>${workspaceFolder}</code> in prerequisite paths. This is often useful as it makes it possible to reference a prerequisite TC based on another workspace folder, regardless of where in the file system it's located. For example:</p>
+<p>You can also use the predefined variable <code>${workspaceFolder}</code> (may be abbreviated as <code>${ws}</code>) in prerequisite paths. This is often useful as it makes it possible to reference a prerequisite TC based on another workspace folder, regardless of where in the file system it's located. For example:</p>
 <pre><code class="language-js">tc.prerequisites = [&quot;${workspaceFolder:MyLibrary}/lib.tcjs&quot;]; 
 </code></pre>
 <p>Note that use of workspace-relative paths requires setting the <a href="../art-compiler/#ws">-ws</a> option for the Art Compiler.</p>

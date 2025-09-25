@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1143,6 +1145,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../contributing/" class="md-nav__link">
         Contributing
@@ -1326,6 +1392,19 @@
   <a href="#protocol-and-event" class="md-nav__link">
     Protocol and Event
   </a>
+  
+    <nav class="md-nav" aria-label="Protocol and Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-event" class="md-nav__link">
+    Symmetric Event
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1628,6 +1707,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#color" class="md-nav__link">
+    color
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const_rtdata" class="md-nav__link">
+    const_rtdata
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generate_file_header" class="md-nav__link">
     generate_file_header
   </a>
@@ -1642,15 +1735,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rule_config" class="md-nav__link">
-    rule_config
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version" class="md-nav__link">
-    version
+  <a href="#generate_statemachine" class="md-nav__link">
+    generate_statemachine
   </a>
   
 </li>
@@ -1670,15 +1756,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#const_rtdata" class="md-nav__link">
-    const_rtdata
+  <a href="#rule_config" class="md-nav__link">
+    rule_config
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#color" class="md-nav__link">
-    color
+  <a href="#version" class="md-nav__link">
+    version
   </a>
   
 </li>
@@ -1724,7 +1810,7 @@
 <p>Ports of capsules typing capsule parts are connected to each other by means of connectors. A <strong>connector</strong> is a conceptual construct for showing how events are routed in the composite structure of a capsule. At run-time connectors don't exist, and ports are directly connected to each other. Because of this, it's not mandatory to use connectors. You can also choose to dynamically connect (and disconnect) ports at run-time. Although this provides for more flexibility, it has the drawback of making it impossible to statically visualize the communication paths of a capsule. Ports that connect statically to other ports via connectors are called <strong>wired</strong> ports. Ports that are connected dynamically without use of static connectors are called <strong>unwired</strong> ports. </p>
 <p>The picture below shows the structure of a capsule <code>Top</code> which consists of two capsule parts <code>ping</code> and <code>pong</code> each holding a capsule instance (a <code>Pinger</code> capsule and a <code>Ponger</code> capsule respectively). The connector between the wired ports <code>p</code> on these capsules makes it possible for these capsules to communicate with each other. Communication can also happen using the unwired ports <code>q1</code> and <code>q2</code> if they are connected at run-time. The picture also shows that the capsule <code>Ponger</code> is further decomposed using a capsule part <code>inner</code>. All events sent to port <code>p</code> of <code>Ponger</code> will be further routed to port <code>i</code> of the <code>Internal</code> capsule. </p>
 <p><img alt="" src="images/composite_structure.png" /></p>
-<p>Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may be sent between two connected ports using a single protocol, one of the ports can be declared as <strong>conjugated</strong>. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. In the picture above port <code>q1</code> is non-conjugated (<img alt="" src="images/non_conjugated_port.png" />) while port <code>q2</code> is conjugated (<img alt="" src="images/conjugated_port.png" />).</p>
+<p>Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may be sent between two connected ports using a single protocol, one of the ports can be declared as <strong>conjugated</strong>. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. A conjugated port is denoted with a <code>~</code> character. In the picture above port <code>q1</code> is non-conjugated (<img alt="" src="images/non_conjugated_port.png" />) while port <code>q2</code> is conjugated (<img alt="" src="images/conjugated_port.png" />).</p>
 <p>Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity &gt; 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity &gt; 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time. The picture below shows a capsule with a part and a port that both have multiplicity &gt; 1. In structure diagrams such parts and ports are shown as "stacked boxes".</p>
 <p><img alt="" src="images/port_part_with_multiplicity.png" /></p>
 <p>In addition to regular C++ member functions a capsule may have a <strong>state machine</strong> as its behavior. A state machine describes how an instance of the capsule may move between different <strong>states</strong> through its life-time. A <strong>transition</strong> that connects a source state with a target state may be <strong>triggered</strong> when a received event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a <strong>trigger</strong> that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean <strong>guard</strong> condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an <strong>effect</strong>, which is a piece of C++ code that executes when the transition gets triggered.</p>
@@ -2128,11 +2214,13 @@ if (!id.isValid()) {
     out success();
     out error(`std::string` /* error message */);
 
-    in relayEvent(); out relayEvent();
+    in relayEvent(); out relayEvent(); // symmetric event
 };
 </code></pre>
-<p>The event <code>relayEvent</code> above is both an in-event and an out-event. Such <strong>symmetric events</strong> are useful in protocols typing ports that may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.</p>
 <p>At run-time we often talk about a <strong>message</strong> rather than an event. A message is an instance of an event, similar to how a capsule instance is an instance of a capsule. In other words, a message is a run-time concept while an event is a design-time concept. </p>
+<h3 id="symmetric-event">Symmetric Event</h3>
+<p>The event <code>relayEvent</code> in the above example is both an in-event and an out-event. Such a <strong>symmetric event</strong> is useful in protocols typing ports that may receive and send the same events (for example a port that just forwards received events to another port). By convention a symmetric event is declared on a single line.</p>
+<p>If a protocol only contains symmetric events, then ports typed by that protocol can be connected regardless of their conjugation.</p>
 <h2 id="port">Port</h2>
 <p>A port defines a named point of communication for a capsule. A port is typed by a <a href="#protocol-and-event">protocol</a> which defines the events that may be sent in to (in-events) and out from (out-events) the port. A port may be conjugated in order to swap the meaning of in-events and out-events. That is, a capsule may send out-events on its non-conjugated ports, but in-events on its conjugated ports. A port becomes conjugated if you add a tilde (~) after its name.</p>
 <p>Ports are often named to describe the role or purpose of the communication that takes place on them. By convention names of ports start with lowercase and use camelCase if the name consists of multiple words. </p>
@@ -2322,7 +2410,7 @@ frame.destroy(id);
 <p>3) <strong>Plugin part</strong></p>
 <p>A plugin part is similar to an optional part in that it is populated by capsule instances programmatically. However, the capsule instances are not created in the plugin part but instead imported into the plugin part from another part. Typically such a capsule instance is first created into an optional part, and then at some later point in time imported into a plugin part. Later it can be deported (i.e. removed) from the plugin part and perhaps imported into another plugin part. This makes it possible to create very dynamic composite structures where the same capsule instance can play different roles in different parts over time. Moving a capsule instance by deporting it from one plugin part and then importing it in another plugin part is usually more efficient than destroying the capsule instance in one optional part and then creating another capsule instance in another optional part (and data stored in the moved capsule instance is of course retained). Note that the parts which you move a capsule instance between can belong to different composite structures.</p>
 <p>Plugin parts can be useful in applications when a capsule needs to use a shared resource for some time, and then return it so it can be used by other capsules. The shared resource is the capsule that is imported into a plugin part of the capsule that needs to use it, and when it's no longer needed it gets deported from the plugin part so that another capsule can use it.</p>
-<p>It's possible (but unusual) to import a capsule instance into more than one plugin part at the same time. The import will succeed as long as none of the ports of the capsule is already bound. That is a port can only be bound in one "import context" at a time. It's allowed to let some of the ports be unbound in contexts where they will not be used.</p>
+<p>It's possible (but unusual) to import a capsule instance into more than one plugin part at the same time. The import will succeed as long as none of the ports of the capsule is already bound. That is, a port can only be bound in one "import context" at a time. It's allowed to let some of the ports be unbound in contexts where they will not be used.</p>
 <p>Plugin parts by default have multiplicity 0..1.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -2646,7 +2734,7 @@ t3: S1 -&gt; S4 on port3.*; // Trigger t3 when receiving any event on port3
 </div>
 <p>If a state is entered via an entry point that has no outgoing transition in the nested state machine, then it behaves in the same way as if the entry point was connected to the <a href="#deep-history">deep history</a> pseudo state. For clarity it's best to avoid this and instead use an explicit reference to <a href="#deep-history">deep history</a> if that is the intended behavior. In the same way it's possible to exit a composite state using an exit point that has no outgoing transition in the enclosing state machine. In this case the composite state is not exited and instead the previously active substate again becomes active (recursively, just like for <a href="#deep-history">deep history</a>). This is also not recommended, unless the transition is a <a href="#local-transition">local transition</a>.</p>
 <h4 id="local-transition">Local Transition</h4>
-<p>A transition in a nested state machine that connects an entry point and exit point on the same state is a <strong>local transition</strong>. A local transition is a self-transition that behaves something in between an <a href="#internal-transition">internal transition</a> and a regular (a.k.a. external) self-transition. An <a href="#internal-transition">internal transition</a> defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local transition will exit the substates, run the effect code, and then enter the substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. </p>
+<p>A transition in a nested state machine where the source is an entry point of the container state is a <strong>local transition</strong>. The target of such a transition is either a substate of the nested state machine, or an exit point on the same container state. In the latter case the transition is a <strong>local self-transition</strong>. A local self-transition behaves something in between an <a href="#internal-transition">internal transition</a> and a regular (a.k.a. external) self-transition. An <a href="#internal-transition">internal transition</a> defined on a composite state handles a message without exiting neither that composite state, nor any of its substates. However, a local self-transition will exit the substates, run the effect code, and then enter the same substates again. But the composite state itself will not be exited and entered. An external self-transition on the other hand will exit both the composite state and all active substates recursively, run the effect code, and then enter these states again. </p>
 <p>Both for local and external self-transitions exiting of states happens bottom-up which means that the deepest nested substate will first be exited, then its parent state, and so on. Entering happens in the opposite order, i.e. in a top-down fashion.</p>
 <p>Let's look at an example to understand the difference between these three kinds of self-transitions:</p>
 <pre><code class="language-art">statemachine {        
@@ -2679,7 +2767,7 @@ t3: S1 -&gt; S4 on port3.*; // Trigger t3 when receiving any event on port3
 </ul>
 <p>No state is exited and the active state configuration remains unchanged.</p>
 <ul>
-<li><strong>Local transition</strong> (<code>local</code>)</li>
+<li><strong>Local self-transition</strong> (<code>local</code>)</li>
 </ul>
 <p>1) <code>Nested2</code> is exited. </p>
 <p>2) <code>Nested1</code> is exited. </p>
@@ -2687,7 +2775,7 @@ t3: S1 -&gt; S4 on port3.*; // Trigger t3 when receiving any event on port3
 <p>4) <code>Nested1</code> is entered. </p>
 <p>5) <code>Nested2</code> is entered.</p>
 <ul>
-<li><strong>External transition</strong> (<code>external</code>)</li>
+<li><strong>External self-transition</strong> (<code>external</code>)</li>
 </ul>
 <p>1) <code>Nested2</code> is exited. </p>
 <p>2) <code>Nested1</code> is exited. </p>
@@ -2698,8 +2786,14 @@ t3: S1 -&gt; S4 on port3.*; // Trigger t3 when receiving any event on port3
 <p>7) <code>Nested2</code> is entered.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p>You can find a sample application that has a local transition <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/local_transition">here</a>.</p>
+<p>You can find a sample application that has a local self-transition <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/local_transition">here</a>.</p>
 </div>
+<p>If the local transition is not a self-transition it must target a substate within the same state machine that contains the local transition. The only difference in behavior for such a local transition, compared to a local self-transition, is that the target state (and its substates, if any) are entered after the effect code of the transition has executed.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that has a local transition that targets a substate <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/local_transition2">here</a>.</p>
+</div>
+<p>Local transitions are for example useful for implementing error handling in a state machine. Regardless of which substate that is active a local transition can trigger on an error message and handle it in a uniform way. If the error can be recovered from, a local self-transition brings back the state machine to same active state configuration as before the error occurred. If it's not possible to recover from the error, you may instead let the local transition target a substate that represents the error that occurred.</p>
 <h2 id="class-with-state-machine">Class with State Machine</h2>
 <p>Art allows you to create passive classes with state machines. This can be an alternative to using a <a href="#capsule">capsule</a> in case you only need a passive stateful data object, and don't need the ability to send events to it, or to let it execute in its own context. A class with a state machine is more lightweight than a capsule at runtime. </p>
 <p>Transitions in a class state machine are triggered by calling trigger operations on the class. A trigger operation is similar to a regular member function in C++, but does not have a code behavior of its own. Instead, when you call a trigger operation on an object of a class with a state machine it may trigger a transition in the class' state machine. That transition may have an effect code snippet that will execute.</p>
@@ -2865,6 +2959,10 @@ capsule D : B, `IDataManager`, `IController` {
 <p>We can also see an example of a state machine redefinition. The initial transition <code>_Initial</code> of <code>B</code>'s state machine is redefined in <code>D</code>'s state machine so that it targets state <code>DS</code> instead of state <code>BS</code>. In the state diagram of <code>D</code> the state <code>BS</code> and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition <code>_Initial</code> is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state <code>BS2</code> is excluded in <code>D</code>'s state machine. In state diagrams excluded elements are shown with a "crossed" background.</p>
 <p><img alt="" src="images/sm_redefinition.png" /></p>
 <p>Note that to be able to redefine the initial transition of <code>B</code> it is necessary to give it a name (so that it can be referenced as redefined from <code>D</code>). This is yet another reason why it's good practise to give names to transitions, even if it's not mandated. But, of course, if you want to prevent anyone from creating a derived capsule with a state machine that redefines a certain transition, you can accomplish that by not giving a name to that transition. In effect, an unnamed transition is <strong>final</strong>, i.e. cannot be overridden or excluded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the source and/or target state of a transition is excluded in an inherited capsule state machine, then that transition is implicitly excluded too. It's not necessary to exclude such a transition explicitly using the <code>exclude</code> keyword, even if it's of course allowed to do so.</p>
+</div>
 <p>The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -2874,6 +2972,7 @@ capsule D : B, `IDataManager`, `IController` {
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/compound_transition_rtdata_inherited">Redefining a transition trigger</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_guard_redefinition">Redefining a transition guard</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_guard_exclude">Excluding a transition</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/choice_transition_implicit_exclude">Implicitly excluded transition</a></li>
 </ul>
 </div>
 <p>Capsule inheritance also has a third dimension, which relates to its structure. <a href="#part">Parts</a> and <a href="#port">ports</a> defined in the base capsule are inherited by the derived capsule. Just like for states and transitions, it's possible to redefine or exclude a part or a port. A redefining port can change the type (i.e. <a href="#protocol-and-event">protocol</a>), <a href="#port-multiplicity">multiplicity</a> and the <a href="#notifying-port">notification property</a> of the redefined port. A redefining part can change the type, multiplicity and kind (fixed, optional or plugin) of the redefined part. </p>
@@ -3086,11 +3185,11 @@ generate_file_header
 <li><strong>Enumeration</strong></li>
 </ul>
 <p>A property of enumeration type has a value that references a literal of the enumeration. There are different enumerations used for different properties. The best way to learn about what enumeration literals that are available for a certain property is to use the <a href="../working-with-art/art-editor/#content-assist">Content Assist</a> feature in the Art file editor. Place the cursor after the equal sign, and press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>. Here is an example of defining a property of enumeration type:</p>
-<pre><code class="language-art">class MC [[rt::properties(
-    kind=struct
-)]]{
-    // ...
-};
+<pre><code class="language-art">publish service unwired behavior port p~ 
+    [[rt::properties(
+        registration=automatic_locked
+    )]]
+    : PROT;
 </code></pre>
 <p>Note that in some cases the name of an enumeration literal starts with underscore (<code>_</code>) to prevent it from clashing with the set of Art <a href="#names-and-keywords">keywords</a>.</p>
 <p>Below is a table that lists all properties that can be used on different kinds of Art elements. Each property is described in a section of its own below the table.</p>
@@ -3099,75 +3198,74 @@ generate_file_header
 <table>
 <thead>
 <tr>
-<th>Art Elements</th>
-<th align="left">Property</th>
+<th>Property</th>
+<th align="left">Art Elements</th>
 <th align="left">Type</th>
 <th align="left">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="#capsule">Capsule</a></td>
-<td align="left"><a href="#generate_file_header">generate_file_header</a></td>
-<td align="left">Boolean</td>
-<td align="left">true</td>
-</tr>
-<tr>
-<td><a href="#capsule">Capsule</a></td>
-<td align="left"><a href="#generate_file_impl">generate_file_impl</a></td>
-<td align="left">Boolean</td>
-<td align="left">true</td>
-</tr>
-<tr>
-<td><a href="#capsule">Capsule</a>, <a href="#protocol-and-event">Protocol</a>, <a href="#port">Port</a>, <a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a> <a href="#transition">Trigger</a></td>
-<td align="left"><a href="#rule_config">rule_config</a></td>
+<td><a href="#color">color</a></td>
+<td align="left"><a href="#transition">Transition</a>, <a href="#state">State</a>, <a href="#choice-and-junction">Choice</a>, <a href="#choice-and-junction">Junction</a>, <a href="#hierarchical-state-machine">Entry Point</a>, <a href="#hierarchical-state-machine">Exit Point</a>, <a href="#port">Port</a>, <a href="#part">Part</a>, <a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a></td>
 <td align="left">String</td>
 <td align="left">""</td>
 </tr>
 <tr>
-<td><a href="#protocol-and-event">Protocol</a></td>
-<td align="left"><a href="#version">version</a></td>
-<td align="left">Integer</td>
-<td align="left">0</td>
+<td><a href="#const_rtdata">const_rtdata</a></td>
+<td align="left"><a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
 </tr>
 <tr>
-<td><a href="#port">Port</a></td>
-<td align="left"><a href="#registration">registration</a></td>
+<td><a href="#generate_file_header">generate_file_header</a></td>
+<td align="left"><a href="#capsule">Capsule</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#generate_file_impl">generate_file_impl</a></td>
+<td align="left"><a href="#capsule">Capsule</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#generate_statemachine">generate_statemachine</a></td>
+<td align="left"><a href="#class-with-state-machine">Class</a></td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td><a href="#registration">registration</a></td>
+<td align="left"><a href="#port">Port</a></td>
 <td align="left">Enumeration (automatic, automatic_locked, application)</td>
 <td align="left">automatic</td>
 </tr>
 <tr>
-<td><a href="#port">Port</a></td>
-<td align="left"><a href="#registration_name">registration_name</a></td>
+<td><a href="#registration_name">registration_name</a></td>
+<td align="left"><a href="#port">Port</a></td>
 <td align="left">String</td>
 <td align="left">""</td>
 </tr>
 <tr>
-<td><a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a></td>
-<td align="left"><a href="#const_rtdata">const_rtdata</a></td>
-<td align="left">Boolean</td>
-<td align="left">true</td>
-</tr>
-<tr>
-<td><a href="#transition">Transition</a>, <a href="#state">State</a>, <a href="#choice-and-junction">Choice</a>, <a href="#choice-and-junction">Junction</a>, <a href="#hierarchical-state-machine">Entry Point</a>, <a href="#hierarchical-state-machine">Exit Point</a>, <a href="#port">Port</a>, <a href="#part">Part</a>, <a href="#capsule">Capsule</a>, <a href="#class-with-state-machine">Class</a></td>
-<td align="left"><a href="#color">color</a></td>
+<td><a href="#rule_config">rule_config</a></td>
+<td align="left"><a href="#capsule">Capsule</a>, <a href="#protocol-and-event">Protocol</a>, <a href="#port">Port</a>, <a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a> <a href="#transition">Trigger</a></td>
 <td align="left">String</td>
 <td align="left">""</td>
+</tr>
+<tr>
+<td><a href="#version">version</a></td>
+<td align="left"><a href="#protocol-and-event">Protocol</a></td>
+<td align="left">Integer</td>
+<td align="left">0</td>
 </tr>
 </tbody>
 </table>
-<h3 id="generate_file_header">generate_file_header</h3>
-<p>By default a <a href="#capsule">capsule</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the header file, for example if you prefer to write it manually.</p>
-<h3 id="generate_file_impl">generate_file_impl</h3>
-<p>By default a <a href="#capsule">capsule</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the implementation file, for example if you prefer to write it manually.</p>
-<h3 id="rule_config">rule_config</h3>
-<p>This property is used for configuring validation rules for an Art element. Read more about this <a href="../validation/#configuring-validation">here</a>.</p>
-<h3 id="version">version</h3>
-<p>Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).</p>
-<h3 id="registration">registration</h3>
-<p>This property specifies how to register an unwired port at runtime. The default is <code>automatic</code> which means the port will be registered automatically when the container capsule instance is initialized. The value <code>automatic_locked</code> has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to <code>application</code> to programmatically register the port using the functions <code>registerSPP()</code> and <code>registerSAP()</code> respectively.</p>
-<h3 id="registration_name">registration_name</h3>
-<p>This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.</p>
+<h3 id="color">color</h3>
+<p>Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.</p>
+<p><img alt="" src="images/color_picker.png" /></p>
+<p>Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").</p>
+<p><img alt="" src="images/color_picker_diagram.png" /></p>
 <h3 id="const_rtdata">const_rtdata</h3>
 <p>This property can be set on transitions where you need to modify the data it receives when it's triggered. If the property is set to <code>false</code> the <code>rtdata</code> parameter in the transition function will be non-const. It can then be modified, which for example can avoid copying received message data and instead move it using its move constructor or move assignment operator.</p>
 <pre><code class="language-art">[[rt::properties(const_rtdata=false)]] CurrentState -&gt; NextState
@@ -3181,11 +3279,20 @@ MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -&gt; NextState
 `;
 </code></pre>
 <p>Note that the <code>const_rtdata</code> property appears in the Art syntax right after the transition name. If the transition has no name, it appears in the beginning of the transition declaration.</p>
-<h3 id="color">color</h3>
-<p>Specifies which color to use for an Art element in a diagram. Colors should be specified as RGB values using 6 hexadecimal digits. For example, "#ff00ff". The Art text editor will help you set an appropriate color by means of a color picker.</p>
-<p><img alt="" src="images/color_picker.png" /></p>
-<p>Note that you can also set the color directly from the diagram. Select a symbol or line and then set the color property using the Properties view (under "Appearance").</p>
-<p><img alt="" src="images/color_picker_diagram.png" /></p>
+<h3 id="generate_file_header">generate_file_header</h3>
+<p>By default a <a href="#capsule">capsule</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the header file, for example if you prefer to write it manually.</p>
+<h3 id="generate_file_impl">generate_file_impl</h3>
+<p>By default a <a href="#capsule">capsule</a> is translated to one header file (<code>.h</code>) and one implementation file (<code>.cpp</code>). Set this property to <code>false</code> to prevent generation of the implementation file, for example if you prefer to write it manually.</p>
+<h3 id="generate_statemachine">generate_statemachine</h3>
+<p>This property can be set to <code>false</code> to prevent code generation for a class state machine. You may for example want to do this if you prefer to implement the state machine manually but still have a state diagram that serves as documentation for it. A class state machine with this property set to <code>false</code> is considered informal, and will not be validated (i.e it does not need to be semantically correct).</p>
+<h3 id="registration">registration</h3>
+<p>This property specifies how to register an unwired port at runtime. The default is <code>automatic</code> which means the port will be registered automatically when the container capsule instance is initialized. The value <code>automatic_locked</code> has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to <code>application</code> to programmatically register the port using the functions <code>registerSPP()</code> and <code>registerSAP()</code> respectively.</p>
+<h3 id="registration_name">registration_name</h3>
+<p>This property specifies the name to use when registering an unwired port at runtime. By default the port name is used, but it can be overridden using this property.</p>
+<h3 id="rule_config">rule_config</h3>
+<p>This property is used for configuring validation rules for an Art element. Read more about this <a href="../validation/#configuring-validation">here</a>.</p>
+<h3 id="version">version</h3>
+<p>Specifies the version of an Art element. You can use this to keep track of updates to types used in APIs (increase the version when the element changes).</p>
 
 
 

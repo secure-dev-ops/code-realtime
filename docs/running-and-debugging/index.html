@@ -361,6 +361,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1138,6 +1140,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../contributing/" class="md-nav__link">
         Contributing
@@ -1240,7 +1306,7 @@
 <li>from the <a href="../building/#building-and-running-without-a-tc">Run link</a> in the Art editor (in case you didn't yet create a TC)</li>
 <li>by means of a <a href="launch-configurations/">launch configuration</a></li>
 </ol>
-<p>Options 1 and 2 are convenients way to quickly run an application, but for full control over how to launch the application you should go for the 3rd option. In the <a href="launch-configurations/">launch configuration</a> you can for example specify custom command-line arguments and set environment variables for the launched application.</p>
+<p>Options 1 and 2 are convenient ways to quickly run an application, but for full control over how to launch the application you should go for the 3rd option. In the <a href="launch-configurations/">launch configuration</a> you can for example specify custom command-line arguments and set environment variables for the launched application.</p>
 <p>A <a href="launch-configurations/">launch configuration</a> is also needed in case you want to <a href="debugging/">debug</a> the application with the Art Debugger. Doing so can help in troubleshooting problems (often combined with traditional C++ debugging), but can also be useful as a means to interact with an unfinished application that is still under development. For example, the Art Debugger lets you manually <a href="debugging/#send-event">send events</a> to the debugged application on ports that may not yet be connected (because you didn't yet implement the sending capsule).</p>
 <p>Often you may not want to run the application locally, and it will not even be possible if the application was built for a different machine architecture. In that case you can launch the application from the command-line on the target machine, and then <a href="debugging/#attach">attach</a> the Art Debugger to it. Thereby you can debug the application remotely in the same way as if it was running locally.</p>
 

@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1207,6 +1209,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         Contributing
@@ -1404,6 +1470,7 @@ else {
     };
 };
 </code></pre>
+<p>By default an event raised on an external port uses the <a href="../message-communication/#message-priority">message priority</a> <code>General</code>. The capsule that owns the external port can choose to use a different priority when it calls <code>enable()</code>. This function accepts the desired message priority as an optional parameter.</p>
 <h3 id="passing-data">Passing Data</h3>
 <p>The external code can choose to pass a data argument with the event that it raises on an external port. The same rules apply for such data as for all other event data, except that it will always be copied (i.e. it's not possible to move it). Just like when data is associated with a timeout event, it's necessary to provide both the data and its type descriptor when raising an event with data. Here is an example where the raised event carries a string as data:</p>
 <pre><code class="language-cpp">char* str = &quot;external data&quot;;

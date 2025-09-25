@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -777,6 +779,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#message-data-transfer-from-sender-to-receiver" class="md-nav__link">
+    Message Data Transfer from Sender to Receiver
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Data Transfer from Sender to Receiver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-pointer-to-the-message-data" class="md-nav__link">
+    Sending a Pointer to the Message Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-the-message-data" class="md-nav__link">
+    Moving the Message Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#message-data-area" class="md-nav__link">
     Message Data Area
   </a>
@@ -799,6 +828,26 @@
   <a href="#unhandled-messages" class="md-nav__link">
     Unhandled Messages
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-multiple-messages" class="md-nav__link">
+    Waiting for Multiple Messages
+  </a>
+  
+    <nav class="md-nav" aria-label="Waiting for Multiple Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-expectations-on-received-messages" class="md-nav__link">
+    Setting Expectations on Received Messages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1247,6 +1296,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         Contributing
@@ -1380,6 +1493,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#message-data-transfer-from-sender-to-receiver" class="md-nav__link">
+    Message Data Transfer from Sender to Receiver
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Data Transfer from Sender to Receiver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-pointer-to-the-message-data" class="md-nav__link">
+    Sending a Pointer to the Message Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-the-message-data" class="md-nav__link">
+    Moving the Message Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#message-data-area" class="md-nav__link">
     Message Data Area
   </a>
@@ -1402,6 +1542,26 @@
   <a href="#unhandled-messages" class="md-nav__link">
     Unhandled Messages
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-multiple-messages" class="md-nav__link">
+    Waiting for Multiple Messages
+  </a>
+  
+    <nav class="md-nav" aria-label="Waiting for Multiple Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-expectations-on-received-messages" class="md-nav__link">
+    Setting Expectations on Received Messages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1518,7 +1678,7 @@ sendCopyToMe(&amp;reply);
 <p>A message is an instance of a protocol event and is represented by an object of the <a href="../../targetrts-api/class_r_t_message.html">RTMessage</a> class. It stores the following information:</p>
 <ul>
 <li>A message id (<code>signal</code>). This is a numerical id that uniquely identifies the event for which the message was created within its protocol. </li>
-<li>A data object. It is stored as an untyped pointer (<code>void*</code>) but can safely be casted to a pointer typed by the parameter of the protocol event. In most cases such casts happen automatically in generated code, so that you can access correctly typed data in a transition function. However, if you get the data from the message object by calling <code>RTMessage::getData()</code> you need to cast it yourself. See <a href="#message-data-area">Message Data Area</a> for more information about how the message data is stored.</li>
+<li>A data object. It is stored as an untyped pointer (<code>void*</code>) but can safely be casted to a pointer typed by the parameter of the protocol event. In most cases such casts happen automatically in generated code, so that you can access correctly typed data in a transition function. However, if you get the data from the message object by calling <code>RTMessage::getData()</code>, or if the event parameter type is <code>void*</code>, you need to cast it yourself. See <a href="#message-data-area">Message Data Area</a> for more information about how the message data is stored, and <a href="#message-data-transfer-from-sender-to-receiver">Transfer of Message Data from Sender to Receiver</a> for different ways how message data can be managed.</li>
 <li>The <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a> of the data object (an <a href="../../targetrts-api/struct_r_t_object__class.html">RTObject_class</a>). Access it by calling <code>RTMessage::getType()</code>.</li>
 <li>The <a href="#message-priority">priority</a> at which the message was sent. Access it by calling <code>RTMessage::getPriority()</code>.</li>
 <li>The port on which the message was received. Access it by calling <code>RTMessage::sap()</code>.</li>
@@ -1529,6 +1689,30 @@ sendCopyToMe(&amp;reply);
 <p class="admonition-title">Important</p>
 <p>When you develop an application don't make assumptions about how many times the data object will be copied. In many cases it will only be copied once, but there are situations when multiple copies will need to be created. It is therefore important that any event parameter has a type descriptor where the copy function (e.g. a copy constructor) is able to copy the data object multiple times. Note that copying of the message object may happen even after it has been dispatched. The receiver must therefore not change it in a way that will prevent it from later being copied correctly by the TargetRTS.</p>
 </div>
+<h3 id="message-data-transfer-from-sender-to-receiver">Message Data Transfer from Sender to Receiver</h3>
+<p>By default the data which the sender sends with a message is copied by the TargetRTS (by calling the copy function of the data's <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>). This is done to ensure that the sender and the receiver cannot access the data simultaneously which could lead to problems if they run in different threads. In many cases message data is small and then this copying doesn't lead to any performance problems. However, if the data is big and/or the message with the data is sent frequently, then it may be too costly to copy it.</p>
+<h4 id="sending-a-pointer-to-the-message-data">Sending a Pointer to the Message Data</h4>
+<p>One way to avoid copying message data is to send a pointer to it. You can do this by typing the protocol event parameter as <code>void*</code>. This will allow the sender to pass any pointer when sending the event. It also allows the sender to not provide any data at all, in which case the data will be set to <code>nullptr</code>. Even if this approach can be efficient, it could be risky and lead to bugs. You need to think about the following:</p>
+<ul>
+<li>If the sender and receiver runs in different memory spaces, you can obviously not do this as the same memory address will not be valid for both the sender and the receiver.</li>
+<li>There has to be an agreement between the sender and the receiver about how to manage the memory of the data.</li>
+<li>If the sender and receiver runs in different threads, and they both have access to the data object at the same time, it has to be protected so it can be accessed in a thread-safe way, for example by a mutex.</li>
+</ul>
+<p>A common approach is to let the sender allocate the object, and let the receiver be responsible for deleting it. Also, as soon as the sender as sent the object it will "forget" about it and never access it again. When the receiver has received the object it will use it for as long as it needs, and then delete it.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that sends a pointer to an object <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/send_pointer">here</a>.</p>
+</div>
+<h4 id="moving-the-message-data">Moving the Message Data</h4>
+<p>Another solution to avoid message data to be copied is to move it instead. This requires that the data is movable, which means that its type must have a <a href="../../art-lang/cpp-extensions/#type-descriptor">type descriptor</a> with a move function. For an automatically generated type descriptor the move function will use the move constructor of the type.</p>
+<p>The sender can decide at the time an event is sent if the message data should be copied or moved, based on if an lvalue or rvalue reference to the data is used:</p>
+<pre><code class="language-cpp">myPort.myEvent(data).send(); // Send by copy (lvalue ref to data)
+myPort.myEvent(std::move(data)).send(); // Send by move (rvalue ref to data)
+</code></pre>
+<p>If you attempt to send the data by move, but it is not movable, the data will anyway be copied. Also note that if you send an event on a replicated port (i.e. a port with multiplicity &gt; 1) the data can only be moved once. In this case the data will be moved for the last port instance send, and copied for all the others.</p>
+<p>Note that if the receiver needs to store the message data for later use, it can also avoid a data copy by moving the received data to for example a capsule member variable:</p>
+<pre><code class="language-cpp">capsuleMemberVar = std::move(*rtdata); // Avoid copying the received message data
+</code></pre>
 <h3 id="message-data-area">Message Data Area</h3>
 <p>Messages that carry data can either store that data inside the <a href="../../targetrts-api/class_r_t_message.html">RTMessage</a> object, in the <code>_data_area</code> member variable, or on the system heap. A TargetRTS configuration macro <a href="../build/#rtmessage_payload_size"><code>RTMESSAGE_PAYLOAD_SIZE</code></a> defines the byte limit which decides where a data object will be stored. Data that is smaller than this limit is stored inside the <a href="../../targetrts-api/class_r_t_message.html">RTMessage</a> object, while bigger data is stored on the system heap. The picture below shows two message objects, one where the data object is small enough to fit in the <code>_data_area</code> and another where it's too big to fit there and therefore is instead allocated on the system heap.</p>
 <p><img alt="" src="../images/message_data.png" /></p>
@@ -1560,6 +1744,57 @@ sendCopyToMe(&amp;reply);
 <li>The message was not handled because of a missing enabled transition. This is the most common case, especially for applications that are still under development. This situation is handled by calling <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>unexpectedMessage()</code> which will cause an error message to be logged on <code>stderr</code>. See <a href="../logging/#targetrts-error-logging">this chapter</a> for more information about this error message and how you can use it for understanding what needs to be fixed in the state machine to handle the message.</li>
 </ol>
 <p>Both <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>messageReceivedBeforeInitialized()</code> and <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>unexpectedMessage()</code> are virtual functions that you can override in your capsule, in case you want to treat unhandled messages in a different way. For example, you can override <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>unexpectedMessage()</code> if some of the received messages should not be handled by the capsule state machine, but by some other C++ code.</p>
+<h2 id="waiting-for-multiple-messages">Waiting for Multiple Messages</h2>
+<p>Sometimes a capsule state machine may have the need to wait for multiple messages to arrive before transitioning from one state ("source") to another state ("target"). The TargetRTS provides a utility class <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> which makes this easy to implement. The steps below outline how this utility should be used:</p>
+<ol>
+<li>Declare a member variable in your capsule, typed by <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a>. Note that this utility class is not included by default so you also need to add <code>#include &lt;RTMultiReceive.h&gt;</code> in the <code>rt::header_preface</code> code snippet of the capsule.</li>
+<li>Initialize the member variable, for example by means of a <a href="../../art-lang/#capsule-constructor">capsule constructor</a>. The only mandatory constructor argument is a pointer to the capsule instance itself (i.e <code>this</code>), but optionally you can pass a boolean for the <code>orderMatters</code> constructor parameter. This flag decides if the order in which the messages arrive should be significant or not. By default the order doesn't matter, and as soon as all messages have arrived (in any order), the capsule will transition to the target state.</li>
+<li>When entering the source state (e.g. in the entry action of that state), set up the expectations for which messages that must be received, by calling the <code>expectEvent()</code> function. For more details on how to do this, see <a href="#setting-expectations-on-received-messages">below</a>.</li>
+<li>Create an internal transition in the source state with triggers that match all events that should be received. In its effect code snippet call the function <code>eventReceived()</code>. You don't need to pass the received message in this call; the function will automatically get it from the capsule.</li>
+<li>Create the transition from the source state to the target state with triggers that match all events that should be received. In its guard code snippet call the function <code>isAllEventsReceived()</code>. It's a boolean function that returns true only when all the expected events have been received. This means that the state machine only can transition from the source state to the target state when it has received messages that match all the expectations that were set-up when entering the source state.</li>
+</ol>
+<p>Note the following:</p>
+<ul>
+<li>You can reuse the same <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> member variable multiple times for the same capsule. When the transitioning to the target state happens, the utility automatically resets itself so it becomes ready to be used again later.</li>
+<li>If you for some reason need to cancel the waiting for the messages to arrive (e.g. because you receive another message with a higher priority) you can do so by calling the <code>reset()</code> function. This will restore the utility to its initial state.</li>
+<li>If you configure the utility so that the order of the received messages should matter, then the transition from the source to the target state only needs a trigger that matches the last received message.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses the <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> utility <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/wait_for_multiple_events">here</a>.</p>
+</div>
+<h3 id="setting-expectations-on-received-messages">Setting Expectations on Received Messages</h3>
+<p>Expectations on which messages that must be received, before the transition to the target state can trigger, are expressed by calling <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a>::<code>expectEvent()</code>. The argument to this function is an <a href="../targetrts-api/class_r_t_abstract_event_reception.html">RTAbstractEventReception</a> object. Two subclasses are provided for this abstract class:</p>
+<ul>
+<li>
+<p><a href="../../targetrts-api/class_r_t_event_reception.html">RTEventReception</a>. This class lets you set up the expectation on the received event statically by checking certain properties of a received message. The following can be checked by passing appropriate arguments to the constructor (some are optional and can be omitted):</p>
+<ul>
+<li>The port (<a href="../../targetrts-api/class_r_t_protocol.html">RTProtocol</a>) where the message should be received. If omitted it can arrive on any of the capsule's ports.</li>
+<li>The event of the message that should be received. You can specify the event either by message id (i.e. signal), or by its name. If you do it by id then you also must provide the port, since message ids are not globally unique. If you don't specify the event, then a message for any event can be received.</li>
+<li>The data of the message that should be received, specified by its ASCII <a href="../encoding-decoding/">encoding</a>. If omitted the received message can have any data (including no data).</li>
+</ul>
+</li>
+<li>
+<p><a href="../../targetrts-api/class_r_t_event_reception_msg.html">RTEventReceptionMsg</a>. This class lets you set up the expectation on the received event by means of a predicate function that you can provide as a lambda. The predicate function gets the received message as argument and can dynamically check if it fulfills the expectation. Note that this class requires a compiler that supports C++ 11 or newer.</p>
+</li>
+</ul>
+<p>Call the <code>expectEvent()</code> function once for each message that must be received. If you have configured the <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> object so that the order of received messages matter, then the expected order is defined by the order of your function calls.</p>
+<p>Here are a few examples on how to set-up the expectations on what messages that must be received before the capsule can move from the source to the target state:</p>
+<pre><code class="language-cpp">// Expect 2 messages (order doesn't matter)
+multiReceive.expectEvent(new RTEventReception()); // any event on any port with any data
+multiReceive.expectEvent(new RTEventReception()); // any event on any port with any data
+
+// Expect 4 messages (order matters)
+multiReceive.setOrderMatters(true); // or set this flag using the constructor parameter
+multiReceive.expectEvent(new RTEventReception(&amp;p)); // any event on port &quot;p&quot; with any data
+multiReceive.expectEvent(new RTEventReception(&amp;p, MyProtocol::Base::rti_inE1)); // event &quot;inE1&quot; on port &quot;p&quot; with any data
+multiReceive.expectEvent(new RTEventReception(&amp;q, MyProtocol::Conjugate::rti_outE1, &quot;int 5&quot;)); // event &quot;outE1&quot; on port &quot;q&quot; (conjugated) with data that is an integer with value 5
+multiReceive.expectEvent(new RTEventReception(nullptr, &quot;anotherEvent&quot;)); // event named &quot;anotherEvent&quot; on any port with any data 
+
+// Expect a message that has a higher priority than General
+multiReceive.expectEvent(new RTEventReceptionMsg([](const RTMessage* m){return m-&gt;getPriority() &gt; General;}));
+</code></pre>
+<p>Note that the objects you create as argument in the calls of <code>expectEvent()</code> will be automatically deleted by the <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> utility.</p>
 
 
 

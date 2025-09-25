@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1009,6 +1011,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#waiting-for-multiple-events" class="md-nav__link">
+    Waiting for multiple events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-exit-code-api" class="md-nav__link">
+    Application exit code API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-function-gettask-in-rtdebugger" class="md-nav__link">
+    Public function "getTask" in RTDebugger
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-for-event-raised-on-external-port" class="md-nav__link">
+    Priority for event raised on external port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improved-error-handling-in-register_layer" class="md-nav__link">
+    Improved error handling in REGISTER_LAYER
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-for-a-new-trace-file-format-art-trace" class="md-nav__link">
+    Support for a new trace file format (.art-trace)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1361,6 +1405,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         Contributing
@@ -1628,6 +1736,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#waiting-for-multiple-events" class="md-nav__link">
+    Waiting for multiple events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-exit-code-api" class="md-nav__link">
+    Application exit code API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-function-gettask-in-rtdebugger" class="md-nav__link">
+    Public function "getTask" in RTDebugger
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-for-event-raised-on-external-port" class="md-nav__link">
+    Priority for event raised on external port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improved-error-handling-in-register_layer" class="md-nav__link">
+    Improved error handling in REGISTER_LAYER
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-for-a-new-trace-file-format-art-trace" class="md-nav__link">
+    Support for a new trace file format (.art-trace)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1732,6 +1882,10 @@
 <td>8012</td>
 <td align="left"><a href="#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication">New tracing feature for sequence diagram visualization of message communication</a></td>
 </tr>
+<tr>
+<td>8013</td>
+<td align="left"><a href="#waiting-for-multiple-events">Waiting for multiple events</a> <br> <a href="#application-exit-code-api">Application exit code API</a> <br> <a href="#public-function-gettask-in-rtdebugger">Public function "getTask" in RTDebugger</a> <br> <a href="#priority-for-event-raised-on-external-port">Priority for event raised on external port</a> <br> <a href="#improved-error-handling-in-register_layer">Improved error handling in REGISTER_LAYER</a>  <br> <a href="#support-for-a-new-trace-file-format-art-trace">Support for a new trace file format (.art-trace)</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -1792,6 +1946,18 @@
 <p>Log streams can now be connected to any <code>std::ostream</code>, and you can for example let them write log message to a file.</p>
 <h3 id="new-tracing-feature-for-sequence-diagram-visualization-of-message-communication">New tracing feature for sequence diagram visualization of message communication</h3>
 <p>It's now possible to turn on a new kind of tracing in applications where messages that are sent between capsule instances can be visualized graphically in a sequence diagram. See <a href="../../running-and-debugging/tracing/">this chapter</a> for more information about this feature.</p>
+<h3 id="waiting-for-multiple-events">Waiting for multiple events</h3>
+<p>A new utility class <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> now makes it easier to wait in a state until multiple events have been received, before transitioning to another state. See <a href="../message-communication/#waiting-for-multiple-messages">this chapter</a> for more information.</p>
+<h3 id="application-exit-code-api">Application exit code API</h3>
+<p>The <a href="../targetrts-api/targetrts-api/class_r_t_main.html">RTMain</a> class has two new functions for getting and setting the exit code of the application (<code>getExitCode()</code> and <code>setExitCode()</code>). The default exit code is 0 (as before).</p>
+<h3 id="public-function-gettask-in-rtdebugger">Public function "getTask" in RTDebugger</h3>
+<p>The function <a href="../../targetrts-api/class_r_t_debugger.html">RTDebugger</a>::getTask() is now public which makes it possible to programmatically access the current debugger tasks. See the <a href="../../running-and-debugging/rts-debugger/#tasks"><code>tasks</code></a> command of the RTS Debugger for more information about tasks.</p>
+<h3 id="priority-for-event-raised-on-external-port">Priority for event raised on external port</h3>
+<p>A capsule that has an <a href="../integrate-with-external-code/#external-port">external port</a> can now specify the priority at which an event that an external thread raises on the port should be sent. The function <code>enable()</code> now accepts the desired message priority as an optional parameter (the default message priority is still <code>General</code>).</p>
+<h3 id="improved-error-handling-in-register_layer">Improved error handling in REGISTER_LAYER</h3>
+<p>A new virtual function <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::registerLayer() was added. The default implementation of this function just reports a run-time error (and is hence not expected to be called), but the overridden function in <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a> provides a useful implementation (which is the same as before). This change has made it possible to remove the cast to <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a> in the <code>REGISTER_LAYER</code> macro, which would previously cause a crash if called with another type of controller. Now that error scenario instead leads to the run-time error <code>badOperation</code>.</p>
+<h3 id="support-for-a-new-trace-file-format-art-trace">Support for a new trace file format (.art-trace)</h3>
+<p>The TargetRTS now supports generating traces of messages that are sent between capsule instances in a new file format (<code>.art-trace</code>). This is now the default trace file format, and the previously supported <code>.ms</code> trace file format now has to be enabled by means of a new command-line option <code>-traceFormat=ms</code>. See <a href="../../running-and-debugging/tracing/">this chapter</a> for more information about the new trace file format and how to use it in Code RealTime.</p>
 
 
 

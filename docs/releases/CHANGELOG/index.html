@@ -20,7 +20,7 @@
     
     
       
-        <title>2.0.8 (2025-06-19 11:57) - DevOps Code RealTime</title>
+        <title>3.0.0 (2025-09-23 15:57) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#208-2025-06-19-1157" class="md-skip">
+        <a href="#300-2025-09-23-1557" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.0.8 (2025-06-19 11:57)
+              3.0.0 (2025-09-23 15:57)
             
           </span>
         </div>
@@ -333,6 +333,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
+        
+          
         
           
         
@@ -1133,6 +1135,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         Contributing
@@ -1229,6 +1295,25 @@
   
 
 
+<h1 id="300-2025-09-23-1557">3.0.0 (2025-09-23 15:57)</h1>
+<ol>
+<li>The size of parent symbols are now automatically increased when a nested child symbol is moved outside the boundaries of the parent symbol, so that the child symbol still fits within the parent symbol afterwards. This simplifies movement of nested symbols and avoids the step of first having to resize the parent symbol. </li>
+<li>Warnings are now shown in a state diagram if a symbol is moved so that it is covered by a state symbol. Such warnings prevent to incorrectly interpret the diagram as that the symbol is nested within the state, which graphically looks the same. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/diagrams/#graphical-ambiguities">in the documentation</a>.</li>
+<li>Several bug fixes and improvements have been made for manual layout and this feature is no longer experimental.</li>
+<li>An event that is defined to have data typed by <code>void*</code> can now be used for sending data of any type. It's also possible to not send any data at all for such an event, and the message data will then be set to <code>nullptr</code>. Read more about sending pointers to data <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/message-communication/#message-data-transfer-from-sender-to-receiver">in the documentation</a> and alternative approaches that sometimes should be preferred.</li>
+<li>The C++ code generator now recognizes the <code>[[rt::auto_descriptor]]</code> attribute also for typedefs of user-defined types and generates type descriptors for them. In the C++ syntax the attribute should be placed before the <code>typedef</code> keyword.</li>
+<li>The C++ code generator now detects if a structured C++ type with the <code>[[rt::auto_descriptor]]</code> attribute references another type with a type descriptor. If so, an include directive to that type is automatically generated. Previously it was necessary to manually add that include directive to avoid a compilation error.</li>
+<li>The C++ code generator now automatically generates include directives for the unit header files of all TC prerequisites. This means that when you create a library which provides an API in the form of one or many header files, you can simply use the TC property <code>commonPreface</code> in the library TC to include those header files and make them available to all TCs that have that library TC as a prerequisite.</li>
+<li>A new property <code>generate_statemachine</code> can now be set to <code>false</code> on an Art class to suppress code generation for the state machine of the class. This can for example be useful if you want a class to have an informal state machine which only serves as documentation about how the class works. You can then choose to implement the state machine manually in any way you want. No validation of such an informal state machine will take place.</li>
+<li>A new <strong>Art Tutorial</strong> extension is available on the <a href="https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.art-tutorial">Visual Studio Code</a> and the <a href="https://open-vsx.org/extension/secure-dev-ops/art-tutorial">OpenVSX</a> marketplaces. You can install this extension together with Code RealTime. It provides an interactive tutorial in the form of <a href="https://github.com/HCL-TECH-SOFTWARE/code-realtime-art-exercises">exercises</a> which helps in learning Code RealTime and the Art language. The source code of the Art Tutorial extension is <a href="https://github.com/HCL-TECH-SOFTWARE/code-realtime-art-tutorial">open source</a> and you can for example use it for learning how to extend Code RealTime with your own custom extensions. Read more about the Art Tutorial <a href="https://secure-dev-ops.github.io/code-realtime/learning/art-tutorial/">in the documentation</a>.</li>
+<li>The Art Compiler now supports a new option <code>--clean</code> for doing a clean build from the command-line. A clean build starts by removing the output folder from a previous build, containing all generated source files and built binaries.</li>
+<li>The TargetRTS provides a new utility class <a href="https://secure-dev-ops.github.io/code-realtime/targetrts-api/class_r_t_multi_receive.html">RTMultiReceieve</a> which makes it easy to wait in a source state until multiple messages have been received before transitioning to a target state. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/message-communication/#waiting-for-multiple-messages">in the documentation</a>.</li>
+<li>The TargetRTS provides a new API in <a href="https://secure-dev-ops.github.io/code-realtime/targetrts-api/class_r_t_main.html">RTMain</a> for getting and setting the exit code of the application. Previously the exit code was always 0 and there was no way to customize it.</li>
+<li>The TargetRTS function <a href="https://secure-dev-ops.github.io/code-realtime/targetrts-api/class_r_t_debugger.html">RTDebugger</a>::getTask() is now public which makes it possible to programmatically access the tasks (i.e. threads) of a debugged application.</li>
+<li>It's now possible to use a custom message priority for an event that is raised on an <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/integrate-with-external-code/#external-port">external port</a>. The function <code>enable()</code> has an optional parameter for specifying the desired priority.</li>
+<li>A new trace format (<code>.art-trace</code>) can now be generated by a running realtime application. Traces in this format can be opened as a text file (with some support for navigation and syntax coloring) but they can also be visualized graphically as sequence diagrams. For more information see <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/tracing/">the documentation</a>.</li>
+<li>Version 2.0.3 of the Art Exporter is now available. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for release notes about the different versions of the Art Exporter.</li>
+</ol>
 <h1 id="208-2025-06-19-1157">2.0.8 (2025-06-19 11:57)</h1>
 <ol>
 <li>Resizing symbols is now possible in diagrams that use manual layout. Those symbols that are resizable will show yellow handles in their corners when selected. Drag these handles to resize the symbol.</li>

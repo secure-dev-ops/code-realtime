@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1233,6 +1235,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../contributing/" class="md-nav__link">
         Contributing
@@ -1399,8 +1465,8 @@
 
   <h1>Installing</h1>
 
-<p>Code RealTime can be installed on top of Visual Studio Code or Eclipse Theia.</p>
-<p>The latest version of Code RealTime is available on the <a href="https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce">Visual Studio Marketplace</a> and on the <a href="https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce">Open VSX Registry</a>. To install that version into Visual Studio Code or Eclipse Theia follow these steps:</p>
+<p>Code RealTime can be installed in IDEs that support Visual Studio Code extensions. This obviously includes <a href="https://code.visualstudio.com/">Visual Studio Code</a> itself, but also many other IDEs such as <a href="https://theia-ide.org/">Eclipse Theia</a>, <a href="https://cursor.com/">Cursor</a>, <a href="https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code">DevOps Code</a> and others.</p>
+<p>The latest version of Code RealTime is available on the <a href="https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce">Visual Studio Marketplace</a> and on the <a href="https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce">Open VSX Registry</a>. To install that version into your IDE follow these steps:</p>
 <p>1) Click "Extensions" in the activity bar to open the Extensions view.</p>
 <p><img alt="" src="../images/extensions_in_sidebar.png" /></p>
 <p>2) Type "Code RealTime" in the search field.</p>
@@ -1409,16 +1475,16 @@
 <p>Once the installation is finished you will see Code RealTime appear in the "Installed" section of the Extensions view:</p>
 <p><img alt="" src="../images/installed_extension.png" /></p>
 <p>The screenshot above also shows that an extension for working with C/C++ has been installed. See <a href="#setup-c-build-tools">Setup C++ Build Tools</a> for more information.</p>
-<p>After you have installed Code RealTime it's recommended to restart Visual Studio Code or Eclipse Theia, or at least to perform the command <code>Developer: Reload Window</code> which is available in the Command Palette (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd>P</kbd></span>).</p>
+<p>After you have installed Code RealTime it's recommended to restart the IDE, or at least to perform the command <strong>Developer: Reload Window</strong> which is available in the Command Palette (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd>P</kbd></span>).</p>
 <h2 id="install-from-vsix">Install from VSIX</h2>
 <p>Another way to install Code RealTime is to use a .vsix file. This can be useful if you want to install another version than the latest. You can download .vsix files for all released versions of Code RealTime from both the <a href="https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce">Visual Studio Marketplace</a> and the <a href="https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce">Open VSX Registry</a> (click "Version History"). Once you have downloaded the .vsix file follow these steps to install it:</p>
 <p>1) If you already have a version of Code RealTime installed, you can manually uninstall it first (see <a href="#uninstall">Uninstall</a>). Note that this step is usually not required since the newly installed version of the extension will automatically replace the old one.</p>
-<p>2) Open the menu of the Extensions view and select the command "Install from VSIX". </p>
+<p>2) Open the menu of the Extensions view and select the command <strong>Install from VSIX</strong>. </p>
 <p><img alt="" src="../images/vsix_install.png" /></p>
 <p>3) In the file dialog that appears, select the .vsix file to install.</p>
 <p>If the installation completes successfully you should see the following message:</p>
 <p><img alt="" src="../images/vsix_installation_completed.png" /></p>
-<p>If instead the installation fails, this message will tell you the reason. One common reason for failure is that your version of Visual Studio Code or Eclipse Theia is not compatible (i.e. too old) for Code RealTime.</p>
+<p>If instead the installation fails, this message will tell you the reason. One common reason for failure is that your IDE version is not compatible (i.e. too old) for Code RealTime.</p>
 <p>It should also be noted that it's possible to directly install any published version of Code RealTime by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.</p>
 <h2 id="install-from-docker-image">Install from Docker Image</h2>
 <p>Yet another way to install Code RealTime is to use one of the Docker images that are available on DockerHub:</p>
@@ -1429,6 +1495,10 @@
 <p>Here is an example of a command to use for running one of these Docker images:</p>
 <p><code>docker run -p 4000:3000 -e isDocker=true baravich/vscode-code-realtime</code></p>
 <p>The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access Code RealTime from a web browser at <a href="http://localhost:4000">http://localhost:4000</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Docker images are only intended for trials and evaluations as a quick way to get started with Code RealTime. The images may not always contain all the latest security fixes and should therefore not be used for production installations.</p>
+</div>
 <h2 id="viewing-installation-information">Viewing Installation Information</h2>
 <p>If you are unsure about which version of Code RealTime you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:</p>
 <p><img alt="" src="../images/extension_tooltip.png" /></p>
@@ -1452,8 +1522,8 @@
 <p><img alt="" src="../images/art-server-log.png" /></p>
 <p>Here you will also see if the launching of the language server for some reason failed.</p>
 <h3 id="setup-c-build-tools">Setup C++ Build Tools</h3>
-<p>When Code RealTime builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start Visual Studio Code or Eclipse Theia. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching Visual Studio Code or Eclipse Theia. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.</p>
-<p>You also need to install an extension for C/C++ development into Visual Studio Code or Eclipse Theia. Even if you can use any such extension, Code RealTime provides the best integration with either <a href="https://code.visualstudio.com/docs/languages/cpp">C/C++ for Visual Studio Code</a> or <a href="https://clangd.llvm.org/">clangd</a>.</p>
+<p>When Code RealTime builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start your IDE. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching your IDE. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.</p>
+<p>You also need to install an extension for C/C++ development into your IDE. Even if you can use any such extension, Code RealTime provides the best integration with either <a href="https://code.visualstudio.com/docs/languages/cpp">C/C++ for Visual Studio Code</a> or <a href="https://clangd.llvm.org/">clangd</a>.</p>
 <h2 id="uninstall">Uninstall</h2>
 <p>To uninstall Code RealTime follow these steps:</p>
 <p>1) Click "Extensions" in the left side-bar.</p>

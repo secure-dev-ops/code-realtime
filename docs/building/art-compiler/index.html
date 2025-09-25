@@ -366,6 +366,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -984,6 +986,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#clean" class="md-nav__link">
+    clean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cwd" class="md-nav__link">
     cwd
   </a>
@@ -1277,6 +1286,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../learning/">Learning</a>
+          
+            <label for="__nav_2_12">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learning/art-tutorial/" class="md-nav__link">
+        Art Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         Contributing
@@ -1391,6 +1464,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#clean" class="md-nav__link">
+    clean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cwd" class="md-nav__link">
     cwd
   </a>
@@ -1498,10 +1578,10 @@
 </code></pre>
 <p>Often you don't need to use any JVM option, but if the application is huge you may need to increase the memory of the JVM. Refer to the documentation of your JVM for a list of available JVM options. You may want to use the same JVM options as are used when launching the Art Language Server (see the setting <a href="../../settings/#jvm-args"><code>code-rt.languageServer.jvmArgs</code></a>), but it's not required to do so.</p>
 <p>To test that the Art Compiler can be successfully launched you can try to invoke it without any arguments. You should see an output similar to the below:</p>
-<pre><code>C:\openjdk-17\bin\java -jar c:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\secure-dev-ops.code-realtime-ce-1.0.0\bin\artcompiler.jar
-10:24:53 : INFO : Art Compiler 1.0.0-20231212_1212
-10:24:53 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2023.
-10:24:54 : INFO : Arguments:
+<pre><code>C:\Users\MATTIAS.MOHLIN\testarea\install\VSCode\data\extensions\secure-dev-ops.code-realtime-ce-3.0.0\bin&gt; java -jar artcompiler.jar
+15:08:40 : INFO : Art Compiler 3.0.0-20250909_1223
+15:08:40 : INFO : Copyright (C) HCL Technologies Ltd. 2022, 2025.
+15:08:40 : INFO : Arguments: 
 Usage: java -jar artcompiler.jar &lt;options&gt;
 Options:
   LIST OF OPTIONS
@@ -1509,7 +1589,7 @@ Options:
 All options with argument can be used in format &lt;option&gt; &lt;argument&gt; or &lt;option&gt;=&lt;argument&gt;.
 </code></pre>
 <h2 id="art-compiler-options">Art Compiler Options</h2>
-<p>The Art Compiler accepts options in the form of command-line arguments to <code>artcompiler.jar</code> that start with single or double dash (<code>-</code> or <code>--</code>). Many options can take an argument which then needs to be of the correct type (Boolean, Path etc). You can specify the argument for an option either like this</p>
+<p>The Art Compiler accepts options in the form of command-line arguments to <code>artcompiler.jar</code> that start with single or double dash (<code>-</code> or <code>--</code>). Many options can take an argument which then needs to be of the correct type (String, Path etc). You can specify the argument for an option either like this</p>
 <pre><code>&lt;option&gt; &lt;argument&gt;
 </code></pre>
 <p>or like this</p>
@@ -1533,6 +1613,10 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <tr>
 <td><a href="#buildvariants">buildVariants</a></td>
 <td align="left">Path</td>
+</tr>
+<tr>
+<td><a href="#clean">clean</a></td>
+<td align="left">N/A</td>
 </tr>
 <tr>
 <td><a href="#cwd">cwd</a></td>
@@ -1572,6 +1656,12 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <p>A build configuration is useful when you want to build a TC that uses <a href="../build-variants/">build variants</a>. It provides values for build variant settings and hence specifies a certain variant of the application to be built. Read more about build configurations <a href="../build-variants/#build-configuration">here</a>.</p>
 <h3 id="buildvariants">buildVariants</h3>
 <p>Specifies a Build Variants script to use for the build. Read more about build variants <a href="../build-variants/">here</a>. </p>
+<h3 id="clean">clean</h3>
+<p>If this option is set, the Art Compiler will perform a clean build by first removing the output folder if it already exists (as a result of a previous build). Clean builds take longer to perform since all C++ files have to be regenerated and recompiled. Normally you don't need to do a clean build, but in some cases it may be necessary. For example, if you are using <a href="../build-variants/">Build Variants</a> and have changed the <a href="../build-variants/#build-configuration">build configuration</a>, then a clean build is recommended to ensure that all changes are picked up by the build. If you do a clean build, but the output folder for some reason cannot be deleted, then the build will fail. A typical situation when this happens is when the built executable is running because you forgot to terminate it. If the executable is running it cannot be deleted, and hence the output folder also cannot be deleted.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you only want to remove binaries produced by make, and not the generated source files, you can instead run <code>make clean</code>. This makes the subsequent build slightly faster since not all C++ files need to be regenerated.</p>
+</div>
 <h3 id="cwd">cwd</h3>
 <p>Set the current working directory. By default this is the location from which you launch the Art Compiler. If you use a relative path in options that take a path as argument, such as <a href="#out">--out</a> or <a href="#tc">--tc</a>, the path will be resolved against the current working directory. </p>
 <h3 id="generate">generate</h3>
@@ -1580,6 +1670,8 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <p>Use this option to print information about the <a href="#version">version</a> and all available <a href="#art-compiler-options">options</a>. This is the same information as is printed if launching the Art Compiler without any options. If this option is passed, all other options are ignored.</p>
 <h3 id="out">out</h3>
 <p>Set the output folder which controls where generated files will be placed. By default it is set to the folder that contains the folder containing the built <a href="#tc">TC</a>. It hence by default corresponds to the workspace folder used when building from the UI. If you want to place generated files in a different location when building from the command-line you can set this option to another folder. Relative paths specified as <a href="../transformation-configurations/#targetfolder">targetFolder</a> in TCs will be resolved against the specified <code>--out</code> folder.</p>
+<pre><code>--out C:\temp\artcompiler_output
+</code></pre>
 <h3 id="ruleconfig">ruleConfig</h3>
 <p>Specifies which validation rules that should be enabled, and what severity the problems they find should have. Rules are configured using the same syntax as is used for the <a href="../../art-lang/#rule_config"><code>rule_config</code></a> property in an Art file. For example:</p>
 <pre><code>--ruleConfig &quot;W0009,X7001&quot;
