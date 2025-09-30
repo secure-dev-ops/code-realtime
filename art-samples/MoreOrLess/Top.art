@@ -139,6 +139,7 @@ capsule Top {
     notFound: Guessing -> WaitingToStartRound on guesserP.notFound
     `
         Log::out << "guesser no " << currentGuesser << " unsuccessful" << std::endl;
+        currentGuesser = (currentGuesser+1) % numGuessers;
         Log::out << "next up: guesser no " << currentGuesser << std::endl;
     `;
     found: Guessing -> Found on guesserP.found
