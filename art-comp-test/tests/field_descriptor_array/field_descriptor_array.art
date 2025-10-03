@@ -1,0 +1,86 @@
+[[rt::decl]]
+`
+    constexpr int SIZE = 4;
+
+    struct [[rt::auto_descriptor]] S_arrays {
+        int m1[2+1];
+        char m2[SIZE];
+        bool b;
+
+        S_arrays() : b(false) {}
+
+        // Copy constructor that copies the array contents
+        S_arrays(const S_arrays& other);
+    }; 
+`
+
+[[rt::impl]]
+`
+    S_arrays::S_arrays(const S_arrays& other) {
+        for (int i = 0; i < 3; ++i) {
+            m1[i] = other.m1[i];
+        }
+        for (int i = 0; i < 4; ++i) {
+            m2[i] = other.m2[i];
+        }
+        b = other.b;
+    }
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "field_descriptor_array.art.h"
+    `
+    out e1(`S_arrays`);    
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "field_descriptor_array.art.h"
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the data! " << std::endl;
+            ASSERT(rtdata->m1[0] == 1 && rtdata->m1[1] == 2 && rtdata->m1[2] == 3, "S_arrays::m1 had wrong contents");
+            ASSERT(rtdata->m2[0] == 'a' && rtdata->m2[1] == 'b' && rtdata->m2[2] == 'c' && rtdata->m2[3] == 'd', "S_arrays::m2 had wrong contents");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_S_arrays, "msg type should point to S_arrays type descriptor");
+            std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), mt);
+            std::cout << "Encoding: " << encoding << std::endl;
+            ASSERT(encoding == "S_arrays{m1 1,2,3,m2'a','b','c','d',b false}", encoding.c_str());
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                S_arrays sa;
+                sa.m1[0] = 1;
+                sa.m1[1] = 2;
+                sa.m1[2] = 3;
+
+                sa.m2[0] = 'a';
+                sa.m2[1] = 'b';
+                sa.m2[2] = 'c';
+                sa.m2[3] = 'd';
+
+                pOut.e1(sa).send();
+            `;
+        };  
+        initial -> State1;
+    };
+};

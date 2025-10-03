@@ -1,0 +1,4 @@
+---
+group: type_descriptors
+---
+A struct with the [[rt::auto_descriptor]] attribute set will get a generated type descriptor and for each member variable of the struct a field descriptor is generated. For an array member variable the field descriptor will contain a type modifier which specifies an RTNumberFunction that returns the number of elements in the array. By default this is the declared size of the array, which means that the encoding of the array will contain all its elements. An instance of the struct is sent as event data. We therefore need to have a copy constructor for the struct which copies the contents of the arrays.
