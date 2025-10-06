@@ -47,7 +47,7 @@ These are functions with a certain prototype, each of which performs a specific 
 | encode | `int rtg_MyType_encode(const RTObject_class* type, const MyType* source, RTEncoding* coding)` | Encodes an instance of the type|
 | decode | `int rtg_MyType_decode(const RTObject_class* type, MyType* target, RTDecoding* coding)` | Decodes an instance of the type|
 
-The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes `RTEncoding` and `RTDecoding` from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_ENCODE` and `OBJECT_DECODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
+The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes [`RTEncoding`](../targetrts-api/class_r_t_encoding.html) and `RTDecoding`(../targetrts-api/class_r_t_decoding.html) from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_ENCODE` and `OBJECT_DECODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
 
 **3) A type installer object**
 
@@ -238,7 +238,7 @@ As an example assume we have a type alias for the Colors enum from the previous 
 
 [[rt::impl]]
 `
-static void rtg_MyColors_init( const RTObject_class * type, MyColors * target )
+static void rtg_MyColors_init(const RTObject_class* type, MyColors* target)
 {
     *target = Colors::Yellow; // Default color
 }
@@ -276,12 +276,12 @@ Use the [Content Assist](../working-with-art/art-editor.md#content-assist) templ
     You can find a sample application that uses a manually implemented type descriptor [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/enum_type_descriptor_manual).
 
 #### Versioning
-Type descriptors support versioning by means of the field `RTObject_class::_version`. By default the version field is set to 0 which denotes the first version of the type described by the type descriptor. For types that are part of an API for which you need to maintain backwards compatibility, you can raise the version in case you need to modify the type in a way that is not backwards compatible. Use of versioning requires a manually implemented type descriptor, and the version information is for example used when you perform [encoding/decoding](../target-rts/encoding-decoding.md) using the `RTVAsciiEncoding` and `RTVAsciiDecoding` classes.
+Type descriptors support versioning by means of the field `RTObject_class::_version`. By default the version field is set to 0 which denotes the first version of the type described by the type descriptor. For types that are part of an API for which you need to maintain backwards compatibility, you can raise the version in case you need to modify the type in a way that is not backwards compatible. Use of versioning requires a manually implemented type descriptor, and the version information is for example used when you perform [encoding/decoding](../target-rts/encoding-decoding.md) using the [`RTVAsciiEncoding`](../targetrts-api/class_r_t_v_ascii_encoding.html) and [`RTVAsciiDecoding`](../targetrts-api/class_r_t_v_ascii_decoding.html) classes.
 
 ### Field Descriptor
-A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class `RTFieldDescriptor`. 
+A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class [`RTFieldDescriptor`](../targetrts-api/struct_r_t_field_descriptor.html). 
 
-If the structured type only contains public member variables, the code generator can generate the field descriptor as a global object in the implementation file. However, if at least one member variable is either private or protected, you need to declare the type descriptor *inside* the type, as a public member variable. The reason is that the byte offset of each member variable is stored in the field descriptor, and computing this offset requires access to the member variable from the field descriptor.
+If the structured type only contains public member variables, the code generator can generate the field descriptor as a global object in the implementation file. However, if at least one member variable is either private or protected, you need to declare the field descriptor *inside* the type, as a public member variable. The reason is that the byte offset of each member variable is stored in the field descriptor, and computing this offset requires access to the member variable from the field descriptor.
 
 Below is an example of a struct and a class. The struct only contains public member variables and hence it's not necessary to declare the field descriptor manually. However, since the class contains a private member variable, we need to declare a field descriptor for it.
 
@@ -311,6 +311,45 @@ Use [Content Assist](../working-with-art/art-editor.md#content-assist) to create
 
 !!! example
     You can find a sample application where a field descriptor is declared [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/type_descriptor_inheritance).
+
+#### Type Modifier
+Field descriptors for member variables of array type contain additional information in a so called type modifier, represented by the TargetRTS class [`RTTypeModifier`](../targetrts-api/struct_r_t_type_modifier.html). A type modifier object holds information about the number of elements in the array. By default this is the declared size of the array which means that the encoding of an array will contain all its elements. You can change this by defining a custom function that specifies the number of elements that should be included. Such a function must have a prototype that can be safely casted to an `RTNumberFunction`:
+
+```cpp
+typedef int (*RTNumberFunction)(const RTTypeModifier*, const void*);
+```
+
+There are at least two situations when a custom "number of elements" function is needed:
+
+1. If you want to exclude some of the array elements from the encoding. By defining a "number of elements" function that returns a lower number than the size of the array, you can have some trailing elements in an array that will be skipped when encoding and decoding the array.
+2. If the constant expression that defines the array size uses a name that is not visible in the generated type modifier (e.g. a static constexpr member). The code generator will by default generate a type modifier that specifies the number of array elements using exactly the same constant expression, so if this will lead to compilation errors you must provide a custom "number of elements" function.
+
+Here is an example of how you can define a custom "number of elements" function for a member variable of array type. In this case it's needed for both reasons mentioned above.
+
+```art
+[[rt::decl]]
+`       
+    struct [[rt::auto_descriptor]] S {
+        static constexpr int SIZE = 8; // Not accessible without qualifier in the .cpp file
+        char arr[SIZE];
+    }; 
+`
+
+[[rt::impl]]
+`
+    // Custom "number of elements" function for S::arr
+    static int rtg_nefb_S_arr(const RTTypeModifier* modifier, const S* source) {
+        return 2; // Only include the first 2 elements in the encoding
+    }
+`
+```
+
+Just as for type descriptor functions it's recommended to use [Content Assist](../working-with-art/art-editor.md#content-assist) for implementing a custom "number of elements" function with the correct prototype.
+
+![](images/number_of_elements_function_content_assist.png)
+
+!!! example
+    You can find a sample application that uses a custom "number of elements" function for a type modifier [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_array_custom_num_func).
 
 ### Inheritance
 If a class or struct inherits from another class or struct, as in the example above, then the type descriptor of the derived type will have a reference to the type descriptor of the base type. In this case both types need to have a type descriptor. A type descriptor can at most reference one base type descriptor (a.k.a. a super descriptor) which means that only single inheritance is supported for automatically generated type descriptors. If you use multiple inheritance you have to write a [manual type descriptor](#manually-implemented) for the derived type.

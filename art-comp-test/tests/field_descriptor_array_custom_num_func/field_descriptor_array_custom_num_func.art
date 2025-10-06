@@ -1,0 +1,108 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] Element {
+        int value;
+    
+        Element(int i = 0) : value(i) {}
+    };
+    
+    class [[rt::auto_descriptor]] C_arrays {    
+        friend class Cap;    
+        friend class Top;    
+        static constexpr int SIZE = 8;
+    
+        Element m1[SIZE - 4];
+        char m2[SIZE / 2];
+        bool b;
+    
+        public:
+        static const RTFieldDescriptor rtg_C_arrays_fields[]; // Public field descriptor since there are non-public member variables
+    
+        C_arrays() : b(false) {}
+    
+        // Copy constructor that copies the array contents
+        C_arrays(const C_arrays& other);
+    }; 
+`
+
+[[rt::impl]]
+`
+    C_arrays::C_arrays(const C_arrays& other) {
+        for (int i = 0; i < SIZE - 4; ++i) {
+            m1[i] = other.m1[i];
+        }
+        for (int i = 0; i < SIZE / 2; ++i) {
+            m2[i] = other.m2[i];
+        }
+        b = other.b;
+    }
+
+    // Custom number function for C_arrays::m1
+    static int rtg_nefb_C_arrays_m1( const RTTypeModifier * modifier, const C_arrays * source ) {
+        return 2; // Only include the first 2 elements in the encoding
+    }
+
+    // Custom number function for C_arrays::m2
+    static int rtg_nefb_C_arrays_m2( const RTTypeModifier * modifier, const C_arrays * source ) {
+        return 2; // Only include the first 2 elements in the encoding
+    }
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "field_descriptor_array_custom_num_func.art.h"
+    `
+    out e1(`C_arrays`);    
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "field_descriptor_array_custom_num_func.art.h"
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the data! " << std::endl;
+            ASSERT(rtdata->m1[0].value == 1 && rtdata->m1[1].value == 2 && rtdata->m1[2].value == 3, "C_arrays::m1 had wrong contents");
+            ASSERT(rtdata->m2[0] == 'a' && rtdata->m2[1] == 'b' && rtdata->m2[2] == 'c' && rtdata->m2[3] == 'd', "C_arrays::m2 had wrong contents");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_C_arrays, "msg type should point to C_arrays type descriptor");
+            std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), mt);
+            std::cout << "Encoding: " << encoding << std::endl;
+            // Expect here that only the first 2 elements of m1 and m2 are included in the encoding            
+            ASSERT(encoding == "C_arrays{m1{value 1},{value 2},m2'a','b',b false}", encoding.c_str());
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                C_arrays sa;
+                sa.m1[0] = Element(1);
+                sa.m1[1] = Element(2);
+                sa.m1[2] = Element(3);
+
+                sa.m2[0] = 'a';
+                sa.m2[1] = 'b';
+                sa.m2[2] = 'c';
+                sa.m2[3] = 'd';
+
+                pOut.e1(sa).send();
+            `;
+        };  
+        initial -> State1;
+    };
+};

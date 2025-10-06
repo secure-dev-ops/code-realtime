@@ -1,0 +1,4 @@
+---
+group: type_descriptors
+---
+A struct with the [[rt::auto_descriptor]] attribute set will get a generated type descriptor and for each member variable of the struct a field descriptor is generated. For an array member variable the field descriptor will contain a type modifier which specifies an RTNumberFunction that returns the number of elements in the array. By default this is the declared size of the array, which means that the encoding of the array will contain all its elements. However, it's possible to write a custom RTNumberFunction which returns a different (i.e. smaller) number of elements. This can for example be useful if you want to include certain elements at the end of an array that should not be present in its encoding. Another situation when it's needed is if the array size is specified by means of an expression that references names that are not globally accessible.
