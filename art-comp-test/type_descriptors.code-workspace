@@ -8,12 +8,21 @@
         {
             "path": "tests/enum_type_descriptor"
         },
+		{
+            "path": "tests/enum_type_descriptor_custom_encode"
+        },
         {
             "path": "tests/enum_type_descriptor_header_file"
         },
-        {
-            "path": "tests/enum_type_descriptor_custom_encode"
-        },
+		{
+            "path": "tests/field_descriptor_array"
+        },        
+		{
+            "path": "tests/field_descriptor_array_custom_num_func"
+        },        
+		{
+            "path": "tests/field_descriptor_properties"
+        },        
         {
             "path": "tests/struct_type_descriptor"
         },

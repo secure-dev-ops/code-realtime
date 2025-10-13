@@ -1,0 +1,4 @@
+---
+group: type_descriptors
+---
+A struct with the [[rt::auto_descriptor]] attribute set will get a generated type descriptor and for each member variable of the struct a field descriptor is generated. To not generate a field descriptor for a member variable the C++ attribute [[rt::no_descriptor]] can be set. For an array member variable the field descriptor will contain a type modifier which specifies an RTNumberFunction that returns the number of elements in the array. To not generate a type modifier the C++ attribute [[rt::no_type_modifier]] can be set. Finally, there is a C++ attribute [[rt::type_descriptor]] which can be used to control which type descriptor to use for a field descriptor (by default that type descriptor is decided based on the type of the member variable).

@@ -1,4 +1,4 @@
-An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C++, certain snippets containing declarations (specifically, those marked as `rt::decl` and `rt::impl`) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, such as attributes applied to the declarations in these snippets, translating them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. 
+An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C++, certain snippets containing declarations (specifically, those marked as `rt::decl` and `rt::impl`) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, in the form of attributes applied to the declarations in these snippets, and translates them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. 
 
 An alternative to using `rt::decl` and `rt::impl` code snippets in an Art file is to directly [include C++ source files](../building/build-cpp-files.md) in your workspace folder. Code in such C++ files are also analyzed by the code generator, and extra code will be generated from attributes present in them. The main difference in this case is that the extra code will be placed in separate generated files, since there is no Art file that will be translated to C++ where it could be placed. See [Generated Files](#generated-files) for more information.
 
@@ -47,7 +47,7 @@ These are functions with a certain prototype, each of which performs a specific 
 | encode | `int rtg_MyType_encode(const RTObject_class* type, const MyType* source, RTEncoding* coding)` | Encodes an instance of the type|
 | decode | `int rtg_MyType_decode(const RTObject_class* type, MyType* target, RTDecoding* coding)` | Decodes an instance of the type|
 
-The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes [`RTEncoding`](../targetrts-api/class_r_t_encoding.html) and `RTDecoding`(../targetrts-api/class_r_t_decoding.html) from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_ENCODE` and `OBJECT_DECODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
+The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes [`RTEncoding`](../targetrts-api/class_r_t_encoding.html) and [`RTDecoding`](../targetrts-api/class_r_t_decoding.html) from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_DECODE` and `OBJECT_ENCODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
 
 **3) A type installer object**
 
@@ -100,7 +100,7 @@ struct RTTypedValue_MyType
 ```
 
 ### Automatically Generated
-The code generator will automatically generate a type descriptor for a type if you mark it with the **rt::auto_descriptor** attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an `rt::impl` code snippet. 
+The code generator will automatically generate a type descriptor for a type if you mark it with the `rt::auto_descriptor` attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an `rt::impl` code snippet. 
 
 !!! note 
     If you write your own type descriptor function it's important that its prototype exactly matches what is listed in [this table](#art_type_descriptor_functions). It's recommended to use [Content Assist](../working-with-art/art-editor.md#content-assist) within the `rt::impl` code snippet to avoid typos and reduce typing effort.
@@ -223,7 +223,7 @@ If your `[[rt::auto_descriptor]]` marked type is defined in a C++ header file (s
     * [Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)]({$vars.github.repo$}/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file)
 
 ### Manually Implemented
-If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the **rt::manual_descriptor** attribute. The code generator will then skip generation of the following parts of the type descriptor:
+If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the `rt::manual_descriptor` attribute. The code generator will then skip generation of the following parts of the type descriptor:
 
 * The implementation of the type descriptor object. The variable will be declared in the header file, but no implementation will be generated.
 * The type descriptor functions. If your type descriptor needs any of the functions you can implement them and reference them from the implementation of the type descriptor object.
@@ -312,6 +312,11 @@ Use [Content Assist](../working-with-art/art-editor.md#content-assist) to create
 !!! example
     You can find a sample application where a field descriptor is declared [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/type_descriptor_inheritance).
 
+If you want to exclude a member variable from the field descriptor of a structured type you can do so by setting the `rt::no_descriptor` attribute on the member variable. One reason to do this can be to avoid that the value of a certain member variable is included in the encoding of a structured type.
+
+!!! example
+    [Here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_properties) is a sample application where a member variable is excluded from the field descriptor by means of the `rt::no_descriptor` attribute.
+
 #### Type Modifier
 Field descriptors for member variables of array type contain additional information in a so called type modifier, represented by the TargetRTS class [`RTTypeModifier`](../targetrts-api/struct_r_t_type_modifier.html). A type modifier object holds information about the number of elements in the array. By default this is the declared size of the array which means that the encoding of an array will contain all its elements. You can change this by defining a custom function that specifies the number of elements that should be included. Such a function must have a prototype that can be safely casted to an `RTNumberFunction`:
 
@@ -350,6 +355,67 @@ Just as for type descriptor functions it's recommended to use [Content Assist](.
 
 !!! example
     You can find a sample application that uses a custom "number of elements" function for a type modifier [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_array_custom_num_func).
+
+You can suppress the generation of a type modifier for a member variable of array type by setting the `rt::no_type_modifier` attribute on the member variable. At run-time this has the same effect as implementing a custom "number of elements" function which returns 1, i.e. only the first element of the array will be included in the array's encoding.
+
+!!! example
+    [Here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_properties) is a sample application which uses the `rt::no_type_modifier` attribute.
+
+#### Field Descriptor Type
+A field descriptor for a member variable contains a pointer to the type descriptor of the member variable's type. If that type doesn't have a type descriptor you need to either exclude that member variable from the field descriptor by means of the `[[rt::no_descriptor]]` attribute or specify a custom type descriptor to be used by means of the `[[rt::type_descriptor]]` attribute. The latter can also be useful in case the default type descriptor is not the one you want to use. For example, assume you have a struct with two boolean member variables. In the encoding of this struct you prefer the booleans to be represented as `1` or `0` instead of as `true` or `false` which is their default encoding. You can then [create your own type descriptor](#manually-implemented) which encodes the booleans to `1` or `0`.
+
+For example, consider this struct defined in `LEDStatus.h`:
+
+```cpp
+extern const RTObject_class RTType_MyBool;
+
+struct [[rt::auto_descriptor]] LEDStatus {
+    [[rt::type_descriptor("RTType_MyBool")]] bool left = true;
+    [[rt::type_descriptor("RTType_MyBool")]] bool right = false;
+}; 
+```
+
+with a custom type descriptor implemented in `MyBool.cpp`:
+
+```cpp
+#if OBJECT_ENCODE
+static int my_bool_encode( const RTObject_class *,
+			const void           * source,
+			RTEncoding           * coding )
+{
+    return coding->put_int( * static_cast<const bool *>(source) ? 1 : 0 );
+}
+#endif
+
+const RTObject_class RTType_MyBool =
+{
+    nullptr
+    , nullptr
+    , "MyBool"
+    , 0 /* RTVersionId */
+    , sizeof( bool )
+    , nullptr
+    , nullptr
+#if RT_VERSION_NUMBER >= 7105
+    , nullptr
+#endif
+#if OBJECT_DECODE
+    , nullptr
+#endif
+#if OBJECT_ENCODE
+    , my_bool_encode
+#endif
+    , RTnop_destroy
+    , 0
+    , nullptr
+};
+```
+
+The ASCII encoding of an instance of `LEDStatus` would then look like this: `LEDStatus{left 1,right 0}`
+
+!!! example
+    You can find a sample application that uses the `[[rt::type_descriptor]]` attribute [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_properties).
+
 
 ### Inheritance
 If a class or struct inherits from another class or struct, as in the example above, then the type descriptor of the derived type will have a reference to the type descriptor of the base type. In this case both types need to have a type descriptor. A type descriptor can at most reference one base type descriptor (a.k.a. a super descriptor) which means that only single inheritance is supported for automatically generated type descriptors. If you use multiple inheritance you have to write a [manual type descriptor](#manually-implemented) for the derived type.

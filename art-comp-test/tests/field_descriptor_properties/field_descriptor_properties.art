@@ -1,0 +1,59 @@
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_MyStruct.h"
+    `
+    out e1(`MyStruct`);    
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "RTType_MyStruct.h"
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the data! " << std::endl;
+            ASSERT(rtdata->a == 14, "Received MyStruct had wrong contents in a");
+            ASSERT(rtdata->b == true, "Received MyStruct had wrong contents in b");
+            ASSERT(rtdata->c[0] == 'a' && rtdata->c[1] == 'b' && rtdata->c[2] == 'c', "Received MyStruct had wrong contents in c");
+            ASSERT(rtdata->d == false, "Received MyStruct had wrong contents in d");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_MyStruct, "msg type should point to MyStruct type descriptor");
+            std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), mt);
+            std::cout << "Encoding: " << encoding << std::endl;
+            ASSERT(encoding == "MyStruct{a 14,c'a',d 0}", encoding.c_str());
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "MyStruct.h"
+    `
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                MyStruct s;
+                s.a = 14;
+                s.b = true;
+                s.c[0] = 'a'; s.c[1] = 'b'; s.c[2] = 'c';
+                s.d = false;                
+
+                pOut.e1(s).send();
+            `;
+        };  
+        initial -> State1;
+    };
+};

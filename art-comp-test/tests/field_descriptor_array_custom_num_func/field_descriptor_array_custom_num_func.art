@@ -37,12 +37,12 @@
         b = other.b;
     }
 
-    // Custom number function for C_arrays::m1
+    // Custom "number of elements" function for C_arrays::m1
     static int rtg_nefb_C_arrays_m1( const RTTypeModifier * modifier, const C_arrays * source ) {
         return 2; // Only include the first 2 elements in the encoding
     }
 
-    // Custom number function for C_arrays::m2
+    // Custom "number of elements" function for C_arrays::m2
     static int rtg_nefb_C_arrays_m2( const RTTypeModifier * modifier, const C_arrays * source ) {
         return 2; // Only include the first 2 elements in the encoding
     }
