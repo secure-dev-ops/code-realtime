@@ -59,7 +59,7 @@ $(function () {
         }
     });
 
-    $('#ped_button').click(function() {
+    $('#ped_button').unbind('click').bind('click', function (e) {
         if(isBrowser){
             $.get('./ped_button', function () {
 

@@ -150,7 +150,7 @@ In this pop-up menu you also find convenient commands for [navigating to related
 Certain properties on Art elements control how they will appear in a diagram. Currently it's possible to configure which color to use for most elements in diagrams. See the [color](../art-lang/index.md#color) property for more information.
 
 ### Diagram Filters
-To avoid cluttered diagrams with too many text labels, certain information is by default hidden. If you click in the background of the diagram, the Properties view will show various filters that you can turn on or off for showing or hiding such additional information. Here is an example of the filters available for a state diagram:
+To avoid cluttered diagrams with too many text labels, certain information is by default hidden. If you click in the background of the diagram, the Properties view will show various Appearance filters that you can turn on or off for showing or hiding such additional information. Here is an example of the filters available for a state diagram:
 
 ![](images/diagram-filters.png)
 

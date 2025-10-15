@@ -1349,7 +1349,7 @@ In the example we can see that `D` overrides functions from the base C++ classes
 !!! example
     You can find a sample application where a capsule inherits from both another capsule and from C++ classes [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_cpp_inheritance).
 
-We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background.
+We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background or line-style.
 
 ![](images/sm_redefinition.png)
 
