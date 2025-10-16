@@ -20,6 +20,9 @@
         {
             "path": "HelloWorld"
         },
+		{
+            "path": "MatMult"
+        },
         {
             "path": "MoreOrLess"
         },
@@ -34,6 +37,9 @@
         },
         {
             "path": "QtTrafficLight"
+        },
+		{
+            "path": "SocketInterface"
         },
         {
             "path": "TcpRangeCounter"

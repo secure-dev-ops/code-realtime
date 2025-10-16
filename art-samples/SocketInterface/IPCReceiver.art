@@ -1,0 +1,28 @@
+capsule IPCReceiver {    
+    behavior port talkRemote~ : TalkRemote;
+    behavior port frame : Frame;
+    behavior port log : Log;
+    optional part customIPCLayer : TCPServer [0..1];
+    connect talkRemote with customIPCLayer.talkRemote;
+    statemachine {
+        state TOP {            
+            ping: on talkRemote.ping
+            `
+                Log::out << "IPCReceiver: ping received" << std::endl;
+                rtport->pong().reply();
+            `;
+        };
+        initial  ->  TOP 
+        `
+            RTActorId id = frame.incarnate(customIPCLayer,
+                                           RTType_TCPServer,
+                                           EmptyObject,
+                                           CustomIPCThread);
+
+            if( ! id.isValid() )
+                Log::err << "IPCReceiver: Failed to incarnate customIPCLayer TCPServer" << std::endl;
+            else
+                Log::out << "IPCReceiver: incarnated customIPCLayer TCPServer" << std::endl;
+        `;
+    };
+};

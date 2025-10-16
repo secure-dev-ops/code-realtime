@@ -1,0 +1,5 @@
+protocol TalkRemote {
+    in pong();
+    out ping();
+};
+

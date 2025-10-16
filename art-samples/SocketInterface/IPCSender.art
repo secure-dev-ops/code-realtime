@@ -1,0 +1,78 @@
+capsule IPCSender {
+    [[rt::header_preface]]
+    `
+        class RTTimespec;
+        #include <CONSTANTS.h>
+    `
+    [[rt::decl]]
+    `
+        public:
+            IPCSender( RTController * rtg_rts, RTActorRef * rtg_ref );
+        protected:
+            RTTimespec startTime;
+            RTTimespec endTime;
+            int pingCount;
+            long diffInUsec( const RTTimespec & first, const RTTimespec & second );
+    `    
+    [[rt::impl]]
+    `
+        IPCSender::IPCSender( RTController * rtg_rts, RTActorRef * rtg_ref )
+            : RTActor( rtg_rts ,rtg_ref )
+            , pingCount( 0 ) {
+        }
+
+        long IPCSender::diffInUsec( const RTTimespec & first, const RTTimespec & second ) {
+            RTTimespec delta( second );
+
+            delta -= first;
+
+            return ( delta.tv_sec * 1000000L ) + ( delta.tv_nsec / 1000L );
+        }
+    `
+    behavior port talkRemote : TalkRemote;
+    behavior port frame : Frame;
+    behavior port log : Log;
+    optional part customIPCLayer : TCPClient [0..1];
+    connect talkRemote with customIPCLayer.talkRemote;
+    statemachine {
+        state TOP {            
+            pong: on talkRemote.pong
+            `
+                if( --pingCount <= 0 ) {
+                	if( pingCount == 0 ) { // done pinging
+                		RTTimespec::getclock( endTime );
+
+                		long time = diffInUsec( startTime, endTime );
+
+                		Log::out << "Number of PingPongs " << NUM_MESSAGES << std::endl;
+                		Log::out << "Number of microseconds: " << time << std::endl;
+                		Log::out << "Mean time per round trip " << (time / NUM_MESSAGES) << " microseconds" << std::endl;
+
+                        context()->abort(); // all done
+                        return;
+                	}
+
+                	// go again:
+                	Log::out << "IPCSender: start ping counting" << std::endl;
+                	pingCount = NUM_MESSAGES;
+                	RTTimespec::getclock( startTime );
+                }
+
+                rtport->ping().reply();
+            `;            
+        };
+        initial  ->  TOP
+        `
+        RTActorId id = frame.incarnate(customIPCLayer,
+                					   RTType_TCPClient,
+                					   EmptyObject,
+                					   CustomIPCThread );
+
+            if( ! id.isValid() )
+                Log::err << "IPCSender: Failed to incarnate TCPClient" << std::endl;
+
+            if( ! talkRemote.ping().send() )
+                Log::err << "IPCSender: Ping failed" << std::endl;
+        `;
+    };
+};

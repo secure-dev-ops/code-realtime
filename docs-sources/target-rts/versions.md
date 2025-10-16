@@ -128,7 +128,7 @@ It's now possible to turn on a new kind of tracing in applications where message
 A new utility class [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) now makes it easier to wait in a state until multiple events have been received, before transitioning to another state. See [this chapter](message-communication.md#waiting-for-multiple-messages) for more information.
 
 ### Application exit code API
-The [RTMain](../targetrts-api/targetrts-api/class_r_t_main.html) class has two new functions for getting and setting the exit code of the application (`getExitCode()` and `setExitCode()`). The default exit code is 0 (as before).
+The [RTMain](../targetrts-api/class_r_t_main.html) class has two new functions for getting and setting the exit code of the application (`getExitCode()` and `setExitCode()`). The default exit code is 0 (as before).
 
 ### Public function "getTask" in RTDebugger
 The function [RTDebugger](../targetrts-api/class_r_t_debugger.html)::getTask() is now public which makes it possible to programmatically access the current debugger tasks. See the [`tasks`](../running-and-debugging/rts-debugger.md#tasks) command of the RTS Debugger for more information about tasks.

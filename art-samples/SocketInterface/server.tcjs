@@ -1,0 +1,52 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+// Source files used by the server (some are shared with the client)
+tc.sources = [
+    'TCPServer.art',
+    'CONSTANTS.cpp',
+    'CONSTANTS.h',
+    'TalkRemote.art',
+    'UdpLoop.cpp',
+    'UdpLoop.h',
+    'ReceiverSameThread.art',
+    'IPCReceiver.art',
+];
+tc.topCapsule = 'ReceiverSameThread';
+tc.cppCodeStandard = "C++ 17";
+tc.inclusionPaths = [
+    '$(RTS_HOME)/src/include'
+];
+tc.targetConfigurationName = 'Server';
+tc.threads = [
+{
+    name: 'IPCThread',
+    implClass: 'RTCustomController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY',
+    logical: [
+        'CustomIPCThread'
+    ]
+},
+{
+    name: 'MainThread',
+    implClass: 'RTPeerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_MAIN_PRIORITY'
+},
+{
+    name: 'TimerThread',
+    implClass: 'RTTimerController',
+    stackSize: '20000',
+    priority: 'DEFAULT_TIMER_PRIORITY'
+}
+];
+
+tc.unitName = 'Server_Unit';
+tc.targetFolder = 'SocketInterface_target';
+
+/*
+// Uncomment to debug with Visual Studio
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+*/

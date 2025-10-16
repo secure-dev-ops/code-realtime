@@ -1,0 +1,22 @@
+{
+  "version": 4,
+  "env": {
+    "targetrts_home": "C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS"
+  },
+  "enableConfigurationSquiggles": true,
+  "configurations": [
+    {
+      "name": "SocketInterface",
+      "includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder:SocketInterface}",        
+        "${targetrts_home}/include",
+        "${targetrts_home}/target/WinT"
+      ],
+      "cppStandard": "c++17",
+      "compilerPath": "cl.exe",
+      "windowsSdkVersion": "10.0.19041.0",
+      "intelliSenseMode": "${default}"
+    }
+  ]
+}

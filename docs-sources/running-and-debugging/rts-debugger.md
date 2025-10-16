@@ -62,6 +62,9 @@ Argument: `<threadId>` (number)
 
 Make the thread with the specified thread id detached so it can run freely without intervention by the RTS Debugger. See [Thread Considerations](#thread-considerations) for more information. You obtain the thread id by using the [`tasks`](#tasks) command.
 
+### exit
+This command terminates the debugged application. If you only want to quit the RTS Debugger, but let the application keep running, use instead the [`quit`](#quit) command.
+
 ### go
 Argument: `<n>` (number; default 10)
 

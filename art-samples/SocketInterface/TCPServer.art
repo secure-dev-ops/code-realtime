@@ -1,0 +1,145 @@
+capsule TCPServer {
+    [[rt::header_preface]]
+    `
+        #include <CONSTANTS.h>
+        #include <RTIOMonitor.h>
+        #include <UdpLoop.h>
+    `
+    [[rt::decl]]
+    `
+        protected:
+            RTIOMonitor ioMonitor;
+            RTTcpSocket c_socket;
+            char incomingBuffer[ BUFF_LEN ];
+        private:
+            UdpLoop udp;
+        protected:
+            bool makeUdpConnection();
+        private:
+            void processIPCData();
+            void wakeup();
+            void waitForEvents();
+        protected:
+            ~TCPServer();
+    `
+    [[rt::impl]]
+    `
+        bool TCPServer::makeUdpConnection() {
+            const char * failure = udp.create( &ioMonitor );
+
+            if( failure == nullptr ) {
+                return true;
+            }
+            else {
+                Log::err << "TCPServer: " << failure << std::endl;
+                return false;
+            }
+        }
+
+        void TCPServer::processIPCData() {
+            int buffLen = (int)sizeof( incomingBuffer );
+
+            if( c_socket.read( incomingBuffer, buffLen ) != buffLen ) {
+                Log::err << "TCPServer: Incomplete read" << std::endl;
+
+                // Client stopped sending data, terminate
+                context()->abort();
+            }
+
+            else if( ! talkRemote.ping().send() )
+                Log::err << "TCPServer: internal send failed" << std::endl;
+        }
+
+        void TCPServer::wakeup() {
+            if( ! udp.transmit() )
+                Log::err << "TCPServer: wakeup failed" << std::endl;
+            else
+                Log::out << "TCPServer: wakeup - signal sent to controller" << std::endl;
+        }
+
+        void TCPServer::waitForEvents() {
+
+            if( udp.receive( &ioMonitor ) ) {
+                Log::out << "TCPServer: waitForEvents - woken up" << std::endl;
+                // woken up
+            }
+            else {
+                // custom IPC data to process here:
+                processIPCData();
+            }
+        }
+
+        TCPServer::~TCPServer() {
+            // make sure to unregister with controller, if not the controller
+            // mainloop operations will be mapped to operations that no longer
+            // exist.
+            REGISTER_LAYER(nullptr, nullptr, nullptr);
+        }
+    `
+    service behavior port talkRemote : TalkRemote;
+    behavior port log : Log;
+    statemachine {
+        state TOP {
+            state Operational {                
+                pong: on talkRemote.pong
+                `
+                    int buffLen = (int)sizeof( incomingBuffer );
+
+                    if( c_socket.write( incomingBuffer, buffLen ) != buffLen )
+                    	Log::err << "TCPServer: incomplete write" << std::endl;
+                `;
+            };
+            state Reset;
+
+            choice internalOK;
+            choice externalOK;                        
+            
+            giveUp: internalOK -> Reset
+            `
+                Log::err << "Wakeup mechanism initialization failed" << std::endl;
+            `;
+            
+            giveUp_1: externalOK -> Reset
+            `
+                Log::err << "IPC channel initialization failed" << std::endl;
+
+                c_socket.close();
+            `;
+            registerWithController: externalOK -> Operational when 
+            `
+                return c_socket.state() == RTTcpSocket::Established;
+            `
+            `
+                REGISTER_LAYER( static_cast<RTActorFunction>(&TCPServer::waitForEvents),
+                			    static_cast<RTActorFunction>(&TCPServer::wakeup),
+                				nullptr );
+
+                Log::out << "Connected REGISTER_LAYER" << std::endl;
+            `;
+            externalSetUp: internalOK -> externalOK when 
+            `
+                return makeUdpConnection();
+            `
+            `
+                RTTcpSocket listener; // temporary in this example
+
+                Log::out << "Listening to: " << LISTENING_PORT << std::endl;
+
+                c_socket.registerWith( &ioMonitor );
+                listener.registerWith( &ioMonitor );
+
+                if( listener.create() != 0 &&
+                	listener.listen( (int)LISTENING_PORT ) != 0 ) {
+                	const RTTimespec awhile( 1L, 0L );
+
+                	while( c_socket.acceptFrom( listener ) == 0 )
+                		ioMonitor.wait( &awhile );
+                }
+            `;
+
+            entrypoint internalSetUp;
+            internalSetUp -> internalOK;
+        };
+        initial  ->  TOP.internalSetUp;
+    };
+};

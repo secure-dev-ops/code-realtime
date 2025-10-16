@@ -107,6 +107,11 @@ This sample is similar to [DistributedPingPong](#distributedpingpong), and also 
 
 **TargetRTS:** [RTString](targetrts-api/class_r_t_string.html)
 
+## [SocketInterface]({$vars.github.repo$}/tree/main/art-samples/SocketInterface)
+This sample shows how you can integrate socket-based communication directly into a controller's main loop by using a [Custom Controller](target-rts/message-communication.md#custom-controller). This distributed application is similar in functionality to [DistributedPingPong](#distributedpingpong) but operates much faster since socket data is read and written directly in the main loop.
+
+**TargetRTS:** [RTCustomController](targetrts-api/class_r_t_custom_controller.html)
+
 ## [gRPC_MazeRunner]({$vars.github.repo$}/tree/main/art-samples/gRPC_MazeRunner)
 This sample uses the [gRPCServer library]({$vars.github.repo$}/tree/main/art-samples/gRPCServer) which allows a realtime application to communicate using [gRPC](https://grpc.io/) with other applications. The sample also shows how to mix Art files with [hand-written C++ source files](building/build-cpp-files.md) and build them into a single application.
 

@@ -1,0 +1,157 @@
+capsule TCPClient {
+    [[rt::header_preface]]
+    `
+        #include <CONSTANTS.h>
+        #include <RTIOMonitor.h>
+        #include <UdpLoop.h>
+    `
+    [[rt::decl]]
+    `
+        protected:
+            RTIOMonitor ioMonitor;
+            RTTcpSocket c_socket;
+            char incomingBuffer[ BUFF_LEN ];
+        private:
+            UdpLoop udp;
+        protected:
+            bool makeUdpConnection( void );
+        private:
+            inline void processIPCData( void )
+            {
+                int buffLen = (int)sizeof( incomingBuffer );
+
+                if( c_socket.read( incomingBuffer, buffLen ) != buffLen )
+                    Log::err << "TCP client: incomplete read";
+
+                if( ! talkRemote.pong().send() )
+                    Log::err << "TCP client: Internal send failed";
+            }
+            void wakeup( void );
+            void waitForEvents( void );
+        protected:
+            ~TCPClient( void );
+    `
+    [[rt::impl]]
+    `
+        bool TCPClient::makeUdpConnection( void ) {
+            const char * failure = udp.create( &ioMonitor );
+
+            if(!failure) {
+                Log::out << "TCPClient: UDP channel created" << std::endl;                
+                return true;
+            }
+            else {
+                Log::err << "TCPClient: " << failure << std::endl;
+                return false;
+            }
+        }
+
+        void TCPClient::wakeup() {
+            if(!udp.transmit())
+                Log::err << "TCPClient: wakeup failed" << std::endl;
+        }
+
+        void TCPClient::waitForEvents() {
+            if(udp.receive(&ioMonitor)) {
+                // woken up
+                Log::out << "TCPClient: waitForEvents - woken up" << std::endl;
+            }
+            else {
+                // custom IPC data to process here:
+                processIPCData();
+            }
+        }
+
+        TCPClient::~TCPClient()
+        {
+            // make sure to unregister with controller, if not the controller
+            // mainloop operations will be mapped to operations that no longer
+            // exist.
+            REGISTER_LAYER(nullptr, nullptr, nullptr);
+            Log::out << "TCPClient: destructor - unregistering layer" << std::endl;
+        }
+    `
+    service behavior port talkRemote~ : TalkRemote;
+    behavior port log : Log;
+    behavior port timer : Timing;
+    statemachine {
+        state TOP {
+            state Operational {                
+                ping: on talkRemote.ping
+                `
+                    int buffLen = (int)sizeof( incomingBuffer );
+
+                    if( c_socket.write( incomingBuffer, buffLen ) != buffLen )
+                    	Log::out << "TCPClient: incomplete write" << std::endl;
+                    else {
+                    	Log::out << "TCPClient: pong sent" << std::endl;
+                    }
+                `;
+
+                timeout: on timer.timeout
+                `
+                    Log::out << "TCPClient: Timer timeout" << std::endl;                    
+                `;
+            };
+            state Reset;
+
+            choice internalOK;
+            choice externalOK;
+
+            giveUp: internalOK -> Reset
+            `
+                Log::err << "Wakeup mechanism initialization failed" << std::endl;
+            `;
+            externalSetUp: internalOK -> externalOK when 
+            `
+                return makeUdpConnection();
+            `
+            `
+                Log::out << "Connecting to: " << LISTENING_PORT << "@" << MASTER_HOST << std::endl;                
+
+                c_socket.registerWith( &ioMonitor );
+
+                if( c_socket.create() != 0 &&
+                	c_socket.connect( (const char *)MASTER_HOST, (int)LISTENING_PORT ) != 0 ) {
+                	RTTimespec awhile( 1L, 0L );
+
+                	while( c_socket.state() == RTTcpSocket::SynSent )
+                		ioMonitor.wait( &awhile );
+                }
+                else {
+                	Log::err << "Socket creation or connect failed" << std::endl;
+                }
+            `;
+        
+            giveUp_1: externalOK -> Reset
+            `
+                c_socket.close();
+            `;
+            registerWithController: externalOK -> Operational when 
+            `
+                return c_socket.state() == RTTcpSocket::Established;
+            `
+            `
+                REGISTER_LAYER( static_cast<RTActorFunction>(&TCPClient::waitForEvents),
+                			    static_cast<RTActorFunction>(&TCPClient::wakeup),
+                				nullptr );
+
+                Log::out << "Connected REGISTER_LAYER" << std::endl;
+
+                talkRemote.recallAll();
+
+                RTTimerId tid = timer.informEvery(RTTimespec(0, 100000000 /* 100 ms */));
+                if (!tid.isValid()) {
+                    Log::err << "TCPClient: Failed to start timer" << std::endl;
+                }
+            `;
+            deferPing: on talkRemote.*
+            `
+                msg->defer();
+            `;
+            internalSetUp -> internalOK;
+            entrypoint internalSetUp;
+        };
+        initial -> TOP.internalSetUp;
+    };
+};

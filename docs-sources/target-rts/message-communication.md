@@ -8,7 +8,7 @@ As explained in [Threads](threads.md), an application consists of controllers ea
 
 From the application’s perspective, there is no difference between sending a message within a thread and sending a message across threads; the code to send and receive the message is still the same. There is, however, a difference in performance, and message sending across threads is approximately 10-20 times slower than message sending within a thread. You should therefore assign capsule instances to controllers in a way so that those that communicate frequently with each other should be run by the same controller.
 
-Each physical thread in the TC of an application specifies an implementation class that inherits from [RTController](../targetrts-api/class_r_t_controller.html). The default implementation is provided by the [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) class, and it implements a simple event loop that in each iteration delivers the most prioritized message to the capsule instance that should handle it. Let's explore what happens internally in the TargetRTS when a capsule sends an event on a port:
+Each physical thread in the TC of an application specifies an implementation class that inherits from [RTController](../targetrts-api/class_r_t_controller.html). The default implementation is provided by the [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) class, and it implements a simple event loop (in the `mainLoop()` function) that in each iteration delivers the most prioritized message to the capsule instance that should handle it. Let's explore what happens internally in the TargetRTS when a capsule sends an event on a port:
 
 ```art
 myPort.myEvent().send();
@@ -19,12 +19,12 @@ myPort.myEvent().send();
 3. The message is now delivered to the controller that runs the receiver capsule instance. This is done by calling `RTController::receive()`. The controller has two message queues where it stores received messages, the **internal queue** and the **incoming queue**. The received message is put in one of these: 
    
     - If the sender and receiver controller is the same (intra-thread communication) the message is placed in the internal queue. 
-    - If the sender and receiver controllers are different (inter-thread communication) the message is placed in the incoming queue.
+    - If the sender and receiver controllers are different (inter-thread communication) the message is placed in the incoming queue. The `wakeup()` function of the receiver controller is then called to notify it that a new incoming message is available.
 
     Note that both the internal and incoming message queue is actually an array of queues, one for each [message priority level](#message-priority). The received message is inserted at the end of the queue that matches the priority of the message as specified by the sender. This ensures that messages are handled in priority order, and, within each level of priority, in a FIFO ("first-in-first-out") manner.
 
-4. If the message was placed in the incoming queue, it gets transferred to the internal queue in the beginning of the `RTController::dispatch()` function which is called once in each iteration of the controller's event loop. This happens in the function `RTController::acceptIncoming()`.
-5. The rest of the `RTController::dispatch()` function checks the contents of the incoming queue, starting with the queue at the highest priority level (`Synchronous`), proceeding with queues at lower priority levels, until the queue at the lowest priority level (`Background`). As soon as it encounters a non-empty queue it dispatches the first message of that queue. 
+4. If the message was placed in the incoming queue, the call to `wakeup()` signals a semaphore on which the receiver controller is waiting while there are no messages to dispatch from the internal queue. The incoming message then gets transferred to the receiver's internal queue in the beginning of the `RTController::dispatch()` function which is called once in each iteration of the controller's event loop. This happens in the function `RTController::acceptIncoming()`.
+5. The rest of the `RTController::dispatch()` function checks the contents of the internal queue, starting with the queue at the highest priority level (`Synchronous`), proceeding with queues at lower priority levels, until the queue at the lowest priority level (`Background`). As soon as it encounters a non-empty queue it dispatches the first message of that queue. 
 6. Dispatching a message is done by calling `RTMessage::deliver()`, which eventually leads to a call of the `RTActor::rtsBehavior()` function which implements the capsule state machine in the generated code. 
    
     !!! note 
@@ -87,6 +87,38 @@ sendCopyToMe(&reply);
 ```
 
 `sendCopyToMe()` can be useful whenever a message cannot be fully handled by a single transition. It's similar to deferring a message and then immediately recall it again.
+
+### Custom Controller
+If you want to customize any aspect of how a controller works you can implement your own controller class that inherits from [RTController](../targetrts-api/class_r_t_controller.html). However, implementing a controller completely from scratch requires quite some effort and the TargetRTS therefore provides a class [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) which lets you customize a few key aspects of how a controller works in an easier way. It does this by letting a capsule override two controller functions:
+
+* `waitForEvents()` This is the function where a controller waits for messages to arrive. The default implementation in [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) blocks here (on a semaphore) until a new message arrives for the controller to handle.
+* `wakeup()` This is the function that notifies the controller that a new message has arrived (from another controller). The default implementation in [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) unblocks the controller (by signalling the semaphore) so it can process the new message that has arrived.
+
+In addition [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) overrides the `mainLoop()` function and let's the capsule specify a "process" function which will be called each time a message is about to be dispatched. The call takes place *before* the message is dispatched which provides a means for the capsule to prioritize some other work before the regular message dispatching.
+
+The capsule that you choose to use for configuring a custom controller is called a **layer capsule** (it provides a "layer" between the controller and your application code). You register the layer capsule with the custom controller by calling the function [RTCustomController](../targetrts-api/class_r_t_custom_controller.html)::`registerLayer()`. Alternatively you can use a macro called `REGISTER_LAYER`. Here is an example of code to place in a code snippet of a capsule `MyCapsule` in order to register that capsule as the layer capsule of a custom controller that runs it:
+
+```cpp
+REGISTER_LAYER( static_cast<RTActorFunction>(&MyCapsule::waitForEvents),
+                static_cast<RTActorFunction>(&MyCapsule::wakeup),
+                nullptr );
+```
+
+In the example above two member functions of `MyCapsule` customize how the custom controller should wait for events and how it should wake up. There is no customization of the "process" function which is why the 3rd macro argument is `nullptr`.
+
+You can use an [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) instead of an [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) whenever you need to "inject" messages into the application from a source other than another controller. That source can for example be a user interface event loop or an inter-process communication (IPC) mechanism such as a socket. It's therefore an alternative to using a capsule with an [external port](integrate-with-external-code.md#external-port) for injecting external messages. The general contract between the registered `waitForEvents()` and `wakeup()` functions is that the former needs to block on something which the latter releases when a new message arrives in the incoming queue. Typical examples on what to block on include a semaphore (`RTSyncObject` in the TargetRTS) or a socket.
+
+!!! important
+    If the layer capsule instance is destroyed it must de-register itself from the custom controller. Otherwise the custom controller will call functions on a destroyed object which will cause a run-time exception. Simply call `REGISTER_LAYER(nullptr, nullptr, nullptr)` from the destructor of the layer capsule to de-register it.
+
+Note the following when you design a layer capsule to be used with an [RTCustomController](../targetrts-api/class_r_t_custom_controller.html):
+
+* The registered `wakeup()` function is called from another thread when a new message arrives. It should therefore not access members of the layer capsule directly.
+* The other two registered functions are called from the [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) thread so they can safely access members of the layer capsule. However, remember that these functions are called very frequently from the `mainLoop()` function and should therefore return as quickly as possible. In an IPC context one of these functions may for example check if there is something to read on a socket, and if so send a message with the read data to either the layer capsule instance itself or to another capsule instance for handling it later.
+* Whether to use the registered "process" function or the `waitForEvents()` function to check for incoming external messages depends on how you want to prioritize them compared to regular messages. If they should be handled at a higher priority use the "process" function since it will be called before any other message is dispatched by the custom controller. If they should be handled at a lower priority use the `waitForEvents()` which only will be called when the controller's message queue has no other messages to dispatch.
+
+!!! example
+    Refer to this [sample application]({$vars.github.repo$}/tree/main/art-samples/SocketInterface) which uses an [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) for injecting messages containing data it reads from a socket.
 
 ## Message Priority
 The sender of a message can choose between the following priority levels:
@@ -207,7 +239,7 @@ Note the following:
     You can find a sample application that uses the [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html) utility [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/wait_for_multiple_events).
 
 ### Setting Expectations on Received Messages
-Expectations on which messages that must be received, before the transition to the target state can trigger, are expressed by calling [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html)::`expectEvent()`. The argument to this function is an [RTAbstractEventReception](../targetrts-api/class_r_t_abstract_event_reception.html) object. Two subclasses are provided for this abstract class:
+Expectations on which messages that must be received, before the transition to the target state can trigger, are expressed by calling [RTMultiReceive](../targetrts-api/class_r_t_multi_receive.html)::`expectEvent()`. The argument to this function is an [RTEventReceptionInterface](../targetrts-api/class_r_t_event_reception_interface.html) object. Two subclasses are provided for this abstract class:
 
 * [RTEventReception](../targetrts-api/class_r_t_event_reception.html). This class lets you set up the expectation on the received event statically by checking certain properties of a received message. The following can be checked by passing appropriate arguments to the constructor (some are optional and can be omitted):
     * The port ([RTProtocol](../targetrts-api/class_r_t_protocol.html)) where the message should be received. If omitted it can arrive on any of the capsule's ports.

@@ -112,6 +112,15 @@ Note that the external code is responsible for allocating the data pushed on the
 
 It's of course possible to implement another scheme for passing data from external code to a capsule, and the data area of an external port should just be seen as a convenience. Any data structure can be shared between the external code and the capsule, but it's important that it is thread-safe. You can for example use a mutex (see `RTMutex` in the TargetRTS) for protecting data that is shared by the external thread and the capsule's thread.
 
+### Alternatives
+As mentioned above use of external ports requires an external thread which can block while waiting for external data to become available. While this approach is easy to understand and implement, it sometimes is not the most appropriate solution. Then you can consider some of the below alternatives.
+
+* **Use a [custom controller](message-communication.md#custom-controller)** With a custom controller you can integrate the injection of external messages and data with the controller itself. This gives better performance and provides for more flexibility in how to prioritize such external messages compared to the other regular messages. Instead of letting a capsule with an external port be responsible for injecting external messages into the application, you create a so called layer capsule and register that with the custom controller. The layer capsule can then decide how and when the external messages should be injected into the application, without preventing the controller from its normal operations (i.e. running other capsule instances and dispatching regular messages).
+
+* **Dedicated blocking capsule** This is perhaps the easiest solution to implement, since you just let a regular capsule block while waiting for external data to become available. However, it means that the controller that runs that capsule also will be blocked and cannot execute any other capsules. It also cannot dispatch any other messages while its blocked.
+
+* **Polling capsule** This solution uses a capsule with a periodic timer. On every timeout the capsule checks if external data is available and if so injects an external message into the application. While this implementation is simple, and also works for single-threaded applications, it has the drawback of only being able to react to external messages as timely as the timeout period allows. A short timeout period means external messages can be reacted to faster, but also probably leads to lots of resources spent on handling unnecessary timeouts when there is no external data available.
+
 ## Main Function
 The TargetRTS contains a `main()` function implementation which is used when you build an executable. However, its implementation simply calls `RTMain::entryPoint()` which is provided by the generated code in the unit file (by default called `UnitName.cpp`). If you want to integrate the generated code with external code that already contains a `main()` function you can either 
 

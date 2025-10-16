@@ -12,6 +12,6 @@ On the Welcome page of {$product.name$} there are several step-by-step walkthrou
 
 When you feel ready to start developing your first application with {$product.name$} you may use these additional resources for learning more:
 
-- **[Samples](../samples/)** These are complete sample applications which you can build, run and take inspiration from.
+- **[Samples](../samples.md)** These are complete sample applications which you can build, run and take inspiration from.
 - **[Tests](https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests)** These are very small sample applications which also can be built and run. They are used for regression testing of {$product.name$} and are therefore usually focused on only one or a few concepts of the Art language or TargetRTS. Each test has a file `testcase.md` which describes the concepts that it uses.
 - **[Art Tutorial](art-tutorial.md)** This is an interactive tutorial which lets you learn about {$product.name$} and the Art language by working on exercises.

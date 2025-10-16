@@ -1,0 +1,20 @@
+capsule SenderSameThread {
+    behavior port log : Log;
+    behavior port frame : Frame;
+    optional part iPCSender : IPCSender [0..1];
+    statemachine {
+        state TOP;
+        initial -> TOP
+        `
+            RTActorId id = frame.incarnate( iPCSender,
+                                            RTType_IPCSender,
+                                            EmptyObject,
+                                            CustomIPCThread );
+
+            if( ! id.isValid() )
+                Log::err << "Sender: Failed to incarnate IPCSender" << std::endl;
+            else
+                Log::out << "Sender: incarnated IPCSender" << std::endl;
+        `;
+    };
+};

@@ -1,0 +1,18 @@
+capsule ReceiverSameThread {
+    behavior port frame : Frame;
+    behavior port log : Log;
+    optional part iPCReceiver : IPCReceiver [0..1];
+    statemachine {
+        state TOP;
+        initial -> TOP
+        `
+            RTActorId id = frame.incarnate(	iPCReceiver,
+                                            RTType_IPCReceiver,
+                                            EmptyObject,
+                                            CustomIPCThread );
+
+            if(!id.isValid() )
+                Log::err << "Sender: Failed to incarnate IPCReceiver" << std::endl;
+        `;
+    };
+};
