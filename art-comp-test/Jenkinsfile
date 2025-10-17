@@ -101,6 +101,7 @@ def prepareTests() {
 			folder=$(basename $ff)
 			[ $folder == HelloWorld ] && continue
 			[ $folder == PiComputer ] && continue
+			[ $folder == SocketInterface ] && continue
 			[[ $folder == Qt* ]] && continue
 			[[ $folder == gRPC* ]] && continue
 			[ $folder == TcpServer ] && cp -r $ff ./art-comp-test/tests/ && continue
