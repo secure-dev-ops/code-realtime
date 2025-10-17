@@ -103,7 +103,15 @@ RTMutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_mutex</b></
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Special utility class that allows to protect a piece of code from being accessed by multiple execution threads at the same time. </p>
 <p>Critical section starts when <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> object is constructed, and continues until the end of a C++ block or until a function return statement.</p>
-<p>A typical use case is to declare a static mutex and an object of <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> class in the beginning of a code block or a function: { #if USE_THREADS static RTMutex mutex; <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> lock(mutex); #endif // critical section } Mutex is released when <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> object is destroyed. </p>
+<p>A typical use case is to declare a static mutex and an object of <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> class in the beginning of a code block or a function: </p><div class="fragment"><div class="line">{</div>
+<div class="line"><span class="preprocessor">#if USE_THREADS</span></div>
+<div class="line">    <span class="keyword">static</span> RTMutex mutex;</div>
+<div class="line">    <a class="code hl_class" href="class_r_t_lock.html">RTLock</a> lock(mutex);</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line">    <span class="comment">// critical section</span></div>
+<div class="line">}</div>
+<div class="ttc" id="aclass_r_t_lock_html"><div class="ttname"><a href="class_r_t_lock.html">RTLock</a></div><div class="ttdoc">Special utility class that allows to protect a piece of code from being accessed by multiple executio...</div><div class="ttdef"><b>Definition:</b> RTLock.h:29</div></div>
+</div><!-- fragment --><p> Mutex is released when <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> object is destroyed. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_r_t_lock_8h_source.html">RTLock.h</a></li>
 </ul>
