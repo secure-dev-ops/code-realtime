@@ -42,6 +42,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
 | 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) <br> [Improved error handling in REGISTER_LAYER](#improved-error-handling-in-register_layer)  <br> [Support for a new trace file format (.art-trace)](#support-for-a-new-trace-file-format-art-trace) |
+| 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -141,3 +142,15 @@ A new virtual function [RTController](../targetrts-api/class_r_t_controller.html
 
 ### Support for a new trace file format (.art-trace)
 The TargetRTS now supports generating traces of messages that are sent between capsule instances in a new file format (`.art-trace`). This is now the default trace file format, and the previously supported `.ms` trace file format now has to be enabled by means of a new command-line option `-traceFormat=ms`. See [this chapter](../running-and-debugging/tracing.md) for more information about the new trace file format and how to use it in {$product.name$}.
+
+### Shorter state qualifiers in the RTSDebugger system command
+Previously the RTSDebugger's [system](../running-and-debugging/rts-debugger.md#system) command would print the qualified name of the active state in a way where each state name in the qualifier was itself qualified. Now this has been fixed and qualified state names are now printed in a more readable way.
+
+### New RTLock utility 
+A new utility class [RTLock](../targetrts-api/class_r_t_lock.html) can be used for protecting a piece of code from being run by more than one thread at the same time.
+
+### Printing 64 bit integers in RTFormat
+The [RTFormat](../targetrts-api/class_r_t_format.html) class has two new functions for printing 64 bit integers. For signed integers use `_int64_t()` and for unsigned integers use `_uint64_t()`.
+
+### More information for messages when tracing
+When capturing a trace in the `.art-trace` format information about the sender port, as well as the sender and receiver port index, is now included for messages. Also, if a message data is present but cannot be ASCII encoded it's shown in the trace with a `?`. If a message has no data an empty string is printed instead of `void` as previously. See [this chapter](../running-and-debugging/tracing.md#message) for more information.
