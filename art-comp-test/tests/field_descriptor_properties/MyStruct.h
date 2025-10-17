@@ -1,8 +1,7 @@
 #ifndef MYSTRUCT_H
 #define MYSTRUCT_H
 
-#include <UnitName.h>
-
+class RTObject_class;
 extern const RTObject_class RTType_MyBool;
 
 struct [[rt::auto_descriptor]] MyStruct {

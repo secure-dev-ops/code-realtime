@@ -1,4 +1,5 @@
 #include "MyStruct.h"
+#include <RTStructures.h>
 
 #if OBJECT_ENCODE
 static int my_bool_encode( const RTObject_class *,
