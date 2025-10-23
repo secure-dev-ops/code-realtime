@@ -21,7 +21,7 @@
         signed long e;
         long double f;
         Nested nested;
-        Col en = Green;
+        enum Col en = Green;
         RTString str;        
     };
 

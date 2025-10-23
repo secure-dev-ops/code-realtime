@@ -1,0 +1,4 @@
+---
+group: type_descriptors
+---
+A struct with the [[rt::auto_descriptor]] attribute set will get a generated type descriptor and for each member variable of the struct a field descriptor is generated. For member variables that are arrays, or pointers to the first element of an array, a custom "number-of-elements" function can be specified. In the former case you only need to specify it if the specified size of the array doesn't correspond to the number of elements you want to be encoded, while in the latter case it's always necessary since it's not possible to know from the member declaration how many elements the array has.

@@ -1,0 +1,61 @@
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "Data.art.h"
+    `
+    out e1(`Container`);    
+};
+
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "Data.art.h"
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the data! " << std::endl;           
+            ASSERT(rtdata->parray[0].value == 0, "Container::parray[0] had wrong contents");
+            ASSERT(rtdata->parray[1].value == 1, "Container::parray[1] had wrong contents");
+            ASSERT(rtdata->parray[2].value == 2, "Container::parray[2] had wrong contents");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Container, "msg type should point to Container type descriptor");
+            std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), mt);
+            std::cout << "Encoding: " << encoding << std::endl;
+            ASSERT(encoding == "Container{parray{{value 0},{value 1}}}", encoding.c_str());
+            PASS();
+        `;
+    };
+};
+
+capsule Top { 
+    [[rt::impl_preface]]
+    `
+        #include "Data.art.h"
+
+        const Data dg[3] = { Data(0), Data(1), Data(2) };
+    `
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Container c;                
+                c.parray = dg;                
+
+                std::string encoding = TestUtils::getASCIIEncodedString(&c, &RTType_Container);
+                std::cout << "Encoding before send: " << encoding << std::endl;
+
+                pOut.e1(c).send();
+            `;
+        };  
+        initial -> State1;
+    };
+};

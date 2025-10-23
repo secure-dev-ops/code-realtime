@@ -1,0 +1,20 @@
+[[rt::decl]]
+`
+    struct [[rt::auto_descriptor]] Data {
+        int value;
+        Data(int v = 0) : value(v) {}
+    };
+
+    struct [[rt::auto_descriptor]] Container {        
+        const struct Data* parray; // Data indirectly contained in Container (pointer to Data which is the first element of an array)        
+    };
+`
+[[rt::impl]]
+`
+    // Custom "number of elements" function for Container::parray
+    static int rtg_nefb_Container_parray( const RTTypeModifier * modifier, const Container * source ) {
+        return 2; // Include first 2 elements in the encoding
+    }
+`
+
+

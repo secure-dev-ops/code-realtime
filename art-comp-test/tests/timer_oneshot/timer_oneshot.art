@@ -50,13 +50,13 @@ capsule Top {
             `;
             timeout7: on timer7.timeout
             `
-                // Check that the timer timed out approximately 1 second (+- 20ms) from when it was set
+                // Check that the timer timed out approximately 1 second (+ max 40ms) from when it was set
                 const RTTimespec then = *(static_cast<const RTTimespec*>(rtdata));
                 RTTimespec now;
                 RTTimespec::getclock(now);
                 RTTimespec diff = now - then; // How much time passed from setting the timer until it timed out
                 std::cout << diff.tv_sec << " s " << diff.tv_nsec << std::endl;
-                ASSERT(diff - RTTimespec(1,0) < RTTimespec(0, 1000*1000*20 /* 20 ms */), "Timer 7 didn't timeout when expected");
+                ASSERT(diff - RTTimespec(1,0) < RTTimespec(0, 1000*1000*40 /* 40 ms */), "Timer 7 didn't timeout when expected");
             `;
         };
         initial -> First

@@ -318,18 +318,19 @@ If you want to exclude a member variable from the field descriptor of a structur
     [Here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_properties) is a sample application where a member variable is excluded from the field descriptor by means of the `rt::no_descriptor` attribute.
 
 #### Type Modifier
-Field descriptors for member variables of array type contain additional information in a so called type modifier, represented by the TargetRTS class [`RTTypeModifier`](../targetrts-api/struct_r_t_type_modifier.html). A type modifier object holds information about the number of elements in the array. By default this is the declared size of the array which means that the encoding of an array will contain all its elements. You can change this by defining a custom function that specifies the number of elements that should be included. Such a function must have a prototype that can be safely casted to an `RTNumberFunction`:
+Field descriptors for member variables of pointer and array type contain additional information in a so called type modifier, represented by the TargetRTS class [`RTTypeModifier`](../targetrts-api/struct_r_t_type_modifier.html). For members of array type the type modifier object holds information about the number of elements in the array. By default this is the declared size of the array which means that the encoding of an array will contain all its elements. You can change this by defining a custom function that specifies the number of elements that should be included. Such a function must have a prototype that can be safely casted to an `RTNumberFunction`:
 
 ```cpp
 typedef int (*RTNumberFunction)(const RTTypeModifier*, const void*);
 ```
 
-There are at least two situations when a custom "number of elements" function is needed:
+There are at least three situations when a custom "number of elements" function is needed:
 
 1. If you want to exclude some of the array elements from the encoding. By defining a "number of elements" function that returns a lower number than the size of the array, you can have some trailing elements in an array that will be skipped when encoding and decoding the array.
 2. If the constant expression that defines the array size uses a name that is not visible in the generated type modifier (e.g. a static constexpr member). The code generator will by default generate a type modifier that specifies the number of array elements using exactly the same constant expression, so if this will lead to compilation errors you must provide a custom "number of elements" function.
+3. A member variable of pointer type that points at the first element of an array. If you want to encode that member as an array you need to define a "number of elements" function to specify how many elements of the array that exists and that should be encoded.
 
-Here is an example of how you can define a custom "number of elements" function for a member variable of array type. In this case it's needed for both reasons mentioned above.
+Here is an example of how you can define a custom "number of elements" function for a member variable of array type. In this case it's needed for both reasons 1 and 2 mentioned above.
 
 ```art
 [[rt::decl]]
@@ -356,7 +357,12 @@ Just as for type descriptor functions it's recommended to use [Content Assist](.
 !!! example
     You can find a sample application that uses a custom "number of elements" function for a type modifier [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_array_custom_num_func).
 
-You can suppress the generation of a type modifier for a member variable of array type by setting the `rt::no_type_modifier` attribute on the member variable. At run-time this has the same effect as implementing a custom "number of elements" function which returns 1, i.e. only the first element of the array will be included in the array's encoding.
+For member variables of pointer type, the type modifier has the `_indirect` flag set. This is used during encoding to know that the member variable's value is not directly stored in the member variable, but indirectly through a pointer. The indirection shows up in the ASCII encoding as an extra level of curly brackets.
+
+!!! example
+    Refer to [this sample application]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_indirect) to see the difference between a member variable that directly holds the value to be encoded, and one that indirectly references it through a pointer.
+
+You can suppress the generation of a type modifier for a member variable by setting the `rt::no_type_modifier` attribute on the member variable. For an array member variable this has the same effect as implementing a custom "number of elements" function which returns 1, i.e. only the first element of the array will be included in the array's encoding.
 
 !!! example
     [Here]({$vars.github.repo$}/tree/main/art-comp-test/tests/field_descriptor_properties) is a sample application which uses the `rt::no_type_modifier` attribute.

@@ -21,6 +21,12 @@
             "path": "tests/field_descriptor_array_custom_num_func"
         },        
 		{
+            "path": "tests/field_descriptor_indirect"
+        },        
+		{
+            "path": "tests/field_descriptor_indirect_array"
+        },        
+		{
             "path": "tests/field_descriptor_properties"
         },        
         {
