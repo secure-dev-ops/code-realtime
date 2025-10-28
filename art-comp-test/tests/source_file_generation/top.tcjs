@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top'; 
+tc.targetFolder = 'source_file_generation_target';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.executableName = 'Top$(EXEC_EXT)'

@@ -1,0 +1,54 @@
+
+capsule Top {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+   [[rt::header_preface]]
+    `
+        #include "Cap.h"
+    `
+    statemachine {
+        state State;
+        initial -> State
+        `
+            PASS();
+        `;
+    };
+};
+capsule Cap
+[[rt::properties(
+    generate_file_impl = false
+)]]
+{
+    // This capsule does not generate a implementation file
+   
+    [[rt::impl]]
+    ` 
+      // This code snippet should not be generated!
+	  THIS IS A SYNTAX ERROR
+    `
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+class MyClass
+[[rt::properties(
+    generate_file_header = false,
+    generate_file_impl = false
+)]]
+{
+    // This class does not generate a header or implementation file
+    [[rt::impl_preface]]
+    `
+      // This code snippet should not be generated!
+	  THIS IS A SYNTAX ERROR
+    `
+    /* Trigger Operations */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
