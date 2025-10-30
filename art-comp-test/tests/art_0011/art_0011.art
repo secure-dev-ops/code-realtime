@@ -1,5 +1,5 @@
 class C_PropDefaultValue [[rt::properties(
-    const_target_param_for_decode=false,
+    generate_descriptor=false,
     kind=_class,
     version=0
 )]] {

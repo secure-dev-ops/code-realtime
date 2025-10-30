@@ -1,0 +1,11 @@
+const tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'passive_class_sm_typedescriptor_custom_target';
+
+/*
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+*/

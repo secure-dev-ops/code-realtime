@@ -1,0 +1,23 @@
+capsule Cap {    
+    [[rt::impl_preface]]
+    `
+        #include "CSM.h"
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            std::cout << "Got the data! " << std::endl;
+            ASSERT(rtdata->x == 4, "Received CSM had wrong contents in x");
+
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_CSM, "msg type should point to CSM type descriptor");
+            std::string encoding = TestUtils::getASCIIEncodedString(msg->getData(), mt);
+            std::cout << "Encoding: " << encoding << std::endl;
+            ASSERT(encoding == "CSM{y 3,x 4}", encoding.c_str());
+            PASS();
+        `;
+    };
+};

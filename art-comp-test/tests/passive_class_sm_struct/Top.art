@@ -1,0 +1,21 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "CSM.h"
+    `
+
+    statemachine {
+        state State2;
+        initial -> State2
+        `   
+            CSM csm;
+            struct CSM* pCsm = &csm; // Assume CSM is a struct
+            ASSERT(pCsm->x == 4, "Incorrect initial value of struct member x");
+            
+            pCsm->x = 5;
+            ASSERT(csm.x == 5, "Failed to set struct member x");
+
+            PASS();
+        `;
+    };
+};

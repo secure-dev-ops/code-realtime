@@ -1,0 +1,20 @@
+class CSM 
+[[rt::properties(
+    generate_descriptor=true
+)]]
+
+{
+    [[rt::decl]]
+    `
+        int y = 3; 
+        
+        public: 
+        int x = 4; 
+
+        static const RTFieldDescriptor rtg_CSM_fields[]; // needed since y is a non-public member
+    `
+    statemachine {
+        state State1;
+        _initial: initial  ->  State1;
+    };
+};

@@ -1,0 +1,14 @@
+class CSM 
+[[rt::properties(
+    kind=struct
+)]]
+{
+    [[rt::decl]]
+    `
+        int x = 4; // public visibility since struct
+    `
+    statemachine {
+        state State1;
+        _initial: initial  ->  State1;
+    };
+};

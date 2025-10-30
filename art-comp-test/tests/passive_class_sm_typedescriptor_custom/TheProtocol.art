@@ -1,0 +1,7 @@
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "CSM.h"
+    `
+    out e1(`CSM`);    
+};

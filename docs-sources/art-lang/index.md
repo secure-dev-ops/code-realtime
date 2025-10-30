@@ -1,4 +1,4 @@
-Art is a language for developing stateful and event-driven realtime applications. By **stateful** we mean that the application consists of objects whose behavior can be described with state machines. By **event-driven** we mean that these objects communicate with each other by sending events, which can cause their state machines to transition from one state to another when received. 
+Art is a language for developing stateful and event-driven realtime applications. **Stateful** means that object behavior can be described by state machines, and **event-driven** means that objects communicate by sending events that cause state transitions in their state machines.
 
 The Art language provides high-level concepts not directly found in the C++ language. All these high-level concepts are transformed into C++ code by the [Art compiler](../building/art-compiler.md). Generated code uses a run-time library known as the **TargetRTS** ([Target RunTime System](../target-rts/index.md)). The TargetRTS is a C++ library that acts as a layer between the generated code and the underlying platform (hardware, operating system etc) on which the realtime application runs. 
 
@@ -6,10 +6,10 @@ The Art language provides high-level concepts not directly found in the C++ lang
 
 Art is well suited for describing both the behavior and structure of a realtime application, but it uses C++ as expression and action language. C++ is also used for declaring types, variables, functions etc. As a rule of thumb, Art uses C++ for everything where C++ is a good fit, and only provides new language concepts where no appropriate constructs exist in C++. This means that if you already know C++, you can quickly learn Art too, and existing C++ code you have already written can be used in your Art application.
 
-Note that the translation of Art to C++ also involves analysis of the C++ code that is present in the Art files. The code generator supports certain [C++ extensions](../art-lang/cpp-extensions.md) in such embedded C++ code and will "expand" them to C++ code as part of code generation for an Art file.
+Note that the translation of Art to C++ also involves analysis of the C++ code that is present in the Art files, or in separate C++ source files next to the Art files. The code generator supports certain [C++ extensions](../art-lang/cpp-extensions.md) and will "expand" them to additional C++ code.
 
 ## Concepts and Terminology
-In Art the concept of a **capsule** is central. A capsule is like a C++ class, but with a few differences and extensions. A C++ class is **passive** in the sense that a caller can access its public member functions and variables at any time. Hence a C++ object always executes in the context of the caller, and when a member function is called, the caller is blocked until the function call returns. A capsule, however, is **active** and has its own execution context. This means that we never call a capsule member function or access a capsule member variable from outside the capsule itself. Instead we communicate with the capsule by sending **events** to it. Each capsule instance has a queue of events it has received and those events will be dispatched to the capsule instance one by one. The sender of the event is not blocked, as the event will be handled by the capsule instance asynchronously when it is later dispatched.
+In Art the concept of a **capsule** is central. A capsule is like a C++ class, but with a few differences and extensions. A C++ class is **passive**: a caller can access its public members at any time, and the object executes in the caller's context, blocking the caller until the function returns. A capsule, however, is **active** and has its own execution context. This means that we never call a capsule member function or access a capsule member variable from outside the capsule itself. Instead we communicate with the capsule by sending **events** to it. Each capsule instance has a queue of events it has received and those events will be dispatched to the capsule instance one by one. The sender of the event is **not blocked**, as the event is handled by the capsule instance **asynchronously** when it is dispatched.
 
 The picture below shows 3 capsule instances each holding a queue with events that have been received, but not yet dispatched. Note that this picture is conceptual. In a real implementation several performance optimizations are applied, for example it's common to let a single thread drive more than one capsule instance, and several capsule instances can share a common event queue. But from a conceptual point of view each capsule instance has its own queue of events that are waiting to be dispatched to it. Events have a **priority** which determines how they are ordered in the queue. Events with high priority are placed before events with lower priority, and if two events have the same priority they are ordered according to when they arrive.
 
@@ -29,13 +29,13 @@ The picture below shows the structure of a capsule `Top` which consists of two c
 
 ![](images/composite_structure.png)
 
-Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To make it possible to describe the events that may be sent between two connected ports using a single protocol, one of the ports can be declared as **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. A conjugated port is denoted with a `~` character. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
+Regardless if ports are statically connected by connectors (wired ports), or dynamically connected at run-time (unwired ports), they must be compatible with each other. This means that the out-events of one port must match the in-events of the other port, for the ports to be possible to connect. This constraint ensures that events are never lost when traveling between two connected ports. To allow two connected ports to be defined using a single protocol, one of the ports can be declared **conjugated**. For a conjugated port the meaning of in-events and out-events are swapped, so that the in-events are the events that may be sent out through the port, and the out-events are the ports that may be sent to the port. A conjugated port is denoted with a `~` character. In the picture above port `q1` is non-conjugated (![](images/non_conjugated_port.png)) while port `q2` is conjugated (![](images/conjugated_port.png)).
 
 Both capsule parts and ports may have multiplicity. You can think about a capsule part with multiplicity > 1 as an array that holds capsule instances at run-time. In the same way you can think about a port with multiplicity > 1 as an array that holds connections to port instances at run-time. The multiplicity of ports and parts must match when connecting two ports with each other. Once again, this constraint ensures that events will not be lost when traveling between the connected ports at run-time. The picture below shows a capsule with a part and a port that both have multiplicity > 1. In structure diagrams such parts and ports are shown as "stacked boxes".
 
 ![](images/port_part_with_multiplicity.png)
 
-In addition to regular C++ member functions a capsule may have a **state machine** as its behavior. A state machine describes how an instance of the capsule may move between different **states** through its life-time. A **transition** that connects a source state with a target state may be **triggered** when a received event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a **trigger** that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean **guard** condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an **effect**, which is a piece of C++ code that executes when the transition gets triggered.
+In addition to regular C++ member functions a capsule may have a **state machine** as its behavior. A state machine describes how an instance of the capsule may move between different **states** through its lifetime. A **transition** that connects a source state with a target state may be **triggered** when a received event from a capsule's event queue is dispatched. Several conditions must hold true for the transition to trigger. For example, the event must match a **trigger** that specifies the expected type of event and the port on which it was received. It's also possible to associate a boolean **guard** condition with the transition and/or with the trigger which must be true for the transition to trigger. A transition may have an **effect**, which is a piece of C++ code that executes when the transition gets triggered.
 
 The picture below shows a state machine containing a few states and transitions. The presence of transition guard code is shown with a yellow dot and the presence of transition effect code is shown with a blue dot. Both these are C++ code snippets that are embedded in the Art file.   
 
@@ -43,7 +43,7 @@ The picture below shows a state machine containing a few states and transitions.
 
 When a capsule instance is created (this is sometimes referred to as capsule **incarnation**), it's state machine starts to execute by triggering the transition that goes out from the **initial** state (the circular blue symbol to the left in the above diagram). Each state machine must have exactly one such initial state with an outgoing transition. Since this **initial transition** is triggered automatically when the capsule instance is created it cannot have constraints such as triggers and guard conditions. The initial transition is an example of a **non-triggered transition** since it cannot have triggers. 
 
-The path from the source state to the target state can sometimes consist of more than one transition. In that case only the first of these is a **triggered transition** that may have triggers that specify when it will trigger. Once the first transition in this path has triggered, subsequent non-triggered transitions will always execute, one by one according to how they are connected in the state machine. However, also non-triggered transitions (with the exception of the initial transition) may have guards. Such guards are usually evaluated before the triggered transition triggers to ensure that they all are enabled, so that it's guaranteed that the target state can be reached. There is one exception to this rule, for transitions that leave a **choice**. Such guards are only evaluated once the choice has been reached to dynamically decide which outgoing transition to take next. This also means that guards of such transitions must be written so that at least (and at most) one outgoing transition is enabled, or there is a risk that the state machine will get stuck in the choice.
+The path from the source state to the target state can sometimes consist of more than one transition. In that case only the first of these is a **triggered transition** that may have triggers that specify when it will trigger. Once the first transition in this path has triggered, subsequent non-triggered transitions will always execute, one by one according to how they are connected in the state machine. However, also non-triggered transitions (with the exception of the initial transition) may have guards. These guards are evaluated *before* the triggered transition executes, which guarantees that the full transition path to the target state can be completed. There is one exception to this rule, for transitions that leave a **choice**. Such guards are only evaluated once the choice has been reached to dynamically decide which outgoing transition to take next. This also means that guards of such transitions must be written so that exactly one outgoing transition is enabled, or there is a risk that the state machine will get stuck in the choice.
 
 In the state machine shown below the transitions `t2` and `t5` are triggered transitions, while other transitions are non-triggered. Transition `t5` can only be triggered if either the guard of `t7` or `t6` is true, while `t2` can be triggered even if neither the guard of `t3` nor `t4` is true. The target of transition `t5` is a **junction** which is used for either splitting or merging transition paths depending on evaluated guard conditions.
 
@@ -109,7 +109,7 @@ capsule StringProcessor {
 ```
 
 ### File-level Code Snippets
-Code snippets can not only be associated with Art language constructs as in the above two examples, but can also be placed at the Art file level. There are two such file-level code snippets:
+Code snippets can not only be associated with Art language constructs as in the above examples, but can also be placed at the Art file level. There are two such file-level code snippets:
 
 * **Declarations (rt::decl)**
 
@@ -178,7 +178,7 @@ capsule Cx {
 };
 ```
 
-Here an `rt::header_preface` code snippet is used for making the generated capsule and protocol header files include `sample.art.h` while an rt::decl code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.
+Here an `rt::header_preface` code snippet is used for making the generated capsule and protocol header files include `sample.art.h` while an `rt::decl` code snippet is used for declaring a member variable `m_ptr` for the capsule. See the documentation of the different Art elements below to learn about what code snippets that are available for each kind of Art element.
 
 !!! hint
     As an alternative to placing common C++ code in an Art file you can also use regular C++ files and then include these into the build. See [Non-Generated C++ Files](../building/build-cpp-files.md) for more information.
@@ -720,7 +720,7 @@ Parts can also be shown in a class diagram:
 
 ![](images/parts_class.png)
 
-In the above diagram the filled diamonds show that there is a strong life-time relationship between a `C` instance and the instances of `D` that are located in the fixed and optional parts `a`, `b`, `c`, `d` and `f`, while this is not the case for the instance located in the plugin part `e` as shown by the hollow diamond.
+In the above diagram the filled diamonds show that there is a strong lifetime relationship between a `C` instance and the instances of `D` that are located in the fixed and optional parts `a`, `b`, `c`, `d` and `f`, while this is not the case for the instance located in the plugin part `e` as shown by the hollow diamond.
 
 ### Part with Capsule Factory
 If the capsule that types a part has a [capsule constructor](#capsule-constructor) with custom constructor parameters, you can define a capsule factory for the part. Such a capsule factory consists of one or both of the below code snippets that define how an instance of that capsule should be created and destroyed. 
@@ -1633,9 +1633,11 @@ Below is a table that lists all properties that can be used on different kinds o
 |----------|:-------------|:-------------|:-------------|
 | [color](#color) | [Transition](#transition), [State](#state), [Choice](#choice-and-junction), [Junction](#choice-and-junction), [Entry Point](#hierarchical-state-machine), [Exit Point](#hierarchical-state-machine), [Port](#port), [Part](#part), [Capsule](#capsule), [Class](#class-with-state-machine) | String | ""
 | [const_rtdata](#const_rtdata) | [Initial transition](#initial-transition), [Triggered transition](#transition) | Boolean | true
-| [generate_file_header](#generate_file_header) | [Capsule](#capsule) | Boolean | true 
-| [generate_file_impl](#generate_file_impl) | [Capsule](#capsule) | Boolean | true
+| [generate_file_header](#generate_file_header) | [Capsule](#capsule), [Class](#class-with-state-machine) | Boolean | true 
+| [generate_file_impl](#generate_file_impl) | [Capsule](#capsule), [Class](#class-with-state-machine) | Boolean | true
+| [generate_descriptor](#generate_descriptor) | [Class](#class-with-state-machine) | Enumeration (true, false, manual) | false
 | [generate_statemachine](#generate_statemachine) | [Class](#class-with-state-machine) | Boolean | true
+| [kind](#kind) | [Class](#class-with-state-machine) | Enumeration (_class, struct) | _class
 | [registration](#registration) | [Port](#port) | Enumeration (automatic, automatic_locked, application) | automatic
 | [registration_name](#registration_name) | [Port](#port) | String | ""
 | [rule_config](#rule_config) | [Capsule](#capsule), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition) [Trigger](#transition) | String | ""
@@ -1668,13 +1670,19 @@ MyTransition: [[rt::properties(const_rtdata=false)]] OtherState -> NextState
 Note that the `const_rtdata` property appears in the Art syntax right after the transition name. If the transition has no name, it appears in the beginning of the transition declaration.
 
 ### generate_file_header
-By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the header file, for example if you prefer to write it manually.
+By default a [capsule](#capsule) or [class with state machine](#class-with-state-machine) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the header file, for example if you prefer to write it manually.
 
 ### generate_file_impl
-By default a [capsule](#capsule) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
+By default a [capsule](#capsule) or [class with state machine](#class-with-state-machine) is translated to one header file (`.h`) and one implementation file (`.cpp`). Set this property to `false` to prevent generation of the implementation file, for example if you prefer to write it manually.
+
+### generate_descriptor
+If you want a class with state machine to have a type descriptor you need to set this property. Set it to `true` to give it an [automatically generated type descriptor](cpp-extensions.md#automatically-generated). Set it to `manual` to instead use a [manually implemented type descriptor](cpp-extensions.md#manually-implemented).
 
 ### generate_statemachine
 This property can be set to `false` to prevent code generation for a class state machine. You may for example want to do this if you prefer to implement the state machine manually but still have a state diagram that serves as documentation for it. A class state machine with this property set to `false` is considered informal, and will not be validated (i.e it does not need to be semantically correct).
+
+### kind
+This property can be set to `struct` to translate a class with state machine to a struct instead of a class.
 
 ### registration
 This property specifies how to register an unwired port at runtime. The default is `automatic` which means the port will be registered automatically when the container capsule instance is initialized. The value `automatic_locked` has the same meaning but the registration will be "locked" so that any future attempt to deregister it, or register it under a different name, will fail. Set the property to `application` to programmatically register the port using the functions `registerSPP()` and `registerSAP()` respectively.

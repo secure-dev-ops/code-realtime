@@ -1,0 +1,23 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "CSM.h"
+        #include <iostream>
+    `
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State2;
+        initial -> State2
+        `   
+            CSM csm;
+            csm.rtg_init1();                                 
+
+            std::cout << "State before send: " << static_cast<unsigned>(csm.getCurrentState()) << std::endl;
+
+            pOut.e1(csm).send();            
+        `;
+    };
+};

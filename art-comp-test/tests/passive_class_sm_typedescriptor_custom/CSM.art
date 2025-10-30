@@ -1,0 +1,35 @@
+class CSM 
+[[rt::properties(
+    generate_descriptor=true
+)]]
+
+{
+    [[rt::impl]]
+    `
+    #if OBJECT_ENCODE
+        static int rtg_CSM_encode(const RTObject_class* type, const CSM* source, RTEncoding* coding )
+        {            
+            coding->write_string("_CurrentState:");
+            coding->put_int(static_cast<unsigned>(source->getCurrentState()));
+            return 1;
+        }
+    #endif    
+    `
+
+    [[rt::decl]]
+    `
+        public:
+        unsigned char getCurrentState() const {
+            return rtg_state_CSM.state;
+        }
+
+        void setCurrentState(unsigned char s) {
+            rtg_state_CSM.state = s;
+        }
+    `
+
+    statemachine {
+        state State1;
+        _initial: initial  ->  State1;
+    };
+};

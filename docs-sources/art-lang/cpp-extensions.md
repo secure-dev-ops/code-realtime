@@ -100,12 +100,14 @@ struct RTTypedValue_MyType
 ```
 
 ### Automatically Generated
-The code generator will automatically generate a type descriptor for a type if you mark it with the `rt::auto_descriptor` attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an `rt::impl` code snippet. 
+The code generator will automatically generate a type descriptor for a C++ type if you mark it with the `rt::auto_descriptor` attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an `rt::impl` code snippet. 
 
 !!! note 
-    If you write your own type descriptor function it's important that its prototype exactly matches what is listed in [this table](#art_type_descriptor_functions). It's recommended to use [Content Assist](../working-with-art/art-editor.md#content-assist) within the `rt::impl` code snippet to avoid typos and reduce typing effort.
+    If you write your own type descriptor function it's important that its name exactly matches what is listed in [this table](#art_type_descriptor_functions). It's recommended to use [Content Assist](../working-with-art/art-editor.md#content-assist) within the `rt::impl` code snippet to avoid typos and reduce typing effort.
 
     ![](images/type_descriptor_content_assist.png)
+
+    While in most cases you would want the full prototype of each type descriptor function to match exactly what is listed in [this table](#art_type_descriptor_functions), in some cases you may want to do some minor changes. For example, the default prototype of the decode function declares the `target` parameter as non-const since usually a decode implementation has to call non-const functions on the decoded object to populate it with data from the decoding. If your custom decode function doesn't need to call such functions you can change the signature to make the `target` parameter const.
 
 Here are some examples of using the `rt::auto_descriptor` attribute on different kinds of types:
 
@@ -429,8 +431,19 @@ If a class or struct inherits from another class or struct, as in the example ab
 !!! example
     You can find a sample application that uses an automatically implemented type descriptor for a class that inherits from another class [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/type_descriptor_inheritance).
 
+### Class with State Machine
+A [class with state machine](index.md#class-with-state-machine) is, except for its state machine, just like a regular C++ class (or struct if it has the [`kind`](index.md#kind) property set to `struct`). Hence, it may be useful for such a class to have a type descriptor too. However, since a class with state machine is defined in the Art language and not in C++, you cannot use the `[[rt::auto_descriptor]]` or `[[rt::manual_descriptor]]` attributes. Instead you need to set the [`generate_descriptor` property](index.md#generate_descriptor) on the class. Set it to `true` to use an [automatically generated type descriptor](#automatically-generated) and set it to `manual` if you prefer a [manually implemented type descriptor](#manually-implemented). Other than this, everything else w.r.t type descriptors works the same for a class with state machine as for a regular C++ class.
+
+!!! example
+    Refer to these samples that use type descriptors for classes with state machines:
+    
+    * [Automatically generated type descriptor for a class with state machine that has a non-public member]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_typedescriptor)
+    * [Type descriptor with a custom encode function which encodes the currently active state]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_typedescriptor_custom)
+
 ### Generated Files
 The code mentioned above related to type descriptors, which the code generator generates for the `[[rt::auto_descriptor]]` and `[[rt::manual_descriptor]]` attributes, will be placed in generated header and implementation files:
 
-1. If the type with the attribute is located in an `[[rt::decl]]` code snippet in an Art file, the generated files get the same name as the Art file, but with the extensions `.h` or `.cpp` appended. For example, if the Art file is called `MyTypes.art` the type descriptor code for a type contained in an `[[rt::decl]]` code snippet in that file will be placed in files `MyTypes.art.h` and `MyTypes.art.cpp`. To use the type you include the file `MyTypes.art.h`.
-2. If the type with the attribute is located in a C++ header file that is present in the workspace folder (see [C++ Source Files](../building/build-cpp-files.md)), the generated files get the same name as the C++ header file but prefixed with `RTType_`. For example, if your workspace folder contains a file `MyType.h` with a type that has a type descriptor attribute applied, two files `RTType_MyType.h` and `RTType_MyType.cpp` will be generated. Note that `RTType_MyType.h` will include the original header file `MyType.h` which means that if you need to use the type in a way that requires its type descriptor, you should include `RTType_MyType.h` rather than `MyType.h`.
+1. If the C++ type with the attribute is located in an `[[rt::decl]]` code snippet in an Art file, the generated files get the same name as the Art file, but with the extensions `.h` or `.cpp` appended. For example, if the Art file is called `MyTypes.art` the type descriptor code for a type contained in an `[[rt::decl]]` code snippet in that file will be placed in files `MyTypes.art.h` and `MyTypes.art.cpp`. To use the type you include the file `MyTypes.art.h`.
+2. If the C++ type with the attribute is located in a C++ header file that is present in the workspace folder (see [C++ Source Files](../building/build-cpp-files.md)), the generated files get the same name as the C++ header file but prefixed with `RTType_`. For example, if your workspace folder contains a file `MyType.h` with a type that has a type descriptor attribute applied, two files `RTType_MyType.h` and `RTType_MyType.cpp` will be generated. Note that `RTType_MyType.h` will include the original header file `MyType.h` which means that if you need to use the type in a way that requires its type descriptor, you should include `RTType_MyType.h` rather than `MyType.h`.
+
+For an Art [class with state machine that has a type descriptor](#class-with-state-machine) the code related to its type descriptor will be placed in the same header and implementation files that are generated for the class with state machine.

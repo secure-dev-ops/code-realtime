@@ -1,0 +1,20 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "CSM.h"
+    `
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State2;
+        initial -> State2
+        `   
+            CSM csm;
+            ASSERT(csm.x == 4, "Incorrect initial value of struct member x");                        
+
+            pOut.e1(csm).send();            
+        `;
+    };
+};
