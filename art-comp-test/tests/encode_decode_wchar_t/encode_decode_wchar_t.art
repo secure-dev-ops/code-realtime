@@ -3,21 +3,12 @@
     
     class [[rt::auto_descriptor]] DataClass {
         public:
-        wchar_t wcharField[ 3 ] { 64043, 64044, 64045 } ;
-        
-        DataClass(const DataClass & rtg_arg) 
-        {
-            wcharField[0] = rtg_arg.wcharField[0];
-            wcharField[1] = rtg_arg.wcharField[1];
-            wcharField[2] = rtg_arg.wcharField[2];
-        }
+        // Field declaration for wchar_t values initialized as decimal, hexadecimal, and Appearance
+        wchar_t wcharField[ 3 ] { 64043, 0xFA2C, L'鶴' } ;
 
         DataClass() { // The default init-function requires a parameterless constructor
 
         }
-        // For classes with non-public members we need to declare a field descriptor
-        static const RTFieldDescriptor rtg_DataClass_fields[];
-    
     };
 `
 
