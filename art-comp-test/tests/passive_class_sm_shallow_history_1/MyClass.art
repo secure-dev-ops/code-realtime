@@ -52,9 +52,9 @@ class MyClass {
                 `;
                 };
                 initial -> Inner;
-                opInternal: Inner -> A on opInternal(`int`) [`val == 1`];
-                opInternal: A -> B on opInternal(`int`) [`val == 2`];
-                opInternal: Inner -> C on opInternal(`int`) [`val == 3`];
+                opInternal1: Inner -> A on opInternal(`int`) [`val == 1`];
+                opInternal2: A -> B on opInternal(`int`) [`val == 2`];
+                opInternal3: Inner -> C on opInternal(`int`) [`val == 3`];
                 entrypoint_history: enp -> history;
             };
             [[rt::properties(

@@ -28,12 +28,12 @@ class DataObject {
         `
             ASSERT(data == 'a', "Unexpected value of data");
         `;
-         onChar: Initial -> Initialized on initialize(`CustomData`)
+        onCustomData: Initial -> Initialized on initialize(`CustomData`)
         `
             ASSERT(data.getName() == "CRT", "Unexpected value of data");
             ASSERT(data.getAge() == 12, "Unexpected value of data");
         `;
-         onInt_Char: Initial -> Initialized on initialize(`int`,`char`)
+        onInt_Char: Initial -> Initialized on initialize(`int`,`char`)
         `
             ASSERT(data == 1, "Unexpected value of data");
             ASSERT(data2 == 'a', "Unexpected value of data");

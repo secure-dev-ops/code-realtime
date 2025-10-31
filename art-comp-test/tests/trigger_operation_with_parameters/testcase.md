@@ -1,9 +1,7 @@
 ---
 group: cpp_code_generation
 ---
-Trigger with Multiple Parameters: Test cases should validate triggers with multiple parameters, including scenarios with primitive and user-defined data types.
-
-Multiple Triggers with Different Parameters: Ensure that transitions can be triggered by operations with the same name but different parameter types, and by multiple triggers with parameters that match in names and types.
+Trigger operations can have multiple parameters of different types (both primitive and user-defined types). Just like for a C++ function, the prototype of a trigger operation consists of its name and the types of all its parameters. Prototypes of trigger operations must be unique. When a transition trigger references a trigger operation it must include the trigger operation parameter types, if any.
 
 
 
