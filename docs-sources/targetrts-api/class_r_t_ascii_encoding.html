@@ -115,6 +115,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> (void)</t
 <tr class="separator:a5566e4970ae8714708a7d549afc3dc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21bbae2dcfc90d04c68d4c363e2f9e0e"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_ascii_encoding.html#a21bbae2dcfc90d04c68d4c363e2f9e0e">put_char</a> (char) override</td></tr>
 <tr class="separator:a21bbae2dcfc90d04c68d4c363e2f9e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9a72ab2443238e02acf6859fd28c29"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_ascii_encoding.html#a0d9a72ab2443238e02acf6859fd28c29">put_wchar_t</a> (wchar_t) override</td></tr>
+<tr class="separator:a0d9a72ab2443238e02acf6859fd28c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6caa0aed924bca1c29f3a9ed7894392"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_ascii_encoding.html#ab6caa0aed924bca1c29f3a9ed7894392">put_int</a> (int) override</td></tr>
 <tr class="separator:ab6caa0aed924bca1c29f3a9ed7894392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5b4df365a266550a14683abc88e4add"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_ascii_encoding.html#af5b4df365a266550a14683abc88e4add">put_long</a> (long) override</td></tr>
@@ -169,6 +171,9 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_bool</b> (
 <tr class="memitem:a48ffa5a328aa43b6bbe114df73c26f12"><td class="memItemLeft" align="right" valign="top"><a id="a48ffa5a328aa43b6bbe114df73c26f12" name="a48ffa5a328aa43b6bbe114df73c26f12"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_char</b> (char)=0</td></tr>
 <tr class="separator:a48ffa5a328aa43b6bbe114df73c26f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae35467658826cc10ce02f9ec06a39b09"><td class="memItemLeft" align="right" valign="top"><a id="ae35467658826cc10ce02f9ec06a39b09" name="ae35467658826cc10ce02f9ec06a39b09"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_wchar_t</b> (wchar_t)=0</td></tr>
+<tr class="separator:ae35467658826cc10ce02f9ec06a39b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab535784cbec507e90e20830e4ad4c3f"><td class="memItemLeft" align="right" valign="top"><a id="aab535784cbec507e90e20830e4ad4c3f" name="aab535784cbec507e90e20830e4ad4c3f"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>put_int</b> (int)=0</td></tr>
 <tr class="separator:aab535784cbec507e90e20830e4ad4c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -262,6 +267,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>putFieldListFinish</b>
 <tr class="memitem:aa3289db44df5afe4d1ee199d9f347e74"><td class="memItemLeft" align="right" valign="top"><a id="aa3289db44df5afe4d1ee199d9f347e74" name="aa3289db44df5afe4d1ee199d9f347e74"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>putCode</b> (const char *, int, Spacing)</td></tr>
 <tr class="separator:aa3289db44df5afe4d1ee199d9f347e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a083e5977df8e32c5789da6de4f4881b6"><td class="memItemLeft" align="right" valign="top"><a id="a083e5977df8e32c5789da6de4f4881b6" name="a083e5977df8e32c5789da6de4f4881b6"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>encodeWcharUTF8</b> (char *out, wchar_t wc)</td></tr>
+<tr class="separator:a083e5977df8e32c5789da6de4f4881b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -1055,6 +1063,34 @@ Spacing&#160;</td><td class="memItemRight" valign="bottom"><b>before</b></td></t
           <td class="memname">virtual int RTAsciiEncoding::put_ushort </td>
           <td>(</td>
           <td class="paramtype">unsigned short&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_r_t_encoding.html">RTEncoding</a>.</p>
+
+</div>
+</div>
+<a id="a0d9a72ab2443238e02acf6859fd28c29" name="a0d9a72ab2443238e02acf6859fd28c29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d9a72ab2443238e02acf6859fd28c29">&#9670;&#160;</a></span>put_wchar_t()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int RTAsciiEncoding::put_wchar_t </td>
+          <td>(</td>
+          <td class="paramtype">wchar_t&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
