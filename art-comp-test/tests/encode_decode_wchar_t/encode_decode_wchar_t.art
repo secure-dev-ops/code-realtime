@@ -1,0 +1,96 @@
+[[rt::decl]]
+`
+    
+    class [[rt::auto_descriptor]] DataClass {
+        public:
+        // Field declaration for wchar_t values initialized as decimal, hexadecimal, and Appearance
+        wchar_t wcharField[ 3 ] { 64043, 0xFA2C, L'鶴' } ;
+
+        DataClass() { // The default init-function requires a parameterless constructor
+
+        }
+    };
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "encode_decode_wchar_t.art.h"
+    `
+    out e1(`DataClass`);
+};
+
+capsule Cap {
+    [[rt::impl_preface]]
+    `
+        #include "encode_decode_wchar_t.art.h"
+        #include "RTDynamicStringOutBuffer.h"
+        #include <RTJsonEncoding.h>
+        #include <RTJsonDecoding.h>
+      
+    `
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            const RTObject_class* mt = msg->getType();
+
+            char buf[256];
+            RTMemoryOutBuffer buffer( buf, 256 );
+            RTAsciiEncoding coding( &buffer );
+            mt->_encode_func(mt, msg->getData(), &coding);
+            buffer.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "ASCII encoding: " << buf << std::endl << std::flush;
+            // Decode back the data from the string representation
+            RTMemoryInBuffer inBuf(buf, RTMemoryUtil::strlen(buf));
+            RTAsciiDecoding decoding( &inBuf );
+            DataClass dc;
+
+            ASSERT(decoding.get_struct(&dc, &RTType_DataClass) != 0, "Decoding failed");
+            ASSERT( (dc.wcharField[0], 64043) != 0, "Decoding failed for wchar_t wcharField" );
+            ASSERT( (dc.wcharField[1], 64044) != 0, "Decoding failed for wchar_t wcharField" );
+            ASSERT( (dc.wcharField[2], 64045) != 0, "Decoding failed for wchar_t wcharField" );
+
+            char buf1[256];
+            RTMemoryOutBuffer buffer1( buf1, 256 );
+            RTJsonEncoding coding1( &buffer1 );
+            mt->_encode_func(mt, msg->getData(), &coding1);
+            buffer1.write("", 1); // IMPORTANT: Terminate the buffer string before printing it!
+            std::cout << "Json encoding: " << buf1 << std::endl << std::flush;
+            // Decode back the data from the string representation
+            RTMemoryInBuffer inBuf1(buf1, RTMemoryUtil::strlen(buf1));
+            RTJsonDecoding decoding1( &inBuf1 );
+            DataClass dc1;
+
+            ASSERT(decoding1.get_struct(&dc1, &RTType_DataClass) != 0, "Decoding failed");
+            ASSERT( (dc1.wcharField[0], 64043) != 0, "Decoding failed for wchar_t wcharField" );
+            ASSERT( (dc1.wcharField[1], 64044) != 0, "Decoding failed for wchar_t wcharField" );
+            ASSERT( (dc1.wcharField[2], 64045) != 0, "Decoding failed for wchar_t wcharField" );
+
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "encode_decode_wchar_t.art.h"
+    `
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                DataClass dc;
+                pOut.e1(dc).send(); // copies the DataClass object
+            `;
+        };        
+        initial -> State1;        
+    };
+};
