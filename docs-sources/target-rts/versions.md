@@ -160,3 +160,7 @@ The TargetRTS now supports use of wide characters, and arrays of wide characters
 
 ### Error code for circular import
 When importing a capsule instance into a plugin capsule part a run-time check is performed (unless the setting [RTIMPORT_ISREFERENCEDBY_CHECK](build.md#rtimport_isreferencedby_check) has been turned off). Previously, if this check detected that the import would lead to a cycle in the composition hierarchy the general error [RTController](../targetrts-api/class_r_t_controller.html)::`badClass` would be reported. Now a more specific error [RTController](../targetrts-api/class_r_t_controller.html)::`circularImport` is reported instead.
+
+!!! note 
+    This change is not backwards compatible. You need to update your code if it checks for the old error code.
+
