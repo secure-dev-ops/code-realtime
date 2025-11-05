@@ -25,7 +25,7 @@ The patch files in the `TargetRTS_changelog` folder have been created by a Bash 
 Whether it's best to adopt changes in a standard TargetRTS into your version of the TargetRTS, or to do the opposite, i.e. adopt your changes into a standard TargetRTS, may depend on how big changes you have made. If your changes are small and limited the latter may be easiest, while if you have made substantial changes the former may be the better option.
 
 ## Change Log
-Below is a table that lists all changes made in the TargetRTS since version 8000 (which were delivered with {$product.name$} 1.0.0). For changes in older versions of the TargetRTS, which were done for {$rtist.name$}, see [this document](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/pdf/ModelRealTime_RoseRT_All_Changes_in_Cpp_TargetRTS.pdf).
+Below is a table that lists all changes made in the TargetRTS since version 8000 (which was delivered with {$product.name$} 1.0.0). For changes in older versions of the TargetRTS, which were done for {$rtist.name$}, see [this document](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/pdf/ModelRealTime_RoseRT_All_Changes_in_Cpp_TargetRTS.pdf).
 
 | TargetRTS Version | Included Changes | 
 |----------|:-------------|
@@ -42,7 +42,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
 | 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) <br> [Improved error handling in REGISTER_LAYER](#improved-error-handling-in-register_layer)  <br> [Support for a new trace file format (.art-trace)](#support-for-a-new-trace-file-format-art-trace) |
-| 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) |
+| 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) <br> [Error code for circular import](#error-code-for-circular-import) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -154,3 +154,9 @@ The [RTFormat](../targetrts-api/class_r_t_format.html) class has two new functio
 
 ### More information for messages when tracing
 When capturing a trace in the `.art-trace` format information about the sender port, as well as the sender and receiver port index, is now included for messages. Also, if a message data is present but cannot be ASCII encoded it's shown in the trace with a `?`. If a message has no data an empty string is printed instead of `void` as previously. See [this chapter](../running-and-debugging/tracing.md#message) for more information.
+
+### Support for the primitive type `wchar_t`
+The TargetRTS now supports use of wide characters, and arrays of wide characters, using the primitive type `wchar_t`. A type descriptor for this type is available so it for example can be encoded and decoded.
+
+### Error code for circular import
+When importing a capsule instance into a plugin capsule part a run-time check is performed (unless the setting [RTIMPORT_ISREFERENCEDBY_CHECK](build.md#rtimport_isreferencedby_check) has been turned off). Previously, if this check detected that the import would lead to a cycle in the composition hierarchy the general error [RTController](../targetrts-api/class_r_t_controller.html)::`badClass` would be reported. Now a more specific error [RTController](../targetrts-api/class_r_t_controller.html)::`circularImport` is reported instead.

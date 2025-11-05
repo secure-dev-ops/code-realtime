@@ -188,6 +188,11 @@ Perform a run-time check that a [Frame](../targetrts-api/struct_frame.html) port
 
 Do not perform a run-time check. It improves the application performance slightly, and can be safely set if all [Frame](../targetrts-api/struct_frame.html) ports are only used by the capsule that owns them.
 
+#### RTIMPORT_ISREFERENCEDBY_CHECK
+When a capsule instance is imported into a plugin capsule part, a run-time check is performed (by the function [RTActor](../targetrts-api/class_r_t_actor.html)::`isReferencedBy()`) to ensure that this doesn't lead to cycles in the composition hierarchy (i.e. that the imported capsule instance isn't a direct or indirect owner of the capsule instance that has the plugin part).
+
+Default value: **1** (set to **0** if you can guarantee that such cycles won't happen and want to skip this run-time check)
+
 #### RTFRAME_THREAD_SAFE 
 This setting is used when you call functions on a [Frame](../targetrts-api/struct_frame.html) port, for example to create or destroy a capsule instance in a part. By default these functions are thread-safe, which is required when a created or destroyed capsule instance runs in a different thread than the code that calls the functions. However, in certain cases it's possible to optimize the performance by instead using function implementations that are not thread-safe. For example, if you know that you only use [Frame](../targetrts-api/struct_frame.html) ports to operate on capsule instances that run in the same thread as the capsules that owns the ports, then you can disable this setting to improve the application performance.
 

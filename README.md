@@ -1,7 +1,7 @@
 # DevOps Code RealTime
-Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and [Eclipse Theia](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). 
+Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and [other IDEs](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce) (e.g. Eclipse Theia, Cursor etc).
 
-## Code RealTime's Three A:s of Value
+## Code RealTime's Four A:s of Value
 - Abstraction
   - The **Art language** provides powerful high-level concepts such as capsules, state machines, ports and events
   - View and edit your application using **graphical diagrams** such as state, structure and class diagrams
@@ -9,11 +9,14 @@ Code RealTime lets you create stateful, event-driven realtime applications in C+
 - Automation
   - Efficient **C++ code** is automatically generated
   - **Build variants** enable high-level build settings, and application variant management
-  - Diagrams are automatically rendered using **auto-layout**
+  - Diagrams can be automatically rendered using **auto-layout** (but **manual layout** is supported too)
 - Analysis
-  - **Semantic validation** "as-you-type" for early problem detection (sometimes with quick fixes)
+  - **Semantic validation** "as-you-type" for early problem detection (often with quick fixes)
   - Ensure **consistent build settings** by detecting inconsistencies already when editing them
-  - Use application **run-time analysis** to detect and troubleshoot run-time problems
+  - Use application **run-time analysis** (such as **debugging** or **tracing**) to detect and troubleshoot run-time problems
+- AI
+  - All languages and notations used in Code RT (.art, .cpp, .tcjs, .art-trace, .json etc) are textual and easy to understand both by humans and **large language models**.
+  - Boost your productivity by using any **generative AI** extension, e.g. GitHub CoPilot.
 
 For more details, see the [documentation site](https://secure-dev-ops.github.io/code-realtime/).
 
