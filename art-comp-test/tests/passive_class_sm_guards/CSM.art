@@ -48,7 +48,7 @@ class CSM {
                     str += "Sub2 enter|";
                 `;
             };
-            t2: entryPoint_0 -> Sub1;
+            t2: [[rt::properties(rule_config="X0029")]] entryPoint_0 -> Sub1;
             side: Sub1 -> Sub2 on side();            
             t3: entryPoint_0_1 -> history*;
             entry
