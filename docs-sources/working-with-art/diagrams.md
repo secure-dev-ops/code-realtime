@@ -105,6 +105,9 @@ The JSON file that holds layout information for a diagram contains references to
 * If you delete an element, references to it from layout files are not always automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.
 * There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.
 
+{$product.name$} validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.
+
+![](images/layout_validation.png)
 
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:
