@@ -1,0 +1,42 @@
+capsule Top {
+    [[rt::decl]]
+    `
+        RTActorId a_id;        
+        RTActorId thisId;
+    `
+
+    behavior port frame : Frame;
+    behavior port timer : Timing;
+    
+    optional part a1 : A;    
+
+    statemachine {
+        state Before, FirstImport, SecondImport;
+        initial -> Before
+        `                      
+            thisId = frame.me();            
+            a_id = frame.incarnate(a1, &thisId);
+            ASSERT(a_id.isValid(), "Failed to incarnate Top::a1");
+            ASSERT( RTController::circularImport == context()->getError(), "Expect error to be equal");  
+            PASS();        
+        `;            
+    };
+};
+
+capsule A {        
+    behavior port frame : Frame;
+    
+    /* Parts */
+    plugin part t : Top; // Plugin part with multiplicity 0..1    
+
+    /* State Machine */
+    statemachine {
+        initial -> State
+        `
+            const RTActorId top_id = *(static_cast<const RTActorId*>(rtdata));
+            frame.import(top_id, t);
+        `;
+        state State;
+    };
+};
+
