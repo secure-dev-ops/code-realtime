@@ -13,5 +13,9 @@ ac_output match4a: unconditional transition|25:13
 ac_output match5: WARNING[4001]|28:13|XCap|t3|Nested|t|timeout
 ac_output match5a: unconditional transition|25:13
 ac_output match5b: unconditional transition|26:13|t
+
+ac_output match6: WARNING[4001]|cpp_4001_class.art:10:9|Cpp4001Class|
+ac_output match6a: unreachable transition|11:9|t2
+ac_output match6b: unreachable transition|12:9|t3
 ---
 Test validation rule `CPP_4001_unreachableTransition`.

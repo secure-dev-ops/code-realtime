@@ -1,0 +1,16 @@
+class Cpp4001Class {
+    /* Trigger Operations */
+    trigger f1();
+
+    /* State Machine */
+    statemachine {
+        state State1, State2, State3, State4, State5, State6;
+        initial -> State1;
+
+        State1 -> State2 on f1();
+        t2: State1 -> State3 on f1(); // CPP_4002
+        t3: State1 -> State4 on f1(); // CPP_4002
+        t4: State1 -> State5 on f1() when `true`;
+        t5: State1 -> State6 on f1() [`true`];
+    };
+};

@@ -1,0 +1,28 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include <CSM.h>
+    `
+    statemachine {
+        state State1 {
+            entry
+            `
+                CSM csm;
+                csm.f1();
+                csm.f1();
+                csm.f2();
+                csm.f3();
+                csm.enable(true);
+                csm.f1();
+                csm.f2();
+
+                Log::out << "Final entry string: " << csm.str << Log::endl;
+                ASSERT(csm.str == "First enter|Sub1 enter|SubSub1 enter|Detour enter|Second enter|Third enter|First enter|Sub1 enter|SubSub1 enter|Second enter|Fourth enter|", "Unexpected entries");
+
+                PASS();
+            `;
+        };
+        
+        initial  ->  State1;
+    };
+};

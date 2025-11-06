@@ -1,0 +1,42 @@
+[
+  {
+    "context": "::CSM",
+    "diagramType": "state",
+    "layouts": [
+      {
+        "element": "Detour",
+        "x": 410.0,
+        "y": -106.0
+      },
+      {
+        "element": "First",
+        "x": 242.0,
+        "y": 45.0
+      },
+      {
+        "element": "First::Sub1",
+        "x": 97.0,
+        "y": 89.0
+      },
+      {
+        "element": "Third",
+        "x": 535.0,
+        "y": 387.0
+      },
+      {
+        "element": "First::entryPoint_0_1",
+        "borderPosition": "S35"
+      },
+      {
+        "element": "Second",
+        "x": 459.0,
+        "y": -21.0
+      },
+      {
+        "element": "c",
+        "x": 630.0,
+        "y": -11.0
+      }
+    ]
+  }
+]

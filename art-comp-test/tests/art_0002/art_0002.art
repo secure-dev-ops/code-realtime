@@ -32,8 +32,8 @@ class DNIS {
 };
 
 class DNIS2 {
-    trigger op2(`long long` p);
-    trigger op2(`long long` q);
+    trigger op2(`long long` p); // ART_0002
+    trigger op2(`long long` q); // ART_0002
     statemachine {
         state State;
         initial -> State;
@@ -71,9 +71,23 @@ capsule TransitionDuplicated {
         state State;
         state State2{
             state S1, S2;
-            t: S1 -> S2 on timer.timeout;
-            t: S1 -> S2 on timer.timeout;
+            t: S1 -> S2 on timer.timeout; // ART_0002
+            t: S1 -> S2 on timer.timeout; // ART_0002
         };
+        initial -> State;
+    };
+};
+
+class TransitionDuplicatedClass {
+    trigger trig();
+    statemachine {
+        state State;
+        state State2{
+            state S1, S2;
+            t: S1 -> S2 on trig(); // ART_0002
+            t: S1 -> S2 on trig(); // ART_0002
+            S1 -> S2 on trig(); 
+        };        
         initial -> State;
     };
 };

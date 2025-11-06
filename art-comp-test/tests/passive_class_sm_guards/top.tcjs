@@ -1,0 +1,4 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'passive_class_sm_guards_target';

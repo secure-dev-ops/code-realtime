@@ -1,0 +1,105 @@
+class CSM {
+    [[rt::header_preface]]
+    `
+        #include <string>
+    `
+    trigger f1(); 
+    trigger f2();
+    trigger f3();
+    trigger side();
+    trigger enable(`bool` isEnabled);
+    [[rt::decl]]
+    `
+        public:
+            CSM();
+            std::string str;
+            bool enabled = false;
+    `
+    [[rt::impl]]
+    `
+        CSM::CSM( void )
+        {
+            rtg_init1();
+        }                
+    `
+    statemachine {
+        state First {
+            entrypoint entryPoint_0;
+            entrypoint entryPoint_0_1;
+            state Sub1 {
+                state SubSub1 {
+                    entry
+                    `
+                        Log::out << "SubSub1 enter" << Log::endl;
+                        str += "SubSub1 enter|";
+                    `;
+                };
+                _Initial: initial  ->  SubSub1;
+                entry
+                `
+                    Log::out << "Sub1 enter" << Log::endl;
+                    str += "Sub1 enter|";
+                `;
+            };
+            state Sub2 {
+                entry
+                `
+                    Log::out << "Sub2 enter" << Log::endl;
+                    str += "Sub2 enter|";
+                `;
+            };
+            t2: entryPoint_0 -> Sub1;
+            side: Sub1 -> Sub2 on side();            
+            t3: entryPoint_0_1 -> history*;
+            entry
+            `
+                Log::out << "First enter" << Log::endl;
+                str += "First enter|";
+            `;
+            changeEnablement: on enable(`bool`)
+            `
+                enabled = isEnabled;
+                Log::out << "Enabled: " << isEnabled << Log::endl;
+            `;
+        };
+        state Second {
+            entry
+            `
+                Log::out << "Second enter" << Log::endl;
+                str += "Second enter|";
+            `;
+        };
+        state Third {
+            entry
+            `
+                Log::out << "Third enter" << Log::endl;
+                str += "Third enter|";
+            `;
+        };
+        _Initial: initial  ->  First.entryPoint_0;
+        f1: First -> Second on f1() when `enabled`; // Transition guard
+        f2: Second -> Third on f2();
+        f3: Third -> First.entryPoint_0_1 on f3();
+        state Detour {
+            entry
+            `
+                Log::out << "Detour enter" << Log::endl;
+                str += "Detour enter|";
+            `;
+        };
+        f1_1: First -> Detour on f1() [`!enabled`]; // Trigger guard
+        f1_2: Detour -> Second on f1() [`!enabled`] when `!enabled`; // Both guard types at the same time
+
+        choice c;
+        Second->c on f2() when `enabled`;
+        state Fourth {
+            entry
+            `
+                Log::out << "Fourth enter" << Log::endl;
+                str += "Fourth enter|";
+            `;
+        };
+        c -> Fourth when `else`;
+        c -> Detour when `!enabled`;
+    };
+};

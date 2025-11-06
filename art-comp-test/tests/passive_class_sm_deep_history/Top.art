@@ -1,0 +1,23 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include <HSM.h>
+    `
+    statemachine {
+        state State1 {
+            entry
+            `
+                HSM hsm;
+                hsm.f1();
+                hsm.f2();
+                hsm.f3();
+
+                Log::out << "Final entry string: " << hsm.str << Log::endl;
+                ASSERT(hsm.str == "First enter|Sub1 enter|SubSub1 enter|Second enter|Third enter|First enter|Sub1 enter|SubSub1 enter|", "Unexpected entries");
+
+                PASS();
+            `;
+        };
+        initial  ->  State1;
+    };
+};

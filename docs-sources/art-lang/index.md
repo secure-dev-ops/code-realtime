@@ -1208,7 +1208,7 @@ A class state machine can use the same constructs as a capsule state machine wit
 
 * The initial transition cannot access initialization data as can a capsule's [initial transition](#initial-transition). Instead you can define one or several constructors for the class with parameters needed for passing initialization data when the class-with-statemachine instance is created. See [Constructor](#constructor) for more information.
 
-* The state machine can be hierarchical but the [deep history](#deep-history) pseudo state is not supported. Instead the [shallow history](#shallow-history) pseudo state can be used.
+* If the state machine is hierarchical the [deep history](#deep-history) pseudo state can be used. But a class with state machine also supports the [shallow history](#shallow-history) pseudo state, which capsule state machines do not support.
 
 * Even if it's possible for a class with a state machine to inherit from another class with a state machine, this doesn't mean that the state machines will be inherited as is the case for capsule inheritance. Read more about this in [Inheritance](#inheritance).
 
@@ -1252,7 +1252,7 @@ class PC {
 ```
 
 ### Shallow History
-Every nested state machine has an implicit pseudo state with the name `history` (in state diagrams it's shown as `H` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. However, if that state again is a composite state it's previously active substate will not be restored. This is in contrast to the [deep history](#deep-history) for capsule state machines, and is why for a class state machine this pseudo state is referred to as a shallow history.
+Every nested state machine has an implicit pseudo state with the name `history` (in state diagrams it's shown as `H` to save space). It can be used as a target for any transition inside the nested state machine. When it is reached, the state machine will restore the previously active substate. However, if that state again is a composite state it's previously active substate will not be restored. This is in contrast to the [deep history](#deep-history) pseudo state, and is why it's referred to as a *shallow* history.
 
 Here is an example:
 
@@ -1278,7 +1278,8 @@ class MyClass {
 When transition `t3` is triggered, the state machine will return to either the `Inner1` or `Inner2` substate, whichever was active previously.
 
 !!! example
-    You can find a sample application that uses shallow history [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_shallow_history_1).
+    You can find a sample application with a passive class state machine that uses shallow history [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_shallow_history_1).
+    A passive class state machine sample using deep history instead is [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/passive_class_sm_deep_history).
 
 ## Inheritance
 By using inheritance you can reuse and customize generic (**base**) Art elements into more specific (**derived**) Art elements. An Art element can inherit either from one or several other Art elements, and/or it can inherit from one or several C++ classes. The derived Art element can **redefine** elements of the base element. The redefining element (located in the derived element) can change one or several properties of the redefined element (located in the base element). This is very similar to how inheritance works in C++, with the difference that in C++ a redefining element has more restrictions on what properties that can be changed in the redefined element. For example, a redefining member function (known as an overridden member function in C++ terminology) must keep the same signature as the redefined member function (known as a virtual base member function in C++ terminology), and can only (in fact, must) change its implementation.

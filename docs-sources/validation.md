@@ -1445,7 +1445,7 @@ protocol PROT {
 |----------|:-------------|:-------------
 | Warning | One or many transitions are unreachable due to ambiguous triggers. | N/A
 
-If there are multiple outgoing transitions from a state with identical triggers (i.e. having the same port and the same event, and no guard condition), then it's ambiguous which one of them that will be triggered. In this situation the code generator will pick one of them to execute, and report the other ones as unreachable. The unreachable transitions will be reported as related elements so you can navigate to them and decide how to resolve the ambiguity. 
+If, in a capsule state machine, there are multiple outgoing transitions from a state with identical triggers (i.e. having the same port and the same event, and no guard condition), then it's ambiguous which one of them that will be triggered. In this situation the code generator will pick one of them to execute, and report the other ones as unreachable. The unreachable transitions will be reported as related elements so you can navigate to them and decide how to resolve the ambiguity. 
 
 Common solutions for this problem is to add a guard condition, either on the trigger or the transition. With a guard condition the ambiguity is resolved, but it's of course then important to ensure that guard conditions are mutually exclusive so that only one of the transitions can execute. The code generator cannot ensure this, since guard conditions are evaluated at run-time.
 
@@ -1474,6 +1474,8 @@ case Timing::Base::rti_timeout:
     chain3_t2(  );
     return ;
 ```
+
+This validation rule also applies for classes with state machines. If there are more than one outgoing transition without guard and which trigger on the same trigger operation, then the code generator will only generate code for one of them (the first it finds), and others will be reported as unreachable and will be ignored (without printing a warning comment). Also in this case the solution is usually to add a guard condition, either on the trigger or the transition.
 
 ### CPP_4002_guardedInitialTransition
 | Severity | Reason | Quick Fixes
