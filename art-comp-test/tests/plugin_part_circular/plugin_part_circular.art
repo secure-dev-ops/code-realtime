@@ -17,7 +17,6 @@ capsule Top {
             thisId = frame.me();            
             a_id = frame.incarnate(a1, &thisId);
             ASSERT(a_id.isValid(), "Failed to incarnate Top::a1");
-            ASSERT( RTController::circularImport == context()->getError(), "Expect error to be equal");  
             PASS();        
         `;            
     };
@@ -35,6 +34,7 @@ capsule A {
         `
             const RTActorId top_id = *(static_cast<const RTActorId*>(rtdata));
             frame.import(top_id, t);
+            ASSERT( RTController::circularImport == context()->getError(), "Expect error to be equal");
         `;
         state State;
     };
