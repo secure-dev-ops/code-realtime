@@ -33,7 +33,7 @@ capsule A {
         initial -> State
         `
             const RTActorId top_id = *(static_cast<const RTActorId*>(rtdata));
-            frame.import(top_id, t);
+            ASSERT(frame.import(top_id, t) == 0, "Import Top::t into A");
             ASSERT( RTController::circularImport == context()->getError(), "Expect error to be equal");
         `;
         state State;
