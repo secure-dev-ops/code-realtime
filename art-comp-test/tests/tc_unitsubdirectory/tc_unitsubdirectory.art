@@ -1,0 +1,16 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include <unitSubDir/Unitname.h>
+    `
+   
+    statemachine {
+        initial -> State1;
+        state State1 {
+            entry
+            `
+                PASS();
+            `;
+        };
+    };
+};
