@@ -109,6 +109,14 @@ const argv = yargs
     .option('artExport', {
         description: 'Determines if this has to run art export tests.'
     })
+    .option('codeComplianceArg', {
+        describe: 'Specify static analysis checks tool (e.g., clang-tidy)',
+        type: 'string'
+    })
+    .option('clangTidyChecks', {
+        describe: 'Specify clang-tidy static analysis checks (e.g., bugprone-branch-clone)',
+        type: 'string'
+    })
     .help()
     .alias('help', 'h')
     .check((argv, options) => {
