@@ -1,7 +1,7 @@
 capsule Top {
     [[rt::header_preface]]
     `
-        #include <unitSubDir/Unitname.h>
+        #include <unitSubDir/UnitName.h>
     `
    
     statemachine {
