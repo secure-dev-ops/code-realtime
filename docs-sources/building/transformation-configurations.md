@@ -164,6 +164,7 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [makeCommand](#makecommand) | String | "`$defaultMakeCommand`"
 | [prerequisites](#prerequisites) | List of strings | []
 | [sources](#sources) | List of strings | ["*.art"]
+| [sourceSubdirectory](#sourcesubdirectory) | String | N/A
 | [targetConfiguration](#targetconfiguration) | String | Depends on current operating system
 | [targetConfigurationName](#targetconfigurationname) | String | "default"
 | [targetFolder](#targetfolder) | String | Name of TC with "_target" appended
@@ -171,6 +172,7 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [threads](#threads) | List of Thread objects | List of two Thread objects (MainThread and TimerThread)
 | [topCapsule](#topcapsule) | String | N/A
 | [unitName](#unitname) | String | "UnitName"
+| [unitSubdirectory](#unitsubdirectory) | String | N/A
 | [userLibraries](#userlibraries) | List of strings | []
 | [userObjectFiles](#userobjectfiles) | List of strings | []
 
@@ -319,6 +321,9 @@ tc.sources = ["source??.art", "!*_gen.art"]; // Transform all Art files with nam
 
 The `sources` property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. See [this chapter](build-cpp-files.md#excluding-source-files) for more information.
 
+### sourceSubdirectory
+This property can be set to place generated source files into a sub folder within the [target folder](#targetfolder). It should be a string that is valid as the name of a folder.
+
 ### targetConfiguration
 Specifies which [TargetRTS configuration](../target-rts/index.md#target-configurations) to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
 
@@ -403,6 +408,9 @@ If you don't specify a value for this property, the TC will build a library inst
 
 ### unitName
 Specifies the base name of the so called unit header and implementation files that are generated from the TC. By default the value of this property is `UnitName` which means that these unit files will be called `UnitName.cpp` and `UnitName.h`. The unit files contain certain information that applies to the whole unit of code that is generated from a TC. The header unit file is included by all files that are generated from the TC.
+
+### unitSubdirectory
+This property can be set to place the generated unit files (see [unitName](#unitname)) into a sub folder within the [target folder](#targetfolder). It should be a string that is valid as the name of a folder.
 
 ### userLibraries
 This property is a list of user libraries that should be linked with the application. The property is only applicable for TCs that build executables.
