@@ -1,0 +1,7 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.unitSubdirectory = 'unitSubDir';
+tc.targetFolder = 'tc_unitsubdirectory_target';
+//Setting this name to false to avoid auto-updating the name of the unit file by the build variant script since we have added include to unit file in the art file.
+tc.unitNameAutoUpdate = false;

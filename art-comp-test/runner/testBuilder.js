@@ -46,6 +46,8 @@ module.exports = function(argv) {
         let commonCompilerArgs = [];
         if (isModelCompilerCall && argv.licenseArg)
             commonCompilerArgs.push(argv.licenseArg);
+        if (isModelCompilerCall && argv.codeComplianceArg)
+            commonCompilerArgs.push(argv.codeComplianceArg);
 
         if (testCase && testCase.isFullCommandLine) {
             if (testCase.compilerCmdArgs.length == 0)
@@ -176,7 +178,9 @@ module.exports = function(argv) {
         let childProcess;
 
         try {
-            childProcess = child_process.spawn(argv.javaVM, compilerArgs, { env : getEnvVars(testCase), cwd: testCase.topProjectPath });
+            // Check and update .tcjs file if clang-tidy check is requested
+            updateTcjsForClangTidy(testCase);
+            childProcess = child_process.spawn(argv.javaVM, compilerArgs, { env : getEnvVars(testCase), cwd: testCase.topProjectPath });            
         }
         catch (err) {
             logger.log('Failed to launch ' + compilerName + ' for test case: ' + testCase);
@@ -196,7 +200,7 @@ module.exports = function(argv) {
         childProcess.stdout.on('data', (data) => {
             let dataStr = new String(data);
             testCase.addToBuildLog(dataStr.replace(/‘/g, "'").replace(/’/g, "'"));
-            //console.log(`stdout: ${data}`);
+            //console.log(`stdout: ${data}`);            
         });
     
         childProcess.stderr.on('data', (data) => {
@@ -204,7 +208,29 @@ module.exports = function(argv) {
         });
           
         childProcess.on('close', (code) => {
-            // Build completed.
+             // Build completed.
+            // clang-tidy specific output check
+            if (argv.clangTidyChecks) {
+                // Normalize log text in case it contains carriage returns or color codes
+                let logText = testCase.buildLog;
+                if (Buffer.isBuffer(logText)) {
+                    logText = logText.toString('utf8');
+                }
+                logText = logText.replace(/\x1B\[[0-9;]*[A-Za-z]/g, ''); // remove ANSI color codes
+                logText = logText.replace(/\r/g, ''); // normalize line endings
+
+                // Match all code checker warnings using regex
+                const tidyPattern = new RegExp(`\\[${argv.clangTidyChecks.replace(/[*+?^${}()|[\]\\]/g, '\\$&')}\\]`, 'g');
+                const codeCheckerWarnings = logText.match(tidyPattern);
+                if (codeCheckerWarnings && codeCheckerWarnings.length > 0) {
+                    const count = codeCheckerWarnings.length;
+                    const warnMsg = `FAIL: Found ${count} [${argv.clangTidyChecks}] warning(s) in compiler output`;
+                    logger.log(testCase.name + ' : ' + warnMsg);
+                    testCase.addToBuildLog('\n' + warnMsg + '\n');
+                    testCase.errorMsg = warnMsg;
+                    code = -1; // fail the test case
+                }
+            }
             if (testCase.compilerErrorExpected) {
                 if (code == 0) {
                     let msg = 'ERROR message and non-zero return code are expected from ' + compilerName + ', but received code == 0';
@@ -285,6 +311,40 @@ module.exports = function(argv) {
             fs.writeFileSync(filePath, newContent, 'utf8');
         }
     }
+
+    // Update tc.compileCommand in .tcjs file if checks="clang-tidy"
+    function updateTcjsForClangTidy(testCase) {
+        // Only proceed if --clangTidyChecks argument is provided
+        // skip if test case belongs to code_checker group
+        if (!argv.clangTidyChecks || testCase.group == 'code_checker') {
+            return;
+        }
+        const tcjsPath = `${testCase.topProjectPath}/${testCase.tcjsFile}`;
+        if (!fs.existsSync(tcjsPath)) {
+            console.log(`WARNING: .tcjs file not found for ${testCase.name}: ${tcjsPath}`);
+            return;
+        }
+
+        let content = fs.readFileSync(tcjsPath, 'utf8');
+
+        const clangTidyCommand = `tc.compileCommand = 'clang-tidy $< --checks=${argv.clangTidyChecks} --';`;
+        
+        // Replace existing tc.compileCommand or append a new one
+        if (content.includes('tc.compileCommand')) {
+            content = content.replace(/tc\.compileCommand\s*=.*/g, clangTidyCommand);
+        } else {
+            content += `\n${clangTidyCommand}\n`;
+        }
+        // Overrid default link command to avoid build failure
+        if (!content.includes('tc.linkCommand')) {
+            const linkCommand = `tc.linkCommand = '';`;
+            content += `\n${linkCommand}\n`;
+        }
+
+        fs.writeFileSync(tcjsPath, content, 'utf8');
+        console.log(`Updated clang-tidy command in ${tcjsPath}`);
+    }
+
 
     // Copy projects and update test case for running Art integration test with Model Compiler
     module.prepareArtIntegration = function (testCase) {

@@ -175,6 +175,8 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [unitSubdirectory](#unitsubdirectory) | String | N/A
 | [userLibraries](#userlibraries) | List of strings | []
 | [userObjectFiles](#userobjectfiles) | List of strings | []
+| [sourceSubdirectory](#sourceSubdirectory) | String | N/A
+| [unitSubdirectory](#unitSubdirectory) | String | N/A
 
 ### capsuleFactory
 This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
@@ -429,3 +431,17 @@ tc.userObjectFiles = ["../../objs/extra.obj"];
 ```
 
 Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files.
+
+### sourceSubdirectory
+Specifies the name of a directory that will be created to hold the source code that is generated from the TC. It will be generated as a subdirectory of the specified output directory.
+
+``` js
+tc.sourceSubdirectory = 'subdir';
+```
+
+### unitSubdirectory
+Specifies the name of a directory that will be created to hold the generated unit files. If left empty, the unit files will be generated in the folder where all other source files are generated.
+
+``` js
+tc.unitSubdirectory = 'unitSubDir';
+```
