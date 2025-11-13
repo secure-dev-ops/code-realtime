@@ -175,8 +175,6 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [unitSubdirectory](#unitsubdirectory) | String | N/A
 | [userLibraries](#userlibraries) | List of strings | []
 | [userObjectFiles](#userobjectfiles) | List of strings | []
-| [sourceSubdirectory](#sourceSubdirectory) | String | N/A
-| [unitSubdirectory](#unitSubdirectory) | String | N/A
 
 ### capsuleFactory
 This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
@@ -326,6 +324,10 @@ The `sources` property can also be used to specify which regular (i.e. non-gener
 ### sourceSubdirectory
 This property can be set to place generated source files into a sub folder within the [target folder](#targetfolder). It should be a string that is valid as the name of a folder.
 
+``` js
+tc.sourceSubdirectory = 'subdir';
+```
+
 ### targetConfiguration
 Specifies which [TargetRTS configuration](../target-rts/index.md#target-configurations) to use. The TargetRTS location specified in the [targetRTSLocation](#targetrtslocation) property defines valid values for this property. If this property is not specified, and the default TargetRTS location from the {$product.name$} installation is used, then it will get a default value according to the operating system that is used. For Windows a MinGw-based configuration will be used, while for Linux a GCC-based configuration will be used.
 
@@ -414,6 +416,10 @@ Specifies the base name of the so called unit header and implementation files th
 ### unitSubdirectory
 This property can be set to place the generated unit files (see [unitName](#unitname)) into a sub folder within the [target folder](#targetfolder). It should be a string that is valid as the name of a folder.
 
+``` js
+tc.unitSubdirectory = 'unitSubDir';
+```
+
 ### userLibraries
 This property is a list of user libraries that should be linked with the application. The property is only applicable for TCs that build executables.
 
@@ -432,16 +438,5 @@ tc.userObjectFiles = ["../../objs/extra.obj"];
 
 Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files.
 
-### sourceSubdirectory
-Specifies the name of a directory that will be created to hold the source code that is generated from the TC. It will be generated as a subdirectory of the specified output directory.
 
-``` js
-tc.sourceSubdirectory = 'subdir';
-```
 
-### unitSubdirectory
-Specifies the name of a directory that will be created to hold the generated unit files. If left empty, the unit files will be generated in the folder where all other source files are generated.
-
-``` js
-tc.unitSubdirectory = 'unitSubDir';
-```
