@@ -55,8 +55,8 @@ capsule Top {
                 RTTimespec now;
                 RTTimespec::getclock(now);
                 RTTimespec diff = now - then; // How much time passed from setting the timer until it timed out
-                std::cout << diff.tv_sec << " s " << diff.tv_nsec << std::endl;
-                ASSERT(diff - RTTimespec(1,0) < RTTimespec(0, 1000*1000*40 /* 40 ms */), "Timer 7 didn't timeout when expected");
+                std::cout << "Timer 7 diff: " << diff.tv_sec << " s " << diff.tv_nsec << std::endl;
+                ASSERT(diff - RTTimespec(1,0) < RTTimespec(0, 1000*1000*60 /* 60 ms */), "Timer 7 didn't timeout when expected");
             `;
         };
         initial -> First

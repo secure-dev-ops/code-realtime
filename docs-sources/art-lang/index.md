@@ -399,6 +399,8 @@ A protocol event may have a parameter, which enables it to carry data. You decla
 !!! note 
     An event can have at most one parameter. If you need to send multiple data objects with an event you can declare an event parameter of struct or class type.
 
+The C++ type of an event parameter must be specified either as a primitive type or as an unqualified name of a user-defined type. If a user-defined type is used, it must usually have a [type descriptor](cpp-extensions.md#type-descriptor) so the TargetRTS can copy or move the data at run-time when the event is sent. However, in some special cases a type descriptor is not required, for example if the user-defined type is a typedef or type alias of a primitive type. In those cases you must use the `[[rt::no_descriptor]]` attribute to specify that you want to pass the event parameter without using a type descriptor. See the validation rule [CPP_4000_eventTypeWithoutTypeDescriptor](../validation.md#cpp_4000_eventtypewithouttypedescriptor) for examples and more information.
+
 The following code snippets can be used for a protocol:
 
 <p id="protocol_code_snippets"/>
@@ -415,7 +417,7 @@ protocol MachineEvents {
     in startDeferred(`unsigned long` /* milliseconds */);
     
     out success();
-    out error(`std::string` /* error message */);
+    out error(`MsgString` /* error message */);
 
     in relayEvent(); out relayEvent(); // symmetric event
 };

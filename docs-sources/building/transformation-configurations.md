@@ -3,7 +3,7 @@ A transformation configuration (or TC for short) contains all properties needed 
 {$product.name$} provides a dedicated language server for TCs to make them just as easy to work with as Art files. A [form-based editor](#form-based-tc-editor) is also provided as an alternative.
 
 ## Creating Transformation Configurations
-To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command **File - New File - Transformation Configuration**. In the popup that appears specify the name of the TC or keep the suggested default name.
+To create a new TC select a file in the workspace folder that contains the Art files you want to transform to C++. Then invoke the command **File - New File - New Transformation Configuration**. In the popup that appears specify the name of the TC or keep the suggested default name.
 
 ![](images/default-tc-name.png)
 

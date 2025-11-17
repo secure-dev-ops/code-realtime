@@ -42,7 +42,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
 | 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) <br> [Improved error handling in REGISTER_LAYER](#improved-error-handling-in-register_layer)  <br> [Support for a new trace file format (.art-trace)](#support-for-a-new-trace-file-format-art-trace) |
-| 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) <br> [Error code for circular import](#error-code-for-circular-import) |
+| 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) <br> [Error code for circular import](#error-code-for-circular-import) <br> [Unparse and merge of RTJsonResult](#unparse-and-merge-of-rtjsonresult) <br> [Removal of support for .ms trace format](#removal-of-support-for-ms-trace-format) <br> [Trace configuration and timestamps](#trace-configuration-and-timestamps) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -164,3 +164,14 @@ When importing a capsule instance into a plugin capsule part a run-time check is
 !!! note 
     This change is not backwards compatible. You need to update your code if it checks for the old error code.
 
+### Unparse and merge of RTJsonResult
+A new function [RTJsonResult](../targetrts-api/class_r_t_json_result.html)::`unparse()` was implemented to unparse (i.e. pretty-print) a JSON object to an output stream. Another new function [RTJsonResult](../targetrts-api/class_r_t_json_result.html)::`merge()` was implemented for merging one JSON object into another.
+
+!!! note 
+    As part of this change the error constant `RTJsonResult::ERROR` was renamed to `RTJsonResult::jsonError` to avoid a name clash when including `<windows.h>`. This change is not backwards compatible.
+
+### Removal of support for .ms trace format
+The TargetRTS no longer generates the `.ms` trace format. Instead, this format can be obtained by translating the `.art-trace` format. The module that parses `.art-trace` files is now open-source at [GitHub](https://github.com/HCL-TECH-SOFTWARE/art-trace) and a [sample script](https://github.com/HCL-TECH-SOFTWARE/art-trace/blob/main/samples/jsSequenceDiagrams.ts) is provided for creating the `.ms` trace format from an `.art-trace` file.
+
+### Trace configuration and timestamps
+Tracing can now be configured by passing a trace configuration JSON file with the command-line argument `-traceConfig` to an application. Currently the trace configuration file can be used for turning on the capturing of timestamps for messages. Two time-stamps can be captured; the time when a message is received (i.e. dispatched to) a capsule instance and the time when a message has been handled by the capsule instance's state machine. The difference between these timestamps tell how much time it took to process the message. For more information see [Trace Configuration](../running-and-debugging/tracing.md#trace-configuration).

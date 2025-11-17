@@ -1430,6 +1430,8 @@ Validation rules that are related to code generation can be enabled and disabled
 
 If an event has a data parameter the type of this parameter must have a [type descriptor](art-lang/cpp-extensions.md#type-descriptor). Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most predefined C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either [automatically generated](art-lang/cpp-extensions.md#automatically-generated) by means of the `rt::auto_descriptor` attribute, or [manually implemented](art-lang/cpp-extensions.md#manually-implemented)). It's necessary that such a user-defined type is defined so that it can be referenced from the event with a simple name without use of qualifiers, type modifiers or template arguments. Use a typedef or type alias to give a simple name to an existing type that for example is defined in a different namespace.
 
+In some special cases it's not required for a user-defined event parameter type to have a type descriptor of its own. For example, if the user-defined type is a typedef or type alias of a primitive type, the type doesn't need to have its own type descriptor since the primitive type has one in the TargetRTS. In this case you need to use the `[[rt::no_descriptor]]` attribute to tell the Art Compiler that no type descriptor is necessary.
+
 If the code generator doesn't find a type descriptor for the event parameter type, CPP_4000 will be reported, and the C++ function that is generated for the event will have void type (i.e. the same as if the event doesn't have a data parameter).
 
 ``` art
@@ -1437,6 +1439,7 @@ protocol PROT {
     out e1(`MyClass*`); // ART_4000 (type modifier present)
     out e2(`std::string`); // ART_4000 (qualified name)
     out e3(`TplClass<int>`); // ART_4000 (template parameter present)    
+    out e4(`[[rt::no_descriptor]] MyInt`); // OK (MyInt is a typedef of int)
 };
 ```
 
