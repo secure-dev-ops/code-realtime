@@ -12,8 +12,18 @@ A trace captured by {$product.name$} is saved in a file `.trace.art-trace` in th
 2. Open the file in {$product.name$} as a [text file](#view-traces-as-text) for analysis. 
 3. [Process the file programmatically](#process-a-trace-programmatically), for example to analyze it algorithmically or to translate it into another trace file format.
 
+When interpreting a trace it's important to consider that the exchange of a message between two capsule instances involves three specific actions that take place in this precise order:
+
+1. **The message is sent.** This happens when the sending capsule instance places the message into the message queue of the receiver's controller. The point in time when this happens is referred to below as `time1_send`.
+2. **The message is received.** This happens when the message is delivered to the receiving capsule instance by its controller. The point in time when this happens is referred to below as `time2_receive`.
+3. **The message has been handled.** This happens when the receiver capsule instance has handled the message, i.e. after the transition in the receiver's state machine that was triggered by the message (if any) has run to completion. The point in time when this happens is referred to below as `time3_handle`.
+
+By providing a [trace configuration](#trace-configuration) you can capture the three timestamps mentioned above into the trace.
+
+A message only appears in the trace when all these actions have taken place. This means that messages are ordered in the trace according to when they have been handled, not according to when they were sent or received.
+
 ## View Traces as Sequence Diagrams
-To view an `.art-trace` file as a sequence diagram right-click on it in the Explorer view, or in the [text editor](#view-traces-as-text), and perform the command **Open Sequence Diagram**. The trace will then be visualized graphically as a sequence diagram. On the top there are **lifelines** which represent the capsule instances in the application. Each lifeline has a vertical line, and between these lines there are arrows that represent messages that were exhanged between capsule instances. The order of the message lines tell you in which order messages were *received* by capsule instances in the application. This means that the arrow heads of message lines are strictly ordered chronologically, from top to bottom.
+To view an `.art-trace` file as a sequence diagram right-click on it in the Explorer view, or in the [text editor](#view-traces-as-text), and perform the command **Open Sequence Diagram**. The trace will then be visualized graphically as a sequence diagram. On the top there are **lifelines** which represent the capsule instances in the application. Each lifeline has a vertical line, and between these lines there are arrows that represent messages that were exhanged between capsule instances. The order of the message lines tell you in which order messages were *handled* by capsule instances in the application. This means that the arrow heads of message lines are strictly ordered chronologically, from top to bottom, according to the `time3_handle` timestamp.
 
 The image below shows a sequence diagram for an `.art-trace` file captured from the [TcpRangeCounter](../samples.md#tcprangecounter) sample application.
 
@@ -36,7 +46,7 @@ There are two TargetRTS components that can interact with capsule instances. `<t
 The sequence diagram may contain note boxes that show if the tracing was paused for some time. This indicates that the sequence diagram doesn't show messages that may have been exchanged during that time.
 
 !!! note
-    Even if a sequence diagram also shows a strict ordering of the *sending* of messages, it's important to remember that the messages only are ordered according to the times when they were *received*. In the diagram message lines are horizontal, but that should not be interpreted as that nothing happens between the sending and receiving of a message. It's fully possible that a received message in fact was sent before the message that precedes it in the trace was both received and sent.
+    Even if a sequence diagram also shows a strict ordering of the *sending* of messages (i.e. the start of a message line), it's important to remember that the messages only are ordered according to the times when they were *handled*. In the diagram message lines are horizontal, but that should not be interpreted as that nothing happens between a message is sent, received and eventually handled. It's fully possible that a received message in fact was sent before the message that precedes it in the trace was both received and sent.
 
 If you hover over the message line label you can see the port of the receiver capsule instance on which the message was received. For more information about the message, double-click on the message line to navigate to the message in the `.art-trace` file.
 
