@@ -1,21 +1,27 @@
-capsule Top {    
-    behavior port timer : Timing;    
-    statemachine {        
+capsule BaseC {
+    behavior port timer : Timing;
+    statemachine {
         choice c;
-        state First, Third;        
+        state First, Third;
         a: First -> c on timer.timeout;
-        x: c -> Third;
+        x: c -> Third
+        `
+            FAIL("Executed transition with excluded state");
+        `;
         i: initial -> First
         `
-            PASS();
+            timer.informIn(RTTimespec(0, 500));
         `;
     };
 };
 
-capsule DerivedC : Top {    
+capsule Top : BaseC {
     statemachine { // Should NOT get ART_0007 here. Transition "x" is implicitly excluded since "Third" is excluded.
         state Fourth;
-        j: c -> Fourth;        
-        state exclude Third;  
+        y: c -> Fourth
+        `
+            PASS();
+        `;
+        state exclude Third;
     };
 };
