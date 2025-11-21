@@ -970,6 +970,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rtimport_isreferencedby_check" class="md-nav__link">
+    RTIMPORT_ISREFERENCEDBY_CHECK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rtframe_thread_safe" class="md-nav__link">
     RTFRAME_THREAD_SAFE
   </a>
@@ -1700,6 +1707,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rtimport_isreferencedby_check" class="md-nav__link">
+    RTIMPORT_ISREFERENCEDBY_CHECK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rtframe_thread_safe" class="md-nav__link">
     RTFRAME_THREAD_SAFE
   </a>
@@ -1928,6 +1942,9 @@ All debugger features are disabled. The size of the executable will be reduced, 
 <li><strong>RTFRAME_CHECK_NONE</strong></li>
 </ul>
 <p>Do not perform a run-time check. It improves the application performance slightly, and can be safely set if all <a href="../../targetrts-api/struct_frame.html">Frame</a> ports are only used by the capsule that owns them.</p>
+<h4 id="rtimport_isreferencedby_check">RTIMPORT_ISREFERENCEDBY_CHECK</h4>
+<p>When a capsule instance is imported into a plugin capsule part, a run-time check is performed (by the function <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>isReferencedBy()</code>) to ensure that this doesn't lead to cycles in the composition hierarchy (i.e. that the imported capsule instance isn't a direct or indirect owner of the capsule instance that has the plugin part).</p>
+<p>Default value: <strong>1</strong> (set to <strong>0</strong> if you can guarantee that such cycles won't happen and want to skip this run-time check)</p>
 <h4 id="rtframe_thread_safe">RTFRAME_THREAD_SAFE</h4>
 <p>This setting is used when you call functions on a <a href="../../targetrts-api/struct_frame.html">Frame</a> port, for example to create or destroy a capsule instance in a part. By default these functions are thread-safe, which is required when a created or destroyed capsule instance runs in a different thread than the code that calls the functions. However, in certain cases it's possible to optimize the performance by instead using function implementations that are not thread-safe. For example, if you know that you only use <a href="../../targetrts-api/struct_frame.html">Frame</a> ports to operate on capsule instances that run in the same thread as the capsules that owns the ports, then you can disable this setting to improve the application performance.</p>
 <p>Default value: <strong>1</strong> (set to <strong>0</strong> if you know it's safe to not use thread-safe implementations of <a href="../../targetrts-api/struct_frame.html">Frame</a> functions)</p>

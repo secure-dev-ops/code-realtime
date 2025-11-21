@@ -4231,11 +4231,13 @@ capsule Pinger {
 </tbody>
 </table>
 <p>If an event has a data parameter the type of this parameter must have a <a href="../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>. Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most predefined C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either <a href="../art-lang/cpp-extensions/#automatically-generated">automatically generated</a> by means of the <code>rt::auto_descriptor</code> attribute, or <a href="../art-lang/cpp-extensions/#manually-implemented">manually implemented</a>). It's necessary that such a user-defined type is defined so that it can be referenced from the event with a simple name without use of qualifiers, type modifiers or template arguments. Use a typedef or type alias to give a simple name to an existing type that for example is defined in a different namespace.</p>
+<p>In some special cases it's not required for a user-defined event parameter type to have a type descriptor of its own. For example, if the user-defined type is a typedef or type alias of a primitive type, the type doesn't need to have its own type descriptor since the primitive type has one in the TargetRTS. In this case you need to use the <code>[[rt::no_descriptor]]</code> attribute to tell the Art Compiler that no type descriptor is necessary.</p>
 <p>If the code generator doesn't find a type descriptor for the event parameter type, CPP_4000 will be reported, and the C++ function that is generated for the event will have void type (i.e. the same as if the event doesn't have a data parameter).</p>
 <pre><code class="language-art">protocol PROT {
     out e1(`MyClass*`); // ART_4000 (type modifier present)
     out e2(`std::string`); // ART_4000 (qualified name)
     out e3(`TplClass&lt;int&gt;`); // ART_4000 (template parameter present)    
+    out e4(`[[rt::no_descriptor]] MyInt`); // OK (MyInt is a typedef of int)
 };
 </code></pre>
 <h3 id="cpp_4001_unreachabletransition">CPP_4001_unreachableTransition</h3>
@@ -4255,7 +4257,7 @@ capsule Pinger {
 </tr>
 </tbody>
 </table>
-<p>If there are multiple outgoing transitions from a state with identical triggers (i.e. having the same port and the same event, and no guard condition), then it's ambiguous which one of them that will be triggered. In this situation the code generator will pick one of them to execute, and report the other ones as unreachable. The unreachable transitions will be reported as related elements so you can navigate to them and decide how to resolve the ambiguity. </p>
+<p>If, in a capsule state machine, there are multiple outgoing transitions from a state with identical triggers (i.e. having the same port and the same event, and no guard condition), then it's ambiguous which one of them that will be triggered. In this situation the code generator will pick one of them to execute, and report the other ones as unreachable. The unreachable transitions will be reported as related elements so you can navigate to them and decide how to resolve the ambiguity. </p>
 <p>Common solutions for this problem is to add a guard condition, either on the trigger or the transition. With a guard condition the ambiguity is resolved, but it's of course then important to ensure that guard conditions are mutually exclusive so that only one of the transitions can execute. The code generator cannot ensure this, since guard conditions are evaluated at run-time.</p>
 <pre><code class="language-art">capsule XCap {   
     behavior port t : Timing;
@@ -4278,6 +4280,7 @@ capsule Pinger {
     chain3_t2(  );
     return ;
 </code></pre>
+<p>This validation rule also applies for classes with state machines. If there are more than one outgoing transition without guard and which trigger on the same trigger operation, then the code generator will only generate code for one of them (the first it finds), and others will be reported as unreachable and will be ignored (without printing a warning comment). Also in this case the solution is usually to add a guard condition, either on the trigger or the transition.</p>
 <h3 id="cpp_4002_guardedinitialtransition">CPP_4002_guardedInitialTransition</h3>
 <table>
 <thead>

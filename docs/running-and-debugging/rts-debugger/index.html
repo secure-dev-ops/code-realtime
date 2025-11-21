@@ -1105,6 +1105,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    exit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#go" class="md-nav__link">
     go
   </a>
@@ -1478,6 +1485,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    exit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#go" class="md-nav__link">
     go
   </a>
@@ -1693,6 +1707,8 @@ RTS debug: -&gt;
 <h3 id="detach">detach</h3>
 <p>Argument: <code>&lt;threadId&gt;</code> (number)</p>
 <p>Make the thread with the specified thread id detached so it can run freely without intervention by the RTS Debugger. See <a href="#thread-considerations">Thread Considerations</a> for more information. You obtain the thread id by using the <a href="#tasks"><code>tasks</code></a> command.</p>
+<h3 id="exit">exit</h3>
+<p>This command terminates the debugged application. If you only want to quit the RTS Debugger, but let the application keep running, use instead the <a href="#quit"><code>quit</code></a> command.</p>
 <h3 id="go">go</h3>
 <p>Argument: <code>&lt;n&gt;</code> (number; default 10)</p>
 <p>This command lets the application proceed its execution by delivering (up to) the specified number of messages in threads that are attached. This command works the same as <a href="#step"><code>step</code></a> except that the default number of messages that will be delivered is 10 instead of 1. Hence, the <a href="#go"><code>go</code></a> command is a "faster" way to execute the application than using <a href="#step"><code>step</code></a>.</p>

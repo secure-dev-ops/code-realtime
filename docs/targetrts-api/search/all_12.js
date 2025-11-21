@@ -4,6 +4,7 @@ var searchData=
   ['unexpectedstate_1',['unexpectedState',['../class_r_t_actor.html#a4ff70c41166a0ab5738eefa38541917f',1,'RTActor']]],
   ['unhandledmessage_2',['unhandledMessage',['../class_r_t_actor.html#a70e399ee02f601300ba838099c781608',1,'RTActor']]],
   ['unlock_3',['unlock',['../struct_log.html#acd6d350d7b70ac1e16416dec5a0e80db',1,'Log']]],
-  ['unused_4',['Unused',['../struct_r_t_import_list_1_1_unused.html',1,'RTImportList']]],
-  ['used_5',['Used',['../struct_r_t_import_list_1_1_used.html',1,'RTImportList']]]
+  ['unparse_4',['unparse',['../class_r_t_json_result.html#a210f8c1d47bee6da33eca39e7ea01b06',1,'RTJsonResult']]],
+  ['unused_5',['Unused',['../struct_r_t_import_list_1_1_unused.html',1,'RTImportList']]],
+  ['used_6',['Used',['../struct_r_t_import_list_1_1_used.html',1,'RTImportList']]]
 ];

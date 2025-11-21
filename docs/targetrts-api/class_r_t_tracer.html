@@ -71,6 +71,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -102,12 +103,31 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac12984ca56e8f20a47321d18f8a3b766"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#ac12984ca56e8f20a47321d18f8a3b766">setEnabled</a> (bool)</td></tr>
 <tr class="memdesc:ac12984ca56e8f20a47321d18f8a3b766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable tracing to file.  <br /></td></tr>
 <tr class="separator:ac12984ca56e8f20a47321d18f8a3b766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab645afdd4443bdd0088cba6e99bc5c81"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#ab645afdd4443bdd0088cba6e99bc5c81">configure</a> (void)</td></tr>
+<tr class="memdesc:ab645afdd4443bdd0088cba6e99bc5c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure <a class="el" href="class_r_t_tracer.html">RTTracer</a> and tracing preferences.  <br /></td></tr>
+<tr class="separator:ab645afdd4443bdd0088cba6e99bc5c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:ad60ac5226e3ba248f0dc29262c371b43"><td class="memItemLeft" align="right" valign="top"><a id="ad60ac5226e3ba248f0dc29262c371b43" name="ad60ac5226e3ba248f0dc29262c371b43"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<b>TIME1</b> = 0x10
+, <b>TIME2</b> = 0x20
+, <b>TIME3</b> = 0x40
+, <b>TIME_ABSOLUTE</b> = 0x80
+, <br />
+&#160;&#160;<b>PRECISION_MASK</b> = 0x0F
+, <b>PRECISION_NANO</b> = 0x09
+, <b>PRECISION_MICRO</b> = 0x06
+, <b>PRECISION_MILLI</b> = 0x03
+<br />
+ }</td></tr>
+<tr class="separator:ad60ac5226e3ba248f0dc29262c371b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:adcb2eab27b1a0569c801d4574b11d581"><td class="memItemLeft" align="right" valign="top"><a id="adcb2eab27b1a0569c801d4574b11d581" name="adcb2eab27b1a0569c801d4574b11d581"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMessage</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *)</td></tr>
-<tr class="separator:adcb2eab27b1a0569c801d4574b11d581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ce5bd142122fe3fbac02089b8d85eda"><td class="memItemLeft" align="right" valign="top"><a id="a3ce5bd142122fe3fbac02089b8d85eda" name="a3ce5bd142122fe3fbac02089b8d85eda"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMessage</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, void *traceInfo[])</td></tr>
+<tr class="separator:a3ce5bd142122fe3fbac02089b8d85eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e72d70c7d8fdadf4f0897fc6cdfd6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#ae5e72d70c7d8fdadf4f0897fc6cdfd6d">flush</a> (void) override</td></tr>
 <tr class="memdesc:ae5e72d70c7d8fdadf4f0897fc6cdfd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the data written to the buffer.  <br /></td></tr>
 <tr class="separator:ae5e72d70c7d8fdadf4f0897fc6cdfd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,9 +137,9 @@ Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:a3e6e5c70e0753eef230e401ff0874cdf"><td class="memItemLeft" align="right" valign="top"><a id="a3e6e5c70e0753eef230e401ff0874cdf" name="a3e6e5c70e0753eef230e401ff0874cdf"></a>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>initTraceFile</b> (void)</td></tr>
 <tr class="separator:a3e6e5c70e0753eef230e401ff0874cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96da7192664442b036bee61b0d4f698f"><td class="memItemLeft" align="right" valign="top"><a id="a96da7192664442b036bee61b0d4f698f" name="a96da7192664442b036bee61b0d4f698f"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMS</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *)</td></tr>
-<tr class="separator:a96da7192664442b036bee61b0d4f698f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe25a8980066d7f8b4da58b9ea8baa7"><td class="memItemLeft" align="right" valign="top"><a id="abbe25a8980066d7f8b4da58b9ea8baa7" name="abbe25a8980066d7f8b4da58b9ea8baa7"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMS</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, void *traceInfo[]=nullptr)</td></tr>
+<tr class="separator:abbe25a8980066d7f8b4da58b9ea8baa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -129,9 +149,6 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>_traceFile</b>
 <tr class="memitem:aa1fae6eaff9b9e407ea59d36c70dc459"><td class="memItemLeft" align="right" valign="top"><a id="aa1fae6eaff9b9e407ea59d36c70dc459" name="aa1fae6eaff9b9e407ea59d36c70dc459"></a>
 std::ofstream&#160;</td><td class="memItemRight" valign="bottom"><b>_file</b></td></tr>
 <tr class="separator:aa1fae6eaff9b9e407ea59d36c70dc459"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a247b067392280ec7da860d6410595611"><td class="memItemLeft" align="right" valign="top"><a id="a247b067392280ec7da860d6410595611" name="a247b067392280ec7da860d6410595611"></a>
-RTMutex *&#160;</td><td class="memItemRight" valign="bottom"><b>_mutex</b></td></tr>
-<tr class="separator:a247b067392280ec7da860d6410595611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_r_t_stream_buffer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_r_t_stream_buffer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_r_t_stream_buffer.html">RTStreamBuffer</a></td></tr>
 <tr class="memitem:a552c109b4d9e0bb0ba0a59272feb731e inherit pro_attribs_class_r_t_stream_buffer"><td class="memItemLeft" align="right" valign="top"><a id="a552c109b4d9e0bb0ba0a59272feb731e" name="a552c109b4d9e0bb0ba0a59272feb731e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>offset</b></td></tr>
@@ -145,9 +162,15 @@ Static Protected Attributes</h2></td></tr>
 <tr class="memitem:af464ccbda79737692441c624c4c375ff"><td class="memItemLeft" align="right" valign="top"><a id="af464ccbda79737692441c624c4c375ff" name="af464ccbda79737692441c624c4c375ff"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>_enabled</b></td></tr>
 <tr class="separator:af464ccbda79737692441c624c4c375ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1c0012028d008b4a23fe0113db0d83e"><td class="memItemLeft" align="right" valign="top"><a id="af1c0012028d008b4a23fe0113db0d83e" name="af1c0012028d008b4a23fe0113db0d83e"></a>
-static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>_format</b></td></tr>
-<tr class="separator:af1c0012028d008b4a23fe0113db0d83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af492bafa462d3a78190193b3d04157b8"><td class="memItemLeft" align="right" valign="top"><a id="af492bafa462d3a78190193b3d04157b8" name="af492bafa462d3a78190193b3d04157b8"></a>
+static <a class="el" href="class_r_t_json_result.html">RTJsonResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>jsonConfig</b></td></tr>
+<tr class="separator:af492bafa462d3a78190193b3d04157b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adefe6da0b02eed0a88f7dd8616678d68"><td class="memItemLeft" align="right" valign="top"><a id="adefe6da0b02eed0a88f7dd8616678d68" name="adefe6da0b02eed0a88f7dd8616678d68"></a>
+static std::chrono::system_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><b>_start</b></td></tr>
+<tr class="separator:adefe6da0b02eed0a88f7dd8616678d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a215ac65f6aa6891d10c8b74876276a8e"><td class="memItemLeft" align="right" valign="top"><a id="a215ac65f6aa6891d10c8b74876276a8e" name="a215ac65f6aa6891d10c8b74876276a8e"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>_timestamps</b></td></tr>
+<tr class="separator:a215ac65f6aa6891d10c8b74876276a8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -172,6 +195,35 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a86f3c112e3473ae2eda74357e71db9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab645afdd4443bdd0088cba6e99bc5c81" name="ab645afdd4443bdd0088cba6e99bc5c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab645afdd4443bdd0088cba6e99bc5c81">&#9670;&#160;</a></span>configure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool RTTracer::configure </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configure <a class="el" href="class_r_t_tracer.html">RTTracer</a> and tracing preferences. </p>
+<p>Parse JSON configuration file provided in command line and override defaults. </p>
+
+</div>
+</div>
 <a id="ae5e72d70c7d8fdadf4f0897fc6cdfd6d" name="ae5e72d70c7d8fdadf4f0897fc6cdfd6d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5e72d70c7d8fdadf4f0897fc6cdfd6d">&#9670;&#160;</a></span>flush()</h2>
 

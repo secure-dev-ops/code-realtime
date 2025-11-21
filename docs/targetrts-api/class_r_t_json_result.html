@@ -72,7 +72,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_r_t_json_result-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">RTJsonResult Class Reference</div></div>
@@ -173,13 +172,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const char *) const</td></tr>
 <tr class="memdesc:a4abe41ee86bdced0782fa01fc41eca84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the JSON value is a string and equal to the given string. <br /></td></tr>
 <tr class="separator:a4abe41ee86bdced0782fa01fc41eca84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:ae181eb81465c5aca11fee8f4972973fe"><td class="memItemLeft" align="right" valign="top"><a id="ae181eb81465c5aca11fee8f4972973fe" name="ae181eb81465c5aca11fee8f4972973fe"></a>
-static const <a class="el" href="class_r_t_json_result.html">RTJsonResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ERROR</b></td></tr>
-<tr class="memdesc:ae181eb81465c5aca11fee8f4972973fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This special object represents an error result. <br /></td></tr>
-<tr class="separator:ae181eb81465c5aca11fee8f4972973fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0808650493b1fd520def34463070902"><td class="memItemLeft" align="right" valign="top"><a id="ae0808650493b1fd520def34463070902" name="ae0808650493b1fd520def34463070902"></a>
+<a class="el" href="class_r_t_json_result.html">RTJsonResult</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>merge</b> (const <a class="el" href="class_r_t_json_result.html">RTJsonResult</a> &amp;other)</td></tr>
+<tr class="memdesc:ae0808650493b1fd520def34463070902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge properties from other to this object, override existing properties. <br /></td></tr>
+<tr class="separator:ae0808650493b1fd520def34463070902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a210f8c1d47bee6da33eca39e7ea01b06"><td class="memItemLeft" align="right" valign="top"><a id="a210f8c1d47bee6da33eca39e7ea01b06" name="a210f8c1d47bee6da33eca39e7ea01b06"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>unparse</b> (std::ostream &amp;out, int indent=0) const</td></tr>
+<tr class="memdesc:a210f8c1d47bee6da33eca39e7ea01b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pretty print JSON object to output stream. <br /></td></tr>
+<tr class="separator:a210f8c1d47bee6da33eca39e7ea01b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>

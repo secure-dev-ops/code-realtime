@@ -1053,6 +1053,69 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#shorter-state-qualifiers-in-the-rtsdebugger-system-command" class="md-nav__link">
+    Shorter state qualifiers in the RTSDebugger system command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-rtlock-utility" class="md-nav__link">
+    New RTLock utility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#printing-64-bit-integers-in-rtformat" class="md-nav__link">
+    Printing 64 bit integers in RTFormat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-information-for-messages-when-tracing" class="md-nav__link">
+    More information for messages when tracing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-for-the-primitive-type-wchar_t" class="md-nav__link">
+    Support for the primitive type wchar_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-code-for-circular-import" class="md-nav__link">
+    Error code for circular import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unparse-and-merge-of-rtjsonresult" class="md-nav__link">
+    Unparse and merge of RTJsonResult
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removal-of-support-for-ms-trace-format" class="md-nav__link">
+    Removal of support for .ms trace format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace-configuration-and-timestamps" class="md-nav__link">
+    Trace configuration and timestamps
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1778,6 +1841,69 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#shorter-state-qualifiers-in-the-rtsdebugger-system-command" class="md-nav__link">
+    Shorter state qualifiers in the RTSDebugger system command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-rtlock-utility" class="md-nav__link">
+    New RTLock utility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#printing-64-bit-integers-in-rtformat" class="md-nav__link">
+    Printing 64 bit integers in RTFormat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-information-for-messages-when-tracing" class="md-nav__link">
+    More information for messages when tracing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-for-the-primitive-type-wchar_t" class="md-nav__link">
+    Support for the primitive type wchar_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-code-for-circular-import" class="md-nav__link">
+    Error code for circular import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unparse-and-merge-of-rtjsonresult" class="md-nav__link">
+    Unparse and merge of RTJsonResult
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removal-of-support-for-ms-trace-format" class="md-nav__link">
+    Removal of support for .ms trace format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace-configuration-and-timestamps" class="md-nav__link">
+    Trace configuration and timestamps
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1825,7 +1951,7 @@
 <p>The patch files in the <code>TargetRTS_changelog</code> folder have been created by a Bash script <code>TargetRTS/tools/createPatch.sh</code>. You can use this script if you have your version of the TargetRTS in a Git repo and want to produce a patch file for the changes you have made to the TargetRTS. You can then later use that patch file to apply your changes to a newer version of the TargetRTS.</p>
 <p>Whether it's best to adopt changes in a standard TargetRTS into your version of the TargetRTS, or to do the opposite, i.e. adopt your changes into a standard TargetRTS, may depend on how big changes you have made. If your changes are small and limited the latter may be easiest, while if you have made substantial changes the former may be the better option.</p>
 <h2 id="change-log">Change Log</h2>
-<p>Below is a table that lists all changes made in the TargetRTS since version 8000 (which were delivered with Code RealTime 1.0.0). For changes in older versions of the TargetRTS, which were done for Model RealTime, see <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/pdf/ModelRealTime_RoseRT_All_Changes_in_Cpp_TargetRTS.pdf">this document</a>.</p>
+<p>Below is a table that lists all changes made in the TargetRTS since version 8000 (which was delivered with Code RealTime 1.0.0). For changes in older versions of the TargetRTS, which were done for Model RealTime, see <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/pdf/ModelRealTime_RoseRT_All_Changes_in_Cpp_TargetRTS.pdf">this document</a>.</p>
 <table>
 <thead>
 <tr>
@@ -1885,6 +2011,10 @@
 <tr>
 <td>8013</td>
 <td align="left"><a href="#waiting-for-multiple-events">Waiting for multiple events</a> <br> <a href="#application-exit-code-api">Application exit code API</a> <br> <a href="#public-function-gettask-in-rtdebugger">Public function "getTask" in RTDebugger</a> <br> <a href="#priority-for-event-raised-on-external-port">Priority for event raised on external port</a> <br> <a href="#improved-error-handling-in-register_layer">Improved error handling in REGISTER_LAYER</a>  <br> <a href="#support-for-a-new-trace-file-format-art-trace">Support for a new trace file format (.art-trace)</a></td>
+</tr>
+<tr>
+<td>8014</td>
+<td align="left"><a href="#shorter-state-qualifiers-in-the-rtsdebugger-system-command">Shorter state qualifiers in the RTSDebugger system command</a> <br> <a href="#new-rtlock-utility">New RTLock utility</a> <br> <a href="#printing-64-bit-integers-in-rtformat">Printing 64 bit integers in RTFormat</a> <br> <a href="#more-information-for-messages-when-tracing">More information for messages when tracing</a> <br> <a href="#error-code-for-circular-import">Error code for circular import</a> <br> <a href="#unparse-and-merge-of-rtjsonresult">Unparse and merge of RTJsonResult</a> <br> <a href="#removal-of-support-for-ms-trace-format">Removal of support for .ms trace format</a> <br> <a href="#trace-configuration-and-timestamps">Trace configuration and timestamps</a></td>
 </tr>
 </tbody>
 </table>
@@ -1949,7 +2079,7 @@
 <h3 id="waiting-for-multiple-events">Waiting for multiple events</h3>
 <p>A new utility class <a href="../../targetrts-api/class_r_t_multi_receive.html">RTMultiReceive</a> now makes it easier to wait in a state until multiple events have been received, before transitioning to another state. See <a href="../message-communication/#waiting-for-multiple-messages">this chapter</a> for more information.</p>
 <h3 id="application-exit-code-api">Application exit code API</h3>
-<p>The <a href="../targetrts-api/targetrts-api/class_r_t_main.html">RTMain</a> class has two new functions for getting and setting the exit code of the application (<code>getExitCode()</code> and <code>setExitCode()</code>). The default exit code is 0 (as before).</p>
+<p>The <a href="../../targetrts-api/class_r_t_main.html">RTMain</a> class has two new functions for getting and setting the exit code of the application (<code>getExitCode()</code> and <code>setExitCode()</code>). The default exit code is 0 (as before).</p>
 <h3 id="public-function-gettask-in-rtdebugger">Public function "getTask" in RTDebugger</h3>
 <p>The function <a href="../../targetrts-api/class_r_t_debugger.html">RTDebugger</a>::getTask() is now public which makes it possible to programmatically access the current debugger tasks. See the <a href="../../running-and-debugging/rts-debugger/#tasks"><code>tasks</code></a> command of the RTS Debugger for more information about tasks.</p>
 <h3 id="priority-for-event-raised-on-external-port">Priority for event raised on external port</h3>
@@ -1958,6 +2088,32 @@
 <p>A new virtual function <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::registerLayer() was added. The default implementation of this function just reports a run-time error (and is hence not expected to be called), but the overridden function in <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a> provides a useful implementation (which is the same as before). This change has made it possible to remove the cast to <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a> in the <code>REGISTER_LAYER</code> macro, which would previously cause a crash if called with another type of controller. Now that error scenario instead leads to the run-time error <code>badOperation</code>.</p>
 <h3 id="support-for-a-new-trace-file-format-art-trace">Support for a new trace file format (.art-trace)</h3>
 <p>The TargetRTS now supports generating traces of messages that are sent between capsule instances in a new file format (<code>.art-trace</code>). This is now the default trace file format, and the previously supported <code>.ms</code> trace file format now has to be enabled by means of a new command-line option <code>-traceFormat=ms</code>. See <a href="../../running-and-debugging/tracing/">this chapter</a> for more information about the new trace file format and how to use it in Code RealTime.</p>
+<h3 id="shorter-state-qualifiers-in-the-rtsdebugger-system-command">Shorter state qualifiers in the RTSDebugger system command</h3>
+<p>Previously the RTSDebugger's <a href="../../running-and-debugging/rts-debugger/#system">system</a> command would print the qualified name of the active state in a way where each state name in the qualifier was itself qualified. Now this has been fixed and qualified state names are now printed in a more readable way.</p>
+<h3 id="new-rtlock-utility">New RTLock utility</h3>
+<p>A new utility class <a href="../../targetrts-api/class_r_t_lock.html">RTLock</a> can be used for protecting a piece of code from being run by more than one thread at the same time.</p>
+<h3 id="printing-64-bit-integers-in-rtformat">Printing 64 bit integers in RTFormat</h3>
+<p>The <a href="../../targetrts-api/class_r_t_format.html">RTFormat</a> class has two new functions for printing 64 bit integers. For signed integers use <code>_int64_t()</code> and for unsigned integers use <code>_uint64_t()</code>.</p>
+<h3 id="more-information-for-messages-when-tracing">More information for messages when tracing</h3>
+<p>When capturing a trace in the <code>.art-trace</code> format information about the sender port, as well as the sender and receiver port index, is now included for messages. Also, if a message data is present but cannot be ASCII encoded it's shown in the trace with a <code>?</code>. If a message has no data an empty string is printed instead of <code>void</code> as previously. See <a href="../../running-and-debugging/tracing/#message">this chapter</a> for more information.</p>
+<h3 id="support-for-the-primitive-type-wchar_t">Support for the primitive type <code>wchar_t</code></h3>
+<p>The TargetRTS now supports use of wide characters, and arrays of wide characters, using the primitive type <code>wchar_t</code>. A type descriptor for this type is available so it for example can be encoded and decoded.</p>
+<h3 id="error-code-for-circular-import">Error code for circular import</h3>
+<p>When importing a capsule instance into a plugin capsule part a run-time check is performed (unless the setting <a href="../build/#rtimport_isreferencedby_check">RTIMPORT_ISREFERENCEDBY_CHECK</a> has been turned off). Previously, if this check detected that the import would lead to a cycle in the composition hierarchy the general error <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::<code>badClass</code> would be reported. Now a more specific error <a href="../../targetrts-api/class_r_t_controller.html">RTController</a>::<code>circularImport</code> is reported instead.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This change is not backwards compatible. You need to update your code if it checks for the old error code.</p>
+</div>
+<h3 id="unparse-and-merge-of-rtjsonresult">Unparse and merge of RTJsonResult</h3>
+<p>A new function <a href="../../targetrts-api/class_r_t_json_result.html">RTJsonResult</a>::<code>unparse()</code> was implemented to unparse (i.e. pretty-print) a JSON object to an output stream. Another new function <a href="../../targetrts-api/class_r_t_json_result.html">RTJsonResult</a>::<code>merge()</code> was implemented for merging one JSON object into another.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As part of this change the error constant <code>RTJsonResult::ERROR</code> was renamed to <code>RTJsonResult::jsonError</code> to avoid a name clash when including <code>&lt;windows.h&gt;</code>. This change is not backwards compatible.</p>
+</div>
+<h3 id="removal-of-support-for-ms-trace-format">Removal of support for .ms trace format</h3>
+<p>The TargetRTS no longer generates the <code>.ms</code> trace format. Instead, this format can be obtained by translating the <code>.art-trace</code> format. The module that parses <code>.art-trace</code> files is now open-source at <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace">GitHub</a> and a <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace/blob/main/samples/jsSequenceDiagrams.ts">sample script</a> is provided for creating the <code>.ms</code> trace format from an <code>.art-trace</code> file.</p>
+<h3 id="trace-configuration-and-timestamps">Trace configuration and timestamps</h3>
+<p>Tracing can now be configured by passing a trace configuration JSON file with the command-line argument <code>-traceConfig</code> to an application. Currently the trace configuration file can be used for turning on the capturing of timestamps for messages. Two time-stamps can be captured; the time when a message is received (i.e. dispatched to) a capsule instance and the time when a message has been handled by the capsule instance's state machine. The difference between these timestamps tell how much time it took to process the message. For more information see <a href="../../running-and-debugging/tracing/#trace-configuration">Trace Configuration</a>.</p>
 
 
 

@@ -537,11 +537,38 @@
     Field Descriptor
   </a>
   
+    <nav class="md-nav" aria-label="Field Descriptor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-modifier" class="md-nav__link">
+    Type Modifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-descriptor-type" class="md-nav__link">
+    Field Descriptor Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#inheritance" class="md-nav__link">
     Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-with-state-machine" class="md-nav__link">
+    Class with State Machine
   </a>
   
 </li>
@@ -1438,11 +1465,38 @@
     Field Descriptor
   </a>
   
+    <nav class="md-nav" aria-label="Field Descriptor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-modifier" class="md-nav__link">
+    Type Modifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-descriptor-type" class="md-nav__link">
+    Field Descriptor Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#inheritance" class="md-nav__link">
     Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-with-state-machine" class="md-nav__link">
+    Class with State Machine
   </a>
   
 </li>
@@ -1479,7 +1533,7 @@
 
   <h1>C++ Extensions</h1>
 
-<p>An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C++, certain snippets containing declarations (specifically, those marked as <code>rt::decl</code> and <code>rt::impl</code>) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, such as attributes applied to the declarations in these snippets, translating them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. </p>
+<p>An Art file may contain code snippets at various places, where the C++ code within these snippets takes the form of expressions (e.g., guard conditions), statements (e.g., transition effects), or declarations (e.g., types, functions, variables, etc.). While most code snippets are copied directly to the generated C++ files during the translation process from an Art file to C++, certain snippets containing declarations (specifically, those marked as <code>rt::decl</code> and <code>rt::impl</code>) undergo parsing and analysis by the code generator. The code generator identifies and processes certain C+ extensions, in the form of attributes applied to the declarations in these snippets, and translates them into additional C++ code. This capability enables the code generator to enhance the C++ code you write by incorporating additional boilerplate code. </p>
 <p>An alternative to using <code>rt::decl</code> and <code>rt::impl</code> code snippets in an Art file is to directly <a href="../../building/build-cpp-files/">include C++ source files</a> in your workspace folder. Code in such C++ files are also analyzed by the code generator, and extra code will be generated from attributes present in them. The main difference in this case is that the extra code will be placed in separate generated files, since there is no Art file that will be translated to C++ where it could be placed. See <a href="#generated-files">Generated Files</a> for more information.</p>
 <p>This chapter provides details on the applicable C++ extensions and the corresponding generated code for each.</p>
 <h2 id="type-descriptor">Type Descriptor</h2>
@@ -1546,7 +1600,7 @@
 </tr>
 </tbody>
 </table>
-<p>The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes <code>RTEncoding</code> and <code>RTDecoding</code> from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros <a href="../../target-rts/build/#object_decode-and-object_encode"><code>OBJECT_ENCODE</code> and <code>OBJECT_DECODE</code></a> respectively. Learn more about encoding and decoding <a href="../../target-rts/encoding-decoding/">in this chapter</a>.</p>
+<p>The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes <a href="../../targetrts-api/class_r_t_encoding.html"><code>RTEncoding</code></a> and <a href="../../targetrts-api/class_r_t_decoding.html"><code>RTDecoding</code></a> from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros <a href="../../target-rts/build/#object_decode-and-object_encode"><code>OBJECT_DECODE</code> and <code>OBJECT_ENCODE</code></a> respectively. Learn more about encoding and decoding <a href="../../target-rts/encoding-decoding/">in this chapter</a>.</p>
 <p><strong>3) A type installer object</strong></p>
 <p>Decoding functions typically need to look up a type descriptor from the name of the type. For example, if it finds the type name "MyType" in the string that it parses, it needs to find the type descriptor object for "MyType" so it can allocate memory for an instance of "MyType" and then initialize it. To facilitate this lookup the TargetRTS keeps a type descriptor registry. The purpose of the type installer object is to add the type descriptor to this registry. The C++ code looks like this:</p>
 <pre><code class="language-cpp">#if OBJECT_DECODE
@@ -1589,11 +1643,12 @@ RTTypeInstaller rtg_MyType_installer( RTType_MyType );
 };
 </code></pre>
 <h3 id="automatically-generated">Automatically Generated</h3>
-<p>The code generator will automatically generate a type descriptor for a type if you mark it with the <strong>rt::auto_descriptor</strong> attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an <code>rt::impl</code> code snippet. </p>
+<p>The code generator will automatically generate a type descriptor for a C++ type if you mark it with the <code>rt::auto_descriptor</code> attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an <code>rt::impl</code> code snippet. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you write your own type descriptor function it's important that its prototype exactly matches what is listed in <a href="#art_type_descriptor_functions">this table</a>. It's recommended to use <a href="../../working-with-art/art-editor/#content-assist">Content Assist</a> within the <code>rt::impl</code> code snippet to avoid typos and reduce typing effort.</p>
+<p>If you write your own type descriptor function it's important that its name exactly matches what is listed in <a href="#art_type_descriptor_functions">this table</a>. It's recommended to use <a href="../../working-with-art/art-editor/#content-assist">Content Assist</a> within the <code>rt::impl</code> code snippet to avoid typos and reduce typing effort.</p>
 <p><img alt="" src="../images/type_descriptor_content_assist.png" /></p>
+<p>While in most cases you would want the full prototype of each type descriptor function to match exactly what is listed in <a href="#art_type_descriptor_functions">this table</a>, in some cases you may want to do some minor changes. For example, the default prototype of the decode function declares the <code>target</code> parameter as non-const since usually a decode implementation has to call non-const functions on the decoded object to populate it with data from the decoding. If your custom decode function doesn't need to call such functions you can change the signature to make the <code>target</code> parameter const.</p>
 </div>
 <p>Here are some examples of using the <code>rt::auto_descriptor</code> attribute on different kinds of types:</p>
 <pre><code class="language-cpp">enum [[rt::auto_descriptor]] Status {
@@ -1701,7 +1756,7 @@ using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;;
 </ul>
 </div>
 <h3 id="manually-implemented">Manually Implemented</h3>
-<p>If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the <strong>rt::manual_descriptor</strong> attribute. The code generator will then skip generation of the following parts of the type descriptor:</p>
+<p>If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the <code>rt::manual_descriptor</code> attribute. The code generator will then skip generation of the following parts of the type descriptor:</p>
 <ul>
 <li>The implementation of the type descriptor object. The variable will be declared in the header file, but no implementation will be generated.</li>
 <li>The type descriptor functions. If your type descriptor needs any of the functions you can implement them and reference them from the implementation of the type descriptor object.</li>
@@ -1714,7 +1769,7 @@ using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;;
 
 [[rt::impl]]
 `
-static void rtg_MyColors_init( const RTObject_class * type, MyColors * target )
+static void rtg_MyColors_init(const RTObject_class* type, MyColors* target)
 {
     *target = Colors::Yellow; // Default color
 }
@@ -1751,10 +1806,10 @@ const RTObject_class RTType_MyColors =
 <p>You can find a sample application that uses a manually implemented type descriptor <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/enum_type_descriptor_manual">here</a>.</p>
 </div>
 <h4 id="versioning">Versioning</h4>
-<p>Type descriptors support versioning by means of the field <code>RTObject_class::_version</code>. By default the version field is set to 0 which denotes the first version of the type described by the type descriptor. For types that are part of an API for which you need to maintain backwards compatibility, you can raise the version in case you need to modify the type in a way that is not backwards compatible. Use of versioning requires a manually implemented type descriptor, and the version information is for example used when you perform <a href="../../target-rts/encoding-decoding/">encoding/decoding</a> using the <code>RTVAsciiEncoding</code> and <code>RTVAsciiDecoding</code> classes.</p>
+<p>Type descriptors support versioning by means of the field <code>RTObject_class::_version</code>. By default the version field is set to 0 which denotes the first version of the type described by the type descriptor. For types that are part of an API for which you need to maintain backwards compatibility, you can raise the version in case you need to modify the type in a way that is not backwards compatible. Use of versioning requires a manually implemented type descriptor, and the version information is for example used when you perform <a href="../../target-rts/encoding-decoding/">encoding/decoding</a> using the <a href="../../targetrts-api/class_r_t_v_ascii_encoding.html"><code>RTVAsciiEncoding</code></a> and <a href="../../targetrts-api/class_r_t_v_ascii_decoding.html"><code>RTVAsciiDecoding</code></a> classes.</p>
 <h3 id="field-descriptor">Field Descriptor</h3>
-<p>A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class <code>RTFieldDescriptor</code>. </p>
-<p>If the structured type only contains public member variables, the code generator can generate the field descriptor as a global object in the implementation file. However, if at least one member variable is either private or protected, you need to declare the type descriptor <em>inside</em> the type, as a public member variable. The reason is that the byte offset of each member variable is stored in the field descriptor, and computing this offset requires access to the member variable from the field descriptor.</p>
+<p>A type descriptor for a structured type (class or struct) contains information about the member variables (a.k.a fields) of the type. This information is stored in a field descriptor object typed by the TargetRTS class <a href="../../targetrts-api/struct_r_t_field_descriptor.html"><code>RTFieldDescriptor</code></a>. </p>
+<p>If the structured type only contains public member variables, the code generator can generate the field descriptor as a global object in the implementation file. However, if at least one member variable is either private or protected, you need to declare the field descriptor <em>inside</em> the type, as a public member variable. The reason is that the byte offset of each member variable is stored in the field descriptor, and computing this offset requires access to the member variable from the field descriptor.</p>
 <p>Below is an example of a struct and a class. The struct only contains public member variables and hence it's not necessary to declare the field descriptor manually. However, since the class contains a private member variable, we need to declare a field descriptor for it.</p>
 <pre><code class="language-art">[[rt::decl]]
 `
@@ -1779,18 +1834,125 @@ const RTObject_class RTType_MyColors =
 <p class="admonition-title">Example</p>
 <p>You can find a sample application where a field descriptor is declared <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/type_descriptor_inheritance">here</a>.</p>
 </div>
+<p>If you want to exclude a member variable from the field descriptor of a structured type you can do so by setting the <code>rt::no_descriptor</code> attribute on the member variable. One reason to do this can be to avoid that the value of a certain member variable is included in the encoding of a structured type.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/field_descriptor_properties">Here</a> is a sample application where a member variable is excluded from the field descriptor by means of the <code>rt::no_descriptor</code> attribute.</p>
+</div>
+<h4 id="type-modifier">Type Modifier</h4>
+<p>Field descriptors for member variables of pointer and array type contain additional information in a so called type modifier, represented by the TargetRTS class <a href="../../targetrts-api/struct_r_t_type_modifier.html"><code>RTTypeModifier</code></a>. For members of array type the type modifier object holds information about the number of elements in the array. By default this is the declared size of the array which means that the encoding of an array will contain all its elements. You can change this by defining a custom function that specifies the number of elements that should be included. Such a function must have a prototype that can be safely casted to an <code>RTNumberFunction</code>:</p>
+<pre><code class="language-cpp">typedef int (*RTNumberFunction)(const RTTypeModifier*, const void*);
+</code></pre>
+<p>There are at least three situations when a custom "number of elements" function is needed:</p>
+<ol>
+<li>If you want to exclude some of the array elements from the encoding. By defining a "number of elements" function that returns a lower number than the size of the array, you can have some trailing elements in an array that will be skipped when encoding and decoding the array.</li>
+<li>If the constant expression that defines the array size uses a name that is not visible in the generated type modifier (e.g. a static constexpr member). The code generator will by default generate a type modifier that specifies the number of array elements using exactly the same constant expression, so if this will lead to compilation errors you must provide a custom "number of elements" function.</li>
+<li>A member variable of pointer type that points at the first element of an array. If you want to encode that member as an array you need to define a "number of elements" function to specify how many elements of the array that exists and that should be encoded.</li>
+</ol>
+<p>Here is an example of how you can define a custom "number of elements" function for a member variable of array type. In this case it's needed for both reasons 1 and 2 mentioned above.</p>
+<pre><code class="language-art">[[rt::decl]]
+`       
+    struct [[rt::auto_descriptor]] S {
+        static constexpr int SIZE = 8; // Not accessible without qualifier in the .cpp file
+        char arr[SIZE];
+    }; 
+`
+
+[[rt::impl]]
+`
+    // Custom &quot;number of elements&quot; function for S::arr
+    static int rtg_nefb_S_arr(const RTTypeModifier* modifier, const S* source) {
+        return 2; // Only include the first 2 elements in the encoding
+    }
+`
+</code></pre>
+<p>Just as for type descriptor functions it's recommended to use <a href="../../working-with-art/art-editor/#content-assist">Content Assist</a> for implementing a custom "number of elements" function with the correct prototype.</p>
+<p><img alt="" src="../images/number_of_elements_function_content_assist.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses a custom "number of elements" function for a type modifier <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/field_descriptor_array_custom_num_func">here</a>.</p>
+</div>
+<p>For member variables of pointer type, the type modifier has the <code>_indirect</code> flag set. This is used during encoding to know that the member variable's value is not directly stored in the member variable, but indirectly through a pointer. The indirection shows up in the ASCII encoding as an extra level of curly brackets.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Refer to <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/field_descriptor_indirect">this sample application</a> to see the difference between a member variable that directly holds the value to be encoded, and one that indirectly references it through a pointer.</p>
+</div>
+<p>You can suppress the generation of a type modifier for a member variable by setting the <code>rt::no_type_modifier</code> attribute on the member variable. For an array member variable this has the same effect as implementing a custom "number of elements" function which returns 1, i.e. only the first element of the array will be included in the array's encoding.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/field_descriptor_properties">Here</a> is a sample application which uses the <code>rt::no_type_modifier</code> attribute.</p>
+</div>
+<h4 id="field-descriptor-type">Field Descriptor Type</h4>
+<p>A field descriptor for a member variable contains a pointer to the type descriptor of the member variable's type. If that type doesn't have a type descriptor you need to either exclude that member variable from the field descriptor by means of the <code>[[rt::no_descriptor]]</code> attribute or specify a custom type descriptor to be used by means of the <code>[[rt::type_descriptor]]</code> attribute. The latter can also be useful in case the default type descriptor is not the one you want to use. For example, assume you have a struct with two boolean member variables. In the encoding of this struct you prefer the booleans to be represented as <code>1</code> or <code>0</code> instead of as <code>true</code> or <code>false</code> which is their default encoding. You can then <a href="#manually-implemented">create your own type descriptor</a> which encodes the booleans to <code>1</code> or <code>0</code>.</p>
+<p>For example, consider this struct defined in <code>LEDStatus.h</code>:</p>
+<pre><code class="language-cpp">extern const RTObject_class RTType_MyBool;
+
+struct [[rt::auto_descriptor]] LEDStatus {
+    [[rt::type_descriptor(&quot;RTType_MyBool&quot;)]] bool left = true;
+    [[rt::type_descriptor(&quot;RTType_MyBool&quot;)]] bool right = false;
+}; 
+</code></pre>
+<p>with a custom type descriptor implemented in <code>MyBool.cpp</code>:</p>
+<pre><code class="language-cpp">#if OBJECT_ENCODE
+static int my_bool_encode( const RTObject_class *,
+            const void           * source,
+            RTEncoding           * coding )
+{
+    return coding-&gt;put_int( * static_cast&lt;const bool *&gt;(source) ? 1 : 0 );
+}
+#endif
+
+const RTObject_class RTType_MyBool =
+{
+    nullptr
+    , nullptr
+    , &quot;MyBool&quot;
+    , 0 /* RTVersionId */
+    , sizeof( bool )
+    , nullptr
+    , nullptr
+#if RT_VERSION_NUMBER &gt;= 7105
+    , nullptr
+#endif
+#if OBJECT_DECODE
+    , nullptr
+#endif
+#if OBJECT_ENCODE
+    , my_bool_encode
+#endif
+    , RTnop_destroy
+    , 0
+    , nullptr
+};
+</code></pre>
+<p>The ASCII encoding of an instance of <code>LEDStatus</code> would then look like this: <code>LEDStatus{left 1,right 0}</code></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample application that uses the <code>[[rt::type_descriptor]]</code> attribute <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/field_descriptor_properties">here</a>.</p>
+</div>
 <h3 id="inheritance">Inheritance</h3>
 <p>If a class or struct inherits from another class or struct, as in the example above, then the type descriptor of the derived type will have a reference to the type descriptor of the base type. In this case both types need to have a type descriptor. A type descriptor can at most reference one base type descriptor (a.k.a. a super descriptor) which means that only single inheritance is supported for automatically generated type descriptors. If you use multiple inheritance you have to write a <a href="#manually-implemented">manual type descriptor</a> for the derived type.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that uses an automatically implemented type descriptor for a class that inherits from another class <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/type_descriptor_inheritance">here</a>.</p>
 </div>
+<h3 id="class-with-state-machine">Class with State Machine</h3>
+<p>A <a href="../#class-with-state-machine">class with state machine</a> is, except for its state machine, just like a regular C++ class (or struct if it has the <a href="../#kind"><code>kind</code></a> property set to <code>struct</code>). Hence, it may be useful for such a class to have a type descriptor too. However, since a class with state machine is defined in the Art language and not in C++, you cannot use the <code>[[rt::auto_descriptor]]</code> or <code>[[rt::manual_descriptor]]</code> attributes. Instead you need to set the <a href="../#generate_descriptor"><code>generate_descriptor</code> property</a> on the class. Set it to <code>true</code> to use an <a href="#automatically-generated">automatically generated type descriptor</a> and set it to <code>manual</code> if you prefer a <a href="#manually-implemented">manually implemented type descriptor</a>. Other than this, everything else w.r.t type descriptors works the same for a class with state machine as for a regular C++ class.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Refer to these samples that use type descriptors for classes with state machines:</p>
+<ul>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/passive_class_sm_typedescriptor">Automatically generated type descriptor for a class with state machine that has a non-public member</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/passive_class_sm_typedescriptor_custom">Type descriptor with a custom encode function which encodes the currently active state</a></li>
+</ul>
+</div>
 <h3 id="generated-files">Generated Files</h3>
 <p>The code mentioned above related to type descriptors, which the code generator generates for the <code>[[rt::auto_descriptor]]</code> and <code>[[rt::manual_descriptor]]</code> attributes, will be placed in generated header and implementation files:</p>
 <ol>
-<li>If the type with the attribute is located in an <code>[[rt::decl]]</code> code snippet in an Art file, the generated files get the same name as the Art file, but with the extensions <code>.h</code> or <code>.cpp</code> appended. For example, if the Art file is called <code>MyTypes.art</code> the type descriptor code for a type contained in an <code>[[rt::decl]]</code> code snippet in that file will be placed in files <code>MyTypes.art.h</code> and <code>MyTypes.art.cpp</code>. To use the type you include the file <code>MyTypes.art.h</code>.</li>
-<li>If the type with the attribute is located in a C++ header file that is present in the workspace folder (see <a href="../../building/build-cpp-files/">C++ Source Files</a>), the generated files get the same name as the C++ header file but prefixed with <code>RTType_</code>. For example, if your workspace folder contains a file <code>MyType.h</code> with a type that has a type descriptor attribute applied, two files <code>RTType_MyType.h</code> and <code>RTType_MyType.cpp</code> will be generated. Note that <code>RTType_MyType.h</code> will include the original header file <code>MyType.h</code> which means that if you need to use the type in a way that requires its type descriptor, you should include <code>RTType_MyType.h</code> rather than <code>MyType.h</code>.</li>
+<li>If the C++ type with the attribute is located in an <code>[[rt::decl]]</code> code snippet in an Art file, the generated files get the same name as the Art file, but with the extensions <code>.h</code> or <code>.cpp</code> appended. For example, if the Art file is called <code>MyTypes.art</code> the type descriptor code for a type contained in an <code>[[rt::decl]]</code> code snippet in that file will be placed in files <code>MyTypes.art.h</code> and <code>MyTypes.art.cpp</code>. To use the type you include the file <code>MyTypes.art.h</code>.</li>
+<li>If the C++ type with the attribute is located in a C++ header file that is present in the workspace folder (see <a href="../../building/build-cpp-files/">C++ Source Files</a>), the generated files get the same name as the C++ header file but prefixed with <code>RTType_</code>. For example, if your workspace folder contains a file <code>MyType.h</code> with a type that has a type descriptor attribute applied, two files <code>RTType_MyType.h</code> and <code>RTType_MyType.cpp</code> will be generated. Note that <code>RTType_MyType.h</code> will include the original header file <code>MyType.h</code> which means that if you need to use the type in a way that requires its type descriptor, you should include <code>RTType_MyType.h</code> rather than <code>MyType.h</code>.</li>
 </ol>
+<p>For an Art <a href="#class-with-state-machine">class with state machine that has a type descriptor</a> the code related to its type descriptor will be placed in the same header and implementation files that are generated for the class with state machine.</p>
 
 
 

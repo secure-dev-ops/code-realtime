@@ -20,7 +20,7 @@
     
     
       
-        <title>3.0.0 (2025-09-23 15:57) - DevOps Code RealTime</title>
+        <title>3.1.0 (2025-11-19 12:02) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#300-2025-09-23-1557" class="md-skip">
+        <a href="#310-2025-11-19-1202" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.0.0 (2025-09-23 15:57)
+              3.1.0 (2025-11-19 12:02)
             
           </span>
         </div>
@@ -1295,6 +1295,30 @@
   
 
 
+<h1 id="310-2025-11-19-1202">3.1.0 (2025-11-19 12:02)</h1>
+<ol>
+<li>A new diagram setting has been added to control if excluded elements should be shown or not in state and structure diagrams. It's available both as a global workspace setting and as a setting for an individual diagram (i.e. a new checkbox in the Properties view). If shown, excluded transitions are now drawn with a "crossed" line style to be consistent with how other excluded elements are shown.</li>
+<li>The support for visualizing C++ code in class diagrams has been improved. Now it handles C++ code both inside <code>[[rt::decl]]</code> code snippets in an Art file as well as in a regular C++ header file (<code>.h</code>). In addition to inheritance relationships, associations and composition relationships are also shown. You can click symbols and lines on these diagrams to navigate to the corresponding C++ declaration.</li>
+<li>Diagram layout settings are now validated and warnings are reported in case some problem in a layout setting file prevents it from being used when the diagram is opened. Such problems can for example occur as a result of a faulty merge, or a rename refactoring that failed to update all references to the renamed element in layout files.</li>
+<li>The C++ language server files (<code>c_cpp_properties.json</code> and <code>compile_commands.json</code>) are now generated automatically in a workspace folder. These files are needed when your workspace folder contains C++ source files, and previously it was necessary to write and maintain these files manually which was tedious.</li>
+<li>Use of deep history in class state machines is now supported.</li>
+<li>Field descriptors for member variables of array type are now generated so that by default all elements of the array will be included when encoding it. Previously only the first element was included. The C++ code generator also supports to define a custom "number of elements" function for such a field descriptor to exclude some of the trailing array elements from the encoding.</li>
+<li>Code generation for field descriptors can now be customized by means of three new C++ attributes that can be set on member variables: <code>[[rt::no_descriptor]]</code>, <code>[[rt::no_type_modifier]]</code> and <code>[[rt::type_descriptor]]</code>. Read more about these attributes <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/cpp-extensions/#field-descriptor">in the documentation</a>.</li>
+<li>The code generator supports two new properties for a capsule and a class with state machine. The properties <code>generate_file_header</code> and/or <code>generate_file_impl</code> can be set to <code>false</code> to prevent generation of the header and/or implementation file for the capsule/class. This can for example be useful if you prefer to write one or both of these files manually.</li>
+<li>For a class with state machine the code generator supports a new property <code>kind</code> which, if set to <code>struct</code>, will generate a struct instead of a class for it.</li>
+<li>It's now possible to use a type descriptor for a class with state machine. Set the property <code>generate_descriptor</code> to <code>true</code> to use an automatically generated type descriptor, or set it to <code>manual</code> if you prefer to implement the type descriptor yourself. Customization of type descriptor functions works in the same way as for C++ types, i.e. just provide your custom implementation for the type descriptor functions you need to customize, and the code generator will then use these instead of the default ones.</li>
+<li>Two new TC properties <code>sourceSubdirectory</code> and <code>unitSubdirectory</code> are supported by the Art Compiler. They can be set to place generated code and/or generated unit files into sub directories.</li>
+<li>Captured traces may now include an "external" instance (with address 0x0) to represent the injection of external messages into an application. Typical examples of such external messages include programmatic injection of messages on ports and when using the Art Debugger for sending events on ports during a debug session. But in general they represent an "unknown sender" and are used whenever it's not possible to determine the sender of a received message.</li>
+<li>Captured traces now contain information about the port on which a received message was sent, as well as the port index (both for the sender and receiver port).</li>
+<li>What to include in a trace file can now be configured by means of a JSON configuration file. For example, it's possible to configure tracing so that it includes timestamps for when a message was received and handled. Such information can be used when analyzing the performance of an application based on captured traces.</li>
+<li>The parser for <code>.art-trace</code> files has been published as open source on <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace">GitHub</a> and is also available as an <a href="https://www.npmjs.com/package/art-trace">npm package</a>. This makes it possible to write your own scripts for analyzing, translating or visualizing traces. A few examples of such scripts are included in the GitHub repository.</li>
+<li>The sequence diagram viewer for trace files now supports navigation from lifeline headers to instances, and from message arrows to messages in the trace file.</li>
+<li>A <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/message-communication/#custom-controller">new chapter in the documentation</a> describes the TargetRTS class <code>RTCustomController</code> which allows a capsule to customize the event loop of its controller. A typical example of such a customization is to integrate socket communication in the event loop, and this is shown in <a href="https://secure-dev-ops.github.io/code-realtime/samples/#socketinterface">a new sample application</a>.</li>
+<li>The TargetRTS and Art Compiler now supports the wide character primitive type (<code>wchar_t</code>). For example, you can encode and decode wide characters and arrays of wide characters.</li>
+<li>The TargetRTS provides a new utility <code>RTLock</code> for protecting a piece of code from being run by more than one thread at the same time.</li>
+<li>The TargetRTS now supports printing 64 bit integers with its <code>RTFormat</code> class. </li>
+<li>Version 2.1.0 of the Art Exporter is now available. Among many other improvements it now can export layout information for state diagrams. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for more detailed release notes for the Art Exporter.</li>
+</ol>
 <h1 id="300-2025-09-23-1557">3.0.0 (2025-09-23 15:57)</h1>
 <ol>
 <li>The size of parent symbols are now automatically increased when a nested child symbol is moved outside the boundaries of the parent symbol, so that the child symbol still fits within the parent symbol afterwards. This simplifies movement of nested symbols and avoids the step of first having to resize the parent symbol. </li>

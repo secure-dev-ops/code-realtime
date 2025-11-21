@@ -1354,6 +1354,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#socketinterface" class="md-nav__link">
+    SocketInterface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#grpc_mazerunner" class="md-nav__link">
     gRPC_MazeRunner
   </a>
@@ -1521,6 +1528,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#socketinterface" class="md-nav__link">
+    SocketInterface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#grpc_mazerunner" class="md-nav__link">
     gRPC_MazeRunner
   </a>
@@ -1611,6 +1625,9 @@
 <h2 id="tokenring"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TokenRing">TokenRing</a></h2>
 <p>This sample is similar to <a href="#distributedpingpong">DistributedPingPong</a>, and also uses the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer">TCPServer library</a>. But instead of just connecting two applications, here multiple applications can be connected in a ring structure. The applications exchange a <code>token</code> event which has a string (<code>RTString</code>) data parameter.</p>
 <p><strong>TargetRTS:</strong> <a href="../targetrts-api/class_r_t_string.html">RTString</a></p>
+<h2 id="socketinterface"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/SocketInterface">SocketInterface</a></h2>
+<p>This sample shows how you can integrate socket-based communication directly into a controller's main loop by using a <a href="../target-rts/message-communication/#custom-controller">Custom Controller</a>. This distributed application is similar in functionality to <a href="#distributedpingpong">DistributedPingPong</a> but operates much faster since socket data is read and written directly in the main loop.</p>
+<p><strong>TargetRTS:</strong> <a href="../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a></p>
 <h2 id="grpc_mazerunner"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/gRPC_MazeRunner">gRPC_MazeRunner</a></h2>
 <p>This sample uses the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/gRPCServer">gRPCServer library</a> which allows a realtime application to communicate using <a href="https://grpc.io/">gRPC</a> with other applications. The sample also shows how to mix Art files with <a href="../building/build-cpp-files/">hand-written C++ source files</a> and build them into a single application.</p>
 <p><strong>TargetRTS:</strong> <a href="../targetrts-api/struct_r_t_out_signal.html">RTOutSignal</a>::invoke()</p>
