@@ -1,0 +1,53 @@
+protocol Proto {
+    in ack();
+    out foo(`int`);
+    in foo_reply(`int`);
+};
+
+capsule Top {
+    behavior port frame : Frame;
+    behavior port p : Proto;
+
+    optional part thePart : Cap1;
+    
+    connect p with thePart.p;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1
+        `
+            RTActorId id = frame.incarnate(thePart);
+            if (!id.isValid()) {
+                FAIL("Failed to incarnate thePart");
+            }        
+        `;     
+        State1 -> State2 on p.ack
+        `
+            //Log::out << "Received ack from Cap1" << Log::endl;
+            RTMessage reply;
+            p.foo(42).invoke(&reply);
+            int result = * static_cast<int*>(reply.getData());
+            ASSERT(result == 43, "Unexpected result - expected 43");
+            PASS();
+        `;
+    };
+};
+
+capsule Cap1 {
+    
+    service behavior port p~ : Proto;
+    statemachine {
+        state State, State2;
+        initial -> State
+        `
+            p.ack().send();
+        `;
+        State -> State2 on p.foo
+        `
+            ASSERT(msg->getPriority() != Synchronous, "Unexpected message priority");
+            int result = *rtdata;
+            ASSERT(result == 42, "Unexpected result - expected 42");
+            p.foo_reply(result + 1).reply();
+        `;
+    };
+};
