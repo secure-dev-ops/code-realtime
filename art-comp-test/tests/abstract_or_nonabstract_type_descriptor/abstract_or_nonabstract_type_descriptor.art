@@ -1,0 +1,68 @@
+capsule Top {
+    /* Ports */
+    behavior port p1 : NonAbstractProtocol;
+    /* Parts */
+    part c1 : C1;
+    /* Connectors */
+    connect p1 with c1.p;
+    /* State Machine */
+    statemachine {
+        state State{
+            [[rt::properties(
+                const_rtdata=false
+            )]]
+            on p1.i1 
+            `
+                NonAbstract& na = *static_cast<NonAbstract*>(rtdata);
+                na.nonConstFunc();
+                int r = na.addAll(40, 60);
+                ASSERT(r == 100, "addAll did not compute expected value");
+                PASS();
+            `;
+        };
+        initial -> State
+        `
+            NonAbstract na;
+            p1.o1(na).send();
+        `;
+    };
+};
+
+capsule C1 {
+    [[rt::impl_preface]]
+    `
+        #include "RTType_NonAbstract.h"
+    `
+    /* Ports */
+    service behavior port p~ : NonAbstractProtocol;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State {
+            on p.o1
+            `
+                const NonAbstract& na = *static_cast<const NonAbstract*>(rtdata);
+                ASSERT(na.doSomething(), "Failed to call doSomething on NonAbstract");
+                ASSERT(static_cast<const NonAbstract*>(na.constSelf()) == &na, "constSelf did not return correct pointer");
+                ASSERT(na.testAbstractDescriptor(), "Type descriptor test failed for Abstract");
+                ASSERT(na.testNonAbstractDescriptor(), "Type descriptor test failed for NonAbstract");
+
+                NonAbstract na2;
+                p.i1(na2).send();              
+            `;
+        };
+        initial -> State;
+    };
+};
+
+protocol NonAbstractProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_NonAbstract.h"
+    `
+    /* In Events */
+    in i1(`NonAbstract`);
+    /* Out Events */
+    out o1(`NonAbstract`);
+};
