@@ -1,16 +1,26 @@
 protocol Proto {
     in ack();
+
     out foo(`int`);
     in foo_reply(`int`);
+
+    out bar(`bool`);
+    in bar_reply(); // No reply data
+
+    out getIndex();
+    in getIndex_reply(`int`);
 };
 
 capsule Top {
     behavior port frame : Frame;
     behavior port p : Proto;
+    behavior port p2 : Proto[10];
 
     optional part thePart : Cap1;
+    fixed part fixedPart : Cap2[10];
     
     connect p with thePart.p;
+    connect p2 with fixedPart.p;
 
     statemachine {
         state State1, State2;
@@ -22,32 +32,95 @@ capsule Top {
             }        
         `;     
         State1 -> State2 on p.ack
-        `
-            //Log::out << "Received ack from Cap1" << Log::endl;
-            RTMessage reply;
+        `            
+            RTMessage reply; // Allocate reply message on the stack
             p.foo(42).invoke(&reply);
             int result = * static_cast<int*>(reply.getData());
             ASSERT(result == 43, "Unexpected result - expected 43");
-            PASS();
+            
+            p.bar(true).invoke(); // Implicit reply, no data expected  
+
+            // We can reuse the same reply message object for another invoke
+            p.foo(12).invoke(&reply);
+            result = * static_cast<int*>(reply.getData());
+            ASSERT(result == 13, "Unexpected result - expected 13");
+
+            // Use invokeAt() on a port with multiplicity > 1 to communicate with only one of the connected capsule instances            
+            p2.getIndex().invokeAt(3, &reply);
+            result = * static_cast<int*>(reply.getData());
+            ASSERT(result == 3, "getIndex returned unexpected result");
+
+            // invoke() on a port with multiplicity > 1 will broadcast the invoke to all connected capsule instances
+            // We then need one reply object for each receiver
+            int indexSum = 0;
+            RTMessage* replies = new RTMessage[p2.size()]; 
+            p2.getIndex().invoke(replies);
+            for (int i = 0; i < p2.size(); i++ ) {
+                if (replies[i].isValid()) {
+                    int returnVal = * static_cast<int*>(replies[i].getData());
+                    indexSum += returnVal;
+                }
+                else {
+                    FAIL("Expected valid reply message from all receivers");
+                }
+            }
+            delete[] replies;
+            ASSERT(indexSum == 45, "getIndex broadcast returned unexpected sum");
+
+            PASS();          
         `;
     };
 };
 
 capsule Cap1 {
+    [[rt::decl]]
+    `
+        private:
+        bool implicitReplyMade = false;
+    `
     
     service behavior port p~ : Proto;
     statemachine {
-        state State, State2;
+        state State, State2 {
+            on p.bar
+            `
+                // No data expected in reply so we can make an implicit reply
+                int result = *rtdata;
+                ASSERT(result, "Unexpected result - expected true");
+                implicitReplyMade = true;
+            `;
+            on p.foo
+            `                
+                int result = *rtdata;
+                ASSERT(result == 12, "Unexpected result - expected 12");
+                // Make sure the previous implicit reply was made
+                ASSERT(implicitReplyMade, "Expected implicit reply to have been made before");
+                p.foo_reply(result + 1).reply();
+            `;
+        };
         initial -> State
         `
             p.ack().send();
         `;
         State -> State2 on p.foo
         `
-            ASSERT(msg->getPriority() != Synchronous, "Unexpected message priority");
+            ASSERT(msg->getPriority() == System, "Unexpected message priority");
             int result = *rtdata;
             ASSERT(result == 42, "Unexpected result - expected 42");
             p.foo_reply(result + 1).reply();
         `;
+    };
+};
+
+capsule Cap2 {
+    service behavior port p~ : Proto;
+    statemachine {
+        state State {
+            on p.getIndex
+            `
+                p.getIndex_reply(getIndex()).reply();
+            `;
+        };
+        initial -> State;
     };
 };

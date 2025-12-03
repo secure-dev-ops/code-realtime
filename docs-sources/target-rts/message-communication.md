@@ -10,7 +10,7 @@ From the application’s perspective, there is no difference between sending a m
 
 Each physical thread in the TC of an application specifies an implementation class that inherits from [RTController](../targetrts-api/class_r_t_controller.html). The default implementation is provided by the [RTPeerController](../targetrts-api/class_r_t_peer_controller.html) class, and it implements a simple event loop (in the `mainLoop()` function) that in each iteration delivers the most prioritized message to the capsule instance that should handle it. Let's explore what happens internally in the TargetRTS when a capsule sends an event on a port:
 
-```art
+```cpp
 myPort.myEvent().send();
 ```
 
@@ -37,6 +37,58 @@ From a code snippet of a capsule, such as a transition effect or guard code, you
 The picture below illustrates a controller and how messages arriving from capsule instances are placed in the incoming or the internal queue, depending on if those capsule instances run in the same or a different controller. It also shows how these queues actually are arrays of queues organized according to [message priority](#message-priority).
 
 ![](images/controller.png)
+
+### Asynchronous versus Synchronous Communication
+The message exchange described above implements **asynchronous** communication between capsule instances. With this type of communication the sender is not blocked while the sent message is in transit. As soon as it has sent the message (i.e. when it has been placed in the message queue of the receiver's controller) the sender can continue its execution. Asynchronous communication is the most common type of communication between capsule instances. It yields a high throughput of messages with minimal dependencies between the sender and the receiver.
+
+However, in some cases it doesn't make much sense for the sender to continue its execution until the receiver has received and handled the message. The typical example is if the receiver needs to return some data to the sender, which affects the further execution of the sender. In this case you can instead use **synchronous** communication, which means the sender is blocked until the receiver has replied to the message. If no data needs to be passed back to the sender the reply can be implicit, and will then happen as soon as the receiver has processed the message.
+
+The same [protocol event](../art-lang/index.md#protocol-and-event) can be used for both asynchronous and synchronous communiction. The type of communication is decided by the sender when it initiates the message exchange. For asynchronous communication the function `send()` is called while for synchronous communication the function `invoke()` is called instead. If the sender port has non-single multiplicity these functions will broadcast the message, which means that each receiver to which the port is connected will receive a copy of the message. If you only want to communicate with the receiver that is connected at a specific port index you should instead call `sendAt()` or `invokeAt()` which takes the port index as argument.
+
+Protocol events that only are used for synchronous communication are often grouped in the protocol, by giving them the same name, but with the suffix `_reply` for the reply event. For example:
+
+```art
+protocol Proto {
+    out request(`int`);
+    in request_reply(`int`);
+};
+```
+
+There are four important rules to remember when using synchronous communication:
+
+1. Unless the sender performs an invoke where the reply is implicitly made, the receiver must call the `reply()` function to reply to the sender. This has to be done while the receiver still is in the triggered transition (more precisely, it must be done before control comes back to the TargetRTS and the receiver state machine enters a new state). You can pass a return data with the reply message, which will become available to the sender.
+   
+2. It is the sender's responsibility to allocate one or many [RTMessage](../targetrts-api/class_r_t_message.html) objects that can hold the reply data (one object for each receiver). The sender is also responsible for deleting these objects when they are no longer needed. You can use `RTMessage::isValid()` to ensure that a reply object corresponds to a valid reply made by the receiver.
+
+3. It is not allowed to use synchronous communication across different threads. If you need to do this you either have to implement it by means of two asynchronous messages (i.e. a "call" message for the request and a "reply" message for the reply) and use a state in the sender's state machine where it can wait until the receiver replies. Or you can use a more low-level synchronization primitive such as a semaphore.
+
+4. It is not allowed to use synchronous communication in a way that leads to cycles. For example, if capsule A invokes capsule B which in turn tries to invoke capsule A, the
+last invocation which introduces the cycle will fail with an error message at run-time.
+
+Let's explore what happens internally in the TargetRTS when a sender invokes an event with an `int` parameter and the receiver replies with an event also with an `int` parameter:
+
+```cpp
+RTMessage reply;
+myPort.intEvent(10).invoke(&reply);
+
+int result = * static_cast<int*>(reply.getData());
+```
+
+1. The TargetRTS first checks so that the port at which the invoke takes place is bound to a receiver. It also checks so that the invoke doesn't cross a thread boundary and that it will not introduce a cycle, i.e. that the receiver capsule instance is not currently processing another message (see `RTActor::isActive()`). If any of these checks fail the message invocation fails at this point.
+2. An [RTMessage](../targetrts-api/class_r_t_message.html) object is created by the TargetRTS and configured with `System` [priority](#message-priority). Note that the reply message is not used for this purpose since it does not exist in case of an implicit reply (`invoke()` is then called by the sender without argument). If a reply message was provided by the sender it's stored in the controller (`RTController::setReplyBuffer()`).
+3. The created message object is directly delivered to the receiver (`RTMessage::deliver()`), *without* first being placed in a message queue. This is the main difference between synchronous and asynchronous communication, and it causes the sender to become blocked while the receiver handles the message.
+4. A transition in the receiver's state machine is triggered. Before it has run to completion the receiver must make a reply unless the reply is implicit. Note that the sender and receiver must both agree on which invokes that require an explicit reply. If the sender expects an explicit reply, but the receiver doesn't make one until control is returned back to the TargetRTS, a run-time error will occur.
+
+For the example above the receiver may make the reply like this:
+
+```cpp
+replyPort.intEvent_reply(*rtdata + 1).reply(); // Reply data will become 11
+```
+
+5. The reply data which the receiver passes when it makes the reply is transferred to the message object that was stored in the controller (`RTController::getReplyBuffer()`).  When control is returned back to the sender it can read the reply data from that message object.
+
+!!! example
+    You can find a sample application that uses synchronous communication [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/invoke_reply). It shows how to make explicit and implicit replies, and how to handle multiple replies in case of broadcast invokes.
 
 ### Defer Queue
 Sometimes a capsule may be designed to handle certain messages in a sequence. If another unrelated message arrives in the middle of the sequence, and it's not urgent to handle that message right away, it can be useful to defer its handling to a later point in time, when the whole message sequence has arrived. This is especially true if the received message is the beginning of another message sequence (processing multiple message sequences with interleaved parallelism can be tricky).
