@@ -6,11 +6,15 @@
     }; 
 `
 
-capsule Top {    
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "RTLogStream.h"
+    `
     [[rt::decl]]
     `
         unsigned int count = 0;
-        Log::Stream log2{"log2.txt"}; // Relative to CWD
+        Log::RTLogStream log2{"log2.txt"}; // Relative to CWD
     `
     [[rt::impl_preface]]
     `
@@ -59,7 +63,7 @@ capsule Top {
         initial -> Testing
         `
             // Logging text to a log file. Path is relative to CWD.
-            Log::Stream log("log1.txt");
+            Log::RTLogStream log("log1.txt");
             log << "log text" << Log::endl;                        
             log << "new line " << "2" << Log::endl;
 
@@ -86,7 +90,7 @@ capsule Top {
 
             filepath = std::filesystem::current_path() / "log3.txt";
             Log::out << "Writing to " << filepath.string() << Log::endl;
-            Log::Stream log3(filepath.string().c_str()); // Absolute path
+            Log::RTLogStream log3(filepath.string().c_str()); // Absolute path
             log3 << "Data: " << 'x' << "." << std::endl;
 
             contents.clear();
@@ -127,18 +131,18 @@ capsule Top {
             ASSERT (ai5.isValid(), "Failed to incarnate into thread 5");
 
             // Also possible to connect a log stream to stdout or stderr
-            Log::Stream out(&Log::out);
+            Log::RTLogStream out(&Log::out);
             out << "Some data to " << "stdout" << Log::endl;
-            Log::Stream err(&Log::err);
+            Log::RTLogStream err(&Log::err);
             float f = 2.3;
             err << "Some float data " << f << " to " << "stderr" << Log::endl;
 
-            // Logging to an existing ostream
-            Log::Stream out2(&std::cout);
+            // Logging to an existing oRTLogStream
+            Log::RTLogStream out2(&std::cout);
             out << "More text to stdout" << Log::endl;
 
             // Specified file path must be valid
-            Log::Stream error("."); // Invalid character in path
+            Log::RTLogStream error("."); // Invalid character in path
             error << "Error";
         `;        
     };

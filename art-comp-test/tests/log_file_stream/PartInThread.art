@@ -3,15 +3,19 @@ capsule PartInThread {
     `
         RTTimerId tid;
         unsigned int timeouts = 0;
-        Log::Stream& log; 
+        Log::RTLogStream& log;
         unsigned int delay = 100000000; // 0.1 s 
 
         public:
-        PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log);
+        PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::RTLogStream& log);
+    `
+    [[rt::impl_preface]]
+    `
+        #include "RTLogStream.h"
     `
     [[rt::impl]]
     `
-        PartInThread::PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log)
+        PartInThread::PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::RTLogStream& log)
             : SUPER(rtg_rts, rtg_ref), log(log) {}
     `
 

@@ -21,7 +21,7 @@ capsule Guesser {
     [[rt::impl]]
     `
         void Guesser::log(const char* msg) {
-            Log::out << "[" << myName << "] " << msg << std::endl;
+            Log::out << "[" << myName << "] " << msg << Log::endl;
         }
     `
 
@@ -97,7 +97,7 @@ capsule Guesser {
                         guess = hint.current + (hint.max - hint.current) / 2;
                     }
 
-                    Log::out << "[" << myName << "] guessing: " << guess << std::endl;
+                    Log::out << "[" << myName << "] guessing: " << guess << Log::endl;
 
                     numberP.guess(guess).send();
                 `;

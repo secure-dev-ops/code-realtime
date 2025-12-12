@@ -20,7 +20,7 @@ capsule Number {
     [[rt::impl]]
     `
         void Number::log(const char* msg) {
-            Log::out << "[number] " << msg << std::endl;
+            Log::out << "[number] " << msg << Log::endl;
         }        
     `
 
@@ -47,8 +47,8 @@ capsule Number {
             secretNumber = rand() % max;
             mostRecentGuess = max;
 
-            Log::out << "secret number is " << secretNumber << std::endl;
-            Log::out << "sending 'ready' to Top" << std::endl;
+            Log::out << "secret number is " << secretNumber << Log::endl;
+            Log::out << "sending 'ready' to Top" << Log::endl;
 
             cmdP.ready().send();
         `;
@@ -62,14 +62,14 @@ capsule Number {
         `;
         more: c -> j when `mostRecentGuess < secretNumber`
         `
-            Log::out << "hint given: most recent guess is " << mostRecentGuess << std::endl;
-            Log::out << "secret number is MORE, but no more than " << max << std::endl;
+            Log::out << "hint given: most recent guess is " << mostRecentGuess << Log::endl;
+            Log::out << "secret number is MORE, but no more than " << max << Log::endl;
             hint.isLess = false; 
         `;
         less: c -> j when `else`
         `            
-            Log::out << "hint given: most recent guess is " << mostRecentGuess << std::endl;
-            Log::out << "secret number is LESS, but no less than " << min << std::endl;
+            Log::out << "hint given: most recent guess is " << mostRecentGuess << Log::endl;
+            Log::out << "secret number is LESS, but no less than " << min << Log::endl;
             hint.isLess = true;
         `;
         sendHint: j -> WaitForGuess
@@ -83,12 +83,12 @@ capsule Number {
         `;
         guessCorrect: checkGuess -> Done when `mostRecentGuess == secretNumber`
         `
-            Log::out << "guess correct! secret number is " << secretNumber << std::endl;
+            Log::out << "guess correct! secret number is " << secretNumber << Log::endl;
             numberP.sendAnswer(true).send();
         `;
         else: checkGuess -> WaitForHintRequest when `else`
         `
-            Log::out << "guess incorrect; keep going" << std::endl;
+            Log::out << "guess incorrect; keep going" << Log::endl;
             if (mostRecentGuess > secretNumber) {
                 // it is less
                 max = mostRecentGuess;
