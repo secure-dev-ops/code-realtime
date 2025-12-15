@@ -3,11 +3,11 @@ capsule PartInThread {
     `
         RTTimerId tid;
         unsigned int timeouts = 0;
-        Log::RTLogStream& log;
+        Log::Stream& log;
         unsigned int delay = 100000000; // 0.1 s 
 
         public:
-        PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::RTLogStream& log);
+        PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log);
     `
     [[rt::impl_preface]]
     `
@@ -15,7 +15,7 @@ capsule PartInThread {
     `
     [[rt::impl]]
     `
-        PartInThread::PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::RTLogStream& log)
+        PartInThread::PartInThread(RTController* rtg_rts, RTActorRef* rtg_ref, Log::Stream& log)
             : SUPER(rtg_rts, rtg_ref), log(log) {}
     `
 

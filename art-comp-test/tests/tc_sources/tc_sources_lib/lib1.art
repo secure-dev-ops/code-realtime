@@ -20,7 +20,7 @@ capsule LibCapsule {
         initial -> State
         `
             // This is the expected version of the capsule
-            std::cout << "Hello From Correct Library Capsule" << std::endl;
+            Log::out << "Hello From Correct Library Capsule" << Log::endl;
         `;
     };
 };
