@@ -1,0 +1,62 @@
+class ClassWithSM 
+[[rt::properties(
+    generate_descriptor=true
+)]]
+{    
+[[rt::header_preface]]
+`
+    // Header preface should be first in the header file (before the RTType_ClassWithSM external declaration)
+    #define RTType_ClassWithSM RTType_ClassWSM
+`
+[[rt::impl_preface]]
+`
+    // Impl preface should be first in the implementation file
+    void testImplPreface();
+`
+[[rt::decl]]
+`
+    public:
+    void startSM() {  
+        // RTType_ClassWithSM should be accessible here
+        ASSERT(RTMemoryUtil::strcmp("ClassWithSM", RTType_ClassWithSM.name()) == 0, "Wrong type descriptor name");      
+        rtg_init1();
+    }    
+`
+
+[[rt::header_ending]]
+`
+    // Header ending should be last in the header file    
+
+    inline void testHeaderEnding() {
+        ClassWithSM obj; // The class itself should be accessible here
+        RTTypedValue_ClassWithSM typedValue(obj); // the RTTypedValue_ type for the class should be accessible here
+
+        // RTType_ClassWithSM should be accessible here
+        ASSERT(RTMemoryUtil::strcmp("ClassWithSM", RTType_ClassWithSM.name()) == 0, "Wrong type descriptor name");
+
+        // Test that expected RTTypedValue_type members exist
+        ASSERT(typedValue.data == &obj, "Missing member data (or with wrong value)");
+        ASSERT(typedValue.type == &RTType_ClassWithSM, "Missing member type (or with wrong value)");
+        ASSERT(typedValue.rValueRef == false, "Missing member rValueRef (or with wrong value)");
+    }    
+`
+[[rt::impl_ending]]
+`
+    // Impl ending should be last in the implementation file
+    void testImplPreface() {
+        ClassWithSM* alloced = static_cast<ClassWithSM*>(RTType_ClassWithSM.allocate());
+        rtg_ClassWithSM_destroy(&RTType_ClassWithSM, alloced);
+    }
+`
+
+    statemachine {
+        state State;
+        initial -> State
+        `
+            testHeaderEnding(); 
+            testImplPreface();           
+        `;
+    };
+
+
+};

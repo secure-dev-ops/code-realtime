@@ -1,0 +1,55 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        // Header preface should be first in the header file
+        void testHeaderEndingInCapsule();
+        #ifdef SUPER
+            FAIL("SUPER should not be defined here");            
+        #endif
+
+    `
+    [[rt::decl]]
+    `
+        public:
+        // SUPER should be defined here
+        Top(RTController* rtg_rts, RTActorRef* rtg_ref) : SUPER(rtg_rts, rtg_ref) {
+            // The capsule itself should be accessible here            
+            testHeaderEndingInCapsule();
+        }
+    `
+
+    [[rt::header_ending]]
+    `
+        // Header ending should be last in the header file    
+        inline void testHeaderEndingInCapsule() {
+            Top* self; // The capsule itself should be accessible here            
+
+            // RTType_Top should be accessible here
+            ASSERT(RTMemoryUtil::strcmp("Top", RTType_Top.name) == 0, "Wrong type descriptor name");
+
+            #ifdef SUPER
+            FAIL("SUPER should not be defined here");            
+            #endif
+        }  
+    `
+    [[rt::impl_preface]]
+    `
+        #include "ClassWithSM.h"
+    `
+    [[rt::impl_ending]]
+    `
+        #ifdef SUPER
+            FAIL("SUPER should not be defined here");            
+        #endif
+    `
+    
+    statemachine {
+        state State;
+        initial -> State
+        `
+            ClassWithSM obj;
+            obj.startSM();            
+            PASS();  
+        `;
+    };
+};
