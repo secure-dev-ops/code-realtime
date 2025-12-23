@@ -151,6 +151,12 @@ def getProductBranches() {
 			printBranches "" "$caseNumber"
 			echo master
 			printBranches "-v" "$caseNumber"
+		else if [[ "$BRANCH_NAME" =~ test-([0-9]+\.[0-9]+\.[0-9]+) ]]
+		then
+			codertVersion=${BASH_REMATCH[1]}
+			printBranches "" "codert-$codertVersion"
+			echo master
+			printBranches "-v" "codert-$codertVersion"
 		else
 			echo master
 			printBranches
