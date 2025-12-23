@@ -1,0 +1,28 @@
+protocol Protocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_my_char.h"
+        #include "RTType_my_char0.h"
+        #include "RTType_my_stdint.h"
+        #include "RTType_my_typedefs.h"
+    `
+    in event1(`my_char`);
+    in event2(`char`);
+    in event3(`my_char0`);
+    in event4(`my_bool`);
+    in event5(`my_int`);
+    in event6(`my_float`);
+    out event1(`my_double`);
+    out event2(`my_long`);
+    out event3(`my_int8`);
+    out event4(`my_int16`);
+    out event5(`my_int32`);
+    out event6(`my_int64`);
+};
+
+capsule Top {
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
