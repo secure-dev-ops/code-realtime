@@ -1,0 +1,55 @@
+capsule ReceiverBase {
+    [[rt::decl]]
+    `
+    public:
+        static int r1_entry1, r1_entry2, r1_entry3;
+        static int r1_exit1, r1_exit2, r1_exit3;
+        static int r2_entry2, r2_entry3, r2_exit1;
+        static int r3_entry3;
+    `
+    [[rt::impl]]
+    `
+        int ReceiverBase::r1_entry1 = 0;
+        int ReceiverBase::r1_entry2 = 0;
+        int ReceiverBase::r1_entry3 = 0;
+        int ReceiverBase::r1_exit1 = 0;
+        int ReceiverBase::r1_exit2 = 0;
+        int ReceiverBase::r1_exit3 = 0;
+
+        int ReceiverBase::r2_entry2 = 0;
+        int ReceiverBase::r2_entry3 = 0;
+        int ReceiverBase::r2_exit1 = 0;
+
+        int ReceiverBase::r3_entry3 = 0;
+    `
+
+    service behavior port pr~ : Events;
+
+    statemachine {
+        state R1 {
+            entry
+            `
+                std::cout << "ReceiverBase::R1 entry" << std::endl;
+                r1_entry1++;
+            `;
+            exit
+            `
+                std::cout << "ReceiverBase::R1 exit" << std::endl;
+                r1_exit1++;
+            `;
+        };
+        state R2 {
+            exit
+            `
+                std::cout << "ReceiverBase::R2 exit" << std::endl;
+                r2_exit1++;
+            `;
+
+        };
+        initial -> R1;
+        e1Trans: R1 -> R2 on pr.e1
+        `
+            std::cout << "ReceiverBase::e1Trans" << std::endl;
+        `;
+    };
+};
