@@ -1,0 +1,48 @@
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "UInt.h"
+        #include "RTType_ULong.h"
+    `
+    out e1(`[[rt::no_descriptor]] UInt`);
+    out e2(`unsigned int /* comment */`);
+    out e3(`ULong`);
+};
+
+capsule Cap {
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        initial -> State1;
+        state State1 {
+            uint_received: on pIn.e1
+            `
+                ASSERT(*rtdata == 15, "Expected data 15");
+            `;
+            unsigned_int_received: on pIn.e2
+            `
+                ASSERT(*rtdata == 25, "Expected data 25");
+                PASS();
+            `;
+        };
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                UInt x = 15;
+                pOut.e1(x).send();
+                unsigned int y = 25;
+                pOut.e2(y).send();
+            `;
+        };
+        initial -> State1;
+    };
+};

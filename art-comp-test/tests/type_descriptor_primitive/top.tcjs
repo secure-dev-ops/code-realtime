@@ -1,0 +1,4 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'type_descriptor_primitive_target';
+tc.cppCodeStandard = "C++ 17";
+tc.topCapsule = 'Top';

@@ -1,0 +1,113 @@
+protocol Events {
+    out e1();
+};
+
+capsule Top
+{
+    part sender : Sender;
+    part receiver : Receiver1;
+
+    connect sender.ps with receiver.pr;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Sender {
+    service behavior port ps : Events;
+
+    statemachine {
+        state S1;
+        initial -> S1
+        `
+            ps.e1().send();
+            ps.e1().send();
+        `;
+    };
+};
+
+capsule Receiver : ReceiverBase {
+    behavior port timer : Timing;
+    statemachine {
+        state redefine R1 {
+            entry
+            `   
+                CALLSUPER;
+                std::cout << "Receiver::R1 entry" << std::endl;
+                r1_entry2++;
+            `;
+            exit
+            `
+                CALLSUPER;
+                std::cout << "Receiver::R1 exit" << std::endl;
+                r1_exit2++;
+            `;
+        };
+        state redefine R2 {
+            entry
+            `
+                std::cout << "Receiver::R2 entry" << std::endl;
+                r2_entry2++;
+            `;
+        };
+        state R3;
+        redefine e1Trans: R1 -> R2 on pr.e1
+        `
+            std::cout << "Receiver::e1Trans" << std::endl;
+        `;
+    };
+};
+
+capsule Receiver1 : Receiver {
+    statemachine {
+        state redefine R1 {
+            entry
+            `   
+                CALLSUPER;
+                std::cout << "Receiver1::R1 entry" << std::endl;
+                r1_entry3++;
+            `;
+            exit
+            `
+                CALLSUPER;
+                std::cout << "Receiver1::R1 exit" << std::endl;
+                r1_exit3++;
+            `;
+        };
+        state redefine R2 {
+            entry
+            `
+                std::cout << "Receiver1::R2 entry" << std::endl;
+                r2_entry3++;
+            `;
+        };
+        state redefine R3 {
+            entry
+            `
+                std::cout << "Receiver1::R3 entry" << std::endl;
+                r3_entry3++;
+            `;
+            verdict: on timer.timeout
+            `
+                ASSERT(r1_entry1 == 1 && r1_entry2 == 1 && r1_entry3 == 1,
+                    "Entry action must be called for all R1 states since CALLSUPER is used");
+                ASSERT(r1_exit1 == 1 && r1_exit2 == 1 && r1_exit3 == 1,
+                    "Exit action must be called for all R1 states since CALLSUPER is used");
+                ASSERT(r2_entry2 == 0, "R2 entry from Receiver must not be called because it is redefined");
+                ASSERT(r2_entry3 == 1, "Expect R2 entry from Receiver1 to be called");
+                ASSERT(r2_exit1 == 1, "Expect R1 inherited exit action to be called");
+                ASSERT(r3_entry3 == 1, "Expect R3 entry from Receiver1 to be called");
+                PASS();
+            `;
+        };
+        R2 -> R3 on pr.e1
+        `
+            RTTimerId tid = timer.informIn(RTTimespec(1, 0));
+            if (!tid.isValid()) {
+                FAIL("timer could not be set");
+            }
+        `;
+    };
+};
