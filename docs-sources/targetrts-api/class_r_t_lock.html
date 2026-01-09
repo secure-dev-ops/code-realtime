@@ -104,8 +104,9 @@ RTMutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_mutex</b></
 <div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line">    <span class="comment">// critical section</span></div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_r_t_lock_html"><div class="ttname"><a href="class_r_t_lock.html">RTLock</a></div><div class="ttdoc">Special utility class that allows to protect a piece of code from being accessed by multiple executio...</div><div class="ttdef"><b>Definition:</b> RTLock.h:29</div></div>
-</div><!-- fragment --><p> Mutex is released when <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> object is destroyed. </p>
+<div class="ttc" id="aclass_r_t_lock_html"><div class="ttname"><a href="class_r_t_lock.html">RTLock</a></div><div class="ttdoc">Special utility class that allows to protect a piece of code from being accessed by multiple executio...</div><div class="ttdef"><b>Definition:</b> RTLock.h:33</div></div>
+</div><!-- fragment --><p> Mutex is released when <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> object is destroyed.</p>
+<p>NOTE: <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> uses RTMutex which is not guaranteed to be reentrant on all platforms, and hence <a class="el" href="class_r_t_lock.html" title="Special utility class that allows to protect a piece of code from being accessed by multiple executio...">RTLock</a> is also not guaranteed to be reentrant. This means the same thread should not lock on a mutex it already has locked (i.e. no recursive locking)! </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_r_t_lock_8h_source.html">RTLock.h</a></li>
 </ul>
