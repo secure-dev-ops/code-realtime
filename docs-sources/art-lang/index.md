@@ -475,7 +475,7 @@ Note that `send()` is not the only function you can call. For example, you can c
 ### Self Communication
 Sometimes a capsule may want to send a message to itself. For example, the need may arise to transition from one state to another when a transition that was triggered by another message is already executing. If that message, for whatever reason, could not directly trigger the transition to the desired target state, the capsule can send a message to itself for triggering it.
 
-Self communication requires two behavior ports that are connected to itself.
+Self communication requires two behavior ports on the same capsule that are connected to each other.
 
 ![](images/self_communication.png)
 

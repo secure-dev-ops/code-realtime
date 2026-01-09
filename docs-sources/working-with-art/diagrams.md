@@ -51,13 +51,42 @@ If you want to use manual layout for a diagram, click in the diagram background,
 
 ![](images/manual-layout.png)
 
-Once you have turned on manual layout for a diagram you can start to move symbols around, as you like to achieve a nice-looking layout. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram.
+Once you have turned on manual layout for a diagram you can start to edit the diagram to get a nice-looking layout:
 
-With manual layout it's also possible to resize some kinds of symbols. Yellow "resize" handles at symbol corners will appear for a selected symbol that can be resized:
+- [Move symbols and text labels](#moving-symbols-and-text-labels)
+- [Resize symbols](#resizing-symbols)
+- [Route lines](#routing-lines)
+
+When you save the edited diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout. The name of the file is `<ArtFile>-<ArtElement>-<DiagramType>.json` where `<ArtFile>` is the name of the Art file and `<ArtElement>` is the name of the Art element that contains the edited diagram. `<DiagramType>` is either "state", "structure" or "class".
+
+Sometimes you may want to change the diagram layout by editing the layout JSON file, for example to move a symbol to a specific coordinate. This is possible and the diagram will update when you save the JSON file. But be careful not to change the JSON file in a way that makes it invalid.
+
+### Moving Symbols and Text Labels
+To move a symbol, just select it and drag it to a new position on the diagram. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram. For example, assume the label of an entry point overlaps with the incoming transition line:
+
+![](images/move-label-before.png)
+
+By selecting and moving the label a little up and to the left the overlap can be avoided:
+
+![](images/move-label.png)
+
+If you move a nested symbol outside the boundaries of its container symbol, the container symbol will be automatically resized to contain the nested symbol also afterwards.
+
+### Resizing Symbols
+With manual layout it's possible to resize some kinds of symbols. Yellow "resize" handles at symbol corners will appear for a selected symbol that can be resized:
 
 ![](images/resizable_symbol.png)
 
-When you save the diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout.
+If you increase the size of a nested symbol, the size of its container symbol will also grow if required, so that it still contains the nested symbol afterwards.
+
+### Routing Lines
+In a diagram with manual layout you can freely route lines. Red "bendpoint" handles appear when you select a line that can be manually routed:
+
+![](images/line-routing.png)
+
+Move the source and target bendpoint to decide where on the source and target symbol the line should connect. Create a new bendpoint by moving the opaque middle bendpoint that appears between each pair of bendpoints.
+
+To delete all bendpoints, and make the line straight again, select the line and press ++ctrl+space++ and then perform the command **Make Straight**. To only delete some of the bendpoints, select them, press ++ctrl+space++ and then perform the command **Delete Bendpoint**.
 
 ### Graphical Ambiguities
 With manual layout it's possible that a symbol in a state diagram shows up inside the symbol of a composite state, even if the corresponding Art element is not nested within that state. The diagram editor will detect such graphical ambiguities and show a warning to avoid that the diagram is misinterpreted. The warning is placed both on the composite state symbol and the symbol that appears inside it. Here is an example:
@@ -75,7 +104,7 @@ If you want to go back from manual to automatic layout, just uncheck the **Manua
 
 ![](images/deleting-layout-settings.png)
 
-Alternatively you can delete the JSON file from the Explorer view. In this case, the operation is undoable.
+Alternatively you can delete the layout JSON file from the Explorer view. In this case, the operation is undoable.
 
 If you only want to discard layout information for some of the symbols or labels on a diagram, select them and press ++ctrl+space++ and then perform the command **Discard Manual Layout**. Layout information for the selected symbols or labels will then be deleted and they will go back to their default positions and sizes. This operation is undoable.
 

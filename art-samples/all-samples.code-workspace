@@ -47,6 +47,9 @@
         {
             "path": "TcpServer"
         },
+		{
+            "path": "Tracing"
+        },
         {
             "path": "TokenRing"
         },
