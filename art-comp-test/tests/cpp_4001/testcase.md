@@ -1,8 +1,8 @@
 ---
 group: validation
 steps: generate
-ac_output match1: WARNING[4001]|7:9|XCap|SA|bt|timeout
-ac_output match1a: unconditional transition|38:9
+ac_output match1: WARNING[4001]|38:9|XCap|SA|bt|timeout
+ac_output match1a: unconditional transition|7:9
 ac_output match2: WARNING[4001]|35:9|t2|XCap|State1|t|timeout
 ac_output match2a: unconditional transition|34:9|t1
 ac_output match3: WARNING[4001]|36:9|XCap|State1|t|timeout
