@@ -1,0 +1,9 @@
+{
+    "timestamps" : {
+        "mode" : "relative"
+        , "precision" : "milli"
+        , "time1_send" : false
+        , "time2_receive" : false
+        , "time3_handle" : false
+    }
+}

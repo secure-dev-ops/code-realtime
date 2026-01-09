@@ -470,7 +470,24 @@ pingPort.ping(5).send(); // Send event "ping" with data (an integer) on the "pin
 !!! example
     You can find a sample application that sends events on ports with and without data [here]({$vars.github.repo$}/tree/main/art-samples/PingPong).
 
-Note that `send()` is not the only function you can call. For example, you can call `invoke()` if you want to wait until the receiver has received and replied to the event. This is useful for implementing synchronous communication between capsules.
+Note that `send()` is not the only function you can call. For example, you can call `invoke()` if you want to wait until the receiver has received and replied to the event. This is useful for implementing [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) between capsules.
+
+### Self Communication
+Sometimes a capsule may want to send a message to itself. For example, the need may arise to transition from one state to another when a transition that was triggered by another message is already executing. If that message, for whatever reason, could not directly trigger the transition to the desired target state, the capsule can send a message to itself for triggering it.
+
+Self communication requires two behavior ports that are connected to itself.
+
+![](images/self_communication.png)
+
+A message sent on one of these ports will be received on the other port, on the same capsule.
+
+!!! example
+    You can find a sample application that uses self communication [here]({$vars.github.repo$}/tree/main/art-samples/Tracing).
+
+There are two other methods of self communication which work in a different way but give a similar result:
+
+* The [`sendCopyToMe()`](../target-rts/message-communication.md#sendcopytome) TargetRTS function can be used to post a copy of a received message into the receiver's message queue. However, even if it's the receiver who asks for this to happen (typically by calling `sendCopyToMe(msg)` from a transition effect code snippet), this is really a request for the TargetRTS to re-send a copy of a previously dispatched message again. This means that the sender of the second message will not be the receiver, but the capsule which sent the first message.
+* It's possible to use a [timer port](../target-rts/timers.md) to set a one-shot timer with a relative time of 0. It will timeout quickly, but is usually less efficient than use of two connected behavior ports. It is also a less good approach if data needs to be passed with the message since timers only allow to pass untyped data.
 
 ### Port Multiplicity
 At run-time an instance of a port can be connected to a port instance on another capsule. Such connections is what make a sent event be routed from the port on which it is sent, through a number of non-behavior ports, until it finally reaches a behavior port. By default a port has single multiplicity (1) meaning that at most one such connection can be established. However, you can specify a non-single multiplicity for a port to allow for more connections to be created at run-time. 

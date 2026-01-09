@@ -1,0 +1,13 @@
+{
+    "trace_file" : {
+        "name" : "${datetime}_tracefile_${microseconds}",
+        "overwrite" : false
+    },
+    "timestamps" : {
+        "mode" : "relative"
+        , "precision" : "nano"
+        , "time1_send" : false
+        , "time2_receive" : true
+        , "time3_handle" : true
+    }
+}

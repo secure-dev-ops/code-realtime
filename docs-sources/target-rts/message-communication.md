@@ -140,6 +140,8 @@ sendCopyToMe(&reply);
 
 `sendCopyToMe()` can be useful whenever a message cannot be fully handled by a single transition. It's similar to deferring a message and then immediately recall it again.
 
+Note, that even if it's the receiver capsule instance who asks for this to happen (typically by calling `sendCopyToMe(msg)` from a transition effect code snippet), this is really a request for the TargetRTS to re-send a copy of a previously dispatched message again. This means that the sender of the second message will not be the receiver, but the capsule instance which sent the first message. To implement true [self communication](../art-lang/index.md#self-communication), use two connected behavior ports in a capsule.
+
 ### Custom Controller
 If you want to customize any aspect of how a controller works you can implement your own controller class that inherits from [RTController](../targetrts-api/class_r_t_controller.html). However, implementing a controller completely from scratch requires quite some effort and the TargetRTS therefore provides a class [RTCustomController](../targetrts-api/class_r_t_custom_controller.html) which lets you customize a few key aspects of how a controller works in an easier way. It does this by letting a capsule override two controller functions:
 

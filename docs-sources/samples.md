@@ -28,6 +28,13 @@ This application computes a value of Pi using [Madhava](https://en.wikipedia.org
 
 **Art:** [composite state](art-lang/index.md#hierarchical-state-machine) (hierarchical state machine)
 
+## [Tracing]({$vars.github.repo$}/tree/main/art-samples/Tracing)
+This sample shows how traces can be captured from a running application. You can later visualize such a trace as a sequence diagram, view it as a text file, or use a script for processing it in some other way. See [Tracing](running-and-debugging/tracing.md) for more information.
+
+**Art:** [symmetric event](art-lang/index.md#symmetric-event), [self communication](art-lang/index.md#self-communication)
+
+**TargetRTS:** [RTTracer](targetrts-api/class_r_t_tracer.html) for programmatically configuring and enabling/disabling tracing, [synchronous communication](target-rts/message-communication.md#asynchronous-versus-synchronous-communication), [sendCopyToMe](target-rts/message-communication.md#sendcopytome)
+
 ## [TrafficLight]({$vars.github.repo$}/tree/main/art-samples/TrafficLight)
 This sample implements a classical traffic light that switches between red, yellow and green based on a periodic timer. The actual traffic light is implemented by means of a class `Light` with a state machine. An instance of that class is managed by the `TrafficLight` capsule. The `Light` class uses an interface class `ILogger`, which the `TrafficLight` capsules implements, for logging messages when the traffic light switches state. It delegates the work of logging to a separate Logger capsule. Note that only the `ILogger` interface is provided to the `Light` object, instead of the whole `TrafficLight` capsule which has an unnecessary big API for the needs of the `Light`.
 
@@ -98,7 +105,7 @@ This sample uses the [TCPServer library]({$vars.github.repo$}/tree/main/art-samp
 
 To start the communication, a special command-line argument `-injectFirstPing` is supported. The implementation of this argument uses APIs of [RTMessage](targetrts-api/class_r_t_message.html) for programmatically injecting an event on a port.
 
-**Art:** [timer data](target-rts/timers.md#timer-data), [symmetric events](art-lang/index.md#protocol-and-event), [calling code from an inherited transition](art-lang/index.md#calling-code-from-an-inherited-transition)
+**Art:** [timer data](target-rts/timers.md#timer-data), [symmetric events](art-lang/index.md#symmetric-event), [calling code from an inherited transition](art-lang/index.md#calling-code-from-an-inherited-transition)
 
 **TargetRTS:** [RTMain](targetrts-api/class_r_t_main.html)::argCount(), [RTMain](targetrts-api/class_r_t_main.html)::argStrings(), [RTMemoryUtil](targetrts-api/class_r_t_memory_util.html), [RTMessage](targetrts-api/class_r_t_message.html), [RTController](targetrts-api/class_r_t_controller.html)::receive()
 

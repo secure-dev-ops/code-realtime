@@ -1,0 +1,86 @@
+capsule Player {   
+    [[rt::decl]]
+    `
+        private: int roundsToPlay = -1;
+    ` 
+    /* Ports */
+    behavior port log : Log;
+    behavior port timing : Timing;
+    service behavior port playerPort : PlayerEvents;
+    service behavior port topPort~ : TopEvents;
+    behavior port counterPort : PlayerInternalCommunication;
+
+    /* Parts */
+    part ballCounter : BallCounter;
+
+    /* Connectors */
+    connect counterPort with ballCounter.playerPort;
+
+    /* State Machine */
+    statemachine {
+        state State1 {            
+            start: on topPort.start
+            `
+                roundsToPlay = *(static_cast<const int*>(rtdata));
+                Log::out << getName() << ": Starting game for " << roundsToPlay << " rounds." << Log::endl;
+                
+                playerPort.ball().send();
+            `;
+            ball: on playerPort.ball
+            `                
+                counterPort.increaseCount().invoke(); // Implicit reply
+
+                if (roundsToPlay != -1) {
+                    roundsToPlay--;
+                    Log::out << getName() << ": Received ball. Rounds left: " << roundsToPlay << Log::endl;
+                }
+                else {
+                    Log::out << getName() << ": Received ball." << Log::endl;
+                }
+                if (roundsToPlay != 0)
+                    playerPort.ball().send();
+                else {                    
+                    RTMessage reply;
+                    counterPort.getCount().invoke(&reply);
+                    int totalBalls = *(static_cast<const int*>(reply.getData()));
+                    Log::out << getName() << ": ------------------COMPLETED ROUND------------------ (total ball count: " << totalBalls << ")" << Log::endl;
+                    topPort.done().send();
+                }
+            `;
+            
+        };
+        initial -> State1
+        `
+
+        `;
+    };
+};
+
+// Counts the total number of balls played by a Player. Placed in its own capsule
+// to demonstrate tracing of synchronous calls (invoke/reply).
+capsule BallCounter {
+    [[rt::decl]]
+    `
+        private: int count = 0;
+    `
+
+    /* Ports */
+    service behavior port playerPort~ : PlayerInternalCommunication;
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state Counting {
+            increaseCount: on playerPort.increaseCount
+            `
+                count++; 
+                // implicit reply               
+            `;
+            getCount: on playerPort.getCount
+            `                
+                playerPort.getCount_reply(count).reply();
+            `;
+        };
+        initial -> Counting;
+    };
+};

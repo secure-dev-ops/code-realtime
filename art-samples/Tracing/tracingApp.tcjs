@@ -1,0 +1,38 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.cppCodeStandard = "C++ 17";
+tc.targetFolder = 'Tracing_target';
+
+// Uncomment to debug with Visual Studio
+/*tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';
+*/
+
+tc.threads = [
+    {
+        name: 'MainThread',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        stackSize: '20000',
+        implClass: 'RTPeerController'
+    },
+    {
+        name: 'Player1Thread',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        stackSize: '20000',
+        implClass: 'RTPeerController',
+        logical: [
+            'Player1Thread'
+        ]
+    },
+    {
+        name: 'Player2Thread',
+        priority: 'DEFAULT_MAIN_PRIORITY',
+        stackSize: '20000',
+        implClass: 'RTPeerController',
+        logical: [
+            'Player2Thread'
+        ]
+    }
+];

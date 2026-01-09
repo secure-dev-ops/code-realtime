@@ -1,0 +1,97 @@
+capsule Top {
+    [[rt::decl]]
+    `
+        private: unsigned int completedRounds = 0;
+    `
+    [[rt::impl_preface]]
+    `
+        #include <RTTracer.h>
+    `
+    /* Ports */
+    behavior port frame : Frame;
+    behavior port timer : Timing;
+    behavior port player1Port : TopEvents;
+    behavior port player2Port : TopEvents;
+    behavior port selfPortOut : TopInternalCommunication;
+    behavior port selfPortIn~ : TopInternalCommunication;
+
+    /* Parts */
+    optional part player1 : Player;
+    optional part player2 : Player;
+
+    /* Connectors */
+    connect player1.topPort with player1Port;
+    connect player2.topPort with player2Port;
+    connect player1.playerPort with player2.playerPort;
+    connect selfPortOut with selfPortIn;
+
+    /* State Machine */
+    statemachine {
+        state Playing {
+            timeout: on timer.timeout
+            `
+                if (completedRounds == 0) {
+                    // Turn tracing on
+                    RTTracer::setEnabled(true);
+                }
+                player1Port.start(10).send();
+            `;
+            done: on player1Port.done
+            `
+                completedRounds++;
+                Log::out << getName() << ": Completed round: " << completedRounds << Log::endl;
+                if (completedRounds == 1) {
+                    RTTracer::setEnabled(false); // Turns tracing off immediately (current "done" message will not be traced)
+                    timer.informIn(RTTimespec(1,0));
+                }
+                else if (completedRounds == 2) {
+                    RTTracer::setEnabled(true); // Turns tracing on immediately (current "done" message will be traced)
+                    timer.informIn(RTTimespec(1,0));
+                }
+                else {
+                    // This way of sending a copy of a message to self is usually done when 
+                    // the receiver chooses to not handle the message fully in a single transition.
+                    // Therefore it appears in the trace as if the message comes again from the same sender.
+                    // We can write a note about it in the trace...
+                    RTTracer::note("sendCopyToMe() will cause the \\\"done\\\" message to be sent again from same sender");
+                    sendCopyToMe(msg); 
+                }
+            `;            
+        };
+        Playing -> Done on player1Port.done when `completedRounds == 3`
+        `
+            // This is a true self-message, where the sender port is connected to a receiver port
+            // on the same capsule.
+            selfPortOut.scheduleTermination().send();
+        `;
+
+        state Done {
+            scheduleTermination: on selfPortIn.scheduleTermination
+            `
+                Log::out << getName() << ": Terminating application after " << completedRounds << " rounds." << Log::endl;
+                context()->abort();
+            `;
+        };
+        initial -> Playing
+        `
+            RTActorId aid = frame.incarnate(player1, nullptr, nullptr, Player1Thread, -1);
+            if (!aid.isValid()) {
+                // incarnation failed
+                Log::err << "Failed to incarnate player1" << Log::endl;
+            }
+            aid = frame.incarnate(player2, nullptr, nullptr, Player2Thread, -1);
+            if (!aid.isValid()) {
+                // incarnation failed
+                Log::err << "Failed to incarnate player2" << Log::endl;
+            }
+
+            if (!RTTracer::isConfigured()) {
+                // Configure tracing            
+                Log::out << "No trace configuration provided on command line, using ../../Tracing/trace-config.json." << Log::endl;
+                RTTracer::configure("../../Tracing/trace-config.json");
+            }
+
+            timer.informIn(RTTimespec(1,0));
+        `;
+    };
+};

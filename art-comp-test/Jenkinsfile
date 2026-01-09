@@ -118,11 +118,13 @@ def prepareTests() {
 			timeout=10
 			[ $folder == DiningPhils_v1 ] && timeout=25
 			[ $folder == DiningPhils_v2 ] && timeout=5
+			[ $folder == Tracing ] && timeout=30
 			echo "timeout: $timeout"  >> testcase.md
 			echo "allow_stderr_printouts: true" >> testcase.md
 			[ $folder == MatMult ] && echo "test_exe_args: -URTS_DEBUG=quit -UARGS 2 3 [2,2,2,4,4,4] [5,5,5,5,5,5]" >> testcase.md
 			[ $folder == TcpRangeCounter ] && echo "test_exe_args: -URTS_DEBUG=quit -port=12345" >> testcase.md
 			[ $folder == PingPongTimeDeltaTracker ] && echo "test_exe_args: -URTS_DEBUG=quit <5" >> testcase.md
+			[ $folder == Tracing ] && echo "test_exe_args: -URTS_DEBUG=quit -traceConfig=tests/sample_${folder}/trace-config.json" >> testcase.md
 			echo "---" >> testcase.md
 			echo "Building and executing Art sample $folder" >> testcase.md
 			cd $WORKSPACE

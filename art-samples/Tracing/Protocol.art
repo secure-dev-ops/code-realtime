@@ -1,0 +1,23 @@
+// Player-to-Player communication
+protocol PlayerEvents {    
+    in ball(); out ball(); // symmetric event
+};
+
+protocol TopEvents {
+    // Sent from Top to a player to start the game
+    out start(`int` /* rounds to play */);
+
+    // Sent from a player to Top to tell that requested rounds were completed
+    in done();
+};
+
+// Synchronous communication within each player
+protocol PlayerInternalCommunication {
+    out increaseCount();
+    out getCount();
+    in getCount_reply(`int`);
+};
+
+protocol TopInternalCommunication {
+    out scheduleTermination(); // Self-message for the top capsule
+};
