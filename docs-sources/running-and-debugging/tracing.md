@@ -46,12 +46,13 @@ We can see lifelines that represent the `counter` and `server` capsule instances
 
 The lifeline for a capsule instance has the name of the part that contains the instance. If the part has non-single multiplicity, the lifeline shows the index of the capsule instance within square brackets (`[0]` for the first instance). If you hover over a lifeline a tooltip appears with more information, such as the dynamic type of the capsule instance and its structured path in the application's composite structure. For more information about the capsule instance, double click on the lifeline header to navigate to the `.art-trace` file.
 
-Colors are used to distinguish three types of lifelines:
+Colors are used to distinguish different types of lifelines:
 
 <ul>
-    <li><span style="color: green;">Green</span> for the lifeline that represents the top capsule instance which is created at application start-up. It has the name "application".</li>
-    <li><span style="color: darkblue;">Dark blue</span> lifelines represent capsule instances that are created after the top capsule instance has been created, when the application runs.</li>
-    <li><span style="color: lightblue;">Light blue</span> lifelines represent certain TargetRTS components that may interact with capsule instances.</li>
+    <li><span style="background-color: #37e937ff;color: white;padding: 0px 5px 0px 5px">Green</span> for the lifeline that represents the top capsule instance which is created at application start-up. It has the name "application".</li>
+    <li><span style="background-color: #003366;color: white;padding: 0px 5px 0px 5px">Dark blue</span> lifelines represent capsule instances that are created after the top capsule instance has been created, when the application runs.</li>
+    <li><span style="background-color: #2e92b4;color: white;padding: 0px 5px 0px 5px">Light blue</span> lifelines represent certain TargetRTS components that may interact with capsule instances.</li>
+    <li><span style="background-color: #a020f0;color: white;padding: 0px 5px 0px 5px"">Purple</span> for the lifeline that represents an unknown sender of messages (see <a href="#messages-without-sender">Messages without Sender</a>).</li>
 </ul>
 
 There are two TargetRTS components that can interact with capsule instances. `<timer>` is the component of the TargetRTS that implements timers and you will see when a capsule instance receives a timeout message for a timer that has timed out. Inside the TargetRTS this capsule instance has the name `specials` and is typed by [RTTimerActor](../targetrts-api/class_r_t_timer_actor.html). The `<system>` lifeline is used for showing when capsule instances are created and initialized (by sending the `initialize` message). 
@@ -59,6 +60,13 @@ There are two TargetRTS components that can interact with capsule instances. `<t
 The sequence diagram may contain note boxes. They are for example used for showing if tracing was paused for some time, which then means the sequence diagram doesn't show messages that may have been exchanged during that time.
 
 If you hover over the message line label you can see the port of the receiver capsule instance on which the message was received. For more information about the message, double-click on the message line to navigate to the message in the `.art-trace` file.
+
+### Synchronous Communication
+Messages for [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.
+
+In the example below the first invoke message has an implicit reply, while the second has an explicit reply:
+
+![](images/invoke-reply.png)
 
 ### Messages without Sender
 The sender of a message is computed at the time of receiving the message based on checking which port the receiver port is connected to. This means that sometimes the sender is not known, or that only limited information about the sender is available:
