@@ -59,7 +59,9 @@ There are two TargetRTS components that can interact with capsule instances. `<t
 
 The sequence diagram may contain note boxes. They are for example used for showing if tracing was paused for some time, which then means the sequence diagram doesn't show messages that may have been exchanged during that time.
 
-If you hover over the message line label you can see the port of the receiver capsule instance on which the message was received. For more information about the message, double-click on the message line to navigate to the message in the `.art-trace` file.
+If you hover over the message line label you can see the port of the receiver capsule instance on which the message was received. For more information about the message, double-click on the message line to navigate to the message in the `.art-trace` file. If the trace contains timestamps ([`time2_receive`](#receive-time) and [`time3_handle`](#handle-time)) the message line tooltip also shows the difference between these two timestamps. This is the time it took for the receiver to handle the received message.
+
+![](images/time-diff-tooltip.png)
 
 ### Synchronous Communication
 Messages for [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.
