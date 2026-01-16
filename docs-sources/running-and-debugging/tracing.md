@@ -30,7 +30,7 @@ A message only appears in the trace when all these actions have taken place. Thi
 ## View Traces as Sequence Diagrams
 To view an `.art-trace` file as a sequence diagram right-click on it in the Explorer view, or in the [text editor](#view-traces-as-text), and perform the command **Open Sequence Diagram**. The trace will then be visualized graphically as a sequence diagram. On the top there are **lifelines** which represent the capsule instances in the application. Each lifeline has a vertical line, and between these lines there are arrows that represent messages that were exhanged between capsule instances. 
 
-The order of the **message lines** tell you in which order messages were handled or received by capsule instances in the application. If the [trace configuration](#trace-configuration) has enabled capturing of the [`time2_receive` timestamp](#receive-time) then messages are ordered chronologically, from top to bottom, according to that timestamp. This means that the diagram then shows the order in which messages were *received* by capsule instances in the application, which often is the most natural way of interpreting a sequence diagram. However, if the [`time2_receive` timestamp](#receive-time) is not available, message lines appear instead in the same order as in the `.art-trace` file. This is the order in which messages were *handled* by capsule instances in the application. To know exactly when messages were handled the [trace configuration](#trace-configuration) should enable capturing of the [`time3_handle` timestamp](#handle-time).
+The order of the **message lines** tell you in which order messages were handled or received by capsule instances in the application. If the [trace configuration](#trace-configuration) has enabled capturing of the [`time2_receive` timestamp](#receive-time) (it's enabled by default) then messages are ordered chronologically, from top to bottom, according to that timestamp. This means that the diagram then shows the order in which messages were *received* by capsule instances in the application, which often is the most natural way of interpreting a sequence diagram. However, if the [`time2_receive` timestamp](#receive-time) is not available, message lines appear instead in the same order as in the `.art-trace` file. This is the order in which messages were *handled* by capsule instances in the application. To know exactly when messages were handled the [trace configuration](#trace-configuration) should enable capturing of the [`time3_handle` timestamp](#handle-time).
 
 !!! note 
     When messages are sorted according to when they were handled, rather than received, the order of nested synchronous messages in the sequence diagram appear in a "bottom-up" order which can feel unintuitive at first glance. That is, if a capsule invokes a message `m1` on a capsule which in turn invokes a message `m2` on another capsule, the message `m2` will come before `m1` in the sequence diagram. While `m1` is received before `m2`, the opposite is true for handling of the message; `m2` is handled before `m1`. If your application uses synchronous communication it's therefore recommended to use a [trace configuration](#trace-configuration) which enables capturing of the [`time2_receive` timestamp](#receive-time). Remember that it's not only messages that you invoke which are handled synchronously - also the `initialize` message for a nested part is handled synchronously. That is, initialization of parts will appear "bottom-up" if [`time2_receive` timestamp](#receive-time) is not available, and "top-down" otherwise.
@@ -276,7 +276,7 @@ The table below lists all trace configuration properties that can be set in a tr
 | [timestamp.mode](#timestamp-mode) | String | "relative"
 | [timestamp.precision](#timestamp-precision) | String | "nano"
 | [timestamp.time1_send](#send-time) | Boolean | false
-| [timestamp.time2_receive](#receive-time) | Boolean | false
+| [timestamp.time2_receive](#receive-time) | Boolean | true
 | [timestamp.time3_handle](#handle-time) | Boolean | false
 | [trace_file.name](#trace-file-name) | String | ".trace"
 | [trace_file.overwrite](#overwrite) | Boolean | true
@@ -312,7 +312,7 @@ The first timestamp that can be captured for a message exchange, is when the sen
 
 ### Receive Time
 **Type:** Boolean <br>
-**Valid values:** `true`, `false` (default)
+**Valid values:** `true` (default), `false`
 
 The second timestamp that can be captured for a message exchange, is when the message is delivered to the receiver by its controller. Unless the message will be discarded by the receiver, this timestamp tells when the transition that is triggered by the received message is just about to start executing. This timestamp is referred to as `time2_receive` and appears in JSON at the end of a message in the trace file.
 

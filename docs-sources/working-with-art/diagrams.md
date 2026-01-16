@@ -158,7 +158,13 @@ When a diagram is opened it is initially centered and with medium zoom level whi
 
 Alternatively you can use the command **Fit to Screen** which will set the zoom level so that the entire diagram fits the size of the diagram editor. Note that this command must be invoked from the general Command Palette or by means of the keyboard shortcut ++ctrl+shift+"F"++.
 
-It's also possible to work with a big diagram without zooming, but instead panning the viewport so that a different part of the diagram becomes visible. To pan the viewport click anywhere on the diagram and drag while holding down the mouse button. Note that there are no limits to panning which means you can move the viewport as far away from the center of the diagram as you like. Use the **Center** or **Fit to Screen** command for panning back the viewport to its original position. Note that if a symbol or line is selected, the **Center** command will move the viewport so that the selected symbol or line appears in the middle.
+It's also possible to work with a big diagram without zooming, but instead panning the viewport so that a different part of the diagram becomes visible. To pan the viewport click anywhere in the diagram background and drag while holding down the mouse button. Note that there are no limits to panning which means you can move the viewport as far away from the center of the diagram as you like. Use the **Center** or **Fit to Screen** command for panning back the viewport to its original position. Note that if a symbol or line is selected, the **Center** command will move the viewport so that the selected symbol or line appears in the middle.
+
+When working in a zoomed-in diagram that contains composite symbols (for example a composite state) it can happen that the diagram background is not visible in the viewport. In this case you can instead pan the diagram with any of the below approaches:
+
+* Use the ++page-up++ or ++page-down++ keys. 
+* Use the ++arrow-up++ or ++arrow-down++ keys. However, this only pans the diagram if no symbol is selected (otherwise the selected symbol will be moved).
+* Press and hold down the ++space++ key (the cursor changes into a hand), and then click and drag anywhere in the diagram.
 
 ### Collapsing and Expanding Symbols
 State and structure diagrams can be hierarchical. A state diagram is hierarchical if it contains a composite state with a nested state machine. A structure diagram is hierarchical if it contains a part typed by another capsule with nested parts or ports. By default symbols that contain nested symbols are collapsed to minimize the size of the diagram:
