@@ -30,5 +30,6 @@ var searchData=
   ['to_5fstructinfo_27',['TO_structInfo',['../struct_t_o__struct_info.html',1,'']]],
   ['to_5ftimestamp_28',['TO_timeStamp',['../struct_t_o__time_stamp.html',1,'']]],
   ['to_5fvariabledata_29',['TO_variableData',['../struct_t_o__variable_data.html',1,'']]],
-  ['to_5fvariableinfo_30',['TO_variableInfo',['../struct_t_o__variable_info.html',1,'']]]
+  ['to_5fvariableinfo_30',['TO_variableInfo',['../struct_t_o__variable_info.html',1,'']]],
+  ['traceinfo_31',['TraceInfo',['../struct_r_t_tracer_1_1_trace_info.html',1,'RTTracer']]]
 ];

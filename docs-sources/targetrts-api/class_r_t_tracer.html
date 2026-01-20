@@ -70,6 +70,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-types">Protected Types</a> &#124;
@@ -93,6 +94,12 @@ Inheritance diagram for RTTracer:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_r_t_tracer_1_1_trace_info.html">TraceInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure with additional info passed to traceMessage call.  <a href="struct_r_t_tracer_1_1_trace_info.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a9c921b7d6e9d593d073099d07ca19426"><td class="memItemLeft" align="right" valign="top"><a id="a9c921b7d6e9d593d073099d07ca19426" name="a9c921b7d6e9d593d073099d07ca19426"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#a9c921b7d6e9d593d073099d07ca19426">TraceEventKind</a> { <br />
@@ -108,6 +115,10 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a9c921b7d6e9d593d073099d07ca19426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of trace events supported. <br /></td></tr>
 <tr class="separator:a9c921b7d6e9d593d073099d07ca19426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf76a701ec2cc473cbdacb5fb1d5b19"><td class="memItemLeft" align="right" valign="top"><a id="a1cf76a701ec2cc473cbdacb5fb1d5b19" name="a1cf76a701ec2cc473cbdacb5fb1d5b19"></a>
+typedef std::chrono::system_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><b>TraceTime</b></td></tr>
+<tr class="memdesc:a1cf76a701ec2cc473cbdacb5fb1d5b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for storing trace timestamps. <br /></td></tr>
+<tr class="separator:a1cf76a701ec2cc473cbdacb5fb1d5b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -148,12 +159,12 @@ Protected Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a345293fe02b9dc7b4be751af141f5f64"><td class="memItemLeft" align="right" valign="top"><a id="a345293fe02b9dc7b4be751af141f5f64" name="a345293fe02b9dc7b4be751af141f5f64"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printTimestamp</b> (const std::chrono::system_clock::time_point &amp;timestamp)</td></tr>
-<tr class="separator:a345293fe02b9dc7b4be751af141f5f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad26fe9ba15d6c78dae059075a1f18678"><td class="memItemLeft" align="right" valign="top"><a id="ad26fe9ba15d6c78dae059075a1f18678" name="ad26fe9ba15d6c78dae059075a1f18678"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMessage</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="class_r_t_tracer.html#a9c921b7d6e9d593d073099d07ca19426">TraceEventKind</a> traceEventKind, void *traceInfo[])</td></tr>
-<tr class="separator:ad26fe9ba15d6c78dae059075a1f18678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b2de0d4e52823f948d15b0ce8a59c8"><td class="memItemLeft" align="right" valign="top"><a id="ad2b2de0d4e52823f948d15b0ce8a59c8" name="ad2b2de0d4e52823f948d15b0ce8a59c8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printTimestamp</b> (const <a class="el" href="class_r_t_tracer.html#a1cf76a701ec2cc473cbdacb5fb1d5b19">TraceTime</a> &amp;timestamp)</td></tr>
+<tr class="separator:ad2b2de0d4e52823f948d15b0ce8a59c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fb89f5b23ead10e1b82b78324c8e844"><td class="memItemLeft" align="right" valign="top"><a id="a5fb89f5b23ead10e1b82b78324c8e844" name="a5fb89f5b23ead10e1b82b78324c8e844"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMessage</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="class_r_t_tracer.html#a9c921b7d6e9d593d073099d07ca19426">TraceEventKind</a> traceEventKind, const <a class="el" href="struct_r_t_tracer_1_1_trace_info.html">TraceInfo</a> *)</td></tr>
+<tr class="separator:a5fb89f5b23ead10e1b82b78324c8e844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb529f230e3f8b4777860f2f131ca2c"><td class="memItemLeft" align="right" valign="top"><a id="a8fb529f230e3f8b4777860f2f131ca2c" name="a8fb529f230e3f8b4777860f2f131ca2c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>traceNote</b> (const char *text)</td></tr>
 <tr class="separator:a8fb529f230e3f8b4777860f2f131ca2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,9 +183,12 @@ static <a class="el" href="class_r_t_tracer.html">RTTracer</a> &amp;&#160;</td><
 <tr class="memitem:a3e6e5c70e0753eef230e401ff0874cdf"><td class="memItemLeft" align="right" valign="top"><a id="a3e6e5c70e0753eef230e401ff0874cdf" name="a3e6e5c70e0753eef230e401ff0874cdf"></a>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>initTraceFile</b> (void)</td></tr>
 <tr class="separator:a3e6e5c70e0753eef230e401ff0874cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a8ef3cb890da76f1a8f936b3f6cd4ab"><td class="memItemLeft" align="right" valign="top"><a id="a5a8ef3cb890da76f1a8f936b3f6cd4ab" name="a5a8ef3cb890da76f1a8f936b3f6cd4ab"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMS</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="class_r_t_tracer.html#a9c921b7d6e9d593d073099d07ca19426">TraceEventKind</a> traceEventKind, void *traceInfo[]=nullptr)</td></tr>
-<tr class="separator:a5a8ef3cb890da76f1a8f936b3f6cd4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b792daa2ab3c0ea526ef8835b26459a"><td class="memItemLeft" align="right" valign="top"><a id="a1b792daa2ab3c0ea526ef8835b26459a" name="a1b792daa2ab3c0ea526ef8835b26459a"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>getSenderInfo</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="struct_r_t_tracer_1_1_trace_info.html">TraceInfo</a> *)</td></tr>
+<tr class="separator:a1b792daa2ab3c0ea526ef8835b26459a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990764803753e6a3bd9fe21a3c6fd92d"><td class="memItemLeft" align="right" valign="top"><a id="a990764803753e6a3bd9fe21a3c6fd92d" name="a990764803753e6a3bd9fe21a3c6fd92d"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMS</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="class_r_t_tracer.html#a9c921b7d6e9d593d073099d07ca19426">TraceEventKind</a> traceEventKind, const <a class="el" href="struct_r_t_tracer_1_1_trace_info.html">TraceInfo</a> *=nullptr)</td></tr>
+<tr class="separator:a990764803753e6a3bd9fe21a3c6fd92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -212,9 +226,9 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>_traceF
 <tr class="memitem:a11702acec90283162ecb75326793b9ee"><td class="memItemLeft" align="right" valign="top"><a id="a11702acec90283162ecb75326793b9ee" name="a11702acec90283162ecb75326793b9ee"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>_overwriteFile</b></td></tr>
 <tr class="separator:a11702acec90283162ecb75326793b9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adefe6da0b02eed0a88f7dd8616678d68"><td class="memItemLeft" align="right" valign="top"><a id="adefe6da0b02eed0a88f7dd8616678d68" name="adefe6da0b02eed0a88f7dd8616678d68"></a>
-static std::chrono::system_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><b>_start</b></td></tr>
-<tr class="separator:adefe6da0b02eed0a88f7dd8616678d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0485ee92267819c3920e81ecc2198953"><td class="memItemLeft" align="right" valign="top"><a id="a0485ee92267819c3920e81ecc2198953" name="a0485ee92267819c3920e81ecc2198953"></a>
+static <a class="el" href="class_r_t_tracer.html#a1cf76a701ec2cc473cbdacb5fb1d5b19">TraceTime</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_start</b></td></tr>
+<tr class="separator:a0485ee92267819c3920e81ecc2198953"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a215ac65f6aa6891d10c8b74876276a8e"><td class="memItemLeft" align="right" valign="top"><a id="a215ac65f6aa6891d10c8b74876276a8e" name="a215ac65f6aa6891d10c8b74876276a8e"></a>
 static int&#160;</td><td class="memItemRight" valign="bottom"><b>_timestamps</b></td></tr>
 <tr class="separator:a215ac65f6aa6891d10c8b74876276a8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
