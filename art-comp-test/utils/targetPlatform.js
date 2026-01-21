@@ -54,6 +54,20 @@ function postProcess(topTC, allTCs, targetPlatform) {
                 tc.linkArguments = '-static';
         }
 
+        // Add c++17 compile argument
+        var cfg = String(tc.targetConfiguration);
+        var isMSVC = cfg.indexOf('VisualC++') !== -1;
+        let args = (tc.compileArguments != null) ? String(tc.compileArguments) : "";
+        var hasStdFlag = (args.indexOf('-std=') !== -1) || (args.indexOf('/std:') !== -1);
+        if (!hasStdFlag) {
+            var stdFlag = isMSVC ? '/std:c++17' : '-std=c++17';
+            if (args.trim().length > 0) {
+                tc.compileArguments = args.trim() + ' ' + stdFlag;
+            } else {
+                tc.compileArguments = stdFlag;
+            }
+        }
+
         if (tc.targetServicesLibraryAutoUpdate !== false && env.TARGET_RTS_DIR && env.TARGET_RTS_DIR != '') {
             tc.targetServicesLibrary = env.TARGET_RTS_DIR;
         }
