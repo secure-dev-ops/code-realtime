@@ -43,6 +43,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8012 | [New tracing feature for sequence diagram visualization of message communication](#new-tracing-feature-for-sequence-diagram-visualization-of-message-communication) |
 | 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) <br> [Improved error handling in REGISTER_LAYER](#improved-error-handling-in-register_layer)  <br> [Support for a new trace file format (.art-trace)](#support-for-a-new-trace-file-format-art-trace) |
 | 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) <br> [Error code for circular import](#error-code-for-circular-import) <br> [Unparse and merge of RTJsonResult](#unparse-and-merge-of-rtjsonresult) <br> [Removal of support for .ms trace format](#removal-of-support-for-ms-trace-format) <br> [Trace configuration and timestamps](#trace-configuration-and-timestamps) |
+| 8015 | [RTLogStream performance improvements](#rtlogstream-performance-improvements) <br> [Tracing of synchronous messages](#tracing-of-synchronous-messages) <br> [Extended RTTracer API](#extended-rttracer-api) <br> [Include the `time2_receive` timestamp by default in traces](#include-the-time2_receive-timestamp-by-default-in-traces) <br> [Configuration of trace file name](#configuration-of-trace-file-name) <br> [Thread information for traced instances](#thread-information-for-traced-instances) <br> [Removed C++ 14 flag for Clang target configurations](#removed-c-14-flag-for-clang-target-configurations) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -175,3 +176,24 @@ The TargetRTS no longer generates the `.ms` trace format. Instead, this format c
 
 ### Trace configuration and timestamps
 Tracing can now be configured by passing a trace configuration JSON file with the command-line argument `-traceConfig` to an application. Currently the trace configuration file can be used for turning on the capturing of timestamps for messages. Two time-stamps can be captured; the time when a message is received (i.e. dispatched to) a capsule instance and the time when a message has been handled by the capsule instance's state machine. The difference between these timestamps tell how much time it took to process the message. For more information see [Trace Configuration](../running-and-debugging/tracing.md#trace-configuration).
+
+### RTLogStream performance improvements
+A new configuration setting [RTS_LOGSTREAM](build.md#rts_logstream) can be used for turning off the [Log Stream](logging.md#log-stream) feature in case you don't use it. Also, the log stream feature is no longer automatically available through the `RTLog.h` header file, and you must now include a new header file `RTLogStream.h` to use it. The reason for these changes is to avoid an increased size of your executable in case it uses log ports, but doesn't use the log stream feature.
+
+### Tracing of synchronous messages
+The tracing feature has been extended to include [synchronous messages](../running-and-debugging/tracing.md#synchronous-communication) (invoke/reply). 
+
+### Extended RTTracer API
+The [RTTracer](../targetrts-api/class_r_t_tracer.html) API has been extended with new functions for programmatically providing a trace configuration file (as an alternative to providing it through the `-traceConfig` command-line argument), to check whether a trace configuration file has been provided, and to write a note to the trace. All these new functions are used in a new sample application [Tracing](../samples.md#tracing).
+
+### Include the `time2_receive` timestamp by default in traces
+Traces will now by default include the [`time2_receive`](../running-and-debugging/tracing.md#receive-time) timestamp, and you need to use a trace configuration file if you don't want any timestamps in your captured traces.
+
+### Configuration of trace file name
+The tracing feature now supports new trace configuration properties for setting the trace file name ([`trace_file`](../running-and-debugging/tracing.md#trace-file-name)) and whether an existing trace file with the same name should be overwritten or not ([`trace_file`](../running-and-debugging/tracing.md#trace-file-name)).
+
+### Thread information for traced instances
+The name of the thread that runs a capsule instance is now included in captured trace files.
+
+### Removed C++ 14 flag for Clang target configurations
+Previously the Clang target configurations were hardcoded to always use the C++ 14 language standard. This prevented use of more modern C++ constructs with these configurations. Now these target configurations work like others and do not hardcode a specific language version (the one selected in the TC will be used when building the application).

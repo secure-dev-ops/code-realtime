@@ -102,12 +102,13 @@ See also [Logging Data with a Log Stream](#logging-data-with-a-log-stream).
 
 
 ## Log Stream
-An alternative to logging with a log port is to use a log stream. The [`Log`](../targetrts-api/struct_log.html) struct has a nested class `Log::Stream` declaration, which is defined in RTLogStream class. You have to include header file `RTLogStream.h`in your program.
+An alternative to logging with a log port is to use a log stream. The [`Log`](../targetrts-api/struct_log.html) struct has a nested class `Log::Stream` declaration, which is defined in the header file `RTLogStream.h`. Include this header file to use log streams.
+
 You can write log messages either to a text file or an `ostream` such as `std::cout` and `std::cerr`. You can write text or data to a log stream using the C++ insertion operator (`<<`).
 For simplicity `Log` also has two members `out` and `err` which can be directly used for streaming log messages to `stdout` or `stderr`. Here are some examples of using log streams:
 
 ```cpp
-#include "RTLogStream.h" //This header must be included in your program
+#include "RTLogStream.h" // This header must be included to use log streams
 
 Log::Stream out(&Log::out); // Log stream connected to stdout
 out << "Some data to stdout" << Log::endl; 

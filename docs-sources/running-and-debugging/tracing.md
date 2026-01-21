@@ -282,6 +282,7 @@ The table below lists all trace configuration properties that can be set in a tr
 | [trace_file.overwrite](#overwrite) | Boolean | true
 
 ### Timestamp Mode
+**Property:** `mode` <br>
 **Type:** String <br>
 **Valid values:** `"absolute"`, `"relative"` (default)
 
@@ -296,12 +297,14 @@ Here is an example that specifies to capture absolute timestamps:
 ```
 
 ### Timestamp Precision
+**Property:** `precision` <br>
 **Type:** String <br>
 **Valid values:** `"milli"`, `"micro"`, `"nano"` (default)
 
 Timestamps are by default given with nano second precision. This applies to both absolute and relative timestamps. For some applications nano second precision may be too high and lead to unnecessary big timestamp numbers, and then you can choose microseconds, or even milliseconds.
 
 ### Send Time
+**Property:** `time1_send` <br>
 **Type:** Boolean <br>
 **Valid values:** `true`, `false` (default)
 
@@ -311,12 +314,14 @@ The first timestamp that can be captured for a message exchange, is when the sen
     This timestamp is currently not supported and the configuration property `time1_send` is ignored.
 
 ### Receive Time
+**Property:** `time2_send` <br>
 **Type:** Boolean <br>
 **Valid values:** `true` (default), `false`
 
 The second timestamp that can be captured for a message exchange, is when the message is delivered to the receiver by its controller. Unless the message will be discarded by the receiver, this timestamp tells when the transition that is triggered by the received message is just about to start executing. This timestamp is referred to as `time2_receive` and appears in JSON at the end of a message in the trace file.
 
 ### Handle Time
+**Property:** `time3_handle` <br>
 **Type:** Boolean <br>
 **Valid values:** `true`, `false` (default)
 
@@ -331,6 +336,7 @@ Here is an example of a message for which both the timestamps `time2_receive` an
 ```
 
 ### Trace File Name
+**Property:** `name` <br>
 **Type:** String <br>
 **Valid values:** Any string that specifies a valid file name. The default is ".trace".
 
@@ -348,6 +354,7 @@ Here is an example that specifies a trace file name using both these variables (
 ```
 
 ### Overwrite
+**Property:** `overwrite` <br>
 **Type:** Boolean <br>
 **Valid values:** `true` (default), `false`
 
