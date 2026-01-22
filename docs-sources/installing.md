@@ -98,7 +98,8 @@ Here you will also see if the launching of the language server for some reason f
 ### Setup C++ Build Tools
 When {$product.name$} builds generated C++ code it uses C++ build tools such as a make tool, a C++ compiler, a C++ linker etc. These tools need to be in the path when you start your IDE. If you have multiple C++ build tools installed, make sure the correct ones are present in the path before launching your IDE. For example, if you use the Microsoft C++ compiler, it's recommended to launch from a Visual Studio native tools command prompt with the correct version (e.g. 32 bit or 64 bit). Build errors caused by inconsistent versions of C++ build tools being used can be tricky to find.
 
-You also need to install an extension for C/C++ development into your IDE. Even if you can use any such extension, {$product.name$} provides the best integration with either [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) or [clangd](https://clangd.llvm.org/).
+### Install C++ Extension
+You also need to install an extension for C/C++ development into your IDE. This is required to get good support for editing C++ files in the IDE (content assist, navigation, syntax coloring etc). Even if you can use any C/C++ extension, {$product.name$} provides the best integration with either [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp) or [clangd](https://clangd.llvm.org/), so you should install one of them.
 
 ## Uninstall
 To uninstall {$product.name$} follow these steps:
