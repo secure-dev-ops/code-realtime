@@ -1,6 +1,7 @@
 ---
 group: validation
 steps: generate
+ac_cmd_args: --ruleConfig E0025
 ac_output match1: ERROR[0025]|7:10|unwired_port1|ping
 ac_output match1a: connection|12:13
 ac_output match2: ERROR[0025]|8:5|unwired_port2|pong

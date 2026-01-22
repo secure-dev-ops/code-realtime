@@ -1,6 +1,7 @@
 ---
 group: validation
 steps: generate
+ac_cmd_args: --ruleConfig W0039
 ac_output match1: WARNING[0039]|7:10|p1|ping
 ac_output match1a: connector|missing|Top|6:9
 ac_output match2: WARNING[0039]|8:5|p2|pong
