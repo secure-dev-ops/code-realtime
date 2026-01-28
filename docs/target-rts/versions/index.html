@@ -1116,6 +1116,55 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rtlogstream-performance-improvements" class="md-nav__link">
+    RTLogStream performance improvements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tracing-of-synchronous-messages" class="md-nav__link">
+    Tracing of synchronous messages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extended-rttracer-api" class="md-nav__link">
+    Extended RTTracer API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#include-the-time2_receive-timestamp-by-default-in-traces" class="md-nav__link">
+    Include the time2_receive timestamp by default in traces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-of-trace-file-name" class="md-nav__link">
+    Configuration of trace file name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-information-for-traced-instances" class="md-nav__link">
+    Thread information for traced instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed-c-14-flag-for-clang-target-configurations" class="md-nav__link">
+    Removed C++ 14 flag for Clang target configurations
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1904,6 +1953,55 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rtlogstream-performance-improvements" class="md-nav__link">
+    RTLogStream performance improvements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tracing-of-synchronous-messages" class="md-nav__link">
+    Tracing of synchronous messages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extended-rttracer-api" class="md-nav__link">
+    Extended RTTracer API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#include-the-time2_receive-timestamp-by-default-in-traces" class="md-nav__link">
+    Include the time2_receive timestamp by default in traces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-of-trace-file-name" class="md-nav__link">
+    Configuration of trace file name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-information-for-traced-instances" class="md-nav__link">
+    Thread information for traced instances
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed-c-14-flag-for-clang-target-configurations" class="md-nav__link">
+    Removed C++ 14 flag for Clang target configurations
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2016,6 +2114,10 @@
 <td>8014</td>
 <td align="left"><a href="#shorter-state-qualifiers-in-the-rtsdebugger-system-command">Shorter state qualifiers in the RTSDebugger system command</a> <br> <a href="#new-rtlock-utility">New RTLock utility</a> <br> <a href="#printing-64-bit-integers-in-rtformat">Printing 64 bit integers in RTFormat</a> <br> <a href="#more-information-for-messages-when-tracing">More information for messages when tracing</a> <br> <a href="#error-code-for-circular-import">Error code for circular import</a> <br> <a href="#unparse-and-merge-of-rtjsonresult">Unparse and merge of RTJsonResult</a> <br> <a href="#removal-of-support-for-ms-trace-format">Removal of support for .ms trace format</a> <br> <a href="#trace-configuration-and-timestamps">Trace configuration and timestamps</a></td>
 </tr>
+<tr>
+<td>8015</td>
+<td align="left"><a href="#rtlogstream-performance-improvements">RTLogStream performance improvements</a> <br> <a href="#tracing-of-synchronous-messages">Tracing of synchronous messages</a> <br> <a href="#extended-rttracer-api">Extended RTTracer API</a> <br> <a href="#include-the-time2_receive-timestamp-by-default-in-traces">Include the <code>time2_receive</code> timestamp by default in traces</a> <br> <a href="#configuration-of-trace-file-name">Configuration of trace file name</a> <br> <a href="#thread-information-for-traced-instances">Thread information for traced instances</a> <br> <a href="#removed-c-14-flag-for-clang-target-configurations">Removed C++ 14 flag for Clang target configurations</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -2114,6 +2216,20 @@
 <p>The TargetRTS no longer generates the <code>.ms</code> trace format. Instead, this format can be obtained by translating the <code>.art-trace</code> format. The module that parses <code>.art-trace</code> files is now open-source at <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace">GitHub</a> and a <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace/blob/main/samples/jsSequenceDiagrams.ts">sample script</a> is provided for creating the <code>.ms</code> trace format from an <code>.art-trace</code> file.</p>
 <h3 id="trace-configuration-and-timestamps">Trace configuration and timestamps</h3>
 <p>Tracing can now be configured by passing a trace configuration JSON file with the command-line argument <code>-traceConfig</code> to an application. Currently the trace configuration file can be used for turning on the capturing of timestamps for messages. Two time-stamps can be captured; the time when a message is received (i.e. dispatched to) a capsule instance and the time when a message has been handled by the capsule instance's state machine. The difference between these timestamps tell how much time it took to process the message. For more information see <a href="../../running-and-debugging/tracing/#trace-configuration">Trace Configuration</a>.</p>
+<h3 id="rtlogstream-performance-improvements">RTLogStream performance improvements</h3>
+<p>A new configuration setting <a href="../build/#rts_logstream">RTS_LOGSTREAM</a> can be used for turning off the <a href="../logging/#log-stream">Log Stream</a> feature in case you don't use it. Also, the log stream feature is no longer automatically available through the <code>RTLog.h</code> header file, and you must now include a new header file <code>RTLogStream.h</code> to use it. The reason for these changes is to avoid an increased size of your executable in case it uses log ports, but doesn't use the log stream feature.</p>
+<h3 id="tracing-of-synchronous-messages">Tracing of synchronous messages</h3>
+<p>The tracing feature has been extended to include <a href="../../running-and-debugging/tracing/#synchronous-communication">synchronous messages</a> (invoke/reply). </p>
+<h3 id="extended-rttracer-api">Extended RTTracer API</h3>
+<p>The <a href="../../targetrts-api/class_r_t_tracer.html">RTTracer</a> API has been extended with new functions for programmatically providing a trace configuration file (as an alternative to providing it through the <code>-traceConfig</code> command-line argument), to check whether a trace configuration file has been provided, and to write a note to the trace. All these new functions are used in a new sample application <a href="../../samples/#tracing">Tracing</a>.</p>
+<h3 id="include-the-time2_receive-timestamp-by-default-in-traces">Include the <code>time2_receive</code> timestamp by default in traces</h3>
+<p>Traces will now by default include the <a href="../../running-and-debugging/tracing/#receive-time"><code>time2_receive</code></a> timestamp, and you need to use a trace configuration file if you don't want any timestamps in your captured traces.</p>
+<h3 id="configuration-of-trace-file-name">Configuration of trace file name</h3>
+<p>The tracing feature now supports new trace configuration properties for setting the trace file name (<a href="../../running-and-debugging/tracing/#trace-file-name"><code>trace_file</code></a>) and whether an existing trace file with the same name should be overwritten or not (<a href="../../running-and-debugging/tracing/#trace-file-name"><code>trace_file</code></a>).</p>
+<h3 id="thread-information-for-traced-instances">Thread information for traced instances</h3>
+<p>The name of the thread that runs a capsule instance is now included in captured trace files.</p>
+<h3 id="removed-c-14-flag-for-clang-target-configurations">Removed C++ 14 flag for Clang target configurations</h3>
+<p>Previously the Clang target configurations were hardcoded to always use the C++ 14 language standard. This prevented use of more modern C++ constructs with these configurations. Now these target configurations work like others and do not hardcode a specific language version (the one selected in the TC will be used when building the application).</p>
 
 
 

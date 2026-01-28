@@ -1284,6 +1284,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tracing" class="md-nav__link">
+    Tracing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trafficlight" class="md-nav__link">
     TrafficLight
   </a>
@@ -1458,6 +1465,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tracing" class="md-nav__link">
+    Tracing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trafficlight" class="md-nav__link">
     TrafficLight
   </a>
@@ -1578,6 +1592,10 @@
 <h2 id="picomputer"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/PiComputer">PiComputer</a></h2>
 <p>This application computes a value of Pi using <a href="https://en.wikipedia.org/wiki/Madhava_of_Sangamagrama">Madhava</a>'s formula, which consists of a series of additions and multiplications. The result is obtained as a collaboration of three capsules, each with a simple state machine, which coordinate their work by sending events with parameters.</p>
 <p><strong>Art:</strong> <a href="../art-lang/#hierarchical-state-machine">composite state</a> (hierarchical state machine)</p>
+<h2 id="tracing"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/Tracing">Tracing</a></h2>
+<p>This sample shows how traces can be captured from a running application. You can later visualize such a trace as a sequence diagram, view it as a text file, or use a script for processing it in some other way. See <a href="../running-and-debugging/tracing/">Tracing</a> for more information.</p>
+<p><strong>Art:</strong> <a href="../art-lang/#symmetric-event">symmetric event</a>, <a href="../art-lang/#self-communication">self communication</a></p>
+<p><strong>TargetRTS:</strong> <a href="../targetrts-api/class_r_t_tracer.html">RTTracer</a> for programmatically configuring and enabling/disabling tracing, <a href="../target-rts/message-communication/#asynchronous-versus-synchronous-communication">synchronous communication</a>, <a href="../target-rts/message-communication/#sendcopytome">sendCopyToMe</a></p>
 <h2 id="trafficlight"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TrafficLight">TrafficLight</a></h2>
 <p>This sample implements a classical traffic light that switches between red, yellow and green based on a periodic timer. The actual traffic light is implemented by means of a class <code>Light</code> with a state machine. An instance of that class is managed by the <code>TrafficLight</code> capsule. The <code>Light</code> class uses an interface class <code>ILogger</code>, which the <code>TrafficLight</code> capsules implements, for logging messages when the traffic light switches state. It delegates the work of logging to a separate Logger capsule. Note that only the <code>ILogger</code> interface is provided to the <code>Light</code> object, instead of the whole <code>TrafficLight</code> capsule which has an unnecessary big API for the needs of the <code>Light</code>.</p>
 <p><strong>Art:</strong> <a href="../art-lang/#class-with-state-machine">class with state machine</a> </p>
@@ -1620,7 +1638,7 @@
 <h2 id="distributedpingpong"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/DistributedPingPong">DistributedPingPong</a></h2>
 <p>This sample uses the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer">TCPServer library</a> for implementing a distributed application. Two instances of the PingPong application are launched and the TCPServer library ensures that the events that are sent out by one application, are serialized to JSON, sent over TCP and received by the other application. The applications are connected by means of command-line arguments that specify the application's own port, and the port of the other application.</p>
 <p>To start the communication, a special command-line argument <code>-injectFirstPing</code> is supported. The implementation of this argument uses APIs of <a href="../targetrts-api/class_r_t_message.html">RTMessage</a> for programmatically injecting an event on a port.</p>
-<p><strong>Art:</strong> <a href="../target-rts/timers/#timer-data">timer data</a>, <a href="../art-lang/#protocol-and-event">symmetric events</a>, <a href="../art-lang/#calling-code-from-an-inherited-transition">calling code from an inherited transition</a></p>
+<p><strong>Art:</strong> <a href="../target-rts/timers/#timer-data">timer data</a>, <a href="../art-lang/#symmetric-event">symmetric events</a>, <a href="../art-lang/#calling-code-from-an-inherited-transition">calling code from an inherited transition</a></p>
 <p><strong>TargetRTS:</strong> <a href="../targetrts-api/class_r_t_main.html">RTMain</a>::argCount(), <a href="../targetrts-api/class_r_t_main.html">RTMain</a>::argStrings(), <a href="../targetrts-api/class_r_t_memory_util.html">RTMemoryUtil</a>, <a href="../targetrts-api/class_r_t_message.html">RTMessage</a>, <a href="../targetrts-api/class_r_t_controller.html">RTController</a>::receive()</p>
 <h2 id="tokenring"><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TokenRing">TokenRing</a></h2>
 <p>This sample is similar to <a href="#distributedpingpong">DistributedPingPong</a>, and also uses the <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/TcpServer">TCPServer library</a>. But instead of just connecting two applications, here multiple applications can be connected in a ring structure. The applications exchange a <code>token</code> event which has a string (<code>RTString</code>) data parameter.</p>

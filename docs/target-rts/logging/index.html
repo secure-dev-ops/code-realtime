@@ -1559,9 +1559,12 @@ log.log(ss.str().c_str());
 It shows both how data is string encoded by default, and how you can implement a custom encoding by means of <code>std::stringstream</code>.</p>
 </div>
 <h2 id="log-stream">Log Stream</h2>
-<p>An alternative to logging with a log port is to use a log stream. The <a href="../../targetrts-api/struct_log.html"><code>Log</code></a> struct has a nested class <code>Log::Stream</code> which lets you write log messages either to a text file or an <code>ostream</code> such as <code>std::cout</code> and <code>std::cerr</code>. You can write text or data to a log stream using the C++ insertion operator (<code>&lt;&lt;</code>).</p>
-<p>For simplicity <code>Log</code> also has two members <code>out</code> and <code>err</code> which can be directly used for streaming log messages to <code>stdout</code> or <code>stderr</code>. Here are some examples of using log streams:</p>
-<pre><code class="language-cpp">Log::Stream out(&amp;Log::out); // Log stream connected to stdout
+<p>An alternative to logging with a log port is to use a log stream. The <a href="../../targetrts-api/struct_log.html"><code>Log</code></a> struct has a nested class <code>Log::Stream</code> declaration, which is defined in the header file <code>RTLogStream.h</code>. Include this header file to use log streams.</p>
+<p>You can write log messages either to a text file or an <code>ostream</code> such as <code>std::cout</code> and <code>std::cerr</code>. You can write text or data to a log stream using the C++ insertion operator (<code>&lt;&lt;</code>).
+For simplicity <code>Log</code> also has two members <code>out</code> and <code>err</code> which can be directly used for streaming log messages to <code>stdout</code> or <code>stderr</code>. Here are some examples of using log streams:</p>
+<pre><code class="language-cpp">#include &quot;RTLogStream.h&quot; // This header must be included to use log streams
+
+Log::Stream out(&amp;Log::out); // Log stream connected to stdout
 out &lt;&lt; &quot;Some data to stdout&quot; &lt;&lt; Log::endl; 
 Log::Stream err(&amp;std::cerr); // Log stream connected to stderr
 out &lt;&lt; &quot;Some data to stderr&quot; &lt;&lt; Log::endl;

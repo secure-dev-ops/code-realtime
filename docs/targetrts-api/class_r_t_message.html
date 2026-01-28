@@ -162,9 +162,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setInvalid</b> (void)
 <tr class="memitem:ac3e9c296b4fe3d9e751718d4e52a8c15"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_message.html#ac3e9c296b4fe3d9e751718d4e52a8c15">sapIndex</a> (void) const</td></tr>
 <tr class="memdesc:ac3e9c296b4fe3d9e751718d4e52a8c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index (1-based) of the replicated port on which this message was received.  <br /></td></tr>
 <tr class="separator:ac3e9c296b4fe3d9e751718d4e52a8c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13b274a7bbef29d65a4be3c4932c986c"><td class="memItemLeft" align="right" valign="top">DeliverResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_message.html#a13b274a7bbef29d65a4be3c4932c986c">deliver</a> (void)</td></tr>
-<tr class="memdesc:a13b274a7bbef29d65a4be3c4932c986c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempt to deliver the message to its specified receiver.  <br /></td></tr>
-<tr class="separator:a13b274a7bbef29d65a4be3c4932c986c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d666b205c5c4e681fbb78efc50d9f9b"><td class="memItemLeft" align="right" valign="top">DeliverResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_message.html#a8d666b205c5c4e681fbb78efc50d9f9b">deliver</a> (bool synchronous=false)</td></tr>
+<tr class="memdesc:a8d666b205c5c4e681fbb78efc50d9f9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempt to deliver the message to its specified receiver.  <br /></td></tr>
+<tr class="separator:a8d666b205c5c4e681fbb78efc50d9f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfe4dd50e262249b4da0caabb226d616"><td class="memItemLeft" align="right" valign="top"><a id="acfe4dd50e262249b4da0caabb226d616" name="acfe4dd50e262249b4da0caabb226d616"></a>
 <a class="el" href="class_r_t_message.html">RTMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> &amp;)</td></tr>
 <tr class="separator:acfe4dd50e262249b4da0caabb226d616"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -313,8 +313,8 @@ const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *&#1
 
 </div>
 </div>
-<a id="a13b274a7bbef29d65a4be3c4932c986c" name="a13b274a7bbef29d65a4be3c4932c986c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13b274a7bbef29d65a4be3c4932c986c">&#9670;&#160;</a></span>deliver()</h2>
+<a id="a8d666b205c5c4e681fbb78efc50d9f9b" name="a8d666b205c5c4e681fbb78efc50d9f9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d666b205c5c4e681fbb78efc50d9f9b">&#9670;&#160;</a></span>deliver()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,15 +322,21 @@ const <a class="el" href="struct_r_t_object__class.html">RTObject_class</a> *&#1
         <tr>
           <td class="memname">DeliverResult RTMessage::deliver </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>synchronous</em> = <code>false</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Attempt to deliver the message to its specified receiver. </p>
-<p>This function is called by the TargetRTS when a message is sent, and it's normally not useful to call it directly. </p><dl class="section return"><dt>Returns</dt><dd>A delivery status informing about how the receiver handled the message. </dd></dl>
+<p>This function is called by the TargetRTS when a message is sent, and it's normally not useful to call it directly. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">synchronous</td><td>False for most messages, but true for messages delivered as part of an invoke </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A delivery status informing about how the receiver handled the message. </dd></dl>
 
 </div>
 </div>

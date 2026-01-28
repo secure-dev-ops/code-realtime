@@ -20,7 +20,7 @@
     
     
       
-        <title>3.1.0 (2025-11-19 12:02) - DevOps Code RealTime</title>
+        <title>3.2.0 (2026-01-23 14:40) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#310-2025-11-19-1202" class="md-skip">
+        <a href="#320-2026-01-23-1440" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.1.0 (2025-11-19 12:02)
+              3.2.0 (2026-01-23 14:40)
             
           </span>
         </div>
@@ -1295,6 +1295,25 @@
   
 
 
+<h1 id="320-2026-01-23-1440">3.2.0 (2026-01-23 14:40)</h1>
+<ol>
+<li>For state and structure diagrams with manual layout it's now possible to freely route transition lines. You can decide where on the source and target symbol the line should connect to, and also add bendpoints. Some or all line bendpoints can be deleted by means of commands in the context menu that appears when you select a line, or bendpoints of a line, and press <code>ctrl+space</code>.</li>
+<li>Diagrams now refresh automatically if their diagram settings change. This can for example happen if the <code>art_diagram_settings.json</code> file is committed to Git, and it changes after a Git command has run.</li>
+<li>The diagram setting for whether excluded elements should be shown or not has now been split into two separate settings; one for state diagrams and another for structure diagrams. </li>
+<li>Panning a class, structure or state diagram could previously only be done by clicking in the diagram background and then moving the mouse. However, when diagrams are zoomed in so a composite symbol cover the whole screen, this doesn't work well as it will instead move the composite symbol. Now it's possible to pan diagrams using the Page Up/Down keys (with or without the Shift key). It's also possible to pan with the mouse when the Space key is pressed down.</li>
+<li>When you open a class diagram from the context menu of a C++ header file, and the file contains multiple types that can be shown in the diagram, the cursor position in the file is now used for knowing which of the types to open the diagram for. In this case a list of all types in the file is no longer shown, which gives a smoother workflow.</li>
+<li>The sequence diagram viewer for trace files now reads the trace configuration that is present in a comment in the beginning of the file. If it finds that the trace contains <code>time2_receive</code> timestamps (which now will be there by default) it will automatically sort messages according to this timestamp. This makes it easier to interpret the sequence diagram, especially when synchronous communication is used.</li>
+<li>The <code>RTTracer</code> class in the TargetRTS provides a new function <code>configure()</code> that allows to configure a trace programmatically (as an alternative to using the <code>-traceConfig</code> command-line option).</li>
+<li>The <code>RTTracer</code> class in the TargetRTS provides a new function <code>note()</code> that allows to programmatically write notes into a trace. A timestamp is now also captured for a note. Read more about this in the <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/tracing/#custom-notes">documentation</a>. Also see the new sample <a href="https://secure-dev-ops.github.io/code-realtime/samples/#tracing">Tracing</a> which uses this feature.</li>
+<li>It's now possible to specify in the trace configuration file the name of the trace file, and whether or not it should overwrite an already existing trace file with the same name. Certain variables are supported in the specified file name to make it possible to include the current timestamp in the trace file name as a way to ensure uniqueness.</li>
+<li>Tracing has been extended to now include information about the thread in which a capsule instance executes.</li>
+<li>Tracing now supports synchronous communication (i.e. invoke/reply). The sequence diagram viewer uses a <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/tracing/#synchronous-communication">special visualization</a> for messages that are synchronously invoked or replied. Both an explicit or implicit return message is supported, and is shown slightly differently on a sequence diagram.</li>
+<li>The sequence diagram viewer now shows in a tooltip for a message how much time it took to handle that message. This feature requires that timestamps are available in the trace (the handle time is the difference between the <code>time3_handle</code> and <code>time2_receive</code> timestamps).</li>
+<li>The sequence diagram viewer now draws the <code>external</code> lifeline, if present, with purple color to make it stand out from lifelines that represent user-created capsule instances.</li>
+<li>The parser for <code>.art-trace</code> files (available on <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace">GitHub</a>) has been extended to parse trace configuration data from a trace file. It also provides a utility for sorting messages according to one of its timestamps.</li>
+<li>A <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace/blob/main/samples/googleTraceEventFormat.ts">sample script</a> can be used for translating an <code>.art-trace</code> file into the Google Trace Event JSON Format. Such a JSON file can then be visualized in a so called flame chart in trace viewers that support this format, for example <a href="https://perfetto.dev/">Perfetto</a>.</li>
+<li>Version 2.2.0 of the Art Exporter is now available. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for more detailed release notes for the Art Exporter.</li>
+</ol>
 <h1 id="310-2025-11-19-1202">3.1.0 (2025-11-19 12:02)</h1>
 <ol>
 <li>A new diagram setting has been added to control if excluded elements should be shown or not in state and structure diagrams. It's available both as a global workspace setting and as a setting for an individual diagram (i.e. a new checkbox in the Properties view). If shown, excluded transitions are now drawn with a "crossed" line style to be consistent with how other excluded elements are shown.</li>
