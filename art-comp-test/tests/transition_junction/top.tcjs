@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'transition_junction_target';
+tc.cppCodeStandard = "C++ 17";
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];

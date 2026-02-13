@@ -1,0 +1,130 @@
+protocol Proto {
+    out cmd(`RTInteger`);
+};
+
+capsule Tester {
+    service behavior port p : Proto;
+    statemachine {
+        state S;
+        initial -> S
+        `
+            static RTInteger v2 = 2;
+            p.cmd(v2).send();
+            static RTInteger v3 = 3;
+            p.cmd(v3).send();
+            static RTInteger v4 = 4;
+            p.cmd(v4).send();
+            static RTInteger v1 = 1;
+            p.cmd(v1).send();
+            p.cmd(v3).send();
+            static RTInteger v5 = 5;
+            p.cmd(v5).send();
+        `;
+    };
+};
+
+capsule MyCap {
+    service behavior port p~ : Proto;
+    statemachine {
+        state A {
+            entrypoint entry_point_initialize;
+            state C {
+                entrypoint entry_point_c;
+                exitpoint exit_point_c;
+                state D;
+                d: entry_point_c -> D
+                `
+                    std::cout << "transition d: entry_point_c -> D on cmd " << *rtdata << std::endl;
+                    if (*rtdata == 5) {
+                        std::cout << "\n***PASS***\n";
+                        context()->abort();
+                    }
+                `;
+                entry
+                `
+                    std::cout << "state C entry\n";
+                `;
+                exit
+                `
+                    std::cout << "\nstate C exit\n";
+                `;
+            };
+            junction junction_arb;
+            junction junction_farb;
+            choice cg;
+            state B {
+                entry
+                `
+                    std::cout << "state B entry\n";
+                `;
+                exit
+                `
+                    std::cout << "\nstate B exit\n";
+                `;
+            };
+            a: B -> junction_arb on p.cmd when 
+            `
+                return *rtdata == 2;
+            `
+            `
+                std::cout << "transition a: B -> junction_arb on cmd " << *rtdata << std::endl;
+            `;
+            r: B -> junction_arb on p.cmd when 
+            `
+                return *rtdata == 3;
+            `
+            `
+                std::cout << "transition r: B -> junction_arb on cmd " << *rtdata << std::endl;
+            `;
+            s: B -> C.entry_point_c on p.cmd when 
+            `
+                return *rtdata == 1;
+            `
+            `
+                std::cout << "transition s to state C on cmd 1\n";
+            `;
+            b: B -> junction_arb on p.cmd when 
+            `
+                return *rtdata == 4;
+            `
+            `
+                std::cout << "transition b: B -> junction_arb on cmd " << *rtdata << std::endl;
+            `;
+            g: C.exit_point_c -> cg on p.cmd
+            `
+                std::cout << "transition g: C.exit_point_c -> choice cg on cmd " << *rtdata << std::endl;
+            `;
+            arb: junction_arb -> junction_farb
+            `
+                std::cout << "transition arb: junction_arb -> junction_farb on cmd " << *rtdata << std::endl;
+            `;
+            arbf: junction_farb -> C.entry_point_c
+            `
+                std::cout << "transition arbf: junction_farb -> C.entry_point_c on cmd " << *rtdata << std::endl;
+            `;
+            e: cg -> B
+            `
+                std::cout << "transition e: cg -> state B on cmd " << *rtdata << std::endl;
+            `;
+            f: cg -> junction_farb when 
+            `
+                return *rtdata == 5;
+            `
+            `
+                std::cout << "transition f: cg -> junction_farb on cmd " << *rtdata << std::endl;
+            `;
+            initialize: entry_point_initialize -> B;
+        };
+        initialize: initial  ->  A.entry_point_initialize;
+    };
+};
+
+capsule Top {
+    part tester : Tester;
+    part cap : MyCap;
+    connect tester.p with cap.p;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

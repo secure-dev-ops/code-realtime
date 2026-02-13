@@ -1,0 +1,41 @@
+state B entry
+
+state B exit
+transition a: B -> junction_arb on cmd 2
+transition arb: junction_arb -> junction_farb on cmd 2
+transition arbf: junction_farb -> C.entry_point_c on cmd 2
+state C entry
+transition d: entry_point_c -> D on cmd 2
+
+state C exit
+transition g: C.exit_point_c -> choice cg on cmd 3
+transition e: cg -> state B on cmd 3
+state B entry
+
+state B exit
+transition b: B -> junction_arb on cmd 4
+transition arb: junction_arb -> junction_farb on cmd 4
+transition arbf: junction_farb -> C.entry_point_c on cmd 4
+state C entry
+transition d: entry_point_c -> D on cmd 4
+
+state C exit
+transition g: C.exit_point_c -> choice cg on cmd 1
+transition e: cg -> state B on cmd 1
+state B entry
+
+state B exit
+transition r: B -> junction_arb on cmd 3
+transition arb: junction_arb -> junction_farb on cmd 3
+transition arbf: junction_farb -> C.entry_point_c on cmd 3
+state C entry
+transition d: entry_point_c -> D on cmd 3
+
+state C exit
+transition g: C.exit_point_c -> choice cg on cmd 5
+transition f: cg -> junction_farb on cmd 5
+transition arbf: junction_farb -> C.entry_point_c on cmd 5
+state C entry
+transition d: entry_point_c -> D on cmd 5
+
+***PASS***

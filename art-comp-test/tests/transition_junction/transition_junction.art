@@ -1,0 +1,45 @@
+protocol Proto {
+    out cmd(`int`);
+};
+
+capsule Tester {
+    service behavior port p : Proto;
+    statemachine {
+        state S;
+        initial -> S
+        `
+            static int x = 3;
+            p.cmd(x).send();
+            static int y = 2;
+            p.cmd(y).send();
+        `;
+    };
+};
+
+capsule MyCap {
+    service behavior port p~ : Proto;
+    statemachine {
+        initial -> A;
+        state A;
+        state B;
+        junction j1;
+
+        a: A -> j1 on p.cmd when `*rtdata == 2`;
+        b: A -> j1 on p.cmd when `*rtdata == 3`;
+        ab: j1 -> B
+        `
+            ASSERT(*rtdata == 3, "Transition b was not executed");
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    part tester : Tester;
+    part c : MyCap;
+    connect tester.p with c.p;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

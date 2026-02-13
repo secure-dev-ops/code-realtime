@@ -1,0 +1,7 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'composite_state_junction_choice_target';
+tc.cppCodeStandard = "C++ 17";
+tc.commonPreface = `
+#include <iostream>
+`;
+tc.topCapsule = "Top";
