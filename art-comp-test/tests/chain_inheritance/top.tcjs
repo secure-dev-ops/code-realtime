@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'chain_inheritance_target';
+tc.cppCodeStandard = "C++ 17";
+tc.topCapsule = 'Top';
+tc.commonPreface = '#include <iostream>';

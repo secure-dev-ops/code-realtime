@@ -1,0 +1,63 @@
+protocol MyProto {
+    in ev1();
+    in ev2();
+};
+
+capsule Tester {
+    service behavior port p~ : MyProto;
+    statemachine {
+        state State;
+        initial -> State
+        `
+            p.ev1().send();
+            p.ev2().send();
+        `;
+    };
+};
+
+capsule Subsystem {
+    service behavior port p : MyProto;
+    statemachine {
+        initial -> Wait.epw;
+        state State1;
+        state Wait {
+            entrypoint epw;
+            init: epw -> Enabled.entry_enabled;
+            state Disabled {
+                entry `
+                    std::cout << "***PASS***\n";
+                    context()->abort();
+                `;
+            };
+            state Enabled {
+                entrypoint entry_enabled [[rt::properties(rule_config="X0041")]];
+                exitpoint exit_enabled;
+            };
+            disable_ss: Enabled.exit_enabled -> Disabled on p.ev2 `std::cout << "disable_ss\n";`;
+        };
+    };
+};
+
+capsule Subsystem_Input : Subsystem {
+    statemachine {
+        state redefine Wait {
+            state redefine Enabled {
+                state Inner1;
+                state Inner2;
+
+                init: entry_enabled -> Inner1;
+                t1: Inner1 -> Inner2 on p.ev1 `std::cout << "t1: Inner1 -> Inner2\n";`;
+            };
+        };
+    };
+};
+
+capsule Top {
+    part tester : Tester;
+    part input : Subsystem_Input;
+    connect tester.p with input.p;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
