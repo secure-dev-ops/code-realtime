@@ -1,0 +1,37 @@
+capsule BaseC {
+    [[rt::decl]]
+    `
+        int x = 0;
+    `    
+    behavior port t : Timing;
+    statemachine {
+        state State1;        
+        choice c1;
+        state X1;
+        state X2 {
+            entrypoint entryPoint_0;
+            state X2_nested;
+            else: entryPoint_0 -> X2_nested;
+        };
+        State1 -> c1 on t.timeout
+        `
+            Log::out << "Timeout occurred, x = " << x << std::endl;
+        `;
+        _initial: initial  ->  State1
+        `
+            RTTimerId tid = t.informIn(RTTimespec(0, 0));
+            if (!tid.isValid()) {
+                FAIL("Failed to set timer");
+            }
+        `;
+                
+        greater: c1 -> X1 when `x > 1`
+        `
+            Log::out << "Transitioning to X1 because x > 1" << std::endl;
+        `;        
+        else: c1 -> X2.entryPoint_0
+        `
+            Log::out << "Transitioning to X2 because x <= 1" << std::endl;
+        `;
+    };
+};

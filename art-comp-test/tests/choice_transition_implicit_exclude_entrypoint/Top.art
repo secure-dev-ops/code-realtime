@@ -1,0 +1,10 @@
+capsule Top : BaseC {
+    statemachine {        
+        state X3;
+        state exclude X2;
+        else2: c1 -> X3
+        `
+            PASS();  
+        `;
+    };
+};

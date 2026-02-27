@@ -183,7 +183,7 @@ Here an `rt::header_preface` code snippet is used for making the generated capsu
 !!! hint
     As an alternative to placing common C++ code in an Art file you can also use regular C++ files and then include these into the build. See [Non-Generated C++ Files](../building/build-cpp-files.md) for more information.
 
-## Art Files and Folders and Reference Binding
+## Art Files and Folders
 Any but the simplest of applications will consist of multiple Art files organized into folders. You can create as many Art files as you like, and every Art file may contain one or several Art elements. Art files containing Art elements that are related to each other should be grouped in a folder. For example, if you build a library from certain Art elements it makes sense to put the Art files with those elements in their own folder. 
 
 Folders with Art files should be added as workspace folders, either using the command **File - Add Folder to Workspace** (to add a folder to an existing workspace), or using the command **File - Open Workspace from File** (to open an existing workspace from a file that defines the workspace folders). If your application consists of more than a couple of workspace folders use of a workspace file is recommended as it makes it quick and easy to add all workspace folders in one go with a single command.
@@ -191,6 +191,12 @@ Folders with Art files should be added as workspace folders, either using the co
 !!! note 
     Art files must be on the top level in a workspace folder. Do not place them in subfolders. 
 
+### Multi-Root Workspaces
+A [workspace](https://code.visualstudio.com/docs/editing/workspaces/workspaces) in Visual Studio Code and similar IDEs is either a single folder or a collection of workspace folders (a.k.a. a multi-root workspace). If you use the command **File - Open Folder** you get a workspace that consists of that single opened folder. Even if there are a few simple cases when that is all you need, it's always recommended to use {$product.name$} with multi-root workspaces. In fact, as soon as you generate code for a TC it will be placed in its own workspace folder. In almost all cases a {$product.name$} workspace will therefore contain at least two workspace folders.
+
+Beware that when Visual Studio Code goes from a workspace that consists of a single folder to become a multi-root workspace, it automatically restarts all extensions, including {$product.name$}. For example, this happens if you build a TC of a single workspace folder, when the target workspace folder with the generated code gets added to the workspace. If you are not aware of this, and are working with something else when this restart happens, this can come as a surprise and interrupt your work. It's therefore **strongly recommended** to always use multi-root workspaces with {$product.name$}. If you started by opening a single folder as your workspace, make sure to save it as a workspace file using the command **File - Save Workspace As** before you build or set a TC as active. There are also other benefits with always using [multi-root workspaces](https://code.visualstudio.com/docs/editing/workspaces/workspaces#_multiroot-workspaces). For example, all workspace-level [settings](../settings.md) you make when working in that workspace will be persisted into the same `.code-workspace` file.
+
+### Binding of References across Art Files
 When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder. If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active [transformation configuration](../building/transformation-configurations.md) (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched. The search continues recursively if the prerequisite TC itself has prerequisites.
 
 If a matching Art element cannot be found in any of these locations the reference will be unresolved and an error will be reported. For example:

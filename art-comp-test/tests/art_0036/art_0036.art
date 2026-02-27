@@ -36,7 +36,7 @@ capsule C36_B2 {
 };
 
 capsule C36_D2 : C36_B2 {
-    statemachine { // ART_0036 (here ep has an incoming transition which makes the inherited t1 incorrect)
+    statemachine { // no ART_0036 (here ep has an incoming transition which makes the inherited t1 have unexpected triggers, but since these transitions are in different state machines due to the inheritance we allow this)
         tx : State -> Composite.ep on t.timeout;        
     };
 };

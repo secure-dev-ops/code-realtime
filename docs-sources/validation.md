@@ -780,9 +780,6 @@ capsule Pinger {
 Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.
 
 ### ART_0025_portConnectionError
-!!! note 
-    This validation rule can take some time to run and it's therefore by default disabled. You have to [enable it](#configuring-validation) manually to use it. 
-
 | Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Error | A wired port is not properly connected, or an unwired port is connected. | N/A
@@ -1280,9 +1277,6 @@ capsule C38 {
 ```
 
 ### ART_0039_portPartMultiplicityMismatch
-!!! note 
-    This validation rule can take some time to run and it's therefore by default disabled. You have to [enable it](#configuring-validation) manually to use it.
-    
 | Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------
 | Warning | The multiplicities of two connected ports are inconsistent, or a port is missing an expected connector. | N/A

@@ -1,0 +1,5 @@
+//Transformation Configuration File
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'choice_transition_implicit_exclude_target';
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];

@@ -1,0 +1,51 @@
+capsule Base {
+    behavior port timer : Timing;
+    statemachine {
+        state State1 {         
+            entrypoint _EP;   
+            exitpoint _EXP;
+            state Nested;
+            _initial: _EP  ->  Nested;
+        };
+        state Target;
+        _initial: initial  ->  State1._EP
+        `
+            timer.informIn(RTTimespec(1,0));
+        `;
+        t1: State1._EXP -> Target on timer.timeout
+        `
+            Log::out << "t1" << Log::endl;
+            PASS();
+        `;
+    };
+};
+
+capsule Top : Base {
+    behavior port timer2 : Timing;
+    statemachine {
+        state redefine State1 {
+            t2: Nested -> _EXP on timer2.timeout
+            `
+                Log::out << "timer 2 timeout" << Log::endl;                
+            `;
+        };
+        redefine _initial : initial  ->  State1._EP
+        `
+            Log::out << "Setting timer 2" << Log::endl;
+            timer2.informIn(RTTimespec(1,0));
+        `;
+        // In this context t1 should not have a trigger (because of State::t2), and it would be possible to redefine it as shown below to
+        // remove the trigger and call the super implementation.
+        /*
+        redefine t1 : State1._EXP -> Target 
+        `            
+            CALLSUPER;
+        `;*/
+        // However, to avoid having to do this, we allow t1 to keep the trigger, without reporting ART_0036. The trigger will simply be ignored instead.
+
+        redefine t1 : State1._EXP -> Target on timer.timeout
+        `            
+            CALLSUPER;
+        `;
+    };
+};
