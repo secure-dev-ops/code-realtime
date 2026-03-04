@@ -1175,7 +1175,9 @@ capsule C36 {
 };
 ```
 
-In case the state machine is inherited, and the problem is detected for an inherited transition, then it is reported on the state machine instead. The inherited transition with the unexpected trigger(s) will be reported as a related element. In this case the Quick Fix can not be used for removing the triggers. Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:
+It should be noted that a transition that is correct in the context of a base state machine could be incorrect in the context of a state machine that inherits from it. However, an error is not reported for this situation since it would be inconvenient to have to redefine a transition just for the purpose of removing its triggers (and then let it call the inherited transition's implementation using CALLSUPER). In this case the unexpected triggers are instead simply ignored without reporting ART_0036.
+
+Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:
 
 ``` art
 capsule B2 {
@@ -1192,7 +1194,7 @@ capsule B2 {
 };
 
 capsule D2 : B2 {    
-    statemachine { // ART_0036 (here ep has an incoming transition which makes the inherited t1 incorrect)
+    statemachine { // Here ep has an incoming transition which makes the inherited t1 incorrect, but no ART_0036 is reported since the transitions are in different state machines
         tx : State -> Composite.ep on t.timeout;       
     };
 };
