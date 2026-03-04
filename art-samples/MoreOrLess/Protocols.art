@@ -16,8 +16,6 @@ protocol GuesserProt {
 [[rt::decl]]
 `
     struct [[rt::auto_descriptor]] Hint {
-        unsigned int current;
-        bool isLess;
         unsigned int max;
         unsigned int min;
     };
