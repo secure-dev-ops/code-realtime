@@ -1,0 +1,51 @@
+protocol Protocol1 {
+    in name();
+};
+
+capsule Cap {
+    service behavior notify unwired subscribe port sap 
+    [[rt::properties(
+        registration= application
+    )]]
+    : Protocol1[2];
+    behavior port log : Log;
+    statemachine {
+        state State1 {
+            entry
+            `
+                if (sap.registerSAP("service10") == 0) {
+                    FAIL("\nSAP Registration of the service failed.");
+                } 
+                else {
+                    ASSERT(2 == sap.size(), "Incorrect port multiplicity");
+                }
+            `;
+        };
+        initial  ->  State1;
+    };
+};
+
+capsule Top {
+    service behavior unwired publish port spp~ 
+    [[rt::properties(
+        registration= application
+    )]]
+    : Protocol1;
+    behavior port log : Log;
+    fixed part cap : Cap;
+    statemachine {
+        state State1 {
+            entry
+            `
+                if (spp.registerSPP("service10") == 0) {
+                    FAIL("\nSPP Registration of the service failed!");
+                }
+                else {
+                    ASSERT(1 == spp.size(), "Incorrect port multiplicity");                        
+                }
+                PASS();
+            `;
+        };
+        initial  ->  State1;
+    };
+};

@@ -1,0 +1,46 @@
+protocol Protocol1 {
+    in name();
+};
+capsule Top {
+    service behavior unwired publish port spp~ 
+    [[rt::properties(
+        registration= application
+    )]]
+    : Protocol1;
+    behavior port log : Log;
+    fixed part cap : Cap[2];
+    statemachine {
+        state State1 {
+            entry
+            `
+            // Register the SPP port. It has multiplicity 1, but 2 SAP ports are already pending to connect to it.
+            // There is only room for one connection, so the "port full" warning would come here.
+                if (spp.registerSPP("service10") == 0) {
+                    FAIL("\nSPP Registration of the service failed!");
+                }
+                PASS();
+            `;
+        };
+        initial  ->  State1;
+    };
+};
+
+capsule Cap {
+    service behavior unwired subscribe port sap 
+    [[rt::properties(
+        registration= application
+    )]]
+    : Protocol1;
+    behavior port log : Log;
+    statemachine {
+        state State1 {
+            entry
+            `
+                if (sap.registerSAP("service10") == 0) {
+                    FAIL("\nSAP Registration of the service failed.\n");
+                }
+            `;
+        };
+        initial  ->  State1;
+    };
+};
