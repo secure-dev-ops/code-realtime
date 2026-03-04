@@ -601,6 +601,8 @@ Note that the keyword `unwired` can be implicit when you declare a port as eithe
 !!! example
     You can find sample applications that use unwired ports [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/unwired_port) and [here]({$vars.github.repo$}/tree/main/art-samples/MatMult).
 
+!!! hint
+    The TargetRTS provides a configuration setting [`PORTFULL_WARNING`](../target-rts/build.md#portfull_warning) which you can enable to get runtime warnings if you attempt to connect unwired ports in ways that violate the multiplicites of the ports. For example, you can use this for detecting if an SPP port doesn't have a high enough multiplicity for all registerred SAP ports to connect to it.
 
 ## Connector
 Connectors describe how events are routed within a capsule by connecting ports in its composite structure. They make it possible to see in a structure diagram which parts of a capsule that can communicate with each other. Each connector connects exactly two ports with each other. A connected port may either be a port of the capsule itself, or a port of a capsule that types one of its capsule parts. A few constraints decide if it's possible to connect two ports:

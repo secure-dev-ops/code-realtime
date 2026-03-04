@@ -44,6 +44,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8013 | [Waiting for multiple events](#waiting-for-multiple-events) <br> [Application exit code API](#application-exit-code-api) <br> [Public function "getTask" in RTDebugger](#public-function-gettask-in-rtdebugger) <br> [Priority for event raised on external port](#priority-for-event-raised-on-external-port) <br> [Improved error handling in REGISTER_LAYER](#improved-error-handling-in-register_layer)  <br> [Support for a new trace file format (.art-trace)](#support-for-a-new-trace-file-format-art-trace) |
 | 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) <br> [Error code for circular import](#error-code-for-circular-import) <br> [Unparse and merge of RTJsonResult](#unparse-and-merge-of-rtjsonresult) <br> [Removal of support for .ms trace format](#removal-of-support-for-ms-trace-format) <br> [Trace configuration and timestamps](#trace-configuration-and-timestamps) |
 | 8015 | [RTLogStream performance improvements](#rtlogstream-performance-improvements) <br> [Tracing of synchronous messages](#tracing-of-synchronous-messages) <br> [Extended RTTracer API](#extended-rttracer-api) <br> [Include the `time2_receive` timestamp by default in traces](#include-the-time2_receive-timestamp-by-default-in-traces) <br> [Configuration of trace file name](#configuration-of-trace-file-name) <br> [Thread information for traced instances](#thread-information-for-traced-instances) <br> [Removed C++ 14 flag for Clang target configurations](#removed-c-14-flag-for-clang-target-configurations) |
+| 8016 | [Startup synchronization of RTTimerActor](#startup-synchronization-of-rttimeractor) <br> [Port full warning](#port-full-warning) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -197,3 +198,9 @@ The name of the thread that runs a capsule instance is now included in captured 
 
 ### Removed C++ 14 flag for Clang target configurations
 Previously the Clang target configurations were hardcoded to always use the C++ 14 language standard. This prevented use of more modern C++ constructs with these configurations. Now these target configurations work like others and do not hardcode a specific language version (the one selected in the TC will be used when building the application).
+
+### Startup synchronization of RTTimerActor
+On certain platforms a race condition at start-up could cause the [RTTimerController](../targetrts-api/class_r_t_timer_controller.html) (run by a timer thread) to access the [RTTimerActor](../targetrts-api/class_r_t_timer_actor.html) object (run by the main thread) before it had been completely initialized. Now this is prevented by synchronization between these threads at start-up.
+
+### Port full warning
+A new configuration setting [PORTFULL_WARNING](build.md#portfull_warning) is now available. If set, a runtime warning will be printed if there is an attempt to connect more SAP ports to an SPP port than what the multiplicity of the SPP port allows.

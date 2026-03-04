@@ -240,3 +240,7 @@ Controls if the [Log Stream](logging.md#log-stream) feature should be included o
 
 Default value: **1**
 
+#### PORTFULL_WARNING
+If set, a runtime warning will be printed if you attempt to connect unwired ports in ways that violate their multiplicies. For example, if you have an SPP port with multiplicity 1 that two SAP ports try to connect to, then this warning is reported to inform that the second SAP port will remain unbound.
+
+Default value: **0**
