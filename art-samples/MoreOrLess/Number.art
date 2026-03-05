@@ -9,7 +9,7 @@ capsule Number {
         private:
             Hint hint;
             unsigned int max = 100;
-            unsigned int min = 0;
+            unsigned int min = 1; // ensure secret number is at least 1
             unsigned int mostRecentGuess = 0;
             unsigned int secretNumber = 0;
         
@@ -44,7 +44,8 @@ capsule Number {
 
             /* initialize random seed: */
             srand(time(NULL));
-            secretNumber = rand() % max;
+            // Generate a number between min and max inclusive
+            secretNumber = min + (rand() % (max - min + 1));
             mostRecentGuess = max;
 
             Log::out << "secret number is " << secretNumber << Log::endl;
@@ -56,15 +57,15 @@ capsule Number {
         junction j;
         gotHintReq: WaitForHintRequest -> c on numberP.askHint
         `
-            hint.current = mostRecentGuess;
             hint.min = min;
             hint.max = max;
+            hint.current = mostRecentGuess;
         `;
         more: c -> j when `mostRecentGuess < secretNumber`
         `
             Log::out << "hint given: most recent guess is " << mostRecentGuess << Log::endl;
             Log::out << "secret number is MORE, but no more than " << max << Log::endl;
-            hint.isLess = false; 
+            hint.isLess = false;
         `;
         less: c -> j when `else`
         `            
@@ -91,11 +92,11 @@ capsule Number {
             Log::out << "guess incorrect; keep going" << Log::endl;
             if (mostRecentGuess > secretNumber) {
                 // it is less
-                max = mostRecentGuess;
+                max = mostRecentGuess-1;// strictly smaller to avoid repeating the guess
             }
             else {
                 // it is more
-                min = mostRecentGuess;
+                min = mostRecentGuess+1;// strictly larger to avoid repeating the guess
             }
             numberP.sendAnswer(false).send();
         `;

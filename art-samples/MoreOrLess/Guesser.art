@@ -91,10 +91,9 @@ capsule Guesser {
                 entry
                 `
                     if (hint.isLess) {
-                        guess = hint.current - (hint.current - hint.min) / 2;
-                    }
-                    else {
-                        guess = hint.current + (hint.max - hint.current) / 2;
+                        guess = (hint.min + hint.current) / 2;
+                    } else {
+                        guess = (hint.current + hint.max + 1) / 2;
                     }
 
                     Log::out << "[" << myName << "] guessing: " << guess << Log::endl;
