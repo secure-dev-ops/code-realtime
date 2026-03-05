@@ -18,6 +18,8 @@ protocol GuesserProt {
     struct [[rt::auto_descriptor]] Hint {
         unsigned int max;
         unsigned int min;
+        unsigned int current;
+        bool isLess;
     };
 `
 

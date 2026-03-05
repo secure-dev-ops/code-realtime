@@ -90,8 +90,11 @@ capsule Guesser {
             state SendGuess {
                 entry
                 `
-                    //// Always guess the midpoint of current range
-                    guess = hint.min + (hint.max - hint.min) / 2;
+                    if (hint.isLess) {
+                        guess = (hint.min + hint.current) / 2;
+                    } else {
+                        guess = (hint.current + hint.max + 1) / 2;
+                    }
 
                     Log::out << "[" << myName << "] guessing: " << guess << Log::endl;
 

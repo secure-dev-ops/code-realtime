@@ -59,16 +59,19 @@ capsule Number {
         `
             hint.min = min;
             hint.max = max;
+            hint.current = mostRecentGuess;
         `;
         more: c -> j when `mostRecentGuess < secretNumber`
         `
             Log::out << "hint given: most recent guess is " << mostRecentGuess << Log::endl;
             Log::out << "secret number is MORE, but no more than " << max << Log::endl;
+            hint.isLess = false;
         `;
         less: c -> j when `else`
         `            
             Log::out << "hint given: most recent guess is " << mostRecentGuess << Log::endl;
             Log::out << "secret number is LESS, but no less than " << min << Log::endl;
+            hint.isLess = true;
         `;
         sendHint: j -> WaitForGuess
         `
