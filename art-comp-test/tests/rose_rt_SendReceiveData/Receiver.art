@@ -1,0 +1,71 @@
+/**
+ * This capsule receives messages containing data of various types, and uses the log service to display the data values.
+ */
+capsule Receiver {
+    [[rt::header_preface]]
+    `
+        class ConnectParams;
+    `
+    [[rt::impl_preface]]
+    `
+        #include <RTType_ConnectParams.h>
+    `
+    behavior port log : Log;
+    /**
+     * This port has a cardinality of two so that messages can be received from both the sender capsule and from the injectDataMessage port.
+     */
+    service behavior port txRx~ : TxRxProtocol [2];
+    statemachine {
+        state TOP {
+            entrypoint e1;
+            e1 -> history*;
+            state Ready {
+                entrypoint junction5;
+                exitpoint junction2;
+                entrypoint junction3;
+                entrypoint junction1;
+                exitpoint junction6;
+                entrypoint junction7;
+                exitpoint junction14;
+                entrypoint junction15;
+                exitpoint junction10;
+                exitpoint junction4;
+                entrypoint junction8;
+            };
+            init: initial  ->  Ready.junction1;
+            charSig: Ready.junction6 -> Ready.junction7 on txRx.charSig
+            `
+                char myData = *rtdata;
+                ASSERT(myData =='X', "Received incorrect character value.");
+            `;
+            doubleSig: Ready.junction10 -> Ready.junction5 on txRx.doubleSig
+            `
+                double myData = *rtdata;
+                ASSERT(myData == 1234567.901, "Received incorrect double value.");
+            `;
+            intSig: Ready.junction2 -> Ready.junction3 on txRx.intSig
+            `
+                int myData = *rtdata;
+                ASSERT(myData == 87, "Received incorrect int value.");
+            `;
+            connectParamsSig: Ready.junction14 -> Ready.junction15 on txRx.connpSig
+            `
+                const ConnectParams *myDataB = rtdata;
+        		ASSERT(myDataB != nullptr, "Did not receive the ConnectParams value");
+            `;
+            connectRefSig: Ready.junction4 -> Ready.junction8 on txRx.connpAnySig
+            `
+                // We are receiving a pointer to a ConnectParams
+                // class. The sender allocated memory.
+                const ConnectParams *myDataB = (ConnectParams *)rtdata;
+				ASSERT(myDataB !=nullptr, "Did not receive pointer to a ConnectParam");
+                // In this example, we decided that the receiver is
+                // responsible for returning memory.
+                delete myDataB;
+				PASS();
+
+            `;
+        };
+        init: initial  ->  TOP.e1;
+    };
+};

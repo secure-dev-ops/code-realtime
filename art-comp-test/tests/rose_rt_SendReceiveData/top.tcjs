@@ -1,0 +1,4 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'rose_rt_SendReceiveData_target';

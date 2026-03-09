@@ -1,0 +1,16 @@
+/**
+ * These are all the messages that can be transmitted from Sender to Receiver.
+ * For each signal it defines a type of data that can legally be sent as part of that type of message.
+ */
+protocol TxRxProtocol {
+    [[rt::header_preface]]
+    `
+        #include <RTType_ConnectParams.h>
+    `
+    out intSig(`int`);
+    out doubleSig(`double`);
+    out charSig(`char`);
+    out connpSig(`ConnectParams`);
+    out connpAnySig(`void*`);
+};
+

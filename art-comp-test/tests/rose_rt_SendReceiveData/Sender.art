@@ -1,0 +1,119 @@
+/**
+ * This capsule sends messages containing data of various types.
+ */
+capsule Sender {
+    [[rt::header_preface]]
+    `
+        class ConnectParams;
+        class ConnectParamsSubclassA;
+    `
+    [[rt::impl_preface]]
+    `
+        #include <RTType_ConnectParams.h>
+        #include <RTType_ConnectParamsSubclassA.h>
+    `
+    service behavior port txRx : TxRxProtocol;
+    statemachine {
+        state TOP {
+            entrypoint e1;
+            e1 -> history*;
+            state DoneSending {
+                entrypoint junction1;
+            };
+            /**
+             * This transition creates and sends a set of messages containing a variety of data types. The example uses the long form of send() that includes the signal, the data, and the data type.
+             * 
+             * *** I M P O R T A N T ***
+             * 
+             * Pay close attention to the syntax for sending data which is of a subclass of the data class defined with a signal. When sending the subclass you have to explicitly pass the type descriptor of the subclass in the send call. If you don't, then the send will default to use the type descriptor of the data class defined in the protocol.
+             */
+            init: initial  ->  DoneSending.junction1
+            `
+                // ********************************************************************
+                // This transition creates and sends a set of messages containing a 
+                // variety of data types. The example uses the long form of send() that 
+                // includes the signal, the data, and the data type.
+                // 
+                //                            I M P O R T A N T 
+                //
+                // Pay close attention to the syntax for sending data which is of a 
+                // subclass of the data class defined with a signal. When sending the 
+                // subclass you have to explicitly pass the type descriptor of the subclass 
+                // in the send call. If you don't, then the send will default to use the 
+                // type descriptor of the data class defined in the protocol. Refer to
+                // the syntax below for sending an instance of ConnectParamsSubClassA.
+                // ********************************************************************
+
+                // Send an int by value
+                int myInt = 87;
+                txRx.intSig( myInt ).send();
+
+                // Send a double by value
+                double myDouble = 1234567.901;
+                txRx.doubleSig( myDouble ).send();
+
+                // Send a char by value
+                char myChar = 'X';
+                txRx.charSig( myChar ).send();
+
+                // Send a user-defined type by value
+                ConnectParams conn_p;
+                conn_p.port_num = 1234;
+                conn_p.hostname[0] = 'a';
+                conn_p.hostname[1] = 'b';
+                conn_p.hostname[2] = 'c';
+                conn_p.hostname[3] = 'd';
+                conn_p.hostname[4] = 'a';
+                conn_p.hostname[5] = 'b';
+                conn_p.hostname[6] = 'c';
+                conn_p.hostname[7] = 'd';
+                conn_p.proxy = 123456;
+                conn_p.path_weight = 123.45;
+                txRx.connpSig( conn_p ).send();
+
+                // Send a user-defined subclass type by value. We must pass the type descriptor
+                // in the send because we are sending a subclass.
+                ConnectParamsSubclassA conn_pA;
+                conn_pA.port_num = 9999;
+                conn_pA.hostname[0] = 's';
+                conn_pA.hostname[1] = 'u';
+                conn_pA.hostname[2] = 'b';
+                conn_pA.hostname[3] = 'c';
+                conn_pA.hostname[4] = 'l';
+                conn_pA.hostname[5] = 'a';
+                conn_pA.hostname[6] = 's';
+                conn_pA.hostname[7] = 's';
+                conn_pA.proxy = 888;
+                conn_pA.path_weight = 1.23;
+                conn_pA.subclassA_param = 4.567;
+                txRx.connpSig( RTTypedValue_ConnectParams(conn_pA,&RTType_ConnectParamsSubclassA) ).send();
+
+                // There are some rules that you should keep in mind when sending pointers in messages: 
+                // a. Do not send pointers across thread boundaries without considering 
+                //    concurrency access issues. 
+                // b. Do not send pointers across process or processor boundaries unless you have 
+                //    shared memory. You must also consider concurrency issues. 
+                // c. Do not send pointers to stack objects to other capsules. Since the stack object 
+                //    gets deleted when the transition code segment completes and most sends are 
+                //    asynchronous, when the receiving capsule instance dereferences the pointer the 
+                //    data it is pointing to has been deleted. 
+
+                ConnectParams * pConnP1 = new ConnectParams;
+                pConnP1->port_num = 9876;
+                pConnP1->hostname[0] = 'r';
+                pConnP1->hostname[1] = 'e';
+                pConnP1->hostname[2] = 'f';
+                pConnP1->hostname[3] = '1';
+                pConnP1->hostname[4] = 'r';
+                pConnP1->hostname[5] = 'e';
+                pConnP1->hostname[6] = 'f';
+                pConnP1->hostname[7] = '1';
+                pConnP1->proxy = 765;
+                pConnP1->path_weight = 9.99;
+
+                txRx.connpAnySig( pConnP1 ).send();
+            `;
+        };
+        init: initial  ->  TOP.e1;
+    };
+};

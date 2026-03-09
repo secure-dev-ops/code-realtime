@@ -1,0 +1,18 @@
+/**
+ * This is the top-level capsule.
+ */
+capsule Top {
+    /**
+     * You will be able to use this end-port at run-time to manually inject messages containing data of various types.
+     */
+    behavior port injectDataMessage : TxRxProtocol;
+    fixed part sender : Sender;
+    fixed part receiver : Receiver;
+    connect sender.txRx with receiver.txRx;
+    connect injectDataMessage with receiver.txRx;
+    statemachine {
+        state TOP {
+        };
+        init: initial  ->  TOP;
+    };
+};
