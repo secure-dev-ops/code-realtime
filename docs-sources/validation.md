@@ -282,6 +282,8 @@ capsule ChoiceSample {
 };
 ```
 
+Note that it's allowed in a derived capsule state machine to implicitly exclude a pseudo state such as a choice or junction by excluding all its incoming and outgoing transitions. So if a choice lacks outgoing transitions because they were excluded together with the incoming transition, the choice will be ignored and this validation rule will not report a problem.
+
 ### ART_0007_choiceWithTooManyElseTransitions
 | Severity | Reason | Quick Fixes
 |----------|:-------------|:-------------

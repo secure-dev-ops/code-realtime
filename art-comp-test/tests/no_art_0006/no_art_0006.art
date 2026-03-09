@@ -1,0 +1,37 @@
+capsule Base {
+    [[rt::decl]]
+    `
+        int x = 1;
+    `
+    behavior port timer : Timing;
+    statemachine {
+        choice cp;
+        state First, OK, NOK;
+
+        _initial: initial  ->  First
+        `
+            timer.informIn(RTTimespec(0,0));
+        `;
+        t: First -> cp on timer.timeout
+        `
+            Log::out << "First timeout" << Log::endl;
+        `;
+        greater: cp -> OK when ` x > 0 `;
+        else: cp -> NOK when ` else `;
+    };
+};
+
+capsule Top : Base {    
+    statemachine {
+        exclude greater;
+        exclude else;
+        exclude t;
+
+        state redefine First {
+            entry
+            `
+                PASS();
+            `;
+        };
+    };
+};

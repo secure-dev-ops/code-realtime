@@ -1,17 +1,21 @@
 // Inheritance with transition exclusion can cause the problem to appear in a derived state machine 
 // although the base state machine is correct.
 capsule ChoiceSample_0006 {
+    behavior port timer : Timing;
     statemachine {
         state State;
         initial -> State;
         choice c;
+        state T;
+        T -> c on timer.timeout;
         t1: c -> State;
+        choice unused;
     };
 };
 
 capsule DChoiceSample_0006 : ChoiceSample_0006 {    
     statemachine {
-        state State2;
+        state State2; 
         exclude t1;
     };
 };

@@ -1386,6 +1386,9 @@ Note that to be able to redefine the initial transition of `B` it is necessary t
 !!! note
     If the source and/or target state of a transition is excluded in an inherited capsule state machine, then that transition is implicitly excluded too. It's not necessary to exclude such a transition explicitly using the `exclude` keyword, even if it's of course allowed to do so.
 
+!!! note
+    Only states and transitions can be explicitly excluded in an inherited capsule state machine. If you want to exclude pseudo states such as choices and junctions you can accomplish that implicitly by excluding all their incoming and outgoing transitions. 
+
 The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.
 
 !!! example

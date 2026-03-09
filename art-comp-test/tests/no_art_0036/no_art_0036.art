@@ -41,11 +41,6 @@ capsule Top : Base {
         `            
             CALLSUPER;
         `;*/
-        // However, to avoid having to do this, we allow t1 to keep the trigger, without reporting ART_0036. The trigger will simply be ignored instead.
-
-        redefine t1 : State1._EXP -> Target on timer.timeout
-        `            
-            CALLSUPER;
-        `;
+        // However, to avoid having to do this, we allow t1 to keep the trigger, without reporting ART_0036. The trigger will simply be ignored instead.        
     };
 };

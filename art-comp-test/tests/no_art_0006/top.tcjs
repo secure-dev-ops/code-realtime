@@ -1,0 +1,4 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = "Top";
+tc.targetFolder = 'no_art_0006_target';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
