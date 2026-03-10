@@ -136,8 +136,7 @@ Names of Art elements must be unique within the same scope. The following is che
 
 * Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC or prerequisite TCs). The corresponding C++ elements will have names in the global namespace and must hence be unique.
 * Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see [Protocol and Event](art-lang/index.md#protocol-and-event)).
-* [Parts](art-lang/index.md#part) of a capsule.
-* [Ports](art-lang/index.md#port) of a capsule.
+* [Parts](art-lang/index.md#part) and [ports](art-lang/index.md#port) of a capsule. Note that it's not allowed to have a port and a part with the same name.
 * [States](art-lang/index.md#state) and pseudo states (collectively referred to as "vertices") of a state machine.
 * [Transitions](art-lang/index.md#transition) of a state machine.
 * Trigger operations of a [class](art-lang/index.md#class-with-state-machine). Note that several trigger operations may have the same name as long as their signatures are unique.

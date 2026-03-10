@@ -1,0 +1,3 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'XCap';
+tc.targetFolder = 'art_0002_different_kinds_of_elements_target';

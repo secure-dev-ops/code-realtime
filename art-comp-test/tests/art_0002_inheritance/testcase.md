@@ -24,19 +24,17 @@ ac_output match5: ERROR[0002]|art_0002_statemachine_inheritance.art:17:24|vertic
 ac_output match5a: inherited state|Nested|8:19
 ac_output match5b: state|Nested|18:19
 
-ac_output match6: ERROR[0002]|art_0002_structure_inheritance.art:19:9|parts|c
-ac_output match6a: inherited part|c|12:10
-ac_output match6b: part|c|23:19
+ac_output match6: ERROR[0002]|art_0002_structure_inheritance.art:19:9|parts or ports|c|timer|p2
+ac_output match6a: inherited port|timer|9:19
+ac_output match6b: inherited port|p2|10:19
+ac_output match6c: inherited part|c|12:10
+ac_output match6d: port|timer|20:19
+ac_output match6e: port|p2|21:19
+ac_output match6f: part|c|23:19
 
-ac_output match7: ERROR[0002]|art_0002_structure_inheritance.art:19:9|ports|timer|p2
-ac_output match7a: inherited port|timer|9:19
-ac_output match7b: inherited port|p2|10:19
-ac_output match7c: port|timer|20:19
-ac_output match7d: port|p2|21:19
-
-ac_output match8: ERROR[0002]|art_0002_structure_inheritance.art:24:5|vertices|State
-ac_output match8a: inherited state|State|14:15
-ac_output match8b: state|State|25:15
+ac_output match7: ERROR[0002]|art_0002_structure_inheritance.art:24:5|vertices|State
+ac_output match7a: inherited state|State|14:15
+ac_output match7b: state|State|25:15
 ---
 Test validation rule `ART_0002_duplicateNamesInScope` with regards to inheritance.
 

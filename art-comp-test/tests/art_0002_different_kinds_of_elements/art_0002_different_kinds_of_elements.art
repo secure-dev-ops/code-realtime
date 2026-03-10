@@ -1,0 +1,23 @@
+capsule XCap {
+    behavior port p : Timing;
+    behavior port p2 : Timing;
+    part p : AnotherCap; // ART_0002 because there is already a port with the same name
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule DCap : XCap {    
+    part p2 : AnotherCap; // ART_0002 because there is already a port with the same name in the base capsule
+    statemachine {
+        
+    };
+};
+
+capsule AnotherCap {    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
