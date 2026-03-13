@@ -131,12 +131,18 @@ The JSON file that holds layout information for a diagram contains references to
 
 * References will be updated when you rename an element, regardless if you rename it by direct typing in the Art file, or if you use the [Rename command](art-editor.md#renaming-elements). However, it's recommended to use the [Rename command](art-editor.md#renaming-elements) since there are some situations where rename by direct typing will be unable to update all references.
 * If you rename the context element, i.e. the element that owns a diagram (like `MyCapsule` in the example above), and that diagram is currently open, then it will be automatically closed and reopened so the new element name is shown in the diagram editor tab. {$product.name$} tries to reopen the diagram into the same editor tab group, but sometimes this is not possible and the diagram will then appear elsewhere.
+* If you rename an Art file (using the **Rename** context menu command in the Explorer view), layout files for all its diagrams will be updated. If any of those diagrams are currently open they will be automatically closed and reopened.
 * If you delete an element, references to it from layout files are not always automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.
 * There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.
 
-{$product.name$} validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.
+#### Layout Validation
+{$product.name$} validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). This helps you detect layout information that is wrong, for example because of refactoring operations, mistakes made when merging layout files, etc. Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.
 
 ![](images/layout_validation.png)
+
+Layout warnings are only shown for diagrams while they are open. Pay attention to the `layouts` folder in the Explorer view. If it appears in <span style="color: orange;">orange</span> there is at least one open diagram where one or many layout problems have been detected.
+
+![](images/layout_warnings.png)
 
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:

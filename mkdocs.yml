@@ -132,6 +132,9 @@ nav:
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md
+     - Migration from Model RT: 
+        - Migration from Model RT: migration-modelrt/index.md
+        - Overview: migration-modelrt/overview.md
      - Support Procedures: support.md
      - Learning: 
         - Learning: learning/index.md
