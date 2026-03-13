@@ -1,0 +1,11 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+
+tc.targetFolder = 'tc_7019_target';
+tc.sources = ['top.art'];
+
+
+tc.prerequisites = [
+    "lib.tcjs" 
+];
+

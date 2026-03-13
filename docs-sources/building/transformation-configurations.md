@@ -14,7 +14,7 @@ You can have more than one TC in your workspace, and also multiple TCs in the sa
 
 * It controls how to automatically generate C++ code from the Art files in the workspace folder. In this respect it corresponds directly to the [`--tc`](art-compiler.md#tc) option for the [Art Compiler](art-compiler.md).
 * It's used for automatically propagating changes you make in generated files back to the source Art files (see [Making Changes in Generated C++](index.md#making-changes-in-generated-c)).
-* It affects how references in Art files are bound to Art elements in other Art files. More precisely, it's the [sources](#sources) and [prerequisites](#prerequisites) properties of the active TC that have an influence on the binding of references (since these properties control which Art files that are visible when building the active TC).
+* It affects how references in Art files are bound to Art elements in other Art files. More precisely, the [sources](#sources) and [prerequisites](#prerequisites) properties of the active TC define the global scope, that is which Art elements that are  globally visible. All such global scope elements must have unique names (see [TC_7019](../validation.md#tc_7019_duplicatenamesinglobalscope) for more information).
 
 !!! note 
     If you don't set a TC as active none of the above will work (or will work incorrectly). It's therefore strongly recommended to create a TC and set it as active as early as possible when you start to work in a new Art workspace folder.

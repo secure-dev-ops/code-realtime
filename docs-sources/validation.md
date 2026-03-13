@@ -134,7 +134,6 @@ capsule Exception { // ART_0001 ("Exception" is a name reserved for use by the T
 
 Names of Art elements must be unique within the same scope. The following is checked:
 
-* Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC or prerequisite TCs). The corresponding C++ elements will have names in the global namespace and must hence be unique.
 * Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see [Protocol and Event](art-lang/index.md#protocol-and-event)).
 * [Parts](art-lang/index.md#part) and [ports](art-lang/index.md#port) of a capsule. Note that it's not allowed to have a port and a part with the same name.
 * [States](art-lang/index.md#state) and pseudo states (collectively referred to as "vertices") of a state machine.
@@ -191,6 +190,7 @@ capsule C0002 : D0002 {
 };
 ```
 
+Note that name conflicts in the global scope requires an active TC and is therefore checked by [TC_7019](#tc_7019_duplicatenamesinglobalscope) instead.
 
 ### ART_0003_nameShouldStartWithUpperCase
 | Severity | Reason | Quick Fixes
@@ -1775,6 +1775,17 @@ tc.prerequisites = ["lib1.tcjs"]; // TC_7017 (cycle lib2 -> lib1 -> lib2)
 | Warning | A TC does not specify which C++ code standard to use | N/A
 
 The [`cppCodeStandard`](building/transformation-configurations.md#cppcodestandard) property should be set to ensure that the C++ code generator, the C++ compiler and the C++ language server all agree on which code standard that should be used.
+
+### TC_7019_duplicateNamesInGlobalScope
+| Severity | Reason | Quick Fixes
+|----------|:-------------|:-------------
+| Error | An active TC defines a global scope where all Art elements do not have unique names| N/A
+
+The [`sources`](building/transformation-configurations.md#sources) and [`prerequisites`](building/transformation-configurations.md#prerequisites) properties of a TC define which Art files that should be built by the TC. For an active TC the root elements of these Art files constitute the global scope. This problem is reported if the names of these global scope elements are not unique. Typically such errors will lead to similar name clashes in the C++ global scope, which would result in linker errors if not fixed.
+
+The Art elements with duplicate names are reported as related elements.
+
+Note that this validation rule only applies for a TC that is [active](building/transformation-configurations.md#setting-a-transformation-configuration-as-active), because references to global elements are resolved using the active TC. In the context of the Art Compiler the TC that is specified with the [--tc](building/art-compiler.md#tc) option is considered to be the active TC.
 
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.

@@ -1,12 +1,7 @@
 ---
 group: validation
 steps: generate
-ac_output match1: ERROR[0002]|another.art:1:9|workspace|capsule|XCap
-ac_output match1a: capsule|XCap|another.art|1:9
-ac_output match1b: capsule|XCap|art_0002.art|14:9
-ac_output match2: ERROR[0002]|another.art:8:10|workspace|protocol|DP
-ac_output match2a: protocol|DP|another.art|8:10
-ac_output match2b: protocol|DP|art_0002.art|21:10
+ac_cmd_args: --ruleConfig X7019
 ac_output match3: ERROR[0002]|art_0002.art:1:10|protocol|in-events|inEvent1|inEvent2
 ac_output match3a: in-event|inEvent1|art_0002.art|2:8
 ac_output match3b: in-event|inEvent1|art_0002.art|3:8
@@ -15,12 +10,6 @@ ac_output match3d: in-event|inEvent2|art_0002.art|6:8
 ac_output match4: ERROR[0002]|art_0002.art:1:10|protocol|out-events|outEvent1
 ac_output match4a: out-event|outEvent1|art_0002.art|8:9
 ac_output match4b: out-event|outEvent1|art_0002.art|9:9
-ac_output match5: ERROR[0002]|art_0002.art:14:9|workspace|capsule|XCap
-ac_output match5a: capsule|XCap|another.art|1:9
-ac_output match5b: capsule|XCap|art_0002.art|14:9
-ac_output match6: ERROR[0002]|art_0002.art:21:10|workspace|protocol|DP
-ac_output match6a: protocol|DP|another.art|8:10
-ac_output match6b: protocol|DP|art_0002.art|21:10
 ac_output match7: ERROR[0002]|art_0002.art:34:7|class|trigger operations|op2
 ac_output match7a: trigger operation|op2(long long)|art_0002.art|35:13
 ac_output match7b: trigger operation|op2(long long)|art_0002.art|36:13
