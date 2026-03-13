@@ -98,11 +98,13 @@ Read more about how to configure validation rules [here](../validation.md#config
 ### tc
 Specifies the [TC](transformation-configurations.md) to build. This option is mandatory, unless you only pass the [help](#help) or [version](#version) options.
 
+The TC specified by this option corresponds to the [active](transformation-configurations.md#setting-a-transformation-configuration-as-active) TC in the IDE, and hence defines the set of all Art files (and also C++ files) to be built. The root elements in those Art files constitute the global scope, and must have unique names. This is checked by the validation rule [TC_7019](../validation.md#tc_7019_duplicatenamesinglobalscope).
+
 ### version
 Use this option to print the version of the Art Compiler. This version is the same as is used for the {$product.name$} extension and can also be seen in the file `CHANGELOG.md` in the {$product.name$} installation folder. If this option is passed, all other options are ignored.
 
 ### ws
-Specifies a workspace file (`.code-workspace`) which will be used for resolving paths that are relative to the workspace. It's optional to use this option and it only needs to be set if any of the built TCs contain workspace-relative paths.
+Specifies a workspace file (`.code-workspace`) which will be used for resolving paths that are relative to the workspace. It's optional to use this option and it only needs to be set if any of the built TCs contain workspace-relative paths. Such paths can for example be used in [prerequisites](transformation-configurations.md#prerequisites).
 
 ```
 --ws C:/art-comp-test/validation.code-workspace

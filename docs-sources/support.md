@@ -1,4 +1,6 @@
-If you find a bug in {$product.name$} please report it with a [GitHub Issue](https://github.com/secure-dev-ops/code-realtime/issues). Please include steps to reproduce and any additional files that can help in troubleshooting. For example, it can be good to include all log files. You can find the location of these logs by invoking the command `Developer: Open Logs Folder`. You can zip the entire logs folder and attach it to the issue. 
+If you have a suggestion for an enhancement for a future version of {$product.name$} you are very welcome to report a [GitHub Issue](https://github.com/secure-dev-ops/code-realtime/issues) for it, or tell Support if you are using the Commercial edition of {$product.name$}.
+
+If you find a bug in {$product.name$} please report it with a [GitHub Issue](https://github.com/secure-dev-ops/code-realtime/issues), or tell Support if you are using the Commercial edition of {$product.name$}. Please include steps to reproduce and any additional files that can help in troubleshooting. For example, it can be good to include all log files. You can find the location of these logs by invoking the command `Developer: Open Logs Folder`. You can zip the entire logs folder and attach it to the issue. 
 
 You can also find useful information in the Output view. In particular, the following two output logs are relevant:
 
