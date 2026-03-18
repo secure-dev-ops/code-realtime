@@ -44,7 +44,7 @@ The image below shows a sequence diagram for an `.art-trace` file captured from 
 
 We can see lifelines that represent the `counter` and `server` capsule instances and we can see that the `server` sent a message for the `setMax` event with 12 as data to the `counter`. It then sent also the `resumeCounting` event (without any data). 
 
-The lifeline for a capsule instance has the name of the part that contains the instance. If the part has non-single multiplicity, the lifeline shows the index of the capsule instance within square brackets (`[0]` for the first instance). If you hover over a lifeline a tooltip appears with more information, such as the dynamic type of the capsule instance and its structured path in the application's composite structure. For more information about the capsule instance, double click on the lifeline header to navigate to the `.art-trace` file.
+The lifeline for a capsule instance has the name of the part that contains the instance. If the part has non-single multiplicity, the lifeline shows the index of the capsule instance within square brackets (`[0]` for the first instance). If you hover over a lifeline a tooltip appears with more information, such as the dynamic type of the capsule instance and its structure path in the application's composite structure. For more information about the capsule instance, double click on the lifeline header to navigate to the `.art-trace` file.
 
 Colors are used to distinguish different types of lifelines:
 
@@ -62,6 +62,11 @@ The sequence diagram may contain note boxes. They are for example used for showi
 If you hover over the message line label you can see the port of the receiver capsule instance on which the message was received. For more information about the message, double-click on the message line to navigate to the message in the `.art-trace` file. If the trace contains timestamps ([`time2_receive`](#receive-time) and [`time3_handle`](#handle-time)) the message line tooltip also shows the difference between these two timestamps. This is the time it took for the receiver to handle the received message.
 
 ![](images/time-diff-tooltip.png)
+
+!!! hint
+    If you invoke the context menu command **Open Sequence Diagram** from the [text editor](#view-traces-as-text), the element defined where the cursor is placed will be highlighted with a golden color in the sequence diagram. You can use this for navigating from a specific location in an `.art-trace` file to the corresponding graphical symbol or line in the sequence diagram.
+
+    ![](images/golden-highlight.png)
 
 ### Synchronous Communication
 Messages for [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.
