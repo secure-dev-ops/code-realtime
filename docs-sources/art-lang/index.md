@@ -188,8 +188,10 @@ Any but the simplest of applications will consist of multiple Art files organize
 
 Folders with Art files should be added as workspace folders, either using the command **File - Add Folder to Workspace** (to add a folder to an existing workspace), or using the command **File - Open Workspace from File** (to open an existing workspace from a file that defines the workspace folders). If your application consists of more than a couple of workspace folders use of a workspace file is recommended as it makes it quick and easy to add all workspace folders in one go with a single command.
 
-!!! note 
-    Art files must be on the top level in a workspace folder. Do not place them in subfolders. 
+You may use subfolders within a workspace folder to further group Art files. This grouping has no semantic significance, but can help in case a workspace folder has a large number of Art files (or [C++ files](../building/build-cpp-files.md)).
+
+!!! note
+    If your workspace folder has subfolders make sure that Art files that contain [file-level code snippets](#file-level-code-snippets) have unique names. If they don't, the `.art.h` and `.art.cpp` files that are generated from those Art files will overwrite each other since the file names will clash.
 
 ### Multi-Root Workspaces
 A [workspace](https://code.visualstudio.com/docs/editing/workspaces/workspaces) in Visual Studio Code and similar IDEs is either a single folder or a collection of workspace folders (a.k.a. a multi-root workspace). If you use the command **File - Open Folder** you get a workspace that consists of that single opened folder. Even if there are a few simple cases when that is all you need, it's always recommended to use {$product.name$} with multi-root workspaces. In fact, as soon as you generate code for a TC it will be placed in its own workspace folder. In almost all cases a {$product.name$} workspace will therefore contain at least two workspace folders.
@@ -197,7 +199,7 @@ A [workspace](https://code.visualstudio.com/docs/editing/workspaces/workspaces) 
 Beware that when Visual Studio Code goes from a workspace that consists of a single folder to become a multi-root workspace, it automatically restarts all extensions, including {$product.name$}. For example, this happens if you build a TC of a single workspace folder, when the target workspace folder with the generated code gets added to the workspace. If you are not aware of this, and are working with something else when this restart happens, this can come as a surprise and interrupt your work. It's therefore **strongly recommended** to always use multi-root workspaces with {$product.name$}. If you started by opening a single folder as your workspace, make sure to save it as a workspace file using the command **File - Save Workspace As** before you build or set a TC as active. There are also other benefits with always using [multi-root workspaces](https://code.visualstudio.com/docs/editing/workspaces/workspaces#_multiroot-workspaces). For example, all workspace-level [settings](../settings.md) you make when working in that workspace will be persisted into the same `.code-workspace` file.
 
 ### Binding of References across Art Files
-When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder. If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active [transformation configuration](../building/transformation-configurations.md) (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched. The search continues recursively if the prerequisite TC itself has prerequisites.
+When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder (and its subfolders). If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active [transformation configuration](../building/transformation-configurations.md) (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched (including subfolders of those workspace folders). The search continues recursively if the prerequisite TC itself has prerequisites.
 
 If a matching Art element cannot be found in any of these locations the reference will be unresolved and an error will be reported. For example:
 
@@ -206,6 +208,8 @@ Couldn't resolve reference to Protocol 'UnknownPort'. (ART_9001_unresolvedRefere
 ```
 
 For more information about unresolved references, see [this validation rule](../validation.md#art_9001_unresolvedreference).
+
+If more than one Art element with the referenced name are found, an error will be reported on the active TC. See the validation rule [TC_7019](../validation.md#tc_7019_duplicatenamesinglobalscope).
 
 ## Textual and Graphical Notations
 The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.
@@ -1377,7 +1381,7 @@ In the example we can see that `D` overrides functions from the base C++ classes
 !!! example
     You can find a sample application where a capsule inherits from both another capsule and from C++ classes [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/capsule_cpp_inheritance).
 
-We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background or line-style.
+We can also see an example of a state machine redefinition. The initial transition `_Initial` of `B`'s state machine is redefined in `D`'s state machine so that it targets state `DS` instead of state `BS`. In the state diagram of `D` the state `BS` and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition `_Initial` is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), to show that it's redefining the inherited initial transition. The state `BS2` is excluded in `D`'s state machine. In state diagrams excluded elements are shown with a "crossed" background or line-style.
 
 ![](images/sm_redefinition.png)
 
