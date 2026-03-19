@@ -1,0 +1,9 @@
+
+capsule Top {
+    part ping : Pinger, pong : Ponger;
+    connect ping.pingPort with pong.pongPort;
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};

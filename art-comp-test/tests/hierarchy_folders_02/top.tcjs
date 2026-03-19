@@ -1,0 +1,8 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = "Top";
+tc.cppCodeStandard = "C++ 17";
+tc.targetFolder = 'hierarchy_folders_02_target';
+tc.commonPreface = `
+#include <iostream>
+#include "MyLimits.h"
+`;
