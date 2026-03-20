@@ -1,0 +1,14 @@
+capsule Ponger {
+    service behavior port pongPort~ : Proto;
+    statemachine {
+        state State1 {
+            ping: on pongPort.ping
+            `
+            int i = *((int*) rtdata);
+            std::cout << getName() << " sends pong (count=" << i << ")" << std::endl;
+            pongPort.pong().send();
+            `;
+        };
+        initial -> State1;
+    };
+};

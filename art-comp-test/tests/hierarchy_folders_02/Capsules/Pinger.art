@@ -1,0 +1,26 @@
+capsule Pinger {
+    [[rt::decl]]
+    `
+        private: int count = 0;
+    `
+    service behavior port pingPort : Proto;
+    statemachine {
+        state State1 {
+            stop: on pingPort.pong when `count >= N_ITERATIONS`
+            `
+                std::cout << "Completed " << N_ITERATIONS << " iterations\n";
+                context()->abort();
+            `;
+            pong: on pingPort.pong
+            `
+                std::cout << getName() << " sends ping\n";
+                pingPort.ping(++count).send();
+            `;
+        };
+        initial -> State1
+        `
+            std::cout << getName() << " sends ping\n";
+            pingPort.ping(++count).send();
+        `;
+    };
+};

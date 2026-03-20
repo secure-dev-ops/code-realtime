@@ -1,0 +1,4 @@
+protocol Proto {
+    in pong();
+    out ping(`int`);
+};
