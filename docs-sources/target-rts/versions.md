@@ -45,6 +45,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8014 | [Shorter state qualifiers in the RTSDebugger system command](#shorter-state-qualifiers-in-the-rtsdebugger-system-command) <br> [New RTLock utility](#new-rtlock-utility) <br> [Printing 64 bit integers in RTFormat](#printing-64-bit-integers-in-rtformat) <br> [More information for messages when tracing](#more-information-for-messages-when-tracing) <br> [Error code for circular import](#error-code-for-circular-import) <br> [Unparse and merge of RTJsonResult](#unparse-and-merge-of-rtjsonresult) <br> [Removal of support for .ms trace format](#removal-of-support-for-ms-trace-format) <br> [Trace configuration and timestamps](#trace-configuration-and-timestamps) |
 | 8015 | [RTLogStream performance improvements](#rtlogstream-performance-improvements) <br> [Tracing of synchronous messages](#tracing-of-synchronous-messages) <br> [Extended RTTracer API](#extended-rttracer-api) <br> [Include the `time2_receive` timestamp by default in traces](#include-the-time2_receive-timestamp-by-default-in-traces) <br> [Configuration of trace file name](#configuration-of-trace-file-name) <br> [Thread information for traced instances](#thread-information-for-traced-instances) <br> [Removed C++ 14 flag for Clang target configurations](#removed-c-14-flag-for-clang-target-configurations) |
 | 8016 | [Startup synchronization of RTTimerActor](#startup-synchronization-of-rttimeractor) <br> [Port full warning](#port-full-warning) |
+| 8017 | [Improvements in RTTracer::note()](#improvements-in-rttracernote) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -204,3 +205,6 @@ On certain platforms a race condition at start-up could cause the [RTTimerContro
 
 ### Port full warning
 A new configuration setting [PORTFULL_WARNING](build.md#portfull_warning) is now available. If set, a runtime warning will be printed if there is an attempt to connect more SAP ports to an SPP port than what the multiplicity of the SPP port allows.
+
+### Improvements in `RTTracer::note()`
+The function [RTTracer](../targetrts-api/class_r_t_tracer.html)::note() now takes a `const std::string&` parameter instead of a `const char*`. Also, a note is not printed if tracing is currently disabled.

@@ -254,7 +254,7 @@ In addition to the [RTTracer](../targetrts-api/class_r_t_tracer.html) functions 
 * `RTTracer::note(const char*)` Write a [custom note](#custom-notes) to the trace.
 
 #### Custom Notes
-A note is automatically written to the trace whenever tracing is turned off, as explained [here](#note). However, it can also be very useful to write custom notes to the trace using the `RTTracer::note(const char*)` function. For example, you can print a note
+A note is automatically written to the trace whenever tracing is turned off, as explained [here](#note). However, it can also be very useful to write custom notes to the trace using the `RTTracer::note(const std::string&)` function. For example, you can print a note
 
 * when a run-time error occurs (e.g. "Out of memory" or "Internal error")
 * when an assertion fails (e.g. "assert(is_ok) failed")

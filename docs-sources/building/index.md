@@ -58,6 +58,8 @@ In some cases of rapid prototyping and testing you may want to quickly build and
 
 This command will create a temporary TC file and use a temporary target folder. All other TC properties will have their default values.
 
+You can also use this "Run" link for a top capsule when a TC is present. The same thing then happens as if you would build and run that TC.
+
 ## Build Messages
 When you use the **Build** or **Run** commands on a TC, messages will be printed in two places depending on what kind of message it is:
 
