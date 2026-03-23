@@ -23,7 +23,7 @@ To perform the third step (running make to generate binaries) you can simply go 
 The context menu of a TC provides a few useful commands that automate some of the steps mentioned above:
 
 * **Build**
-This command first generates C++ code and a make file for the TC, and then runs the make tool on the generated make file. Note, however, that this command does not set the TC as active. If you plan to change code snippets in generated code you must set the TC as active yourself.
+This command first generates C++ code and a make file for the TC, and then runs the make tool on the generated make file. Note, however, that this command does not set the TC as active. If you plan to [change code snippets in generated code](#making-changes-in-generated-c) you must set the TC as active yourself.
 
 * **Run**
 First builds the TC, and then attempts to launch the executable that is produced. The executable is launched in a non-debug mode by specifying the launch argument `-URTS_DEBUG=quit`. If you want to launch the executable in a different way, for example with different command-line arguments, you can go to the Terminal and manually launch it from there. Note that if your TC creates a library rather than an executable, then this command will still build the TC, but will then give an error message since there is no executable to run. 
@@ -32,7 +32,7 @@ First builds the TC, and then attempts to launch the executable that is produced
     For a more flexible way of launching a built executable, either for running or debugging it, use a [launch configuration](../running-and-debugging/launch-configurations.md).
 
 * **Clean**
-Removes the target workspace folder produced when building a TC. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke `make clean` to clean using the make file.
+Removes the target workspace folder produced when building a TC. If the TC has [prerequisites](transformation-configurations.md#transformation-configuration-prerequisites) they will be cleaned too. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke `make clean` to clean using the make file.
 
 If you build a TC and at least one error exists in the TC itself, in prerequisites TCs or in any of the Art files that will be built, then a dialog will ask if you want to cancel the build (recommended) or proceed anyway (only do this if you are confident the errors are safe to ignore).
 

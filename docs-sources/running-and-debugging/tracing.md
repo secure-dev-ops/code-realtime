@@ -92,11 +92,12 @@ While a sequence diagram can be useful for showing an overview of the run-time i
 
 The textual representation of a trace uses a domain specific tracing language, where each line tell about something that happens in the application at run-time:
 
-* Tracing starts. Comments are then printed at the beginning of the `.art-trace` file to show the [trace configuration](#trace-configuration) that will be used for the trace. Other information is also printed, for example the current time (according to the chosen [timestamp precision](#timestamp-precision) and the name of the running application).
+* Tracing starts. Comments are then printed at the beginning of the `.art-trace` file to show the [trace configuration](#trace-configuration) that will be used for the trace. Other information is also printed; the current time (according to the chosen [timestamp precision](#timestamp-precision)), the name of the running application and the command-line arguments for the application.
 
 ``` cpp
 // "trace": {
 //     "application": "Top.EXE"
+//     , "args": ["-URTS_DEBUG=quit"]
 //     , "start_time": "2025-11-13 16:32:40.435320100"
 // }
 ```
