@@ -57,7 +57,7 @@ Once you have turned on manual layout for a diagram you can start to edit the di
 - [Resize symbols](#resizing-symbols)
 - [Route lines](#routing-lines)
 
-When you save the edited diagram the layout information is stored in a JSON file under a `layouts` subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout. The name of the file is `<ArtFile>-<ArtElement>-<DiagramType>.json` where `<ArtFile>` is the name of the Art file and `<ArtElement>` is the name of the Art element that contains the edited diagram. `<DiagramType>` is either "state", "structure" or "class".
+When you save the edited diagram the layout information is stored in a JSON file under a `layouts` subfolder. This subfolder is placed in the folder where the Art element is located to which the diagram belongs (the so called "context" element of the diagram). There will be one such file for each diagram that uses manual layout. The name of the file is `<ArtFile>-<ArtElement>-<DiagramType>.json` where `<ArtFile>` is the name of the Art file and `<ArtElement>` is the name of the Art element that is the context element of the edited diagram. `<DiagramType>` is either "state", "structure" or "class".
 
 Sometimes you may want to change the diagram layout by editing the layout JSON file, for example to move a symbol to a specific coordinate. This is possible and the diagram will update when you save the JSON file. But be careful not to change the JSON file in a way that makes it invalid.
 
