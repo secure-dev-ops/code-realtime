@@ -25,7 +25,8 @@ var searchData=
   ['size_22',['size',['../class_r_t_actor_ref.html#a2d36c2f1936cd6f065890eb9da613ffc',1,'RTActorRef::size()'],['../class_r_t_protocol.html#a1bf5a22f8232f12cd60a969523946889',1,'RTProtocol::size()']]],
   ['sppnode_23',['SppNode',['../class_r_t_local_connector_1_1_spp_node.html',1,'RTLocalConnector']]],
   ['strerror_24',['strerror',['../class_r_t_controller.html#ac00c42fd279db49b45352cd5debc85de',1,'RTController']]],
-  ['substitutable_25',['substitutable',['../struct_r_t_component_descriptor.html#ab9be99001760875acf3cc7a28a98dc3f',1,'RTComponentDescriptor']]],
-  ['substitutablefor_26',['substitutableFor',['../struct_r_t_actor_class.html#a3eaf229a30aa0512df6d2f8d1cd5fa1c',1,'RTActorClass']]],
-  ['super_27',['super',['../struct_r_t_actor_class.html#a80ea3d682e410b018dfe486ddcda11b8',1,'RTActorClass::super()'],['../struct_r_t_object__class.html#a6db504dac422677aa07d0995f9949f68',1,'RTObject_class::super()']]]
+  ['stringifyjson_25',['stringifyJson',['../class_r_t_json_result.html#a22055530b41c9c2dc0975932ab65b965',1,'RTJsonResult']]],
+  ['substitutable_26',['substitutable',['../struct_r_t_component_descriptor.html#ab9be99001760875acf3cc7a28a98dc3f',1,'RTComponentDescriptor']]],
+  ['substitutablefor_27',['substitutableFor',['../struct_r_t_actor_class.html#a3eaf229a30aa0512df6d2f8d1cd5fa1c',1,'RTActorClass']]],
+  ['super_28',['super',['../struct_r_t_actor_class.html#a80ea3d682e410b018dfe486ddcda11b8',1,'RTActorClass::super()'],['../struct_r_t_object__class.html#a6db504dac422677aa07d0995f9949f68',1,'RTObject_class::super()']]]
 ];
