@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1431,6 +1433,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
@@ -1451,7 +1517,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1468,14 +1534,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1894,7 +1960,7 @@
 <ul>
 <li>It controls how to automatically generate C++ code from the Art files in the workspace folder. In this respect it corresponds directly to the <a href="../art-compiler/#tc"><code>--tc</code></a> option for the <a href="../art-compiler/">Art Compiler</a>.</li>
 <li>It's used for automatically propagating changes you make in generated files back to the source Art files (see <a href="../#making-changes-in-generated-c">Making Changes in Generated C++</a>).</li>
-<li>It affects how references in Art files are bound to Art elements in other Art files. More precisely, it's the <a href="#sources">sources</a> and <a href="#prerequisites">prerequisites</a> properties of the active TC that have an influence on the binding of references (since these properties control which Art files that are visible when building the active TC).</li>
+<li>It affects how references in Art files are bound to Art elements in other Art files. More precisely, the <a href="#sources">sources</a> and <a href="#prerequisites">prerequisites</a> properties of the active TC define the global scope, that is which Art elements that are  globally visible. All such global scope elements must have unique names (see <a href="../../validation/#tc_7019_duplicatenamesinglobalscope">TC_7019</a> for more information).</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

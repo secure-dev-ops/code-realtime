@@ -20,7 +20,7 @@
     
     
       
-        <title>3.2.0 (2026-01-23 14:40) - DevOps Code RealTime</title>
+        <title>3.3.0 (2026-03-26 09:46) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#320-2026-01-23-1440" class="md-skip">
+        <a href="#330-2026-03-26-0946" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.2.0 (2026-01-23 14:40)
+              3.3.0 (2026-03-26 09:46)
             
           </span>
         </div>
@@ -333,6 +333,8 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
+        
+          
         
           
         
@@ -1121,6 +1123,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
@@ -1141,7 +1207,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1158,14 +1224,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1295,6 +1361,26 @@
   
 
 
+<h1 id="330-2026-03-26-0946">3.3.0 (2026-03-26 09:46)</h1>
+<ol>
+<li>Manual layout of lines is now also supported for class diagrams. </li>
+<li>It's now possible to place Art files in subfolders (nested to any depth) inside a workspace folder. This helps in structuring a big workspace folder with many files. Already before this was supported for C++ source files.</li>
+<li>Synchronization of changed code snippets from C++ to Art files now also works for C++ files generated into subfolders.</li>
+<li>Colors in diagrams have been adjusted to improve the contrast for both light and dark themes. In particular this makes labels and icons shown on inherited symbols easier to read.</li>
+<li>The sequence diagram viewer now highlights a lifeline, message or note based on the cursor position in an <code>.art-trace</code> file when the diagram opens. This makes it easier to navigate in big trace files.</li>
+<li>Diagram layout settings are now only validated for open diagrams. This improves performance and reduces the number of reported problems.</li>
+<li>Diagram layout files are now automatically updated if an Art file is renamed. Also, any currently open diagrams for elements in that Art file will be automatically closed and reopened to reflect the change.</li>
+<li>Minimal sizes for symbols have been implemented in diagrams. This avoids making symbols too small by mistake.</li>
+<li>A capsule is not allowed to have ports and parts with the same name, and this is now checked by the validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0002_duplicatenamesinscope">ART_0002</a>.</li>
+<li>It's now possible to exclude all outgoing transitions for an inherited choice, as a way to remove the choice from an inheriting state machine (note that the choice itself cannot be excluded). Previously this was not allowed and led to an error <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0006_choicewithoutoutgoingtransitions">ART_0006</a>.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#tc_7019_duplicatenamesinglobalscope">TC_7019</a> now detects if the global scope that is defined by an active TC has elements with duplicated names. This check was previously done by <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0002_duplicatenamesinscope">ART_0002</a>, but the new implementation is significantly faster since it only is performed on active TCs and not on all Art files in the workspace.</li>
+<li>The C++ code generator now ensures that transitions which reference entry or exit points of excluded states are now also implicitly excluded.</li>
+<li>When a TC is cleaned (either from the UI or when using the Art Compiler with the <code>--clean</code> option) prerequisite TCs are now automatically cleaned too. This makes it easier to perform builds that are fully "clean built". If you only want to clean one TC, simply delete its target folder.</li>
+<li>Default values for unspecified TC properties have been added for macOS. This makes it faster to get started with building applications on macOS, and also allows to <a href="https://secure-dev-ops.github.io/code-realtime/building/#building-and-running-without-a-tc">run a capsule without creating a TC</a> on macOS.</li>
+<li>The TargetRTS now supports a new configuration setting <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/build/#portfull_warning"><code>PORTFULL_WARNING</code></a>. If enabled, a runtime warning will be printed if there is an attempt to connect more SAP ports to an SPP port than what the multiplicity of the SPP port allows.</li>
+<li>Generated trace files now contain information about which command-line arguments that were provided to the traced application. The information is printed in a new "args" property of the "trace" object in the comment that appears at the beginning of the trace file.</li>
+<li>Version 2.3.1 of the Art Exporter is now available. Improvements include better preservation of diagram layouts, several new migration options as well as detection and removal of certain incorrect model elements. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for more detailed release notes for the Art Exporter.</li>
+</ol>
 <h1 id="320-2026-01-23-1440">3.2.0 (2026-01-23 14:40)</h1>
 <ol>
 <li>For state and structure diagrams with manual layout it's now possible to freely route transition lines. You can decide where on the source and target symbol the line should connect to, and also add bendpoints. Some or all line bendpoints can be deleted by means of commands in the context menu that appears when you select a line, or bendpoints of a line, and press <code>ctrl+space</code>.</li>

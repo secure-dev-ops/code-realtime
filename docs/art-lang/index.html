@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1131,6 +1133,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../support/" class="md-nav__link">
         Support Procedures
@@ -1151,7 +1217,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1168,14 +1234,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1321,9 +1387,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#art-files-and-folders-and-reference-binding" class="md-nav__link">
-    Art Files and Folders and Reference Binding
+  <a href="#art-files-and-folders" class="md-nav__link">
+    Art Files and Folders
   </a>
+  
+    <nav class="md-nav" aria-label="Art Files and Folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-root-workspaces" class="md-nav__link">
+    Multi-Root Workspaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binding-of-references-across-art-files" class="md-nav__link">
+    Binding of References across Art Files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1943,18 +2029,24 @@ capsule Cx {
 <p class="admonition-title">Hint</p>
 <p>As an alternative to placing common C++ code in an Art file you can also use regular C++ files and then include these into the build. See <a href="../building/build-cpp-files/">Non-Generated C++ Files</a> for more information.</p>
 </div>
-<h2 id="art-files-and-folders-and-reference-binding">Art Files and Folders and Reference Binding</h2>
+<h2 id="art-files-and-folders">Art Files and Folders</h2>
 <p>Any but the simplest of applications will consist of multiple Art files organized into folders. You can create as many Art files as you like, and every Art file may contain one or several Art elements. Art files containing Art elements that are related to each other should be grouped in a folder. For example, if you build a library from certain Art elements it makes sense to put the Art files with those elements in their own folder. </p>
 <p>Folders with Art files should be added as workspace folders, either using the command <strong>File - Add Folder to Workspace</strong> (to add a folder to an existing workspace), or using the command <strong>File - Open Workspace from File</strong> (to open an existing workspace from a file that defines the workspace folders). If your application consists of more than a couple of workspace folders use of a workspace file is recommended as it makes it quick and easy to add all workspace folders in one go with a single command.</p>
+<p>You may use subfolders within a workspace folder to further group Art files. This grouping has no semantic significance, but can help in case a workspace folder has a large number of Art files (or <a href="../building/build-cpp-files/">C++ files</a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Art files must be on the top level in a workspace folder. Do not place them in subfolders. </p>
+<p>If your workspace folder has subfolders make sure that Art files that contain <a href="#file-level-code-snippets">file-level code snippets</a> have unique names. If they don't, the <code>.art.h</code> and <code>.art.cpp</code> files that are generated from those Art files will overwrite each other since the file names will clash.</p>
 </div>
-<p>When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder. If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active <a href="../building/transformation-configurations/">transformation configuration</a> (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched. The search continues recursively if the prerequisite TC itself has prerequisites.</p>
+<h3 id="multi-root-workspaces">Multi-Root Workspaces</h3>
+<p>A <a href="https://code.visualstudio.com/docs/editing/workspaces/workspaces">workspace</a> in Visual Studio Code and similar IDEs is either a single folder or a collection of workspace folders (a.k.a. a multi-root workspace). If you use the command <strong>File - Open Folder</strong> you get a workspace that consists of that single opened folder. Even if there are a few simple cases when that is all you need, it's always recommended to use Code RealTime with multi-root workspaces. In fact, as soon as you generate code for a TC it will be placed in its own workspace folder. In almost all cases a Code RealTime workspace will therefore contain at least two workspace folders.</p>
+<p>Beware that when Visual Studio Code goes from a workspace that consists of a single folder to become a multi-root workspace, it automatically restarts all extensions, including Code RealTime. For example, this happens if you build a TC of a single workspace folder, when the target workspace folder with the generated code gets added to the workspace. If you are not aware of this, and are working with something else when this restart happens, this can come as a surprise and interrupt your work. It's therefore <strong>strongly recommended</strong> to always use multi-root workspaces with Code RealTime. If you started by opening a single folder as your workspace, make sure to save it as a workspace file using the command <strong>File - Save Workspace As</strong> before you build or set a TC as active. There are also other benefits with always using <a href="https://code.visualstudio.com/docs/editing/workspaces/workspaces#_multiroot-workspaces">multi-root workspaces</a>. For example, all workspace-level <a href="../settings/">settings</a> you make when working in that workspace will be persisted into the same <code>.code-workspace</code> file.</p>
+<h3 id="binding-of-references-across-art-files">Binding of References across Art Files</h3>
+<p>When an Art file contains a reference to an Art element that cannot be found within the same file, other Art files in the workspace will be searched for an Art element with the referenced name. This search starts with the Art files in the same workspace folder (and its subfolders). If a matching Art element is found in one of these files, the reference is bound to it. Otherwise an active <a href="../building/transformation-configurations/">transformation configuration</a> (TC) is required, which specifies one or several prerequisites. The Art files in the workspace folders where the prerequisite TCs are located will then be searched (including subfolders of those workspace folders). The search continues recursively if the prerequisite TC itself has prerequisites.</p>
 <p>If a matching Art element cannot be found in any of these locations the reference will be unresolved and an error will be reported. For example:</p>
 <pre><code>Couldn't resolve reference to Protocol 'UnknownPort'. (ART_9001_unresolvedReference)
 </code></pre>
 <p>For more information about unresolved references, see <a href="../validation/#art_9001_unresolvedreference">this validation rule</a>.</p>
+<p>If more than one Art element with the referenced name are found, an error will be reported on the active TC. See the validation rule <a href="../validation/#tc_7019_duplicatenamesinglobalscope">TC_7019</a>.</p>
 <h2 id="textual-and-graphical-notations">Textual and Graphical Notations</h2>
 <p>The Art language is a textual language, but many parts of it also have a graphical notation. For example, a state machine can be shown using a graphical state diagram, and the composite structure of a capsule can be shown in a structure diagram. Relationships between capsules, protocols and classes, such as inheritance, can be shown in class diagrams.</p>
 <p>Below are examples of these three kinds of diagrams:</p>
@@ -2368,6 +2460,10 @@ registration_name = &quot;myService&quot;)
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find sample applications that use unwired ports <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/unwired_port">here</a> and <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-samples/MatMult">here</a>.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The TargetRTS provides a configuration setting <a href="../target-rts/build/#portfull_warning"><code>PORTFULL_WARNING</code></a> which you can enable to get runtime warnings if you attempt to connect unwired ports in ways that violate the multiplicites of the ports. For example, you can use this for detecting if an SPP port doesn't have a high enough multiplicity for all registerred SAP ports to connect to it.</p>
 </div>
 <h2 id="connector">Connector</h2>
 <p>Connectors describe how events are routed within a capsule by connecting ports in its composite structure. They make it possible to see in a structure diagram which parts of a capsule that can communicate with each other. Each connector connects exactly two ports with each other. A connected port may either be a port of the capsule itself, or a port of a capsule that types one of its capsule parts. A few constraints decide if it's possible to connect two ports:</p>
@@ -2993,12 +3089,16 @@ capsule D : B, `IDataManager`, `IController` {
 <p class="admonition-title">Example</p>
 <p>You can find a sample application where a capsule inherits from both another capsule and from C++ classes <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/capsule_cpp_inheritance">here</a>.</p>
 </div>
-<p>We can also see an example of a state machine redefinition. The initial transition <code>_Initial</code> of <code>B</code>'s state machine is redefined in <code>D</code>'s state machine so that it targets state <code>DS</code> instead of state <code>BS</code>. In the state diagram of <code>D</code> the state <code>BS</code> and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition <code>_Initial</code> is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), and with a green label to show that it's redefining the inherited initial transition. The state <code>BS2</code> is excluded in <code>D</code>'s state machine. In state diagrams excluded elements are shown with a "crossed" background or line-style.</p>
+<p>We can also see an example of a state machine redefinition. The initial transition <code>_Initial</code> of <code>B</code>'s state machine is redefined in <code>D</code>'s state machine so that it targets state <code>DS</code> instead of state <code>BS</code>. In the state diagram of <code>D</code> the state <code>BS</code> and the initial pseudo state are drawn with gray color and dashed outline, to show that they are inherited. The transition <code>_Initial</code> is also drawn with dashed outline, but with a different line style ("dash-dot-dot"), to show that it's redefining the inherited initial transition. The state <code>BS2</code> is excluded in <code>D</code>'s state machine. In state diagrams excluded elements are shown with a "crossed" background or line-style.</p>
 <p><img alt="" src="images/sm_redefinition.png" /></p>
 <p>Note that to be able to redefine the initial transition of <code>B</code> it is necessary to give it a name (so that it can be referenced as redefined from <code>D</code>). This is yet another reason why it's good practise to give names to transitions, even if it's not mandated. But, of course, if you want to prevent anyone from creating a derived capsule with a state machine that redefines a certain transition, you can accomplish that by not giving a name to that transition. In effect, an unnamed transition is <strong>final</strong>, i.e. cannot be overridden or excluded.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If the source and/or target state of a transition is excluded in an inherited capsule state machine, then that transition is implicitly excluded too. It's not necessary to exclude such a transition explicitly using the <code>exclude</code> keyword, even if it's of course allowed to do so.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only states and transitions can be explicitly excluded in an inherited capsule state machine. If you want to exclude pseudo states such as choices and junctions you can accomplish that implicitly by excluding all their incoming and outgoing transitions. </p>
 </div>
 <p>The rule that a capsule state machine must have exactly one initial transition also applies to a derived capsule. Therefore, when you introduce inheritance between two existing capsules, you typically first get an error saying that the derived capsule has two initial transitions (one inherited, and one locally defined). You then need to decide if you want to either remove the initial transition in the derived capsule, or (like in the above example) instead redefine the initial transition.</p>
 <div class="admonition example">

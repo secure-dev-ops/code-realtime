@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -641,6 +643,19 @@
   <a href="#maintaining-layout-information" class="md-nav__link">
     Maintaining Layout Information
   </a>
+  
+    <nav class="md-nav" aria-label="Maintaining Layout Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-validation" class="md-nav__link">
+    Layout Validation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1353,6 +1368,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
@@ -1373,7 +1452,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1390,14 +1469,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1582,6 +1661,19 @@
   <a href="#maintaining-layout-information" class="md-nav__link">
     Maintaining Layout Information
   </a>
+  
+    <nav class="md-nav" aria-label="Maintaining Layout Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-validation" class="md-nav__link">
+    Layout Validation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1780,7 +1872,7 @@
 <li><a href="#resizing-symbols">Resize symbols</a></li>
 <li><a href="#routing-lines">Route lines</a></li>
 </ul>
-<p>When you save the edited diagram the layout information is stored in a JSON file under a <code>layouts</code> subfolder in the workspace folder. There will be one such file for each diagram that uses manual layout. The name of the file is <code>&lt;ArtFile&gt;-&lt;ArtElement&gt;-&lt;DiagramType&gt;.json</code> where <code>&lt;ArtFile&gt;</code> is the name of the Art file and <code>&lt;ArtElement&gt;</code> is the name of the Art element that contains the edited diagram. <code>&lt;DiagramType&gt;</code> is either "state", "structure" or "class".</p>
+<p>When you save the edited diagram the layout information is stored in a JSON file under a <code>layouts</code> subfolder. This subfolder is placed in the folder where the Art element is located to which the diagram belongs (the so called "context" element of the diagram). There will be one such file for each diagram that uses manual layout. The name of the file is <code>&lt;ArtFile&gt;-&lt;ArtElement&gt;-&lt;DiagramType&gt;.json</code> where <code>&lt;ArtFile&gt;</code> is the name of the Art file and <code>&lt;ArtElement&gt;</code> is the name of the Art element that is the context element of the edited diagram. <code>&lt;DiagramType&gt;</code> is either "state", "structure" or "class".</p>
 <p>Sometimes you may want to change the diagram layout by editing the layout JSON file, for example to move a symbol to a specific coordinate. This is possible and the diagram will update when you save the JSON file. But be careful not to change the JSON file in a way that makes it invalid.</p>
 <h3 id="moving-symbols-and-text-labels">Moving Symbols and Text Labels</h3>
 <p>To move a symbol, just select it and drag it to a new position on the diagram. You can also move the text labels of some symbols and lines to avoid that they overlap with other graphical elements on the diagram. For example, assume the label of an entry point overlaps with the incoming transition line:</p>
@@ -1828,11 +1920,15 @@
 <ul>
 <li>References will be updated when you rename an element, regardless if you rename it by direct typing in the Art file, or if you use the <a href="../art-editor/#renaming-elements">Rename command</a>. However, it's recommended to use the <a href="../art-editor/#renaming-elements">Rename command</a> since there are some situations where rename by direct typing will be unable to update all references.</li>
 <li>If you rename the context element, i.e. the element that owns a diagram (like <code>MyCapsule</code> in the example above), and that diagram is currently open, then it will be automatically closed and reopened so the new element name is shown in the diagram editor tab. Code RealTime tries to reopen the diagram into the same editor tab group, but sometimes this is not possible and the diagram will then appear elsewhere.</li>
+<li>If you rename an Art file (using the <strong>Rename</strong> context menu command in the Explorer view), layout files for all its diagrams will be updated. If any of those diagrams are currently open they will be automatically closed and reopened.</li>
 <li>If you delete an element, references to it from layout files are not always automatically deleted. There is no harm in keeping layout information for deleted elements, and if the deletion is undone, the preserved layout information ensures that the element retains the same layout as before. However, if you want you can manually remove layout information for deleted elements from the JSON files.</li>
 <li>There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.</li>
 </ul>
-<p>Code RealTime validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.</p>
+<h4 id="layout-validation">Layout Validation</h4>
+<p>Code RealTime validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). This helps you detect layout information that is wrong, for example because of refactoring operations, mistakes made when merging layout files, etc. Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.</p>
 <p><img alt="" src="../images/layout_validation.png" /></p>
+<p>Layout warnings are only shown for diagrams while they are open. Pay attention to the <code>layouts</code> folder in the Explorer view. If it appears in <span style="color: orange;">orange</span> there is at least one open diagram where one or many layout problems have been detected.</p>
+<p><img alt="" src="../images/layout_warnings.png" /></p>
 <h2 id="navigating-from-diagram-to-art-file">Navigating from Diagram to Art File</h2>
 <p>If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:</p>
 <p><img alt="" src="../images/ctrlclick-text-label.png" /></p>

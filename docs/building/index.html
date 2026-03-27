@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1131,6 +1133,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../support/" class="md-nav__link">
         Support Procedures
@@ -1151,7 +1217,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1168,14 +1234,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1387,7 +1453,7 @@ A make tool is invoked for building an executable or library from the generated 
 <ul>
 <li>
 <p><strong>Build</strong>
-This command first generates C++ code and a make file for the TC, and then runs the make tool on the generated make file. Note, however, that this command does not set the TC as active. If you plan to change code snippets in generated code you must set the TC as active yourself.</p>
+This command first generates C++ code and a make file for the TC, and then runs the make tool on the generated make file. Note, however, that this command does not set the TC as active. If you plan to <a href="#making-changes-in-generated-c">change code snippets in generated code</a> you must set the TC as active yourself.</p>
 </li>
 <li>
 <p><strong>Run</strong>
@@ -1400,7 +1466,7 @@ First builds the TC, and then attempts to launch the executable that is produced
 </div>
 <ul>
 <li><strong>Clean</strong>
-Removes the target workspace folder produced when building a TC. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke <code>make clean</code> to clean using the make file.</li>
+Removes the target workspace folder produced when building a TC. If the TC has <a href="transformation-configurations/#transformation-configuration-prerequisites">prerequisites</a> they will be cleaned too. This means that all generated C++ code, the make file, as well as any produced binaries will be removed. If you only want to remove the binaries you can instead go to the Terminal and invoke <code>make clean</code> to clean using the make file.</li>
 </ul>
 <p>If you build a TC and at least one error exists in the TC itself, in prerequisites TCs or in any of the Art files that will be built, then a dialog will ask if you want to cancel the build (recommended) or proceed anyway (only do this if you are confident the errors are safe to ignore).</p>
 <p><img alt="" src="images/cancel-build.png" /></p>
@@ -1415,6 +1481,7 @@ Removes the target workspace folder produced when building a TC. This means that
 <p>In some cases of rapid prototyping and testing you may want to quickly build and run a capsule without first having to create a TC or a <a href="../running-and-debugging/launch-configurations/">launch configuration</a>. Then you can click the "Run" link that appears just before any capsule in the Art text editor.</p>
 <p><img alt="" src="images/running-without-tc.png" /></p>
 <p>This command will create a temporary TC file and use a temporary target folder. All other TC properties will have their default values.</p>
+<p>You can also use this "Run" link for a top capsule when a TC is present. The same thing then happens as if you would build and run that TC.</p>
 <h2 id="build-messages">Build Messages</h2>
 <p>When you use the <strong>Build</strong> or <strong>Run</strong> commands on a TC, messages will be printed in two places depending on what kind of message it is:</p>
 <ol>

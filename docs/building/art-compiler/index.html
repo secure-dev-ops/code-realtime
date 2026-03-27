@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1272,6 +1274,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
@@ -1292,7 +1358,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1309,14 +1375,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1657,7 +1723,8 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <h3 id="buildvariants">buildVariants</h3>
 <p>Specifies a Build Variants script to use for the build. Read more about build variants <a href="../build-variants/">here</a>. </p>
 <h3 id="clean">clean</h3>
-<p>If this option is set, the Art Compiler will perform a clean build by first removing the output folder if it already exists (as a result of a previous build). Clean builds take longer to perform since all C++ files have to be regenerated and recompiled. Normally you don't need to do a clean build, but in some cases it may be necessary. For example, if you are using <a href="../build-variants/">Build Variants</a> and have changed the <a href="../build-variants/#build-configuration">build configuration</a>, then a clean build is recommended to ensure that all changes are picked up by the build. If you do a clean build, but the output folder for some reason cannot be deleted, then the build will fail. A typical situation when this happens is when the built executable is running because you forgot to terminate it. If the executable is running it cannot be deleted, and hence the output folder also cannot be deleted.</p>
+<p>If this option is set, the Art Compiler will perform a clean build by first removing the output folder that is specified by the built TC, if that folder exists (as a result of a previous build). Output folders of prerequisite TCs will be removed too. This ensures that the build will rebuild everything. </p>
+<p>Clean builds take longer to perform since all C++ files have to be regenerated and recompiled. Normally you don't need to do a clean build, but in some cases it may be necessary. For example, if you are using <a href="../build-variants/">Build Variants</a> and have changed the <a href="../build-variants/#build-configuration">build configuration</a>, then a clean build is recommended to ensure that all changes are picked up by the build. If you do a clean build, and a output folder exists but for some reason cannot be deleted, then the build will fail. A typical situation when this happens is when the built executable is running because you forgot to terminate it. If the executable is running it cannot be deleted, and hence the output folder also cannot be deleted.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you only want to remove binaries produced by make, and not the generated source files, you can instead run <code>make clean</code>. This makes the subsequent build slightly faster since not all C++ files need to be regenerated.</p>
@@ -1679,10 +1746,11 @@ All options with argument can be used in format &lt;option&gt; &lt;argument&gt; 
 <p>Read more about how to configure validation rules <a href="../../validation/#configuring-validation">here</a>.</p>
 <h3 id="tc">tc</h3>
 <p>Specifies the <a href="../transformation-configurations/">TC</a> to build. This option is mandatory, unless you only pass the <a href="#help">help</a> or <a href="#version">version</a> options.</p>
+<p>The TC specified by this option corresponds to the <a href="../transformation-configurations/#setting-a-transformation-configuration-as-active">active</a> TC in the IDE, and hence defines the set of all Art files (and also C++ files) to be built. The root elements in those Art files constitute the global scope, and must have unique names. This is checked by the validation rule <a href="../../validation/#tc_7019_duplicatenamesinglobalscope">TC_7019</a>.</p>
 <h3 id="version">version</h3>
 <p>Use this option to print the version of the Art Compiler. This version is the same as is used for the Code RealTime extension and can also be seen in the file <code>CHANGELOG.md</code> in the Code RealTime installation folder. If this option is passed, all other options are ignored.</p>
 <h3 id="ws">ws</h3>
-<p>Specifies a workspace file (<code>.code-workspace</code>) which will be used for resolving paths that are relative to the workspace. It's optional to use this option and it only needs to be set if any of the built TCs contain workspace-relative paths.</p>
+<p>Specifies a workspace file (<code>.code-workspace</code>) which will be used for resolving paths that are relative to the workspace. It's optional to use this option and it only needs to be set if any of the built TCs contain workspace-relative paths. Such paths can for example be used in <a href="../transformation-configurations/#prerequisites">prerequisites</a>.</p>
 <pre><code>--ws C:/art-comp-test/validation.code-workspace
 </code></pre>
 <h2 id="art-compiler-steps-and-messages">Art Compiler Steps and Messages</h2>

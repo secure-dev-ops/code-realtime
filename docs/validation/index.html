@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1144,6 +1146,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7019_duplicatenamesinglobalscope" class="md-nav__link">
+    TC_7019_duplicateNamesInGlobalScope
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1734,6 +1743,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../support/" class="md-nav__link">
         Support Procedures
@@ -1754,7 +1827,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1771,14 +1844,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -2419,6 +2492,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7019_duplicatenamesinglobalscope" class="md-nav__link">
+    TC_7019_duplicateNamesInGlobalScope
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2625,10 +2705,8 @@ capsule Exception { // ART_0001 (&quot;Exception&quot; is a name reserved for us
 </table>
 <p>Names of Art elements must be unique within the same scope. The following is checked:</p>
 <ul>
-<li>Top-level elements in the global scope (either defined in the same Art file, or in different Art files built by the same TC or prerequisite TCs). The corresponding C++ elements will have names in the global namespace and must hence be unique.</li>
 <li>Events of a protocol. Note that in-events and out-events are checked separately, since an in-event and an out-event will have the same name when you define a symmetric event (see <a href="../art-lang/#protocol-and-event">Protocol and Event</a>).</li>
-<li><a href="../art-lang/#part">Parts</a> of a capsule.</li>
-<li><a href="../art-lang/#port">Ports</a> of a capsule.</li>
+<li><a href="../art-lang/#part">Parts</a> and <a href="../art-lang/#port">ports</a> of a capsule. Note that it's not allowed to have a port and a part with the same name.</li>
 <li><a href="../art-lang/#state">States</a> and pseudo states (collectively referred to as "vertices") of a state machine.</li>
 <li><a href="../art-lang/#transition">Transitions</a> of a state machine.</li>
 <li>Trigger operations of a <a href="../art-lang/#class-with-state-machine">class</a>. Note that several trigger operations may have the same name as long as their signatures are unique.</li>
@@ -2677,6 +2755,7 @@ capsule C0002 : D0002 {
     };
 };
 </code></pre>
+<p>Note that name conflicts in the global scope requires an active TC and is therefore checked by <a href="#tc_7019_duplicatenamesinglobalscope">TC_7019</a> instead.</p>
 <h3 id="art_0003_nameshouldstartwithuppercase">ART_0003_nameShouldStartWithUpperCase</h3>
 <table>
 <thead>
@@ -2799,6 +2878,7 @@ capsule C0002 : D0002 {
     };
 };
 </code></pre>
+<p>Note that it's allowed in a derived capsule state machine to implicitly exclude a pseudo state such as a choice or junction by excluding all its incoming and outgoing transitions. So if a choice lacks outgoing transitions because they were excluded together with the incoming transition, the choice will be ignored and this validation rule will not report a problem.</p>
 <h3 id="art_0007_choicewithtoomanyelsetransitions">ART_0007_choiceWithTooManyElseTransitions</h3>
 <table>
 <thead>
@@ -3443,10 +3523,6 @@ capsule CComp3 {
 </code></pre>
 <p>Two Quick Fixes are available for fixing this problem. Either the port can be turned into a behavior port, or it can be turned into a wired port.</p>
 <h3 id="art_0025_portconnectionerror">ART_0025_portConnectionError</h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This validation rule can take some time to run and it's therefore by default disabled. You have to <a href="#configuring-validation">enable it</a> manually to use it. </p>
-</div>
 <table>
 <thead>
 <tr>
@@ -3938,7 +4014,8 @@ capsule C34 {
     };
 };
 </code></pre>
-<p>In case the state machine is inherited, and the problem is detected for an inherited transition, then it is reported on the state machine instead. The inherited transition with the unexpected trigger(s) will be reported as a related element. In this case the Quick Fix can not be used for removing the triggers. Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:</p>
+<p>It should be noted that a transition that is correct in the context of a base state machine could be incorrect in the context of a state machine that inherits from it. However, an error is not reported for this situation since it would be inconvenient to have to redefine a transition just for the purpose of removing its triggers (and then let it call the inherited transition's implementation using CALLSUPER). In this case the unexpected triggers are instead simply ignored without reporting ART_0036.</p>
+<p>Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:</p>
 <pre><code class="language-art">capsule B2 {
     behavior port t : Timing;
     statemachine {
@@ -3953,7 +4030,7 @@ capsule C34 {
 };
 
 capsule D2 : B2 {    
-    statemachine { // ART_0036 (here ep has an incoming transition which makes the inherited t1 incorrect)
+    statemachine { // Here ep has an incoming transition which makes the inherited t1 incorrect, but no ART_0036 is reported since the transitions are in different state machines
         tx : State -&gt; Composite.ep on t.timeout;       
     };
 };
@@ -4051,10 +4128,6 @@ capsule DD2 : BB2 {
 };
 </code></pre>
 <h3 id="art_0039_portpartmultiplicitymismatch">ART_0039_portPartMultiplicityMismatch</h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This validation rule can take some time to run and it's therefore by default disabled. You have to <a href="#configuring-validation">enable it</a> manually to use it.</p>
-</div>
 <table>
 <thead>
 <tr>
@@ -4758,6 +4831,26 @@ tc.prerequisites = [&quot;lib1.tcjs&quot;]; // TC_7017 (cycle lib2 -&gt; lib1 -&
 </tbody>
 </table>
 <p>The <a href="../building/transformation-configurations/#cppcodestandard"><code>cppCodeStandard</code></a> property should be set to ensure that the C++ code generator, the C++ compiler and the C++ language server all agree on which code standard that should be used.</p>
+<h3 id="tc_7019_duplicatenamesinglobalscope">TC_7019_duplicateNamesInGlobalScope</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Error</td>
+<td align="left">An active TC defines a global scope where all Art elements do not have unique names</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../building/transformation-configurations/#sources"><code>sources</code></a> and <a href="../building/transformation-configurations/#prerequisites"><code>prerequisites</code></a> properties of a TC define which Art files that should be built by the TC. For an active TC the root elements of these Art files constitute the global scope. This problem is reported if the names of these global scope elements are not unique. Typically such errors will lead to similar name clashes in the C++ global scope, which would result in linker errors if not fixed.</p>
+<p>The Art elements with duplicate names are reported as related elements.</p>
+<p>Note that this validation rule only applies for a TC that is <a href="../building/transformation-configurations/#setting-a-transformation-configuration-as-active">active</a>, because references to global elements are resolved using the active TC. In the context of the Art Compiler the TC that is specified with the <a href="../building/art-compiler/#tc">--tc</a> option is considered to be the active TC.</p>
 <h2 id="core-validation-rules">Core Validation Rules</h2>
 <p>There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.</p>
 <p>Since these rules run before semantic <a href="#validation-rules">validation rules</a> they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.</p>

@@ -11,20 +11,20 @@
       
       
       
-        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/">
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/migration-modelrt/">
       
       
-        <link rel="prev" href="../building/build-variants/">
+        <link rel="prev" href="../settings/">
       
       
-        <link rel="next" href="launch-configurations/">
+        <link rel="next" href="overview/">
       
       <link rel="icon" href="../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Running and Debugging - DevOps Code RealTime</title>
+        <title>Migration from Model RT - DevOps Code RealTime</title>
       
     
     
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Running and Debugging
+              Migration from Model RT
             
           </span>
         </div>
@@ -955,16 +955,14 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
       
       
         
@@ -984,8 +982,8 @@
       
         
         
-        <div class="md-nav__link md-nav__link--index md-nav__link--active">
-          <a href="./">Running and Debugging</a>
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../running-and-debugging/">Running and Debugging</a>
           
             <label for="__nav_2_8">
               <span class="md-nav__icon md-icon"></span>
@@ -993,7 +991,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Running and Debugging
@@ -1008,7 +1006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="launch-configurations/" class="md-nav__link">
+      <a href="../running-and-debugging/launch-configurations/" class="md-nav__link">
         Launch Configurations
       </a>
     </li>
@@ -1022,7 +1020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="debugging/" class="md-nav__link">
+      <a href="../running-and-debugging/debugging/" class="md-nav__link">
         Art Debugger
       </a>
     </li>
@@ -1036,7 +1034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="rts-debugger/" class="md-nav__link">
+      <a href="../running-and-debugging/rts-debugger/" class="md-nav__link">
         RTS Debugger
       </a>
     </li>
@@ -1050,7 +1048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tracing/" class="md-nav__link">
+      <a href="../running-and-debugging/tracing/" class="md-nav__link">
         Tracing
       </a>
     </li>
@@ -1127,14 +1125,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" checked>
       
       
         
@@ -1148,8 +1148,8 @@
       
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../migration-modelrt/">Migration from Model RT</a>
+        <div class="md-nav__link md-nav__link--index md-nav__link--active">
+          <a href="./">Migration from Model RT</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1157,7 +1157,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
           Migration from Model RT
@@ -1172,7 +1172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../migration-modelrt/overview/" class="md-nav__link">
+      <a href="overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -1364,17 +1364,10 @@
   
 
 
-  <h1>Running and Debugging</h1>
+  <h1>Migration from Model RT</h1>
 
-<p>Once you have successfully <a href="../building/">built an application</a> the next step is usually to run it. If you built the application for the same machine architecture as where Code RealTime runs you can launch it on your local machine. You can do this</p>
-<ol>
-<li>from the <a href="../building/#tc-context-menu-commands">TC context menu</a></li>
-<li>from the <a href="../building/#building-and-running-without-a-tc">Run link</a> in the Art editor (in case you didn't yet create a TC)</li>
-<li>by means of a <a href="launch-configurations/">launch configuration</a></li>
-</ol>
-<p>Options 1 and 2 are convenient ways to quickly run an application, but for full control over how to launch the application you should go for the 3rd option. In the <a href="launch-configurations/">launch configuration</a> you can for example specify custom command-line arguments and set environment variables for the launched application.</p>
-<p>A <a href="launch-configurations/">launch configuration</a> is also needed in case you want to <a href="debugging/">debug</a> the application with the Art Debugger. Doing so can help in troubleshooting problems (often combined with traditional C++ debugging), but can also be useful as a means to interact with an unfinished application that is still under development. For example, the Art Debugger lets you manually <a href="debugging/#send-event">send events</a> to the debugged application on ports that may not yet be connected (because you didn't yet implement the sending capsule).</p>
-<p>Often you may not want to run the application locally, and it will not even be possible if the application was built for a different machine architecture. In that case you can launch the application from the command-line on the target machine, and then <a href="debugging/#attach">attach</a> the Art Debugger to it. Thereby you can debug the application remotely in the same way as if it was running locally.</p>
+<p>Applications created with <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/users-guide/overview.html?cp=23_0">Model RealTime</a> can be migrated to Code RealTime by means of the <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html?cp=23_5_0">Art Exporter</a>. This is a utility which you install separately on top of a Model RealTime installation. </p>
+<p>These <a href="attachments/CodeRT_versus_ModelRT.pdf">slides</a> summarize the most important improvements in Code RealTime over Model RealTime and the reasons why you may consider migrating your models.</p>
 
 
 
