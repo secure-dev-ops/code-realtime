@@ -1176,7 +1176,7 @@ capsule C36 {
 };
 ```
 
-It should be noted that a transition that is correct in the context of a base state machine could be incorrect in the context of a state machine that inherits from it. However, an error is not reported for this situation since it would be inconvenient to have to redefine a transition just for the purpose of removing its triggers (and then let it call the inherited transition's implementation using CALLSUPER). In this case the unexpected triggers are instead simply ignored without reporting ART_0036.
+It should be noted that a transition that is correct in the context of a base state machine could be incorrect in the context of a state machine that inherits from it. However, an error is not reported for this situation since it would be inconvenient to have to redefine a transition just for the purpose of removing its triggers (and then let it call the inherited transition's implementation using `CALLSUPER`). In this case the unexpected triggers are instead simply ignored without reporting ART_0036.
 
 Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:
 
@@ -1200,6 +1200,8 @@ capsule D2 : B2 {
     };
 };
 ```
+
+An entry or exit point can have multiple incoming transitions (both local and inherited). Those of the incoming transitions that cause a transition that leaves an entry/exit point to have unexpected triggers are reported as related elements. If the outgoing transition is inherited, it's also reported as a related element.
 
 ### ART_0037_missingTriggers
 | Severity | Reason | Quick Fixes
