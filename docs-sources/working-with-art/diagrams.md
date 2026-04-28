@@ -77,7 +77,7 @@ With manual layout it's possible to resize some kinds of symbols. Yellow "resize
 
 ![](images/resizable_symbol.png)
 
-If you increase the size of a nested symbol, the size of its container symbol will also grow if required, so that it still contains the nested symbol afterwards.
+If you increase the size of a nested symbol, the size of its container symbol will also grow if required, so that it still contains the nested symbol afterwards. Note that you cannot make a symbol too small, for example so small that a text label it contains won't fit.
 
 ### Routing Lines
 In a diagram with manual layout you can freely route lines. Red "bendpoint" handles appear when you select a line that can be manually routed:
@@ -219,6 +219,15 @@ Showing such elements in the diagram itself would risk making it cluttered, espe
 
 You can double-click the Art elements in the Properties view to highlight them in the Art file. For internal transitions the same blue and yellow dots are shown as for regular transitions in diagrams. Double-click the blue dot to navigate to the transition effect code and the yellow dot for navigating to the transition guard code.
 
+### Moving the Selection Upwards
+The Properties view has a button in its header for moving the selection upwards in a diagram. This button lets you select the enclosing symbol in case a nested symbol or line is selected. 
+
+![](images/move-selection-upwards.png)
+
+One scenario when this button is useful is when a nested state is selected, and you want to know which internal transitions that may be triggered when that state is active. The Properties view shows the [internal transitions](../art-lang/index.md#internal-transition) defined for the currently selected state (see [above](#elements-in-the-properties-view)), but in addition to those, internal transitions defined on enclosing states can also trigger when the state is active. Use the button in the Properties view header for moving the selection upwards in the hierarchical state machine to see all internal transitions that can trigger.
+
+If the button is pressed when a top-level symbol or line is selected, then the diagram itself is selected. The same thing happens always if you hold down the ++shift++ key when pressing the button. This has the same effect as clicking in the diagram background. It can be useful when you need to see the diagram properties, but the diagram background is not visible (e.g. because the diagram is big and zoomed-in). For example, if you want to turn on a [diagram filter](#diagram-filters) you can ++shift++-click the button, turn on the filter, and then continue to work, without first having to zoom out the diagram so you can click in the diagram background.
+
 ### Renaming Elements
 You can rename an Art element shown in a diagram by selecting the symbol or line to which the text label belongs and then press ++"F2"++.
 
@@ -296,15 +305,15 @@ You can export all diagrams for an Art element, or even all diagrams for all Art
 ![](images/export-all-svg.png)
 
 ## Class Diagrams for C++ Code
-If you have C++ types in `[[rt::decl]]` code snippets in an Art file, you can visualize their inheritance hierarchy using a class diagram. Right-click in the Art text editor and perform the command **Open Class Diagram**. Select which class (or struct) you want to generate the diagram for.
+If you have C++ types defined, either in `[[rt::decl]]` code snippets in Art files, or in C++ header files, you can visualize them in a class diagram. Right-click in the Art or C++ text editor and perform the command **Open Class Diagram**. If the cursor is placed on a specific type, that type will be shown in the diagram. Otherwise you first need to select which type you want to generate the diagram for.
 
 ![](images/cpp_open_class_diagram.png)
 
-The diagram will show all base classes for the selected class (even if they are defined in another Art file).
+The class diagram will show the type's relationships to other types, for example its inheritance hierarchy and references or pointers to other types. It will also show member variables and member functions.
 
 ![](images/cpp_class_diagram.png)
 
-Diagrams that visualize C++ code are read-only. They also don't update automatically if you change the C++ code.
+Diagrams that visualize C++ code are read-only, but you can collapse or expand types as you explore the diagram. You can double-click elements shown on the diagram to navigate to the corresponding C++ declaration. Note that if you change anything in the C++ code the diagram doesn't update automatically, so you need to close and reopen it to show recent changes.
 
 !!! note 
-    Class diagrams for C++ code require that generated C++ files are present. The best way to ensure this is to ensure you always have a TC set as active.
+    If the C++ code you want to visualize is located in a code snippet of an Art file, it's required that corresponding generated C++ files are present. The best way to ensure this is to ensure you always have a TC set as active.
