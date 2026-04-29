@@ -68,6 +68,11 @@ If you hover over the message line label you can see the port of the receiver ca
 
     ![](images/golden-highlight.png)
 
+### Filter Traces
+For long-running applications, captured traces can become large and difficult to analyze. Use the Trace Filter panel in the sequence diagram to focus on selected instances and messages, and to navigate the filtered result page by page.
+
+For details about filtering behavior, regex syntax, and paging, see [Trace Filter](trace-filter.md). 
+
 ### Synchronous Communication
 Messages for [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.
 
