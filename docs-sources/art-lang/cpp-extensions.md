@@ -13,7 +13,7 @@ A type descriptor is meta data about a C++ type. The [TargetRTS](../target-rts/i
 ### C++ Implementation
 The C++ implementation of a type descriptor consists of four parts. In the code shown below we assume the type descriptor describes a type called "MyType".
 
-**1) A type descriptor object**
+#### 1) Type descriptor object
 
 This is a variable typed by [RTObject_class](../targetrts-api/struct_r_t_object__class.html) with a name that has the prefix "RTType_". It will be declared in the header file:
 
@@ -32,7 +32,7 @@ const RTObject_class RTType_MyType =
 
 Member variables of [RTObject_class](../targetrts-api/struct_r_t_object__class.html) store all information about the type, such as its name and byte size. Some of the member variables store pointers to type descriptor functions which the TargetRTS will call when it needs to do something with an instance of the type, for example copy or encode it.
 
-**2) Type descriptor functions**
+#### 2) Type descriptor functions
 
 These are functions with a certain prototype, each of which performs a specific action on an instance of the type. The type descriptor object stores pointers to these functions. For a partial type descriptor, some of these pointers will be `nullptr` and then the corresponding type descriptor function does not exist. Below is the list of type descriptor functions that can be part of a type descriptor:
 
@@ -49,7 +49,7 @@ These are functions with a certain prototype, each of which performs a specific 
 
 The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes [`RTEncoding`](../targetrts-api/class_r_t_encoding.html) and [`RTDecoding`](../targetrts-api/class_r_t_decoding.html) from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros [`OBJECT_DECODE` and `OBJECT_ENCODE`](../target-rts/build.md#object_decode-and-object_encode) respectively. Learn more about encoding and decoding [in this chapter](../target-rts/encoding-decoding.md).
 
-**3) A type installer object**
+#### 3) Type installer object
 
 Decoding functions typically need to look up a type descriptor from the name of the type. For example, if it finds the type name "MyType" in the string that it parses, it needs to find the type descriptor object for "MyType" so it can allocate memory for an instance of "MyType" and then initialize it. To facilitate this lookup the TargetRTS keeps a type descriptor registry. The purpose of the type installer object is to add the type descriptor to this registry. The C++ code looks like this:
 
@@ -59,7 +59,7 @@ RTTypeInstaller rtg_MyType_installer( RTType_MyType );
 #endif
 ```
 
-**4) A "typed value" struct**
+#### 4) "Typed value" struct
 
 This is a struct which encapsulates an untyped instance of the type and its type descriptor. Its name has the prefix "RTTypedValue_". The struct has constructors that enable construction from a reference to an instance of the type. The typed value struct is the glue between generated code and TargetRTS code. TargetRTS functions get an untyped instance together with the type descriptor, and the type descriptor provides all information it needs to know about the type.
 
@@ -98,6 +98,8 @@ struct RTTypedValue_MyType
     }
 };
 ```
+
+If the type is nested within another type the typed value struct gets a name where scope qualifiers (`::`) have been replaced with underscores (`_`). For example, a nested type `OuterType::InnerType` gets a typed value struct with the name `RTTypedValue_OuterType_InnerType`.
 
 ### Automatically Generated
 The code generator will automatically generate a type descriptor for a C++ type if you mark it with the `rt::auto_descriptor` attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an `rt::impl` code snippet. 
@@ -223,6 +225,7 @@ If your `[[rt::auto_descriptor]]` marked type is defined in a C++ header file (s
     * [Automatically generated type descriptor for a struct defined in a C++ header file]({$vars.github.repo$}/tree/main/art-comp-test/tests/struct_type_descriptor_header_file)
     * [Automatically generated type descriptor for an enum defined in a C++ header file]({$vars.github.repo$}/tree/main/art-comp-test/tests/enum_type_descriptor_header_file)
     * [Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)]({$vars.github.repo$}/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file)
+    * [Automatically generated type descriptor for nested types]({$vars.github.repo$}/tree/main/art-comp-test/tests/nested_type_descriptor)
 
 ### Manually Implemented
 If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the `rt::manual_descriptor` attribute. The code generator will then skip generation of the following parts of the type descriptor:
