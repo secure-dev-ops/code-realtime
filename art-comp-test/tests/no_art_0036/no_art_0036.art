@@ -3,12 +3,20 @@ capsule Base {
     statemachine {
         state State1 {         
             entrypoint _EP;   
+            entrypoint _EP2;   
             exitpoint _EXP;
-            state Nested;
-            _initial: _EP  ->  Nested;
+            state Nested {
+                entry
+                `
+                    Log::out << "Nested entered" << Log::endl;
+                `;
+            };
+            state NestedInitial;
+            _initial: _EP2  ->  NestedInitial;
+            timeout: _EP -> Nested on timer.timeout;
         };
-        state Target;
-        _initial: initial  ->  State1._EP
+        state Target;        
+        _initial: initial  ->  State1._EP2
         `
             timer.informIn(RTTimespec(1,0));
         `;
@@ -28,11 +36,12 @@ capsule Top : Base {
             `
                 Log::out << "timer 2 timeout" << Log::endl;                
             `;
+            exclude _initial;
         };
         redefine _initial : initial  ->  State1._EP
         `
             Log::out << "Setting timer 2" << Log::endl;
-            timer2.informIn(RTTimespec(1,0));
+            timer2.informIn(RTTimespec(1,0)); 
         `;
         // In this context t1 should not have a trigger (because of State::t2), and it would be possible to redefine it as shown below to
         // remove the trigger and call the super implementation.
@@ -42,5 +51,6 @@ capsule Top : Base {
             CALLSUPER;
         `;*/
         // However, to avoid having to do this, we allow t1 to keep the trigger, without reporting ART_0036. The trigger will simply be ignored instead.        
+        // Similarly, timeout should also not have a trigger (because of the redefined initial transition), but since these transitions belong to different capsule state machines ART_0036 is not reported.
     };
 };

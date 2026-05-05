@@ -1,0 +1,26 @@
+[
+  {
+    "context": "::Base",
+    "diagramType": "state",
+    "layouts": [
+      {
+        "element": "State1::_EP",
+        "borderPosition": "W54"
+      },
+      {
+        "element": {
+          "source": "State1::_EP",
+          "target": "State1::Nested"
+        },
+        "sourcePosition": "E50",
+        "targetPosition": "N42",
+        "bendpoints": [
+          {
+            "x": 92.0,
+            "y": 108.0
+          }
+        ]
+      }
+    ]
+  }
+]
