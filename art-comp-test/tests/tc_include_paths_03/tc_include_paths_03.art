@@ -1,0 +1,20 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "inclFile.hpp"
+    `
+    statemachine {
+        initial -> State1
+        `
+            bool x = isPair(3);
+            std::cout << "isPair(3) returned " << x << std::endl;
+            ASSERT(x == false, "isPair(3) function returned unexpected value");
+        `;
+        state State1 {
+            entry
+            `
+                PASS();
+            `;
+        };
+    };
+};
