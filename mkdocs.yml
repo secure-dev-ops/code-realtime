@@ -128,8 +128,7 @@ nav:
         - Launch Configurations: running-and-debugging/launch-configurations.md
         - Art Debugger: running-and-debugging/debugging.md  
         - RTS Debugger: running-and-debugging/rts-debugger.md  
-        - Tracing: running-and-debugging/tracing.md 
-        - Trace Filter: running-and-debugging/trace-filter.md
+        - Tracing: running-and-debugging/tracing.md        
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md
