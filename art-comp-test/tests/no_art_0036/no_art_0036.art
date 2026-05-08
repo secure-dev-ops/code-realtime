@@ -1,4 +1,9 @@
-capsule Base {
+capsule Base 
+[[rt::properties(
+    rule_config="X4001"
+)]]
+{
+
     behavior port timer : Timing;
     statemachine {
         state State1 {         
@@ -11,14 +16,14 @@ capsule Base {
                     Log::out << "Nested entered" << Log::endl;
                 `;
             };
-            state NestedInitial;
+            state NestedInitial;            
             _initial: _EP2  ->  NestedInitial;
             timeout: _EP -> Nested on timer.timeout;
-        };
-        state Target;        
-        _initial: initial  ->  State1._EP2
+        };  
+        state Target;    
+        _initial: initial  ->  State1._EP2        
         `
-            timer.informIn(RTTimespec(1,0));
+            timer.informIn(RTTimespec(1,0));      
         `;
         t1: State1._EXP -> Target on timer.timeout
         `
@@ -41,7 +46,7 @@ capsule Top : Base {
         redefine _initial : initial  ->  State1._EP
         `
             Log::out << "Setting timer 2" << Log::endl;
-            timer2.informIn(RTTimespec(1,0)); 
+            timer2.informIn(RTTimespec(1,0));  
         `;
         // In this context t1 should not have a trigger (because of State::t2), and it would be possible to redefine it as shown below to
         // remove the trigger and call the super implementation.
