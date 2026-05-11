@@ -1,14 +1,14 @@
 # 3.4.0 (2026-05-11 08:44)
 1. The Properties view now shows the name of a selected symbol or line in its header. It also has a new button in the header for moving the selection upwards in the hierarchy of nested symbols. Clicking the button while holding down the Shift key moves the selection to the diagram itself (i.e. has the same effect as clicking in the diagram background). The new button helps for example when working in big and deeply nested state diagrams, where enclosing symbols or the diagram background often are not visible. It also makes it easier to understand which internal transitions that may trigger when a nested state is active.
 
-![](https://10.83.92.47:8884/code-realtime/working-with-art/images/move-selection-upwards.png)
+![]({$vars.doc.server$}/working-with-art/images/move-selection-upwards.png)
 
 2. It's now possible to resize choice symbols in state diagrams, when manual diagram layout is used. This can for example be useful if there are many outgoing transitions from the choice.
 3. The Z-order of symbols has been adjusted to ensure that symbols that are covered by an expanded symbol are drawn behind it. Previously such covered symbols could appear on top of the expanded symbol which made them look like nested symbols.
 4. The sizes of some non-resizable symbols in state diagrams have been adjusted to be the same as those in Model RealTime. This avoids unnecessary differences in diagram layout when exporting models from Model RealTime to Code RealTime.
 5. Traces shown in a sequence diagram can now be filtered using regular expressions (both for instances and messages). The sequence diagram viewer also has an improved scroll behavior to make it possible to open very large trace files. Trace messages are split into pages where only the currently viewed page is shown in the trace viewer.
 
-![](https://10.83.92.47:8884/code-realtime/running-and-debugging/images/trace-filter.png)
+![]({$vars.doc.server$}/running-and-debugging/images/trace-filter.png)
 
 6. When the validation rule [ART_0036]({$vars.doc.server$}/validation/#art_0036_unexpectedtriggers) finds a transition which has unexpected triggers because it originates from an entry or exit point with incoming transitions, it now reports those incoming transitions as related elements. This makes it easier to understand which of the incoming transitions that cause the triggers to be unexpected and to navigate to them.
 7. Environment variables in TC include paths are now supported and correctly expanded in the JSON files that are generated for C++ language servers. Also, these JSON files now specify the actual compiler that will be used when compiling the code, which enables the C++ language servers to give a better experience when viewing and editing C++ code.
