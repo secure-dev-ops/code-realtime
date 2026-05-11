@@ -1,0 +1,9 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'tc_include_paths_03_target';
+tc.inclusionPaths = [
+    '"../../tc_include_paths_03/include"',  // for manual testing
+    '"../../include"',  // for test execution with test runner
+    '"$(RT_GIT_BASE)/rtistic-pub-doc/art-comp-test/tests/tc_include_paths_03/include"'  // if env was configured
+];

@@ -68,6 +68,38 @@ If you hover over the message line label you can see the port of the receiver ca
 
     ![](images/golden-highlight.png)
 
+### Pagination
+To allow very big trace files to be viewed as sequence diagrams, traces are split into pages and only one page is shown at a time. Each page contains 20 messages (or less for the last page). Information about the current page and the total number of pages is shown in the upper right corner of a sequence diagram. 
+
+Move to the next page by pressing ++page-down++ or click below the scroll bar slider. Move to the previous page by pressing ++page-up++ or click above the scroll bar slider. Drag the scroll bar slider to the very top to go to the first page, or to the very end to go to the last page.
+
+### Filter Traces
+For long-running applications, captured traces can become large and difficult to analyze in a sequence diagram. You can then apply a trace filter to only show some of the instances and messages. To apply a trace filter, click the button **Toggle Filter Panel** in the sequence diagram toolbar.
+
+![](images/trace-filter.png)
+
+A trace filter is applied by typing regular expressions that define which instances and messages that should be shown in the sequence diagram. Only those instances and messages that match the regular expressions are shown on the diagram. Matching is done against the name and address (each of them individually) of an instance and the full signature of a message (name and data, if any). Matching is case insensitive. The highlighted texts below from a sample trace file shows which parts of an instance and message that regular expressions are matched against:
+
+<code>instance <span style="background-color:lightblue">0x22cc3db9f40</span> <span style="background-color:lightblue">multiplier</span> : Multiplier</code>
+
+<code>0x22cc3db2df0 adder.mul -> 0x22cc3db9f40 multiplier.result : <span style="background-color:lightblue">getIncrement(int 99)</span></code>
+
+Refer to [this guide](https://javascript.info/regular-expressions) and this [online tool](https://regex101.com/) to learn how to write JavaScript regular expressions. Note that some characters have a special meaning in regular expressions and need to be escaped to be interpreted literally. 
+
+Below are some examples of instance filters for a trace captured when running the [MoreOrLess](../samples.md#moreorless) sample:
+
+* `guess | application`: All "guesser" lifelines will be shown and also the lifeline for the top capsule (called "application").
+* `guesser\[[0-3]\]`: Only the first 4 instances contained in the "guesser" part will be shown. Note that `[` and `]` are special regular expression characters that need to be escaped by a backslash (`\`) to be interpreted literally.
+* `<TIMER>`: Only the lifeline for the TargetRTS component that implements timers is shown. Since matching is case insensitive it doesn't matter that the name is in written in upper case.
+
+Below are some examples of message filters for a trace captured when running the [PiComputer](../samples.md#picomputer) sample:
+
+* `ment`: All messages "getIncrement" and "returnIncrement" will be shown.
+* `.*\(int.*\)`: All messages with an event parameter of "int" type will be shown.
+* `.*\([\S]+[\s].*\)`: All messages with any event parameter, but not those without, will be shown.
+
+Note that if both a message filter and an instance filter is applied at the same time, some instances that don't match the instance filter may still be shown, if required for showing matching messages (i.e. to show a message both its source and target lifeline must be shown).
+
 ### Synchronous Communication
 Messages for [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.
 

@@ -137,9 +137,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a38199c0cbad8c78f6f81789f5848caf7"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#a38199c0cbad8c78f6f81789f5848caf7">isConfigured</a> (void)</td></tr>
 <tr class="memdesc:a38199c0cbad8c78f6f81789f5848caf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if tracing has been configured.  <br /></td></tr>
 <tr class="separator:a38199c0cbad8c78f6f81789f5848caf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45ffbb976d3d2194f0941e887919fa01"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#a45ffbb976d3d2194f0941e887919fa01">note</a> (const char *text)</td></tr>
-<tr class="memdesc:a45ffbb976d3d2194f0941e887919fa01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a note to the trace.  <br /></td></tr>
-<tr class="separator:a45ffbb976d3d2194f0941e887919fa01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a935be4340a4b0bed29b9b3a6b558d97b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#a935be4340a4b0bed29b9b3a6b558d97b">note</a> (const std::string &amp;text)</td></tr>
+<tr class="memdesc:a935be4340a4b0bed29b9b3a6b558d97b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a note to the trace.  <br /></td></tr>
+<tr class="separator:a935be4340a4b0bed29b9b3a6b558d97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -165,12 +165,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>printTimestamp</b> (c
 <tr class="memitem:a5fb89f5b23ead10e1b82b78324c8e844"><td class="memItemLeft" align="right" valign="top"><a id="a5fb89f5b23ead10e1b82b78324c8e844" name="a5fb89f5b23ead10e1b82b78324c8e844"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>traceMessage</b> (const <a class="el" href="class_r_t_message.html">RTMessage</a> *, <a class="el" href="class_r_t_tracer.html#a9c921b7d6e9d593d073099d07ca19426">TraceEventKind</a> traceEventKind, const <a class="el" href="struct_r_t_tracer_1_1_trace_info.html">TraceInfo</a> *)</td></tr>
 <tr class="separator:a5fb89f5b23ead10e1b82b78324c8e844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fb529f230e3f8b4777860f2f131ca2c"><td class="memItemLeft" align="right" valign="top"><a id="a8fb529f230e3f8b4777860f2f131ca2c" name="a8fb529f230e3f8b4777860f2f131ca2c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>traceNote</b> (const char *text)</td></tr>
-<tr class="separator:a8fb529f230e3f8b4777860f2f131ca2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36a94f76a812fc8c0746790d0be179fa"><td class="memItemLeft" align="right" valign="top"><a id="a36a94f76a812fc8c0746790d0be179fa" name="a36a94f76a812fc8c0746790d0be179fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>traceNote_nolock</b> (const char *text)</td></tr>
-<tr class="separator:a36a94f76a812fc8c0746790d0be179fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b97c587ba955142291f0d6467e4d9a0"><td class="memItemLeft" align="right" valign="top"><a id="a2b97c587ba955142291f0d6467e4d9a0" name="a2b97c587ba955142291f0d6467e4d9a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>traceNote</b> (const std::string &amp;text)</td></tr>
+<tr class="separator:a2b97c587ba955142291f0d6467e4d9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5802b886b025fca72aec3e774f9a4069"><td class="memItemLeft" align="right" valign="top"><a id="a5802b886b025fca72aec3e774f9a4069" name="a5802b886b025fca72aec3e774f9a4069"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>traceNote_nolock</b> (const std::string &amp;text)</td></tr>
+<tr class="separator:a5802b886b025fca72aec3e774f9a4069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e72d70c7d8fdadf4f0897fc6cdfd6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_tracer.html#ae5e72d70c7d8fdadf4f0897fc6cdfd6d">flush</a> (void) override</td></tr>
 <tr class="memdesc:ae5e72d70c7d8fdadf4f0897fc6cdfd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the data written to the buffer.  <br /></td></tr>
 <tr class="separator:ae5e72d70c7d8fdadf4f0897fc6cdfd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -411,8 +411,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a45ffbb976d3d2194f0941e887919fa01" name="a45ffbb976d3d2194f0941e887919fa01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45ffbb976d3d2194f0941e887919fa01">&#9670;&#160;</a></span>note()</h2>
+<a id="a935be4340a4b0bed29b9b3a6b558d97b" name="a935be4340a4b0bed29b9b3a6b558d97b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a935be4340a4b0bed29b9b3a6b558d97b">&#9670;&#160;</a></span>note()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +423,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void RTTracer::note </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>text</em></td><td>)</td>
           <td></td>
         </tr>

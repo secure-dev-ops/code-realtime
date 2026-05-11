@@ -46,6 +46,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8015 | [RTLogStream performance improvements](#rtlogstream-performance-improvements) <br> [Tracing of synchronous messages](#tracing-of-synchronous-messages) <br> [Extended RTTracer API](#extended-rttracer-api) <br> [Include the `time2_receive` timestamp by default in traces](#include-the-time2_receive-timestamp-by-default-in-traces) <br> [Configuration of trace file name](#configuration-of-trace-file-name) <br> [Thread information for traced instances](#thread-information-for-traced-instances) <br> [Removed C++ 14 flag for Clang target configurations](#removed-c-14-flag-for-clang-target-configurations) |
 | 8016 | [Startup synchronization of RTTimerActor](#startup-synchronization-of-rttimeractor) <br> [Port full warning](#port-full-warning) |
 | 8017 | [Improvements in RTTracer::note()](#improvements-in-rttracernote) <br> [Run-time error checks for port connections](#run-time-error-checks-for-port-connections) <br> [Inclusion of program arguments in trace configuration](#inclusion-of-program-arguments-in-trace-configuration) |
+| 8018 | [Null pointer checks in RTWrapper](#null-pointer-checks-in-rtwrapper) <br> [Using log streams with encoding disabled](#using-log-streams-with-encoding-disabled) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -215,3 +216,8 @@ A few defensive null pointer checks, and the printing of run-time errors, have b
 ### Inclusion of program arguments in trace configuration
 The comment with the trace configuration at the beginning of an `.art-trace` file now contains an "args" array with the command-line arguments for the traced application.
 
+### Null pointer checks in RTWrapper
+Missing null checks were added in the implementation of [RTWrapper](../targetrts-api/class_r_t_wrapper.html).
+
+### Using log streams with encoding disabled
+Previously it was not possible to use [log streams](logging.md/#log-stream) if the configuration macro [OBJECT_ENCODE](build.md#object_decode-and-object_encode) was not set. This is now fixed.

@@ -1,6 +1,6 @@
 protocol PROT {
     out e1(`MyClass*`); // ART_4000 (need to declare typedef or type alias instead)
-    out e2(`std::string`); // ART_4000 (need to declare typedef or type alias instead)
+    out e2(`std::string`); // This is OK (since version 3.4.0). Presence of a type descriptor RTTypedValue_std_string is assumed.
     out e3(`TplClass<int>`); // ART_4000 (need to declare typedef or type alias instead)    
 };
 

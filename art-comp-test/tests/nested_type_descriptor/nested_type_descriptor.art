@@ -1,0 +1,84 @@
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_Point.h"
+    `
+    out e1(`Point`);
+    out e2(`Point::NestedPoint`);
+    out e3(`Point::Colors`);
+    out e4(`Point::ScopedColors`);    
+};
+
+capsule Cap {     
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2, State3, State4, StateLast;
+        initial -> State1;
+        State1 -> State2 on pIn.e2
+        `
+            ASSERT(rtdata->x == 10 && rtdata->y == 20 && rtdata->z == 30, "Point::NestedPoint(10,20,30) is expected");
+            // TODO: TargetRTS doesn't yet support decoding of nested types
+            //TestUtils::checkMessageASCII(msg, "Point::NestedPoint{x 10,y 20,z 30}");            
+
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+	        ASSERT(encoding1 == "Point::NestedPoint{x 10,y 20,z 30}", "Encoding of Point::NestedPoint failed");            
+        `;
+        State2 -> State3 on pIn.e3
+        `
+            ASSERT(*rtdata == Point::Colors::green, "Expect to receive Point::Colors green");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Point_Colors, "msg type should point to Point::Colors type descriptor");            
+
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+	        ASSERT(encoding1 == "Point::Colors 1", "Encoding of Point::Colors failed");            
+         `;
+        State3 -> State4 on pIn.e4
+        `
+            ASSERT(*rtdata == Point::ScopedColors::black, "Expect to receive Point::ScopedColors black");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Point_ScopedColors, "msg type should point to Point::ScopedColors type descriptor");            
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+	        ASSERT(encoding1 == "Point::ScopedColors 2", "Encoding of Point::ScopedColors failed");            
+         `;
+        State4 -> StateLast on pIn.e1
+        `            
+            ASSERT(rtdata->x == 1 && rtdata->y == 2 && rtdata->nested.x == 3 && rtdata->nested.y == 4 && rtdata->nested.z == 5 &&
+                rtdata->color == Point::Colors::green && rtdata->scopedColor == Point::ScopedColors::blue,
+                "Unexpected Point instance received");
+
+            std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+	        ASSERT(encoding1 == "Point{x 1,y 2,nested{x 3,y 4,z 5},color 1,scopedColor 0}", "Encoding of Point failed");    
+
+            PASS();
+         `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Point::NestedPoint point = {10,20,30};
+                pOut.e2(point).send();
+
+                Point::Colors color = Point::Colors::green;
+                pOut.e3(color).send();               
+
+                Point::ScopedColors scopedColor = Point::ScopedColors::black;
+                pOut.e4(scopedColor).send();
+
+                Point p;
+                pOut.e1(p).send();
+            `;
+        };        
+        initial -> State1;        
+    };
+};

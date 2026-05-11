@@ -1,0 +1,69 @@
+[[rt::decl]]
+`
+	#include <RTWrapper.h>
+`
+
+capsule Top {
+	statemachine {
+		state State;
+		initial -> State
+		`
+			int src = 42;
+
+			RTWrapper nullWrapper(nullptr, nullptr);
+			ASSERT(nullWrapper.data() == nullptr, "nullWrapper should expose null data");
+			ASSERT(nullWrapper.type() == nullptr, "nullWrapper should expose null type");
+
+			RTWrapper defaultWrapper;
+			ASSERT(defaultWrapper.data() == nullptr, "default wrapper should expose null data");
+			ASSERT(defaultWrapper.type() == nullptr, "default wrapper should expose null type");
+
+			RTWrapper wrapper1(&src, &RTType_int);
+			ASSERT(wrapper1.type() == &RTType_int, "Unexpected wrapper type");
+
+			const int* wrapped1 = static_cast<const int*>(wrapper1.data());
+			ASSERT(wrapped1 != nullptr, "wrapper1 has null data");
+			ASSERT(*wrapped1 == 42, "wrapper1 copied unexpected value");
+			ASSERT(wrapped1 != &src, "wrapper1 should own an internal copy");
+
+			RTWrapper wrapper2(wrapper1);
+			ASSERT(wrapper2 == wrapper1, "Copy constructor should share the same handle");
+			ASSERT(wrapper2.data() == wrapper1.data(), "Shared wrappers should expose same data pointer");
+			ASSERT(wrapper2.type() == wrapper1.type(), "Shared wrappers should expose same type");
+
+			int src2 = -1;
+			RTWrapper wrapper3(&src2, &RTType_int);
+			ASSERT(wrapper3 != wrapper1, "Different payloads should not share handle before assignment");
+
+			wrapper3 = wrapper1;
+			ASSERT(wrapper3 == wrapper1, "Assignment should share the same handle");
+			ASSERT(wrapper3.data() == wrapper1.data(), "Assigned wrapper should expose same data pointer");
+			ASSERT(*static_cast<const int*>(wrapper3.data()) == 42, "Assigned wrapper has wrong data");
+
+			wrapper3 = nullWrapper;
+			ASSERT(wrapper3.data() == nullptr, "Assigned-from-null wrapper should expose null data");
+			ASSERT(wrapper3.type() == nullptr, "Assigned-from-null wrapper should expose null type");
+
+			RTWrapper wrapper5(nullptr, nullptr);
+			wrapper5 = wrapper1;
+			ASSERT(wrapper5.data() == wrapper1.data(), "Null wrapper assigned from valid should share handle");
+			ASSERT(wrapper5.type() == wrapper1.type(), "Null wrapper assigned from valid should keep type");
+			ASSERT(*static_cast<const int*>(wrapper5.data()) == 42, "Null wrapper assigned from valid has wrong data");
+
+			const void* beforeSelfAssign = wrapper3.data();
+			wrapper3 = wrapper3;
+			ASSERT(wrapper3.data() == beforeSelfAssign, "Self-assignment should preserve handle/data");
+
+			RTWrapper wrapper4(&src2, &RTType_int);
+			{
+				RTWrapper temporary(wrapper1);
+				wrapper4 = temporary;
+				ASSERT(wrapper4 == wrapper1, "Assignment from copied wrapper should share source handle");
+			}
+			ASSERT(*static_cast<const int*>(wrapper4.data()) == 42,
+				"Assigned wrapper should remain valid after source copy is destroyed");
+
+			PASS();
+		`;
+	};
+};

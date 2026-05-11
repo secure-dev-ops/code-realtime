@@ -1,0 +1,73 @@
+abstract capsule Base {
+    behavior port timer : Timing;
+    statemachine {        
+        state State1 {         
+            entrypoint _EP;   
+            exitpoint _EXP;
+            state Nested;
+            _initial: _EP  ->  Nested;
+            state Unused;
+            tu : Unused -> _EXP on timer.timeout; // Does not cause ART_0036 to be reported on t1 since the capsule is abstract
+        };
+        state Target;
+        _initial: initial  ->  State1._EP
+        `
+            timer.informIn(RTTimespec(1,0));
+        `;
+        t1: State1._EXP -> Target on timer.timeout
+        `
+            Log::out << "t1" << Log::endl;
+            PASS();
+        `;
+    };
+};
+
+capsule Top : Base {
+    behavior port timer2 : Timing;
+    statemachine { // In this non-abstract context tu causes ART_0036 to be reported on t1 
+        state redefine State1 {
+            choice c;
+            tx : Nested -> c on timer2.timeout
+            `
+            `;
+            // t2 and t3 do not cause ART_0036 to be reported on t1 since they are defined in different capsule state machines (see testcase no_art_0036)
+            t2: c -> _EXP when `true`
+            `
+                Log::out << "timer 2 timeout" << Log::endl;                
+            `;
+            t3: c -> _EXP when `else`
+            `
+                Log::out << "timer 2 timeout" << Log::endl;                
+            `;
+        };
+        redefine _initial : initial  ->  State1._EP
+        `
+            Log::out << "Setting timer 2" << Log::endl;
+            timer2.informIn(RTTimespec(1,0));
+        `;        
+    };
+};
+
+abstract capsule Base2 {
+    behavior port timer : Timing;
+    statemachine {
+        state Unused;
+        state State {
+            entrypoint ep;
+            entrypoint ep2;
+            state Nested;
+            tx : ep -> Nested on timer.timeout;            
+        };        
+        _ini: initial -> State.ep2;
+        tu: Unused -> State.ep on timer.timeout; // Does not cause ART_0036 to be reported on tx since the capsule is abstract
+    };
+};
+
+capsule Top2 : Base2 {
+    statemachine { // In this non-abstract context tu causes ART_0036 to be reported on tx 
+        choice c;
+        redefine _ini: initial -> c;
+        t1: c -> State.ep when `true`;
+        t2: c -> State.ep when `else`;
+    };
+};

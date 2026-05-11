@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1386,6 +1388,70 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          
+            <label for="__nav_2_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Migration from Model RT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../support/" class="md-nav__link">
         Support Procedures
@@ -1406,7 +1472,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
       
       
         
@@ -1423,14 +1489,14 @@
         <div class="md-nav__link md-nav__link--index ">
           <a href="../../learning/">Learning</a>
           
-            <label for="__nav_2_12">
+            <label for="__nav_2_13">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_12">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
           <span class="md-nav__icon md-icon"></span>
           Learning
         </label>
@@ -1832,7 +1898,7 @@
 <p>The image below shows a sequence diagram for an <code>.art-trace</code> file captured from the <a href="../../samples/#tcprangecounter">TcpRangeCounter</a> sample application.</p>
 <p><img alt="" src="../images/art-trace-sequence-diagram.png" /></p>
 <p>We can see lifelines that represent the <code>counter</code> and <code>server</code> capsule instances and we can see that the <code>server</code> sent a message for the <code>setMax</code> event with 12 as data to the <code>counter</code>. It then sent also the <code>resumeCounting</code> event (without any data). </p>
-<p>The lifeline for a capsule instance has the name of the part that contains the instance. If the part has non-single multiplicity, the lifeline shows the index of the capsule instance within square brackets (<code>[0]</code> for the first instance). If you hover over a lifeline a tooltip appears with more information, such as the dynamic type of the capsule instance and its structured path in the application's composite structure. For more information about the capsule instance, double click on the lifeline header to navigate to the <code>.art-trace</code> file.</p>
+<p>The lifeline for a capsule instance has the name of the part that contains the instance. If the part has non-single multiplicity, the lifeline shows the index of the capsule instance within square brackets (<code>[0]</code> for the first instance). If you hover over a lifeline a tooltip appears with more information, such as the dynamic type of the capsule instance and its structure path in the application's composite structure. For more information about the capsule instance, double click on the lifeline header to navigate to the <code>.art-trace</code> file.</p>
 <p>Colors are used to distinguish different types of lifelines:</p>
 <ul>
     <li><span style="background-color: #37e937ff;color: white;padding: 0px 5px 0px 5px">Green</span> for the lifeline that represents the top capsule instance which is created at application start-up. It has the name "application".</li>
@@ -1845,6 +1911,11 @@
 <p>The sequence diagram may contain note boxes. They are for example used for showing if tracing was paused for some time, which then means the sequence diagram doesn't show messages that may have been exchanged during that time.</p>
 <p>If you hover over the message line label you can see the port of the receiver capsule instance on which the message was received. For more information about the message, double-click on the message line to navigate to the message in the <code>.art-trace</code> file. If the trace contains timestamps (<a href="#receive-time"><code>time2_receive</code></a> and <a href="#handle-time"><code>time3_handle</code></a>) the message line tooltip also shows the difference between these two timestamps. This is the time it took for the receiver to handle the received message.</p>
 <p><img alt="" src="../images/time-diff-tooltip.png" /></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you invoke the context menu command <strong>Open Sequence Diagram</strong> from the <a href="#view-traces-as-text">text editor</a>, the element defined where the cursor is placed will be highlighted with a golden color in the sequence diagram. You can use this for navigating from a specific location in an <code>.art-trace</code> file to the corresponding graphical symbol or line in the sequence diagram.</p>
+<p><img alt="" src="../images/golden-highlight.png" /></p>
+</div>
 <h3 id="synchronous-communication">Synchronous Communication</h3>
 <p>Messages for <a href="../../target-rts/message-communication/#asynchronous-versus-synchronous-communication">synchronous communication</a> have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.</p>
 <p>In the example below the first invoke message has an implicit reply, while the second has an explicit reply:</p>
@@ -1863,10 +1934,11 @@
 <p>While a sequence diagram can be useful for showing an overview of the run-time interaction between capsule instances, it does not show all information that was captured in the trace. To see all information you can open an <code>.art-trace</code> file in the text editor.</p>
 <p>The textual representation of a trace uses a domain specific tracing language, where each line tell about something that happens in the application at run-time:</p>
 <ul>
-<li>Tracing starts. Comments are then printed at the beginning of the <code>.art-trace</code> file to show the <a href="#trace-configuration">trace configuration</a> that will be used for the trace. Other information is also printed, for example the current time (according to the chosen <a href="#timestamp-precision">timestamp precision</a> and the name of the running application).</li>
+<li>Tracing starts. Comments are then printed at the beginning of the <code>.art-trace</code> file to show the <a href="#trace-configuration">trace configuration</a> that will be used for the trace. Other information is also printed; the current time (according to the chosen <a href="#timestamp-precision">timestamp precision</a>), the name of the running application and the command-line arguments for the application.</li>
 </ul>
 <pre><code class="language-cpp">// &quot;trace&quot;: {
 //     &quot;application&quot;: &quot;Top.EXE&quot;
+//     , &quot;args&quot;: [&quot;-URTS_DEBUG=quit&quot;]
 //     , &quot;start_time&quot;: &quot;2025-11-13 16:32:40.435320100&quot;
 // }
 </code></pre>
@@ -1973,7 +2045,7 @@
 <li><code>RTTracer::note(const char*)</code> Write a <a href="#custom-notes">custom note</a> to the trace.</li>
 </ul>
 <h4 id="custom-notes">Custom Notes</h4>
-<p>A note is automatically written to the trace whenever tracing is turned off, as explained <a href="#note">here</a>. However, it can also be very useful to write custom notes to the trace using the <code>RTTracer::note(const char*)</code> function. For example, you can print a note</p>
+<p>A note is automatically written to the trace whenever tracing is turned off, as explained <a href="#note">here</a>. However, it can also be very useful to write custom notes to the trace using the <code>RTTracer::note(const std::string&amp;)</code> function. For example, you can print a note</p>
 <ul>
 <li>when a run-time error occurs (e.g. "Out of memory" or "Internal error")</li>
 <li>when an assertion fails (e.g. "assert(is_ok) failed")</li>
