@@ -1100,6 +1100,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    Pagination
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-traces" class="md-nav__link">
+    Filter Traces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#synchronous-communication" class="md-nav__link">
     Synchronous Communication
   </a>
@@ -1630,6 +1644,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    Pagination
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-traces" class="md-nav__link">
+    Filter Traces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#synchronous-communication" class="md-nav__link">
     Synchronous Communication
   </a>
@@ -1916,6 +1944,29 @@
 <p>If you invoke the context menu command <strong>Open Sequence Diagram</strong> from the <a href="#view-traces-as-text">text editor</a>, the element defined where the cursor is placed will be highlighted with a golden color in the sequence diagram. You can use this for navigating from a specific location in an <code>.art-trace</code> file to the corresponding graphical symbol or line in the sequence diagram.</p>
 <p><img alt="" src="../images/golden-highlight.png" /></p>
 </div>
+<h3 id="pagination">Pagination</h3>
+<p>To allow very big trace files to be viewed as sequence diagrams, traces are split into pages and only one page is shown at a time. Each page contains 20 messages (or less for the last page). Information about the current page and the total number of pages is shown in the upper right corner of a sequence diagram. </p>
+<p>Move to the next page by pressing <span class="keys"><kbd class="key-page-down">Page Down</kbd></span> or click below the scroll bar slider. Move to the previous page by pressing <span class="keys"><kbd class="key-page-up">Page Up</kbd></span> or click above the scroll bar slider. Drag the scroll bar slider to the very top to go to the first page, or to the very end to go to the last page.</p>
+<h3 id="filter-traces">Filter Traces</h3>
+<p>For long-running applications, captured traces can become large and difficult to analyze in a sequence diagram. You can then apply a trace filter to only show some of the instances and messages. To apply a trace filter, click the button <strong>Toggle Filter Panel</strong> in the sequence diagram toolbar.</p>
+<p><img alt="" src="../images/trace-filter.png" /></p>
+<p>A trace filter is applied by typing regular expressions that define which instances and messages that should be shown in the sequence diagram. Only those instances and messages that match the regular expressions are shown on the diagram. Matching is done against the name and address (each of them individually) of an instance and the full signature of a message (name and data, if any). Matching is case insensitive. The highlighted texts below from a sample trace file shows which parts of an instance and message that regular expressions are matched against:</p>
+<p><code>instance <span style="background-color:lightblue">0x22cc3db9f40</span> <span style="background-color:lightblue">multiplier</span> : Multiplier</code></p>
+<p><code>0x22cc3db2df0 adder.mul -&gt; 0x22cc3db9f40 multiplier.result : <span style="background-color:lightblue">getIncrement(int 99)</span></code></p>
+<p>Refer to <a href="https://javascript.info/regular-expressions">this guide</a> and this <a href="https://regex101.com/">online tool</a> to learn how to write JavaScript regular expressions. Note that some characters have a special meaning in regular expressions and need to be escaped to be interpreted literally. </p>
+<p>Below are some examples of instance filters for a trace captured when running the <a href="../../samples/#moreorless">MoreOrLess</a> sample:</p>
+<ul>
+<li><code>guess | application</code>: All "guesser" lifelines will be shown and also the lifeline for the top capsule (called "application").</li>
+<li><code>guesser\[[0-3]\]</code>: Only the first 4 instances contained in the "guesser" part will be shown. Note that <code>[</code> and <code>]</code> are special regular expression characters that need to be escaped by a backslash (<code>\</code>) to be interpreted literally.</li>
+<li><code>&lt;TIMER&gt;</code>: Only the lifeline for the TargetRTS component that implements timers is shown. Since matching is case insensitive it doesn't matter that the name is in written in upper case.</li>
+</ul>
+<p>Below are some examples of message filters for a trace captured when running the <a href="../../samples/#picomputer">PiComputer</a> sample:</p>
+<ul>
+<li><code>ment</code>: All messages "getIncrement" and "returnIncrement" will be shown.</li>
+<li><code>.*\(int.*\)</code>: All messages with an event parameter of "int" type will be shown.</li>
+<li><code>.*\([\S]+[\s].*\)</code>: All messages with any event parameter, but not those without, will be shown.</li>
+</ul>
+<p>Note that if both a message filter and an instance filter is applied at the same time, some instances that don't match the instance filter may still be shown, if required for showing matching messages (i.e. to show a message both its source and target lifeline must be shown).</p>
 <h3 id="synchronous-communication">Synchronous Communication</h3>
 <p>Messages for <a href="../../target-rts/message-communication/#asynchronous-versus-synchronous-communication">synchronous communication</a> have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.</p>
 <p>In the example below the first invoke message has an implicit reply, while the second has an explicit reply:</p>

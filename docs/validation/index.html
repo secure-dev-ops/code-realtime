@@ -4014,7 +4014,7 @@ capsule C34 {
     };
 };
 </code></pre>
-<p>It should be noted that a transition that is correct in the context of a base state machine could be incorrect in the context of a state machine that inherits from it. However, an error is not reported for this situation since it would be inconvenient to have to redefine a transition just for the purpose of removing its triggers (and then let it call the inherited transition's implementation using CALLSUPER). In this case the unexpected triggers are instead simply ignored without reporting ART_0036.</p>
+<p>It should be noted that a transition that is correct in the context of a base state machine could be incorrect in the context of a state machine that inherits from it. However, an error is not reported for this situation since it would be inconvenient to have to redefine a transition just for the purpose of removing its triggers (and then let it call the inherited transition's implementation using <code>CALLSUPER</code>). In this case the unexpected triggers are instead simply ignored without reporting ART_0036.</p>
 <p>Here is an example that shows how inheritance can cause a transition that is correct in a base state machine to become incorrect in a derived state machine:</p>
 <pre><code class="language-art">capsule B2 {
     behavior port t : Timing;
@@ -4035,6 +4035,7 @@ capsule D2 : B2 {
     };
 };
 </code></pre>
+<p>An entry or exit point can have multiple incoming transitions (both local and inherited). Those of the incoming transitions that cause a transition that leaves an entry/exit point to have unexpected triggers are reported as related elements. If the outgoing transition is inherited, it's also reported as a related element.</p>
 <h3 id="art_0037_missingtriggers">ART_0037_missingTriggers</h3>
 <table>
 <thead>
@@ -4306,17 +4307,23 @@ capsule Pinger {
 <tbody>
 <tr>
 <td>Warning</td>
-<td align="left">An event type has a type for which no type descriptor could be found.</td>
+<td align="left">An event parameter type is incorrectly specified so no type descriptor can be found for it. The event parameter will be ignored by the code generator.</td>
 <td align="left">N/A</td>
 </tr>
 </tbody>
 </table>
-<p>If an event has a data parameter the type of this parameter must have a <a href="../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>. Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most predefined C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either <a href="../art-lang/cpp-extensions/#automatically-generated">automatically generated</a> by means of the <code>rt::auto_descriptor</code> attribute, or <a href="../art-lang/cpp-extensions/#manually-implemented">manually implemented</a>). It's necessary that such a user-defined type is defined so that it can be referenced from the event with a simple name without use of qualifiers, type modifiers or template arguments. Use a typedef or type alias to give a simple name to an existing type that for example is defined in a different namespace.</p>
+<p>If an event has a data parameter the type of this parameter must have a <a href="../art-lang/cpp-extensions/#type-descriptor">type descriptor</a>. Otherwise the TargetRTS doesn't know how to copy or move the data at run-time when the event is sent. The TargetRTS provides type descriptors for most primitive C++ types. For user-defined types the code generator assumes a type descriptor will be available for it (either <a href="../art-lang/cpp-extensions/#automatically-generated">automatically generated</a> by means of the <code>rt::auto_descriptor</code> attribute, or <a href="../art-lang/cpp-extensions/#manually-implemented">manually implemented</a>). The name of the type descriptor <a href="../art-lang/cpp-extensions/#4-typed-value-struct">"typed value" struct</a> is derived from the specified type name according to these rules:</p>
+<ul>
+<li>The prefix <code>RTTypedValue_</code> is used in front of the specified type name.</li>
+<li>If the type is specified with a qualified name, the scope qualifiers (<code>::</code>) are replaced with underscores (<code>_</code>).</li>
+</ul>
+<p>For example, if the event parameter type is specified as <code>Data::NestedData</code>, the code generator will assume there is a type descriptor "typed value" struct with the name <code>RTTypedValue_Data_Nested</code>.</p>
+<p>You cannot directly use type modifiers (e.g. pointers) or template parameters in an event parameter type name. In those cases you first need to create a typedef or type alias of the type you want to use, and then use the name of that typedef or type alias as the event parameter type. </p>
 <p>In some special cases it's not required for a user-defined event parameter type to have a type descriptor of its own. For example, if the user-defined type is a typedef or type alias of a primitive type, the type doesn't need to have its own type descriptor since the primitive type has one in the TargetRTS. In this case you need to use the <code>[[rt::no_descriptor]]</code> attribute to tell the Art Compiler that no type descriptor is necessary.</p>
-<p>If the code generator doesn't find a type descriptor for the event parameter type, CPP_4000 will be reported, and the C++ function that is generated for the event will have void type (i.e. the same as if the event doesn't have a data parameter).</p>
+<p>If the event parameter type is specified in an incorrect way, the code generator doesn't know what type descriptor to use for the event parameter type, and will then report CPP_4000. The C++ function that is generated for the event will then have <code>void</code> type (i.e. the same as if the event doesn't have a data parameter).</p>
 <pre><code class="language-art">protocol PROT {
     out e1(`MyClass*`); // ART_4000 (type modifier present)
-    out e2(`std::string`); // ART_4000 (qualified name)
+    out e2(`std::string`); // OK (presence of a struct `RTTypedValue_std_string` is assumed)
     out e3(`TplClass&lt;int&gt;`); // ART_4000 (template parameter present)    
     out e4(`[[rt::no_descriptor]] MyInt`); // OK (MyInt is a typedef of int)
 };

@@ -505,6 +505,40 @@
     C++ Implementation
   </a>
   
+    <nav class="md-nav" aria-label="C++ Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-type-descriptor-object" class="md-nav__link">
+    1) Type descriptor object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-type-descriptor-functions" class="md-nav__link">
+    2) Type descriptor functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-type-installer-object" class="md-nav__link">
+    3) Type installer object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-typed-value-struct" class="md-nav__link">
+    4) "Typed value" struct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1497,6 +1531,40 @@
     C++ Implementation
   </a>
   
+    <nav class="md-nav" aria-label="C++ Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-type-descriptor-object" class="md-nav__link">
+    1) Type descriptor object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-type-descriptor-functions" class="md-nav__link">
+    2) Type descriptor functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-type-installer-object" class="md-nav__link">
+    3) Type installer object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-typed-value-struct" class="md-nav__link">
+    4) "Typed value" struct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1610,7 +1678,7 @@
 </div>
 <h3 id="c-implementation">C++ Implementation</h3>
 <p>The C++ implementation of a type descriptor consists of four parts. In the code shown below we assume the type descriptor describes a type called "MyType".</p>
-<p><strong>1) A type descriptor object</strong></p>
+<h4 id="1-type-descriptor-object">1) Type descriptor object</h4>
 <p>This is a variable typed by <a href="../../targetrts-api/struct_r_t_object__class.html">RTObject_class</a> with a name that has the prefix "RTType_". It will be declared in the header file:</p>
 <pre><code class="language-cpp">extern const RTObject_class RTType_MyType;
 </code></pre>
@@ -1621,7 +1689,7 @@
 };
 </code></pre>
 <p>Member variables of <a href="../../targetrts-api/struct_r_t_object__class.html">RTObject_class</a> store all information about the type, such as its name and byte size. Some of the member variables store pointers to type descriptor functions which the TargetRTS will call when it needs to do something with an instance of the type, for example copy or encode it.</p>
-<p><strong>2) Type descriptor functions</strong></p>
+<h4 id="2-type-descriptor-functions">2) Type descriptor functions</h4>
 <p>These are functions with a certain prototype, each of which performs a specific action on an instance of the type. The type descriptor object stores pointers to these functions. For a partial type descriptor, some of these pointers will be <code>nullptr</code> and then the corresponding type descriptor function does not exist. Below is the list of type descriptor functions that can be part of a type descriptor:</p>
 <p id="art_type_descriptor_functions"/>
 
@@ -1667,13 +1735,13 @@
 </tbody>
 </table>
 <p>The encode function usually encodes the instance into a string representation, and the decode function usually parses the same string representation and creates an instance of the type from it. However, the functions use interface classes <a href="../../targetrts-api/class_r_t_encoding.html"><code>RTEncoding</code></a> and <a href="../../targetrts-api/class_r_t_decoding.html"><code>RTDecoding</code></a> from the TargetRTS which can be implemented in many different ways. Note also that you can globally disable the support for encoding and/or decoding by unsetting the macros <a href="../../target-rts/build/#object_decode-and-object_encode"><code>OBJECT_DECODE</code> and <code>OBJECT_ENCODE</code></a> respectively. Learn more about encoding and decoding <a href="../../target-rts/encoding-decoding/">in this chapter</a>.</p>
-<p><strong>3) A type installer object</strong></p>
+<h4 id="3-type-installer-object">3) Type installer object</h4>
 <p>Decoding functions typically need to look up a type descriptor from the name of the type. For example, if it finds the type name "MyType" in the string that it parses, it needs to find the type descriptor object for "MyType" so it can allocate memory for an instance of "MyType" and then initialize it. To facilitate this lookup the TargetRTS keeps a type descriptor registry. The purpose of the type installer object is to add the type descriptor to this registry. The C++ code looks like this:</p>
 <pre><code class="language-cpp">#if OBJECT_DECODE
 RTTypeInstaller rtg_MyType_installer( RTType_MyType );
 #endif
 </code></pre>
-<p><strong>4) A "typed value" struct</strong></p>
+<h4 id="4-typed-value-struct">4) "Typed value" struct</h4>
 <p>This is a struct which encapsulates an untyped instance of the type and its type descriptor. Its name has the prefix "RTTypedValue_". The struct has constructors that enable construction from a reference to an instance of the type. The typed value struct is the glue between generated code and TargetRTS code. TargetRTS functions get an untyped instance together with the type descriptor, and the type descriptor provides all information it needs to know about the type.</p>
 <p>The typed value struct will be declared and implemented in the header file:</p>
 <pre><code class="language-cpp">struct RTTypedValue_MyType
@@ -1708,6 +1776,7 @@ RTTypeInstaller rtg_MyType_installer( RTType_MyType );
     }
 };
 </code></pre>
+<p>If the type is nested within another type the typed value struct gets a name where scope qualifiers (<code>::</code>) have been replaced with underscores (<code>_</code>). For example, a nested type <code>OuterType::InnerType</code> gets a typed value struct with the name <code>RTTypedValue_OuterType_InnerType</code>.</p>
 <h3 id="automatically-generated">Automatically Generated</h3>
 <p>The code generator will automatically generate a type descriptor for a C++ type if you mark it with the <code>rt::auto_descriptor</code> attribute. The generated type descriptor functions will get a default implementation that depends on the kind of type. If the default implementation is not appropriate for your type you can simply provide your own implementation of one or many type descriptor functions in an <code>rt::impl</code> code snippet. </p>
 <div class="admonition note">
@@ -1819,6 +1888,7 @@ using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;;
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/struct_type_descriptor_header_file">Automatically generated type descriptor for a struct defined in a C++ header file</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/enum_type_descriptor_header_file">Automatically generated type descriptor for an enum defined in a C++ header file</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file">Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)</a></li>
+<li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/nested_type_descriptor">Automatically generated type descriptor for nested types</a></li>
 </ul>
 </div>
 <h3 id="manually-implemented">Manually Implemented</h3>

@@ -1202,6 +1202,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#null-pointer-checks-in-rtwrapper" class="md-nav__link">
+    Null pointer checks in RTWrapper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-log-streams-with-encoding-disabled" class="md-nav__link">
+    Using log streams with encoding disabled
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2138,6 +2152,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#null-pointer-checks-in-rtwrapper" class="md-nav__link">
+    Null pointer checks in RTWrapper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-log-streams-with-encoding-disabled" class="md-nav__link">
+    Using log streams with encoding disabled
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2262,6 +2290,10 @@
 <td>8017</td>
 <td align="left"><a href="#improvements-in-rttracernote">Improvements in RTTracer::note()</a> <br> <a href="#run-time-error-checks-for-port-connections">Run-time error checks for port connections</a> <br> <a href="#inclusion-of-program-arguments-in-trace-configuration">Inclusion of program arguments in trace configuration</a></td>
 </tr>
+<tr>
+<td>8018</td>
+<td align="left"><a href="#null-pointer-checks-in-rtwrapper">Null pointer checks in RTWrapper</a> <br> <a href="#using-log-streams-with-encoding-disabled">Using log streams with encoding disabled</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -2384,6 +2416,10 @@
 <p>A few defensive null pointer checks, and the printing of run-time errors, have been added in code that uses port connections. For example, the code can now cope with a situation where a connected port is dangling without an owner. Under normal circumstances these scenarios are not expected, but should they anyway occur these checks and run-time errors can help the troubleshooting.</p>
 <h3 id="inclusion-of-program-arguments-in-trace-configuration">Inclusion of program arguments in trace configuration</h3>
 <p>The comment with the trace configuration at the beginning of an <code>.art-trace</code> file now contains an "args" array with the command-line arguments for the traced application.</p>
+<h3 id="null-pointer-checks-in-rtwrapper">Null pointer checks in RTWrapper</h3>
+<p>Missing null checks were added in the implementation of <a href="../../targetrts-api/class_r_t_wrapper.html">RTWrapper</a>.</p>
+<h3 id="using-log-streams-with-encoding-disabled">Using log streams with encoding disabled</h3>
+<p>Previously it was not possible to use <a href="logging.md/#log-stream">log streams</a> if the configuration macro <a href="../build/#object_decode-and-object_encode">OBJECT_ENCODE</a> was not set. This is now fixed.</p>
 
 
 
