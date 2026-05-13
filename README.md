@@ -1,5 +1,5 @@
 # DevOps Code RealTime
-Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and [other IDEs](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce) (e.g. Eclipse Theia, Cursor etc).
+Code RealTime lets you create stateful, event-driven realtime applications in C++. It is available as an extension for [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and [other IDEs](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce) (e.g. IBM Bob, Cursor, Windsurf, Eclipse Theia, etc.).
 
 ## Code RealTime's Four A:s of Value
 - Abstraction
@@ -16,7 +16,7 @@ Code RealTime lets you create stateful, event-driven realtime applications in C+
   - Use application **run-time analysis** (such as **debugging** or **tracing**) to detect and troubleshoot run-time problems
 - AI
   - All languages and notations used in Code RT (.art, .cpp, .tcjs, .art-trace, .json etc) are textual and easy to understand both by humans and **large language models**.
-  - Boost your productivity by using any **generative AI** extension, e.g. GitHub CoPilot.
+  - Boost your productivity by using AI features provided by your **agentic IDE**, e.g. GitHub CoPilot.
 
 For more details, see the [documentation site](https://secure-dev-ops.github.io/code-realtime/).
 

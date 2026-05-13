@@ -1,4 +1,4 @@
-Both [Visual Studio Code](https://code.visualstudio.com/docs/editor/tasks) and [Eclipse Theia](https://theia-ide.org/docs/tasks/) allow you to define tasks in order to automate steps in your workflows. A task can basically do anything, but is often used for running scripts or command-line tools in order to build, test or deploy something. Tasks can be defined in a file `tasks.json` (placed in the `.vscode` subfolder of a workspace folder).
+IDEs based on [Visual Studio Code](https://code.visualstudio.com/docs/editor/tasks) and [Eclipse Theia](https://theia-ide.org/docs/tasks/) allow you to define tasks in order to automate steps in your workflows. A task can basically do anything, but is often used for running scripts or command-line tools in order to build, test or deploy something. Tasks can be defined in a file `tasks.json` (placed in the `.vscode` subfolder of a workspace folder).
 
 Here is an example of a `tasks.json` file that defines a task which will build a TC by means of the [Art Compiler](art-compiler.md):
 

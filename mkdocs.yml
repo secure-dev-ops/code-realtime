@@ -1,7 +1,7 @@
 #Project Information
 site_name: DevOps Code RealTime
 site_description: >-
-  Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.
+  Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.
 site_url: https://secure-dev-ops.github.io/code-realtime/
 
 #Md and HTML locations in the repository 
@@ -57,7 +57,7 @@ extra:
 
 
 copyright: >-
-  <p> Copyright &copy; 2022, 2025 HCL Technologies Ltd. IBM Corporation. All Rights Reserved.</p>
+  <p> Copyright &copy; 2022, 2026 HCL Technologies Ltd. IBM Corporation. All Rights Reserved.</p>
 
 # Repository
 repo_url: https://github.com/secure-dev-ops/code-realtime

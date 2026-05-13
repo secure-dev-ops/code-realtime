@@ -1,5 +1,5 @@
 
-{$product.name$} can be installed in IDEs that support Visual Studio Code extensions. This obviously includes [Visual Studio Code](https://code.visualstudio.com/) itself, but also many other IDEs such as [Eclipse Theia](https://theia-ide.org/), [Cursor](https://cursor.com/), [DevOps Code](https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code) and others.
+{$product.name$} can be installed in IDEs that support Visual Studio Code extensions. This obviously includes [Visual Studio Code](https://code.visualstudio.com/) itself, but also many other IDEs such as [IBM Bob](https://bob.ibm.com/), [Cursor](https://cursor.com/), [Windsurf](https://windsurf.com/), [Eclipse Theia](https://theia-ide.org/), [DevOps Code](https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code) and others.
 
 The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). To install that version into your IDE follow these steps:
 
