@@ -16,7 +16,7 @@ Code RealTime lets you create stateful, event-driven realtime applications in C+
   - Use application **run-time analysis** (such as **debugging** or **tracing**) to detect and troubleshoot run-time problems
 - AI
   - All languages and notations used in Code RT (.art, .cpp, .tcjs, .art-trace, .json etc) are textual and easy to understand both by humans and **large language models**.
-  - Boost your productivity by using AI features provided by your **agentic IDE**, e.g. GitHub CoPilot.
+  - Boost your productivity by using AI features provided by your **agentic IDE**, e.g. GitHub Copilot.
 
 For more details, see the [documentation site](https://secure-dev-ops.github.io/code-realtime/).
 

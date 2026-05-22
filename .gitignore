@@ -12,3 +12,7 @@
 **/*_target/
 RIC-*
 art-comp-test/artIntegrationTests
+art-comp-test/tests/**/*.idx
+art-comp-test/utils/TestUtils/.vscode/c_cpp_properties.json
+art-comp-test/utils/TestUtils/**/*.idx
+art-samples/**/*.idx

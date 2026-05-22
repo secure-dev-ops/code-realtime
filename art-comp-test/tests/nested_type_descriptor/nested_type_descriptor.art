@@ -6,13 +6,16 @@ protocol TheProtocol {
     out e1(`Point`);
     out e2(`Point::NestedPoint`);
     out e3(`Point::Colors`);
-    out e4(`Point::ScopedColors`);    
+    out e4(`Point::ScopedColors`);
+    out e5(`Point::Precision`);
+    out e6(`Point::MyString`);
+    out e7(`Point::MyVector`);
 };
 
 capsule Cap {     
     service behavior port pIn~ : TheProtocol;
     statemachine {
-        state State1, State2, State3, State4, StateLast;
+        state State1, State2, State3, State4, State5, State6, State7, StateLast;
         initial -> State1;
         State1 -> State2 on pIn.e2
         `
@@ -43,15 +46,41 @@ capsule Cap {
 	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
 	        ASSERT(encoding1 == "Point::ScopedColors 2", "Encoding of Point::ScopedColors failed");            
          `;
-        State4 -> StateLast on pIn.e1
+        State4 -> State5 on pIn.e5
+        `
+            ASSERT(*rtdata == 10, "Expect to receive Point::Precision 10");
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Point_Precision, "msg type should point to Point::Precision type descriptor");            
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());            
+	        ASSERT(encoding1 == "Point::Precision 10", "Encoding of Point::Precision failed");            
+         `;
+        State5 -> State6 on pIn.e6
+        `
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Point_MyString, "msg type should point to Point::MyString type descriptor");            
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());            
+	        ASSERT(encoding1 == "Point::MyString\"Hello here!\"", "Encoding of Point::MyString failed");
+         `;
+        State6 -> State7 on pIn.e7
+        `            
+            const RTObject_class* mt = msg->getType();
+            ASSERT(mt == &RTType_Point_MyVector, "msg type should point to Point::MyVector type descriptor");            
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());            
+	        ASSERT(encoding1 == "Point::MyVector[1,2,3,4]", "Encoding of Point::MyVector failed");            
+         `;
+        State7 -> StateLast on pIn.e1
         `            
             ASSERT(rtdata->x == 1 && rtdata->y == 2 && rtdata->nested.x == 3 && rtdata->nested.y == 4 && rtdata->nested.z == 5 &&
-                rtdata->color == Point::Colors::green && rtdata->scopedColor == Point::ScopedColors::blue,
+                rtdata->color == Point::Colors::green && rtdata->scopedColor == Point::ScopedColors::blue && rtdata->precision == 11 &&
+                rtdata->str == "Hello there!" &&
+                rtdata->myVector.size() == 2 && rtdata->myVector[0] == 1 && rtdata->myVector[1] == 2,
                 "Unexpected Point instance received");
 
             std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
-	        ASSERT(encoding1 == "Point{x 1,y 2,nested{x 3,y 4,z 5},color 1,scopedColor 0}", "Encoding of Point failed");    
-
+	        ASSERT(encoding1 == "Point{x 1,y 2,nested{x 3,y 4,z 5},color 1,scopedColor 0,precision 11,str\"Hello there!\",myVector[1,2]}", "Encoding of Point failed");
             PASS();
          `;
     };
@@ -74,6 +103,15 @@ capsule Top {
 
                 Point::ScopedColors scopedColor = Point::ScopedColors::black;
                 pOut.e4(scopedColor).send();
+
+                Point::Precision precision = 10;
+                pOut.e5(precision).send();
+
+                Point::MyString str = "Hello here!";
+                pOut.e6(str).send();
+
+                Point::MyVector vec{1,2,3,4};
+                pOut.e7(vec).send();
 
                 Point p;
                 pOut.e1(p).send();

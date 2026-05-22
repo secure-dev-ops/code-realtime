@@ -227,6 +227,24 @@ If your `[[rt::auto_descriptor]]` marked type is defined in a C++ header file (s
     * [Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)]({$vars.github.repo$}/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file)
     * [Automatically generated type descriptor for nested types]({$vars.github.repo$}/tree/main/art-comp-test/tests/nested_type_descriptor)
 
+#### Nested Types
+Type descriptors can be generated for types that are nested within another type. The only difference compared to a type that is not nested is that the names of the type descriptor functions will be "mangled" by replacing the scope qualifier (`::`) in the fully qualified name of the nested type by an underscore (`_`). Here is an example:
+
+``` cpp    
+struct Container {
+    enum class [[rt::auto_descriptor]] Status { 
+        Ok, NotOk, Unknown
+    };     
+};
+
+int rtg_Container_Status_encode(const RTObject_class* type, const Container::Status* source, RTEncoding* coding);
+```
+
+The fully qualified name of the type for which a type descriptor will be generated is `Container::Status`. Because of this, a custom encode function for this type should have the name `rtg_Container_Status_encode`.
+
+!!! example
+    You can find a sample where type descriptors are generated for different kinds of nested types [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/nested_type_descriptor).
+
 ### Manually Implemented
 If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the `rt::manual_descriptor` attribute. The code generator will then skip generation of the following parts of the type descriptor:
 
