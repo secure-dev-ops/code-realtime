@@ -291,7 +291,10 @@ module.exports = function(webServer) {
 
         this.readTestDescription();
 
-        if (!testCaseSteps.startsWith('clean'))
+        // Do not automatically add the 'clean' step for MC test cases in the export_art group.
+        // Some export_art test cases rely on pre-exported files and define their required
+        // steps explicitly in testcase.md.
+        if (!testCaseSteps.startsWith('clean') && this.group != 'export_art') 
             testCaseSteps = 'clean, ' + testCaseSteps;
         if (argv.artExport) {
             testCaseSteps = testCaseSteps.replace('clean,', 'exportArt,');
