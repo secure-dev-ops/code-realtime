@@ -215,6 +215,11 @@ Controls if the [Tracing](../running-and-debugging/tracing.md) feature should be
 
 Default value: **1**
 
+#### RTTRACER_FLUSH_COUNT
+Controls the frequency of flushing the trace file while [Tracing](../running-and-debugging/tracing.md) is active. By default the trace file is flushed after every line that is printed to it. This ensures that no trace events are missed if the traced application is forcibly terminated. However, it can have a negative impact on performance to flush the trace file too often. The value of this setting specifies the number of lines to write to the trace file before it's flushed. Set it to 0 to not force flush the trace file, but only let it happen when the underlying buffer is full. This is best for performance but also means that trace events written since the last time the trace file was flushed will be lost if the application terminates.
+
+Default value: **1**
+
 #### MIN_FREE_LIST_SIZE
 This setting is related to the [free list](message-communication.md#message-memory-management). It defines the lower limit of the free list size. The free list will always contain at least this number of message blocks.
 

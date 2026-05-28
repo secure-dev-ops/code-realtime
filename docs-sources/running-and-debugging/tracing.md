@@ -398,6 +398,19 @@ Here is an example that specifies a trace file name using both these variables (
 
 By default a new trace file that is generated will overwrite an existing trace file with the same name in a folder. To prevent this you can set this property to `false`. If an attempt is made to generate a new trace with a name that already exists in the folder, and if this property is set to `false`, then the application will terminate with an error message.
 
+## Google Trace Event Format
+You can export an `.art-trace` file into the [Google Trace Event Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU) by means of the context menu command **Export Google Trace Event JSON**. This makes it possible to view the trace as a so called flame chart where a timeline from left to right shows what happened in the different threads of the application. There are many trace viewers that support the Google Trace Event format, for example [Perfetto](https://perfetto.dev/).
+
+![](images/gtef.png)
+
+The Google Trace Event format is a JSON-based trace format where timestamps are associated with the trace events in order to be able to tell exactly when an activity starts and when it ends. It's therefore required to include both the [`time2_receive`](#receive-time) and the [`time3_handle`](#handle-time) timestamps in the trace.
+
+The following features of the Google Trace Event format are supported:
+
+- **Timelines for threads and executable** There is one timeline for the executable, and below it there is one timeline for each thread of the executable. This makes it possible to see the activities of the different threads in the application and how different threads interact with each other. You can also identify those threads that are very busy, and those that perhaps have too little work, so you can adjust the thread deployment of your application for the best possible utilization.
+- **Duration events** These are shown as rectangles on the timeline where the left side represents the time a message was reveived (`time2_receive`) and the right side represents the time the same message was handled (`time3_handle`). The length of the rectangle hence shows the time duration for processing that event. For [synchronous communication](#synchronous-communication) the duration event rectangles will be "stacked" on the timeline of the thread. These stacked rectangles visualize the "callstack" of the synchronous communication.
+- **Instant events** These are shown as triangles on the "global" timeline at the top of the flame chart, and represent the [notes](#note) of the trace. An instant event only has one timestamp which tells when the note was printed to the trace. Note that if the `time3_handle` timestamp is not available in the trace, all duration events will also be shown as instant events.
+
 ## Process a Trace Programmatically
 The parser for `.art-trace` files is open source and available on [GitHub](https://github.com/HCL-TECH-SOFTWARE/art-trace) as well as an [npm package](https://www.npmjs.com/package/art-trace). This makes it easy to write your own scripts (JavaScript or TypeScript) which can read an `.art-trace` file and process it in a custom way.
 
@@ -413,7 +426,5 @@ This sample script translates an `.art-trace` file into the textual format that 
 
 ![](images/plantuml.png)
 
-### googleTraceEventFormat
-This sample script translates an `.art-trace` file into the [Google Trace Event Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU), which is a JSON-based trace format. You can then open such a JSON file in a trace viewer that supports this format, for example [Perfetto](https://perfetto.dev/), for visualization and analysis.
-
-![](images/gtef.png)
+### messageHandlingPerformance
+This sample script analyzes the [`time2_receive`](#receive-time) and the [`time3_handle`](#handle-time) timestamps of a trace file to find those messages that took the longest time to handle. This can be a simple way to find performance bottlenecks in an application. 

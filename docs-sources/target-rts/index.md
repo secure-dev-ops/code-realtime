@@ -88,7 +88,7 @@ This folder contains various utility scripts, some of which are used when buildi
 ## Working with the Source Files
 You can view and edit the TargetRTS source files in any IDE. If you choose to use Visual Studio Code, or a similar IDE, together with [clangd](https://clangd.llvm.org/), you need to first generate the `compile_commands.json` compilation database. This enables the Clangd language server to resolve all include paths and provide features such as navigation, content assist, hover tooltips etc.
 
-A Node JS script `generate-compile-commands.json` is available in the `TargetRTS` folder in the {$product.name$} installation. The script takes the name of the target configuration you want to use as argument, for example:
+A Node JS script `generate-compile-commands.js` is available in the `TargetRTS` folder in the {$product.name$} installation. The script takes the name of the target configuration you want to use as argument, for example:
 
 ```
 node generate-compile-commands.js --target WinT.x64-MinGw-12.2.0

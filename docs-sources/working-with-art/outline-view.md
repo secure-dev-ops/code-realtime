@@ -34,7 +34,7 @@ The Outline view's path to the currently focused element in the Art file is also
 ## Searching
 You can use the Outline view when searching for one or many Art elements, as an alternative to searching textually in the Art editor. Start by selecting the element shown first in the Outline view, and then type quickly the first few characters of the element name. After every keystroke the selection will move downwards to an element with a name that matches the typed characters. If you make a brief pause, you can then start to type again to proceed searching further down in the Outline view.
 
-Another way to search is to press ++ctrl+"f"++ when the Outline view has focus. A small popup will then appear where you can type a few characters. Nodes in the Outline view with a label that matches the typed characters will be highlighted. The matching allows additional characters between the typed characters which is why the typed string "init" also matches the transition `Waiting -> Terminated`:
+Another way to search is to press ++ctrl++ ++alt+"f"++ when the Outline view has focus. A small popup will then appear where you can type a few characters. Nodes in the Outline view with a label that matches the typed characters will be highlighted. The matching allows additional characters between the typed characters which is why the typed string "init" also matches the transition `Waiting -> Terminated`:
 
 ![](images/outline-view-search.png)
 
