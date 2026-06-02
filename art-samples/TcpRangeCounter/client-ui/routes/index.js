@@ -14,26 +14,26 @@ function sendEvent(data, fn) {
 	console.log("Argument = " + arg);
 	console.log("Hostname = " + hostname);
 	console.log("Port = " + port);
-
-	const testProbe = require ('rt-test-probe')(hostname, port);
+	
+	const tcpServer = require('rt-tcp-utils')(hostname, port);
 		
 	let success = false;
 
     if (eventType == 'resume') {    
-    	testProbe.sendEvent('resumeCounting', 'counter');
+    	tcpServer.sendEvent('resumeCounting', 'counter');
     	arg = "n/a";
     	success = true;
     }
     else if (eventType =='max') {
-    	testProbe.sendEvent('setMax', 'counter', 'int ' + arg);
+    	tcpServer.sendEvent('setMax', 'counter', 'int ' + arg);
     	success = true;
 	} 
     else if (eventType == 'min') {
-    	testProbe.sendEvent('setMin', 'counter', 'int ' + arg);
+    	tcpServer.sendEvent('setMin', 'counter', 'int ' + arg);
 	    success = true;
 	}
 	else if (eventType == 'delta') {
-        testProbe.sendEvent('setDelta', 'counter', 'int ' + arg);
+        tcpServer.sendEvent('setDelta', 'counter', 'int ' + arg);
         success = true;
    } 
       

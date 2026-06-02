@@ -4,6 +4,6 @@
     "version": "1.0.0",
     "main": "client.js",
     "dependencies": {
-        "rt-test-probe" : "^1.0.4"        
+        "rt-tcp-utils" : "^0.0.1"        
     }
 }

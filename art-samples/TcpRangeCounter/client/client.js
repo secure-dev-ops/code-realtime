@@ -1,27 +1,27 @@
-const testProbe = require ('rt-test-probe')('localhost', 12345);
+const tcpServer = require('rt-tcp-utils')('localhost', 12345);
 
 let success = false;
 
 if (process.argv.length == 3) {
     if (process.argv[2] == '-resume') {    
-        testProbe.sendEvent('resumeCounting', 'counter');
+        tcpServer.sendEvent('resumeCounting', 'counter');
         success = true;
     }
 }
 else if (process.argv.length == 4) {
     if (process.argv[2] == '-max') {
         let max = process.argv[3];
-        testProbe.sendEvent('setMax', 'counter', 'int ' + max);
+        tcpServer.sendEvent('setMax', 'counter', 'int ' + max);
         success = true;
     }
     else if (process.argv[2] == '-min') {
         let min = process.argv[3];
-        testProbe.sendEvent('setMin', 'counter', 'int ' + min);
+        tcpServer.sendEvent('setMin', 'counter', 'int ' + min);
         success = true;
     }
     else if (process.argv[2] == '-delta') {
         let delta = process.argv[3];
-        testProbe.sendEvent('setDelta', 'counter', 'int ' + delta);
+        tcpServer.sendEvent('setDelta', 'counter', 'int ' + delta);
         success = true;
     }
 }

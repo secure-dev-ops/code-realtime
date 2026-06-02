@@ -13,7 +13,7 @@ Build the application and start it with the command-line argument `-port=<port>`
 Top.EXE -URTS_DEBUG=quit -port=12345
 ```
 
-Any client capable of sending TCP requests can be used, and the sample includes a Node.JS application which uses the [rt-test-probe](https://github.com/HCL-TECH-SOFTWARE/rt-test-probe) utility for making the TCP requests. To use this client:
+Any client capable of sending TCP requests can be used, and the sample includes a Node.JS application which uses the [rt-tcp-utils](https://github.com/HCL-TECH-SOFTWARE/rt-test-probe/tree/main/rt-tcp-utils) utility for making the TCP requests. To use this client:
 
 1. `npm install`
 2. `node client.js`
@@ -27,4 +27,4 @@ where <arg> is one of:
    -resume : Resume counting
 ```
 
-Alternatively, the sample includes a web application which also uses the [rt-test-probe] utility for making TCP requests. The link to the README for using this web application is [TcpRangeCounter_Client README](client-ui\README.md).
+Alternatively, the sample includes a web application which also uses the `rt-tcp-utils` utility for making TCP requests. The link to the README for using this web application is [TcpRangeCounter_Client README](client-ui\README.md).

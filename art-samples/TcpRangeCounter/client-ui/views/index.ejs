@@ -28,17 +28,17 @@
 			<input type=submit value='submit' name=submit>
 		</form>			
 		<ul>
-			<li>This sample implements a counter that starts at a min value and increments until it reaches a max value.</li> 
-			<li>The application embeds a [TCP server](../TcpServer/) which allows it to be dynamically configured by means of sending TCP requests.</li>
-			<li>These requests corresponds to the events of the [Events](Events.art) protocol:</li>
+			<li>This is a web UI for controlling the TcpRangeCounter application, which implements a counter that starts at a min value and increments until it reaches a max value.</li> 
+			<li>The application embeds a TCP server which this UI sends TCP requests to.</li>
+			<li>These requests corresponds to the events of the Events.art protocol:</li>
 				<ul>
-			  		<li>setMin: Sets the min value of the range (default 0)</li>
-			  		<li>setMax: Sets the max value of the range (default 10)</li>
+			  		<li>setMin: Sets the min value of the range (default 0).</li>
+			  		<li>setMax: Sets the max value of the range (default 10).</li>
 			  		<li>setDelta: Sets the delta by which the counter increments in each step (default 1). 
 			  			<ul>
 			  				<li>Use a negative value to count down instead of up.</li>
 			  			</ul>
-			  		<li>resumeCounting: Resume the counter when it has stopped</li>
+			  		<li>resumeCounting: Resume the counter when it has stopped.</li>
 				</ul>
 		</ul>
 		  	<script>
