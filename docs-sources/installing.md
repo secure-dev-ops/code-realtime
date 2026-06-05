@@ -41,19 +41,18 @@ If instead the installation fails, this message will tell you the reason. One co
 It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
 
 ## Install from Docker Image
-Yet another way to install {$product.name$} is to use one of the Docker images that are available on DockerHub:
+Yet another way to install {$product.name$} is to use the Docker image that is available on DockerHub: [https://hub.docker.com/r/baravich/vscode-code-realtime](https://hub.docker.com/r/baravich/vscode-code-realtime)
 
-* **{$product.name$} on Visual Studio Code** [https://hub.docker.com/r/baravich/vscode-code-realtime](https://hub.docker.com/r/baravich/vscode-code-realtime)
-*  **{$product.name$} on Eclipse Theia** [https://hub.docker.com/r/baravich/theia-code-realtime](https://hub.docker.com/r/baravich/theia-code-realtime)
+It contains everything you need to running {$product.name$}; a web-based version of Visual Studio Code ([openvscodeserver](https://github.com/gitpod-io/openvscode-server)), C++ build tools, the Clangd extension and of course the {$product.name$} extension itself.
 
-Here is an example of a command to use for running one of these Docker images:
+Here is an example of a command to use for running this Docker image:
 
 `docker run -p 4000:3000 -e isDocker=true baravich/vscode-code-realtime`
 
 The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
 
 !!! note 
-    The Docker images are only intended for trials and evaluations as a quick way to get started with {$product.name$}. The images may not always contain all the latest security fixes and should therefore not be used for production installations.
+    The Docker image is only intended for trials and evaluations as a quick way to get started with {$product.name$}. The image may not always contain all the latest security fixes and should therefore not be used for production installations.
 
 ## Viewing Installation Information
 If you are unsure about which version of {$product.name$} you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:

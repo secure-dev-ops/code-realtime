@@ -427,7 +427,7 @@ This property is a list of user libraries that should be linked with the applica
 tc.userLibraries = ["../../libs/libMyLib.a"];
 ```
 
-Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the user libraries.
+Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the user libraries. Note that a relative path to a library is resolved against the location of the TC.
 
 ### userObjectFiles
 This property is a list of user object files that should be linked with the application. The property is only applicable for TCs that build executables.
@@ -436,7 +436,7 @@ This property is a list of user object files that should be linked with the appl
 tc.userObjectFiles = ["../../objs/extra.obj"];
 ```
 
-Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files.
+Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files. Note that a relative path to a library is resolved against the location of the TC.
 
 
 

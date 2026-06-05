@@ -200,7 +200,7 @@ By default the tracing capability is enabled in the TargetRTS. You can disable i
 
 When your application starts to run, tracing is initially turned off. To start capturing a trace you need to turn it on. There are several ways to do this as described in the sections below. 
 
-While tracing is turned on, trace events will be captured and written to the trace file. However, for performance reasons the file is not immediately flushed. The trace file will be flushed when the application terminates, but quite often you may want to do it before that. Refer to the sections below for how to force the trace file to be flushed.
+While tracing is turned on, trace events will be captured and written to the trace file. By default the trace file is flushed after every captured trace event. This ensures that no trace events are lost in case the application crashes or is forcibly terminated while running. However, you can decrease the frequency of flushing the trace file in case it impacts too much on the application performance. Use the [RTTRACER_FLUSH_COUNT](../target-rts/build.md#rttracer_flush_count) configuration setting to set how many trace events that should be received before flushing the trace file (or set to 0 to only flush the trace file when the file buffer is full). You can also force the trace file to be flushed as described below.
 
 Captured trace files will be placed in the same folder as where the running executable is located. The default name of a trace file is `.trace.art-trace` but you can change this using a [trace configuration](#trace-configuration). Note that by default a newly generated trace file will overwrite an existing trace file in the same folder. This too can be configured in the [trace configuration](#trace-configuration).
 

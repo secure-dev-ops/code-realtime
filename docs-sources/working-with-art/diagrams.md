@@ -88,17 +88,6 @@ Move the source and target bendpoint to decide where on the source and target sy
 
 To delete all bendpoints, and make the line straight again, select the line and press ++ctrl+space++ and then perform the command **Make Straight**. To only delete some of the bendpoints, select them, press ++ctrl+space++ and then perform the command **Delete Bendpoint**.
 
-### Graphical Ambiguities
-With manual layout it's possible that a symbol in a state diagram shows up inside the symbol of a composite state, even if the corresponding Art element is not nested within that state. The diagram editor will detect such graphical ambiguities and show a warning to avoid that the diagram is misinterpreted. The warning is placed both on the composite state symbol and the symbol that appears inside it. Here is an example:
-
-![](images/ambiguity.png)
-
-Here `Nested` and `Nested2` are substates of `Composite` while `XXX` just happens to appear inside it (either because it was moved or that `Composite` was resized). 
-
-Note that if the element of the ambiguous symbol comes before the state in the Art file, the ambiguous symbol will not be visible since it then will be hidden behind the state symbol. In this case only the warning on the state symbol can be seen.
-
-If you observe warnings about graphical ambiguities you should update the manual layout of the diagram to get rid of them.
-
 ### Discarding Layout Information
 If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!
 
@@ -144,6 +133,38 @@ Layout warnings are only shown for diagrams while they are open. Pay attention t
 
 ![](images/layout_warnings.png)
 
+Layout problems reported in a layout file are typically caused by incorrect references to Art elements. But there are also other kinds of layout problems that are detected when a diagram is opened:
+
+- [Logical errors in diagram layout values](#logical-layout-errors) (coordinates, sizes etc) which prevent the editor to apply the layout, and where the default layout will be used instead.
+- [Graphical ambiguities](#graphical-ambiguities) where the diagram layout does not match the semantics of the Art elements.
+
+These types of layout validation problems are described below.
+
+#### Logical Layout Errors
+The values specified in a layout file for coordinates, sizes etc. may contain logical errors. Examples of such errors are:
+
+- the size of a container symbol is not big enough to contain all its contained symbols
+- the location of a symbol, label or line bendpoint is outside the boundaries of the container symbol
+
+When such a logical layout error is detected for a symbol, line or label it will revert to use its default layout. For a label this means a default location near the symbol or line to which it belongs. For a symbol the default layout means a small size, and a position that is determined by the automatic layout algoritm. And for a line a default layout means a straight line without any bendpoints. 
+
+To help you detect when a logical layout error makes a symbol, label or line revert to its default layout, the editor shows a warning for it. It's not possible to directly navigate to the place in the layout file where the faulty layout is specified, but the tooltip of the warning shows the fully qualified name of the element so you can search and find its layout in the layout file.
+
+Here is an example of a warning caused by a logical layout error:
+
+![](images/logical_layout_errors.png)
+
+#### Graphical Ambiguities
+With manual layout it's possible that a symbol in a state diagram shows up inside the symbol of a composite state, even if the corresponding Art element is not nested within that state. The diagram editor will detect such graphical ambiguities and show a warning to avoid that the diagram is misinterpreted. The warning is placed both on the composite state symbol and the symbol that appears inside it. Here is an example:
+
+![](images/ambiguity.png)
+
+Here `Nested` and `Nested2` are substates of `Composite` while `XXX` just happens to appear inside it (either because it was moved or that `Composite` was resized). 
+
+Note that if the element of the ambiguous symbol comes before the state in the Art file, the ambiguous symbol will not be visible since it then will be hidden behind the state symbol. In this case only the warning on the state symbol can be seen.
+
+If you observe warnings about graphical ambiguities you should update the manual layout of the diagram to get rid of them.
+
 ## Navigating from Diagram to Art File
 If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the ++ctrl++ key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:
 
@@ -171,6 +192,17 @@ When working in a zoomed-in diagram that contains composite symbols (for example
 * Use the ++page-up++ or ++page-down++ keys. 
 * Use the ++arrow-up++ or ++arrow-down++ keys. However, this only pans the diagram if no symbol is selected (otherwise the selected symbol will be moved).
 * Press and hold down the ++space++ key (the cursor changes into a hand), and then click and drag anywhere in the diagram.
+
+### Selecting Elements
+To select a symbol, label or line, click once on it. A selected symbol gets a thick outline and, if it is [resizable](#resizing-symbols), also yellow resize handles. A selected label is drawn in yellow and, if it belongs to a symbol, resize handles also appear on that symbol. A selected line gets a thick outline and red bendpoint handles.
+
+![](images/selections.png)
+
+To select multiple elements hold down the ++ctrl++ key while clicking on symbols, labels or lines. As an alternative you can hold down both ++ctrl++ and ++shift++ (on Mac ++cmd++ and ++shift++) to get a "crosshair" cursor, and then make a "marquee selection" by drawing a rectangle. 
+
+![](images/marquee_selection.png)
+
+All symbols and lines (but not labels) that the marquee rectangle touches will become selected. Note that you cannot make a marquee selection if another element is already selected, so click in the diagram background to reset the selection first.
 
 ### Collapsing and Expanding Symbols
 State and structure diagrams can be hierarchical. A state diagram is hierarchical if it contains a composite state with a nested state machine. A structure diagram is hierarchical if it contains a part typed by another capsule with nested parts or ports. By default symbols that contain nested symbols are collapsed to minimize the size of the diagram:

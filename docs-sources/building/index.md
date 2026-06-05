@@ -93,7 +93,7 @@ C++ code snippets that are embedded in the Art file will be enclosed by special 
 //}}}USR
 ```
 
-The comment contains information about the source Art file and the Art element in that file that contains the code snippet.
+The comment contains information about the source Art file and the Art element in the file that contains the code snippet.
 
 !!! warning 
     Only make edits on the lines within the special code snippet comments. If you edit outside the comment those edits will be lost the next time the file gets regenerated. And if you change the comment itself, the propagation of changes back to the Art file will no longer work correctly.
@@ -109,7 +109,7 @@ Sometimes you may need to navigate in the other direction, i.e. from a code snip
 You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
 
 !!! warning 
-    Code snippets in Art files can only be updated when there is an active TC set. Changes made in generated code snippets will be lost the next time they are generated, unless you have set the TC as active. To prevent this, always make sure the TC is set as active before you make any changes in generated files. 
+    Automatic synchronization of edited code snippets requires that the C++ file is edited and saved in {$product.name$}. If you edit generated C++ files in another editor, you need to invoke a [synchronization command](#synchronizing-external-edits) for the changes to propagate back to the Art files.
     
 Pay attention to the status bar in the bottom left corner when you save a generated file. If you know at least one code snippet was modified, but still get the message shown below:
 
@@ -118,6 +118,16 @@ Pay attention to the status bar in the bottom left corner when you save a genera
 then you can know the changes failed to propagate to the Art file. If the update was successful you should instead get a message that tells how many code snippets that were updated. For example:
 
 ![](images/one-code-snippets-updated.png)
+
+### Synchronizing External Edits
+Sometimes you may want to edit generated C++ files in another editor, external to {$product.name$}. For example, if you debug your application in another C++ IDE it can be convenient to directly make changes there. For those changes to propagate back to the source Art files, and not be lost the next time you build your application in {$product.name$}, you must manually invoke a synchronization command. There are two such commands available:
+
+- **Synchronize Code Snippets** This command synchronizes all C++ files generated from one specific TC. Invoke the command either from the TC context menu (in the Explorer view or TC text editor), or from the Art Build view.
+- **Synchronize All Code Snippets** This command is available in the toolbar of the Art Build view. It scans the whole workspace for target workspace folders that have been produced by building TCs, and synchronizes all C++ files in those workspace folders.
+
+![](images/synchronize_commands.png)
+
+Both these commands report in the Art Server console how many code snippets that were updated.
 
 ## Building from the Command Line
 You can build a TC from the command line by using the [Art Compiler](art-compiler.md).

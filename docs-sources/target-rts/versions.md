@@ -47,7 +47,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8016 | [Startup synchronization of RTTimerActor](#startup-synchronization-of-rttimeractor) <br> [Port full warning](#port-full-warning) |
 | 8017 | [Improvements in RTTracer::note()](#improvements-in-rttracernote) <br> [Run-time error checks for port connections](#run-time-error-checks-for-port-connections) <br> [Inclusion of program arguments in trace configuration](#inclusion-of-program-arguments-in-trace-configuration) |
 | 8018 | [Null pointer checks in RTWrapper](#null-pointer-checks-in-rtwrapper) <br> [Using log streams with encoding disabled](#using-log-streams-with-encoding-disabled) |
-| 8019 | [Script for generating compile_commands.json for the TargetRTS](#script-for-generating-compile_commandsjson-for-the-targetrts) <br> [Configuration of trace file flushing](#configuration-of-trace-file-flushing) |
+| 8019 | [Script for generating compile_commands.json for the TargetRTS](#script-for-generating-compile_commandsjson-for-the-targetrts) <br> [Configuration of trace file flushing](#configuration-of-trace-file-flushing) <br> [Registration of custom debug error function](#registration-of-custom-debug-error-function) |
 
 ### JSON decoder
 A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) can be decoded back to (a copy of) the original data.
@@ -228,3 +228,6 @@ A new Node JS script `generate-compile-commands.js` is available in the `TargetR
 
 ### Configuration of trace file flushing
 By default a trace file is flushed after every line that is printed to it. This ensures that no trace events are missed if the traced application is forcibly terminated. However, it can have a negative impact on performance to flush the trace file too often. Therefore the TargetRTS now provides a configuration setting [RTTRACER_FLUSH_COUNT](build.md#rttracer_flush_count) for configuring how often the trace file should be flushed. The value specifies the number of lines to write to the trace file before it's flushed. Set it to 0 to not force flush the trace file, but only let it happen when the underlying buffer is full. This is best for performance but also means that trace events written since the last time the trace file was flushed will be lost if the application terminates.
+
+### Registration of custom debug error function
+The [RTMain](../targetrts-api/class_r_t_main.html) class has a new function (`registerDebugErrorFunction()`) for registering a function that will be called whenever an error message is printed by `RTDebugger::trace()`. This makes it possible to capture such error messages and report them in some other way (for example write them to a file).
