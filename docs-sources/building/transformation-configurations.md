@@ -10,10 +10,9 @@ To create a new TC select a file in the workspace folder that contains the Art f
 A .tcjs file will be created with the minimal contents. Specify the mandatory [topCapsule](#topcapsule) property (if you are building an executable) and any other [properties](#properties) needed.
 
 ## Setting a Transformation Configuration as Active
-You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC in several ways:
+You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be **active**. {$product.name$} uses the active TC for the following:
 
 * It controls how to automatically generate C++ code from the Art files in the workspace folder. In this respect it corresponds directly to the [`--tc`](art-compiler.md#tc) option for the [Art Compiler](art-compiler.md).
-* It's used for automatically propagating changes you make in generated files back to the source Art files (see [Making Changes in Generated C++](index.md#making-changes-in-generated-c)).
 * It affects how references in Art files are bound to Art elements in other Art files. More precisely, the [sources](#sources) and [prerequisites](#prerequisites) properties of the active TC define the global scope, that is which Art elements that are  globally visible. All such global scope elements must have unique names (see [TC_7019](../validation.md#tc_7019_duplicatenamesinglobalscope) for more information).
 
 !!! note 
@@ -104,6 +103,8 @@ A TC can either build a library or an executable. This is controlled by the [top
 
 If you change the prerequisites of a TC you should again [set it as active](#setting-a-transformation-configuration-as-active) so that the prerequisite TCs also become active.
 
+When you clean a TC with prerequisites, the prerequisites are cleaned too. This ensures that when you later build the TC again, it will be a fully "clean build" where everything gets rebuilt again.
+
 ### Accessing the Top TC from a Prerequisite TC
 A library TC that is built as a prerequisite of an executable TC should typically use the same values for many TC properties as are used by the executable TC. For example, both TCs should be compiled with the same compiler and use the same [TargetRTS configuration](../target-rts/index.md#target-configurations), otherwise build inconsistencies could occur. To avoid the need of duplicating such common properties both in the executable TC and in all its prerequisite library TCs, it's possible to access properties of the executable TC in the library TC. Here is an example:
 
@@ -113,10 +114,21 @@ tc.compileArguments = TCF.getTopTC().eval.compileArguments;
 
 The function [`TCF.getTopTC()`](build-variants.md#gettoptc) will at build-time return a reference to the TC that is at the "top" of the prerequisite hierarchy, i.e. the TC on which the build command is performed. It's typically an executable TC, but could also be a library TC (in case you build a library that depends on other libraries).
 
-Since we construct a TC property value based on the value of another TC property (here coming from the top TC) we should use the [`eval`](#eval) property to ensure all default values get expanded into real values.
+Note that when a TC property value is constructed based on the value of another TC property (here coming from the top TC) the [`eval`](#eval) property should be used to ensure all default values get expanded into real values.
+
+### Precompiled Library
+A precompiled library is like any other library TC, but with two differences:
+
+1) It is not built when an executable that has it as a prerequisite is built
+
+2) It is not cleaned when an executable that has it as a prerequisite is cleaned
+
+A precompiled library has the TC property [precompiledLibrary](#precompiledlibrary) property set to specify a library file. When building a TC that has the precompiled library as a prerequisite it will directly link with that library, without first building it. 
+
+Using a precompiled library can be useful for libraries that are used frequently but that are changed infrequently. The overall idea is that since the library is so rarely modified, it's enough that one person in the team builds it, and then makes the built library file available in a shared location for other people in the team to use. When the library do need to change, it's built as usual, and the resulting library is placed in the location specified by the [precompiledLibrary](#precompiledlibrary) property.
 
 ## Art Build View
-{$product.name$} provides a view called Art Build which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.
+{$product.name$} provides a view called **Art Build** which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.
 
 ![](images/art-build-view.png)
 
@@ -135,7 +147,9 @@ There are also a few useful commands in the Art Build view toolbar:
 
 * **Refresh** In most cases the Art Build view refreshes automatically when TCs are modified. However, if needed you can force a refresh by pressing this button.
 
-* **Clean All** Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.
+* **Clean All** Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server output channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.
+
+* **Synchronize All Code Snippets** Propagates changes in code snippets of generated files made outside of {$product.name$}. See [Synchronizing External Edits](index.md#synchronizing-external-edits).
 
 * **Collapse All** Collapses all TCs to not show any prerequisites.
 
@@ -162,6 +176,7 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [linkCommand](#linkcommand) | String | "`$(LD)`"
 | [makeArguments](#makearguments) | String | N/A
 | [makeCommand](#makecommand) | String | "`$defaultMakeCommand`"
+| [precompiledLibrary](#precompiledlibrary) | String | N/A
 | [prerequisites](#prerequisites) | List of strings | []
 | [sources](#sources) | List of strings | ["*.art"]
 | [sourceSubdirectory](#sourcesubdirectory) | String | N/A
@@ -285,6 +300,15 @@ tc.makeArguments = '-s'; // Silent make (do not print build commands to the term
 
 ### makeCommand
 Specifies which make command to use for processing the generated make file. By default the make command is `$defaultMakeCommand` which gets its value from which TargetRTS configuration that is used.
+
+### precompiledLibrary
+This property can be set to the location of a library file that has been precompiled. A TC which has this property set is a [precompiled library TC](#precompiled-library), and will not be built or cleaned when a TC that has it as a prequisite is built or cleaned. The path to the library file can either be absolute, or relative to the location of the TC file that has the property set. It's possible to use environment variables in the path.
+
+``` js
+tc.precompiledLibrary = "${LIB_LOCATION}/mylib.a";
+```
+
+Note that the library file specified by this property must exist when building a TC that has the precompiled library TC as its prerequisite; otherwise an error will be reported by the linker.
 
 ### prerequisites
 This property is a list of references to other TCs that need to be built before the current TC. It's typically used to express that a library TC is a prerequisite of an executable TC, which means the library TC needs to be built before the executable TC. Below is an example where an executable TC has a library TC as a prerequisite:
