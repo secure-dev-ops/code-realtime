@@ -4,5 +4,5 @@ tc.topCapsule = 'Top';
 tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
 tc.targetFolder = 'tc_user_object_files_target';
 tc.userObjectFiles = [
-    '../../../tc_user_object_files/UserObjectFile.o'
+    './UserObjectFile.o'
 ];

@@ -1,7 +1,5 @@
 let tc = TCF.define(TCF.ART_TO_CPP);
 tc.topCapsule = 'Top';
 tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
-tc.targetFolder = 'tc_include_paths_03_target';
-tc.inclusionPaths = [
-    '"./include"'
-];
+tc.targetFolder = 'cpp_source_files_with_spaces_target';
+tc.cppCodeStandard = "C++ 17";

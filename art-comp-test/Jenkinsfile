@@ -254,7 +254,7 @@ pipeline {
 								source /opt/rh/gcc-toolset-12/enable # enable GCC 12
 								gcc --version
 								cd art-comp-test
-								node runner/app.js --targetConfig=LinuxT.x64-gcc-12.x --testDir=tests --javaVM=$WS/../install/JAVA_21/bin/java --installDir=$WS/rtistic/extension --terminateWebServer=always --testSuiteName=$TS_NAME --genXML=$WS/test-results/$TS_NAME.xml $TIMEOUT_ARG $TEST_CASES_ARG
+								node runner/app.js --targetConfig=LinuxT.x64-gcc-12.x --testDir=tests --javaVM=$(which java) --installDir=$WS/rtistic/extension --terminateWebServer=always --testSuiteName=$TS_NAME --genXML=$WS/test-results/$TS_NAME.xml $TIMEOUT_ARG $TEST_CASES_ARG
 							'''
 						}
 					}
