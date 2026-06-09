@@ -125,7 +125,7 @@ A precompiled library is like any other library TC, but with two differences:
 
 A precompiled library has the TC property [precompiledLibrary](#precompiledlibrary) property set to specify a library file. When building a TC that has the precompiled library as a prerequisite it will directly link with that library, without first building it. 
 
-Using a precompiled library can be useful for libraries that are used frequently but that are changed infrequently. The overall idea is that since the library is so rarely modified, it's enough that one person in the team builds it, and then makes the built library file available in a shared location for other people in the team to use. When the library do need to change, it's built as usual, and the resulting library is placed in the location specified by the [precompiledLibrary](#precompiledlibrary) property.
+Using a precompiled library can be useful for libraries that are used frequently but that are changed infrequently. The overall idea is that since the library is so rarely modified, it's enough that one person in the team builds it, and then makes the built library file available in a shared location for other people in the team to use. When the library do need to change, the precompiled library TC can be built as usual, for example by means of the **Build** context menu command. The resulting library is placed in the location specified by the [precompiledLibrary](#precompiledlibrary) property.
 
 ## Art Build View
 {$product.name$} provides a view called **Art Build** which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.
@@ -302,10 +302,10 @@ tc.makeArguments = '-s'; // Silent make (do not print build commands to the term
 Specifies which make command to use for processing the generated make file. By default the make command is `$defaultMakeCommand` which gets its value from which TargetRTS configuration that is used.
 
 ### precompiledLibrary
-This property can be set to the location of a library file that has been precompiled. A TC which has this property set is a [precompiled library TC](#precompiled-library), and will not be built or cleaned when a TC that has it as a prequisite is built or cleaned. The path to the library file can either be absolute, or relative to the location of the TC file that has the property set. It's possible to use environment variables in the path.
+This property can be set to the location of a library file that has been precompiled. A TC which has this property set is a [precompiled library TC](#precompiled-library), and will not be built or cleaned when a TC that has it as a prequisite is built or cleaned. The path to the library file can either be absolute, or relative to the location of the TC file that has the property set. It's possible to use environment variables in the path. Such environment variables are expanded by the make tool.
 
 ``` js
-tc.precompiledLibrary = "${LIB_LOCATION}/mylib.a";
+tc.precompiledLibrary = "$(LIB_LOCATION)/mylib.a";
 ```
 
 Note that the library file specified by this property must exist when building a TC that has the precompiled library TC as its prerequisite; otherwise an error will be reported by the linker.
@@ -460,7 +460,7 @@ This property is a list of user object files that should be linked with the appl
 tc.userObjectFiles = ["../../objs/extra.obj"];
 ```
 
-Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files. Note that a relative path to a library is resolved against the location of the TC.
+Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a [link argument](#linkarguments) to specify the location(s) where the linker should look for the object files. Note that a relative path to an object file is resolved against the location of the TC.
 
 
 
