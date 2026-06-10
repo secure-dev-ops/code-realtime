@@ -1,3 +1,28 @@
+# 3.5.0 (2026-06-10 12:18)
+1. The Outline view now shows C++ declarations, include statements and macros for Art code snippets. This makes it easier to navigate to their locations in the Art file.
+
+![Outline View: C++ support]({$vars.doc.server$}/working-with-art/images/outline-view.png)
+
+2. The diagram editor now detects [logical errors]({$vars.doc.server$}/working-with-art/diagrams/#logical-layout-errors) in diagram layouts (for example if the position of a nested symbol is outside the boundaries of its container symbol). Such a logical layout error causes the symbol, line or label to revert to its default layout, and a warning is now shown in the diagram when this happens.
+
+![Diagrams: Logical Layout Errors]({$vars.doc.server$}/working-with-art/images/logical_layout_errors.png)
+
+3. Class diagrams that show classes with state machines now show the trigger operations of those classes.
+4. It's now possible to resize classes and protocols in a class diagram that uses manual layout. Previously this was only supported for capsules.
+5. It's now supported to move the labels of choice and junction symbols, as well as history symbols, in a state diagram that uses manual layout.
+6. The C++ code generator now supports generation of type descriptors for nested typedefs and type aliases. It's also possible to customize the type descriptor functions for nested types by using their "mangled" names (obtained by replacing `::` with `_` in the qualified type name). Read more in the [documentation]({$vars.doc.server$}/art-lang/cpp-extensions/#nested-types).
+7. A new context menu command **Export Google Trace Event JSON** now lets you export an `.art-trace` file to the Google Trace Event format. More about this in the [documentation]({$vars.doc.server$}/running-and-debugging/tracing/#google-trace-event-format).
+8. You can now change code snippets in generated C++ files in an editor that is external to Code RealTime, and then propagate those changes back to the source Art files. Two new synchronization commands are provided for this purpose. Read more about them [here]({$vars.doc.server$}/building/#synchronizing-external-edits).
+
+![Synchronize Code Snippets]({$vars.doc.server$}/building/images/synchronize_commands.png)
+
+9. If you have a library that is used frequently, but changed infrequently, you can now make it a precompiled library by setting a new TC property `precompiledLibrary`. This allows executable TCs that have it as a prerequisite to directly link with the library, without first building it. Also, when cleaning the executable TC a precompiled library prerequisite TC is not automatically cleaned. Read more about precompiled library TCs in [the documentation]({$vars.doc.server$}/building/transformation-configurations/#precompiled-library).
+10. Spaces in file names and paths are now handled correctly by the make file generator.
+11. A [new Node JS script]({$vars.doc.server$}/target-rts/#working-with-the-source-files) `generate-compile-commands.js` is now provided with the TargetRTS source code (Commercial Edition only). It takes a target configuration as argument and generates the compilation database (`compile_commands.json`) required by the Clangd language server. This makes it more pleasant to use Code RealTime for viewing and editing TargetRTS source files.
+12.  The TargetRTS has a new configuration setting [RTTRACER_FLUSH_COUNT]({$vars.doc.server$}/target-rts/build/#rttracer_flush_count) for configuring how often a trace file should be flushed while a trace is active.
+13.  The `RTMain` class in the TargetRTS has been extended to allow registration of a custom debug error function. This allows to report debug errors (emitted by `RTDebugger::trace()`) in a different way than printing them to `stderr` which is the default.
+14.  Version 2.5.0 of the Art Exporter is now available. Improvements include export of structure diagram layouts, a new option to always include the TargetRTS from all C++ code, and fixes to avoid unnecessary warnings when building the exported model in Code RealTime. See [this page](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html) for more detailed release notes.
+
 # 3.4.0 (2026-05-11 08:44)
 1. The Properties view now shows the name of a selected symbol or line in its header. It also has a new button in the header for moving the selection upwards in the hierarchy of nested symbols. Clicking the button while holding down the Shift key moves the selection to the diagram itself (i.e. has the same effect as clicking in the diagram background). The new button helps for example when working in big and deeply nested state diagrams, where enclosing symbols or the diagram background often are not visible. It also makes it easier to understand which internal transitions that may trigger when a nested state is active.
 
