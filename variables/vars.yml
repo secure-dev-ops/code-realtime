@@ -3,5 +3,5 @@ github:
   # repo: https://github01.hclpnp.com/Modeling/rtistic-pub-doc
 doc:
   server: https://secure-dev-ops.github.io/code-realtime
-  # server: http://10.83.92.47:8884/code-realtime
+  # server: https://10.83.92.47:8884/code-realtime
 
