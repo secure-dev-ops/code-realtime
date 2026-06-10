@@ -180,6 +180,9 @@
             "path": "tests/port_with_predefined_protocol_no_relay"
         },
         {
+            "path": "tests/precompiled_lib"
+        },
+        {
             "path": "tests/port_registration_name"
         },
         {
@@ -223,6 +226,9 @@
         },
         {
             "path": "tests/tc_libraryname"
+        },
+        {
+            "path": "tests/tc_precompiled_lib"
         },
         {
             "path": "tests/tc_sources/tc_sources"

@@ -1,0 +1,16 @@
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "NumUtils.h"
+    `
+    statemachine {
+        state State;
+        initial -> State
+        `
+            int num = 15;
+            std::cout << num << " is simple = "
+                << NumUtils::isSimple(num) << std::endl;
+            PASS();
+        `;
+    };
+};

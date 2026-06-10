@@ -1,0 +1,3 @@
+protocol LibProto {
+    in ev1();
+};
