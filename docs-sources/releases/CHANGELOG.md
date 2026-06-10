@@ -1,21 +1,21 @@
 # 3.4.0 (2026-05-11 08:44)
 1. The Properties view now shows the name of a selected symbol or line in its header. It also has a new button in the header for moving the selection upwards in the hierarchy of nested symbols. Clicking the button while holding down the Shift key moves the selection to the diagram itself (i.e. has the same effect as clicking in the diagram background). The new button helps for example when working in big and deeply nested state diagrams, where enclosing symbols or the diagram background often are not visible. It also makes it easier to understand which internal transitions that may trigger when a nested state is active.
 
-![]({$vars.doc.server$}/working-with-art/images/move-selection-upwards.png)
+![Properties View: Move Selection Upwards]({$vars.doc.server$}/working-with-art/images/move-selection-upwards.png)
 
 2. It's now possible to resize choice symbols in state diagrams, when manual diagram layout is used. This can for example be useful if there are many outgoing transitions from the choice.
 3. The Z-order of symbols has been adjusted to ensure that symbols that are covered by an expanded symbol are drawn behind it. Previously such covered symbols could appear on top of the expanded symbol which made them look like nested symbols.
 4. The sizes of some non-resizable symbols in state diagrams have been adjusted to be the same as those in Model RealTime. This avoids unnecessary differences in diagram layout when exporting models from Model RealTime to Code RealTime.
 5. Traces shown in a sequence diagram can now be filtered using regular expressions (both for instances and messages). The sequence diagram viewer also has an improved scroll behavior to make it possible to open very large trace files. Trace messages are split into pages where only the currently viewed page is shown in the trace viewer.
 
-![]({$vars.doc.server$}/running-and-debugging/images/trace-filter.png)
+![Trace Filter]({$vars.doc.server$}/running-and-debugging/images/trace-filter.png)
 
 6. When the validation rule [ART_0036]({$vars.doc.server$}/validation/#art_0036_unexpectedtriggers) finds a transition which has unexpected triggers because it originates from an entry or exit point with incoming transitions, it now reports those incoming transitions as related elements. This makes it easier to understand which of the incoming transitions that cause the triggers to be unexpected and to navigate to them.
 7. Environment variables in TC include paths are now supported and correctly expanded in the JSON files that are generated for C++ language servers. Also, these JSON files now specify the actual compiler that will be used when compiling the code, which enables the C++ language servers to give a better experience when viewing and editing C++ code.
 8. Errors in a TC or in its prerequisites, for example syntax errors, are now better reported when building the TC.
 9. The C++ code generator now supports generation of type descriptors for nested types.
 10. Include paths with spaces are now correctly generated into the Makefile. An include path string is enclosed in double quotes if it contains spaces or references an environment variable (which potentially can be defined with spaces).
-11. Version 2.4.0 of the Art Exporter is now available. In the new version it's now possible to customize the severity of problems reported during export, and to turn off reporting of problems that have already been analyzed. Many other improvements are included as well; see [this page](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html) for more detailed release notes.
+11. Version 2.4.0 of the Art Exporter is now available. In the new version it's now possible to customize the severity of problems reported during export, and to turn off reporting of problems that have already been analyzed. Many other improvements are included as well; see [this page](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html) for more detailed release notes.
 
 # 3.3.0 (2026-03-26 09:46)
 1. Manual layout of lines is now also supported for class diagrams. 
