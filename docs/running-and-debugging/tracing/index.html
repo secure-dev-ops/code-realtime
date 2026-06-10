@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1290,6 +1290,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#google-trace-event-format" class="md-nav__link">
+    Google Trace Event Format
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#process-a-trace-programmatically" class="md-nav__link">
     Process a Trace Programmatically
   </a>
@@ -1312,8 +1319,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#googletraceeventformat" class="md-nav__link">
-    googleTraceEventFormat
+  <a href="#messagehandlingperformance" class="md-nav__link">
+    messageHandlingPerformance
   </a>
   
 </li>
@@ -1834,6 +1841,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#google-trace-event-format" class="md-nav__link">
+    Google Trace Event Format
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#process-a-trace-programmatically" class="md-nav__link">
     Process a Trace Programmatically
   </a>
@@ -1856,8 +1870,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#googletraceeventformat" class="md-nav__link">
-    googleTraceEventFormat
+  <a href="#messagehandlingperformance" class="md-nav__link">
+    messageHandlingPerformance
   </a>
   
 </li>
@@ -2038,7 +2052,7 @@
 <h2 id="controlling-tracing">Controlling Tracing</h2>
 <p>By default the tracing capability is enabled in the TargetRTS. You can disable it through the <a href="../../target-rts/build/#rts_trace">RTS_TRACE</a> configuration setting if you don't plan to capture any traces. This will make your executable slightly smaller.</p>
 <p>When your application starts to run, tracing is initially turned off. To start capturing a trace you need to turn it on. There are several ways to do this as described in the sections below. </p>
-<p>While tracing is turned on, trace events will be captured and written to the trace file. However, for performance reasons the file is not immediately flushed. The trace file will be flushed when the application terminates, but quite often you may want to do it before that. Refer to the sections below for how to force the trace file to be flushed.</p>
+<p>While tracing is turned on, trace events will be captured and written to the trace file. By default the trace file is flushed after every captured trace event. This ensures that no trace events are lost in case the application crashes or is forcibly terminated while running. However, you can decrease the frequency of flushing the trace file in case it impacts too much on the application performance. Use the <a href="../../target-rts/build/#rttracer_flush_count">RTTRACER_FLUSH_COUNT</a> configuration setting to set how many trace events that should be received before flushing the trace file (or set to 0 to only flush the trace file when the file buffer is full). You can also force the trace file to be flushed as described below.</p>
 <p>Captured trace files will be placed in the same folder as where the running executable is located. The default name of a trace file is <code>.trace.art-trace</code> but you can change this using a <a href="#trace-configuration">trace configuration</a>. Note that by default a newly generated trace file will overwrite an existing trace file in the same folder. This too can be configured in the <a href="#trace-configuration">trace configuration</a>.</p>
 <p>Capturing all messages that are exchanged in an application for the whole time it runs will usually lead to very large traces. Such big traces are cumbersome to work with, and sequence diagrams may not be possible to render. And even if they could be rendered, they may not be easy to use due to the size. It's better to only turn on tracing when the application reaches a point when something interesting is about to happen. For example, if you are troubleshooting a bug that occurs when a certain transition runs in a capsule's state machine, you can debug the application with the Art Debugger and <a href="#from-the-art-debugger">turn on tracing</a> when the source state of that transition is reached. Then you can manually send the event which will trigger the interesting transition, and then turn tracing off. Thereby the trace file will only show what happened when that transition executed, which makes it small and manageable. </p>
 <p>Or you could debug your application with a C++ debugger and put a breakpoint that gets hit before something interesting happens. Then you can <a href="#from-the-c-debugger">turn on tracing</a> and let the application run until it hits another breakpoint, and then turn off tracing again. The trace then shows you which messages were exchanged in the application between those two breakpoints were hit.</p>
@@ -2217,6 +2231,16 @@
 <strong>Type:</strong> Boolean <br>
 <strong>Valid values:</strong> <code>true</code> (default), <code>false</code></p>
 <p>By default a new trace file that is generated will overwrite an existing trace file with the same name in a folder. To prevent this you can set this property to <code>false</code>. If an attempt is made to generate a new trace with a name that already exists in the folder, and if this property is set to <code>false</code>, then the application will terminate with an error message.</p>
+<h2 id="google-trace-event-format">Google Trace Event Format</h2>
+<p>You can export an <code>.art-trace</code> file into the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU">Google Trace Event Format</a> by means of the context menu command <strong>Export Google Trace Event JSON</strong>. This makes it possible to view the trace as a so called flame chart where a timeline from left to right shows what happened in the different threads of the application. There are many trace viewers that support the Google Trace Event format, for example <a href="https://perfetto.dev/">Perfetto</a>.</p>
+<p><img alt="" src="../images/gtef.png" /></p>
+<p>The Google Trace Event format is a JSON-based trace format where timestamps are associated with the trace events in order to be able to tell exactly when an activity starts and when it ends. It's therefore required to include both the <a href="#receive-time"><code>time2_receive</code></a> and the <a href="#handle-time"><code>time3_handle</code></a> timestamps in the trace.</p>
+<p>The following features of the Google Trace Event format are supported:</p>
+<ul>
+<li><strong>Timelines for threads and executable</strong> There is one timeline for the executable, and below it there is one timeline for each thread of the executable. This makes it possible to see the activities of the different threads in the application and how different threads interact with each other. You can also identify those threads that are very busy, and those that perhaps have too little work, so you can adjust the thread deployment of your application for the best possible utilization.</li>
+<li><strong>Duration events</strong> These are shown as rectangles on the timeline where the left side represents the time a message was reveived (<code>time2_receive</code>) and the right side represents the time the same message was handled (<code>time3_handle</code>). The length of the rectangle hence shows the time duration for processing that event. For <a href="#synchronous-communication">synchronous communication</a> the duration event rectangles will be "stacked" on the timeline of the thread. These stacked rectangles visualize the "callstack" of the synchronous communication.</li>
+<li><strong>Instant events</strong> These are shown as triangles on the "global" timeline at the top of the flame chart, and represent the <a href="#note">notes</a> of the trace. An instant event only has one timestamp which tells when the note was printed to the trace. Note that if the <code>time3_handle</code> timestamp is not available in the trace, all duration events will also be shown as instant events.</li>
+</ul>
 <h2 id="process-a-trace-programmatically">Process a Trace Programmatically</h2>
 <p>The parser for <code>.art-trace</code> files is open source and available on <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace">GitHub</a> as well as an <a href="https://www.npmjs.com/package/art-trace">npm package</a>. This makes it easy to write your own scripts (JavaScript or TypeScript) which can read an <code>.art-trace</code> file and process it in a custom way.</p>
 <p>A few samples are available in the <a href="https://github.com/HCL-TECH-SOFTWARE/art-trace/tree/main/samples">GitHub repository</a> that you can use as a starting point.</p>
@@ -2226,9 +2250,8 @@
 <h3 id="plantuml">plantUML</h3>
 <p>This sample script translates an <code>.art-trace</code> file into the textual format that the <a href="https://www.plantuml.com/plantuml/uml/">plantUML</a> web service uses for rendering sequence diagrams. These sequence diagrams contain less details than <code>.art-trace</code> sequence diagrams and are mainly intended to serve as documentation that can explain how an application behaves internally in certain situations. PlantUML supports more styling options than <a href="#jssequencediagram">jsSequenceDiagram</a>.</p>
 <p><img alt="" src="../images/plantuml.png" /></p>
-<h3 id="googletraceeventformat">googleTraceEventFormat</h3>
-<p>This sample script translates an <code>.art-trace</code> file into the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU">Google Trace Event Format</a>, which is a JSON-based trace format. You can then open such a JSON file in a trace viewer that supports this format, for example <a href="https://perfetto.dev/">Perfetto</a>, for visualization and analysis.</p>
-<p><img alt="" src="../images/gtef.png" /></p>
+<h3 id="messagehandlingperformance">messageHandlingPerformance</h3>
+<p>This sample script analyzes the <a href="#receive-time"><code>time2_receive</code></a> and the <a href="#handle-time"><code>time3_handle</code></a> timestamps of a trace file to find those messages that took the longest time to handle. This can be a simple way to find performance bottlenecks in an application. </p>
 
 
 

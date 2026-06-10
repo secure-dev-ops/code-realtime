@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1545,7 +1545,7 @@
 
   <h1>Installing</h1>
 
-<p>Code RealTime can be installed in IDEs that support Visual Studio Code extensions. This obviously includes <a href="https://code.visualstudio.com/">Visual Studio Code</a> itself, but also many other IDEs such as <a href="https://theia-ide.org/">Eclipse Theia</a>, <a href="https://cursor.com/">Cursor</a>, <a href="https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code">DevOps Code</a> and others.</p>
+<p>Code RealTime can be installed in IDEs that support Visual Studio Code extensions. This obviously includes <a href="https://code.visualstudio.com/">Visual Studio Code</a> itself, but also many other IDEs such as <a href="https://bob.ibm.com/">IBM Bob</a>, <a href="https://cursor.com/">Cursor</a>, <a href="https://windsurf.com/">Windsurf</a>, <a href="https://theia-ide.org/">Eclipse Theia</a>, <a href="https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code">DevOps Code</a> and others.</p>
 <p>The latest version of Code RealTime is available on the <a href="https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce">Visual Studio Marketplace</a> and on the <a href="https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce">Open VSX Registry</a>. To install that version into your IDE follow these steps:</p>
 <p>1) Click "Extensions" in the activity bar to open the Extensions view.</p>
 <p><img alt="" src="../images/extensions_in_sidebar.png" /></p>
@@ -1567,17 +1567,14 @@
 <p>If instead the installation fails, this message will tell you the reason. One common reason for failure is that your IDE version is not compatible (i.e. too old) for Code RealTime.</p>
 <p>It should also be noted that it's possible to directly install any published version of Code RealTime by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.</p>
 <h2 id="install-from-docker-image">Install from Docker Image</h2>
-<p>Yet another way to install Code RealTime is to use one of the Docker images that are available on DockerHub:</p>
-<ul>
-<li><strong>Code RealTime on Visual Studio Code</strong> <a href="https://hub.docker.com/r/baravich/vscode-code-realtime">https://hub.docker.com/r/baravich/vscode-code-realtime</a></li>
-<li><strong>Code RealTime on Eclipse Theia</strong> <a href="https://hub.docker.com/r/baravich/theia-code-realtime">https://hub.docker.com/r/baravich/theia-code-realtime</a></li>
-</ul>
-<p>Here is an example of a command to use for running one of these Docker images:</p>
+<p>Yet another way to install Code RealTime is to use the Docker image that is available on DockerHub: <a href="https://hub.docker.com/r/baravich/vscode-code-realtime">https://hub.docker.com/r/baravich/vscode-code-realtime</a></p>
+<p>It contains everything you need to running Code RealTime; a web-based version of Visual Studio Code (<a href="https://github.com/gitpod-io/openvscode-server">openvscodeserver</a>), C++ build tools, the Clangd extension and of course the Code RealTime extension itself.</p>
+<p>Here is an example of a command to use for running this Docker image:</p>
 <p><code>docker run -p 4000:3000 -e isDocker=true baravich/vscode-code-realtime</code></p>
 <p>The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access Code RealTime from a web browser at <a href="http://localhost:4000">http://localhost:4000</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The Docker images are only intended for trials and evaluations as a quick way to get started with Code RealTime. The images may not always contain all the latest security fixes and should therefore not be used for production installations.</p>
+<p>The Docker image is only intended for trials and evaluations as a quick way to get started with Code RealTime. The image may not always contain all the latest security fixes and should therefore not be used for production installations.</p>
 </div>
 <h2 id="viewing-installation-information">Viewing Installation Information</h2>
 <p>If you are unsure about which version of Code RealTime you have installed, you can see the version in the extension's tooltip, and the full build version is available in the page that appears if you double-click the extension:</p>

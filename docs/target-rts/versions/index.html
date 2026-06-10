@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1216,6 +1216,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#script-for-generating-compile_commandsjson-for-the-targetrts" class="md-nav__link">
+    Script for generating compile_commands.json for the TargetRTS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-of-trace-file-flushing" class="md-nav__link">
+    Configuration of trace file flushing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration-of-custom-debug-error-function" class="md-nav__link">
+    Registration of custom debug error function
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2166,6 +2187,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#script-for-generating-compile_commandsjson-for-the-targetrts" class="md-nav__link">
+    Script for generating compile_commands.json for the TargetRTS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-of-trace-file-flushing" class="md-nav__link">
+    Configuration of trace file flushing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration-of-custom-debug-error-function" class="md-nav__link">
+    Registration of custom debug error function
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2294,6 +2336,10 @@
 <td>8018</td>
 <td align="left"><a href="#null-pointer-checks-in-rtwrapper">Null pointer checks in RTWrapper</a> <br> <a href="#using-log-streams-with-encoding-disabled">Using log streams with encoding disabled</a></td>
 </tr>
+<tr>
+<td>8019</td>
+<td align="left"><a href="#script-for-generating-compile_commandsjson-for-the-targetrts">Script for generating compile_commands.json for the TargetRTS</a> <br> <a href="#configuration-of-trace-file-flushing">Configuration of trace file flushing</a> <br> <a href="#registration-of-custom-debug-error-function">Registration of custom debug error function</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="json-decoder">JSON decoder</h3>
@@ -2420,6 +2466,12 @@
 <p>Missing null checks were added in the implementation of <a href="../../targetrts-api/class_r_t_wrapper.html">RTWrapper</a>.</p>
 <h3 id="using-log-streams-with-encoding-disabled">Using log streams with encoding disabled</h3>
 <p>Previously it was not possible to use <a href="logging.md/#log-stream">log streams</a> if the configuration macro <a href="../build/#object_decode-and-object_encode">OBJECT_ENCODE</a> was not set. This is now fixed.</p>
+<h3 id="script-for-generating-compile_commandsjson-for-the-targetrts">Script for generating compile_commands.json for the TargetRTS</h3>
+<p>A new Node JS script <code>generate-compile-commands.js</code> is available in the <code>TargetRTS</code> folder. It can generate the compilation database (<code>compile_commands.json</code>) which is required by the Clang language server. For more information about this script see <a href="../#working-with-the-source-files">this chapter</a>.</p>
+<h3 id="configuration-of-trace-file-flushing">Configuration of trace file flushing</h3>
+<p>By default a trace file is flushed after every line that is printed to it. This ensures that no trace events are missed if the traced application is forcibly terminated. However, it can have a negative impact on performance to flush the trace file too often. Therefore the TargetRTS now provides a configuration setting <a href="../build/#rttracer_flush_count">RTTRACER_FLUSH_COUNT</a> for configuring how often the trace file should be flushed. The value specifies the number of lines to write to the trace file before it's flushed. Set it to 0 to not force flush the trace file, but only let it happen when the underlying buffer is full. This is best for performance but also means that trace events written since the last time the trace file was flushed will be lost if the application terminates.</p>
+<h3 id="registration-of-custom-debug-error-function">Registration of custom debug error function</h3>
+<p>The <a href="../../targetrts-api/class_r_t_main.html">RTMain</a> class has a new function (<code>registerDebugErrorFunction()</code>) for registering a function that will be called whenever an error message is printed by <code>RTDebugger::trace()</code>. This makes it possible to capture such error messages and report them in some other way (for example write them to a file).</p>
 
 
 

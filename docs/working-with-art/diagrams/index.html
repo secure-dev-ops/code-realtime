@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -626,13 +626,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#graphical-ambiguities" class="md-nav__link">
-    Graphical Ambiguities
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#discarding-layout-information" class="md-nav__link">
     Discarding Layout Information
   </a>
@@ -650,6 +643,20 @@
           <li class="md-nav__item">
   <a href="#layout-validation" class="md-nav__link">
     Layout Validation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-layout-errors" class="md-nav__link">
+    Logical Layout Errors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphical-ambiguities" class="md-nav__link">
+    Graphical Ambiguities
   </a>
   
 </li>
@@ -682,6 +689,13 @@
           <li class="md-nav__item">
   <a href="#zooming-and-panning" class="md-nav__link">
     Zooming and Panning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-elements" class="md-nav__link">
+    Selecting Elements
   </a>
   
 </li>
@@ -1651,13 +1665,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#graphical-ambiguities" class="md-nav__link">
-    Graphical Ambiguities
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#discarding-layout-information" class="md-nav__link">
     Discarding Layout Information
   </a>
@@ -1675,6 +1682,20 @@
           <li class="md-nav__item">
   <a href="#layout-validation" class="md-nav__link">
     Layout Validation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-layout-errors" class="md-nav__link">
+    Logical Layout Errors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphical-ambiguities" class="md-nav__link">
+    Graphical Ambiguities
   </a>
   
 </li>
@@ -1707,6 +1728,13 @@
           <li class="md-nav__item">
   <a href="#zooming-and-panning" class="md-nav__link">
     Zooming and Panning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-elements" class="md-nav__link">
+    Selecting Elements
   </a>
   
 </li>
@@ -1903,12 +1931,6 @@
 <p><img alt="" src="../images/line-routing.png" /></p>
 <p>Move the source and target bendpoint to decide where on the source and target symbol the line should connect. Create a new bendpoint by moving the opaque middle bendpoint that appears between each pair of bendpoints.</p>
 <p>To delete all bendpoints, and make the line straight again, select the line and press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and then perform the command <strong>Make Straight</strong>. To only delete some of the bendpoints, select them, press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and then perform the command <strong>Delete Bendpoint</strong>.</p>
-<h3 id="graphical-ambiguities">Graphical Ambiguities</h3>
-<p>With manual layout it's possible that a symbol in a state diagram shows up inside the symbol of a composite state, even if the corresponding Art element is not nested within that state. The diagram editor will detect such graphical ambiguities and show a warning to avoid that the diagram is misinterpreted. The warning is placed both on the composite state symbol and the symbol that appears inside it. Here is an example:</p>
-<p><img alt="" src="../images/ambiguity.png" /></p>
-<p>Here <code>Nested</code> and <code>Nested2</code> are substates of <code>Composite</code> while <code>XXX</code> just happens to appear inside it (either because it was moved or that <code>Composite</code> was resized). </p>
-<p>Note that if the element of the ambiguous symbol comes before the state in the Art file, the ambiguous symbol will not be visible since it then will be hidden behind the state symbol. In this case only the warning on the state symbol can be seen.</p>
-<p>If you observe warnings about graphical ambiguities you should update the manual layout of the diagram to get rid of them.</p>
 <h3 id="discarding-layout-information">Discarding Layout Information</h3>
 <p>If you want to go back from manual to automatic layout, just uncheck the <strong>Manual</strong> checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!</p>
 <p><img alt="" src="../images/deleting-layout-settings.png" /></p>
@@ -1943,6 +1965,28 @@
 <p><img alt="" src="../images/layout_validation.png" /></p>
 <p>Layout warnings are only shown for diagrams while they are open. Pay attention to the <code>layouts</code> folder in the Explorer view. If it appears in <span style="color: orange;">orange</span> there is at least one open diagram where one or many layout problems have been detected.</p>
 <p><img alt="" src="../images/layout_warnings.png" /></p>
+<p>Layout problems reported in a layout file are typically caused by incorrect references to Art elements. But there are also other kinds of layout problems that are detected when a diagram is opened:</p>
+<ul>
+<li><a href="#logical-layout-errors">Logical errors in diagram layout values</a> (coordinates, sizes etc) which prevent the editor to apply the layout, and where the default layout will be used instead.</li>
+<li><a href="#graphical-ambiguities">Graphical ambiguities</a> where the diagram layout does not match the semantics of the Art elements.</li>
+</ul>
+<p>These types of layout validation problems are described below.</p>
+<h4 id="logical-layout-errors">Logical Layout Errors</h4>
+<p>The values specified in a layout file for coordinates, sizes etc. may contain logical errors. Examples of such errors are:</p>
+<ul>
+<li>the size of a container symbol is not big enough to contain all its contained symbols</li>
+<li>the location of a symbol, label or line bendpoint is outside the boundaries of the container symbol</li>
+</ul>
+<p>When such a logical layout error is detected for a symbol, line or label it will revert to use its default layout. For a label this means a default location near the symbol or line to which it belongs. For a symbol the default layout means a small size, and a position that is determined by the automatic layout algoritm. And for a line a default layout means a straight line without any bendpoints. </p>
+<p>To help you detect when a logical layout error makes a symbol, label or line revert to its default layout, the editor shows a warning for it. It's not possible to directly navigate to the place in the layout file where the faulty layout is specified, but the tooltip of the warning shows the fully qualified name of the element so you can search and find its layout in the layout file.</p>
+<p>Here is an example of a warning caused by a logical layout error:</p>
+<p><img alt="" src="../images/logical_layout_errors.png" /></p>
+<h4 id="graphical-ambiguities">Graphical Ambiguities</h4>
+<p>With manual layout it's possible that a symbol in a state diagram shows up inside the symbol of a composite state, even if the corresponding Art element is not nested within that state. The diagram editor will detect such graphical ambiguities and show a warning to avoid that the diagram is misinterpreted. The warning is placed both on the composite state symbol and the symbol that appears inside it. Here is an example:</p>
+<p><img alt="" src="../images/ambiguity.png" /></p>
+<p>Here <code>Nested</code> and <code>Nested2</code> are substates of <code>Composite</code> while <code>XXX</code> just happens to appear inside it (either because it was moved or that <code>Composite</code> was resized). </p>
+<p>Note that if the element of the ambiguous symbol comes before the state in the Art file, the ambiguous symbol will not be visible since it then will be hidden behind the state symbol. In this case only the warning on the state symbol can be seen.</p>
+<p>If you observe warnings about graphical ambiguities you should update the manual layout of the diagram to get rid of them.</p>
 <h2 id="navigating-from-diagram-to-art-file">Navigating from Diagram to Art File</h2>
 <p>If you double-click a symbol or a line in a diagram, the Art element that corresponds to that symbol or line will be highlighted in the Art file. Note that you need to double-click on the symbol or line itself, and not on a text label shown in the symbol or on the line. However, as an alternative you can instead hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key and then click on the text label. It will then become a hyperlink that navigates to the Art element that corresponds to that text label. You need to use this approach in case a symbol has multiple text labels each of which represent different Art elements. For example:</p>
 <p><img alt="" src="../images/ctrlclick-text-label.png" /></p>
@@ -1961,6 +2005,12 @@
 <li>Use the <span class="keys"><kbd class="key-arrow-up">Up</kbd></span> or <span class="keys"><kbd class="key-arrow-down">Down</kbd></span> keys. However, this only pans the diagram if no symbol is selected (otherwise the selected symbol will be moved).</li>
 <li>Press and hold down the <span class="keys"><kbd class="key-space">Space</kbd></span> key (the cursor changes into a hand), and then click and drag anywhere in the diagram.</li>
 </ul>
+<h3 id="selecting-elements">Selecting Elements</h3>
+<p>To select a symbol, label or line, click once on it. A selected symbol gets a thick outline and, if it is <a href="#resizing-symbols">resizable</a>, also yellow resize handles. A selected label is drawn in yellow and, if it belongs to a symbol, resize handles also appear on that symbol. A selected line gets a thick outline and red bendpoint handles.</p>
+<p><img alt="" src="../images/selections.png" /></p>
+<p>To select multiple elements hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key while clicking on symbols, labels or lines. As an alternative you can hold down both <span class="keys"><kbd class="key-control">Ctrl</kbd></span> and <span class="keys"><kbd class="key-shift">Shift</kbd></span> (on Mac <span class="keys"><kbd class="key-command">Cmd</kbd></span> and <span class="keys"><kbd class="key-shift">Shift</kbd></span>) to get a "crosshair" cursor, and then make a "marquee selection" by drawing a rectangle. </p>
+<p><img alt="" src="../images/marquee_selection.png" /></p>
+<p>All symbols and lines (but not labels) that the marquee rectangle touches will become selected. Note that you cannot make a marquee selection if another element is already selected, so click in the diagram background to reset the selection first.</p>
 <h3 id="collapsing-and-expanding-symbols">Collapsing and Expanding Symbols</h3>
 <p>State and structure diagrams can be hierarchical. A state diagram is hierarchical if it contains a composite state with a nested state machine. A structure diagram is hierarchical if it contains a part typed by another capsule with nested parts or ports. By default symbols that contain nested symbols are collapsed to minimize the size of the diagram:</p>
 <p><img alt="" src="../images/collapsed-symbols.png" /></p>

@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1437,22 +1437,35 @@
 
   <h1>Outline View</h1>
 
-<p>The Outline view shows information about the Art elements that are defined in an Art file. You can see the most important information for each element, such as its name and other important properties. You can also see the containment hierarchy, i.e. which elements that contain other elements. Below is an example of what it can look like:</p>
+<p>The Outline view shows information about the Art elements that are defined in an Art file. You can see the most important information for each element, such as its name. You can also see the containment hierarchy, i.e. which elements that contain other elements. Furthermore, the Outline view shows C++ elements of code snippets, below each Art element to which the code snippet belongs. Below is an example of what it can look like:</p>
 <p><img alt="" src="../images/outline-view.png" /></p>
-<p>You can use the Outline view for getting an overview of what elements an Art file contains, and for <a href="#searching">searching</a> and <a href="#navigating">navigating</a> to elements.</p>
+<p>You can use the Outline view for getting an overview of what Art and C++ elements an Art file contains, and for <a href="#searching">searching</a> and <a href="#navigating">navigating</a> to elements within the file.</p>
+<p>More information about the Outline view, including its many settings, can be found <a href="https://code.visualstudio.com/docs/getstarted/userinterface#_outline-view">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every node in the Outline view has a so called <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind">symbol kind</a> which decides its icon and tooltip. The mapping of Art and C++ language concepts to these symbols kinds is in most cases straightforward, but sometimes not so obvious. For example, an Art protocol has the symbol kind "interface" and a C++ include statement has the symbol kind "file". Use the tooltip of a node to see its symbol kind. In the Settings you can filter the contents of the Outline view based on symbol kind. This can be useful if you think the Outline view shows too many details. For example, to hide C++ include statements from the Outline view turn off the setting <code>outline.showFiles</code>.</p>
+<p><img alt="" src="../images/symbol_kind.png" /></p>
+</div>
 <h2 id="navigating">Navigating</h2>
-<p>To navigate to an element in the Art file, double-click on the element in the Outline view. The cursor will be placed just before the element's name in the Art file (or where the name would be in case it has no name).</p>
-<p>You can also single-click on elements to just make the clicked element visible in the Art editor, without changing the cursor position. In this case the element is marked with a thin rectangle:</p>
+<p>To navigate to an Art or C++ element, click the element in the Outline view. </p>
+<ul>
+<li>If you double-click the element will be selected in the Art file. Depending on the kind of element either its name, or another property of the element, or the entire element will be selected.</li>
+<li>If you single-click the element will become visible, without changing the cursor position. In this case the element is marked with a thin rectangle:</li>
+</ul>
 <p><img alt="" src="../images/marked-element-in-outline-view.png" /></p>
-<p>If you hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key when clicking, a new Art editor showing the same Art file will open to the side, in a new editor area to the right. The element will then be made visible and marked in that new editor. This can be useful if you don't want to change the original Art editor, for example when comparing two elements located in the same Art file.</p>
+<p>If you hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key when clicking, a new Art editor showing the same Art file will open to the side, in a new editor area to the right. The element will then be made visible and marked or selected in that new editor. This can be useful if you don't want to change the original Art editor, for example when comparing two elements located in the same Art file.</p>
 <p>It's also possible to navigate in the other direction, i.e. from the Art editor to the Outline view. To do this, set the Outline view to follow the cursor:</p>
 <p><img alt="" src="../images/outline-view-follow-cursor.png" /></p>
 <p>Now the Outline view will automatically highlight the element that corresponds to the cursor position in the Art editor.</p>
+<p>The Outline view's path to the currently focused element in the Art file is also shown in the <a href="https://code.visualstudio.com/docs/editing/editingevolved#_breadcrumbs">breadcrumbs</a>, at the top of the Art text editor. Any name in that path can be clicked to view a subset of the tree from the Outline view:</p>
+<p><img alt="" src="../images/breadcrumbs.png" /></p>
 <h2 id="searching">Searching</h2>
 <p>You can use the Outline view when searching for one or many Art elements, as an alternative to searching textually in the Art editor. Start by selecting the element shown first in the Outline view, and then type quickly the first few characters of the element name. After every keystroke the selection will move downwards to an element with a name that matches the typed characters. If you make a brief pause, you can then start to type again to proceed searching further down in the Outline view.</p>
-<p>Another way to search is to press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>f</kbd></span> when the Outline view has focus. A small popup will then appear where you can type a few characters. Nodes in the Outline view with a label that matches the typed characters will be highlighted. The matching allows additional characters between the typed characters which is why the typed string "init" also matches the transition <code>Waiting -&gt; Terminated</code>:</p>
+<p>Another way to search is to press <span class="keys"><kbd class="key-control">Ctrl</kbd></span> <span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd>f</kbd></span> (or <span class="keys"><kbd class="key-f3">F3</kbd></span>) when the Outline view has focus. A small popup will then appear where you can type a few characters. Nodes in the Outline view with a label that matches the typed characters will be highlighted. The matching allows additional characters between the typed characters which is why the typed string "init" also matches the transition <code>Waiting -&gt; Terminated</code>:</p>
 <p><img alt="" src="../images/outline-view-search.png" /></p>
 <p>When the search has matched a few elements that look interesting you can press the <strong>Filter</strong> button next to the text field to filter the Outline view so it only shows the matching elements. This can avoid lots of scrolling if the matching elements are far apart.</p>
+<p>Sometimes a good alternative to searching with the Outline view is the command <strong>Go to Symbol in Editor</strong> (default keybinding <span class="keys"><kbd class="key-control">Ctrl</kbd></span> <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd>O</kbd></span>). It shows the same elements as the Outline view but as a flat list that can be filtered to find the element you are looking for.</p>
+<p><img alt="" src="../images/go_to_symbol_in_editor.png" /></p>
 
 
 

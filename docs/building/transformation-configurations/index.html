@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -972,6 +972,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#precompiled-library" class="md-nav__link">
+    Precompiled Library
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1086,6 +1093,13 @@
           <li class="md-nav__item">
   <a href="#makecommand" class="md-nav__link">
     makeCommand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precompiledlibrary" class="md-nav__link">
+    precompiledLibrary
   </a>
   
 </li>
@@ -1715,6 +1729,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#precompiled-library" class="md-nav__link">
+    Precompiled Library
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1829,6 +1850,13 @@
           <li class="md-nav__item">
   <a href="#makecommand" class="md-nav__link">
     makeCommand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precompiledlibrary" class="md-nav__link">
+    precompiledLibrary
   </a>
   
 </li>
@@ -1956,10 +1984,9 @@
 <p><img alt="" src="../images/default-tc-name.png" /></p>
 <p>A .tcjs file will be created with the minimal contents. Specify the mandatory <a href="#topcapsule">topCapsule</a> property (if you are building an executable) and any other <a href="#properties">properties</a> needed.</p>
 <h2 id="setting-a-transformation-configuration-as-active">Setting a Transformation Configuration as Active</h2>
-<p>You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be <strong>active</strong>. Code RealTime uses the active TC in several ways:</p>
+<p>You can have more than one TC in your workspace, and also multiple TCs in the same workspace folder, but at most one TC in each workspace folder can be <strong>active</strong>. Code RealTime uses the active TC for the following:</p>
 <ul>
 <li>It controls how to automatically generate C++ code from the Art files in the workspace folder. In this respect it corresponds directly to the <a href="../art-compiler/#tc"><code>--tc</code></a> option for the <a href="../art-compiler/">Art Compiler</a>.</li>
-<li>It's used for automatically propagating changes you make in generated files back to the source Art files (see <a href="../#making-changes-in-generated-c">Making Changes in Generated C++</a>).</li>
 <li>It affects how references in Art files are bound to Art elements in other Art files. More precisely, the <a href="#sources">sources</a> and <a href="#prerequisites">prerequisites</a> properties of the active TC define the global scope, that is which Art elements that are  globally visible. All such global scope elements must have unique names (see <a href="../../validation/#tc_7019_duplicatenamesinglobalscope">TC_7019</a> for more information).</li>
 </ul>
 <div class="admonition note">
@@ -2029,14 +2056,21 @@
 <h2 id="transformation-configuration-prerequisites">Transformation Configuration Prerequisites</h2>
 <p>A TC can either build a library or an executable. This is controlled by the <a href="#topcapsule">topCapsule</a> property. If this property is set the TC will build an executable, otherwise it will build a library. To ensure that a library gets built before an executable that links with it, you can set the <a href="#prerequisites">prerequisites</a> property of the executable TC to reference the library TC. Doing so will also cause the executable to link with the library automatically (i.e. you then don't need to manually set-up necessary preprocessor include paths or linker paths using other TC properties).</p>
 <p>If you change the prerequisites of a TC you should again <a href="#setting-a-transformation-configuration-as-active">set it as active</a> so that the prerequisite TCs also become active.</p>
+<p>When you clean a TC with prerequisites, the prerequisites are cleaned too. This ensures that when you later build the TC again, it will be a fully "clean build" where everything gets rebuilt again.</p>
 <h3 id="accessing-the-top-tc-from-a-prerequisite-tc">Accessing the Top TC from a Prerequisite TC</h3>
 <p>A library TC that is built as a prerequisite of an executable TC should typically use the same values for many TC properties as are used by the executable TC. For example, both TCs should be compiled with the same compiler and use the same <a href="../../target-rts/#target-configurations">TargetRTS configuration</a>, otherwise build inconsistencies could occur. To avoid the need of duplicating such common properties both in the executable TC and in all its prerequisite library TCs, it's possible to access properties of the executable TC in the library TC. Here is an example:</p>
 <pre><code class="language-js">tc.compileArguments = TCF.getTopTC().eval.compileArguments;
 </code></pre>
 <p>The function <a href="../build-variants/#gettoptc"><code>TCF.getTopTC()</code></a> will at build-time return a reference to the TC that is at the "top" of the prerequisite hierarchy, i.e. the TC on which the build command is performed. It's typically an executable TC, but could also be a library TC (in case you build a library that depends on other libraries).</p>
-<p>Since we construct a TC property value based on the value of another TC property (here coming from the top TC) we should use the <a href="#eval"><code>eval</code></a> property to ensure all default values get expanded into real values.</p>
+<p>Note that when a TC property value is constructed based on the value of another TC property (here coming from the top TC) the <a href="#eval"><code>eval</code></a> property should be used to ensure all default values get expanded into real values.</p>
+<h3 id="precompiled-library">Precompiled Library</h3>
+<p>A precompiled library is like any other library TC, but with two differences:</p>
+<p>1) It is not built when an executable that has it as a prerequisite is built</p>
+<p>2) It is not cleaned when an executable that has it as a prerequisite is cleaned</p>
+<p>A precompiled library has the TC property <a href="#precompiledlibrary">precompiledLibrary</a> property set to specify a library file. When building a TC that has the precompiled library as a prerequisite it will directly link with that library, without first building it. </p>
+<p>Using a precompiled library can be useful for libraries that are used frequently but that are changed infrequently. The overall idea is that since the library is so rarely modified, it's enough that one person in the team builds it, and then makes the built library file available in a shared location for other people in the team to use. When the library do need to change, the precompiled library TC can be built as usual, for example by means of the <strong>Build</strong> context menu command. The resulting library is placed in the location specified by the <a href="#precompiledlibrary">precompiledLibrary</a> property.</p>
 <h2 id="art-build-view">Art Build View</h2>
-<p>Code RealTime provides a view called Art Build which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.</p>
+<p>Code RealTime provides a view called <strong>Art Build</strong> which makes several workflows related to TCs easier. The view shows all TCs that are present in the workspace so you don't have to find them in the Explorer view under each workspace folder. For each TC its prerequisites are shown below in a tree structure. This allows to quickly see which TCs a certain TC depends on through its prerequisites without having to open the TC editor.</p>
 <p><img alt="" src="../images/art-build-view.png" /></p>
 <p>The smaller gray text to the right of the TC name tells in which workspace folder the TC is located. This helps since it's common to have TCs with the same name in a workspace.</p>
 <p>You can edit a TC by double-clicking on it. This will open the TC in a text editor.</p>
@@ -2052,7 +2086,10 @@
 <p><strong>Refresh</strong> In most cases the Art Build view refreshes automatically when TCs are modified. However, if needed you can force a refresh by pressing this button.</p>
 </li>
 <li>
-<p><strong>Clean All</strong> Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.</p>
+<p><strong>Clean All</strong> Cleans all TCs by removing all target folders in the workspace. Everything contained in the target folder will be deleted (generated code, makefiles, built binaries, etc). A message will be printed in the Art Server output channel in case all target folders could be successfully removed, or if not, which ones that could not be deleted.</p>
+</li>
+<li>
+<p><strong>Synchronize All Code Snippets</strong> Propagates changes in code snippets of generated files made outside of Code RealTime. See <a href="../#synchronizing-external-edits">Synchronizing External Edits</a>.</p>
 </li>
 <li>
 <p><strong>Collapse All</strong> Collapses all TCs to not show any prerequisites.</p>
@@ -2143,6 +2180,11 @@
 <td><a href="#makecommand">makeCommand</a></td>
 <td align="left">String</td>
 <td align="left">"<code>$defaultMakeCommand</code>"</td>
+</tr>
+<tr>
+<td><a href="#precompiledlibrary">precompiledLibrary</a></td>
+<td align="left">String</td>
+<td align="left">N/A</td>
 </tr>
 <tr>
 <td><a href="#prerequisites">prerequisites</a></td>
@@ -2278,6 +2320,11 @@ tc.copyrightText = &quot;See copyright in &quot; + tc.eval.unitName + &quot;.h&q
 </code></pre>
 <h3 id="makecommand">makeCommand</h3>
 <p>Specifies which make command to use for processing the generated make file. By default the make command is <code>$defaultMakeCommand</code> which gets its value from which TargetRTS configuration that is used.</p>
+<h3 id="precompiledlibrary">precompiledLibrary</h3>
+<p>This property can be set to the location of a library file that has been precompiled. A TC which has this property set is a <a href="#precompiled-library">precompiled library TC</a>, and will not be built or cleaned when a TC that has it as a prequisite is built or cleaned. The path to the library file can either be absolute, or relative to the location of the TC file that has the property set. It's possible to use environment variables in the path. Such environment variables are expanded by the make tool.</p>
+<pre><code class="language-js">tc.precompiledLibrary = &quot;$(LIB_LOCATION)/mylib.a&quot;;
+</code></pre>
+<p>Note that the library file specified by this property must exist when building a TC that has the precompiled library TC as its prerequisite; otherwise an error will be reported by the linker.</p>
 <h3 id="prerequisites">prerequisites</h3>
 <p>This property is a list of references to other TCs that need to be built before the current TC. It's typically used to express that a library TC is a prerequisite of an executable TC, which means the library TC needs to be built before the executable TC. Below is an example where an executable TC has a library TC as a prerequisite:</p>
 <pre><code class="language-js">tc.prerequisites = [&quot;../MyLibrary/lib.tcjs&quot;]; 
@@ -2377,12 +2424,12 @@ Runs all timers in the application. It's implemented in the TargetRTS by the <a 
 <p>This property is a list of user libraries that should be linked with the application. The property is only applicable for TCs that build executables.</p>
 <pre><code class="language-js">tc.userLibraries = [&quot;../../libs/libMyLib.a&quot;];
 </code></pre>
-<p>Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a <a href="#linkarguments">link argument</a> to specify the location(s) where the linker should look for the user libraries.</p>
+<p>Each library should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a <a href="#linkarguments">link argument</a> to specify the location(s) where the linker should look for the user libraries. Note that a relative path to a library is resolved against the location of the TC.</p>
 <h3 id="userobjectfiles">userObjectFiles</h3>
 <p>This property is a list of user object files that should be linked with the application. The property is only applicable for TCs that build executables.</p>
 <pre><code class="language-js">tc.userObjectFiles = [&quot;../../objs/extra.obj&quot;];
 </code></pre>
-<p>Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a <a href="#linkarguments">link argument</a> to specify the location(s) where the linker should look for the object files.</p>
+<p>Each object file should be specified with a full or relative path so the linker can find it. If no path is provided you may need to provide a <a href="#linkarguments">link argument</a> to specify the location(s) where the linker should look for the object files. Note that a relative path to an object file is resolved against the location of the TC.</p>
 
 
 

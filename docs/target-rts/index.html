@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1435,6 +1435,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#working-with-the-source-files" class="md-nav__link">
+    Working with the Source Files
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1519,6 +1526,12 @@ The letter 'T' shows that the application will be multi-threaded (for a single-t
 </ul>
 <h3 id="tools">tools</h3>
 <p>This folder contains various utility scripts, some of which are used when building the TargetRTS.</p>
+<h2 id="working-with-the-source-files">Working with the Source Files</h2>
+<p>You can view and edit the TargetRTS source files in any IDE. If you choose to use Visual Studio Code, or a similar IDE, together with <a href="https://clangd.llvm.org/">clangd</a>, you need to first generate the <code>compile_commands.json</code> compilation database. This enables the Clangd language server to resolve all include paths and provide features such as navigation, content assist, hover tooltips etc.</p>
+<p>A Node JS script <code>generate-compile-commands.js</code> is available in the <code>TargetRTS</code> folder in the Code RealTime installation. The script takes the name of the target configuration you want to use as argument, for example:</p>
+<pre><code>node generate-compile-commands.js --target WinT.x64-MinGw-12.2.0
+</code></pre>
+<p>After you have run this script you can simply open the <code>TargetRTS</code> folder in Visual Studio Code with the Clangd extension installed, and start working with the TargetRTS source files.</p>
 
 
 

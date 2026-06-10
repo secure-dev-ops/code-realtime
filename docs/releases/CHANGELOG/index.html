@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -20,7 +20,7 @@
     
     
       
-        <title>3.4.0 (2026-05-11 08:44) - DevOps Code RealTime</title>
+        <title>3.5.0 (2026-06-10 12:18) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#340-2026-05-11-0844" class="md-skip">
+        <a href="#350-2026-06-10-1218" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.4.0 (2026-05-11 08:44)
+              3.5.0 (2026-06-10 12:18)
             
           </span>
         </div>
@@ -1361,25 +1361,51 @@
   
 
 
+<h1 id="350-2026-06-10-1218">3.5.0 (2026-06-10 12:18)</h1>
+<ol>
+<li>The Outline view now shows C++ declarations, include statements and macros for Art code snippets. This makes it easier to navigate to their locations in the Art file.</li>
+</ol>
+<p><img alt="Outline View: C++ support" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/outline-view.png" /></p>
+<ol start="2">
+<li>The diagram editor now detects <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/diagrams/#logical-layout-errors">logical errors</a> in diagram layouts (for example if the position of a nested symbol is outside the boundaries of its container symbol). Such a logical layout error causes the symbol, line or label to revert to its default layout, and a warning is now shown in the diagram when this happens.</li>
+</ol>
+<p><img alt="Diagrams: Logical Layout Errors" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/logical_layout_errors.png" /></p>
+<ol start="3">
+<li>Class diagrams that show classes with state machines now show the trigger operations of those classes.</li>
+<li>It's now possible to resize classes and protocols in a class diagram that uses manual layout. Previously this was only supported for capsules.</li>
+<li>It's now supported to move the labels of choice and junction symbols, as well as history symbols, in a state diagram that uses manual layout.</li>
+<li>The C++ code generator now supports generation of type descriptors for nested typedefs and type aliases. It's also possible to customize the type descriptor functions for nested types by using their "mangled" names (obtained by replacing <code>::</code> with <code>_</code> in the qualified type name). Read more in the <a href="https://secure-dev-ops.github.io/code-realtime/art-lang/cpp-extensions/#nested-types">documentation</a>.</li>
+<li>A new context menu command <strong>Export Google Trace Event JSON</strong> now lets you export an <code>.art-trace</code> file to the Google Trace Event format. More about this in the <a href="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/tracing/#google-trace-event-format">documentation</a>.</li>
+<li>You can now change code snippets in generated C++ files in an editor that is external to Code RealTime, and then propagate those changes back to the source Art files. Two new synchronization commands are provided for this purpose. Read more about them <a href="https://secure-dev-ops.github.io/code-realtime/building/#synchronizing-external-edits">here</a>.</li>
+</ol>
+<p><img alt="Synchronize Code Snippets" src="https://secure-dev-ops.github.io/code-realtime/building/images/synchronize_commands.png" /></p>
+<ol start="9">
+<li>If you have a library that is used frequently, but changed infrequently, you can now make it a precompiled library by setting a new TC property <code>precompiledLibrary</code>. This allows executable TCs that have it as a prerequisite to directly link with the library, without first building it. Also, when cleaning the executable TC a precompiled library prerequisite TC is not automatically cleaned. Read more about precompiled library TCs in <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#precompiled-library">the documentation</a>.</li>
+<li>Spaces in file names and paths are now handled correctly by the make file generator.</li>
+<li>A <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/#working-with-the-source-files">new Node JS script</a> <code>generate-compile-commands.js</code> is now provided with the TargetRTS source code (Commercial Edition only). It takes a target configuration as argument and generates the compilation database (<code>compile_commands.json</code>) required by the Clangd language server. This makes it more pleasant to use Code RealTime for viewing and editing TargetRTS source files.</li>
+<li>The TargetRTS has a new configuration setting <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/build/#rttracer_flush_count">RTTRACER_FLUSH_COUNT</a> for configuring how often a trace file should be flushed while a trace is active.</li>
+<li>The <code>RTMain</code> class in the TargetRTS has been extended to allow registration of a custom debug error function. This allows to report debug errors (emitted by <code>RTDebugger::trace()</code>) in a different way than printing them to <code>stderr</code> which is the default.</li>
+<li>Version 2.5.0 of the Art Exporter is now available. Improvements include export of structure diagram layouts, a new option to always include the TargetRTS from all C++ code, and fixes to avoid unnecessary warnings when building the exported model in Code RealTime. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html">this page</a> for more detailed release notes.</li>
+</ol>
 <h1 id="340-2026-05-11-0844">3.4.0 (2026-05-11 08:44)</h1>
 <ol>
 <li>The Properties view now shows the name of a selected symbol or line in its header. It also has a new button in the header for moving the selection upwards in the hierarchy of nested symbols. Clicking the button while holding down the Shift key moves the selection to the diagram itself (i.e. has the same effect as clicking in the diagram background). The new button helps for example when working in big and deeply nested state diagrams, where enclosing symbols or the diagram background often are not visible. It also makes it easier to understand which internal transitions that may trigger when a nested state is active.</li>
 </ol>
-<p><img alt="" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/move-selection-upwards.png" /></p>
+<p><img alt="Properties View: Move Selection Upwards" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/move-selection-upwards.png" /></p>
 <ol start="2">
 <li>It's now possible to resize choice symbols in state diagrams, when manual diagram layout is used. This can for example be useful if there are many outgoing transitions from the choice.</li>
 <li>The Z-order of symbols has been adjusted to ensure that symbols that are covered by an expanded symbol are drawn behind it. Previously such covered symbols could appear on top of the expanded symbol which made them look like nested symbols.</li>
 <li>The sizes of some non-resizable symbols in state diagrams have been adjusted to be the same as those in Model RealTime. This avoids unnecessary differences in diagram layout when exporting models from Model RealTime to Code RealTime.</li>
 <li>Traces shown in a sequence diagram can now be filtered using regular expressions (both for instances and messages). The sequence diagram viewer also has an improved scroll behavior to make it possible to open very large trace files. Trace messages are split into pages where only the currently viewed page is shown in the trace viewer.</li>
 </ol>
-<p><img alt="" src="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/images/trace-filter.png" /></p>
+<p><img alt="Trace Filter" src="https://secure-dev-ops.github.io/code-realtime/running-and-debugging/images/trace-filter.png" /></p>
 <ol start="6">
 <li>When the validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0036_unexpectedtriggers">ART_0036</a> finds a transition which has unexpected triggers because it originates from an entry or exit point with incoming transitions, it now reports those incoming transitions as related elements. This makes it easier to understand which of the incoming transitions that cause the triggers to be unexpected and to navigate to them.</li>
 <li>Environment variables in TC include paths are now supported and correctly expanded in the JSON files that are generated for C++ language servers. Also, these JSON files now specify the actual compiler that will be used when compiling the code, which enables the C++ language servers to give a better experience when viewing and editing C++ code.</li>
 <li>Errors in a TC or in its prerequisites, for example syntax errors, are now better reported when building the TC.</li>
 <li>The C++ code generator now supports generation of type descriptors for nested types.</li>
 <li>Include paths with spaces are now correctly generated into the Makefile. An include path string is enclosed in double quotes if it contains spaces or references an environment variable (which potentially can be defined with spaces).</li>
-<li>Version 2.4.0 of the Art Exporter is now available. In the new version it's now possible to customize the severity of problems reported during export, and to turn off reporting of problems that have already been analyzed. Many other improvements are included as well; see <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter.html">this page</a> for more detailed release notes.</li>
+<li>Version 2.4.0 of the Art Exporter is now available. In the new version it's now possible to customize the severity of problems reported during export, and to turn off reporting of problems that have already been analyzed. Many other improvements are included as well; see <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html">this page</a> for more detailed release notes.</li>
 </ol>
 <h1 id="330-2026-03-26-0946">3.3.0 (2026-03-26 09:46)</h1>
 <ol>

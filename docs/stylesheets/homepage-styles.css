@@ -66,7 +66,8 @@
     font-weight: 400;
 }
 
-.body-text a {
+.body-text a,
+.body-text abbr {
     color: rgb(13, 224, 13);
 }
 
@@ -101,8 +102,6 @@
     border-color: var(--md-accent-fg-color)
 }
 
-
-
 /* Section by section styles */
 
 
@@ -112,24 +111,42 @@
     background: url(../assets/CNX_hero.jpg) no-repeat;
     background-position: left bottom;
     background-size: cover;
-    height: 20rem;
-	min-height: 60vh;
+    min-height: 60vh;
 }
 
 /*Style for Video clip insertion*/
 
 .dx-hero__image {
-    flex-direction: column;
     width: 100%;
-    height: 100%;
-    display: flex;
-    margin-left: 140%;
-    margin-top: -400px;
+    max-width: 560px;
+    margin: 0;
+    justify-self: end;
 }
 
 .dx-hero__content {
-    width: 40%;
-    min-width: 520px;
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(18rem, 1fr) minmax(16rem, 35rem);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.hero-heading,
+.hero-body {
+    grid-column: 1;
+}
+
+.dx-hero__image {
+    grid-column: 2;
+}
+
+.dx-hero__image iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: 0;
 }
 
 .dx-hero__content h3 {
@@ -145,10 +162,6 @@
     line-height: 48px;
     font-weight: 500;
 
-}
-
-.dx-hero__content {
-    width: 40%;
 }
 
 /* Designed For You Styles */
@@ -376,7 +389,7 @@
 
 
 
-@media screen and (max-width:30em) {
+@media screen and (max-width:30em) {    
 
     .section-flexbox-row {
         color: var(--md-primary-bg-color);
@@ -408,7 +421,14 @@
 
     .dx-hero__content {
         width: 100%;
-        min-width: 200px
+        min-width: 0;
+        grid-template-columns: 1fr;
+    }
+
+    .hero-heading,
+    .hero-body,
+    .dx-hero__image {
+        grid-column: 1;
     }
 
     .section-designedforyou {
@@ -459,6 +479,14 @@
 
     .dx-hero__content {
         width: 100%;
+        min-width: 0;
+        grid-template-columns: 1fr;
+    }
+
+    .hero-heading,
+    .hero-body,
+    .dx-hero__image {
+        grid-column: 1;
     }
 
     .section-designedforyou {

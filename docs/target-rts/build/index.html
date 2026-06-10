@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1007,6 +1007,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rttracer_flush_count" class="md-nav__link">
+    RTTRACER_FLUSH_COUNT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#min_free_list_size" class="md-nav__link">
     MIN_FREE_LIST_SIZE
   </a>
@@ -1822,6 +1829,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rttracer_flush_count" class="md-nav__link">
+    RTTRACER_FLUSH_COUNT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#min_free_list_size" class="md-nav__link">
     MIN_FREE_LIST_SIZE
   </a>
@@ -2051,6 +2065,9 @@ All debugger features are disabled. The size of the executable will be reduced, 
 <p>Default value: <strong>1</strong> (set to <strong>0</strong> to disable all target observability features)</p>
 <h4 id="rts_trace">RTS_TRACE</h4>
 <p>Controls if the <a href="../../running-and-debugging/tracing/">Tracing</a> feature should be included or not. If you don't plan to capture traces for sequence diagram visualization of message communication in the application, you can disable this feature.</p>
+<p>Default value: <strong>1</strong></p>
+<h4 id="rttracer_flush_count">RTTRACER_FLUSH_COUNT</h4>
+<p>Controls the frequency of flushing the trace file while <a href="../../running-and-debugging/tracing/">Tracing</a> is active. By default the trace file is flushed after every line that is printed to it. This ensures that no trace events are missed if the traced application is forcibly terminated. However, it can have a negative impact on performance to flush the trace file too often. The value of this setting specifies the number of lines to write to the trace file before it's flushed. Set it to 0 to not force flush the trace file, but only let it happen when the underlying buffer is full. This is best for performance but also means that trace events written since the last time the trace file was flushed will be lost if the application terminates.</p>
 <p>Default value: <strong>1</strong></p>
 <h4 id="min_free_list_size">MIN_FREE_LIST_SIZE</h4>
 <p>This setting is related to the <a href="../message-communication/#message-memory-management">free list</a>. It defines the lower limit of the free list size. The free list will always contain at least this number of message blocks.</p>

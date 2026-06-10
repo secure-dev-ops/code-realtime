@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -545,6 +545,19 @@
   <a href="#automatically-generated" class="md-nav__link">
     Automatically Generated
   </a>
+  
+    <nav class="md-nav" aria-label="Automatically Generated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nested-types" class="md-nav__link">
+    Nested Types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1572,6 +1585,19 @@
     Automatically Generated
   </a>
   
+    <nav class="md-nav" aria-label="Automatically Generated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nested-types" class="md-nav__link">
+    Nested Types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1890,6 +1916,21 @@ using MyVector [[rt::auto_descriptor]] = std::vector&lt;int&gt;;
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/typedef_type_descriptor_header_file">Automatically generated type descriptor for a typedef and type alias defined in a C++ header file (with customized type descriptors)</a></li>
 <li><a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/nested_type_descriptor">Automatically generated type descriptor for nested types</a></li>
 </ul>
+</div>
+<h4 id="nested-types">Nested Types</h4>
+<p>Type descriptors can be generated for types that are nested within another type. The only difference compared to a type that is not nested is that the names of the type descriptor functions will be "mangled" by replacing the scope qualifier (<code>::</code>) in the fully qualified name of the nested type by an underscore (<code>_</code>). Here is an example:</p>
+<pre><code class="language-cpp">struct Container {
+    enum class [[rt::auto_descriptor]] Status { 
+        Ok, NotOk, Unknown
+    };     
+};
+
+int rtg_Container_Status_encode(const RTObject_class* type, const Container::Status* source, RTEncoding* coding);
+</code></pre>
+<p>The fully qualified name of the type for which a type descriptor will be generated is <code>Container::Status</code>. Because of this, a custom encode function for this type should have the name <code>rtg_Container_Status_encode</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>You can find a sample where type descriptors are generated for different kinds of nested types <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/nested_type_descriptor">here</a>.</p>
 </div>
 <h3 id="manually-implemented">Manually Implemented</h3>
 <p>If a type needs a type descriptor but the default implementation is not appropriate, and it's also not enough to simply override one or a few of the type descriptor functions with custom implementations, you can choose to implement the type descriptor manually. To do so you need to mark the type with the <code>rt::manual_descriptor</code> attribute. The code generator will then skip generation of the following parts of the type descriptor:</p>

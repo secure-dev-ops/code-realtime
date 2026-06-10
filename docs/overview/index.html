@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1422,16 +1422,16 @@
   <h1>Overview</h1>
 
 <p>Code RealTime lets you create stateful, event-driven realtime applications in C++.</p>
-<p>It runs as an extension of Visual Studio Code and other IDEs that support Visual Studio Code extensions such as Eclipse Theia. Follow the <a href="../installing/">installation instructions</a> for installing it.</p>
+<p>It runs as an extension of <a href="https://code.visualstudio.com/">Visual Studio Code</a> and many other IDEs that support Visual Studio Code extensions, both desktop IDEs (for example <a href="https://bob.ibm.com/">IBM Bob</a>, <a href="https://cursor.com/">Cursor</a>, <a href="https://windsurf.com/">Windsurf</a>, <a href="https://theia-ide.org/">Eclipse Theia</a>) as well as web-based IDEs (for example <a href="https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code">DevOps Code</a>, <a href="https://github.com/codespaces">GitHub Codespaces</a>). Follow the <a href="../installing/">installation instructions</a> for installing Code RealTime.</p>
 <p>Code RealTime supports the <a href="../art-lang/">Art language</a> which extends the C++ language with high-level concepts useful when designing stateful, event-driven realtime applications. Examples of such concepts include capsules, state machines and protocols. Art is a textual language, but also provides a graphical notation that includes class, state and structure diagrams.</p>
 <p>Code RealTime translates Art files into efficient C++ code which can be compiled on any target system. The generated code makes use of the <a href="../target-rts/">Target RunTime System</a> which is a C++ library that implements the concepts of the Art language.</p>
 <p>Watch this <a href="https://www.youtube.com/watch?v=6kgg_oDGSQ8">video</a> to get an overview of how Code RealTime uses the Art language for implementing stateful, event-driven realtime applications.</p>
 <h2 id="art-history">Art History</h2>
 <p>The Art language as implemented in Code RealTime builds on a foundation with a long history in industry. In the early 1990s the Canadian company ObjecTime Limited developed a language called <a href="https://www.researchgate.net/publication/221569173_Real-Time_Object-Oriented_Modeling_ROOM">ROOM</a> to address the challenges of building realtime applications consisting of communicating state machines. ROOM introduced concepts such as capsules, protocols and ports and was first implemented in the tool ObjecTime Developer. This tool got adopted in a wide range of industrial domains for example telecom and embedded systems development.</p>
-<p>In 2000 ObjectTime was acquired by Rational Software and ObjecTime Developer was merged with Rational Rose, a UML modeling tool. The result was Rational Rose RealTime (Rose RT). At the same time many of the ROOM language concepts made its way into the, by then, new modeling language called UML-RealTime.</p>
+<p>In 2000 ObjectTime was acquired by Rational Software and ObjecTime Developer was merged with Rational Rose, a UML modeling tool. The result was Rational Rose RealTime (Rose RT). At the same time many of the ROOM language concepts made their way into the, by then, new modeling language called UML-RealTime.</p>
 <p>In 2003 Rational Software was acquired by IBM which at the time was investing heavily in the Eclipse platform. As a result, work started to create an Eclipse-based tool as the successor of Rose RT. This new product got the name Rational Software Architect RealTime Edition (RSARTE) and was first released in 2007.</p>
 <p>In 2016 HCL entered a partnership with IBM, which led to a rebranded version of RSARTE called HCL RTist. A few years later both RSARTE and RTist were renamed to <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/users-guide/overview.html">DevOps Model RealTime</a>.</p>
-<p>Work on Code RealTime began in 2020 with the aim of supporting other IDEs than Eclipse. As part of this effort a textual language syntax, Art, was developed. Hence it's fair to describe the Art language as a new syntax for concepts that have a rather old history and have already been used in the industry for more than 30 years. It should also be mentioned that the <a href="../target-rts/">Target RunTime System</a> used in Code RealTime is the same as is used in Model RealTime. In fact, the implementation of this C++ library started with ObjectTime Developer and has since then been gradually extended and modernized.</p>
+<p>Work on Code RealTime began in 2020 with the aim of supporting other IDEs than Eclipse. As part of this effort a textual language syntax, Art, was developed. Hence it's fair to describe the Art language as a new syntax for concepts that have a rather long history and have already been used in the industry for more than 30 years. It should also be mentioned that the <a href="../target-rts/">Target RunTime System</a> used in Code RealTime is the same as is used in Model RealTime. In fact, the implementation of this C++ library started with ObjectTime Developer and has since then been gradually extended and modernized.</p>
 
 
 

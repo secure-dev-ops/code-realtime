@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and Eclipse Theia for creating stateful realtime C++ applications consisting of communicating state machines.">
+        <meta name="description" content="Code RealTime is an extension for Visual Studio Code and other IDEs for creating stateful realtime C++ applications consisting of communicating state machines.">
       
       
       
@@ -1399,6 +1399,19 @@
     Making Changes in Generated C++
   </a>
   
+    <nav class="md-nav" aria-label="Making Changes in Generated C++">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronizing-external-edits" class="md-nav__link">
+    Synchronizing External Edits
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1504,7 +1517,7 @@ Removes the target workspace folder produced when building a TC. If the TC has <
     context()-&gt;abort();
 //}}}USR
 </code></pre>
-<p>The comment contains information about the source Art file and the Art element in that file that contains the code snippet.</p>
+<p>The comment contains information about the source Art file and the Art element in the file that contains the code snippet.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Only make edits on the lines within the special code snippet comments. If you edit outside the comment those edits will be lost the next time the file gets regenerated. And if you change the comment itself, the propagation of changes back to the Art file will no longer work correctly.</p>
@@ -1516,12 +1529,20 @@ Removes the target workspace folder produced when building a TC. If the TC has <
 <p>You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Code snippets in Art files can only be updated when there is an active TC set. Changes made in generated code snippets will be lost the next time they are generated, unless you have set the TC as active. To prevent this, always make sure the TC is set as active before you make any changes in generated files. </p>
+<p>Automatic synchronization of edited code snippets requires that the C++ file is edited and saved in Code RealTime. If you edit generated C++ files in another editor, you need to invoke a <a href="#synchronizing-external-edits">synchronization command</a> for the changes to propagate back to the Art files.</p>
 </div>
 <p>Pay attention to the status bar in the bottom left corner when you save a generated file. If you know at least one code snippet was modified, but still get the message shown below:</p>
 <p><img alt="" src="images/no-code-snippets-updated.png" /></p>
 <p>then you can know the changes failed to propagate to the Art file. If the update was successful you should instead get a message that tells how many code snippets that were updated. For example:</p>
 <p><img alt="" src="images/one-code-snippets-updated.png" /></p>
+<h3 id="synchronizing-external-edits">Synchronizing External Edits</h3>
+<p>Sometimes you may want to edit generated C++ files in another editor, external to Code RealTime. For example, if you debug your application in another C++ IDE it can be convenient to directly make changes there. For those changes to propagate back to the source Art files, and not be lost the next time you build your application in Code RealTime, you must manually invoke a synchronization command. There are two such commands available:</p>
+<ul>
+<li><strong>Synchronize Code Snippets</strong> This command synchronizes all C++ files generated from one specific TC. Invoke the command either from the TC context menu (in the Explorer view or TC text editor), or from the Art Build view.</li>
+<li><strong>Synchronize All Code Snippets</strong> This command is available in the toolbar of the Art Build view. It scans the whole workspace for target workspace folders that have been produced by building TCs, and synchronizes all C++ files in those workspace folders.</li>
+</ul>
+<p><img alt="" src="images/synchronize_commands.png" /></p>
+<p>Both these commands report in the Art Server console how many code snippets that were updated.</p>
 <h2 id="building-from-the-command-line">Building from the Command Line</h2>
 <p>You can build a TC from the command line by using the <a href="art-compiler/">Art Compiler</a>.</p>
 

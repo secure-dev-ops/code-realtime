@@ -88,8 +88,18 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>shutdown</b> (<
 <tr class="memitem:a7ca619d60bc4445b2c476b54e7b31f7f"><td class="memItemLeft" align="right" valign="top"><a id="a7ca619d60bc4445b2c476b54e7b31f7f" name="a7ca619d60bc4445b2c476b54e7b31f7f"></a>
 static const char *&#160;</td><td class="memItemRight" valign="bottom"><b>debugName</b> (void)</td></tr>
 <tr class="separator:a7ca619d60bc4445b2c476b54e7b31f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcec30d56263bf2123e4a75e1b0e39eb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_main.html#afcec30d56263bf2123e4a75e1b0e39eb">registerDebugErrorFunction</a> (DEBUG_ERROR_FUNC_PTR pFunc)</td></tr>
+<tr class="memdesc:afcec30d56263bf2123e4a75e1b0e39eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a user-defined debug error function.  <br /></td></tr>
+<tr class="separator:afcec30d56263bf2123e4a75e1b0e39eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a798697dd8a9036177553b6a8364f1f8c"><td class="memItemLeft" align="right" valign="top"><a id="a798697dd8a9036177553b6a8364f1f8c" name="a798697dd8a9036177553b6a8364f1f8c"></a>
+static DEBUG_ERROR_FUNC_PTR&#160;</td><td class="memItemRight" valign="bottom"><b>getDebugErrorFunction</b> ()</td></tr>
+<tr class="memdesc:a798697dd8a9036177553b6a8364f1f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the currently registered debug error function, or nullptr if none. <br /></td></tr>
+<tr class="separator:a798697dd8a9036177553b6a8364f1f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64f3be5d308bc499e702ca29d65a17fa"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_t_main.html#a64f3be5d308bc499e702ca29d65a17fa">FORMAT_CHECK</a> (1, 2) void invokeOrDiag(const char *format</td></tr>
+<tr class="memdesc:a64f3be5d308bc499e702ca29d65a17fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the user defined warning function OR RTDiag::out if no user defined.  <br /></td></tr>
+<tr class="separator:a64f3be5d308bc499e702ca29d65a17fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1ae84f7ae6e3e7e15860265d94b8ddc"><td class="memItemLeft" align="right" valign="top"><a id="ae1ae84f7ae6e3e7e15860265d94b8ddc" name="ae1ae84f7ae6e3e7e15860265d94b8ddc"></a>
-static <a class="el" href="class_r_t_controller.html">RTController</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>controller</b> (void)</td></tr>
+static static <a class="el" href="class_r_t_controller.html">RTController</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>controller</b> (void)</td></tr>
 <tr class="separator:ae1ae84f7ae6e3e7e15860265d94b8ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d9042acaa9140884cdde444e6c415cb"><td class="memItemLeft" align="right" valign="top"><a id="a3d9042acaa9140884cdde444e6c415cb" name="a3d9042acaa9140884cdde444e6c415cb"></a>
 static <a class="el" href="class_r_t_actor_ref.html">RTActorRef</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>topReference</b> (void)</td></tr>
@@ -128,6 +138,86 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RTSuperActor</b></td
 class&#160;</td><td class="memItemRight" valign="bottom"><b>RTTracer</b></td></tr>
 <tr class="separator:adb07e7cbb1c57e72ceeaf81b915c3dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a64f3be5d308bc499e702ca29d65a17fa" name="a64f3be5d308bc499e702ca29d65a17fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64f3be5d308bc499e702ca29d65a17fa">&#9670;&#160;</a></span>FORMAT_CHECK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static RTMain::FORMAT_CHECK </td>
+          <td>(</td>
+          <td class="paramtype">1&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">2&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call the user defined warning function OR RTDiag::out if no user defined. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">format</td><td>Printf-style format string </td></tr>
+    <tr><td class="paramname">...</td><td>Variable arguments matching the format string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afcec30d56263bf2123e4a75e1b0e39eb" name="afcec30d56263bf2123e4a75e1b0e39eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcec30d56263bf2123e4a75e1b0e39eb">&#9670;&#160;</a></span>registerDebugErrorFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void RTMain::registerDebugErrorFunction </td>
+          <td>(</td>
+          <td class="paramtype">DEBUG_ERROR_FUNC_PTR&#160;</td>
+          <td class="paramname"><em>pFunc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Register a user-defined debug error function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pFunc</td><td>Pointer to the error handler function, or null to unregister </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_r_t_main_8h_source.html">RTMain.h</a></li>
 <li>RTMain.inl</li>
