@@ -1,0 +1,18 @@
+protocol PROTO {
+    in ie1();
+    out oe2();
+};
+
+capsule Top {
+    service behavior port p1 : PROTO;
+    service behavior port p2 : PROTO;
+    statemachine {
+        state State {
+            t1: on p1.ie1, p2.ie1 
+            `
+                rtport->oe2().reply();
+            `;
+        };
+        initial -> State;
+    };
+};
