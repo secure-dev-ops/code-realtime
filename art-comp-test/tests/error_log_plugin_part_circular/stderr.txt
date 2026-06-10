@@ -1,0 +1,1 @@
+import(a1(Cap)<<machine>>.t[-1]): Cannot import capsule instance that results in a circular reference.

@@ -1,0 +1,12 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'error_log_plugin_part_circular_target';
+tc.cppCodeStandard = "C++ 17"
+
+// Uncomment to debug with Visual Studio
+/*
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x64-VisualC++-17.0";
+*/

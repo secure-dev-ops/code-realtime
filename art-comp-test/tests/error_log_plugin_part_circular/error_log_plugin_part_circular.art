@@ -1,0 +1,77 @@
+capsule Top {
+    [[rt::decl]]
+    `
+        RTActorId a_id;        
+        RTActorId thisId;
+    `
+
+    behavior port frame : Frame;
+    behavior port timer : Timing;
+    
+    optional part a1 : Cap;
+
+    statemachine {
+        state Before, FirstImport, SecondImport;
+        initial -> Before
+        `                      
+            thisId = frame.me();            
+            a_id = frame.incarnate(a1, &thisId);
+            ASSERT(a_id.isValid(), "Failed to incarnate Top::a1");
+            PASS();        
+        `;            
+    };
+};
+
+capsule Cap {
+    [[rt::impl_preface]]
+    `
+        #include <vector>
+        #include <filesystem>
+        #include <fstream>
+
+        namespace {
+            // User defined error function. Records the message so the test
+            // can assert on what the TargetRTS dispatched.
+            void myErrorFunction(const char* msg)
+            {
+                std::filesystem::path filepath = std::filesystem::current_path() / "Errorlog.txt";             
+                std::ofstream outfile(filepath, std::ios::app);
+                if (!outfile) {
+                    ASSERT(false, "Failed to open file for writing");
+                }
+                outfile << msg << std::endl; // Write to file
+                outfile.close();
+            }
+        }
+    `        
+    behavior port frame : Frame;
+    
+    /* Parts */
+    plugin part t : Top; // Plugin part with multiplicity 0..1    
+
+    /* State Machine */
+    statemachine {
+        initial -> State
+        `
+            // Initially no user defined error function is registered.
+            ASSERT(RTMain::getDebugErrorFunction() == nullptr,
+                "No error function should be registered initially");
+            // Register our custom error function.
+            RTMain::registerDebugErrorFunction(&myErrorFunction);
+            ASSERT(RTMain::getDebugErrorFunction() != nullptr,
+                "Error function should be registered after registerErrorFunction");
+            const RTActorId top_id = *(static_cast<const RTActorId*>(rtdata));
+            // Error occurs because importing Top::t into Cap creates a circular reference
+            // (Cap contains Top as a plugin part, and Top contains Cap as a regular part).
+            ASSERT(frame.import(top_id, t) == 0, "Import Top::t into Cap");
+            RTMain::invokeOrDiag("Multiple values: %s %d %.1f\n", "Test", 123, 45.6);
+            std::vector<std::string> contents;
+            std::filesystem::path filepath = std::filesystem::current_path() / "Errorlog.txt";
+	        ASSERT (TestUtils::readFileContents(filepath.string(), contents), "File Errorlog.txt does not exist");
+            ASSERT(contents[0] == "import(a1(Cap)<<machine>>.t[-1]): Cannot import capsule instance that results in a circular reference.", "Unexpected content in Errorlog.txt");
+            ASSERT(contents[2] == "Multiple values: Test 123 45.6", "Unexpected content in Errorlog.txt");
+        `;
+        state State;
+    };
+};
+
