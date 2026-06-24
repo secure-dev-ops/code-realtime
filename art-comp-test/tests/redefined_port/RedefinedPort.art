@@ -1,0 +1,96 @@
+protocol PB {
+    out eb(`int`);
+    in ec(`int`);
+};
+
+capsule A {
+    service behavior port pA~ : PB;
+    statemachine {
+        state State1;
+        init: initial -> State1;
+    };
+};
+
+capsule B : A {
+    service behavior port pB2 : PB;
+    service behavior port pB1~ : PB;
+    statemachine {
+    };
+};
+
+protocol PD : PB {
+    in inEventPD(`bool`);
+};
+
+capsule D : B {
+    service behavior port redefine pB1~ : PD;
+    service behavior port redefine pA~ : PD;
+    statemachine {
+        state State2, State3;
+        redefine init: initial -> State1
+        `
+            ASSERT(D::rtg_class.super == &B::rtg_class, "Expected D inherits B");
+            ASSERT(B::rtg_class.super == &A::rtg_class, "Expected B inherits A");
+
+            ASSERT(A::rtg_class.numPorts == 1, "Expected 1 port in capsule A");
+            ASSERT(A::rtg_class.ports[0].name == std::string("pA"), "Expected port name pA");
+    
+            ASSERT(B::rtg_class.numPorts == 3, "Expected 3 ports in capsule B");
+            ASSERT(B::rtg_class.ports[0].name == std::string("pB2"), "Expected port name pB2");
+            ASSERT(B::rtg_class.ports[1].name == std::string("pB1"), "Expected port name pB1");
+            ASSERT(B::rtg_class.ports[2].name == std::string("pA"), "Expected port name pA");
+
+            ASSERT(D::rtg_class.numPorts == 3, "Expected 3 ports in capsule D");
+            ASSERT(D::rtg_class.ports[0].name == std::string("pB1"), "Expected port name pB1");
+            ASSERT(D::rtg_class.ports[1].name == std::string("pA"), "Expected port name pA");
+            ASSERT(D::rtg_class.ports[2].name == std::string("pB2"), "Expected port name pB2");
+
+            ASSERT(D::rtg_ports[0].offset == B::rtg_class.ports[1].offset, "D::pB1 must be a reference to B::pB1");
+            ASSERT(std::string(D::rtg_ports[0].name) == B::rtg_class.ports[1].name, B::rtg_class.ports[1].name);
+
+            ASSERT(D::rtg_ports[1].offset == A::rtg_class.ports[0].offset, "D::pA must be a reference to A::pA");
+            ASSERT(std::string(D::rtg_ports[1].name) == A::rtg_class.ports[0].name, A::rtg_class.ports[0].name);
+
+            ASSERT(D::rtg_ports[2].offset == B::rtg_class.ports[0].offset, "D::pB2 is inherited from B");
+            ASSERT(std::string(D::rtg_ports[2].name) == B::rtg_class.ports[0].name, B::rtg_class.ports[1].name);
+        `;
+        State1 -> State2 on pB1.eb when `true`
+        `
+            ASSERT(*rtdata == 4, "Expect eb event with argument 4");
+            pB1.inEventPD(true).send();
+        `;
+        State2 -> State3 on pB2.ec when `true`
+        `
+            ASSERT(*rtdata == 5, "Expect ec event with argument 5");
+            pA.inEventPD(false).send();
+        `;
+    };
+};
+capsule Top {
+    fixed part d : D;
+
+    behavior port p1 : PD;
+    behavior port p2~ : PB;
+    behavior port p3 : PD;
+    connect p1 with d.pB1;
+    connect p2 with d.pB2;
+    connect p3 with d.pA;
+
+    statemachine {
+        state State1, State2, State3;
+        initial -> State1
+        `
+            p1.eb(4).send();
+        `;
+        State1 -> State2 on p1.inEventPD
+        `
+            ASSERT(*rtdata, "Expected inEventPD with true argument");
+            p2.ec(5).send();
+        `;
+        State2 -> State3 on p3.inEventPD
+        `
+            ASSERT(*rtdata == false, "Expected inEventPD with false argument");
+            PASS();
+        `;
+    };
+};
