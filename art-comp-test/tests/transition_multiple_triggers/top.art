@@ -3,16 +3,34 @@ protocol PROTO {
     out oe2();
 };
 
+protocol P1 : PROTO {
+    in ie3();
+    out oe4();
+};
+
+protocol P2 : P1 {
+    in ie5();
+    out oe6();
+};
+
 capsule Top {
-    service behavior port p1 : PROTO;
-    service behavior port p2 : PROTO;
+    service behavior port p1 : P1;
+    service behavior port p2 : P2;
+    service behavior port p3 : PROTO;
+    service behavior port pp1~ : P1;
+    service behavior port pp2~ : P2;
     statemachine {
         state State {
-            t1: on p1.ie1, p2.ie1 
+            t1: on p1.ie1, p2.ie1, p3.ie1
             `
                 rtport->oe2().reply();
             `;
         };
+        state State2;
         initial -> State;
+        State -> State2 on pp1.oe4, pp2.oe2
+        `
+            rtport->oe4().recall();
+        `;
     };
 };
