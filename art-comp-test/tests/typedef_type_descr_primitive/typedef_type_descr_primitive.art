@@ -1,0 +1,45 @@
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_TraceEvent.h"
+        #include "RTType_TraceHandle.h"
+    `
+    out outEvent1(`TraceEvent`);
+    in inEvent1(`TraceHandle`);
+};
+
+capsule Cap {
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        initial -> State1;
+        state State1 {
+            uint_received: on pIn.outEvent1
+            `
+                ASSERT(rtdata->handle == 15, "Expected rtdata->handle 15");
+                pIn.inEvent1(17).send();
+            `;
+        };
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1
+        `
+            TraceEvent data;
+            data.handle = 15;
+            pOut.outEvent1(data).send();
+        `;
+        State1 -> State2 on pOut.inEvent1
+        `
+            ASSERT(*rtdata == 17, "Expected *rtdata 17");
+            PASS();
+        `;
+    };
+};

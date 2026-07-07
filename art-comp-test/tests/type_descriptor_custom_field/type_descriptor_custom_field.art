@@ -1,0 +1,42 @@
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include <RTType_Address.h>
+    `
+    out outEvent1(`Address`);
+    in inEvent1(`RTDataObject`);
+};
+
+capsule Cap {
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        initial -> State1;
+        state State1 {
+            address_received: on pIn.outEvent1
+            `
+                ASSERT(rtdata->getPort() == 443, "Expected rtdata->getPort() 443");
+                pIn.inEvent1(EmptyObject).send();
+            `;
+        };
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1, State2;
+        initial -> State1
+        `
+            Address data;
+            pOut.outEvent1(data).send();
+        `;
+        State1 -> State2 on pOut.inEvent1
+        `
+            PASS();
+        `;
+    };
+};
