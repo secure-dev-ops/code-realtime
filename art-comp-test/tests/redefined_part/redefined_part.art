@@ -1,0 +1,51 @@
+protocol Proto {
+    out outEvent();
+    in inEvent();
+};
+
+capsule RTDSysConfigInit {
+    service behavior port controller~ : Proto;
+    statemachine {
+        state State;
+        initial -> State `
+            controller.inEvent().send();
+        `;
+    };
+};
+
+capsule RTDLocationController {
+    service behavior port control : Proto;
+
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+
+capsule RTDAgentController : RTDLocationController {
+    statemachine {
+        state State2;
+        State1 -> State2 on control.inEvent
+        `
+            PASS();
+        `;
+    };
+};
+
+capsule Base {
+    part systemConfig : RTDSysConfigInit;
+    part dcsController : RTDLocationController;
+
+    connect systemConfig.controller with dcsController.control;
+
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Top : Base {
+    part redefine dcsController [[rt::properties(rule_config="X0039")]] : RTDAgentController;
+    statemachine {
+    };
+};
