@@ -1,0 +1,55 @@
+protocol BaseProto {
+    out outEvent();
+    in inEvent();
+};
+
+capsule Supplier {
+    service behavior port basePort~ : BaseProto;
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            basePort.inEvent().send();
+        `;
+    };
+};
+
+capsule Base {
+    behavior port subBasePort : BaseProto;
+    statemachine {
+        state State1;
+        init: initial -> State1;
+    };
+};
+
+capsule Top : Base {
+    [[rt::decl]]
+    `
+    public:
+        Top( RTController * rtg_rts, RTActorRef * rtg_ref );
+    private:
+        const int x;
+    `
+    [[rt::impl]]
+    `
+        Top::Top( RTController * rtg_rts, RTActorRef * rtg_ref )
+            : Base( rtg_rts ,rtg_ref ), x(1021)
+        {
+        }
+    `
+    part sup : Supplier [2];
+    behavior port redefine subBasePort : BaseProto [2];
+    connect subBasePort with sup.basePort;
+    statemachine {
+        state State2;
+        redefine init: initial -> State1
+        `
+            std::cout << "x = " << x << std::endl;
+        `;
+        t1: State1 -> State2 on subBasePort.inEvent;
+        t2: State2 -> State1 on subBasePort.inEvent
+        `
+            PASS();
+        `;
+    };
+};
