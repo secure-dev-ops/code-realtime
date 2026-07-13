@@ -15,7 +15,7 @@ capsule Supplier {
 };
 
 capsule Base {
-    behavior port subBasePort : BaseProto;
+    behavior port subBasePort [[rt::properties(rule_config="X0039")]] : BaseProto;
     statemachine {
         state State1;
         init: initial -> State1;
