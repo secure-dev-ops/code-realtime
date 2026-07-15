@@ -1,0 +1,75 @@
+protocol Events {
+    out e1();
+};
+
+capsule Sender {
+    service behavior port p : Events;
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            p.e1().send();
+        `;
+    };
+};
+
+abstract capsule Base {
+    [[rt::decl]]
+    `
+    protected:
+        virtual bool allBound() = 0;
+        int count = 0;
+    `
+    behavior port p~ [[rt::properties(rule_config="X0039")]] : Events;
+    statemachine {
+        initial -> TOP.init;
+        state TOP {
+            entrypoint init;
+            state S1;
+            start: init -> S1
+            `
+                FAIL("Executed base internal transition but it is redefined");
+            `;
+            clientBound: on p.e1
+            `
+                ++count;
+                std::cout << "Client " << count << " bound" << std::endl;
+                if (allBound()) {
+                    PASS();
+                }
+            `;
+        };
+    };
+};
+
+
+capsule Top : Base {
+    [[rt::impl_preface]]
+    `
+        #include "Constants.h"
+    `
+    [[rt::decl]]
+    `
+    protected:
+        bool allBound() override;
+    `
+    [[rt::impl]]
+    `
+        bool Top::allBound() {
+            std::cout << "allBound == " << (count == Constants::N_CLIENTS) << std::endl;
+            return count == Constants::N_CLIENTS;
+        }
+    `
+    part sender : Sender[`Constants::N_CLIENTS`];
+    connect sender.p with p;
+    behavior port redefine p~ : Events [`Constants::N_CLIENTS`];
+    statemachine {
+        state redefine TOP {
+            state S2;
+            redefine start: init -> S2
+            `
+                std::cout << "redefine start: init -> S2" << std::endl;
+            `;
+        };
+    };
+};
