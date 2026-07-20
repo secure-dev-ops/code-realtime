@@ -1,0 +1,53 @@
+capsule Cap1 {
+    [[rt::header_preface]]
+    `
+        #include "Enum1.h"
+    `
+    [[rt::decl]]
+    `
+        RTActor* actors[eControl];
+    `
+    statemachine {
+        state State;
+        initial -> State
+        `
+            ASSERT(eControl == 15, "Cap1 uses eControl = 15 from Enum1");
+        `;
+    };
+};
+
+capsule Cap2 {
+    [[rt::header_preface]]
+    `
+        #include "Enum2.h"
+    `
+    [[rt::decl]]
+    `
+        RTActor* actors[eControl];
+    `
+    statemachine {
+        state State;
+        initial -> State
+        `
+            ASSERT(eControl == 300, "Cap2 uses eControl = 300 from Enum2");
+        `;
+    };
+};
+
+capsule Top {
+    behavior port frame : Frame;
+
+    fixed part actor1 : Cap1;
+    fixed part actor2 : Cap2;
+    optional part opt1 : Cap1[0..1];
+    optional part opt2 : Cap2[0..1];
+    statemachine {
+        state State;
+        initial -> State
+        `
+            frame.incarnate(opt1);
+            frame.incarnate(opt2);
+            PASS();
+        `;
+    };
+};
