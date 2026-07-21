@@ -1,8 +1,0 @@
- [[rt::decl]]
-    `
-    enum [[rt::auto_descriptor]] PickUpStrategy {
-            RANDOM, LEFTFIRST, RIGHTFIRST
-    };
-
-     
-`

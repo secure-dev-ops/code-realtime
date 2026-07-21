@@ -2,17 +2,21 @@ capsule Top {
 
     [[rt::header_preface]]
     `
-            #include <cstdio>
-            #include <cstdlib>
-            #include <iostream>
+        #include <cstdio>
+        #include <cstdlib>
+        #include <iostream>
+        #include "PickUpStrategy.h"
     `
-    
     [[rt::decl]]
     `
         int numPhils = 4;
         PickUpStrategy pickUpStrat = PickUpStrategy::RANDOM;
     `
-
+    [[rt::impl_preface]]
+    `
+        #include "PhilArgs.h"
+        #include "ForkArgs.h"
+    `
     behavior port logP: Log;
     behavior port frameP: Frame; 
     optional part fork0: Fork[0..1], fork1: Fork[0..1],fork2: Fork[0..1],fork3: Fork[0..1];

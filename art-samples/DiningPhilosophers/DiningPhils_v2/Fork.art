@@ -5,8 +5,8 @@ capsule Fork {
         #include <cstdlib>
         #include <iostream>
         #include <cstring>
-        #include "ForkArgs.art.h"
-        #include <PickUpStrategy.art.h>
+        #include "ForkArgs.h"
+        #include <PickUpStrategy.h>
         
     `
     [[rt::decl]]

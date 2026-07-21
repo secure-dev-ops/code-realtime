@@ -6,9 +6,7 @@ capsule Phil {
         #include <cstdlib>
         #include <time.h>
         #include <iostream>
-        #include "ForkProt.h"
-        #include "PhilArgs.art.h"
-        #include <PickUpStrategy.art.h>
+        #include "PhilArgs.h"
     `
    
     [[rt::decl]]
