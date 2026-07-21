@@ -1,0 +1,42 @@
+protocol P1 {
+    out event1();
+    out event2(`int`);
+};
+
+capsule Sender {
+    service behavior port p1 : P1;
+    statemachine {
+        state S1;
+        initial -> S1
+        `
+            p1.event1().send();
+        `;
+    };
+};
+
+capsule TopBase {
+    behavior port p1~ [[rt::properties(rule_config="X0039")]] : P1;
+    statemachine {
+        state Online {
+            entrypoint entryPoint_0;
+            t1: on p1.event2, p1.*
+            `
+                PASS();
+            `;
+        };
+        initial  ->  Online.entryPoint_0;
+    };
+};
+
+capsule Top : TopBase {
+    part sender : Sender;
+    connect sender.p1 with p1;
+    statemachine {
+        state redefine Online {
+            redefine t1 : on p1.event2, p1.*, p1.event1
+            `
+                CALLSUPER;
+            `;
+        };
+    };
+};
