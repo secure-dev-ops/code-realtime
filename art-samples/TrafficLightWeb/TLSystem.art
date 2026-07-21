@@ -10,6 +10,10 @@ capsule TLSystem {
     `
         #include <string>
     `
+    [[rt::impl_preface]]
+    `
+        #include "WebServer.h"
+    `
     [[rt::decl]]
     `
         private: 

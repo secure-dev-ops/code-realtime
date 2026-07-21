@@ -3,6 +3,8 @@ capsule Top {
 `
     #include <iostream>
     #include <sstream>
+    #include "Server.h"
+    #include "TokenManager.h"
 `
     
 [[rt::decl]]

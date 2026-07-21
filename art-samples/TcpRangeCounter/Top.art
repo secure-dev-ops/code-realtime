@@ -2,6 +2,8 @@ capsule Top {
 [[rt::impl_preface]]
 `
     #include <iostream>
+    #include "Server.h"
+    #include "RangeCounter.h"
 `
     
 [[rt::decl]]
