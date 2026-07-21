@@ -1,0 +1,5 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.cppCodeStandard = 'C++ 17';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'transition_datatype_target';
+tc.topCapsule = 'Top';

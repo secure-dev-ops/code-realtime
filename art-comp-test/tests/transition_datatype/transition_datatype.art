@@ -1,0 +1,47 @@
+protocol Proto1 {
+    in ie1(`int`);
+};
+
+capsule Sender {
+    service behavior port p1~ : Proto1;
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            p1.ie1(14).send();
+            p1.ie1(15).send();
+        `;
+    };
+};
+
+capsule Receiver {
+    service behavior port p1 : Proto1;
+    statemachine {
+        state S1, S2, S3;
+        initial -> S1;
+        t1: S1 -> S2 on p1.ie1
+        `
+            ASSERT(*rtdata == 14,
+                "Expect const int* datatype for rtdata and value 14");
+        `;
+        t2: S2 -> S3 on p1.ie1, p1.*
+        `
+            // this const_cast will fail if rtdata type is const int *
+            void *p = const_cast<void*>(rtdata);
+            std::cout << "p = " << p << std::endl;
+            ASSERT(*static_cast<const int*>(rtdata) == 15,
+                "Expect const void* datatype for rtdata and value 15");
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    part sender : Sender;
+    part receiver : Receiver;
+    connect sender.p1 with receiver.p1;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
