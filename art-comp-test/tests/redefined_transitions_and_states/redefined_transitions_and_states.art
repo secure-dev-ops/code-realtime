@@ -1,0 +1,154 @@
+protocol MyProto {
+    in ev1();
+    in ev2();
+    in ev3();
+    in send_msg();
+};
+
+capsule Tester {
+    service behavior port p~ : MyProto;
+    statemachine {
+        state State;
+        initial -> State
+        `
+            p.send_msg().send();
+            p.ev1().send();
+            p.ev2().send();
+            p.ev3().send();
+        `;
+    };
+};
+
+capsule LT_S_S {
+    [[rt::decl]]
+    `
+    protected:
+        int entry_Disabled_SS = 0;
+        int entry_Enabled_SS = 0;
+        int exit_Enabled_SS = 0;
+        int guard_disable_SS = 0;
+        int disable_SS = 0;
+    `
+    service behavior port p : MyProto;
+    statemachine {
+        state State1;
+        state Wait_For_Messages {
+            entrypoint entryPoint_0;
+            state Disabled_SS {
+                entrypoint entryPoint_0_1;
+                exitpoint exitPoint_0;
+                entrypoint entryPoint_0;
+                entry
+                `
+                    std::cout << "entry state Disabled_SS\n";
+                    ++entry_Disabled_SS;
+                `;
+                t1: on p.ev2;
+            };
+            state Enabled_SS {
+                entrypoint entryPoint_0;
+                exitpoint exitPoint_0;
+                t2: on p.ev1;
+                entry
+                `
+                    std::cout << "entry state Enabled_SS\n";
+                    ++entry_Enabled_SS;
+                `;
+                exit
+                `
+                    std::cout << "exit state Enabled_SS\n";
+                    ++exit_Enabled_SS;
+                `;
+            };
+            enable: Disabled_SS.exitPoint_0 -> Enabled_SS.entryPoint_0 on p.ev1 when
+            `
+                FAIL("Guard for transition enable should be checked as transition is redefined");
+                return true;
+            `
+            `
+                FAIL("Transition enable should not be executed as it is redefined");
+            `;
+            disable_SS: Enabled_SS.exitPoint_0 -> Disabled_SS.entryPoint_0_1 on p.ev2 when
+            `
+                std::cout << "disable_SS guard\n";
+                ++guard_disable_SS;
+                return true;
+            `
+            `
+                std::cout << "disable_SS\n";
+                ++disable_SS;
+            `;
+            initialized_ss: entryPoint_0 -> Disabled_SS.entryPoint_0
+            `
+                FAIL("Transition initialized_ss should not be executed as it is redefined");
+            `;
+        };
+        initial -> State1;
+        send_messages: State1 -> Wait_For_Messages.entryPoint_0 on p.send_msg;
+    };
+};
+
+capsule LT_S_N : LT_S_S {
+    [[rt::decl]]
+    `
+        int redefine_initialized_ss = 0;
+        int redefine_enable = 0;
+        int exit_Disabled_SS = 0;
+    `
+    statemachine {
+        state redefine Wait_For_Messages {
+            choice c_is_initialized;
+            redefine initialized_ss : entryPoint_0 -> Disabled_SS.entryPoint_0
+            `
+                std::cout << "redefine initialized_ss\n";
+                redefine_initialized_ss = true;
+            `;
+            state redefine Disabled_SS {
+                exit
+                `
+                    std::cout << "exit state redefine Disabled_SS\n";
+                    ++exit_Disabled_SS;
+                `;
+                final: on p.ev3
+                `
+                    ASSERT(redefine_initialized_ss == 1 && redefine_enable == 1, "expected actions");
+                    ASSERT(entry_Disabled_SS == 2 && exit_Disabled_SS == 1, "expected actions");
+                    ASSERT(entry_Enabled_SS == 1 && exit_Enabled_SS == 1, "expected actions");
+                    ASSERT(guard_disable_SS == 1 && disable_SS == 1, "expected actions");
+                    PASS();
+                `;
+            };
+            redefine enable : Disabled_SS.exitPoint_0 -> c_is_initialized on p.ev1
+            `
+                std::cout << "redefine enable\n";
+                ++redefine_enable;
+            `;
+            c_is_initialized -> Enabled_SS
+            `
+                FAIL("Choice c_is_initialized else transition executed");
+            `;
+            initialized: c_is_initialized -> Enabled_SS.entryPoint_0 when
+            `
+                std::cout << "initialized guard\n";
+                return true;
+            `;
+        };
+    };
+};
+
+capsule LT_S_TLN : LT_S_N {
+    statemachine {
+        state redefine Wait_For_Messages {
+        };
+    };
+};
+
+capsule Top {
+    part tester : Tester;
+    part input : LT_S_TLN;
+    connect tester.p with input.p;
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};

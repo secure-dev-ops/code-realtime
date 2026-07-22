@@ -1,5 +1,0 @@
-let tc = TCF.define(TCF.ART_TO_CPP);
-tc.targetFolder = 'composite_state_transition_state_redefination_target';
-tc.cppCodeStandard = "C++ 17";
-tc.topCapsule = 'Top';
-tc.commonPreface = '#include <iostream>';
