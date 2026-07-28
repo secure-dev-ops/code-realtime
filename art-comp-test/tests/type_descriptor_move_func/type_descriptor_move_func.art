@@ -1,0 +1,17 @@
+capsule Top {
+    [[rt::header_preface]]
+    `
+        #include "MyULong.h"
+    `
+    [[rt::decl]]
+    `
+        MyULong m_ClearError;
+    `
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            PASS();
+        `;
+    };
+};
