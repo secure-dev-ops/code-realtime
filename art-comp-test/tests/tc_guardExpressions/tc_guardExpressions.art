@@ -35,9 +35,9 @@ capsule Cap {
             ///////////////////////////////////////////////////////////////////
             /// 5500
             #if defined (NG_5500) || defined (NG_5600)    ///2021-08-21-elena
-                return true;
-            #else
                 return false;
+            #else
+                return true;
             #endif
         `]
         `
