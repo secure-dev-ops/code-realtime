@@ -1,0 +1,66 @@
+protocol Proto {
+    in inEvent1();
+    in inEvent2(`bool`);
+    in inEvent3(`int`);
+};
+
+capsule Sender {
+    service behavior port p~ : Proto;
+    statemachine {
+        state State1;
+        initial -> State1
+        `
+            p.inEvent1().send();
+            p.inEvent2(true).send();
+            p.inEvent3(55).send();
+        `;
+    };
+};
+capsule Receiver {
+    service behavior port p : Proto;
+    statemachine {
+        state State1, State3;
+        initial -> State1;
+        t1: State1 -> State2.entryPoint_0 on p.inEvent1 [`
+            return true;
+        `], p.inEvent2 [`
+            return !*rtdata;
+        `], p.inEvent3 [`
+            return *rtdata == 54;
+        `];
+        state State2 {
+            entrypoint entryPoint_0;
+            exitpoint exitPoint_0;
+            t2: on p.inEvent1, p.inEvent2 [`
+                return *rtdata;
+            `], p.inEvent3 [`
+                return *rtdata == 33;
+            `];
+            t3: on p.inEvent1 [`
+                return false;
+            `], p.inEvent2, p.inEvent3 [`
+                return *rtdata == 55;
+            `]
+            `
+                PASS();
+            `;
+        };
+        t4: State2.exitPoint_0 -> State3 on p.inEvent2, p.inEvent3 when
+        `
+            return false;
+        `
+        `
+            int x = *static_cast<const int*>(rtdata);
+            FAIL("Transition t4 should not be executed");
+        `;
+    };
+};
+capsule Top {
+    fixed part sender : Sender;
+    fixed part receiver : Receiver;
+    connect sender.p with receiver.p;
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
