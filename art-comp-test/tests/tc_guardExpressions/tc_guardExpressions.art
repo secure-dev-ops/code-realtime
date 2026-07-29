@@ -1,0 +1,48 @@
+protocol P {
+    out outEvent1(`int`);
+    out outEvent2(`int`);
+};
+
+capsule Top {
+    behavior port p : P;
+    part c : Cap;
+    connect p with c.p;
+    statemachine {
+        state S1;
+        initial -> S1
+        `
+            p.outEvent2(2).send();
+            p.outEvent1(1).send();
+        `;
+    };
+};
+capsule Cap {
+    [[rt::impl_preface]]
+    `
+        #define GEG(XV){return true;}
+    `
+    behavior service port p~ : P;
+    statemachine {
+        state S1, S2, Done, Error;
+        initial -> S1;
+        t1: S1 -> S2 on p.outEvent2 [`GEG(*rtdata)`] when
+        `GEG(*rtdata)`
+        `
+            std::cout << "transition S1 --> S2" << std::endl;
+        `;
+        t2: S2 -> Done on p.outEvent1 [`
+            // this is an event guard ...
+            ///////////////////////////////////////////////////////////////////
+            /// 5500
+            #if defined (NG_5500) || defined (NG_5600)    ///2021-08-21-elena
+                return true;
+            #else
+                return false;
+            #endif
+        `]
+        `
+            std::cout << "transition S2 --> Done" << std::endl;
+            PASS();
+        `;
+    };
+};
