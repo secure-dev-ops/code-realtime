@@ -170,6 +170,7 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [cppCodeStandard](#cppcodestandard) | Enum string | N/A (Compiler Default)
 | [eval](#eval) | TC object | N/A
 | [executableName](#executablename) | String | "`$(TOP_CAPSULE)$(EXEC_EXT)`"
+| [guardExpressions](#guardexpressions) | Boolean | true
 | [inclusionPaths](#inclusionpaths) | List of strings | []
 | [libraryName](#libraryname) | String | "`$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)`"
 | [linkArguments](#linkarguments) | String | N/A
@@ -267,6 +268,9 @@ Specifies the name of the executable that is built by the TC. This property is o
 
 The default value of this property is "`$(TOP_CAPSULE)$(EXEC_EXT)`" where `$(TOP_CAPSULE)` is the name of the [`topCapsule`](#topcapsule) and `$(EXEC_EXT)` is a variable for the file extension which gets its value from the TargetRTS configuration that is used.
 
+### guardExpressions
+By default {$product.name$} allows a guard code snippet to be specified either as a boolean expression, or as a return statement that returns a boolean expression. This relies on that the code generator can syntactically conclude if a guard code is an expression or a statement. In some situations this may not be possible, for example if guard code uses macros, and then there may be errors in the generated code. If you encounter this you can set this property to `false`. The code generator will then treat all guard code snippets as return statements.
+
 ### inclusionPaths
 Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a [user library](#userlibraries) or [user object file](#userobjectfiles) you need to add the location of the header file(s) that belong to the library or object file.
 
@@ -275,6 +279,12 @@ tc.inclusionPaths = ["/libs/myLib1/includes", "/libs/myLib2/includes"];
 ```
 
 Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.
+
+Inclusion paths may contain environment variables, to be expanded by the make tool. Note that some make tools (e.g. nmake) convert such environment variables to upper case.
+
+``` js
+tc.inclusionPaths = ["${WORKSPACE_LOC}/includes"];
+```
 
 ### libraryName
 Specifies the name of the library that is built by the TC. This property is only applicable for TCs that build libraries.

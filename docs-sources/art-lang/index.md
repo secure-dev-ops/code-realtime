@@ -879,6 +879,9 @@ A transition can have code snippets:
 
 A guard code snippet can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition `requestReceived` in the above example), or it can be written as a boolean expression (as in the trigger guard for the `timeout` trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.
 
+!!! note
+    The support for guard code snippets to be *either* boolean expressions *or* return statements that return boolean expressions rely on that it's possible for the code generator to syntactically conclude if a guard code is an expression or a statement. In some situations this may not be possible, for example if guard code uses macros. In that case you can disable the support for guard expressions by means of the TC property [`guardExpressions`](../building/transformation-configurations.md#guardexpressions) and specify all guards with return statements.
+
 !!! note 
     Guard code snippets should execute fast and have no side-effects. They are called frequently to decide which transition to execute when a message has arrived.
 

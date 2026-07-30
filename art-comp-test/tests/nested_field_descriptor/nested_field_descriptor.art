@@ -1,0 +1,55 @@
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "RTType_OuterClass.h"
+    `
+    out e1(`OuterClass`);
+    out e2(`OuterClass::InnerClass`);
+};
+
+capsule Cap {     
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2, StateLast;
+        initial -> State1;
+        State1 -> State2 on pIn.e2
+        `
+            ASSERT(rtdata->getX() == 3 && rtdata->getY() == 4 && rtdata->getZ() == 5, "OuterClass::InnerClass(3,4,5) is expected");
+            // TODO: TargetRTS doesn't yet support decoding of nested types
+            //TestUtils::checkMessageASCII(msg, "OuterClass::InnerClass{x 3,y 4,z 5}");            
+
+	        // ASCII encode message data to string
+	        std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+	        ASSERT(encoding1 == "OuterClass::InnerClass{x 3,y 4,z 5}", "Encoding of OuterClass::InnerClass failed");            
+        `;        
+        State2 -> StateLast on pIn.e1
+        `            
+            ASSERT(rtdata->getX() == 1 && rtdata->getY() == 2 && rtdata->nested.getX() == 3 && rtdata->nested.getY() == 4 && rtdata->nested.getZ() == 5,
+                "Unexpected OuterClass instance received");
+
+            std::string encoding1 = TestUtils::getASCIIEncodedString(msg->getData(), msg->getType());
+	        ASSERT(encoding1 == "OuterClass{x 1,y 2,nested{x 3,y 4,z 5}}", "Encoding of OuterClass failed");
+            PASS();
+         `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                OuterClass::InnerClass ic;
+                pOut.e2(ic).send();
+
+                OuterClass oc;
+                pOut.e1(oc).send();
+            `;
+        };        
+        initial -> State1;        
+    };
+};
