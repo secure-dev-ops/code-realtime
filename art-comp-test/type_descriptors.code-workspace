@@ -52,6 +52,24 @@
         },
         {
             "path": "tests/typedef_type_descriptor_header_file"
+        },
+        {
+            "path": "tests/nested_field_descriptor"
+        },
+        {
+            "path": "tests/nested_type_descriptor"
+        },
+        {
+            "path": "tests/type_descriptor_custom_field"
+        },
+        {
+            "path": "tests/type_descriptor_move_func"
+        },
+        {
+            "path": "tests/typedef_type_descr_primitive"
+        },
+        {
+            "path": "tests/type_descriptor_conditional_compilation"
         }
     ]
 }

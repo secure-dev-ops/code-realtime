@@ -1,0 +1,48 @@
+[[rt::decl]]
+`
+#ifdef TEST_MACRO
+    struct [[rt::auto_descriptor]] Point {
+        int x;
+        int y;
+    };
+#endif
+`
+
+protocol TheProtocol {
+    [[rt::header_preface]]
+    `
+        #include "type_descriptor_conditional_compilation.art.h"
+    `
+    out e1(`Point`);
+};
+
+capsule Cap {    
+    service behavior port pIn~ : TheProtocol;
+    statemachine {
+        state State1, State2;
+        initial -> State1;
+        State1 -> State2 on pIn.e1
+        `
+            ASSERT(rtdata->x == 10 && rtdata->y == 20, "Point(10,20) is expected");
+            TestUtils::checkMessageASCII(msg, "Point{x 10,y 20}");
+            PASS();
+        `;
+    };
+};
+
+capsule Top {
+    part cap : Cap;
+    behavior port pOut : TheProtocol;    
+    connect pOut with cap.pIn;
+
+    statemachine {
+        state State1 {
+            entry
+            `
+                Point point = {10,20};
+                pOut.e1(point).send();
+            `;
+        };        
+        initial -> State1;        
+    };
+};
