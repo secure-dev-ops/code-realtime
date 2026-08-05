@@ -135,6 +135,7 @@ nav:
      - Migration from Model RT: 
         - Migration from Model RT: migration-modelrt/index.md
         - Overview: migration-modelrt/overview.md
+        - Best Practices: migration-modelrt/best-practices.md
      - Support Procedures: support.md
      - Learning: 
         - Learning: learning/index.md

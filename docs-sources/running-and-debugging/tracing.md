@@ -100,6 +100,13 @@ Below are some examples of message filters for a trace captured when running the
 
 Note that if both a message filter and an instance filter is applied at the same time, some instances that don't match the instance filter may still be shown, if required for showing matching messages (i.e. to show a message both its source and target lifeline must be shown).
 
+### View Subset of Trace
+An alternative to first view the entire trace in a sequence diagram and then [filter it](#filter-traces) is to select only some lines in the trace file before invoking the **Open Sequence Diagram** command. The sequence diagram will then only show the selected subset of the trace. It's possible to only select a few message lines; the lifelines referenced by the selected messages will be automatically included too.
+
+You can open multiple subsets from the same trace file as different sequence diagrams. When a sequence diagram shows a subset of a trace the selected line numbers of the trace file are shown in the sequence diagram title.
+
+![](images/trace-subset.png)
+
 ### Synchronous Communication
 Messages for [synchronous communication](../target-rts/message-communication.md#asynchronous-versus-synchronous-communication) have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.
 
