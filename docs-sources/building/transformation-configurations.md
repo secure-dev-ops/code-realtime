@@ -52,13 +52,15 @@ To open the form-based TC editor, right-click on a TC file and invoke the contex
 
 ![](images/tc-editor.png)
 
-The editor groups the TC properties into three sections:
+The editor groups the TC properties into four sections:
 
 * **General**: Properties which define the scope of the TC (which elements to transform to C++ and where to place generated files)
 
 * **Code Generation**: Properties that control how Art elements are transformed into C++ code, and other properties that affect the generated code
 
 * **Build**: Properties that control how generated C++ code is built into a library or an executable
+
+* **Threads**: Properties related to [threads](#threads) used by the application
 
 Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.
 

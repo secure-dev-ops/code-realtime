@@ -12,6 +12,13 @@ When you decide to make a change in the model to be migrated (for example to add
 
 You can write a script (e.g. a Bash script) which can make such updates after the Art Exporter has run. Such a post migration script acts like a customization of the Art Exporter, and can also be useful for working around bugs or limitations. By applying the changes with a script rather than doing them manually, you can easily repeat the migration multiple times, something that is often needed during a migration project that can last several weeks for big models.
 
+The sections below cover some known limitations of the Art Exporter which currently must be handled by a post migration script.
+
+### Updating Names in Code Snippets
+As explained in [Capsule Class Name](#capsule-class-name) there is a difference between Model RealTime and {$product.name$} in how capsule classes and capsule type descriptors are named. The Art Exporter tries to automatically update such references in code snippets. When it's able to detect and update such a name it will print a [warning](#art-exporter-warnings). It's strongly recommended that you review these warnings to confirm that the update is correct.
+
+In some cases, however, the Art Exporter will fail to detect these names, and therefore not update them. This can for example happen if they are enclosed in conditional compilation blocks. If you get compilation errors caused by names that were not updated correctly, it's recommended to update them using a [post migration script](#post-migration-script) that can accurately detect and update the name.
+
 ## Capsule Class Name
 In Model RealTime the C++ class that is generated from a capsule has the suffix `_Actor` appended to its name. {$product.name$} does not add this suffix in order to make code snippets more readable. To avoid a name clash with the type descriptor for the capsule (which in Model RealTime has the same name as the capsule), {$product.name$} adds the prefix `RTType_` to its name. This is consistent with the prefix used for all other type descriptors.
 
@@ -41,4 +48,7 @@ Model RealTime supports various [variables](https://model-realtime.hcldoc.com/he
 
 If you have a variable in the exported TC that is not defined in {$product.name$} you can define an environment variable, either globally or in the shell from where you launch {$product.name$}. Some TC variables are expanded by {$product.name$}, while others are copied into the generated make file and will be expanded by the make tool. Note that some make tools (e.g. nmake) require environment variable names to be in all uppercase. For example, if you have used the predefined variable `${workspace_loc}` in inclusion paths or paths to object files, you may need to convert it to uppercase `${WORKSPACE_LOC}` in order for it to be expanded to the value of an environment variable with this name.
 
+## Top Make Command
+Model RealTime TCs have two properties `Top make command` and `Top make arguments` which are typically used for performing "pre-make" commands before the real build of the TC starts. For example, the top make command can invoke a script, copy files needed during the build etc.
 
+{$product.name$} TCs don't have these properties. Instead you can create a [build task](../building/build-tasks.md) which can perform these commands. You can then either invoke this build task manually before building the TC, or create a combined build task which both performs the "pre-make" commands and then invokes the Art Compiler to build the TC.

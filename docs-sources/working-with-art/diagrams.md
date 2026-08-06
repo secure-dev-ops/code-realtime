@@ -15,6 +15,13 @@ To open a diagram from an Art file place the cursor inside an Art element. Bring
 
 If the cursor is placed on an Art element that has a graphic representation in the form of a symbol or line in the diagram, for example a state in a state diagram, the symbol or line will be highlighted in the opened diagram by selecting it. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. If the diagram is already open, it will be made visible and the selection will be updated.
 
+!!! note
+    When opening a state diagram with the cursor placed on an element that is nested within a composite state, the element cannot be shown on the diagram if the composite state, or one of its parent composite states, is collapsed. In this situation a popup will appear with a button that can be pressed to expand those composite states that must be expanded to show the element on the diagram.
+
+    ![](images/autoexpand-composite-states.png)
+
+    The popup will stay open a few seconds, and if you don't press the button only the composite state that contains the element will be highlighted in the diagram.
+    
 You can also open diagrams from the context menu of an Art file in the Explorer view. In this case the Art file will be searched for an element that can be shown in the selected kind of diagram. If more than one such Art element is found, you will be prompted to pick the one to show in the diagram. For example:
 
 ![](images/open-diagram-multiple-elements.png)
@@ -194,15 +201,19 @@ When working in a zoomed-in diagram that contains composite symbols (for example
 * Press and hold down the ++space++ key (the cursor changes into a hand), and then click and drag anywhere in the diagram.
 
 ### Selecting Elements
-To select a symbol, label or line, click once on it. A selected symbol gets a thick outline and, if it is [resizable](#resizing-symbols), also yellow resize handles. A selected label is drawn in yellow and, if it belongs to a symbol, resize handles also appear on that symbol. A selected line gets a thick outline and red bendpoint handles.
+To select a symbol, label or line, click once on it. A selected symbol gets a thick green outline and, if it is [resizable](#resizing-symbols), also yellow resize handles. A selected label is drawn in yellow and, if it belongs to a symbol, resize handles also appear on that symbol. A selected line gets a thick green outline and red bendpoint handles.
 
 ![](images/selections.png)
 
-To select multiple elements hold down the ++ctrl++ key while clicking on symbols, labels or lines. As an alternative you can hold down both ++ctrl++ and ++shift++ (on Mac ++cmd++ and ++shift++) to get a "crosshair" cursor, and then make a "marquee selection" by drawing a rectangle. 
+For a few seconds after a new selection has been made the newly selected element is shown with a "glowing" outline. This makes it easier to notice the selected element if the diagram is big and cluttered, especially if it gets automatically selected when highlighted by a command that was invoked, such as **Open State Diagram**.
+
+![](images/glowing-selection.png)
+
+To select multiple elements hold down the ++ctrl++ key while clicking on symbols, labels or lines. As an alternative you can hold down ++shift++ to get a "crosshair" cursor, and then make a "marquee selection" by drawing a rectangle. 
 
 ![](images/marquee_selection.png)
 
-All symbols and lines (but not labels) that the marquee rectangle touches will become selected. Note that you cannot make a marquee selection if another element is already selected, so click in the diagram background to reset the selection first.
+All symbols and lines (but not labels) that the marquee rectangle touches will become selected.
 
 ### Collapsing and Expanding Symbols
 State and structure diagrams can be hierarchical. A state diagram is hierarchical if it contains a composite state with a nested state machine. A structure diagram is hierarchical if it contains a part typed by another capsule with nested parts or ports. By default symbols that contain nested symbols are collapsed to minimize the size of the diagram:
