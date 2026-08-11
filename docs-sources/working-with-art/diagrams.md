@@ -96,6 +96,14 @@ Move the source and target bendpoint to decide where on the source and target sy
 To delete all bendpoints, and make the line straight again, select the line and press ++ctrl+space++ and then perform the command **Make Straight**. To only delete some of the bendpoints, select them, press ++ctrl+space++ and then perform the command **Delete Bendpoint**.
 
 ### Discarding Layout Information
+You can discard all changes you have made to a diagram since the last time it was saved by clicking the button **Restore Saved Layout**, next to the **Manual** checkbox in the Properties view. This is more convenient than performing the **Undo** command multiple times, or to accomplish the same thing by closing and reopening the diagram without saving the layout changes.
+
+![](images/restore-saved-layout.png)
+
+You will be prompted for confirmation since this operation is not undoable.
+
+![](images/restoring-layout-settings.png)
+
 If you want to go back from manual to automatic layout, just uncheck the **Manual** checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!
 
 ![](images/deleting-layout-settings.png)

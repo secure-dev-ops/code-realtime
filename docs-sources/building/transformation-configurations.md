@@ -167,32 +167,32 @@ Below is a table that lists all properties that can be used in a TC (in addition
 | [capsuleFactory](#capsulefactory) | String | N/A
 | [commonPreface](#commonpreface) | String | N/A
 | [compileArguments](#compilearguments) | String | N/A 
-| [compileCommand](#compilecommand) | String | "`$(CC)`"
+| [compileCommand](#compilecommand) | String | `"$(CC)"`
 | [copyrightText](#copyrighttext) | String | N/A 
 | [cppCodeStandard](#cppcodestandard) | Enum string | N/A (Compiler Default)
 | [eval](#eval) | TC object | N/A
-| [executableName](#executablename) | String | "`$(TOP_CAPSULE)$(EXEC_EXT)`"
-| [guardExpressions](#guardexpressions) | Boolean | true
-| [inclusionPaths](#inclusionpaths) | List of strings | []
-| [libraryName](#libraryname) | String | "`$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)`"
+| [executableName](#executablename) | String | `"$(TOP_CAPSULE)$(EXEC_EXT)"`
+| [guardExpressions](#guardexpressions) | Boolean | `true`
+| [inclusionPaths](#inclusionpaths) | List of strings | `[]`
+| [libraryName](#libraryname) | String | `"$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)"`
 | [linkArguments](#linkarguments) | String | N/A
-| [linkCommand](#linkcommand) | String | "`$(LD)`"
+| [linkCommand](#linkcommand) | String | `"$(LINK)"`
 | [makeArguments](#makearguments) | String | N/A
-| [makeCommand](#makecommand) | String | "`$defaultMakeCommand`"
+| [makeCommand](#makecommand) | String | `"$defaultMakeCommand"`
 | [precompiledLibrary](#precompiledlibrary) | String | N/A
-| [prerequisites](#prerequisites) | List of strings | []
-| [sources](#sources) | List of strings | ["*.art"]
+| [prerequisites](#prerequisites) | List of strings | `[]`
+| [sources](#sources) | List of strings | `["**/*.art", "**/*.h", "**/*.cpp"]`
 | [sourceSubdirectory](#sourcesubdirectory) | String | N/A
 | [targetConfiguration](#targetconfiguration) | String | Depends on current operating system
-| [targetConfigurationName](#targetconfigurationname) | String | "default"
-| [targetFolder](#targetfolder) | String | Name of TC with "_target" appended
-| [targetRTSLocation](#targetrtslocation) | String | "`${code_rt_home}`/TargetRTS"
+| [targetConfigurationName](#targetconfigurationname) | String | `"default"`
+| [targetFolder](#targetfolder) | String | Name of TC with `"_target"` appended
+| [targetRTSLocation](#targetrtslocation) | String | `"${code_rt_home}/TargetRTS"`
 | [threads](#threads) | List of Thread objects | List of two Thread objects (MainThread and TimerThread)
 | [topCapsule](#topcapsule) | String | N/A
-| [unitName](#unitname) | String | "UnitName"
+| [unitName](#unitname) | String | `"UnitName"`
 | [unitSubdirectory](#unitsubdirectory) | String | N/A
-| [userLibraries](#userlibraries) | List of strings | []
-| [userObjectFiles](#userobjectfiles) | List of strings | []
+| [userLibraries](#userlibraries) | List of strings | `[]`
+| [userObjectFiles](#userobjectfiles) | List of strings | `[]`
 
 ### capsuleFactory
 This property can be used for specifying a global capsule factory that can control how all capsule instances in the application are created and destroyed. One scenario where this is useful is when implementing dependency injection for capsule creation. See [Capsule Factory](../target-rts/capsule-factory.md) and [Dependency Injection](../target-rts/dependency-injection.md) for more information.
@@ -280,7 +280,7 @@ Specifies additional include paths for the C++ preprocessor in addition to "stan
 tc.inclusionPaths = ["/libs/myLib1/includes", "/libs/myLib2/includes"];
 ```
 
-Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.
+Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator. You also don't need to explicitly add the workspace folder, or any of its subfolders, that contain C++ header files that your application uses. Such folders are also automatically added by the make file generator (see [this chapter](build-cpp-files.md)).
 
 Inclusion paths may contain environment variables, to be expanded by the make tool. Note that some make tools (e.g. nmake) convert such environment variables to upper case.
 
@@ -301,7 +301,7 @@ tc.linkArguments = '/DEBUG'; // Build executable for debugging with Visual Studi
 ```
 
 ### linkCommand
-Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is `$(LD)` which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.
+Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is `$(LINK)` which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.
 
 ### makeArguments
 Specifies the arguments for the [make command](#makecommand) to be used.
@@ -342,11 +342,11 @@ Note that use of workspace-relative paths requires setting the [-ws](art-compile
 For more information about this property see [Transformation Configuration Prerequisites](#transformation-configuration-prerequisites).
 
 ### sources
-By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the `sources` property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the `!` character. In both patterns and anti-patterns you can use the wildcards `*` (matches any sequence of characters) and `?` (matches a single character). Below are a few examples:
+By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the `sources` property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the `!` character. In both patterns and anti-patterns you can use the wildcards `*` (matches any sequence of characters) and `?` (matches a single character). The wildcard `**` can be used to apply a pattern or anti-pattern also in subfolders. Below are a few examples:
 
 ``` js
-tc.sources = ["*.art"]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the "sources" property is not set.
-tc.sources = ["cap1.art", "cap2.art"]; // Only transform two specific Art files
+tc.sources = ["**/*.art"]; // Transform all Art files in the folder that contains the TC, and in any subfolder.
+tc.sources = ["cap1.art", "sub/cap2.art"]; // Only transform two specific Art files, one located in the folder that contains the TC and another located in a subfolder
 tc.sources = ["*.art", "!code_rt_gen.art"]; // Transform all Art files except one
 tc.sources = ["!code_rt_gen.art"]; // Same as above (i.e. the pattern "*.art" is optional)
 tc.sources = ["source??.art", "!*_gen.art"]; // Transform all Art files with names starting with "source" and followed by two arbitrary characters. Art files with a name that ends with "_gen" are excluded.
@@ -355,7 +355,14 @@ tc.sources = ["source??.art", "!*_gen.art"]; // Transform all Art files with nam
 !!! example
     You can find a sample application that has a TC with the "sources" property set [here]({$vars.github.repo$}/tree/main/art-comp-test/tests/tc_sources).
 
-The `sources` property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. See [this chapter](build-cpp-files.md#excluding-source-files) for more information.
+The `sources` property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. Both header files (.h) and implementation files (.cpp) can be added:
+
+* Each C++ implementation file will be included in the build, and be compiled with the same compiler flags that are used for generated C++ files.
+* Each C++ header file will be made accessible during compilation by adding its container folder to the [inclusionPaths](#inclusionpaths) property.
+
+If you don't set the `sources` property its default value is `['**/*.art', '**/*.h', '**/*.cpp]`. That is, by default all Art files and C++ implementation files will be built, and all C++ header files are automatically accessible.
+
+For more information about including non-generated C++ source files in a build, see [this chapter](build-cpp-files.md).
 
 ### sourceSubdirectory
 This property can be set to place generated source files into a sub folder within the [target folder](#targetfolder). It should be a string that is valid as the name of a folder.

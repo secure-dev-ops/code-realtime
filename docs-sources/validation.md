@@ -1796,6 +1796,21 @@ The Art elements with duplicate names are reported as related elements.
 
 Note that this validation rule only applies for a TC that is [active](building/transformation-configurations.md#setting-a-transformation-configuration-as-active), because references to global elements are resolved using the active TC. In the context of the Art Compiler the TC that is specified with the [--tc](building/art-compiler.md#tc) option is considered to be the active TC.
 
+### TC_7020_invalidSourcesProperty
+| Severity | Reason | Quick Fixes
+|----------|:-------------|:-------------
+| Warning | The [`sources`](building/transformation-configurations.md#sources) property has an invalid value | N/A
+
+The [`sources`](building/transformation-configurations.md#sources) property of a TC defines which `.art` and `.cpp` files that should be built by the TC. It can also specify C++ header files (`.h`) to make them accessible, by adding their containing folders to the compiler's include path.
+
+If you want to build all files in the workspace folder (and subfolders, if any) you don't need to set the [`sources`](building/transformation-configurations.md#sources) property. But if you do set it, its value must comply with the following:
+
+* All patterns must specify either Art or C++ source files (with file extensions `.art` and `.cpp`) or C++ header files (with file extension `.h`). Other file extensions are not allowed.
+* All patterns that specify files without use of any wildcards (`**`, `*` or `?`) must exist in the workspace folder, or in a subfolder. 
+* At least one Art file (`.art`) must be included
+
+This validation rule reminds you to update the [`sources`](building/transformation-configurations.md#sources) property if you rename or move files in your workspace folder.
+
 ## Core Validation Rules
 There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.
 
@@ -1853,3 +1868,16 @@ A special validation rule is used for detecting and reporting so called internal
 
 Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating {$product.name$}. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of {$product.name$} (see [Releases](releases/index.md)). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described [here](support.md).
 
+## C++ Code Snippet Validation
+The C++ code that you write in a code snippet within an Art file is not analyzed by {$product.name$}. Instead, such code is analyzed as part of the C++ file that is generated from the Art file. This is done twice by two independent tools:
+
+1) The C++ language server ("clangd" or "Microsoft C++") validates a C++ file as soon as it appears in a workspace folder or gets modified (or when another file it depends on is modified). 
+2) The C++ compiler validates a C++ file when compiling it.
+
+The purpose of the C++ language server validation is to detect problems already when a C++ file is modified, before it is compiled. This is exactly the same purpose for which Art validation takes place. It can therefore be useful to show C++ errors and warnings reported by the C++ language server, in the Art file's code snippets. You can accomplish this by means of [a setting](settings.md#show-diagnostics-in-code-snippets).
+
+Here is an example of how an error detected by the C++ language server is shown in a code snippet of an Art file:
+
+![](images/cpp-diagnostics-in-code-snippets.png)
+
+The reason this feature is not enabled by default is that there could be subtle differences between how the C++ language server validates the C++ code and how the C++ compiler does it. By propagating a C++ language server error to the Art file it will prevent the TC from being built (see [this chapter](building/index.md#tc-context-menu-commands)), even if the C++ compiler would not report that particular error. If you encounter this, but still find it useful to see C++ diagnostics in Art files, you can disable the setting [code-rt.build.cancelOnError](settings.md#cancel-on-error).

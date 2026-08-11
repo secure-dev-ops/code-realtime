@@ -32,7 +32,7 @@ capsule Main {
 
 It's recommended to place C++ source files in subfolders as in the example above. If you place them directly in the workspace folder you need to ensure they don't have the same name as any of the Art elements that are built. This is to ensure there are no name clashes between the object files that are produced when building.
 
-## Excluding Source Files
+## Including and Excluding Source Files
 By default all `.cpp` and `.h` files that are found in a workspace folder, or in a folder that is directly or indirectly contained in the workspace folder, will be included in the build. If you want to exclude some of these files from the build you can use the [`sources`](transformation-configurations.md#sources) TC property, just as for Art files. All `.cpp` and `.h` files that match at least one pattern in the [`sources`](transformation-configurations.md#sources) property, and doesn't match an anti-pattern (starting with the character `!`) will be included into the build. 
 
 !!! note
@@ -41,8 +41,8 @@ By default all `.cpp` and `.h` files that are found in a workspace folder, or in
 Here are some examples:
 
 ``` js
-tc.sources = ["**/*.cpp", "**/*.h", "*.art"]; // Include all .cpp and .h files from the workspace folder and all its subfolders, and all .art files from the workspace folder. This is the default behavior if the "sources" property is not set.
-tc.sources = ["src/utils.cpp", "include/utils.h", "*.art"]; // Include a specific .cpp and .h file into the build
+tc.sources = ["**/*.art", "**/*.h", "**/*.cpp"]; // Include all .art, .cpp and .h files from the workspace folder and all its subfolders. This is the default behavior if the "sources" property is not set.
+tc.sources = ["src/utils.cpp", "include/utils.h", "**/*.art"]; // Include a specific .cpp and .h file into the build
 tc.sources = ["!src/utils.cpp", "!include/utils.h"]; // Include all .cpp and .h files except two specific ones (all .art files will be built)
 ```
 

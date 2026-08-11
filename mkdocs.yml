@@ -132,8 +132,8 @@ nav:
      - Releases: 
         - Releases: releases/index.md  
      - Settings: settings.md
-     - Migration from Model RT: 
-        - Migration from Model RT: migration-modelrt/index.md
+     - Migration from Model RealTime: 
+        - Migration from Model RealTime: migration-modelrt/index.md
         - Overview: migration-modelrt/overview.md
         - Best Practices: migration-modelrt/best-practices.md
      - Support Procedures: support.md

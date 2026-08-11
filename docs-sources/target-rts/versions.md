@@ -55,6 +55,9 @@ A new decoder class [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.
 ### Building without rtperl
 New macros were added in makefiles to support building generated applications without using `rtperl`.
 
+!!! note
+    This change affects target configurations. If you have created your own target configurations, make sure to update them accordingly.
+
 ### JSON parser
 A new class [`RTJsonParser`](../targetrts-api/class_r_t_json_parser.html) can be used for parsing arbitrary JSON strings. It has a more general use than [`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html) which is specifically for decoding JSON that has been produced by [`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html). See [this chapter](encoding-decoding.md#json-parser) for more information.
 
@@ -65,7 +68,7 @@ A Bash script `createPatch.sh` is now available in the `tools` folder of the Tar
 Data of pointer type is now encoded to a string by the JSON encoder ([`RTJsonEncoding`](../targetrts-api/class_r_t_json_encoding.html)) and can be decoded back to a memory address by the JSON decoder ([`RTJsonDecoding`](../targetrts-api/class_r_t_json_decoding.html)).
 
 ### Align terminology in comments
-Several comments were updated to align the terminology used in Code and Model RealTime. This was done so that the Doxygen documentation that is generated from the TargetRTS header files will be easy to understand for users of both products.
+Several comments were updated to align the terminology used in {$product.name$} and {$rtist.name$}. This was done so that the Doxygen documentation that is generated from the TargetRTS header files will be easy to understand for users of both products.
 
 ### Configurable max TCP connections
 The [`RTTcpSocket`](../targetrts-api/class_r_t_tcp_socket.html) class has a new function `setMaxPendingConnections()` which can be used for setting the maximum number of clients that can connect to the TCP socket. Previously this limit was always 5, and this is still the default in case you don't call this function to change it.
