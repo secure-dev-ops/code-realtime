@@ -1,0 +1,4 @@
+This file exists in the workspace folder, but its file extension (.txt) is not
+allowed in the `sources` property of a TC. Only `.art`, `.cpp`, and `.h` files
+may appear in `sources`. It is used here only to trigger the TC_7020
+validation rule for an invalid file extension.

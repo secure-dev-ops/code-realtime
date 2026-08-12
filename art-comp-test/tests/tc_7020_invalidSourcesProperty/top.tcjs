@@ -1,0 +1,4 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.targetFolder = 'tc_7020_invalidSourcesProperty_target';
+tc.cppCodeStandard = "C++ 17";
+tc.sources = ['notes.*', 'missing.cpp', 'notes.txt']; 

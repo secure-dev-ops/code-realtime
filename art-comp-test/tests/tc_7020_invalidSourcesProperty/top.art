@@ -1,0 +1,10 @@
+capsule Top {
+    /* Ports */
+    /* Parts */
+    /* Connectors */
+    /* State Machine */
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
