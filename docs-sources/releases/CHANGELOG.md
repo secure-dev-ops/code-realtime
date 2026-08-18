@@ -1,3 +1,27 @@
+# 3.6.0 (2026-08-17 16:00)
+1. When you open a state diagram from the context of a state, pseudo state or transition in an Art file, it can happen that it's not visible because it's inside a collapsed composite state. For this case, a popup will now appear with a button that can be pressed to expand those composite states that need to be expanded so that the state, pseudo state or transition can be highlighted on the diagram.
+
+![Expand states to reveal element]({$vars.doc.server$}/working-with-art/images/autoexpand-composite-states.png)
+
+2. The visual appearance of a selected symbol or line on a diagram has been improved to make it easier to spot when it gets selected or highlighted on a big and cluttered diagram. Now a "glowing" outline is shown for a few seconds on each new selection.
+
+![Glowing selection]({$vars.doc.server$}/working-with-art/images/glowing-selection.png)
+
+3. You can now move symbols and lines that connect them while preserving the routing of the lines. Previously the bendpoints of such moved lines stayed in their original positions and had to be individually moved, which made it cumbersome to preserve line routings when moving symbols.
+4. A new button in the Properties view can be used, for diagrams that use manual layout, to revert layout modifications made since the last time the diagram was saved.
+
+![Restore saved layout]({$vars.doc.server$}/working-with-art/images/restore-saved-layout.png)
+
+5. Errors and warnings for C++ code within code snippets of an Art file can now be shown. This can help if you prefer to edit C++ code in Art files, rather than in the generated C++ files. This feature is turned off by default, and you need to set a new [setting]({$vars.doc.server$}/settings/#show-diagnostics-in-code-snippets) to turn it on. Read more about this feature [here]({$vars.doc.server$}/validation/#c-code-snippet-validation).
+
+![C++ code snippet diagnostics]({$vars.doc.server$}/images/cpp-diagnostics-in-code-snippets.png)
+
+6. It's now possible to view a subset of a trace file by selecting only a few message lines before invoking the **Open Sequence Diagram** command. This can be an alternative to filtering a big trace file to only show an interesting subset of it.
+7. The command **Export Google Trace Event JSON** could previously not export trace files bigger than 50 MB in size. This limitation has now been removed and you can export much bigger trace files to the Google Trace Event format.
+8. The form-based TC editor has been improved to better utilize available space. Previously some widgets had limits on how long strings they could show. Now all widgets grow horizontally when you increase the width of the editor to make longer strings fit.
+9. A new validation rule [TC_7020]({$vars.doc.server$}/validation/#tc_7020_invalidsourcesproperty) checks that the value of the TC property `sources` is correct.
+10. Version 2.6.0 of the Art Exporter is now available. See [this page](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html) for more details.
+
 # 3.5.0 (2026-06-10 12:18)
 1. The Outline view now shows C++ declarations, include statements and macros for Art code snippets. This makes it easier to navigate to their locations in the Art file.
 
