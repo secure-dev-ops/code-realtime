@@ -20,7 +20,7 @@
     
     
       
-        <title>3.5.0 (2026-06-10 12:18) - DevOps Code RealTime</title>
+        <title>3.6.0 (2026-08-17 16:00) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#350-2026-06-10-1218" class="md-skip">
+        <a href="#360-2026-08-17-1600" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.5.0 (2026-06-10 12:18)
+              3.6.0 (2026-08-17 16:00)
             
           </span>
         </div>
@@ -1139,12 +1139,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          <a href="../../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1155,7 +1157,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1169,6 +1171,20 @@
     <li class="md-nav__item">
       <a href="../../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -1361,6 +1377,31 @@
   
 
 
+<h1 id="360-2026-08-17-1600">3.6.0 (2026-08-17 16:00)</h1>
+<ol>
+<li>When you open a state diagram from the context of a state, pseudo state or transition in an Art file, it can happen that it's not visible because it's inside a collapsed composite state. For this case, a popup will now appear with a button that can be pressed to expand those composite states that need to be expanded so that the state, pseudo state or transition can be highlighted on the diagram.</li>
+</ol>
+<p><img alt="Expand states to reveal element" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/autoexpand-composite-states.png" /></p>
+<ol start="2">
+<li>The visual appearance of a selected symbol or line on a diagram has been improved to make it easier to spot when it gets selected or highlighted on a big and cluttered diagram. Now a "glowing" outline is shown for a few seconds on each new selection.</li>
+</ol>
+<p><img alt="Glowing selection" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/glowing-selection.png" /></p>
+<ol start="3">
+<li>You can now move symbols and lines that connect them while preserving the routing of the lines. Previously the bendpoints of such moved lines stayed in their original positions and had to be individually moved, which made it cumbersome to preserve line routings when moving symbols.</li>
+<li>A new button in the Properties view can be used, for diagrams that use manual layout, to revert layout modifications made since the last time the diagram was saved.</li>
+</ol>
+<p><img alt="Restore saved layout" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/restore-saved-layout.png" /></p>
+<ol start="5">
+<li>Errors and warnings for C++ code within code snippets of an Art file can now be shown. This can help if you prefer to edit C++ code in Art files, rather than in the generated C++ files. This feature is turned off by default, and you need to set a new <a href="https://secure-dev-ops.github.io/code-realtime/settings/#show-diagnostics-in-code-snippets">setting</a> to turn it on. Read more about this feature <a href="https://secure-dev-ops.github.io/code-realtime/validation/#c-code-snippet-validation">here</a>.</li>
+</ol>
+<p><img alt="C++ code snippet diagnostics" src="https://secure-dev-ops.github.io/code-realtime/images/cpp-diagnostics-in-code-snippets.png" /></p>
+<ol start="6">
+<li>It's now possible to view a subset of a trace file by selecting only a few message lines before invoking the <strong>Open Sequence Diagram</strong> command. This can be an alternative to filtering a big trace file to only show an interesting subset of it.</li>
+<li>The command <strong>Export Google Trace Event JSON</strong> could previously not export trace files bigger than 50 MB in size. This limitation has now been removed and you can export much bigger trace files to the Google Trace Event format.</li>
+<li>The form-based TC editor has been improved to better utilize available space. Previously some widgets had limits on how long strings they could show. Now all widgets grow horizontally when you increase the width of the editor to make longer strings fit.</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#tc_7020_invalidsourcesproperty">TC_7020</a> checks that the value of the TC property <code>sources</code> is correct.</li>
+<li>Version 2.6.0 of the Art Exporter is now available. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html">this page</a> for more details.</li>
+</ol>
 <h1 id="350-2026-06-10-1218">3.5.0 (2026-06-10 12:18)</h1>
 <ol>
 <li>The Outline view now shows C++ declarations, include statements and macros for Art code snippets. This makes it easier to navigate to their locations in the Art file.</li>

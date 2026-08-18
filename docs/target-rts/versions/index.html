@@ -1591,12 +1591,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          <a href="../../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1607,7 +1609,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1621,6 +1623,20 @@
     <li class="md-nav__item">
       <a href="../../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -2346,6 +2362,10 @@
 <p>A new decoder class <a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a> is now available for decoding messages and data from JSON. JSON produced from data by the JSON Encoder (<a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a>) can be decoded back to (a copy of) the original data.</p>
 <h3 id="building-without-rtperl">Building without rtperl</h3>
 <p>New macros were added in makefiles to support building generated applications without using <code>rtperl</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This change affects target configurations. If you have created your own target configurations, make sure to update them accordingly.</p>
+</div>
 <h3 id="json-parser">JSON parser</h3>
 <p>A new class <a href="../../targetrts-api/class_r_t_json_parser.html"><code>RTJsonParser</code></a> can be used for parsing arbitrary JSON strings. It has a more general use than <a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a> which is specifically for decoding JSON that has been produced by <a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a>. See <a href="../encoding-decoding/#json-parser">this chapter</a> for more information.</p>
 <h3 id="script-for-creating-targetrts-patch-files">Script for creating TargetRTS patch files</h3>
@@ -2353,7 +2373,7 @@
 <h3 id="pointers-in-json-encodingdecoding">Pointers in JSON encoding/decoding</h3>
 <p>Data of pointer type is now encoded to a string by the JSON encoder (<a href="../../targetrts-api/class_r_t_json_encoding.html"><code>RTJsonEncoding</code></a>) and can be decoded back to a memory address by the JSON decoder (<a href="../../targetrts-api/class_r_t_json_decoding.html"><code>RTJsonDecoding</code></a>).</p>
 <h3 id="align-terminology-in-comments">Align terminology in comments</h3>
-<p>Several comments were updated to align the terminology used in Code and Model RealTime. This was done so that the Doxygen documentation that is generated from the TargetRTS header files will be easy to understand for users of both products.</p>
+<p>Several comments were updated to align the terminology used in Code RealTime and Model RealTime. This was done so that the Doxygen documentation that is generated from the TargetRTS header files will be easy to understand for users of both products.</p>
 <h3 id="configurable-max-tcp-connections">Configurable max TCP connections</h3>
 <p>The <a href="../../targetrts-api/class_r_t_tcp_socket.html"><code>RTTcpSocket</code></a> class has a new function <code>setMaxPendingConnections()</code> which can be used for setting the maximum number of clients that can connect to the TCP socket. Previously this limit was always 5, and this is still the default in case you don't call this function to change it.</p>
 <h3 id="improved-implementation-of-json-parser">Improved implementation of JSON parser</h3>

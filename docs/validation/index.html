@@ -1153,6 +1153,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7020_invalidsourcesproperty" class="md-nav__link">
+    TC_7020_invalidSourcesProperty
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1202,6 +1209,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-code-snippet-validation" class="md-nav__link">
+    C++ Code Snippet Validation
+  </a>
   
 </li>
       
@@ -1759,12 +1773,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../migration-modelrt/">Migration from Model RT</a>
+          <a href="../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1775,7 +1791,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1789,6 +1805,20 @@
     <li class="md-nav__item">
       <a href="../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -2499,6 +2529,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tc_7020_invalidsourcesproperty" class="md-nav__link">
+    TC_7020_invalidSourcesProperty
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2548,6 +2585,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c-code-snippet-validation" class="md-nav__link">
+    C++ Code Snippet Validation
+  </a>
   
 </li>
       
@@ -4858,6 +4902,31 @@ tc.prerequisites = [&quot;lib1.tcjs&quot;]; // TC_7017 (cycle lib2 -&gt; lib1 -&
 <p>The <a href="../building/transformation-configurations/#sources"><code>sources</code></a> and <a href="../building/transformation-configurations/#prerequisites"><code>prerequisites</code></a> properties of a TC define which Art files that should be built by the TC. For an active TC the root elements of these Art files constitute the global scope. This problem is reported if the names of these global scope elements are not unique. Typically such errors will lead to similar name clashes in the C++ global scope, which would result in linker errors if not fixed.</p>
 <p>The Art elements with duplicate names are reported as related elements.</p>
 <p>Note that this validation rule only applies for a TC that is <a href="../building/transformation-configurations/#setting-a-transformation-configuration-as-active">active</a>, because references to global elements are resolved using the active TC. In the context of the Art Compiler the TC that is specified with the <a href="../building/art-compiler/#tc">--tc</a> option is considered to be the active TC.</p>
+<h3 id="tc_7020_invalidsourcesproperty">TC_7020_invalidSourcesProperty</h3>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th align="left">Reason</th>
+<th align="left">Quick Fixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warning</td>
+<td align="left">The <a href="../building/transformation-configurations/#sources"><code>sources</code></a> property has an invalid value</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../building/transformation-configurations/#sources"><code>sources</code></a> property of a TC defines which <code>.art</code> and <code>.cpp</code> files that should be built by the TC. It can also specify C++ header files (<code>.h</code>) to make them accessible, by adding their containing folders to the compiler's include path.</p>
+<p>If you want to build all files in the workspace folder (and subfolders, if any) you don't need to set the <a href="../building/transformation-configurations/#sources"><code>sources</code></a> property. But if you do set it, its value must comply with the following:</p>
+<ul>
+<li>All patterns must specify either Art or C++ source files (with file extensions <code>.art</code> and <code>.cpp</code>) or C++ header files (with file extension <code>.h</code>). Other file extensions are not allowed.</li>
+<li>All patterns that specify files without use of any wildcards (<code>**</code>, <code>*</code> or <code>?</code>) must exist in the workspace folder, or in a subfolder. </li>
+<li>At least one Art file (<code>.art</code>) must be included</li>
+</ul>
+<p>This validation rule reminds you to update the <a href="../building/transformation-configurations/#sources"><code>sources</code></a> property if you rename or move files in your workspace folder.</p>
 <h2 id="core-validation-rules">Core Validation Rules</h2>
 <p>There are certain core rules that run before the semantic validation rules mentioned above. They are responsible for making sure that the Art file is syntactically correct and that all references it contains can be successfully bound to valid Art elements.</p>
 <p>Since these rules run before semantic <a href="#validation-rules">validation rules</a> they cannot be disabled or have their severity changed. Core validation rules have ids in the range starting from 9000 and above and are listed below.</p>
@@ -4939,6 +5008,14 @@ capsule B {
 </tbody>
 </table>
 <p>Internal errors may arise from bugs and often result from unexpected situations. While it may be possible to workaround an internal error, the problem can only be fully solved by updating Code RealTime. Therefore, the first thing you should do if you get an internal error is to make sure you are running the latest version of Code RealTime (see <a href="../releases/">Releases</a>). If you don't, then please uplift to the latest version as there is a chance the problem has been fixed in that version. If that doesn't help, please report the internal error as described <a href="../support/">here</a>.</p>
+<h2 id="c-code-snippet-validation">C++ Code Snippet Validation</h2>
+<p>The C++ code that you write in a code snippet within an Art file is not analyzed by Code RealTime. Instead, such code is analyzed as part of the C++ file that is generated from the Art file. This is done twice by two independent tools:</p>
+<p>1) The C++ language server ("clangd" or "Microsoft C++") validates a C++ file as soon as it appears in a workspace folder or gets modified (or when another file it depends on is modified). 
+2) The C++ compiler validates a C++ file when compiling it.</p>
+<p>The purpose of the C++ language server validation is to detect problems already when a C++ file is modified, before it is compiled. This is exactly the same purpose for which Art validation takes place. It can therefore be useful to show C++ errors and warnings reported by the C++ language server, in the Art file's code snippets. You can accomplish this by means of <a href="../settings/#show-diagnostics-in-code-snippets">a setting</a>.</p>
+<p>Here is an example of how an error detected by the C++ language server is shown in a code snippet of an Art file:</p>
+<p><img alt="" src="../images/cpp-diagnostics-in-code-snippets.png" /></p>
+<p>The reason this feature is not enabled by default is that there could be subtle differences between how the C++ language server validates the C++ code and how the C++ compiler does it. By propagating a C++ language server error to the Art file it will prevent the TC from being built (see <a href="../building/#tc-context-menu-commands">this chapter</a>), even if the C++ compiler would not report that particular error. If you encounter this, but still find it useful to see C++ diagnostics in Art files, you can disable the setting <a href="../settings/#cancel-on-error">code-rt.build.cancelOnError</a>.</p>
 
 
 

@@ -1149,12 +1149,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../migration-modelrt/">Migration from Model RT</a>
+          <a href="../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1165,7 +1167,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1179,6 +1181,20 @@
     <li class="md-nav__item">
       <a href="../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -2663,6 +2679,10 @@ t3: S1 -&gt; S4 on port3.*; // Trigger t3 when receiving any event on port3
 <li><strong>Guard code</strong>, which runs to decide if the transition can execute or not. There can be a guard for the transition itself (specified after the <code>when</code> keyword), but also a guard for each individual trigger (specified in square brackets (<code>[]</code>) after the trigger). The guard for an individual trigger is only evaluated when the received message matches the port and event specified by that trigger, while the guard for the transition itself is always evaluated. A transition can only execute if both these guard conditions are fulfilled.</li>
 </ul>
 <p>A guard code snippet can either be written as a C++ statement that returns the boolean guard condition (as in the guard for transition <code>requestReceived</code> in the above example), or it can be written as a boolean expression (as in the trigger guard for the <code>timeout</code> trigger in the above example). If the guard condition is simple, as is often the case, using a boolean expression is recommended. However, if needed you can use any number of C++ statements in a guard condition where the last statement should return a boolean expression. For example, you can declare local variables to store partial results when computing the boolean expression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The support for guard code snippets to be <em>either</em> boolean expressions <em>or</em> return statements that return boolean expressions rely on that it's possible for the code generator to syntactically conclude if a guard code is an expression or a statement. In some situations this may not be possible, for example if guard code uses macros. In that case you can disable the support for guard expressions by means of the TC property <a href="../building/transformation-configurations/#guardexpressions"><code>guardExpressions</code></a> and specify all guards with return statements.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Guard code snippets should execute fast and have no side-effects. They are called frequently to decide which transition to execute when a message has arrived.</p>

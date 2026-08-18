@@ -11,20 +11,20 @@
       
       
       
-        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/building/build-cpp-files/">
+        <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/migration-modelrt/best-practices/">
       
       
-        <link rel="prev" href="../transformation-configurations/">
+        <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../build-tasks/">
+        <link rel="next" href="../../support/">
       
       <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>C++ Source Files - DevOps Code RealTime</title>
+        <title>Best Practices - DevOps Code RealTime</title>
       
     
     
@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#including-and-excluding-source-files" class="md-skip">
+        <a href="#art-exporter-warnings" class="md-skip">
           Skip to content
         </a>
       
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              C++ Source Files
+              Best Practices
             
           </span>
         </div>
@@ -832,16 +832,14 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
       
       
         
@@ -864,7 +862,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../">Building</a>
+          <a href="../../building/">Building</a>
           
             <label for="__nav_2_7">
               <span class="md-nav__icon md-icon"></span>
@@ -872,7 +870,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_7">
           <span class="md-nav__icon md-icon"></span>
           Building
@@ -887,7 +885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transformation-configurations/" class="md-nav__link">
+      <a href="../../building/transformation-configurations/" class="md-nav__link">
         Transformation Configurations
       </a>
     </li>
@@ -899,55 +897,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          C++ Source Files
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../building/build-cpp-files/" class="md-nav__link">
         C++ Source Files
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#including-and-excluding-source-files" class="md-nav__link">
-    Including and Excluding Source Files
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#c-extension-source-code-analysis" class="md-nav__link">
-    C++ Extension Source Code Analysis
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -959,7 +913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-tasks/" class="md-nav__link">
+      <a href="../../building/build-tasks/" class="md-nav__link">
         Build Tasks
       </a>
     </li>
@@ -973,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../art-compiler/" class="md-nav__link">
+      <a href="../../building/art-compiler/" class="md-nav__link">
         Art Compiler
       </a>
     </li>
@@ -987,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-variants/" class="md-nav__link">
+      <a href="../../building/build-variants/" class="md-nav__link">
         Build Variants
       </a>
     </li>
@@ -1176,14 +1130,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" checked>
       
       
         
@@ -1200,7 +1156,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../migration-modelrt/">Migration from Model RealTime</a>
+          <a href="../">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1208,7 +1164,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
           Migration from Model RealTime
@@ -1223,7 +1179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../migration-modelrt/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -1235,11 +1191,96 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../migration-modelrt/best-practices/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Best Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Best Practices
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#art-exporter-warnings" class="md-nav__link">
+    Art Exporter Warnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-migration-script" class="md-nav__link">
+    Post Migration Script
+  </a>
+  
+    <nav class="md-nav" aria-label="Post Migration Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-names-in-code-snippets" class="md-nav__link">
+    Updating Names in Code Snippets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capsule-class-name" class="md-nav__link">
+    Capsule Class Name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missing-include-directives" class="md-nav__link">
+    Missing Include Directives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-in-tc-properties" class="md-nav__link">
+    Variables in TC Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-make-command" class="md-nav__link">
+    Top Make Command
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1420,15 +1461,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#including-and-excluding-source-files" class="md-nav__link">
-    Including and Excluding Source Files
+  <a href="#art-exporter-warnings" class="md-nav__link">
+    Art Exporter Warnings
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#c-extension-source-code-analysis" class="md-nav__link">
-    C++ Extension Source Code Analysis
+  <a href="#post-migration-script" class="md-nav__link">
+    Post Migration Script
+  </a>
+  
+    <nav class="md-nav" aria-label="Post Migration Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-names-in-code-snippets" class="md-nav__link">
+    Updating Names in Code Snippets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capsule-class-name" class="md-nav__link">
+    Capsule Class Name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missing-include-directives" class="md-nav__link">
+    Missing Include Directives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-in-tc-properties" class="md-nav__link">
+    Variables in TC Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-make-command" class="md-nav__link">
+    Top Make Command
   </a>
   
 </li>
@@ -1451,53 +1533,39 @@
   
 
 
-  <h1>C++ Source Files</h1>
+  <h1>Best Practices</h1>
 
-<p>You can include regular, non-generated, C++ files in a build. This can be useful whenever you need to include some C++ code in your application that doesn't naturally belong to any particular Art element. For example, you can write utility functions or types in regular C++ files and then use these functions and types from any Art element in the application.</p>
-<p>All files with the file extension <code>.cpp</code> that are present in a workspace folder, or in a subfolder of the workspace folder, are assumed to be C++ source files and will be compiled together with generated C++ files. They will be compiled with the same compiler flags as are used for generated C++ files, and resulting object files will be placed in the target folder (in the same subfolder hierarchy as in the workspace folder).</p>
-<p>All files with the file extension <code>.h</code> that are present in a workspace folder, or in a subfolder of the workspace folder, are assumed to be C++ header files. The folders where they are located will be added automatically to the <a href="../transformation-configurations/#inclusionpaths">inclusionPaths</a> property so they will be found by the preprocessor.</p>
-<p>As an example, let's assume we have a workspace folder with the following structure:</p>
-<p><img alt="" src="../images/non-generated-files.png" /></p>
-<p>The file <code>utils.h</code> contains declarations of some utility functions, and <code>utils.cpp</code> contains their implementations. To use one of these utility functions from <code>main.art</code> you just need to include the header file. For example:</p>
-<pre><code class="language-art">capsule Main {
-    [[rt::impl_preface]]
-    `
-        #include &lt;iostream&gt;
-        #include &quot;utils.h&quot; // Automatically added to inclusion paths
-    `
-
-    statemachine {
-        state S1;
-        initial -&gt; S1
-        `
-            std::string str(&quot;Hello &quot;);
-            concat_string(str, &quot;World!&quot;); // Utility function defined in utils.cpp
-            std::cout &lt;&lt; str &lt;&lt; std::endl;
-        `;
-    };
-};
+<p>The sections below summarize experiences and best practises from completed migration projects.</p>
+<h2 id="art-exporter-warnings">Art Exporter Warnings</h2>
+<p>It's typical to get a big number of warnings the first time you run the Art Exporter on a model. Each warning has an id that starts with 1, for example <code>WARNING[1002]</code>. Even if it's likely that the majority of these warnings are harmless and can be ignored, it's very much recommended that you read and understand each warning. Go through all warnings with a certain id. Once you have done that, and determined that those warnings are safe to ignore, you can disable them in the Model RealTime preferences at <strong>RealTime Development - Build/Transformation - C++ - Rule Configuration</strong>. For example, to disable all warnings with id 1002 add the rule configuration <code>X1002</code>.</p>
+<p>For some warnings you may instead choose to update the Model RealTime model to get rid of them.</p>
+<p>When a warning has been analyzed and you have either disabled it, or updated the model to get rid of it, then run the Art Exporter again to get a new (shorter) list of warnings. Then do the same for the next warning id and repeat until the Art Exporter does not report any warnings for your model.</p>
+<h2 id="post-migration-script">Post Migration Script</h2>
+<p>When you decide to make a change in the model to be migrated (for example to address an Art Exporter <a href="#art-exporter-warnings">warning</a>, or add a <a href="#missing-include-directives">missing include directive</a>) it's of course best if the change can be made in a way that doesn't break the build of the model in Model RealTime. However, sometimes this may not be possible due to differences between how Code RealTime and Model RealTime work. An alternative to making a breaking change in the Model RealTime model can be to instead update the migrated Code RealTime files.</p>
+<p>You can write a script (e.g. a Bash script) which can make such updates after the Art Exporter has run. Such a post migration script acts like a customization of the Art Exporter, and can also be useful for working around bugs or limitations. By applying the changes with a script rather than doing them manually, you can easily repeat the migration multiple times, something that is often needed during a migration project that can last several weeks for big models.</p>
+<p>The sections below cover some known limitations of the Art Exporter which currently must be handled by a post migration script.</p>
+<h3 id="updating-names-in-code-snippets">Updating Names in Code Snippets</h3>
+<p>As explained in <a href="#capsule-class-name">Capsule Class Name</a> there is a difference between Model RealTime and Code RealTime in how capsule classes and capsule type descriptors are named. The Art Exporter tries to automatically update such references in code snippets. When it's able to detect and update such a name it will print a <a href="#art-exporter-warnings">warning</a>. It's strongly recommended that you review these warnings to confirm that the update is correct.</p>
+<p>In some cases, however, the Art Exporter will fail to detect these names, and therefore not update them. This can for example happen if they are enclosed in conditional compilation blocks. If you get compilation errors caused by names that were not updated correctly, it's recommended to update them using a <a href="#post-migration-script">post migration script</a> that can accurately detect and update the name.</p>
+<h2 id="capsule-class-name">Capsule Class Name</h2>
+<p>In Model RealTime the C++ class that is generated from a capsule has the suffix <code>_Actor</code> appended to its name. Code RealTime does not add this suffix in order to make code snippets more readable. To avoid a name clash with the type descriptor for the capsule (which in Model RealTime has the same name as the capsule), Code RealTime adds the prefix <code>RTType_</code> to its name. This is consistent with the prefix used for all other type descriptors.</p>
+<p>The Art Exporter scans code snippets and tries to automatically update references to a capsule class (remove <code>_Actor</code>) or its type descriptor (prepend <code>RTType_</code>). For each replacement made it will print a warning. For example:</p>
+<pre><code>WARNING[1012] : file:&lt;URI&gt; : Updated a supposed capsule class reference from &quot;SomeCapsule&quot; to &quot;RTType_SomeCapsule&quot; in code snippet &quot;Guard&quot;.
 </code></pre>
-<p>It's recommended to place C++ source files in subfolders as in the example above. If you place them directly in the workspace folder you need to ensure they don't have the same name as any of the Art elements that are built. This is to ensure there are no name clashes between the object files that are produced when building.</p>
-<h2 id="including-and-excluding-source-files">Including and Excluding Source Files</h2>
-<p>By default all <code>.cpp</code> and <code>.h</code> files that are found in a workspace folder, or in a folder that is directly or indirectly contained in the workspace folder, will be included in the build. If you want to exclude some of these files from the build you can use the <a href="../transformation-configurations/#sources"><code>sources</code></a> TC property, just as for Art files. All <code>.cpp</code> and <code>.h</code> files that match at least one pattern in the <a href="../transformation-configurations/#sources"><code>sources</code></a> property, and doesn't match an anti-pattern (starting with the character <code>!</code>) will be included into the build. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you set the <a href="../transformation-configurations/#sources"><code>sources</code></a> property to explicitly include some specific <code>.cpp</code> and <code>.h</code> files you also need to specify which <code>.art</code> files to include. That is, make sure the specified patterns match all files that should be included in the build (both <code>.cpp</code>, <code>.h</code> and <code>.art</code> files). If you only specify anti-patterns (i.e. files to exclude from the build) you don't need to do this, since by default all files are included except the ones that are excluded.</p>
-</div>
-<p>Here are some examples:</p>
-<pre><code class="language-js">tc.sources = [&quot;**/*.art&quot;, &quot;**/*.h&quot;, &quot;**/*.cpp&quot;]; // Include all .art, .cpp and .h files from the workspace folder and all its subfolders. This is the default behavior if the &quot;sources&quot; property is not set.
-tc.sources = [&quot;src/utils.cpp&quot;, &quot;include/utils.h&quot;, &quot;**/*.art&quot;]; // Include a specific .cpp and .h file into the build
-tc.sources = [&quot;!src/utils.cpp&quot;, &quot;!include/utils.h&quot;]; // Include all .cpp and .h files except two specific ones (all .art files will be built)
-</code></pre>
-<p>If you have set-up the TC to place generated C++ files in a subfolder of the workspace folder, you don't have to exclude them by means of the <a href="../transformation-configurations/#sources"><code>sources</code></a> TC property. Generated files will always be included in the build exactly once, no matter where they are located. </p>
-<h2 id="c-extension-source-code-analysis">C++ Extension Source Code Analysis</h2>
-<p>The C++ extension that you use with Code RealTime makes use of JSON files for knowing how to analyze C++ source code. It needs to do this to provide editing features such as content assist, navigation and hover tooltips. The JSON files are automatically generated by the C++ code generator based on information provided in the active TC:</p>
-<ul>
-<li>For the <a href="https://code.visualstudio.com/docs/languages/cpp">Microsoft C++ extension</a> a file called <a href="https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference"><code>c_cpp_properties.json</code></a> is used. It's placed in the <code>.vscode</code> subfolder.</li>
-<li>For the <a href="https://clangd.llvm.org/">Clangd extension</a> a file called <a href="https://clang.llvm.org/docs/JSONCompilationDatabase.html"><code>compile_commands.json</code></a> is used. It's placed in the root folder.</li>
-</ul>
-<p>These JSON files are always generated into the target folder, but they are only generated into the source workspace folder if it contains at least one C++ source file. </p>
-<p>If a workspace folder has more than one TC, each building a subset of the source files present in the workspace folder, then the C++ extension may show errors for those source files that are not source elements of the currently active TC. This can be seen in the sample <a href="../../samples/#socketinterface">SocketInterface</a> where two TCs build a server and a client application that have some source files in common. A way to avoid such errors can be to break out common source files and build them into a library which multiple applications then can link with.</p>
+<p>It's recommended to manually confirm that the replacement that was done is correct. Once you have confirmed that each automatic replacement is correct you can turn off the warning 1012 as explained in <a href="#art-exporter-warnings">Art Exporter Warnings</a>.</p>
+<h2 id="missing-include-directives">Missing Include Directives</h2>
+<p>In Model RealTime all generated files include the main TargetRTS header file <code>RTStructures.h</code>. No analysis is done to determine if this include is actually necessary or not. In Code RealTime this include is only added for files that have a dependency on the TargetRTS. This makes compilation of C++ files that do not depend on the TargetRTS faster.</p>
+<p>The Art Exporter has an option <code>Include TargetRTS headers in all exported C++ files</code>. If it is set an include of <code>RTStructures.h</code> will be added to all exported files, just like Model RealTime works. You may use this option as a quick way to resolve compilation errors caused by this missing include directive, but the recommended long term solution is to update the model to add the include directive only where it's required.</p>
+<p>There may also be other include files that are missing in your model, but where the code generated by Model RealTime still compiles (because the required include file gets indirectly included through another include file). Also here the recommended solution is to update the model to add the missing include. Follow the general best practise in C++ which is:</p>
+<p>1) If a file doesn't use anything from an included file, then remove the #include directive completely. Unnecessary include directives makes compilation slower and can lead to unwanted circular dependencies.</p>
+<p>2) If a file uses only pointers or references to a type, then forward declare the type. Do not include the file where the type is defined.</p>
+<p>3) For all other references to declarations, include the file that contains the declaration. Do not rely on that the file gets indirectly included through another included file.</p>
+<h2 id="variables-in-tc-properties">Variables in TC Properties</h2>
+<p>Model RealTime supports various <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Articles/Building/Building%20CPP%20Applications/Applying%20Transformation%20Configurations/Dynamic%20Properties.html?cp=23_2_0_1_0_2">variables</a> in TC properties. Some variables are predefined while others can be defined by the user in Eclipse preferences. Only a few of these variables can be automatically expanded by the Art Exporter.</p>
+<p>If you have a variable in the exported TC that is not defined in Code RealTime you can define an environment variable, either globally or in the shell from where you launch Code RealTime. Some TC variables are expanded by Code RealTime, while others are copied into the generated make file and will be expanded by the make tool. Note that some make tools (e.g. nmake) require environment variable names to be in all uppercase. For example, if you have used the predefined variable <code>${workspace_loc}</code> in inclusion paths or paths to object files, you may need to convert it to uppercase <code>${WORKSPACE_LOC}</code> in order for it to be expanded to the value of an environment variable with this name.</p>
+<h2 id="top-make-command">Top Make Command</h2>
+<p>Model RealTime TCs have two properties <code>Top make command</code> and <code>Top make arguments</code> which are typically used for performing "pre-make" commands before the real build of the TC starts. For example, the top make command can invoke a script, copy files needed during the build etc.</p>
+<p>Code RealTime TCs don't have these properties. Instead you can create a <a href="../../building/build-tasks/">build task</a> which can perform these commands. You can then either invoke this build task manually before building the TC, or create a combined build task which both performs the "pre-make" commands and then invokes the Art Compiler to build the TC.</p>
 
 
 

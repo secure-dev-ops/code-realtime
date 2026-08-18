@@ -1405,12 +1405,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          <a href="../../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1421,7 +1423,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1435,6 +1437,20 @@
     <li class="md-nav__item">
       <a href="../../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -1873,6 +1889,12 @@
 <h2 id="opening-diagrams">Opening Diagrams</h2>
 <p>To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: <strong>Open State Diagram</strong>, <strong>Open Structure Diagram</strong> or <strong>Open Class Diagram</strong>. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.</p>
 <p>If the cursor is placed on an Art element that has a graphic representation in the form of a symbol or line in the diagram, for example a state in a state diagram, the symbol or line will be highlighted in the opened diagram by selecting it. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. If the diagram is already open, it will be made visible and the selection will be updated.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When opening a state diagram with the cursor placed on an element that is nested within a composite state, the element cannot be shown on the diagram if the composite state, or one of its parent composite states, is collapsed. In this situation a popup will appear with a button that can be pressed to expand those composite states that must be expanded to show the element on the diagram.</p>
+<p><img alt="" src="../images/autoexpand-composite-states.png" /></p>
+<p>The popup will stay open a few seconds, and if you don't press the button only the composite state that contains the element will be highlighted in the diagram.</p>
+</div>
 <p>You can also open diagrams from the context menu of an Art file in the Explorer view. In this case the Art file will be searched for an element that can be shown in the selected kind of diagram. If more than one such Art element is found, you will be prompted to pick the one to show in the diagram. For example:</p>
 <p><img alt="" src="../images/open-diagram-multiple-elements.png" /></p>
 <p>The same prompting happens if you open a diagram from an Art file when the cursor position doesn't indicate which Art element to open the diagram for. All valid Art elements in the file will be listed and you can choose which one to open the diagram for.</p>
@@ -1932,6 +1954,10 @@
 <p>Move the source and target bendpoint to decide where on the source and target symbol the line should connect. Create a new bendpoint by moving the opaque middle bendpoint that appears between each pair of bendpoints.</p>
 <p>To delete all bendpoints, and make the line straight again, select the line and press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and then perform the command <strong>Make Straight</strong>. To only delete some of the bendpoints, select them, press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span> and then perform the command <strong>Delete Bendpoint</strong>.</p>
 <h3 id="discarding-layout-information">Discarding Layout Information</h3>
+<p>You can discard all changes you have made to a diagram since the last time it was saved by clicking the button <strong>Restore Saved Layout</strong>, next to the <strong>Manual</strong> checkbox in the Properties view. This is more convenient than performing the <strong>Undo</strong> command multiple times, or to accomplish the same thing by closing and reopening the diagram without saving the layout changes.</p>
+<p><img alt="" src="../images/restore-saved-layout.png" /></p>
+<p>You will be prompted for confirmation since this operation is not undoable.</p>
+<p><img alt="" src="../images/restoring-layout-settings.png" /></p>
 <p>If you want to go back from manual to automatic layout, just uncheck the <strong>Manual</strong> checkbox. You will be prompted for confirmation, and if you proceed the JSON file with the diagram's layout information will be deleted when you save the diagram. This operation is not undoable!</p>
 <p><img alt="" src="../images/deleting-layout-settings.png" /></p>
 <p>Alternatively you can delete the layout JSON file from the Explorer view. In this case, the operation is undoable.</p>
@@ -2006,11 +2032,13 @@
 <li>Press and hold down the <span class="keys"><kbd class="key-space">Space</kbd></span> key (the cursor changes into a hand), and then click and drag anywhere in the diagram.</li>
 </ul>
 <h3 id="selecting-elements">Selecting Elements</h3>
-<p>To select a symbol, label or line, click once on it. A selected symbol gets a thick outline and, if it is <a href="#resizing-symbols">resizable</a>, also yellow resize handles. A selected label is drawn in yellow and, if it belongs to a symbol, resize handles also appear on that symbol. A selected line gets a thick outline and red bendpoint handles.</p>
+<p>To select a symbol, label or line, click once on it. A selected symbol gets a thick green outline and, if it is <a href="#resizing-symbols">resizable</a>, also yellow resize handles. A selected label is drawn in yellow and, if it belongs to a symbol, resize handles also appear on that symbol. A selected line gets a thick green outline and red bendpoint handles.</p>
 <p><img alt="" src="../images/selections.png" /></p>
-<p>To select multiple elements hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key while clicking on symbols, labels or lines. As an alternative you can hold down both <span class="keys"><kbd class="key-control">Ctrl</kbd></span> and <span class="keys"><kbd class="key-shift">Shift</kbd></span> (on Mac <span class="keys"><kbd class="key-command">Cmd</kbd></span> and <span class="keys"><kbd class="key-shift">Shift</kbd></span>) to get a "crosshair" cursor, and then make a "marquee selection" by drawing a rectangle. </p>
+<p>For a few seconds after a new selection has been made the newly selected element is shown with a "glowing" outline. This makes it easier to notice the selected element if the diagram is big and cluttered, especially if it gets automatically selected when highlighted by a command that was invoked, such as <strong>Open State Diagram</strong>.</p>
+<p><img alt="" src="../images/glowing-selection.png" /></p>
+<p>To select multiple elements hold down the <span class="keys"><kbd class="key-control">Ctrl</kbd></span> key while clicking on symbols, labels or lines. As an alternative you can hold down <span class="keys"><kbd class="key-shift">Shift</kbd></span> to get a "crosshair" cursor, and then make a "marquee selection" by drawing a rectangle. </p>
 <p><img alt="" src="../images/marquee_selection.png" /></p>
-<p>All symbols and lines (but not labels) that the marquee rectangle touches will become selected. Note that you cannot make a marquee selection if another element is already selected, so click in the diagram background to reset the selection first.</p>
+<p>All symbols and lines (but not labels) that the marquee rectangle touches will become selected.</p>
 <h3 id="collapsing-and-expanding-symbols">Collapsing and Expanding Symbols</h3>
 <p>State and structure diagrams can be hierarchical. A state diagram is hierarchical if it contains a composite state with a nested state machine. A structure diagram is hierarchical if it contains a part typed by another capsule with nested parts or ports. By default symbols that contain nested symbols are collapsed to minimize the size of the diagram:</p>
 <p><img alt="" src="../images/collapsed-symbols.png" /></p>

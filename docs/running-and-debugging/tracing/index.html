@@ -1114,6 +1114,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#view-subset-of-trace" class="md-nav__link">
+    View Subset of Trace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#synchronous-communication" class="md-nav__link">
     Synchronous Communication
   </a>
@@ -1425,12 +1432,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          <a href="../../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1441,7 +1450,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1455,6 +1464,20 @@
     <li class="md-nav__item">
       <a href="../../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -1660,6 +1683,13 @@
           <li class="md-nav__item">
   <a href="#filter-traces" class="md-nav__link">
     Filter Traces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-subset-of-trace" class="md-nav__link">
+    View Subset of Trace
   </a>
   
 </li>
@@ -1981,6 +2011,10 @@
 <li><code>.*\([\S]+[\s].*\)</code>: All messages with any event parameter, but not those without, will be shown.</li>
 </ul>
 <p>Note that if both a message filter and an instance filter is applied at the same time, some instances that don't match the instance filter may still be shown, if required for showing matching messages (i.e. to show a message both its source and target lifeline must be shown).</p>
+<h3 id="view-subset-of-trace">View Subset of Trace</h3>
+<p>An alternative to first view the entire trace in a sequence diagram and then <a href="#filter-traces">filter it</a> is to select only some lines in the trace file before invoking the <strong>Open Sequence Diagram</strong> command. The sequence diagram will then only show the selected subset of the trace. It's possible to only select a few message lines; the lifelines referenced by the selected messages will be automatically included too.</p>
+<p>You can open multiple subsets from the same trace file as different sequence diagrams. When a sequence diagram shows a subset of a trace the selected line numbers of the trace file are shown in the sequence diagram title.</p>
+<p><img alt="" src="../images/trace-subset.png" /></p>
 <h3 id="synchronous-communication">Synchronous Communication</h3>
 <p>Messages for <a href="../../target-rts/message-communication/#asynchronous-versus-synchronous-communication">synchronous communication</a> have a special visualization in the sequence diagram. The invoke message connects to a rectangle on the receiver lifeline which shows that the sender (i.e. caller) is blocked while the receiver (i.e. callee) handles the message. The reply message is shown by a dashed line. If the reply is explicit, the reply message and its data is shown.</p>
 <p>In the example below the first invoke message has an implicit reply, while the second has an explicit reply:</p>

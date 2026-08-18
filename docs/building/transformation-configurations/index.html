@@ -1056,6 +1056,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#guardexpressions" class="md-nav__link">
+    guardExpressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inclusionpaths" class="md-nav__link">
     inclusionPaths
   </a>
@@ -1463,12 +1470,14 @@
         
           
         
+          
+        
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../migration-modelrt/">Migration from Model RT</a>
+          <a href="../../migration-modelrt/">Migration from Model RealTime</a>
           
             <label for="__nav_2_11">
               <span class="md-nav__icon md-icon"></span>
@@ -1479,7 +1488,7 @@
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_11">
           <span class="md-nav__icon md-icon"></span>
-          Migration from Model RT
+          Migration from Model RealTime
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1493,6 +1502,20 @@
     <li class="md-nav__item">
       <a href="../../migration-modelrt/overview/" class="md-nav__link">
         Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-modelrt/best-practices/" class="md-nav__link">
+        Best Practices
       </a>
     </li>
   
@@ -1813,6 +1836,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#guardexpressions" class="md-nav__link">
+    guardExpressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inclusionpaths" class="md-nav__link">
     inclusionPaths
   </a>
@@ -2019,7 +2049,7 @@
 <p>As an alternative to editing a TC as a JavaScript file Code RealTime also provides a form-based editor which may be easier to use, especially until you are familiar with all TC properties that exist and what they mean.</p>
 <p>To open the form-based TC editor, right-click on a TC file and invoke the context menu command <strong>Edit Properties (UI)</strong>. </p>
 <p><img alt="" src="../images/tc-editor.png" /></p>
-<p>The editor groups the TC properties into three sections:</p>
+<p>The editor groups the TC properties into four sections:</p>
 <ul>
 <li>
 <p><strong>General</strong>: Properties which define the scope of the TC (which elements to transform to C++ and where to place generated files)</p>
@@ -2029,6 +2059,9 @@
 </li>
 <li>
 <p><strong>Build</strong>: Properties that control how generated C++ code is built into a library or an executable</p>
+</li>
+<li>
+<p><strong>Threads</strong>: Properties related to <a href="#threads">threads</a> used by the application</p>
 </li>
 </ul>
 <p>Each available TC property has its own widget for viewing and editing the value. The type of widget depends on the type of TC property. For example, an enumerated property like "C++ Code Standard" uses a drop down menu.</p>
@@ -2129,7 +2162,7 @@
 <tr>
 <td><a href="#compilecommand">compileCommand</a></td>
 <td align="left">String</td>
-<td align="left">"<code>$(CC)</code>"</td>
+<td align="left"><code>"$(CC)"</code></td>
 </tr>
 <tr>
 <td><a href="#copyrighttext">copyrightText</a></td>
@@ -2149,17 +2182,22 @@
 <tr>
 <td><a href="#executablename">executableName</a></td>
 <td align="left">String</td>
-<td align="left">"<code>$(TOP_CAPSULE)$(EXEC_EXT)</code>"</td>
+<td align="left"><code>"$(TOP_CAPSULE)$(EXEC_EXT)"</code></td>
+</tr>
+<tr>
+<td><a href="#guardexpressions">guardExpressions</a></td>
+<td align="left">Boolean</td>
+<td align="left"><code>true</code></td>
 </tr>
 <tr>
 <td><a href="#inclusionpaths">inclusionPaths</a></td>
 <td align="left">List of strings</td>
-<td align="left">[]</td>
+<td align="left"><code>[]</code></td>
 </tr>
 <tr>
 <td><a href="#libraryname">libraryName</a></td>
 <td align="left">String</td>
-<td align="left">"<code>$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)</code>"</td>
+<td align="left"><code>"$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)"</code></td>
 </tr>
 <tr>
 <td><a href="#linkarguments">linkArguments</a></td>
@@ -2169,7 +2207,7 @@
 <tr>
 <td><a href="#linkcommand">linkCommand</a></td>
 <td align="left">String</td>
-<td align="left">"<code>$(LD)</code>"</td>
+<td align="left"><code>"$(LINK)"</code></td>
 </tr>
 <tr>
 <td><a href="#makearguments">makeArguments</a></td>
@@ -2179,7 +2217,7 @@
 <tr>
 <td><a href="#makecommand">makeCommand</a></td>
 <td align="left">String</td>
-<td align="left">"<code>$defaultMakeCommand</code>"</td>
+<td align="left"><code>"$defaultMakeCommand"</code></td>
 </tr>
 <tr>
 <td><a href="#precompiledlibrary">precompiledLibrary</a></td>
@@ -2189,12 +2227,12 @@
 <tr>
 <td><a href="#prerequisites">prerequisites</a></td>
 <td align="left">List of strings</td>
-<td align="left">[]</td>
+<td align="left"><code>[]</code></td>
 </tr>
 <tr>
 <td><a href="#sources">sources</a></td>
 <td align="left">List of strings</td>
-<td align="left">["*.art"]</td>
+<td align="left"><code>["**/*.art", "**/*.h", "**/*.cpp"]</code></td>
 </tr>
 <tr>
 <td><a href="#sourcesubdirectory">sourceSubdirectory</a></td>
@@ -2209,17 +2247,17 @@
 <tr>
 <td><a href="#targetconfigurationname">targetConfigurationName</a></td>
 <td align="left">String</td>
-<td align="left">"default"</td>
+<td align="left"><code>"default"</code></td>
 </tr>
 <tr>
 <td><a href="#targetfolder">targetFolder</a></td>
 <td align="left">String</td>
-<td align="left">Name of TC with "_target" appended</td>
+<td align="left">Name of TC with <code>"_target"</code> appended</td>
 </tr>
 <tr>
 <td><a href="#targetrtslocation">targetRTSLocation</a></td>
 <td align="left">String</td>
-<td align="left">"<code>${code_rt_home}</code>/TargetRTS"</td>
+<td align="left"><code>"${code_rt_home}/TargetRTS"</code></td>
 </tr>
 <tr>
 <td><a href="#threads">threads</a></td>
@@ -2234,7 +2272,7 @@
 <tr>
 <td><a href="#unitname">unitName</a></td>
 <td align="left">String</td>
-<td align="left">"UnitName"</td>
+<td align="left"><code>"UnitName"</code></td>
 </tr>
 <tr>
 <td><a href="#unitsubdirectory">unitSubdirectory</a></td>
@@ -2244,12 +2282,12 @@
 <tr>
 <td><a href="#userlibraries">userLibraries</a></td>
 <td align="left">List of strings</td>
-<td align="left">[]</td>
+<td align="left"><code>[]</code></td>
 </tr>
 <tr>
 <td><a href="#userobjectfiles">userObjectFiles</a></td>
 <td align="left">List of strings</td>
-<td align="left">[]</td>
+<td align="left"><code>[]</code></td>
 </tr>
 </tbody>
 </table>
@@ -2300,11 +2338,16 @@ tc.copyrightText = &quot;See copyright in &quot; + tc.eval.unitName + &quot;.h&q
 <h3 id="executablename">executableName</h3>
 <p>Specifies the name of the executable that is built by the TC. This property is only applicable for TCs that build executables.</p>
 <p>The default value of this property is "<code>$(TOP_CAPSULE)$(EXEC_EXT)</code>" where <code>$(TOP_CAPSULE)</code> is the name of the <a href="#topcapsule"><code>topCapsule</code></a> and <code>$(EXEC_EXT)</code> is a variable for the file extension which gets its value from the TargetRTS configuration that is used.</p>
+<h3 id="guardexpressions">guardExpressions</h3>
+<p>By default Code RealTime allows a guard code snippet to be specified either as a boolean expression, or as a return statement that returns a boolean expression. This relies on that the code generator can syntactically conclude if a guard code is an expression or a statement. In some situations this may not be possible, for example if guard code uses macros, and then there may be errors in the generated code. If you encounter this you can set this property to <code>false</code>. The code generator will then treat all guard code snippets as return statements.</p>
 <h3 id="inclusionpaths">inclusionPaths</h3>
 <p>Specifies additional include paths for the C++ preprocessor in addition to "standard" ones such as the location of TargetRTS include files. If your application links with a <a href="#userlibraries">user library</a> or <a href="#userobjectfiles">user object file</a> you need to add the location of the header file(s) that belong to the library or object file.</p>
 <pre><code class="language-js">tc.inclusionPaths = [&quot;/libs/myLib1/includes&quot;, &quot;/libs/myLib2/includes&quot;];
 </code></pre>
-<p>Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator.</p>
+<p>Note that you don't need to add inclusion paths for target folders of prerequisite TCs. They are added automatically by the make file generator. You also don't need to explicitly add the workspace folder, or any of its subfolders, that contain C++ header files that your application uses. Such folders are also automatically added by the make file generator (see <a href="../build-cpp-files/">this chapter</a>).</p>
+<p>Inclusion paths may contain environment variables, to be expanded by the make tool. Note that some make tools (e.g. nmake) convert such environment variables to upper case.</p>
+<pre><code class="language-js">tc.inclusionPaths = [&quot;${WORKSPACE_LOC}/includes&quot;];
+</code></pre>
 <h3 id="libraryname">libraryName</h3>
 <p>Specifies the name of the library that is built by the TC. This property is only applicable for TCs that build libraries.</p>
 <p>The default value of this property is "<code>$(LIB_PFX)$(TCONFIG_NAME)$(LIB_EXT)</code>" where <code>$(LIB_PFX)</code> is a prefix and <code>$(LIB_EXT)</code> is a file extension which get their values from the TargetRTS configuration that is used. <code>$(TCONFIG_NAME)</code> expands to the name of the TC file (only the base name, not including the file extension).</p>
@@ -2313,7 +2356,7 @@ tc.copyrightText = &quot;See copyright in &quot; + tc.eval.unitName + &quot;.h&q
 <pre><code class="language-js">tc.linkArguments = '/DEBUG'; // Build executable for debugging with Visual Studio
 </code></pre>
 <h3 id="linkcommand">linkCommand</h3>
-<p>Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is <code>$(LD)</code> which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.</p>
+<p>Specifies which C++ linker to use for linking object files and libraries into an executable. The default value for this property is <code>$(LINK)</code> which is a variable that gets its value from the TargetRTS configuration that is used. This property is only applicable for TCs that build executables.</p>
 <h3 id="makearguments">makeArguments</h3>
 <p>Specifies the arguments for the <a href="#makecommand">make command</a> to be used.</p>
 <pre><code class="language-js">tc.makeArguments = '-s'; // Silent make (do not print build commands to the terminal)
@@ -2336,9 +2379,9 @@ tc.copyrightText = &quot;See copyright in &quot; + tc.eval.unitName + &quot;.h&q
 <p>Note that use of workspace-relative paths requires setting the <a href="../art-compiler/#ws">-ws</a> option for the Art Compiler.</p>
 <p>For more information about this property see <a href="#transformation-configuration-prerequisites">Transformation Configuration Prerequisites</a>.</p>
 <h3 id="sources">sources</h3>
-<p>By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the <code>sources</code> property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the <code>!</code> character. In both patterns and anti-patterns you can use the wildcards <code>*</code> (matches any sequence of characters) and <code>?</code> (matches a single character). Below are a few examples:</p>
-<pre><code class="language-js">tc.sources = [&quot;*.art&quot;]; // Transform all Art files in the folder that contains the TC. This is the default behavior if the &quot;sources&quot; property is not set.
-tc.sources = [&quot;cap1.art&quot;, &quot;cap2.art&quot;]; // Only transform two specific Art files
+<p>By default all Art files that are located in the same folder as the TC will be transformed to C++. Sometimes you may want to exclude some Art files, for example because they are built with another TC, or they contain something you want to temporarily exclude from your application without having to delete the files or comment out their contents. In these cases you can set the <code>sources</code> property to specify exactly which Art files that should be built by the TC. The value of the property is a list of strings that specify glob-style patterns and anti-patterns. An Art file will be transformed if it matches at least one pattern and doesn't match any anti-pattern. Anti-patterns start with the <code>!</code> character. In both patterns and anti-patterns you can use the wildcards <code>*</code> (matches any sequence of characters) and <code>?</code> (matches a single character). The wildcard <code>**</code> can be used to apply a pattern or anti-pattern also in subfolders. Below are a few examples:</p>
+<pre><code class="language-js">tc.sources = [&quot;**/*.art&quot;]; // Transform all Art files in the folder that contains the TC, and in any subfolder.
+tc.sources = [&quot;cap1.art&quot;, &quot;sub/cap2.art&quot;]; // Only transform two specific Art files, one located in the folder that contains the TC and another located in a subfolder
 tc.sources = [&quot;*.art&quot;, &quot;!code_rt_gen.art&quot;]; // Transform all Art files except one
 tc.sources = [&quot;!code_rt_gen.art&quot;]; // Same as above (i.e. the pattern &quot;*.art&quot; is optional)
 tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform all Art files with names starting with &quot;source&quot; and followed by two arbitrary characters. Art files with a name that ends with &quot;_gen&quot; are excluded.
@@ -2347,7 +2390,13 @@ tc.sources = [&quot;source??.art&quot;, &quot;!*_gen.art&quot;]; // Transform al
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that has a TC with the "sources" property set <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/tc_sources">here</a>.</p>
 </div>
-<p>The <code>sources</code> property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. See <a href="../build-cpp-files/#excluding-source-files">this chapter</a> for more information.</p>
+<p>The <code>sources</code> property can also be used to specify which regular (i.e. non-generated) C++ files that should be included in the build. Both header files (.h) and implementation files (.cpp) can be added:</p>
+<ul>
+<li>Each C++ implementation file will be included in the build, and be compiled with the same compiler flags that are used for generated C++ files.</li>
+<li>Each C++ header file will be made accessible during compilation by adding its container folder to the <a href="#inclusionpaths">inclusionPaths</a> property.</li>
+</ul>
+<p>If you don't set the <code>sources</code> property its default value is <code>['**/*.art', '**/*.h', '**/*.cpp]</code>. That is, by default all Art files and C++ implementation files will be built, and all C++ header files are automatically accessible.</p>
+<p>For more information about including non-generated C++ source files in a build, see <a href="../build-cpp-files/">this chapter</a>.</p>
 <h3 id="sourcesubdirectory">sourceSubdirectory</h3>
 <p>This property can be set to place generated source files into a sub folder within the <a href="#targetfolder">target folder</a>. It should be a string that is valid as the name of a folder.</p>
 <pre><code class="language-js">tc.sourceSubdirectory = 'subdir';
