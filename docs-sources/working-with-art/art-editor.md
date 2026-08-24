@@ -24,7 +24,7 @@ This feature, which also is known as IntelliSense or Code Completion, helps you 
 
 ![](images/content-assist.png)
 
-* **Code Templates** are complete Art elements, for example a capsule, protocol or state. The inserted code template often has variables that you should replace as you find appropriate. For example, the code template for a capsule contains one variable for the capsule name and another for the name of the state which its state machine contains. Press ++tab++ to move forward from one variable to the next and if needed ++shift+tab++ to move backwards to a previous variable. Note that the same variable may occur in multiple places, like the `State` variable for the capsule code template which occurs both in the state definition and as a state reference in the initial transition. All occurrances of a variable are updated simultaneously when you replace the variable with a string.
+* **Code Templates** are complete Art elements, for example a capsule, protocol or state. The inserted code template often has variables that you should replace as you find appropriate. For example, the code template for a capsule contains one variable for the capsule name and another for the name of the state which its state machine contains. Press ++tab++ to move forward from one variable to the next and if needed ++shift+tab++ to move backwards to a previous variable. Note that the same variable may occur in multiple places, like the `State` variable for the capsule code template which occurs both in the state definition and as a state reference in the initial transition. All occurrences of a variable are updated simultaneously when you replace the variable with a string.
 
 ![](images/code-template-variables.png)
 

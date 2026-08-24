@@ -36,7 +36,7 @@ Below is a table that lists all changes made in the TargetRTS since version 8000
 | 8005 | [New free list macros](#new-free-list-macros) |
 | 8006 | [Static analysis warning reductions](#static-analysis-warning-reductions) <br> [New debugger API "getChildren"](#new-debugger-api-getchildren) |
 | 8007 | [Handle type names containing spaces in encoding/decoding](#handle-type-names-containing-spaces-in-encodingdecoding) |
-| 8008 | [Extend debugger API "getChildren" to obtain active state](#extend-debugger-api-getchildren-to-obtain-active-state) <br> [Long double](#long-double) <br> [RTCONFIG_INFO](#rtconfig_info) <br> [Protocol constructor initializer order](#protocol-constructor-initilizer-ordering) |
+| 8008 | [Extend debugger API "getChildren" to obtain active state](#extend-debugger-api-getchildren-to-obtain-active-state) <br> [Long double](#long-double) <br> [RTCONFIG_INFO](#rtconfig_info) <br> [Protocol constructor initializer order](#protocol-constructor-initializer-ordering) |
 | 8009 | [Simplified qualified names of nested states](#simplified-qualified-names-of-nested-states) |
 | 8010 | [Log streams](#log-streams) <br> [Corrected deletion in RTProtocolAdapter destructor](#corrected-deletion-in-rtprotocoladapter-destructor) <br> [JSON construction in debugger API "getChildren"](#json-construction-in-debugger-api-getchildren)|
 | 8011 | [Log streams connected to files](#log-streams-connected-to-files) |
@@ -101,7 +101,7 @@ Some static analysis tools previously reported a few warnings on the TargetRTS s
 A new debugger API for getting a JSON representation of the runtime structure of a debugged application is now available. It includes information about the capsule instance tree and metadata about the debugged application which is available in the TargetRTS. It is used by the [Art Debugger](../running-and-debugging/debugging.md) for populating the Art Debug view when debugging an application in {$product.name$}.
 
 ### Handle type names containing spaces in encoding/decoding
-Type descriptor names for primitive types that contain spaces have been changed to use an underscore (`_`) instead of a space. This affects how values of such types are encoded/decoded. For example the value `4` of type `unsigned long` will now be encoded as `unsigned_long 4`. This change was done since during decoding a space is used for separating the type name from the value. Previously it was therefore not possible, while debugging, to send events with a data parameter typed by such types, but after this change it now works. Note that if your application somehow relies on the specific encoded format for values of types with a space in their names, it must be updated to accomodate for this change. 
+Type descriptor names for primitive types that contain spaces have been changed to use an underscore (`_`) instead of a space. This affects how values of such types are encoded/decoded. For example the value `4` of type `unsigned long` will now be encoded as `unsigned_long 4`. This change was done since during decoding a space is used for separating the type name from the value. Previously it was therefore not possible, while debugging, to send events with a data parameter typed by such types, but after this change it now works. Note that if your application somehow relies on the specific encoded format for values of types with a space in their names, it must be updated to accommodate for this change. 
 
 ### Extend debugger API "getChildren" to obtain active state
 The debugger API "getChildren" now includes information about the state that is initially active for each capsule instance. 
@@ -112,7 +112,7 @@ The TargetRTS now supports `long double` as other predefined C++ types. The Log 
 ### RTCONFIG_INFO
 A [new configuration macro](build.md#rtconfig_info) has been added for controlling if the `config_info` array should be included in `src/RTMain/mainLine.cc`. Previously this array was always included, but not used, which could cause compiler warnings.
 
-### Protocol constructor initilizer ordering
+### Protocol constructor initializer ordering
 The order of initializers in the [RTProtocol](../targetrts-api/class_r_t_protocol.html) constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.
 
 ### Simplified qualified names of nested states

@@ -29,7 +29,7 @@ The time specified for a one-shot timer, or interval for a periodic timer, can b
 * Using an object of type `std::chrono::duration` (for relative time) or `std::chrono::time_point` (for absolute time). You need to include the `<chrono>` header file and use a C++ 11 compiler.
 * Using chrono literals that represent an appropriate time unit (e.g. seconds or milliseconds). You need to include the `<chrono>` header file and use a C++ 14 compiler.
 
-All functions that set a timer return an [`RTTimerNode*`](../targetrts-api/class_r_t_timer_node.html), and in case the timer could not be set `nullptr` is returned. It's good practise to always check this return value, to ensure the timer was successfully set. If you later need to operate on the timer (for example to [cancel it](#cancel-a-timer)) you should construct an [`RTTimerId`](../targetrts-api/class_r_t_timer_id.html) object from the [`RTTimerNode*`](../targetrts-api/class_r_t_timer_node.html). You can then call `isValid()` on that object to make sure the timer was successfully set. 
+All functions that set a timer return an [`RTTimerNode*`](../targetrts-api/class_r_t_timer_node.html), and in case the timer could not be set `nullptr` is returned. It's good practice to always check this return value, to ensure the timer was successfully set. If you later need to operate on the timer (for example to [cancel it](#cancel-a-timer)) you should construct an [`RTTimerId`](../targetrts-api/class_r_t_timer_id.html) object from the [`RTTimerNode*`](../targetrts-api/class_r_t_timer_node.html). You can then call `isValid()` on that object to make sure the timer was successfully set. 
 
 The example below shows some different ways to set timers and to handle the timeouts:
 

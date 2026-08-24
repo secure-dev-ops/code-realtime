@@ -58,7 +58,7 @@ where contribute-feature-x is your new branch name.
 2. Locate the **Pull requests** tab and click the **New pull request** button.
    ![New pull request](images/new-pull-request.jpg)
 
-3. Select your branch containing the changes (e.g., `contribute-feature-x`) and compare it with the main branch of the upstream repository [secure-devops/code-realtime](https://github.com/secure-dev-ops/code-realtime).
+3. Select your branch containing the changes (e.g., `contribute-feature-x`) and compare it with the main branch of the upstream repository [secure-dev-ops/code-realtime](https://github.com/secure-dev-ops/code-realtime).
 
 4. Provide a clear and concise title and description for your pull request. In the description, explain the purpose of your changes and how they address an issue or improve the project.
 

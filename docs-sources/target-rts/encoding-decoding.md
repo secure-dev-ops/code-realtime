@@ -101,7 +101,7 @@ The default encoding/decoding in the TargetRTS follows these rules:
 2. Inherited member variables are encoded before local ones. Only single inheritance is supported. If your data type uses multiple inheritance you have to provide a [custom implementation](#custom-encodingdecoding) for encoding/decoding it.
 3. An enum literal is encoded using an integer that corresponds to its order of declaration in the enum (0 for the first literal). Note that this is not always the same as the literal's integer value in C++.
 4. Primitive C++ types, such as int, bool and float, are encoded with the string representation of its value. Note that float values are always encoded with maximum precision, which may lead to more decimals than wanted. After decoding you can round it to the desired precision.
-5. For some primitive C++ types, such as char, there is no directly corresponsing JSON type. In those cases a string value is used in the JSON encoding.
+5. For some primitive C++ types, such as char, there is no directly corresponding JSON type. In those cases a string value is used in the JSON encoding.
 6. Some types provided by the TargetRTS, such as RTString and RTByteBlock, has a type descriptor that supports encoding/decoding. But not all of these types are supported by the JSON encoding/decoding.
 7. Attributes of pointer type can be encoded (as a hexadecimal number), but naturally you should only decode objects containing pointers in the same memory space where they are valid.
 

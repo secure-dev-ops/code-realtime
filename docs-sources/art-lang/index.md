@@ -92,7 +92,7 @@ capsule BrewControl {
 };
 ```
 
-If the code snippet needs to contain the backtick character, for example in a comment or a string literal, you need to escape it by preceeding it with a backslash (`\`). For example:
+If the code snippet needs to contain the backtick character, for example in a comment or a string literal, you need to escape it by preceding it with a backslash (`\`). For example:
 
 ``` art
 capsule StringProcessor {
@@ -650,7 +650,7 @@ capsule Ponger {
 
 ![](images/connector_example.png)
 
-The connector between `p1` and `p2` goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between `p2` and `i` goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port `p2` is a so called **relay port** (it just relays all events it receives to another port) and the connector between `p2` and `i` is sometimes called a **delegation connector** to describe the fact that capsule `Ponger` uses it for delegating some of its responsiblities to the capsule `Internal`. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port `p1` can be directly connected to `i`).
+The connector between `p1` and `p2` goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between `p2` and `i` goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port `p2` is a so called **relay port** (it just relays all events it receives to another port) and the connector between `p2` and `i` is sometimes called a **delegation connector** to describe the fact that capsule `Ponger` uses it for delegating some of its responsibilities to the capsule `Internal`. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port `p1` can be directly connected to `i`).
 
 A connector doesn't have a direction, so it doesn't matter in which order it connects the two ports. That is, connecting X with Y is equivalent to connecting Y with X.
 

@@ -2,7 +2,7 @@ An Art application consists of capsule instances that each manage a state machin
 
 ![](../art-lang/images/event_queues.png)
 
-However, in practise it's often necessary to let each thread run more than one capsule instance. The number of capsule instances in an application can be higher than the maximum number of threads the operating system allows per process. And even if that is not the case, having too many threads can consume too much memory and lead to unwanted overhead.
+However, in practice it's often necessary to let each thread run more than one capsule instance. The number of capsule instances in an application can be higher than the maximum number of threads the operating system allows per process. And even if that is not the case, having too many threads can consume too much memory and lead to unwanted overhead.
 
 When creating a new Art application it's recommended to start with a minimal number of threads, perhaps only the main thread initially. During the design work you will then add new threads when you identify capsules that need to perform long-running tasks. Such a capsule should not run in the main thread since during the long-running task all other capsules run by that thread will be unresponsive (i.e. cannot respond to incoming events).
 
