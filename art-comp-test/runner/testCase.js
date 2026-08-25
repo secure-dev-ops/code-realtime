@@ -43,6 +43,10 @@ module.exports = function(webServer) {
                 this.tcjsFile = 'top' + this.postfix + '.tcjs';
         }
         this.exeTarget = this.outDir + '/' + this.tcjsFile.slice(0, -5) + '_target';
+        let artExportOptionsFilePath = this.topProjectPath + '/ArtExporterOptions.txt';
+        if (fs.existsSync(artExportOptionsFilePath)) {
+            this.artExportOptions = artExportOptionsFilePath;
+        }
 
         this.name = name + this.postfix;
         this.namePrefix4Log = this.name.padEnd(52, ' ') + ' : ';

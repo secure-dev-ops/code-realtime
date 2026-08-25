@@ -102,7 +102,11 @@ module.exports = function(argv) {
 
         let generateBuildArgs = [];
         if (doArtExport) {
-            generateBuildArgs.push('--exportArt');
+            if (testCase.artExportOptions) {
+                generateBuildArgs.push('--exportArt=' + testCase.artExportOptions);
+            } else {
+                generateBuildArgs.push('--exportArt');
+            }
             generateBuildArgs.push('--validate=-tc');
         } else if (doBuild) {
             // Model Compiler is only generating by default
