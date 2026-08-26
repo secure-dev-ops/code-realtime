@@ -255,6 +255,14 @@ module.exports = function(webServer) {
                         this[key] = value;
                         continue;
                     }
+
+                    if (key == 'artExporterKnownProblem' || key == 'artCompilerKnownProblem') {
+                        if (argv.artExport) {
+                            this.skipExecution = 'known problem: ' + value;
+                        }
+                        continue;
+                    }
+
                     if (argv.artExport) {
                         continue;
                     }
