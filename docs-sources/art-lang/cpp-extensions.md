@@ -78,7 +78,7 @@ struct RTTypedValue_MyType
     }
     inline RTTypedValue_MyType( const MyType && rtg_value )
         : data( &rtg_value )
-        , type( &RTType_Colors )
+        , type( &RTType_MyType )
         , rValueRef( true )
     {
     }
@@ -256,7 +256,7 @@ As an example assume we have a type alias for the Colors enum from the previous 
 ``` art
 [[rt::decl]]
 `
-    using MyColors [rt::manual_descriptor] = Colors;
+    using MyColors [[rt::manual_descriptor]] = Colors;
 `
 
 [[rt::impl]]

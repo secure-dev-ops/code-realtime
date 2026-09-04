@@ -122,7 +122,7 @@ Arguments: `<category>` (string) `<detailLevel>` (string)
 
 This command configures logging for services of the TargetRTS. The `<category>` specifies the service to configure logging for and is one of the following:
 
-* **communication** Sending and receiving of messages (both asynchronous and synchronous communication). Also includes use of the [defer queue](../target-rts/message-communication.md#defer-queue).
+* **communication** (or **comm**) Sending and receiving of messages (both asynchronous and synchronous communication). Also includes use of the [defer queue](../target-rts/message-communication.md#defer-queue).
 * **exception** Raising of exceptions on ports.
 * **frame** Use of [Frame](https://secure-dev-ops.github.io/code-realtime/targetrts-api/struct_frame.html) ports, for example to incarnate an optional capsule part.
 * **layer** Use of [unwired ports](../art-lang/index.md#unwired-port), for example registering or deregistering them.

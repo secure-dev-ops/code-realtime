@@ -936,7 +936,7 @@ An internal transition doesn't change the active state and therefore doesn't hav
 state Done {
     unexpected: on myPort.*
     `
-        std::cout << "Unexpected event received! << std::endl; 
+        std::cout << "Unexpected event received!" << std::endl; 
     `;
 };
 ```
@@ -1503,7 +1503,7 @@ class DataClass : `DataContainer<CData>`, `IDisposable` {
     `
     [[rt::impl]]
     `
-        void DataClass:dispose() {
+        void DataClass::dispose() {
             // impl
         }
     `
@@ -1680,7 +1680,7 @@ Below is a table that lists all properties that can be used on different kinds o
 | [kind](#kind) | [Class](#class-with-state-machine) | Enumeration (_class, struct) | _class
 | [registration](#registration) | [Port](#port) | Enumeration (automatic, automatic_locked, application) | automatic
 | [registration_name](#registration_name) | [Port](#port) | String | ""
-| [rule_config](#rule_config) | [Capsule](#capsule), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition) [Trigger](#transition) | String | ""
+| [rule_config](#rule_config) | [Capsule](#capsule), [Protocol](#protocol-and-event), [Port](#port), [Initial transition](#initial-transition), [Triggered transition](#transition), [Trigger](#transition) | String | ""
 | [version](#version) | [Protocol](#protocol-and-event) | Integer | 0
 
 ### color

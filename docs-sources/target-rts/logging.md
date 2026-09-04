@@ -15,7 +15,7 @@ capsule C {
 
     statemachine {
         state S;
-        initial - State1
+        initial -> S
         `
             if (rtdata == nullptr) {
                 log.log("Missing initialization data for capsule C");

@@ -1474,7 +1474,7 @@ capsule XCap {
             t.informIn(RTTimespec(1,0));
         `;
         t1: State1 -> State2 on t.timeout;
-        t2: State1 -> State2 on t.timeout; // CPP_4002
+        t2: State1 -> State2 on t.timeout; // CPP_4001
     };
 };
 ```
