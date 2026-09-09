@@ -1,0 +1,12 @@
+capsule Derived :Base {
+    service behavior port dPort : PROTO;
+    service behavior port exclude bPort;
+    statemachine {
+        state State2;
+        t1: State1 -> State2 on dPort.ine1
+        `
+            Log::out << "Received event!" << Log::endl;
+            PASS();
+        `;
+    };
+};

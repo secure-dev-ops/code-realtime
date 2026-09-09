@@ -1,0 +1,4 @@
+protocol PROTO {
+    in ine1();
+};
+

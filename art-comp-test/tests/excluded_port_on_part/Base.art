@@ -1,0 +1,7 @@
+capsule Base {
+    service behavior port bPort : PROTO;
+    statemachine {
+        state State1;
+        _Initial: initial  ->  State1;
+    };
+};

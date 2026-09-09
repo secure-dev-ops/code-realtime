@@ -1,0 +1,14 @@
+capsule Top {
+    behavior port topP2~ : PROTO;
+    fixed part derived : Derived;
+    connect topP2 with derived.dPort;
+    statemachine {
+        state State1 {
+            entry
+            `
+                topP2.ine1().send();
+            `;
+        };
+        _Initial: initial  ->  State1;
+    };
+};

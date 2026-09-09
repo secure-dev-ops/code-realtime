@@ -1,0 +1,40 @@
+protocol PROTO {
+    in in1();
+    out out1();
+};
+
+capsule Top {   
+    part _part : Derived;
+    
+    behavior port topP2~ : PROTO; 
+ 
+    connect topP2 with _part.dPort;
+
+    statemachine {
+        state T21;
+        initial -> T21;
+    };
+};
+
+capsule Base {    
+    service behavior port bPort : PROTO;    
+    
+    statemachine {
+        state State;
+        initial -> State;
+    };
+};
+
+capsule Derived : Base {
+    service behavior port dPort : PROTO;
+    port exclude bPort; // No ART_0031 or ART_0039 here since bPort is excluded    
+    
+    statemachine {
+        state redefine State {
+            entry
+            `
+                PASS();
+            `;
+        };
+    };
+};

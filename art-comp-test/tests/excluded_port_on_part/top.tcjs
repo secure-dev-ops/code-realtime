@@ -1,0 +1,11 @@
+// Exported on 2026-09-08 13:45:42 using 12.1.7.v20260813_0627 (backend 2.6.0.20260813_0627)
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'excluded_port_on_part_target';
+
+/*
+tc.compileArguments = '$(DEBUG_TAG)';
+tc.linkArguments = '/DEBUG';
+tc.targetConfiguration = "WinT.x86-VisualC++-17.0";
+tc.targetRTSLocation = 'C:/git/rsarte-target-rts/rsa_rt/C++/TargetRTS';*/
