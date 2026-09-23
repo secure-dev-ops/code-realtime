@@ -1,5 +1,8 @@
 
-{$product.name$} can be installed in IDEs that support Visual Studio Code extensions. This obviously includes [Visual Studio Code](https://code.visualstudio.com/) itself, but also many other IDEs such as [IBM Bob](https://bob.ibm.com/), [Cursor](https://cursor.com/), [Windsurf](https://windsurf.com/), [Eclipse Theia](https://theia-ide.org/), [DevOps Code](https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code) and others.
+{$product.name$} can be installed in IDEs that support Visual Studio Code extensions. This obviously includes [Visual Studio Code](https://code.visualstudio.com/) itself, but also many other IDEs such as [IBM Bob](https://bob.ibm.com/), [Cursor](https://cursor.com/), [Windsurf](https://windsurf.com/), [Eclipse Theia](https://theia-ide.org/), [DevOps Code](https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code) and others. 
+
+!!! note 
+    Before you install {$product.name$} you should check the [system requirements](#system-requirements).
 
 The latest version of {$product.name$} is available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce) and on the [Open VSX Registry](https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce). To install that version into your IDE follow these steps:
 
@@ -112,3 +115,19 @@ To uninstall {$product.name$} follow these steps:
 ![](images/uninstall.png)
 
 Once the uninstallation is finished you will no longer see {$product.name$} in the "Installed" section.
+
+## System Requirements
+
+**IDE:** {$product.name$} can be installed in all IDEs that support Visual Studio Code extensions. Refer to the documentation of your IDE for its specific system requirements. For Visual Studio Code, they are found [here](https://code.visualstudio.com/docs/supporting/requirements).
+
+**Java:** A Java Runtime Environment (JRE) must be [installed](#setup-java). It should be a 64 bit version supporting Java 21 or newer, for example OpenJDK 21 JRE or Oracle JDK 21.
+
+**C++:** C++ build tools must be [installed](#setup-c-build-tools). Any C++ compiler can be used, but to use all {$product.name$} features it should support C++ 11. Precompiled TargetRTS libraries are provided for the following compilers:
+
+* MinGW 12.2 (Windows 64 bit)
+* Microsoft Visual Studio 2022, version 17 (Windows 64 and 32 bit)
+* GNU 12 (Linux 64 bit)
+* Clang 16 (Windows 64 bit)
+* Clang 14 (macOS on x64)
+* Clang 15 (macOS on AArch64)
+* Clang 15 (VxWorks 7 Simulator on Windows)

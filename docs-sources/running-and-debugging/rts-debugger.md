@@ -29,6 +29,9 @@ By default the `time` thread (responsible for implementing [timers](../target-rt
 ## Commands
 Below is a list of all commands supported by the RTS Debugger. Each command is described in a section of its own below the table.
 
+!!! note
+    All commands and command arguments can be abbreviated as long as the abbreviation is unambigous. For example, the command `lo comm no` is equivalent to `log communication none`.
+
 | Command | Argument | Description | 
 |----------|:-------------|:-------------|
 | [attach](#attach) | `<threadId>` (number) | Make a thread attached so the RTS Debugger can control it.
@@ -122,7 +125,7 @@ Arguments: `<category>` (string) `<detailLevel>` (string)
 
 This command configures logging for services of the TargetRTS. The `<category>` specifies the service to configure logging for and is one of the following:
 
-* **communication** (or **comm**) Sending and receiving of messages (both asynchronous and synchronous communication). Also includes use of the [defer queue](../target-rts/message-communication.md#defer-queue).
+* **communication** Sending and receiving of messages (both asynchronous and synchronous communication). Also includes use of the [defer queue](../target-rts/message-communication.md#defer-queue).
 * **exception** Raising of exceptions on ports.
 * **frame** Use of [Frame](https://secure-dev-ops.github.io/code-realtime/targetrts-api/struct_frame.html) ports, for example to incarnate an optional capsule part.
 * **layer** Use of [unwired ports](../art-lang/index.md#unwired-port), for example registering or deregistering them.

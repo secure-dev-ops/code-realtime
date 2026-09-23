@@ -106,12 +106,14 @@ Sometimes you may need to navigate in the other direction, i.e. from a code snip
 
 ![](images/cpp_to_art_navigation.png)
 
+Another way to do this navigation is to place the cursor inside the code snippet in the generated C++ file, right-click and perform the command **Go to Art Source** from the context menu. The cursor will then be placed at the same location within the code snippet in the Art file.
+
 You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.
 
 !!! warning 
     Automatic synchronization of edited code snippets requires that the C++ file is edited and saved in {$product.name$}. If you edit generated C++ files in another editor, you need to invoke a [synchronization command](#synchronizing-external-edits) for the changes to propagate back to the Art files.
     
-Pay attention to the status bar in the bottom left corner when you save a generated file. If you know at least one code snippet was modified, but still get the message shown below:
+Pay attention to the status bar in the bottom left corner when you save a generated file that has been edited. If you know at least one code snippet was modified, but still get the message shown below:
 
 ![](images/no-code-snippets-updated.png)
 
@@ -130,4 +132,4 @@ Sometimes you may want to edit generated C++ files in another editor, external t
 Both these commands report in the Art Server console how many code snippets that were updated.
 
 ## Building from the Command Line
-You can build a TC from the command line by using the [Art Compiler](art-compiler.md).
+You can build a TC from the command line by using the [Art Compiler](art-compiler.md). A convenient way to do this from within the IDE is to use a [build task](build-tasks.md).

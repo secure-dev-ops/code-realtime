@@ -1,4 +1,4 @@
-You can use any text editor for editing Art files, but it's highly recommended to edit them in {$product.name$}. Thereby you will have access to features such as [syntax coloring](#syntax-coloring), [content assist](#content-assist) and semantic [validation](../validation.md).
+You can use any text editor for editing Art files, but it's highly recommended to edit them in {$product.name$}. Thereby you will have access to features such as [syntax coloring](#syntax-coloring), [content assist](#content-assist), [reference navigation](#navigating-references) and semantic [validation](../validation.md).
 
 ## Syntax Coloring
 {$product.name$} provides color themes that have been specifically designed for being used for editing Art files. Activate one of these color themes from **File - Preferences - Color Theme**.
@@ -51,6 +51,24 @@ Note that the "Microsoft C++" and "clangd" language servers work slightly differ
 
 !!! hint 
     The "clangd" language server supports an argument `--completion-parse=always` which you can add in its settings. It's recommended to set this argument, since it will force the generated C++ file to be parsed each time Content Assist is invoked, without relying on cached information.
+
+## Navigating References
+You can navigate from where an Art element is referenced to where it is defined by holding down ++ctrl++ and then click on the reference in an Art file. This invokes the **Go to Definition** command (also available in the context menu and by pressing ++"F12"++). By default this command also lets you navigate to C++ definitions that are generated from the referenced Art element, by opening a "peek" window inside the Art text editor. As an example, assume you hold down ++ctrl++ with the cursor placed on a reference to a protocol event. The reference becomes a hyperlink and a tooltip shows how many definitions you can navigate to by clicking the hyperlink.
+
+![](images/ref-navigation-art.png)
+
+Typically there is exactly one definition in an Art file, and the others are C++ definitions generated from the Art element. For the above example, the "peek" window may look like this:
+
+![](images/ref-peek-window.png)
+
+Click the nodes in the tree to the right to show a definition. Double-click a node to close the "peek" window and go to that definition.
+
+If you prefer to directly navigate to the first definition, and not show the "peek" window, you can set the setting `editor.gotoLocation.multipleDefinitions` to `goto` instead of `peek`.
+
+### Use in Code Snippets
+You can also hold down ++ctrl++ and click on references within a C++ code snippet in an Art file. {$product.name$} will then delegate the navigation request to the C++ language server extension that is installed, so the same navigation takes place as if you would have done the navigation from the generated C++ file. Note that this feature requires that C++ code has been generated from the Art file. Make sure you have set a TC as active so generated code is available.
+
+![](images/ref-in-cpp-navigation.png)
 
 ## Renaming Elements
 To rename an Art element place the cursor on the element's name and press ++"F2"++ (or invoke the command **Rename Symbol** from the context menu). This performs a "rename refactoring" that updates all references to the renamed element too.
