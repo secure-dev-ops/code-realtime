@@ -13,15 +13,21 @@ In addition it's also possible to open [class diagrams to visualize C++ code](#c
 ## Opening Diagrams
 To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: **Open State Diagram**, **Open Structure Diagram** or **Open Class Diagram**. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.
 
-If the cursor is placed on an Art element that has a graphic representation in the form of a symbol or line in the diagram, for example a state in a state diagram, the symbol or line will be highlighted in the opened diagram by selecting it. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. If the diagram is already open, it will be made visible and the selection will be updated.
+If the cursor is placed on an Art element that has a graphic representation in the diagram, for example a state symbol in a state diagram, it will be highlighted and selected in the opened diagram. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. This feature is also useful when the diagram is already opened, and you want to find where the Art element is shown in the diagram.
 
 !!! note
-    When opening a state diagram with the cursor placed on an element that is nested within a composite state, the element cannot be shown on the diagram if the composite state, or one of its parent composite states, is collapsed. In this situation a popup will appear with a button that can be pressed to expand those composite states that must be expanded to show the element on the diagram.
+    When performing the **Open State Diagram** command with the cursor placed on an element that is nested within a composite state, the element cannot be shown on the diagram if the composite state, or one of its parent composite states, is collapsed. In this situation a popup will appear with a button that can be pressed to expand those composite states that must be expanded to show the element on the diagram.
 
     ![](images/autoexpand-composite-states.png)
 
     The popup will stay open a few seconds, and if you don't press the button only the composite state that contains the element will be highlighted in the diagram.
-    
+
+Note that some kinds of Art elements are shown in the Properties view instead of in the diagram, for example internal transitions. They will be highlighted there in a similar way as symbols and lines are highlighted in the diagram:
+
+![](images/highlighted-internal-transition.png)
+
+If the cursor is placed on an Art element that has no graphical representation in the diagram, for example a code snippet, then the element to which the code snippet belongs is highlighted instead.
+
 You can also open diagrams from the context menu of an Art file in the Explorer view. In this case the Art file will be searched for an element that can be shown in the selected kind of diagram. If more than one such Art element is found, you will be prompted to pick the one to show in the diagram. For example:
 
 ![](images/open-diagram-multiple-elements.png)
