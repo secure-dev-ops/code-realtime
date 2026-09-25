@@ -53,6 +53,18 @@ If you already have a diagram open, you can open another diagram that is related
 
 For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command **Open Inherited State Diagram**. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.
 
+### Diagrams with Errors
+If you open a diagram for an Art file that contains syntax errors, or introduce such errors by changing the Art file while a diagram is open, a banner will appear at the top of the diagram.
+
+![](images/diagram-syntax-errors.png)
+
+Depending on the location of the syntax error(s) some contents of the diagram may not show up, or may show up incorrectly. 
+
+!!! important
+    It's strongly recommended that you fix syntax errors in an Art file before working with a diagram opened from that Art file.
+
+The diagram may also show errors or warnings for other reasons. For example, [layout validation](#layout-validation), [logical layout errors](#logical-layout-errors), [graphical ambiguities](#graphical-ambiguities) or [Art validation](../validation.md#problem-reporting) may all report problems on a diagram. Even if these problems also should be fixed, they are less severe than Art file syntax errors, and it's safe to keep working in an open diagram that shows these types of problems.
+
 ## Automatic vs Manual Layout
 By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). Text labels of symbols and lines are also automatically positioned. The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:
 
@@ -146,7 +158,11 @@ The JSON file that holds layout information for a diagram contains references to
 * There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.
 
 #### Layout Validation
-{$product.name$} validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). This helps you detect layout information that is wrong, for example because of refactoring operations, mistakes made when merging layout files, etc. Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.
+{$product.name$} validates layout files and reports found problems as warnings. They are shown both in the layout file and in the Problems view. A banner is also displayed in the diagram itself to make you aware that layout problems have been detected.
+
+![](images/layout-warning-banner.png)
+
+Problems in the layout can for example occur because of refactoring operations, mistakes made when merging layout files, etc. Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.
 
 ![](images/layout_validation.png)
 
