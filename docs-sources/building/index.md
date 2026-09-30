@@ -129,7 +129,11 @@ Sometimes you may want to edit generated C++ files in another editor, external t
 
 ![](images/synchronize_commands.png)
 
-Both these commands report in the Art Server console how many code snippets that were updated.
+Both these commands report in the Art Server console which code snippets that were updated.
+
+![](images/synchronize-logging.png)
+
+++ctrl+++click on the links to navigate to the updated code snippets.
 
 ## Building from the Command Line
 You can build a TC from the command line by using the [Art Compiler](art-compiler.md). A convenient way to do this from within the IDE is to use a [build task](build-tasks.md).
