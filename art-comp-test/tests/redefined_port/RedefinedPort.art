@@ -44,28 +44,28 @@ capsule D : B {
             ASSERT(A::rtg_class.ports[1].name == std::string("funcPort"), "Expected port name funcPort");
     
             ASSERT(B::rtg_class.numPorts == 4, "Expected 4 ports in capsule B");
-            ASSERT(B::rtg_class.ports[0].name == std::string("pB2"), "Expected port name pB2");
-            ASSERT(B::rtg_class.ports[1].name == std::string("pB1"), "Expected port name pB1");
-            ASSERT(B::rtg_class.ports[2].name == std::string("funcPort"), "Expected port name funcPort");
-            ASSERT(B::rtg_class.ports[3].name == std::string("pA"), "Expected port name pA");
+            ASSERT(B::rtg_class.ports[0].name == std::string("pA"), "Expected port name pA");
+            ASSERT(B::rtg_class.ports[1].name == std::string("funcPort"), "Expected port name funcPort");
+            ASSERT(B::rtg_class.ports[2].name == std::string("pB2"), "Expected port name pB2");
+            ASSERT(B::rtg_class.ports[3].name == std::string("pB1"), "Expected port name pB1");
 
             ASSERT(D::rtg_class.numPorts == 4, "Expected 4 ports in capsule D");
-            ASSERT(D::rtg_class.ports[0].name == std::string("pB1"), "Expected port name pB1");
-            ASSERT(D::rtg_class.ports[1].name == std::string("pA"), "Expected port name pA");
-            ASSERT(D::rtg_class.ports[2].name == std::string("funcPort"), "Expected port name funcPort");
-            ASSERT(D::rtg_class.ports[3].name == std::string("pB2"), "Expected port name pB2");
+            ASSERT(D::rtg_class.ports[0].name == std::string("pA"), "Expected port name pA");
+            ASSERT(D::rtg_class.ports[1].name == std::string("funcPort"), "Expected port name funcPort");
+            ASSERT(D::rtg_class.ports[2].name == std::string("pB2"), "Expected port name pB2");
+            ASSERT(D::rtg_class.ports[3].name == std::string("pB1"), "Expected port name pB1");
 
-            ASSERT(D::rtg_ports[0].offset == B::rtg_class.ports[1].offset, "D::pB1 must be a reference to B::pB1");
-            ASSERT(std::string(D::rtg_ports[0].name) == B::rtg_class.ports[1].name, B::rtg_class.ports[1].name);
+            ASSERT(D::rtg_ports[3].offset == B::rtg_class.ports[3].offset, "D::pB1 must be a reference to B::pB1");
+            ASSERT(std::string(D::rtg_ports[3].name) == B::rtg_class.ports[3].name, B::rtg_class.ports[3].name);
 
-            ASSERT(D::rtg_ports[1].offset == A::rtg_class.ports[0].offset, "D::pA must be a reference to A::pA");
-            ASSERT(std::string(D::rtg_ports[1].name) == A::rtg_class.ports[0].name, A::rtg_class.ports[0].name);
+            ASSERT(D::rtg_ports[0].offset == A::rtg_class.ports[0].offset, "D::pA must be a reference to A::pA");
+            ASSERT(std::string(D::rtg_ports[0].name) == A::rtg_class.ports[0].name, A::rtg_class.ports[0].name);
 
-            ASSERT(D::rtg_ports[2].offset == A::rtg_class.ports[1].offset, "D::funcPort must be a reference to A::funcPort");
-            ASSERT(std::string(D::rtg_ports[2].name) == A::rtg_class.ports[1].name, A::rtg_class.ports[1].name);
+            ASSERT(D::rtg_ports[1].offset == A::rtg_class.ports[1].offset, "D::funcPort must be a reference to A::funcPort");
+            ASSERT(std::string(D::rtg_ports[1].name) == A::rtg_class.ports[1].name, A::rtg_class.ports[1].name);
 
-            ASSERT(D::rtg_ports[3].offset == B::rtg_class.ports[0].offset, "D::pB2 is inherited from B");
-            ASSERT(std::string(D::rtg_ports[3].name) == B::rtg_class.ports[0].name, B::rtg_class.ports[0].name);
+            ASSERT(D::rtg_ports[2].offset == B::rtg_class.ports[2].offset, "D::pB2 is inherited from B");
+            ASSERT(std::string(D::rtg_ports[2].name) == B::rtg_class.ports[2].name, B::rtg_class.ports[2].name);
         `;
         State1 -> State2 on pB1.eb when `true`
         `
