@@ -1,0 +1,86 @@
+capsule Other {
+    [[rt::decl]]
+    `
+        int success = 0;
+    `
+    behavior port p3 : Proto3 [2];
+    behavior port p1 : Proto1 [2];
+    behavior port timer : Timing;
+    behavior port frame : Frame;
+    optional part ccInput : CcInput [0..1];
+    fixed part ccInputDerived : CcInputDerived;
+    connect p3 with ccInput.FuncPort;
+    connect ccInput.BasePort with p1;
+    connect ccInputDerived.BasePort with p1;
+    connect p3 with ccInputDerived.FuncPort;
+    statemachine {
+        state State1, Error, State3;
+        state State2 {
+            entry
+            `
+                Log::out << "Success" << Log::endl;
+                if (++success == 3) {
+                    PASS();
+                }
+            `;
+        };
+        initial -> State1
+        `
+            timer.informIn(RTTimespec(0,50000));
+        `;
+        choice choice_0;
+        State1 -> choice_0 on timer.timeout;
+        t1: choice_0 -> State3 when
+        `
+            return false;
+        `
+        `
+            p3.out3().send();
+        `;
+        t2: choice_0 -> Error;
+        State3 -> State2 on p1.in1;
+        State2 -> State2 on p1.in1;
+    };
+};
+capsule OtherDerived : Other {
+    behavior port redefine p1 : Proto1 [3];
+    behavior port redefine p3 : Proto3 [3];
+    fixed part ccInput2 : CcInput;
+    connect p3 with ccInput2.FuncPort;
+    connect ccInput2.BasePort with p1;
+    statemachine {
+        state redefine Error {
+            entry
+            `
+                Log::out << "Failure" << Log::endl;
+                FAIL("Entered Error state of OtherDerived capsule");
+            `;
+        };
+        redefine t1 : choice_0 -> State3 when
+        `
+            RTActorId i = frame.incarnate(ccInput, RTType_CcInputDerived);
+            return i.isValid();
+        `
+        `
+            CALLSUPER;
+        `;
+        redefine t2 : choice_0 -> Error;
+    };
+};
+capsule Top {
+    [[rt::impl_preface]]
+    `
+        #include "OtherDerived.h"
+    `
+    behavior port frame : Frame;
+    optional part other : Other [0..1];
+    statemachine {
+        state State1 {
+            entry
+            `
+                frame.incarnate(other, RTType_OtherDerived);
+            `;
+        };
+        initial -> State1;
+    };
+};

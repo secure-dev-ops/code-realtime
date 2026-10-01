@@ -1,0 +1,12 @@
+protocol Proto1 {
+    in in1();
+};
+protocol Proto2 {
+    in a();
+};
+protocol Proto3 {
+    out out3();
+};
+protocol UnrelatedProto {
+    out qqq();
+};

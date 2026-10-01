@@ -1,0 +1,43 @@
+capsule CcA {
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+capsule CcBaseC : CcA {
+    behavior port SubBasePort : Proto1;
+    statemachine {
+    };
+};
+capsule CcD : CcBaseC {
+    statemachine {
+    };
+};
+capsule CcDPS : CcD {
+    statemachine {
+    };
+};
+capsule CcDriver : CcA {
+    service behavior port unrelatedProto2 : UnrelatedProto;
+    service behavior port FuncPort~ : Proto2;
+    service behavior port unrelatedProto : UnrelatedProto;
+    service behavior port BasePort~ : Proto1;
+    statemachine {
+    };
+};
+capsule CcInput : CcDriver {
+    service behavior port redefine FuncPort~ : Proto3;
+    statemachine {
+        state S1 {
+            entry
+            `
+                BasePort.in1().send();
+            `;
+        };
+        t1: State1 -> S1 on FuncPort.out3;
+    };
+};
+capsule CcInputDerived : CcInput {
+    statemachine {
+    };
+};
