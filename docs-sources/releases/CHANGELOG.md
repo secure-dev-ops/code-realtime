@@ -1,3 +1,32 @@
+# 3.7.0 (2026-10-01 12:26)
+1. A new command **Art Query** is available in the context menu of an Art file and in the popup menu that appears when pressing `Ctrl+space` on a symbol or line in a diagram. The command lets you run a query on the selected Art element in order to find other Art elements that are related to it. The query result is shown in a new **Art Query** view either as a flat list or as a hierarchical tree (depending on query). An initial set of 7 queries is provided; see [the documentation]({$vars.doc.server$}/working-with-art/art-query-view) for more information.
+2. It's now possible to invoke the **Go to Definition** command on a reference in a C++ code snippet in an Art file to directly navigate to the referenced C++ definition.
+
+![Go to Definition from code snippet]({$vars.doc.server$}/working-with-art/images/ref-in-cpp-navigation.png)
+
+3. A new context menu command **Go to Art Source** is available for generated C++ files when the cursor is placed inside a code snippet. It opens the Art file that contains the code snippet and positions the cursor at the same location within it. Previously the only way to do this navigation was to Ctrl+click on the link in the USR-comment which is present at the beginning of the code snippet. For all but very small code snippets scrolling upwards was required to get to this link, which made navigation a bit cumbersome.
+4. The command **Open State Diagram** now highlights also transitions in the state diagram (and internal transitions in the Properties view) if the cursor is placed on a transition in the Art file. A "glowing" outline is shown for a few seconds to make it easier to spot the selected transition in case the diagram is big.
+
+![Highlighted internal transition]({$vars.doc.server$}/working-with-art/images/highlighted-internal-transition.png)
+
+5. An open diagram now detects if the underlying Art file has syntax errors and then shows a banner. It's strongly recommended to fix syntax errors before working with a diagram.
+
+![Diagram syntax errors]({$vars.doc.server$}/working-with-art/images/diagram-syntax-errors.png)
+
+A similar banner, but with warning severity, appears if layout problems are detected for the diagram.
+
+6. The popup menu that appears when pressing `Ctrl+space` in a diagram is now positioned close to the cursor position, but also so it's always fully visible. The cursor position is now also used as the default position for a new symbol created by a command in this popup menu (for example **New State**) if the diagram uses manual layout. This avoids the need to always move newly created symbols to give them a good position on the diagram.
+7. The form-based TC editor now shows which tab is currently selected as active.
+8. The C++ language server files (`c_cpp_properties.json` and `compile_commands.json`) that are generated for a TC now contains include paths for prerequisite TCs. This avoids false positive errors to be reported by the C++ language server when prerequisites are used. Note that it's currently required to build the TC to get these include paths; it's not enough to just set the TC as active.
+9. Synchronization of external edits to code snippets in generated C++ files now produces a more detailed logging of exactly which code snippets that were synchronized. It's possible to navigate from these messages to the synchronized code snippets.
+
+![Navigation to synchronized code snippets]({$vars.doc.server$}/building/images/synchronize-logging.png)
+
+10. The **Synchronize Code Snippets** command now reports any errors detected while evaluating the TC to synchronize code snippets for. Previously errors were silently ignored, and the command just reported that no code snippets were synchronized.
+11. Fixed a bug in the code generator related to port indices and ids which could become wrong for capsules with one or many excluded ports. This could lead to a run-time problem when trying to bind ports of the capsule, for example `Incompatible protocol (signal mismatch)`.
+12. Fixed the order of capsule parts generation into `rtg_capsule_roles` array: now local parts come after inherited parts. Improved handling of redefined parts and ports during connector analysis. These changes fixed run-time assertion `local->state == remove->state` when binding components.
+13. Version 2.7.0 of the Art Exporter is now available. The most notable improvement in the new version is that layouts of state and structure diagrams are much better preserved, especially for diagrams that were originally created in Rose RealTime. See [this page](https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html) for full release notes.
+
 # 3.6.0 (2026-08-17 16:00)
 1. When you open a state diagram from the context of a state, pseudo state or transition in an Art file, it can happen that it's not visible because it's inside a collapsed composite state. For this case, a popup will now appear with a button that can be pressed to expand those composite states that need to be expanded so that the state, pseudo state or transition can be highlighted on the diagram.
 
