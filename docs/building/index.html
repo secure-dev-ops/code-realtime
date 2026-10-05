@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1542,12 +1558,13 @@ Removes the target workspace folder produced when building a TC. If the TC has <
 <p>Another scenario is when you write new code in such a code snippet and want to take advantage of the editing support for C++ that is provided by your IDE, and/or need to see the full C++ context of the edited code snippet. You can navigate from the code snippet in the Art file to the code snippet in the generated file as described <a href="#navigation-between-art-and-generated-c">above</a>.</p>
 <p>Sometimes you may need to navigate in the other direction, i.e. from a code snippet in the generated C++ code to the source Art file. For example, when editing the effect code of a transition it can be useful to look at that transition in its state machine (either in the Art file or in a state diagram). You can <span class="keys"><kbd class="key-control">Ctrl</kbd></span>-click the hyperlink of the USR-comment to perform this navigation as shown in the picture below.</p>
 <p><img alt="" src="images/cpp_to_art_navigation.png" /></p>
+<p>Another way to do this navigation is to place the cursor inside the code snippet in the generated C++ file, right-click and perform the command <strong>Go to Art Source</strong> from the context menu. The cursor will then be placed at the same location within the code snippet in the Art file.</p>
 <p>You can make edits in multiple code snippets in a generated file. When the file is saved all edited code snippets will be automatically propagated back to the Art file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Automatic synchronization of edited code snippets requires that the C++ file is edited and saved in Code RealTime. If you edit generated C++ files in another editor, you need to invoke a <a href="#synchronizing-external-edits">synchronization command</a> for the changes to propagate back to the Art files.</p>
 </div>
-<p>Pay attention to the status bar in the bottom left corner when you save a generated file. If you know at least one code snippet was modified, but still get the message shown below:</p>
+<p>Pay attention to the status bar in the bottom left corner when you save a generated file that has been edited. If you know at least one code snippet was modified, but still get the message shown below:</p>
 <p><img alt="" src="images/no-code-snippets-updated.png" /></p>
 <p>then you can know the changes failed to propagate to the Art file. If the update was successful you should instead get a message that tells how many code snippets that were updated. For example:</p>
 <p><img alt="" src="images/one-code-snippets-updated.png" /></p>
@@ -1558,9 +1575,11 @@ Removes the target workspace folder produced when building a TC. If the TC has <
 <li><strong>Synchronize All Code Snippets</strong> This command is available in the toolbar of the Art Build view. It scans the whole workspace for target workspace folders that have been produced by building TCs, and synchronizes all C++ files in those workspace folders.</li>
 </ul>
 <p><img alt="" src="images/synchronize_commands.png" /></p>
-<p>Both these commands report in the Art Server console how many code snippets that were updated.</p>
+<p>Both these commands report in the Art Server console which code snippets that were updated.</p>
+<p><img alt="" src="images/synchronize-logging.png" /></p>
+<p><span class="keys"><kbd class="key-control">Ctrl</kbd></span>+click on the links to navigate to the updated code snippets.</p>
 <h2 id="building-from-the-command-line">Building from the Command Line</h2>
-<p>You can build a TC from the command line by using the <a href="art-compiler/">Art Compiler</a>.</p>
+<p>You can build a TC from the command line by using the <a href="art-compiler/">Art Compiler</a>. A convenient way to do this from within the IDE is to use a <a href="build-tasks/">build task</a>.</p>
 
 
 

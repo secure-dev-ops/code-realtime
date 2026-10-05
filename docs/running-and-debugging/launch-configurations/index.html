@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1850,7 +1866,7 @@
 </code></pre>
 <p>You can also reference a built-in <a href="../../building/build-tasks/#art-compiler-build-tasks">Art Compiler build task</a> as <code>preLaunchTask</code>.</p>
 <h3 id="buildbeforelaunch">buildBeforeLaunch</h3>
-<p>This attribute applies only for launch configurations where the <a href="#request">request</a> attribute is set to "launch". By default the exeutable will be built before it's launched, but it will only happen if required, i.e. if any change is detected in the source TC or Art files. If a significant change is detected the executable is built in the same way as if you would have performed the <strong>Build</strong> command on the TC. You can set this attribute to <code>false</code> if you don't want this to happen. The main reason for doing so is that you want to instead build the executable in some special way, or do more than just building it, and that you therefore have specified the <a href="#prelaunchtask">preLaunchTask</a> attribute in the launch configuration.</p>
+<p>This attribute applies only for launch configurations where the <a href="#request">request</a> attribute is set to "launch". By default the executable will be built before it's launched, but it will only happen if required, i.e. if any change is detected in the source TC or Art files. If a significant change is detected the executable is built in the same way as if you would have performed the <strong>Build</strong> command on the TC. You can set this attribute to <code>false</code> if you don't want this to happen. The main reason for doing so is that you want to instead build the executable in some special way, or do more than just building it, and that you therefore have specified the <a href="#prelaunchtask">preLaunchTask</a> attribute in the launch configuration.</p>
 
 
 

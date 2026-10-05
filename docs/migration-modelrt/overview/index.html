@@ -498,6 +498,8 @@
         
           
         
+          
+        
       
       
         
@@ -570,6 +572,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1400,8 +1416,8 @@
 <p>Note the following:</p>
 <ol>
 <li>If your UML-RT model uses UML modeling constructs which are outside the realtime subset of UML, for example use case and sequence diagrams, those parts of the model will not be exported. If you use such UML diagrams for documentation and specification purposes in Model RealTime you should keep using Model RealTime for those parts of your model. Code RealTime is not intended to be (or become) a general purpose UML modeling tool.</li>
-<li>Code RealTime implements more <a href="../../validation/">validation rules</a> than what Model RealTime does. It's therefore not uncommon that problems will be reported when you open or build your exported model in Code RealTime. In some cases the Art Exporter will detect such problems and then report a warning, so make sure to carefully read and understand the warnings that are reported when you export your model. In many cases the best way to handle reported problems is to fix them in the Model RT model and then export it again. However, for some problems (especially warnings) you may instead choose to ignore them by <a href="../../validation/#configuring-validation">customizing the severity</a> of the validation rules that report them.</li>
-<li>Model RT TCs may use inheritance, which is not supported in Code RealTime. Usually it's better to use <a href="../../building/build-variants/">build variants</a> than TC inheritance, and the build variants feature works the same both in Model RealTime and Code RealTime. If you export a TC that uses inheritance all inherited properties will be placed in the exported TC.</li>
+<li>Code RealTime implements more <a href="../../validation/">validation rules</a> than what Model RealTime does. It's therefore not uncommon that problems will be reported when you open or build your exported model in Code RealTime. In some cases the Art Exporter will detect such problems and then report a warning, so make sure to carefully read and understand the warnings that are reported when you export your model. In many cases the best way to handle reported problems is to fix them in the Model RealTime model and then export it again. However, for some problems (especially warnings) you may instead choose to ignore them by <a href="../../validation/#configuring-validation">customizing the severity</a> of the validation rules that report them.</li>
+<li>Model RealTime TCs may use inheritance, which is not supported in Code RealTime. Usually it's better to use <a href="../../building/build-variants/">build variants</a> than TC inheritance, and the build variants feature works the same both in Model RealTime and Code RealTime. If you export a TC that uses inheritance all inherited properties will be placed in the exported TC.</li>
 <li>Export of diagram layout information is currently only supported for state and structure diagrams. Class diagrams will use automatic layout. This is a temporary limitation that will be removed in a future version of the Art Exporter.</li>
 <li>The appearance of diagrams is not completely retained, especially if you have customized it in Model RealTime. For example, custom fonts, images etc. will not be exported. Even if some appearance properties may be supported in a future version of Code RealTime it's unlikely that all diagrams will ever look exactly the same in Code RealTime as in Model RealTime, due to differences in the diagram frameworks that are used. If you have certain appearance settings that are extra important for you, please <a href="../../support/">tell us</a> about them.</li>
 </ol>

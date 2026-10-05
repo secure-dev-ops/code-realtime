@@ -502,6 +502,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    System Requirements
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -602,6 +609,8 @@
         
           
         
+          
+        
       
       
         
@@ -674,6 +683,20 @@
     <li class="md-nav__item">
       <a href="../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1541,6 +1564,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    System Requirements
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1561,7 +1591,11 @@
 
   <h1>Installing</h1>
 
-<p>Code RealTime can be installed in IDEs that support Visual Studio Code extensions. This obviously includes <a href="https://code.visualstudio.com/">Visual Studio Code</a> itself, but also many other IDEs such as <a href="https://bob.ibm.com/">IBM Bob</a>, <a href="https://cursor.com/">Cursor</a>, <a href="https://windsurf.com/">Windsurf</a>, <a href="https://theia-ide.org/">Eclipse Theia</a>, <a href="https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code">DevOps Code</a> and others.</p>
+<p>Code RealTime can be installed in IDEs that support Visual Studio Code extensions. This obviously includes <a href="https://code.visualstudio.com/">Visual Studio Code</a> itself, but also many other IDEs such as <a href="https://bob.ibm.com/">IBM Bob</a>, <a href="https://cursor.com/">Cursor</a>, <a href="https://windsurf.com/">Windsurf</a>, <a href="https://theia-ide.org/">Eclipse Theia</a>, <a href="https://www.ibm.com/docs/en/devops-loop/latest?topic=devops-code">DevOps Code</a> and others. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before you install Code RealTime you should check the <a href="#system-requirements">system requirements</a>.</p>
+</div>
 <p>The latest version of Code RealTime is available on the <a href="https://marketplace.visualstudio.com/items?itemName=secure-dev-ops.code-realtime-ce">Visual Studio Marketplace</a> and on the <a href="https://open-vsx.org/extension/secure-dev-ops/code-realtime-ce">Open VSX Registry</a>. To install that version into your IDE follow these steps:</p>
 <p>1) Click "Extensions" in the activity bar to open the Extensions view.</p>
 <p><img alt="" src="../images/extensions_in_sidebar.png" /></p>
@@ -1625,6 +1659,19 @@
 <p>2) Find the Code RealTime extension in the "Installed" section and invoke the "Uninstall" command (in Visual Studio Code the command is available in the context menu, while in Theia it shows up as a button to click).</p>
 <p><img alt="" src="../images/uninstall.png" /></p>
 <p>Once the uninstallation is finished you will no longer see Code RealTime in the "Installed" section.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<p><strong>IDE:</strong> Code RealTime can be installed in all IDEs that support Visual Studio Code extensions. Refer to the documentation of your IDE for its specific system requirements. For Visual Studio Code, they are found <a href="https://code.visualstudio.com/docs/supporting/requirements">here</a>.</p>
+<p><strong>Java:</strong> A Java Runtime Environment (JRE) must be <a href="#setup-java">installed</a>. It should be a 64 bit version supporting Java 21 or newer, for example OpenJDK 21 JRE or Oracle JDK 21.</p>
+<p><strong>C++:</strong> C++ build tools must be <a href="#setup-c-build-tools">installed</a>. Any C++ compiler can be used, but to use all Code RealTime features it should support C++ 11. Precompiled TargetRTS libraries are provided for the following compilers:</p>
+<ul>
+<li>MinGW 12.2 (Windows 64 bit)</li>
+<li>Microsoft Visual Studio 2022, version 17 (Windows 64 and 32 bit)</li>
+<li>GNU 12 (Linux 64 bit)</li>
+<li>Clang 16 (Windows 64 bit)</li>
+<li>Clang 14 (macOS on x64)</li>
+<li>Clang 15 (macOS on AArch64)</li>
+<li>Clang 15 (VxWorks 7 Simulator on Windows)</li>
+</ul>
 
 
 

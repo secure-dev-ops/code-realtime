@@ -505,6 +505,8 @@
         
           
         
+          
+        
       
       
         
@@ -590,6 +592,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#navigating-references" class="md-nav__link">
+    Navigating References
+  </a>
+  
+    <nav class="md-nav" aria-label="Navigating References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-in-code-snippets_1" class="md-nav__link">
+    Use in Code Snippets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#renaming-elements" class="md-nav__link">
     Renaming Elements
   </a>
@@ -641,6 +663,20 @@
     <li class="md-nav__item">
       <a href="../references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1467,6 +1503,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#navigating-references" class="md-nav__link">
+    Navigating References
+  </a>
+  
+    <nav class="md-nav" aria-label="Navigating References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-in-code-snippets_1" class="md-nav__link">
+    Use in Code Snippets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#renaming-elements" class="md-nav__link">
     Renaming Elements
   </a>
@@ -1493,7 +1549,7 @@
 
   <h1>Text Editor</h1>
 
-<p>You can use any text editor for editing Art files, but it's highly recommended to edit them in Code RealTime. Thereby you will have access to features such as <a href="#syntax-coloring">syntax coloring</a>, <a href="#content-assist">content assist</a> and semantic <a href="../../validation/">validation</a>.</p>
+<p>You can use any text editor for editing Art files, but it's highly recommended to edit them in Code RealTime. Thereby you will have access to features such as <a href="#syntax-coloring">syntax coloring</a>, <a href="#content-assist">content assist</a>, <a href="#navigating-references">reference navigation</a> and semantic <a href="../../validation/">validation</a>.</p>
 <h2 id="syntax-coloring">Syntax Coloring</h2>
 <p>Code RealTime provides color themes that have been specifically designed for being used for editing Art files. Activate one of these color themes from <strong>File - Preferences - Color Theme</strong>.</p>
 <ul>
@@ -1516,7 +1572,7 @@
 <p>This feature, which also is known as IntelliSense or Code Completion, helps you when editing an Art file by proposing commonly used Art constructs that are valid at the current cursor position. Invoke Content Assist by pressing <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-space">Space</kbd></span>. Depending on where the cursor is placed you will get different proposals to choose from. There are four kinds of proposals as shown in the picture below:</p>
 <p><img alt="" src="../images/content-assist.png" /></p>
 <ul>
-<li><strong>Code Templates</strong> are complete Art elements, for example a capsule, protocol or state. The inserted code template often has variables that you should replace as you find appropriate. For example, the code template for a capsule contains one variable for the capsule name and another for the name of the state which its state machine contains. Press <span class="keys"><kbd class="key-tab">Tab</kbd></span> to move forward from one variable to the next and if needed <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-tab">Tab</kbd></span> to move backwards to a previous variable. Note that the same variable may occur in multiple places, like the <code>State</code> variable for the capsule code template which occurs both in the state definition and as a state reference in the initial transition. All occurrances of a variable are updated simultaneously when you replace the variable with a string.</li>
+<li><strong>Code Templates</strong> are complete Art elements, for example a capsule, protocol or state. The inserted code template often has variables that you should replace as you find appropriate. For example, the code template for a capsule contains one variable for the capsule name and another for the name of the state which its state machine contains. Press <span class="keys"><kbd class="key-tab">Tab</kbd></span> to move forward from one variable to the next and if needed <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-tab">Tab</kbd></span> to move backwards to a previous variable. Note that the same variable may occur in multiple places, like the <code>State</code> variable for the capsule code template which occurs both in the state definition and as a state reference in the initial transition. All occurrences of a variable are updated simultaneously when you replace the variable with a string.</li>
 </ul>
 <p><img alt="" src="../images/code-template-variables.png" /></p>
 <p>Note that code templates are also available in some C++ code snippets (e.g. <code>rt::decl</code> and <code>rt::impl</code>) and can help you insert pieces of C++ code that are commonly used in Art applications.</p>
@@ -1540,6 +1596,15 @@
 <p class="admonition-title">Hint</p>
 <p>The "clangd" language server supports an argument <code>--completion-parse=always</code> which you can add in its settings. It's recommended to set this argument, since it will force the generated C++ file to be parsed each time Content Assist is invoked, without relying on cached information.</p>
 </div>
+<h2 id="navigating-references">Navigating References</h2>
+<p>You can navigate from where an Art element is referenced to where it is defined by holding down <span class="keys"><kbd class="key-control">Ctrl</kbd></span> and then click on the reference in an Art file. This invokes the <strong>Go to Definition</strong> command (also available in the context menu and by pressing <span class="keys"><kbd>F12</kbd></span>). </p>
+<p><img alt="" src="../images/ref-navigation-art.png" /></p>
+<h3 id="use-in-code-snippets_1">Use in Code Snippets</h3>
+<p>You can also hold down <span class="keys"><kbd class="key-control">Ctrl</kbd></span> and click on references within a C++ code snippet in an Art file. Code RealTime will then delegate the navigation request to the C++ language server extension that is installed, so the same navigation takes place as if you would have done it from the generated C++ file. Note that this feature requires that C++ code has been generated from the Art file. Make sure you have set a TC as active so generated code is available.</p>
+<p><img alt="" src="../images/ref-in-cpp-navigation.png" /></p>
+<p>Contrary to Art, in C++ it's sometimes possible to navigate to multiple definitions from a reference. For example, from a function call you can navigate to different overloads of the called function. By default a "peek" window appears in this case, and from there you can select where to navigate.</p>
+<p><img alt="" src="../images/ref-in-cpp-navigation-peek.png" /></p>
+<p>If you prefer to directly navigate to the first definition, and not show the "peek" window, you can set the setting <code>editor.gotoLocation.multipleDefinitions</code> to <code>goto</code> instead of <code>peek</code>.</p>
 <h2 id="renaming-elements">Renaming Elements</h2>
 <p>To rename an Art element place the cursor on the element's name and press <span class="keys"><kbd>F2</kbd></span> (or invoke the command <strong>Rename Symbol</strong> from the context menu). This performs a "rename refactoring" that updates all references to the renamed element too.</p>
 <div class="admonition note">

@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1527,7 +1543,7 @@
 <li>Using an object of type <code>std::chrono::duration</code> (for relative time) or <code>std::chrono::time_point</code> (for absolute time). You need to include the <code>&lt;chrono&gt;</code> header file and use a C++ 11 compiler.</li>
 <li>Using chrono literals that represent an appropriate time unit (e.g. seconds or milliseconds). You need to include the <code>&lt;chrono&gt;</code> header file and use a C++ 14 compiler.</li>
 </ul>
-<p>All functions that set a timer return an <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>, and in case the timer could not be set <code>nullptr</code> is returned. It's good practise to always check this return value, to ensure the timer was successfully set. If you later need to operate on the timer (for example to <a href="#cancel-a-timer">cancel it</a>) you should construct an <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> object from the <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>. You can then call <code>isValid()</code> on that object to make sure the timer was successfully set. </p>
+<p>All functions that set a timer return an <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>, and in case the timer could not be set <code>nullptr</code> is returned. It's good practice to always check this return value, to ensure the timer was successfully set. If you later need to operate on the timer (for example to <a href="#cancel-a-timer">cancel it</a>) you should construct an <a href="../../targetrts-api/class_r_t_timer_id.html"><code>RTTimerId</code></a> object from the <a href="../../targetrts-api/class_r_t_timer_node.html"><code>RTTimerNode*</code></a>. You can then call <code>isValid()</code> on that object to make sure the timer was successfully set. </p>
 <p>The example below shows some different ways to set timers and to handle the timeouts:</p>
 <pre><code class="language-art">capsule Timers {
     behavior port timer1 : Timing, timer2 : Timing, timer3 : Timing; 

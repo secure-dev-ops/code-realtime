@@ -677,6 +677,8 @@
         
           
         
+          
+        
       
       
         
@@ -749,6 +751,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1798,7 +1814,7 @@ RTTypeInstaller rtg_MyType_installer( RTType_MyType );
     }
     inline RTTypedValue_MyType( const MyType &amp;&amp; rtg_value )
         : data( &amp;rtg_value )
-        , type( &amp;RTType_Colors )
+        , type( &amp;RTType_MyType )
         , rValueRef( true )
     {
     }
@@ -1957,7 +1973,7 @@ int rtg_Container_Status_encode(const RTObject_class* type, const Container::Sta
 <p>As an example assume we have a type alias for the Colors enum from the previous example. We only plan to use this type for standard enum encoding/decoding, but we want the Yellow color to be the default. Since the default type descriptor implementation for a type alias assumes the aliased type to be a structured type, we choose to do a manual implementation of the type descriptor instead of overriding several type descriptor functions (most of which we anyway won't need).</p>
 <pre><code class="language-art">[[rt::decl]]
 `
-    using MyColors [rt::manual_descriptor] = Colors;
+    using MyColors [[rt::manual_descriptor]] = Colors;
 `
 
 [[rt::impl]]

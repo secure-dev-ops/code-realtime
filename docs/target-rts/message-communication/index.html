@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1828,7 +1844,7 @@ sendCopyToMe(&amp;reply);
 <li><code>waitForEvents()</code> This is the function where a controller waits for messages to arrive. The default implementation in <a href="../../targetrts-api/class_r_t_peer_controller.html">RTPeerController</a> blocks here (on a semaphore) until a new message arrives for the controller to handle.</li>
 <li><code>wakeup()</code> This is the function that notifies the controller that a new message has arrived (from another controller). The default implementation in <a href="../../targetrts-api/class_r_t_peer_controller.html">RTPeerController</a> unblocks the controller (by signalling the semaphore) so it can process the new message that has arrived.</li>
 </ul>
-<p>In addition <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a> overrides the <code>mainLoop()</code> function and let's the capsule specify a "process" function which will be called each time a message is about to be dispatched. The call takes place <em>before</em> the message is dispatched which provides a means for the capsule to prioritize some other work before the regular message dispatching.</p>
+<p>In addition <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a> overrides the <code>mainLoop()</code> function and lets the capsule specify a "process" function which will be called each time a message is about to be dispatched. The call takes place <em>before</em> the message is dispatched which provides a means for the capsule to prioritize some other work before the regular message dispatching.</p>
 <p>The capsule that you choose to use for configuring a custom controller is called a <strong>layer capsule</strong> (it provides a "layer" between the controller and your application code). You register the layer capsule with the custom controller by calling the function <a href="../../targetrts-api/class_r_t_custom_controller.html">RTCustomController</a>::<code>registerLayer()</code>. Alternatively you can use a macro called <code>REGISTER_LAYER</code>. Here is an example of code to place in a code snippet of a capsule <code>MyCapsule</code> in order to register that capsule as the layer capsule of a custom controller that runs it:</p>
 <pre><code class="language-cpp">REGISTER_LAYER( static_cast&lt;RTActorFunction&gt;(&amp;MyCapsule::waitForEvents),
                 static_cast&lt;RTActorFunction&gt;(&amp;MyCapsule::wakeup),
@@ -1871,7 +1887,7 @@ sendCopyToMe(&amp;reply);
 <li>The port on which the message was received. Access it by calling <code>RTMessage::sap()</code>.</li>
 <li>The receiver capsule instance. Access it by calling <code>RTMessage::receiver()</code>.</li>
 </ul>
-<p>As mentioned <a href="#controllers-and-message-queues">above</a> you should treat a message object, and all data it contains, as read-only and owned by the TargetRTS. The data that is passed with the message object is either a copy of the data provided by the sender or was moved from it. This avoids the risk that both the sender and receiver, which may run in different threads, access the same data object simulatenously.</p>
+<p>As mentioned <a href="#controllers-and-message-queues">above</a> you should treat a message object, and all data it contains, as read-only and owned by the TargetRTS. The data that is passed with the message object is either a copy of the data provided by the sender or was moved from it. This avoids the risk that both the sender and receiver, which may run in different threads, access the same data object simultaneously.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>When you develop an application don't make assumptions about how many times the data object will be copied. In many cases it will only be copied once, but there are situations when multiple copies will need to be created. It is therefore important that any event parameter has a type descriptor where the copy function (e.g. a copy constructor) is able to copy the data object multiple times. Note that copying of the message object may happen even after it has been dispatched. The receiver must therefore not change it in a way that will prevent it from later being copied correctly by the TargetRTS.</p>
@@ -1885,7 +1901,7 @@ sendCopyToMe(&amp;reply);
 <li>There has to be an agreement between the sender and the receiver about how to manage the memory of the data.</li>
 <li>If the sender and receiver runs in different threads, and they both have access to the data object at the same time, it has to be protected so it can be accessed in a thread-safe way, for example by a mutex.</li>
 </ul>
-<p>A common approach is to let the sender allocate the object, and let the receiver be responsible for deleting it. Also, as soon as the sender as sent the object it will "forget" about it and never access it again. When the receiver has received the object it will use it for as long as it needs, and then delete it.</p>
+<p>A common approach is to let the sender allocate the object, and let the receiver be responsible for deleting it. Also, as soon as the sender has sent the object it will "forget" about it and never access it again. When the receiver has received the object it will use it for as long as it needs, and then delete it.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>You can find a sample application that sends a pointer to an object <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/send_pointer">here</a>.</p>
@@ -1924,7 +1940,7 @@ myPort.myEvent(std::move(data)).send(); // Send by move (rvalue ref to data)
 <p>You can find a sample application that shows how to collect and print statistics <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/message_count">here</a></p>
 </div>
 <h2 id="unhandled-messages">Unhandled Messages</h2>
-<p>In a correctly designed application, under normal circumstances, all messages that are dispatched to a capsule instance lead to the triggering of a transition in its state machine. However, in practise it can happen that a dispatched message is not handled, and therefore is "useless". The most common reason when this happens is that you simply forgot to create a transition with a trigger that matches the received event (with a fulfilled guard condition) in each state that can be active when the message is dispatched. During development of an application, when it still is incomplete and may contain bugs, it's therefore fairly common that some dispatched messages are not handled.</p>
+<p>In a correctly designed application, under normal circumstances, all messages that are dispatched to a capsule instance lead to the triggering of a transition in its state machine. However, in practice it can happen that a dispatched message is not handled, and therefore is "useless". The most common reason when this happens is that you simply forgot to create a transition with a trigger that matches the received event (with a fulfilled guard condition) in each state that can be active when the message is dispatched. During development of an application, when it still is incomplete and may contain bugs, it's therefore fairly common that some dispatched messages are not handled.</p>
 <p>As explained <a href="#controllers-and-message-queues">above</a> the function <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>rtsBehavior()</code> implements the capsule state machine in the generated code, and gets called when a message is dispatched to the capsule instance. If there is no enabled transition for the combination of the currently active state, and the port on which the message was received, the <code>rtsBehavior()</code> function will treat the message as unhandled and make a call to <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>unhandledMessage()</code>. In that function two cases are handled:</p>
 <ol>
 <li>The message was not handled because it was dispatched at an early time in the capsule instance's life, when it hasn't yet been fully initialized. More precisely the initial transition has not yet executed, which in turn means that there isn't yet an active state in the state machine. This is a rather unusual situation and it's handled by calling <a href="../../targetrts-api/class_r_t_actor.html">RTActor</a>::<code>messageReceivedBeforeInitialized()</code> which will save the message in the <a href="#defer-queue">defer queue</a>. When later the initial transition runs, the message will be recalled from the defer queue and put back into the normal message queue so it once again can be dispatched to the capsule instance. Thereby the message is not lost, and eventually becomes handled (or at least gets another chance to be handled).</li>

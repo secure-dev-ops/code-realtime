@@ -20,7 +20,7 @@
     
     
       
-        <title>3.6.0 (2026-08-17 16:00) - DevOps Code RealTime</title>
+        <title>3.7.0 (2026-10-01 12:26) - DevOps Code RealTime</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#360-2026-08-17-1600" class="md-skip">
+        <a href="#370-2026-10-01-1226" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.6.0 (2026-08-17 16:00)
+              3.7.0 (2026-10-01 12:26)
             
           </span>
         </div>
@@ -495,6 +495,8 @@
         
           
         
+          
+        
       
       
         
@@ -567,6 +569,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1377,6 +1393,35 @@
   
 
 
+<h1 id="370-2026-10-01-1226">3.7.0 (2026-10-01 12:26)</h1>
+<ol>
+<li>A new command <strong>Art Query</strong> is available in the context menu of an Art file and in the popup menu that appears when pressing <code>Ctrl+space</code> on a symbol or line in a diagram. The command lets you run a query on the selected Art element in order to find other Art elements that are related to it. The query result is shown in a new <strong>Art Query</strong> view either as a flat list or as a hierarchical tree (depending on query). An initial set of 7 queries is provided; see <a href="https://secure-dev-ops.github.io/code-realtime/working-with-art/art-query-view">the documentation</a> for more information.</li>
+<li>It's now possible to invoke the <strong>Go to Definition</strong> command on a reference in a C++ code snippet in an Art file to directly navigate to the referenced C++ definition.</li>
+</ol>
+<p><img alt="Go to Definition from code snippet" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/ref-in-cpp-navigation.png" /></p>
+<ol start="3">
+<li>A new context menu command <strong>Go to Art Source</strong> is available for generated C++ files when the cursor is placed inside a code snippet. It opens the Art file that contains the code snippet and positions the cursor at the same location within it. Previously the only way to do this navigation was to Ctrl+click on the link in the USR-comment which is present at the beginning of the code snippet. For all but very small code snippets scrolling upwards was required to get to this link, which made navigation a bit cumbersome.</li>
+<li>The command <strong>Open State Diagram</strong> now highlights also transitions in the state diagram (and internal transitions in the Properties view) if the cursor is placed on a transition in the Art file. A "glowing" outline is shown for a few seconds to make it easier to spot the selected transition in case the diagram is big.</li>
+</ol>
+<p><img alt="Highlighted internal transition" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/highlighted-internal-transition.png" /></p>
+<ol start="5">
+<li>An open diagram now detects if the underlying Art file has syntax errors and then shows a banner. It's strongly recommended to fix syntax errors before working with a diagram.</li>
+</ol>
+<p><img alt="Diagram syntax errors" src="https://secure-dev-ops.github.io/code-realtime/working-with-art/images/diagram-syntax-errors.png" /></p>
+<p>A similar banner, but with warning severity, appears if layout problems are detected for the diagram.</p>
+<ol start="6">
+<li>The popup menu that appears when pressing <code>Ctrl+space</code> in a diagram is now positioned close to the cursor position, but also so it's always fully visible. The cursor position is now also used as the default position for a new symbol created by a command in this popup menu (for example <strong>New State</strong>) if the diagram uses manual layout. This avoids the need to always move newly created symbols to give them a good position on the diagram.</li>
+<li>The form-based TC editor now shows which tab is currently selected as active.</li>
+<li>The C++ language server files (<code>c_cpp_properties.json</code> and <code>compile_commands.json</code>) that are generated for a TC now contains include paths for prerequisite TCs. This avoids false positive errors to be reported by the C++ language server when prerequisites are used. Note that it's currently required to build the TC to get these include paths; it's not enough to just set the TC as active.</li>
+<li>Synchronization of external edits to code snippets in generated C++ files now produces a more detailed logging of exactly which code snippets that were synchronized. It's possible to navigate from these messages to the synchronized code snippets.</li>
+</ol>
+<p><img alt="Navigation to synchronized code snippets" src="https://secure-dev-ops.github.io/code-realtime/building/images/synchronize-logging.png" /></p>
+<ol start="10">
+<li>The <strong>Synchronize Code Snippets</strong> command now reports any errors detected while evaluating the TC to synchronize code snippets for. Previously errors were silently ignored, and the command just reported that no code snippets were synchronized.</li>
+<li>Fixed a bug in the code generator related to port indices and ids which could become wrong for capsules with one or many excluded ports. This could lead to a run-time problem when trying to bind ports of the capsule, for example <code>Incompatible protocol (signal mismatch)</code>.</li>
+<li>Fixed the order of capsule parts generation into <code>rtg_capsule_roles</code> array: now local parts come after inherited parts. Improved handling of redefined parts and ports during connector analysis. These changes fixed run-time assertion <code>local-&gt;state == remove-&gt;state</code> when binding components.</li>
+<li>Version 2.7.0 of the Art Exporter is now available. The most notable improvement in the new version is that layouts of state and structure diagrams are much better preserved, especially for diagrams that were originally created in Rose RealTime. See <a href="https://model-realtime.hcldoc.com/help/topic/com.ibm.xtools.rsarte.webdoc/Utilities/Art%20Exporter/index.html">this page</a> for full release notes.</li>
+</ol>
 <h1 id="360-2026-08-17-1600">3.6.0 (2026-08-17 16:00)</h1>
 <ol>
 <li>When you open a state diagram from the context of a state, pseudo state or transition in an Art file, it can happen that it's not visible because it's inside a collapsed composite state. For this case, a popup will now appear with a button that can be pressed to expand those composite states that need to be expanded so that the state, pseudo state or transition can be highlighted on the diagram.</li>
@@ -1616,7 +1661,7 @@
 <li>It's now possible to send events with the Art Debugger, where the event contains a parameter typed by a primitive type whose name contains a space (such as <code>unsigned long</code>). Read more about this change and the potential side-effects it may have to your application <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/versions/#handle-type-names-containing-spaces-in-encodingdecoding">here</a>.</li>
 <li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0040_boundunboundtriggerfornonnotifyingport">ART_0040_boundUnboundTriggerForNonNotifyingPort</a> checks so that triggers that reference the <code>rtBound</code> and <code>rtUnbound</code> events also reference a notifying port.</li>
 <li>The C++ code generator now supports internal transitions for class state machines. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/trigger_operation_with_parameters">this sample</a>.</li>
-<li>The risk for inconsistent C++ code standards being used by the code generator, the compiler and the language server has been mitigated by a new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#tc_0018_withoutCodeStandard">TC_0018_withoutCodeStandard</a>. It will now report a warning if the <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#cppcodestandard">cppCodeStandard</a> property has not been set in the TC. In that case a default code standard will be used by the compiler and language server, while generated code will (still) comply with C++ 17.</li>
+<li>The risk for inconsistent C++ code standards being used by the code generator, the compiler and the language server has been mitigated by a new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#tc_7018_withoutcodestandard">TC_7018_withoutCodeStandard</a>. It will now report a warning if the <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#cppcodestandard">cppCodeStandard</a> property has not been set in the TC. In that case a default code standard will be used by the compiler and language server, while generated code will (still) comply with C++ 17.</li>
 </ol>
 <h1 id="200-2024-09-17-1133">2.0.0 (2024-09-17 11:33)</h1>
 <ol>
@@ -1665,7 +1710,7 @@
 <li>A new documentation chapter explaining how timers work is now available <a href="https://secure-dev-ops.github.io/code-realtime/target-rts/timers/">here</a>. Three new sample applications that show how to use timers are also included (linked from the new documentation chapter).</li>
 <li>Content Assist for capsules was extended to allow creation of a destructor, as well as overriding some of the virtual functions from the <code>RTActor</code> base class (such as <code>_predestroy()</code>).</li>
 <li>Three more checkboxes are now present in the Properties view of a structure diagram for a selected port. They allow setting the port as <code>notify</code>, <code>publish</code> and <code>subscribe</code>. Another improvement is that checkboxes for properties that are not applicable for a port with a predefined protocol (such as <code>Timing</code> or <code>Frame</code>) will now be hidden.</li>
-<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0038_art_0038_portwithpredefinedprotocolnotcorrectlydeclared">ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared</a> now reports a warning if a port with a predefined protocol (such as <code>Timing</code> or <code>Frame</code>) is declared with properties that are not applicable for such a port (for example <code>notify</code> or <code>unwired</code>).</li>
+<li>A new validation rule <a href="https://secure-dev-ops.github.io/code-realtime/validation/#art_0038_portwithpredefinedprotocolnotcorrectlydeclared">ART_0038_portWithPredefinedProtocolNotCorrectlyDeclared</a> now reports a warning if a port with a predefined protocol (such as <code>Timing</code> or <code>Frame</code>) is declared with properties that are not applicable for such a port (for example <code>notify</code> or <code>unwired</code>).</li>
 <li>It's now possible to use the variable <code>$(CAPSULE_CLASS)</code> in the value for the <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations.md#capsulefactory"><code>capsuleFactory</code></a> TC property. It will be replaced with the name of the C++ class that is generated for the capsule. This can be useful for implementing a generic capsule factory which takes the capsule class as a template parameter.</li>
 <li>The C++ code generator now supports state redefinition with regards to entry and exit actions. For an example, see <a href="https://github.com/secure-dev-ops/code-realtime/tree/main/art-comp-test/tests/redefined_entry_action">this sample</a>.</li>
 <li>It's now possible to access properties from the top TC from a prerequisite TC by means of the <code>TCF.getTopTC()</code> function and the special <code>eval</code> property. This is useful in order to allow the same library to be built as a prerequisite from multiple executables. For more information, see <a href="https://secure-dev-ops.github.io/code-realtime/building/transformation-configurations/#accessing-the-top-tc-from-a-prerequisite-tc">the documentation</a>.</li>

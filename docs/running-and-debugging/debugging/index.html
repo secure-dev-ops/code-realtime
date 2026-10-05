@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1595,7 +1611,7 @@
 <li>Certain more complex tasks, such as sending events on ports for the purpose of debugging, can not be directly done from a C++ debugger and would require custom code to be written (which just like logging requires the application to be rebuilt).</li>
 <li>Remote debugging of an application that runs on another machine may require special tools (such as <a href="https://en.wikipedia.org/wiki/Gdbserver">gdbserver</a>).</li>
 </ul>
-<p>Code RealTime provides an <strong>Art Debugger</strong> which adresses these challenges. It allows you to debug your application, locally or remotely, at a higher abstraction level than what a C++ debugger can do. It does not replace the need and usefulness of a C++ debugger, but works as a complement to it. If you want, you can debug your application at the same time both with the Art Debugger and the C++ debugger.</p>
+<p>Code RealTime provides an <strong>Art Debugger</strong> which addresses these challenges. It allows you to debug your application, locally or remotely, at a higher abstraction level than what a C++ debugger can do. It does not replace the need and usefulness of a C++ debugger, but works as a complement to it. If you want, you can debug your application at the same time both with the Art Debugger and the C++ debugger.</p>
 <p>The Art Debugger uses a feature of the TargetRTS known as <strong>target observability</strong>. It includes code which lets the Art Debugger attach to your application at a TCP port (known as the <strong>debug port</strong>). Through this port the Art Debugger can both <strong>control</strong> and <strong>observe</strong> your application.</p>
 <p><img alt="" src="../images/debug_port.png" /></p>
 <p>Target observability can be turned off by means of the <a href="../../target-rts/build/#observable">OBSERVABLE</a> configuration setting. You can choose to do this when deploying the release version of your application if you don't need to debug it with the Art Debugger.</p>

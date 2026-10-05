@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -2070,7 +2086,7 @@
 <li><strong>Event</strong> This is the protocol event which the message is an instance of. The receiver port is typed by the protocol that defines this event (or a protocol from which it inherits).</li>
 <li><strong>Data</strong> This is the data that is carried by the message. By default the message data is represented by its <a href="../../target-rts/encoding-decoding/">ASCII encoding</a> which is the data type followed by the value. If the message carries no data an empty string is printed (i.e. <code>event()</code>). If the event data type cannot be encoded (for example because it has no encode function or the configuration macro <a href="../../target-rts/build/#object_decode-and-object_encode"><code>OBJECT_ENCODE</code></a> is unset) then <code>?</code> is printed.</li>
 </ul>
-<p>In the example above we see two messages. The first one was sent from a capsule instance in the <code>ping</code> part and received by a capsule instance in the <code>pong</code> part, and the other one was sent in the opposite direction. We can see that the first message was sent on the port <code>pingPort</code> at index 0, while the second message was sent on the port <code>pongPort</code> (which has single multiplicity). The first message was received on the port <code>pongPort</code> while the second message was received on the port <code>pingPort</code> at index 1. The first message was of the event <code>ping</code> and carried an <code>int</code> value 0, while the second message was of the event <code>pong</code> and carried no data.</p>
+<p>In the example above we see two messages. The first one was sent from a capsule instance in the <code>ping</code> part and received by a capsule instance in the <code>pong</code> part, and the other one was sent in the opposite direction. We can see the first message was sent on the port <code>pingPort</code> at index 0, while the second message was sent on the port <code>pongPort</code> (which has single multiplicity). The first message was received on the port <code>pongPort</code> while the second message was received on the port <code>pingPort</code> at index 1. The first message was of the event <code>ping</code> and carried an <code>int</code> value 0, while the second message was of the event <code>pong</code> and carried no data.</p>
 <p>You can <span class="keys"><kbd class="key-control">Ctrl</kbd></span>-click on underlined addresses to navigate within the trace file to the <a href="#instance">instance declaration</a> of the sender or receiver capsule instances. There you can see more details about the instances than what is shown in the message itself. You can also <span class="keys"><kbd class="key-control">Ctrl</kbd></span>-click on underlined port names to navigate to where the sender or receiver port is defined in an Art file. In the same way you can navigate to the definition of the protocol event.</p>
 <p>If the sender of a message is not known (see <a href="#messages-without-sender">Message without Sender</a>) it's represented in the trace with a fake instance <code>external</code> at address <code>0x0</code>. This makes it easy to distinguish these "external" messages from others.</p>
 <p>At the end of a message line there can be a JSON object with additional information, for example timestamps telling when the message was received and handled, and if the message was synchronously invoked or replied rather than sent:</p>

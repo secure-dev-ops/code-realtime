@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -965,8 +981,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#protocol-constructor-initilizer-ordering" class="md-nav__link">
-    Protocol constructor initilizer ordering
+  <a href="#protocol-constructor-initializer-ordering" class="md-nav__link">
+    Protocol constructor initializer ordering
   </a>
   
 </li>
@@ -1952,8 +1968,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#protocol-constructor-initilizer-ordering" class="md-nav__link">
-    Protocol constructor initilizer ordering
+  <a href="#protocol-constructor-initializer-ordering" class="md-nav__link">
+    Protocol constructor initializer ordering
   </a>
   
 </li>
@@ -2310,7 +2326,7 @@
 </tr>
 <tr>
 <td>8008</td>
-<td align="left"><a href="#extend-debugger-api-getchildren-to-obtain-active-state">Extend debugger API "getChildren" to obtain active state</a> <br> <a href="#long-double">Long double</a> <br> <a href="#rtconfig_info">RTCONFIG_INFO</a> <br> <a href="#protocol-constructor-initilizer-ordering">Protocol constructor initializer order</a></td>
+<td align="left"><a href="#extend-debugger-api-getchildren-to-obtain-active-state">Extend debugger API "getChildren" to obtain active state</a> <br> <a href="#long-double">Long double</a> <br> <a href="#rtconfig_info">RTCONFIG_INFO</a> <br> <a href="#protocol-constructor-initializer-ordering">Protocol constructor initializer order</a></td>
 </tr>
 <tr>
 <td>8009</td>
@@ -2334,7 +2350,7 @@
 </tr>
 <tr>
 <td>8014</td>
-<td align="left"><a href="#shorter-state-qualifiers-in-the-rtsdebugger-system-command">Shorter state qualifiers in the RTSDebugger system command</a> <br> <a href="#new-rtlock-utility">New RTLock utility</a> <br> <a href="#printing-64-bit-integers-in-rtformat">Printing 64 bit integers in RTFormat</a> <br> <a href="#more-information-for-messages-when-tracing">More information for messages when tracing</a> <br> <a href="#error-code-for-circular-import">Error code for circular import</a> <br> <a href="#unparse-and-merge-of-rtjsonresult">Unparse and merge of RTJsonResult</a> <br> <a href="#removal-of-support-for-ms-trace-format">Removal of support for .ms trace format</a> <br> <a href="#trace-configuration-and-timestamps">Trace configuration and timestamps</a></td>
+<td align="left"><a href="#shorter-state-qualifiers-in-the-rtsdebugger-system-command">Shorter state qualifiers in the RTSDebugger system command</a> <br> <a href="#new-rtlock-utility">New RTLock utility</a> <br> <a href="#printing-64-bit-integers-in-rtformat">Printing 64 bit integers in RTFormat</a> <br> <a href="#more-information-for-messages-when-tracing">More information for messages when tracing</a> <br> <a href="#support-for-the-primitive-type-wchar_t">Support for the primitive type <code>wchar_t</code></a> <br> <a href="#error-code-for-circular-import">Error code for circular import</a> <br> <a href="#unparse-and-merge-of-rtjsonresult">Unparse and merge of RTJsonResult</a> <br> <a href="#removal-of-support-for-ms-trace-format">Removal of support for .ms trace format</a> <br> <a href="#trace-configuration-and-timestamps">Trace configuration and timestamps</a></td>
 </tr>
 <tr>
 <td>8015</td>
@@ -2399,14 +2415,14 @@
 <h3 id="new-debugger-api-getchildren">New debugger API "getChildren"</h3>
 <p>A new debugger API for getting a JSON representation of the runtime structure of a debugged application is now available. It includes information about the capsule instance tree and metadata about the debugged application which is available in the TargetRTS. It is used by the <a href="../../running-and-debugging/debugging/">Art Debugger</a> for populating the Art Debug view when debugging an application in Code RealTime.</p>
 <h3 id="handle-type-names-containing-spaces-in-encodingdecoding">Handle type names containing spaces in encoding/decoding</h3>
-<p>Type descriptor names for primitive types that contain spaces have been changed to use an underscore (<code>_</code>) instead of a space. This affects how values of such types are encoded/decoded. For example the value <code>4</code> of type <code>unsigned long</code> will now be encoded as <code>unsigned_long 4</code>. This change was done since during decoding a space is used for separating the type name from the value. Previously it was therefore not possible, while debugging, to send events with a data parameter typed by such types, but after this change it now works. Note that if your application somehow relies on the specific encoded format for values of types with a space in their names, it must be updated to accomodate for this change. </p>
+<p>Type descriptor names for primitive types that contain spaces have been changed to use an underscore (<code>_</code>) instead of a space. This affects how values of such types are encoded/decoded. For example the value <code>4</code> of type <code>unsigned long</code> will now be encoded as <code>unsigned_long 4</code>. This change was done since during decoding a space is used for separating the type name from the value. Previously it was therefore not possible, while debugging, to send events with a data parameter typed by such types, but after this change it now works. Note that if your application somehow relies on the specific encoded format for values of types with a space in their names, it must be updated to accommodate for this change. </p>
 <h3 id="extend-debugger-api-getchildren-to-obtain-active-state">Extend debugger API "getChildren" to obtain active state</h3>
 <p>The debugger API "getChildren" now includes information about the state that is initially active for each capsule instance. </p>
 <h3 id="long-double">Long double</h3>
 <p>The TargetRTS now supports <code>long double</code> as other predefined C++ types. The Log port API was extended to allow logging long double data, and it is also supported in encoding/decoding.</p>
 <h3 id="rtconfig_info">RTCONFIG_INFO</h3>
 <p>A <a href="../build/#rtconfig_info">new configuration macro</a> has been added for controlling if the <code>config_info</code> array should be included in <code>src/RTMain/mainLine.cc</code>. Previously this array was always included, but not used, which could cause compiler warnings.</p>
-<h3 id="protocol-constructor-initilizer-ordering">Protocol constructor initilizer ordering</h3>
+<h3 id="protocol-constructor-initializer-ordering">Protocol constructor initializer ordering</h3>
 <p>The order of initializers in the <a href="../../targetrts-api/class_r_t_protocol.html">RTProtocol</a> constructor was changed to match the declaration order of the initialized member variables. This avoids a compiler warning.</p>
 <h3 id="simplified-qualified-names-of-nested-states">Simplified qualified names of nested states</h3>
 <p>The function <code>getStateStr()</code> in <code>eventMatches.cc</code> now returns a simplified representation of nested states that consists of the names of active states separated by a single colon (<code>:</code>). Previously, each state name was fully qualified with double colons (<code>::</code>) which led to unnecessary complexity when parsing these strings during a debug session.</p>

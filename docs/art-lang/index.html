@@ -505,6 +505,8 @@
         
           
         
+          
+        
       
       
         
@@ -577,6 +579,20 @@
     <li class="md-nav__item">
       <a href="../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1969,7 +1985,7 @@
     `
 };
 </code></pre>
-<p>If the code snippet needs to contain the backtick character, for example in a comment or a string literal, you need to escape it by preceeding it with a backslash (<code>\</code>). For example:</p>
+<p>If the code snippet needs to contain the backtick character, for example in a comment or a string literal, you need to escape it by preceding it with a backslash (<code>\</code>). For example:</p>
 <pre><code class="language-art">capsule StringProcessor {
     [[rt::decl]]
     `
@@ -2513,7 +2529,7 @@ capsule Ponger {
 };
 </code></pre>
 <p><img alt="" src="images/connector_example.png" /></p>
-<p>The connector between <code>p1</code> and <code>p2</code> goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between <code>p2</code> and <code>i</code> goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port <code>p2</code> is a so called <strong>relay port</strong> (it just relays all events it receives to another port) and the connector between <code>p2</code> and <code>i</code> is sometimes called a <strong>delegation connector</strong> to describe the fact that capsule <code>Ponger</code> uses it for delegating some of its responsiblities to the capsule <code>Internal</code>. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port <code>p1</code> can be directly connected to <code>i</code>).</p>
+<p>The connector between <code>p1</code> and <code>p2</code> goes between two ports on the same level which is why these ports must have opposite conjugation. The connector between <code>p2</code> and <code>i</code> goes between two ports at different levels which is why these ports must have the same conjugation. The non-behavior port <code>p2</code> is a so called <strong>relay port</strong> (it just relays all events it receives to another port) and the connector between <code>p2</code> and <code>i</code> is sometimes called a <strong>delegation connector</strong> to describe the fact that capsule <code>Ponger</code> uses it for delegating some of its responsibilities to the capsule <code>Internal</code>. Note that relay ports can be optimized away so they don't exist at run-time (i.e. at run-time port <code>p1</code> can be directly connected to <code>i</code>).</p>
 <p>A connector doesn't have a direction, so it doesn't matter in which order it connects the two ports. That is, connecting X with Y is equivalent to connecting Y with X.</p>
 <h3 id="local-binding">Local Binding</h3>
 <p>A connector can connect two behavior ports on the same capsule (with opposite conjugations). At run-time this will lead to a <strong>local binding</strong> between these ports. This enables the capsule to send events to itself which sometimes can be useful. Here is an example:</p>
@@ -2729,7 +2745,7 @@ t3: S1 -&gt; S4 on port3.*; // Trigger t3 when receiving any event on port3
 <pre><code class="language-art">state Done {
     unexpected: on myPort.*
     `
-        std::cout &lt;&lt; &quot;Unexpected event received! &lt;&lt; std::endl; 
+        std::cout &lt;&lt; &quot;Unexpected event received!&quot; &lt;&lt; std::endl; 
     `;
 };
 </code></pre>
@@ -3214,7 +3230,7 @@ capsule C : Base {
     `
     [[rt::impl]]
     `
-        void DataClass:dispose() {
+        void DataClass::dispose() {
             // impl
         }
     `
@@ -3419,7 +3435,7 @@ generate_file_header
 </tr>
 <tr>
 <td><a href="#rule_config">rule_config</a></td>
-<td align="left"><a href="#capsule">Capsule</a>, <a href="#protocol-and-event">Protocol</a>, <a href="#port">Port</a>, <a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a> <a href="#transition">Trigger</a></td>
+<td align="left"><a href="#capsule">Capsule</a>, <a href="#protocol-and-event">Protocol</a>, <a href="#port">Port</a>, <a href="#initial-transition">Initial transition</a>, <a href="#transition">Triggered transition</a>, <a href="#transition">Trigger</a></td>
 <td align="left">String</td>
 <td align="left">""</td>
 </tr>

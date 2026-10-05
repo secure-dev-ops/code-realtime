@@ -505,6 +505,8 @@
         
           
         
+          
+        
       
       
         
@@ -587,6 +589,13 @@
           <li class="md-nav__item">
   <a href="#related-diagrams" class="md-nav__link">
     Related Diagrams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrams-with-errors" class="md-nav__link">
+    Diagrams with Errors
   </a>
   
 </li>
@@ -833,6 +842,20 @@
     <li class="md-nav__item">
       <a href="../references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1646,6 +1669,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#diagrams-with-errors" class="md-nav__link">
+    Diagrams with Errors
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1888,13 +1918,16 @@
 <p>In addition it's also possible to open <a href="#class-diagrams-for-c-code">class diagrams to visualize C++ code</a>.</p>
 <h2 id="opening-diagrams">Opening Diagrams</h2>
 <p>To open a diagram from an Art file place the cursor inside an Art element. Bring up the context menu and invoke a command for opening a diagram for the Art element: <strong>Open State Diagram</strong>, <strong>Open Structure Diagram</strong> or <strong>Open Class Diagram</strong>. Note that all these three commands are always available, but if the selected Art element cannot be shown in the selected kind of diagram, you will get an error and no diagram will open.</p>
-<p>If the cursor is placed on an Art element that has a graphic representation in the form of a symbol or line in the diagram, for example a state in a state diagram, the symbol or line will be highlighted in the opened diagram by selecting it. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. If the diagram is already open, it will be made visible and the selection will be updated.</p>
+<p>If the cursor is placed on an Art element that has a graphic representation in the diagram, for example a state symbol in a state diagram, it will be highlighted and selected in the opened diagram. You can use this feature as a way to navigate from an element in an Art file to the corresponding symbol or line in a diagram. This feature is also useful when the diagram is already opened, and you want to find where the Art element is shown in the diagram.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When opening a state diagram with the cursor placed on an element that is nested within a composite state, the element cannot be shown on the diagram if the composite state, or one of its parent composite states, is collapsed. In this situation a popup will appear with a button that can be pressed to expand those composite states that must be expanded to show the element on the diagram.</p>
+<p>When performing the <strong>Open State Diagram</strong> command with the cursor placed on an element that is nested within a composite state, the element cannot be shown on the diagram if the composite state, or one of its parent composite states, is collapsed. In this situation a popup will appear with a button that can be pressed to expand those composite states that must be expanded to show the element on the diagram.</p>
 <p><img alt="" src="../images/autoexpand-composite-states.png" /></p>
 <p>The popup will stay open a few seconds, and if you don't press the button only the composite state that contains the element will be highlighted in the diagram.</p>
 </div>
+<p>Note that some kinds of Art elements are shown in the Properties view instead of in the diagram, for example internal transitions. They will be highlighted there in a similar way as symbols and lines are highlighted in the diagram:</p>
+<p><img alt="" src="../images/highlighted-internal-transition.png" /></p>
+<p>If the cursor is placed on an Art element that has no graphical representation in the diagram, for example a code snippet, then the element to which the code snippet belongs is highlighted instead.</p>
 <p>You can also open diagrams from the context menu of an Art file in the Explorer view. In this case the Art file will be searched for an element that can be shown in the selected kind of diagram. If more than one such Art element is found, you will be prompted to pick the one to show in the diagram. For example:</p>
 <p><img alt="" src="../images/open-diagram-multiple-elements.png" /></p>
 <p>The same prompting happens if you open a diagram from an Art file when the cursor position doesn't indicate which Art element to open the diagram for. All valid Art elements in the file will be listed and you can choose which one to open the diagram for.</p>
@@ -1921,6 +1954,15 @@
 </li>
 </ul>
 <p>For a capsule that inherits from another capsule you can open the state diagram of the inherited base capsule by means of the command <strong>Open Inherited State Diagram</strong>. If this command is performed on an element that is inherited, redefined or excluded in the state diagram, then the corresponding element in the base capsule will be highlighted. This command is therefore useful for navigating in an inherited state machine.</p>
+<h3 id="diagrams-with-errors">Diagrams with Errors</h3>
+<p>If you open a diagram for an Art file that contains syntax errors, or introduce such errors by changing the Art file while a diagram is open, a banner will appear at the top of the diagram.</p>
+<p><img alt="" src="../images/diagram-syntax-errors.png" /></p>
+<p>Depending on the location of the syntax error(s) some contents of the diagram may not show up, or may show up incorrectly. </p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It's strongly recommended that you fix syntax errors in an Art file before working with a diagram opened from that Art file.</p>
+</div>
+<p>The diagram may also show errors or warnings for other reasons. For example, <a href="#layout-validation">layout validation</a>, <a href="#logical-layout-errors">logical layout errors</a>, <a href="#graphical-ambiguities">graphical ambiguities</a> or <a href="../../validation/#problem-reporting">Art validation</a> may all report problems on a diagram. Even if these problems also should be fixed, they are less severe than Art file syntax errors, and it's safe to keep working in an open diagram that shows these types of problems.</p>
 <h2 id="automatic-vs-manual-layout">Automatic vs Manual Layout</h2>
 <p>By default diagrams are rendered using automatic layout. This means that all symbols are automatically positioned, with default sizes, and lines between symbols are routed in a direct way without bendpoints (in most cases). Text labels of symbols and lines are also automatically positioned. The main benefit with automatic layout is that you don't need to spend time manually creating and maintaining the layout, something that can be rather time consuming, especially for big diagrams. However, automatic layout also has its drawbacks and limitations:</p>
 <ul>
@@ -1987,7 +2029,9 @@
 <li>There are also other editing scenarios that can invalidate layout information for one or several Art elements. Examples include refactorings such as inheritance rearrangements. Also in these cases layout information is retained in the JSON files and can be manually updated or deleted, if required.</li>
 </ul>
 <h4 id="layout-validation">Layout Validation</h4>
-<p>Code RealTime validates layout files and reports found problems as warnings (shown both in the layout file and in the Problems view). This helps you detect layout information that is wrong, for example because of refactoring operations, mistakes made when merging layout files, etc. Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.</p>
+<p>Code RealTime validates layout files and reports found problems as warnings. They are shown both in the layout file and in the Problems view. A banner is also displayed in the diagram itself to make you aware that layout problems have been detected.</p>
+<p><img alt="" src="../images/layout-warning-banner.png" /></p>
+<p>Problems in the layout can for example occur because of refactoring operations, mistakes made when merging layout files, etc. Warnings in a layout file just means that some or all of the layout settings in the file will be ignored when opening the diagram, and that the affected parts of the diagram will fallback to use automatic layout instead. However, it's recommended to nonetheless fix such warnings to ensure the diagram appears as expected.</p>
 <p><img alt="" src="../images/layout_validation.png" /></p>
 <p>Layout warnings are only shown for diagrams while they are open. Pay attention to the <code>layouts</code> folder in the Explorer view. If it appears in <span style="color: orange;">orange</span> there is at least one open diagram where one or many layout problems have been detected.</p>
 <p><img alt="" src="../images/layout_warnings.png" /></p>

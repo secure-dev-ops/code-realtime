@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://secure-dev-ops.github.io/code-realtime/validation/">
       
       
-        <link rel="prev" href="../working-with-art/references/">
+        <link rel="prev" href="../working-with-art/art-query-view/">
       
       
         <link rel="next" href="../target-rts/">
@@ -503,6 +503,8 @@
         
           
         
+          
+        
       
       
         
@@ -575,6 +577,20 @@
     <li class="md-nav__item">
       <a href="../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -4400,7 +4416,7 @@ capsule Pinger {
             t.informIn(RTTimespec(1,0));
         `;
         t1: State1 -&gt; State2 on t.timeout;
-        t2: State1 -&gt; State2 on t.timeout; // CPP_4002
+        t2: State1 -&gt; State2 on t.timeout; // CPP_4001
     };
 };
 </code></pre>

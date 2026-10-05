@@ -498,6 +498,8 @@
         
           
         
+          
+        
       
       
         
@@ -570,6 +572,20 @@
     <li class="md-nav__item">
       <a href="../../working-with-art/references/" class="md-nav__link">
         References View
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../working-with-art/art-query-view/" class="md-nav__link">
+        Art Query View
       </a>
     </li>
   
@@ -1391,7 +1407,7 @@
   <h1>Dependency Injection</h1>
 
 <p>An object in an application has several "dependencies", i.e. various things that affect how it behaves at run-time. For a capsule part that gets incarnated with capsule instances at run-time, examples of such dependencies include which capsule to create an instance of, what data to pass to the capsule constructor, and which thread that should run the created capsule instance. But the behavior of a capsule instance also depends a lot on which other capsule instances it communicates with at run-time, so those are also examples of dependencies.</p>
-<p><strong>Dependency injection</strong> is a technique where run-time dependencies of objects are managed by a central <strong>injector</strong> object, instead of being hardcoded across the application. The injector is configured so it provides the desired dependencies for objects when they are needed at run-time. One benefit with using dependency injection is that objects in your application become more loosly coupled and it becomes much easier to configure and customize the behavior of your application.</p>
+<p><strong>Dependency injection</strong> is a technique where run-time dependencies of objects are managed by a central <strong>injector</strong> object, instead of being hardcoded across the application. The injector is configured so it provides the desired dependencies for objects when they are needed at run-time. One benefit with using dependency injection is that objects in your application become more loosely coupled and it becomes much easier to configure and customize the behavior of your application.</p>
 <p>There are many dependency injection frameworks for C++ which you can use for the passive C++ classes of your application. To use dependency injection for capsules, the TargetRTS provides a class <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a>. You can use this class for registering create-functions for capsule parts at application start-up. When the TargetRTS needs to incarnate a capsule part, it will check if a create-function is registered for it. If so, that create-function will be called for creating the capsule instance. Otherwise, the capsule instance will be created by the TargetRTS itself, as usual.</p>
 <p>To use dependency injection in your realtime application you need to implement a <a href="../capsule-factory/#global-capsule-factory">global capsule factory</a> and specify it in your TC. The <code>create()</code> function of the global capsule factory delegates all calls to the <a href="../../targetrts-api/class_r_t_injector.html"><code>RTInjector</code></a> singleton object.</p>
 <p>You also must configure the injector by registering create-functions for all capsule parts where you want to customize how a capsule instance should be created. You need to do this early, typically at application start-up. At least it must be done before the TargetRTS attempts to create a capsule instance in a capsule part which you want to customize with dependency injection. A good place can be to do it in the constructor of the top capsule, in the main function of your application, or in the constructor of a static object (such as the global capsule factory object itself).</p>
