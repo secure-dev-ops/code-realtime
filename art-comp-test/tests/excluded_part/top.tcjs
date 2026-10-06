@@ -1,0 +1,8 @@
+let tc = TCF.define(TCF.ART_TO_CPP);
+tc.topCapsule = 'Top';
+tc.prerequisites = [ '${ws:TestUtils}/testlib.tcjs' ];
+tc.targetFolder = 'excluded_part_target';
+tc.guardExpressions = false;
+tc.commonPreface = `
+#include <string>
+`;

@@ -1,0 +1,90 @@
+protocol Proto_Base {
+    in baseIn();
+    out baseOut();
+};
+
+protocol Proto : Proto_Base {
+    in ine1();
+    out oute1();
+};
+capsule H {
+    service behavior port proto5~ : Proto;
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+capsule B {
+    service behavior port basePort~ : Proto;
+    service behavior port funcPort~ : Proto;
+    behavior port proto5 : Proto;
+    optional part h : H [0..1];
+    connect h.proto5 with proto5;
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+capsule D : B {
+    service behavior port redefine funcPort~ : Proto;
+    service behavior port proto4 : Proto;
+    statemachine {
+    };
+};
+capsule HA {
+    statemachine {
+        state State1;
+        initial -> State1;
+    };
+};
+capsule Base {
+    optional part hA : HA [0..5];
+    statemachine {
+        state State1;
+        init: initial -> State1
+        `
+            FAIL("Base initial transition should not be executed");
+        `;
+    };
+};
+capsule Derived : Base {
+    behavior port p2 : Proto;
+    behavior port proto1 : Proto;
+    behavior port proto4~ : Proto;
+    behavior port frame : Frame;
+    optional part d : D [0..1];
+    part exclude hA;
+    connect d.funcPort with p2;
+    connect proto1 with d.basePort;
+    connect d.proto4 with proto4;
+    statemachine {
+        state State1_1 {
+            entry
+            `
+                RTActorId i = frame.incarnate(d);
+                ASSERT(i.isValid(), "Successful incarnation");
+
+                ASSERT(rtg_class.numComponents == 2, "components: hA and d");
+                ASSERT(rtg_class.components[0].name == std::string("hA"), "component 1: hA (excluded)");
+                ASSERT(rtg_class.components[0].kind == RTComponentDescriptor::Optional, "hA is optional");
+                ASSERT(rtg_class.components[0].replication == 0, "hA is excluded, replication must be 0");
+                ASSERT(rtg_class.components[1].name == std::string("d"), "component 2: d");
+            `;
+        };
+        redefine init : initial -> State1_1;
+    };
+};
+capsule Top {
+    behavior port frame : Frame;
+    optional part dd : Derived [0..4];
+    statemachine {
+        state State1 {
+            entry
+            `
+                frame.incarnate(dd);
+                PASS();
+            `;
+        };
+        initial -> State1;
+    };
+};
