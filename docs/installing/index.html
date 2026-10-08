@@ -1617,10 +1617,10 @@
 <p>If instead the installation fails, this message will tell you the reason. One common reason for failure is that your IDE version is not compatible (i.e. too old) for Code RealTime.</p>
 <p>It should also be noted that it's possible to directly install any published version of Code RealTime by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.</p>
 <h2 id="install-from-docker-image">Install from Docker Image</h2>
-<p>Yet another way to install Code RealTime is to use the Docker image that is available on DockerHub: <a href="https://hub.docker.com/r/baravich/vscode-code-realtime">https://hub.docker.com/r/baravich/vscode-code-realtime</a></p>
+<p>Yet another way to install Code RealTime is to use the Docker image that is available on DockerHub: <a href="https://hub.docker.com/r/securedevopshq/code-realtime-vscode">https://hub.docker.com/r/securedevopshq/code-realtime-vscode</a></p>
 <p>It contains everything you need to running Code RealTime; a web-based version of Visual Studio Code (<a href="https://github.com/gitpod-io/openvscode-server">openvscodeserver</a>), C++ build tools, the Clangd extension and of course the Code RealTime extension itself.</p>
 <p>Here is an example of a command to use for running this Docker image:</p>
-<p><code>docker run -p 4000:3000 -e isDocker=true baravich/vscode-code-realtime</code></p>
+<p><code>docker run -p 4000:3000 -e isDocker=true securedevopshq/code-realtime-vscode</code></p>
 <p>The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access Code RealTime from a web browser at <a href="http://localhost:4000">http://localhost:4000</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
