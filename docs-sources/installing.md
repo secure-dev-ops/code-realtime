@@ -44,13 +44,13 @@ If instead the installation fails, this message will tell you the reason. One co
 It should also be noted that it's possible to directly install any published version of {$product.name$} by using the "Install Another Version" command that is available in the context menu of an extension shown in the "Installed" section.
 
 ## Install from Docker Image
-Yet another way to install {$product.name$} is to use the Docker image that is available on DockerHub: [https://hub.docker.com/r/baravich/vscode-code-realtime](https://hub.docker.com/r/baravich/vscode-code-realtime)
+Yet another way to install {$product.name$} is to use the Docker image that is available on DockerHub: [https://hub.docker.com/r/securedevopshq/code-realtime-vscode](https://hub.docker.com/r/securedevopshq/code-realtime-vscode)
 
 It contains everything you need to running {$product.name$}; a web-based version of Visual Studio Code ([openvscodeserver](https://github.com/gitpod-io/openvscode-server)), C++ build tools, the Clangd extension and of course the {$product.name$} extension itself.
 
 Here is an example of a command to use for running this Docker image:
 
-`docker run -p 4000:3000 -e isDocker=true baravich/vscode-code-realtime`
+`docker run -p 4000:3000 -e isDocker=true securedevopshq/code-realtime-vscode`
 
 The first port number should be a port that is available on your computer, and the second port number specifies the port used by the Docker container. With the command used above you can, a couple of minutes later, access {$product.name$} from a web browser at [http://localhost:4000](http://localhost:4000).
 
